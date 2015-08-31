@@ -18,13 +18,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test嘿嘿"
+        android:text="test嘿嘿1"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
+        android:text="test嘿嘿2"
         />
 
     <TextView
