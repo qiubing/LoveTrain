@@ -21,7 +21,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private Button loginButton;
     private TextView regist;
-    private TextView forgetPwd;
 
     private EditText etName ;
     private EditText etPwd;
@@ -32,14 +31,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         loginButton = (Button) findViewById(R.id.login_btn);
-        regist = (TextView) findViewById(R.id.login_regist);
-        forgetPwd = (TextView) findViewById(R.id.login_forgetpwd);
+        regist = (TextView) findViewById(R.id.regist_btn);
         etName = (EditText) findViewById(R.id.login_name);
         etPwd = (EditText) findViewById(R.id.login_pwd);
 
         loginButton.setOnClickListener(this);
         regist.setOnClickListener(this);
-        forgetPwd.setOnClickListener(this);
 
     }
 
@@ -49,12 +46,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.login_btn:
                 break;
-            case R.id.login_regist:
+            case R.id.regist_btn:
                 intent = new Intent(this, RegistActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.login_forgetpwd:
-                DialogUtil.showDialog(this, "forget", false);
                 break;
             default:
                 break;

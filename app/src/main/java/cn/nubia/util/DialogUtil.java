@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.widget.Toast;
 
 import cn.nubia.activity.MainActivity;
 
@@ -36,5 +37,14 @@ public class DialogUtil {
         builder.create().show();
     }
 
+    /**
+     * Toast
+     *
+     * @param ctx
+     * @param msg
+     */
+    public static void showToast(Context ctx, String msg) {
+        Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+    }
 
 }
