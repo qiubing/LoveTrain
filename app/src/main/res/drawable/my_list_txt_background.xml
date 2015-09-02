@@ -6,6 +6,7 @@
     <item android:drawable="@mipmap/my_list_txt_background_d" android:state_selected="true"/>
     <!-- focused -->
     <item android:drawable="@mipmap/editview_focused"/>
+    <item android:drawable="@mipmap/yy_list_bkg_line_bottom"/>
     <!-- default -->
 
 </selector>

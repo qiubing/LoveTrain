@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/frame_bottem_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_alignParentBottom="true"
+                android:background="@mipmap/tab_bar_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bottom_my_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/bottom_my_course"
+                    android:textColor="#FF8C00"
+                    android:textSize="@dimen/tab_font_size" />
+
+                <TextView
+                    android:id="@+id/bottom_all_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/bottom_all_course"
+                    android:textColor="#FF8C00"
+                    android:textSize="@dimen/tab_font_size" />
+
+                <TextView
+                    android:id="@+id/bottom_my_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/bottom_my_setting"
+                    android:textColor="#FF8C00"
+                    android:textSize="@dimen/tab_font_size" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0.0dip"
+                android:layout_above="@id/frame_bottem_view"
+                android:layout_alignParentTop="true"
+                android:background="#fff5f5f5" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="10.0dip"
+                android:layout_above="@id/frame_bottem_view"
+                android:background="@mipmap/bottom_bar_shadow" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+    </TabHost>
+</RelativeLayout>
