@@ -11,6 +11,10 @@
     <color name="E505050">#505050</color>
     <color name="freshblogsbg">#C1DDFE</color>
     <color name="hotsblogsbg">#CCD59F</color>
+    <color name="edit_text">#ff3c3c3c</color>
+    <color name="edit_text_hint">#ffb7b7b7</color>
+    <color name="register_read_and_agree_text_color">#ff7a7a7a</color>
+    <color name="register_terms_text_color">#ff0294f0</color>
     <color name="transparentwhite">#40ffffff</color>
     <color name="C8C8C8">#c8c8c8</color>
     <color name="CF5F5F5">#F5F5F5</color>
@@ -107,6 +111,12 @@
     <color name="item_projection_line">#ffededed</color>
     <color name="button_sure_bg">#ffffb701</color>
     <color name="button_gray_bg">#ff808080</color>
+    <color name="ECECEC">#ececec</color>
+    <color name="white">#ffffffff</color>
+    <color name="item_projection_line">#ffededed</color>
+    <color name="item_operation_attention">#ffffb701</color>
+    <dimen name="dialog_default_btn_size">16.0dip</dimen>
+    <color name="item_download_click">#ffffb701</color>
     <color name="button_gray_normal">#ffcbcbcb</color>
     <color name="button_gray_pressed">#ffe1e1e1</color>
     <color name="button_blue_normal">#ff40a5d9</color>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/adapter_item_outside_layout_padding_style"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/item_inside_layout"
+        style="@style/adapter_item_inside_layout_padding_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_layout_border" >
+
+        <ImageView
+            android:id="@+id/item_layout_imageview"
+            style="@style/item_smart_icon_imageview_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_list_txt_background"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="3dp"
+            android:src="@mipmap/arrow" />
+
+        <Button
+            android:id="@+id/class_evaluateBtn"
+            style="@style/item_operation_attention_style"
+            android:layout_toStartOf="@id/next"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:text="报名考试"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/class_evaluateBtn">
+
+            <Button
+                android:id="@+id/flag_share_level"
+                style="@style/item_flag_attention_style"
+                android:background="@color/red"
+                android:layout_marginRight="8dp"
+                android:text="部"
+                />
+            <Button
+                android:id="@+id/flag_person"
+                style="@style/item_flag_attention_style"
+                android:background="@color/green"
+                android:layout_marginRight="8dp"
+                android:text="讲"
+                />
+            <Button
+                android:id="@+id/flag_share"
+                style="@style/item_flag_attention_style"
+                android:background="@color/orange"
+                android:layout_marginRight="8dp"
+                android:text="享"
+                />
+            <Button
+                android:id="@+id/flag_exam"
+                style="@style/item_flag_attention_style"
+                android:background="@color/lightblue"
+                android:text="考"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_layout_title"
+            style="@style/item_layout_title"
+            android:layout_width="wrap_content"
+            android:layout_toEndOf="@id/item_layout_imageview"
+            android:layout_toStartOf="@id/class_evaluateBtn"
+            android:layout_marginStart="20dp"
+            android:textSize="24sp"
+            android:paddingTop="8dp"
+            android:text="java基础"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
