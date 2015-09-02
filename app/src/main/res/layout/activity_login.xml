@@ -101,7 +101,7 @@
         android:layout_marginLeft="@dimen/login_edit_text_margin_left"
         android:layout_marginRight="@dimen/login_edit_text_margin_right"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="60dp"

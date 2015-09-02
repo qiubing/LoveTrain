@@ -4,17 +4,12 @@
     <color name="transparent">#00000000</color>
     <color name="greytow">#969696</color>
     <color name="DCDCDC">#dcdcdc</color>
-    <color name="ECECEC">#ececec</color>
     <color name="F0F0F0">#f0f0f0</color>
     <color name="grey">#898989</color>
     <color name="E787878">#787878</color>
     <color name="E505050">#505050</color>
     <color name="freshblogsbg">#C1DDFE</color>
     <color name="hotsblogsbg">#CCD59F</color>
-    <color name="edit_text">#ff3c3c3c</color>
-    <color name="edit_text_hint">#ffb7b7b7</color>
-    <color name="register_read_and_agree_text_color">#ff7a7a7a</color>
-    <color name="register_terms_text_color">#ff0294f0</color>
     <color name="transparentwhite">#40ffffff</color>
     <color name="C8C8C8">#c8c8c8</color>
     <color name="CF5F5F5">#F5F5F5</color>
@@ -65,7 +60,6 @@
     <color name="default_title_indicator_selected_color">#ffffffff</color>
     <color name="default_title_indicator_text_color">#bbffffff</color>
     <color name="default_underline_indicator_selected_color">#ff33b5e5</color>
-    <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="gray">#ff808080</color>
     <color name="red">#ffff0000</color>
@@ -94,7 +88,6 @@
     <color name="item_fg">#fffaf9f8</color>
     <color name="item_title">#fffd7100</color>
     <color name="item_operation_download">#ff7ec63d</color>
-    <color name="item_operation_attention">#ffffb701</color>
     <color name="item_operation_collect">#ffffb701</color>
     <color name="item_operation_upgrade">#ffffb701</color>
     <color name="item_operation_invite">#ff7ec63d</color>
@@ -106,9 +99,7 @@
     <color name="item_gift_operation_obtain_bg">#ff7ec63d</color>
     <color name="item_gift_operation_forno_bg">#ffffb701</color>
     <color name="item_gift_operation_finish_bg">#ffe5e5e5</color>
-    <color name="item_download_click">#ffffb701</color>
     <color name="highlight_text">#ffff7200</color>
-    <color name="item_projection_line">#ffededed</color>
     <color name="button_sure_bg">#ffffb701</color>
     <color name="button_gray_bg">#ff808080</color>
     <color name="ECECEC">#ececec</color>
