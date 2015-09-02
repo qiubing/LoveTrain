@@ -24,6 +24,12 @@
             android:name=".RegistActivity"
             android:label="@string/title_activity_regist" >
         </activity>
+        <activity
+            android:name=".MyShareCourseDetailFillActivity">
+        </activity>
+        <activity
+            android:name=".MyShareCourseDetailDisplayActivity">
+        </activity>
     </application>
 
 </manifest>

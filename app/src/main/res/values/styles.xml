@@ -5,4 +5,23 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="contentrealm">
+        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:layout_marginLeft">@dimen/jiangyu_item_smallhorizontalmargin</item>
+        <item name="android:layout_marginRight">@dimen/jiangyu_item_smallhorizontalmargin</item>
+    </style>
+
+    <style name="itemtitle">
+        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:textSize">@dimen/jiangyu_itemname_textsize</item>
+    </style>
+
+    <style name="itemcontent">
+        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
+        <item name="android:layout_marginLeft">@dimen/jiangyu_item_normalhorizontalmargin</item>
+        <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
+    </style>
 </resources>

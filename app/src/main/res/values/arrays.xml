@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sharecourselevel">
+        <item>
+            <name>部门级</name>
+            <sign>1</sign>
+        </item>
+        <item>
+            <name>科室级</name>
+            <sign>2</sign>
+        </item>
+        <item>
+            <name>科室级</name>
+            <sign>2</sign>
+        </item>
+    </array>
+</resources>

@@ -3,10 +3,17 @@ package cn.nubia.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import cn.nubia.entity.ShareCourse;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -19,7 +26,23 @@ public class MainActivity extends ActionBarActivity {
         tx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this,MyShareCourseDetailDisplayActivity.class);
+                ShareCourse shareCourse = new ShareCourse();
+                shareCourse.setCourseName("Java");
+                shareCourse.setCourseDescription("dgsdfsdfsfsfs f");
+                shareCourse.setLocale("C2-6");
+                shareCourse.setCourseLevel((short) 2);
+                try {
+                    shareCourse.setStartTime(new SimpleDateFormat("yyyy-MM-dd").parse("2015-03-11"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("shareCourse",shareCourse);
+                intent.putExtras(bundle);
+
+                Log.d("jiangyu",((ShareCourse)(intent.getExtras().get("shareCourse"))).getCourseName());
                 startActivity(intent);
             }
         });

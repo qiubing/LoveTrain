@@ -8,4 +8,18 @@
     <dimen name="padding">5dp</dimen>
     <dimen name="textSize16">16dp</dimen>
     <dimen name="textSize18">18dp</dimen>
+
+    <dimen name="jiangyu_item_smallverticalmargin">5dp</dimen>
+    <dimen name="jiangyu_item_smallhorizontalmargin">10dp</dimen>
+    <dimen name="jiangyu_item_normalhorizontalmargin">30dp</dimen>
+    <dimen name="jiangyu_item_bighorizontalmargin">50dp</dimen>
+
+    <dimen name="jiangyu_small_buttonsize">50dp</dimen>
+
+    <dimen name="jiangyu_title_textsize">30sp</dimen>
+    <dimen name="jiangyu_itemname_textsize">25sp</dimen>
+    <dimen name="jiangyu_itemcontent_textsize">20sp</dimen>
+
+    <dimen name="jiangyu_itemcontent_bigtextview_height">200dp</dimen>
+
 </resources>
