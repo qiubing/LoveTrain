@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/check_in_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="我的签到记录"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/course_integration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="我的课程积分"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ViewStub
+            android:id="@+id/show_course_integration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout="@layout/activity_user_course_integration_total_show" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/exam_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="我的考试成绩"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/course_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="我的课程分享"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/i_want_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="我要分享"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/account_manage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom"
+        android:paddingLeft="@dimen/linear_padding_left">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="账户设置"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+</LinearLayout>
