@@ -22,8 +22,6 @@ import cn.nubia.util.Md5Encryption;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
-    private final String seed = "lovetrainseed";
-
     private Button loginButton;
     private Button registButton;
 
@@ -57,12 +55,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
                 text = loginButton.getText().toString();
+                //TODO 模拟登录数据
                 if (text.equals("登录")) {
+                    if(etUserID.getText().toString().equals("user")&&etPwd.getText().toString().equals("user")){
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        this.finish();
+                    }
                     if (validateLogin()) {
                         login();
                     }
@@ -190,8 +193,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return false;
         }
         String username = etUserName.getText().toString().trim();
-        if (userID.equals("")) {
-            DialogUtil.showDialog(this, "用户名不能为空", false);
+        if (username.equals("")) {
+            DialogUtil.showDialog(this, "用户姓名不能为空", false);
             return false;
         }
         if (!pwd.equals(pwd2)) {
