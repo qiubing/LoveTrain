@@ -23,19 +23,7 @@
     <dimen name="account_text_view_margin">10dp</dimen>
 
 
-    <dimen name="login_edit_text_margin_top">19.0dip</dimen>
-    <dimen name="login_edit_text_margin_right">14.0dip</dimen>
-    <dimen name="login_edit_text_margin_left">14.0dip</dimen>
-    <dimen name="login_edit_text_inner_padding">9.0dip</dimen>
-    <dimen name="login_edit_text_height">42.0dip</dimen>
-    <dimen name="login_edit_hint_size">14.0dip</dimen>
-    <dimen name="login_btn_height">40.0dip</dimen>
-    <dimen name="login_btn_text_size">16.0dip</dimen>
-    <dimen name="login_forget_password_text_size">14.0dip</dimen>
-    <dimen name="register_edit_text_margin_top">8.0dip</dimen>
-    <dimen name="register_terms_margin_top">10.0dip</dimen>
-    <dimen name="register_read_and_agree_margin_left">0.0dip</dimen>
-    <dimen name="register_terms_margin_left">7.0dip</dimen>
+
 
     <dimen name="marginTop">10dp</dimen>
     <dimen name="padding">5dp</dimen>
