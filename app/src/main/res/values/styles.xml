@@ -5,4 +5,24 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CustomBigOrangeButton" parent="@android:style/Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/custom_small_orange_btn_color</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/btn_weight</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10.0dip</item>
+    </style>
+
+    <style name="CustomBigLoginButton" parent="@android:style/Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/custom_small_orange_btn_color</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@color/item_operation_download</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:layout_margin">10.0dip</item>
+    </style>
+
 </resources>
