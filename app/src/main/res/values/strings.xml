@@ -7,4 +7,23 @@
     <string name="bottom_all_course">全部课程</string>
     <string name="bottom_my_setting">我的设置</string>
     <string name="frame_my_setting_title">个人设置</string>
+    <string name="title_activity_login">登录爱培训</string>
+
+
+    <!--登录Activity-->
+    <string name="login_name_hint">请输入用户名</string>
+    <string name="login_pwd_hint">请输入密码</string>
+    <string name="forget_pwd">忘记密码?</string>
+    <string name="regist">注册账号</string>
+    <string name="logintxt">爱培训会员登录</string>
+    <string name="registtxt">爱培训会员注册</string>
+
+    <!--注册Activity-->
+    <string name="regist_name_hint">请输入用户名</string>
+    <string name="regist_pwd1_hint">请输入用户密码</string>
+    <string name="regist_pwd2_hint">请重复用户密码</string>
+    <string name="title_activity_regist">RegistActivity</string>
+
+
+
 </resources>

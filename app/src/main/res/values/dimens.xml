@@ -21,4 +21,10 @@
     <dimen name="account_text_view_height">40dp</dimen>
     <dimen name="view_height">0.5dp</dimen>
     <dimen name="account_text_view_margin">10dp</dimen>
+
+
+    <dimen name="marginTop">10dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="textSize16">16dp</dimen>
+    <dimen name="textSize18">18dp</dimen>
 </resources>
