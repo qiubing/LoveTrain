@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/user_course_integration_title"
+        android:layout_width="match_parent"
+        android:layout_height="48.0dip"
+        layout="@layout/include_back_title_item_layout"
+        android:layout_alignParentTop="true"
+        />
+
+    <ScrollView
+        android:id="@+id/scroll_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_course_integration_title">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/course_integration_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/show_total_course_integration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_tab_background"
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        />
+</RelativeLayout>

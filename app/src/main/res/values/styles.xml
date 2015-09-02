@@ -24,4 +24,100 @@
         <item name="android:layout_marginLeft">@dimen/jiangyu_item_normalhorizontalmargin</item>
         <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
     </style>
+    <style name="CustomBigOrangeButton" parent="@android:style/Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/custom_small_orange_btn_color</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/btn_weight</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10.0dip</item>
+    </style>
+
+    <style name="CustomBigLoginButton" parent="@android:style/Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/custom_small_orange_btn_color</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@color/item_operation_download</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:layout_margin">10.0dip</item>
+    </style>
+
+    <style name="toolbar_button_style">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/toolbar_text_color_selector</item>
+        <item name="android:gravity">bottom|center</item>
+        <item name="android:background">@color/toolbar_item_bg_normal</item>
+        <item name="android:paddingTop">2.0dip</item>
+        <item name="android:paddingBottom">2.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10.0dip</item>
+        <item name="android:layout_marginRight">10.0dip</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name="adapter_item_outside_layout_padding_style">
+        <item name="android:paddingLeft">@dimen/item_outside_left_or_right_padding</item>
+        <item name="android:paddingTop">@dimen/item_outside_top_padding</item>
+        <item name="android:paddingRight">@dimen/item_outside_left_or_right_padding</item>
+        <item name="android:paddingBottom">@dimen/item_outside_bottom_padding</item>
+    </style>
+
+    <style name="adapter_item_inside_layout_padding_style">
+        <item name="android:paddingLeft">@dimen/item_inside_left_or_right_padding</item>
+        <item name="android:paddingTop">@dimen/item_inside_top_or_bottom_padding</item>
+        <item name="android:paddingRight">@dimen/item_inside_left_or_right_padding</item>
+        <item name="android:paddingBottom">@dimen/item_inside_top_or_bottom_padding</item>
+    </style>
+    <style name="item_smart_icon_imageview_style">
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingRight">0.0dip</item>
+        <item name="android:layout_width">@dimen/item_icon_image_width</item>
+        <item name="android:layout_height">@dimen/item_icon_image_height</item>
+        <item name="android:src">@mipmap/ic_launcher</item>
+    </style>
+
+    <style name="item_layout_title">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">#ff525252</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="item_operation_stytle">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:paddingLeft">5.0dip</item>
+        <item name="android:paddingRight">5.0dip</item>
+        <item name="android:layout_width">@dimen/default_button_width</item>
+        <item name="android:layout_height">@dimen/default_button_height</item>
+    </style>
+
+    <style name="item_operation_attention_style" parent="@style/item_operation_stytle">
+        <item name="android:textSize">@dimen/dialog_default_btn_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/item_operation_attention</item>
+    </style>
+    <style name="item_flag_attention_style">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+    </style>
+
+    <style name="item_layout_download">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:textColor">#ff9f9f9f</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="item_layout_content">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">#ff9f9f9f</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

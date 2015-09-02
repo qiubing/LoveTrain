@@ -11,6 +11,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -70,6 +72,44 @@ public class HttpUtil {
 
                 //设置请求参数
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+                //发送请求
+                HttpResponse httpResponse = httpClient.execute(post);
+                if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                    String result = EntityUtils.toString(httpResponse.getEntity());
+                    return result;
+                }
+                return null;
+            }
+        });
+        new Thread(task).start();
+        try {
+            return task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @param url    发送请求的URL
+     * @param params 参数map
+     * @return 服务器响应字符串
+     */
+    public static String postRequest(final String url, final Map<String, String> params) {
+        FutureTask<String> task = new FutureTask<String>(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                HttpPost post = new HttpPost(url);
+
+                List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+                for (String key : params.keySet()) {
+                    postParams.add(new BasicNameValuePair(key, params.get(key)));
+                }
+
+                //设置请求参数
+                post.setEntity(new UrlEncodedFormEntity(postParams, "utf-8"));
                 //发送请求
                 HttpResponse httpResponse = httpClient.execute(post);
                 if (httpResponse.getStatusLine().getStatusCode() == 200) {
