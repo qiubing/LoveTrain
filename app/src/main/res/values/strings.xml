@@ -4,6 +4,10 @@
         <item>男</item>
         <item>女</item>
     </string-array>
+    <string-array name="ismanager">
+        <item>否</item>
+        <item>是</item>
+    </string-array>
 
     <string name="app_name">LoveTrain</string>
 
@@ -20,7 +24,9 @@
     <string name="login_id_hint">请输入用户名</string>
     <string name="login_name_hint">请输入个人姓名</string>
     <string name="login_sex">性别：</string>
+    <string name="login_manager">是否管理员：</string>
     <string name="login_pwd_hint">请输入用户密码</string>
+    <string name="login_ismanager">是否管理员</string>
     <string name="forget_pwd">忘记密码?</string>
     <string name="regist">注册账号</string>
     <string name="logintxt">爱培训会员登录</string>
@@ -69,4 +75,18 @@
 
     <string name="component_timepiker_confirm_button">确定</string>
     <string name="component_timepiker_cancel_button">取消</string>
+
+    <!--管理员 -->
+    <string name="manger_setting_title">设置</string>
+    <string name="manger_setting_score_title">考试成绩设置</string>
+
+
+    <string name="manger_setting_teb1">按学员查询</string>
+    <string name="manger_setting_tab2">按课程查询</string>
+    <string name="title_activity_manager_score">考试成绩查询</string>
+    <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>
+    <string name="title_activity_manager_score_course">ManagerScoreCourseActivity</string>
+    <string name="title_activity_manager_score_user_detail">ManagerScoreUserDetailActivity</string>
+    <string name="title_activity_manager_score_course_detail">ManagerScoreCourseDetailActivity
+    </string>
 </resources>

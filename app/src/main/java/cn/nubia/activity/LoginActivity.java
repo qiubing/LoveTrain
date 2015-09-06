@@ -29,9 +29,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText etUserName;
     private EditText etPwd;
     private EditText etRegistPwd;
-    private LinearLayout layout;
+    private LinearLayout layout_sex;
+    private LinearLayout layout_ismanger;
     private TextView tvTitle;
     private Spinner spSex;
+    private Spinner spIsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         etRegistPwd = (EditText) findViewById(R.id.regist_pwd);
         tvTitle = (TextView) findViewById(R.id.title);
         spSex = (Spinner) findViewById(R.id.sex);
-        layout = (LinearLayout) findViewById(R.id.layout_sex);
+        spIsManager = (Spinner) findViewById(R.id.ismanager);
+        layout_sex = (LinearLayout) findViewById(R.id.layout_sex);
+        spIsManager = (Spinner) findViewById(R.id.ismanager);
+        layout_ismanger = (LinearLayout) findViewById(R.id.layout_ismanager);
 
         loginButton.setOnClickListener(this);
         registButton.setOnClickListener(this);
@@ -61,8 +66,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 text = loginButton.getText().toString();
                 //TODO 模拟登录数据
                 if (text.equals("登录")) {
-                    if(etUserID.getText().toString().equals("user")&&etPwd.getText().toString().equals("user")){
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    if (etUserID.getText().toString().equals("user") && etPwd.getText().toString().equals("user")) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         this.finish();
                     }
@@ -80,17 +85,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (text.equals("会员注册")) {
                     registButton.setText("会员登录");
                     loginButton.setText("注册");
+                    layout_ismanger.setVisibility(View.GONE);
                     tvTitle.setText(R.string.registtxt);
                     etRegistPwd.setVisibility(View.VISIBLE);
                     etUserName.setVisibility(View.VISIBLE);
-                    layout.setVisibility(View.VISIBLE);
+                    layout_sex.setVisibility(View.VISIBLE);
                 } else if (text.equals("会员登录")) {
                     registButton.setText("会员注册");
                     loginButton.setText("登录");
                     tvTitle.setText(R.string.logintxt);
                     etRegistPwd.setVisibility(View.GONE);
                     etUserName.setVisibility(View.GONE);
-                    layout.setVisibility(View.GONE);
+                    layout_sex.setVisibility(View.GONE);
+                    layout_ismanger.setVisibility(View.VISIBLE);
                 }
                 break;
             default:
@@ -101,6 +108,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void login() {
         String userID = etUserID.getText().toString();
         String pwd = etPwd.getText().toString();
+        String isManager = spIsManager.getSelectedItem().toString();
+        if(isManager.equals("是")){
+
+        }
         JSONObject jsonObject;
         try {
             jsonObject = query(userID, pwd);
