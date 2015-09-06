@@ -42,10 +42,10 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
 
         String startTime = new SimpleDateFormat("yyyy-MM-dd").format( mShareCourse.getStartTime());
 
-        mCourseName.setText("name "+mShareCourse.getCourseName());
-        mCourseLevel.setText("level "+mShareCourse.getCourseLevel());
-        mCourseTime.setText("time "+startTime);
-        mCourseLocale.setText("locale "+mShareCourse.getLocale());
-        mCourseDescription.setText("description "+mShareCourse.getCourseDescription());
+        mCourseName.setText(mShareCourse.getCourseName());
+        mCourseLevel.setText(""+mShareCourse.getCourseLevel());
+        mCourseTime.setText(startTime);
+        mCourseLocale.setText(mShareCourse.getLocale());
+        mCourseDescription.setText(mShareCourse.getCourseDescription());
     }
 }
