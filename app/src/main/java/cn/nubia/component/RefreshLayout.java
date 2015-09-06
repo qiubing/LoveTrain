@@ -14,12 +14,12 @@ import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+
 import cn.nubia.activity.R;
 
 /**
+ * transplant by WJ on 2015/9/1.
  * 继承自SwipeRefreshLayout,从而实现滑动到底部时上拉加载更多的功能.
- *
- *
  */
 public class RefreshLayout extends SwipeRefreshLayout implements
         AbsListView.OnScrollListener {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/ECECEC"
+     >
+
+    <!-- 请求错误的界面 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@mipmap/failure_load" />
+
+        <TextView
+            android:id="@+id/load_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13.3dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="很抱歉\n数据加载失败啦"
+            android:textColor="#cacaca"
+            android:textSize="15.3dp" />
+
+        <TextView
+            android:id="@+id/load_retry"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="13.3dp"
+            android:background="@drawable/load_failure_bg"
+            android:gravity="center"
+            android:text="重试"
+            android:textColor="#cacaca"
+            android:textSize="15.3dp" />
+    </LinearLayout>
+
+</RelativeLayout>

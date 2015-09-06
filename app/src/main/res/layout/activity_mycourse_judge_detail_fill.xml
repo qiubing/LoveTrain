@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
+
+        <Button
+            android:layout_width="@dimen/jiangyu_small_buttonsize"
+            android:layout_height="@dimen/jiangyu_small_buttonsize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/jiangyu_title_textsize"
+            android:text="@string/activity_mycourse_judge_detail_fill_title_textView"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/activity_mycourse_judge_detail_fill_confirm_button"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/contentrealm"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_contentapplicability_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_ContentRationality_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_Discussion_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_TimeRationality_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_ContentUnderstanding_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_ExpressionAbility_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_Communication_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_Organization_textView"/>
+
+            <RatingBar
+                android:layout_gravity="right"
+                android:numStars="@integer/judgeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_ComprehensiveEvaluation_textView"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
+                android:isScrollContainer="true"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mycourse_judge_detail_fill_Suggestion_textView"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
+                android:isScrollContainer="true"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

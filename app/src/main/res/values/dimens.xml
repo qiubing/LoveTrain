@@ -2,10 +2,69 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tab_height">60dp</dimen>
+    <dimen name="tab_font_size">24dp</dimen>
+    <dimen name="frame_title_font_size">24dp</dimen>
+    <dimen name="frame_title_height">40dp</dimen>
+    <dimen name="linearlayout_view_padding_left">8dp</dimen>
+    <dimen name="linearlayout_view_padding_right">10dp</dimen>
+    <dimen name="text_view_padding">10dp</dimen>
+    <dimen name="text_view_font_size">18dp</dimen>
+    <dimen name="check_course_title_font_size">20dp</dimen>
+    <dimen name="check_record_date_font_size">16dp</dimen>
+    <dimen name="text_padding_bottom">10dp</dimen>
+    <dimen name="text_padding_top">10dp</dimen>
+    <dimen name="image_padding_right">10dp</dimen>
+    <dimen name="linear_padding_left">10dp</dimen>
+    <dimen name="linear_padding_bottom">0dp</dimen>
+    <dimen name="text_padding_left">10dp</dimen>
+    <dimen name="account_text_view_height">40dp</dimen>
+    <dimen name="view_height">0.5dp</dimen>
+    <dimen name="account_text_view_margin">10dp</dimen>
+
+
 
 
     <dimen name="marginTop">10dp</dimen>
     <dimen name="padding">5dp</dimen>
     <dimen name="textSize16">16dp</dimen>
     <dimen name="textSize18">18dp</dimen>
+
+    <dimen name="jiangyu_item_smallverticalmargin">5dp</dimen>
+    <dimen name="jiangyu_item_smallhorizontalmargin">10dp</dimen>
+    <dimen name="jiangyu_item_normalhorizontalmargin">30dp</dimen>
+    <dimen name="jiangyu_item_bighorizontalmargin">50dp</dimen>
+
+    <dimen name="jiangyu_small_buttonsize">50dp</dimen>
+
+    <dimen name="jiangyu_title_textsize">30sp</dimen>
+    <dimen name="jiangyu_itemname_textsize">25sp</dimen>
+    <dimen name="jiangyu_itemcontent_textsize">20sp</dimen>
+
+    <dimen name="jiangyu_itemcontent_bigtextview_height">200dp</dimen>
+
+    <dimen name="item_inside_left_or_right_padding">10.0dip</dimen>
+    <dimen name="item_inside_top_or_bottom_padding">10.0dip</dimen>
+    <dimen name="item_icon_image_width">60.0dip</dimen>
+    <dimen name="item_icon_image_height">60.0dip</dimen>
+    <dimen name="default_button_width">80.0dip</dimen>
+    <dimen name="default_button_height">28.0dip</dimen>
+    <dimen name="item_outside_left_or_right_padding">10.0dip</dimen>
+    <dimen name="item_outside_top_padding">10.0dip</dimen>
+    <dimen name="item_outside_bottom_padding">0.0dip</dimen>
+    <dimen name="login_edit_text_margin_top">19.0dip</dimen>
+    <dimen name="login_edit_text_margin_right">14.0dip</dimen>
+    <dimen name="login_edit_text_margin_left">14.0dip</dimen>
+    <dimen name="login_edit_text_inner_padding">9.0dip</dimen>
+    <dimen name="login_edit_text_height">42.0dip</dimen>
+    <dimen name="login_edit_hint_size">14.0dip</dimen>
+    <dimen name="login_btn_height">40.0dip</dimen>
+    <dimen name="login_btn_text_size">16.0dip</dimen>
+    <dimen name="login_forget_password_text_size">14.0dip</dimen>
+    <dimen name="register_edit_text_margin_top">8.0dip</dimen>
+    <dimen name="register_terms_margin_top">10.0dip</dimen>
+    <dimen name="register_read_and_agree_margin_left">0.0dip</dimen>
+    <dimen name="register_terms_margin_left">7.0dip</dimen>
+
+
 </resources>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
+
+        <Button
+            android:layout_width="@dimen/jiangyu_small_buttonsize"
+            android:layout_height="@dimen/jiangyu_small_buttonsize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/jiangyu_title_textsize"
+            android:text="@string/activity_my_sharecourse_detail_display_title_textview"/>
+
+        <Button
+            android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/activity_my_sharecourse_detail_fill_confirm_button"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/contentrealm"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/contentrealm"
+            android:stretchColumns="1">
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_coursename_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <EditText
+                    android:id="@+id/my_sharecourse_detail_fill_coursename_filltextView"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </TableRow>
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_courselevel_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <Spinner
+                    android:id="@+id/my_sharecourse_detail_fill_courselevel_fillspinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_coursetime_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <EditText
+                    android:id="@+id/my_sharecourse_detail_fill_coursetime_filltextview"
+                    android:clickable="true"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </TableRow>
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_courselocale_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <EditText
+                    android:id="@+id/my_sharecourse_detail_fill_courselocale_filltextview"
+                    android:clickable="true"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </TableRow>
+
+            <RelativeLayout
+                style="@style/itemtitle">
+                <TextView
+                    android:id="@+id/my_sharecourse_detail_fill_coursedescription_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_coursedescription_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <EditText
+                    android:id="@+id/my_sharecourse_detail_fill_coursedescription_filltextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
+                    android:layout_toRightOf="@id/my_sharecourse_detail_fill_coursedescription_textview"
+                    android:isScrollContainer="true"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </RelativeLayout>
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10.0dip">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon"
+            android:layout_width="70.0dip"
+            android:layout_height="70.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/noavatar_small" />
+
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="70.0dip"
+            android:layout_height="70.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/noavatar_small"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/my_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10.0dip"
+            android:layout_toRightOf="@id/icon"
+            android:singleLine="true"
+            android:text="用户名"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/text_color"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</LinearLayout>
