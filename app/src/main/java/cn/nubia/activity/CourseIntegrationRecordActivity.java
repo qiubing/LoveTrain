@@ -1,4 +1,4 @@
-package com.example.bing.lovetrain;
+package cn.nubia.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -14,6 +14,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+
 import cn.nubia.activity.R;
 
 /**
