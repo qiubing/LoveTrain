@@ -107,7 +107,6 @@
     <color name="item_projection_line">#ffededed</color>
     <color name="item_operation_attention">#ffffb701</color>
     <dimen name="dialog_default_btn_size">16.0dip</dimen>
-    <color name="item_download_click">#ffffb701</color>
     <color name="button_gray_normal">#ffcbcbcb</color>
     <color name="button_gray_pressed">#ffe1e1e1</color>
     <color name="button_blue_normal">#ff40a5d9</color>

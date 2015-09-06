@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
+
+        <Button
+            android:layout_width="@dimen/jiangyu_small_buttonsize"
+            android:layout_height="@dimen/jiangyu_small_buttonsize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/jiangyu_title_textsize"
+            android:text="@string/activity_my_accountmana_pswmodify_tittle_textview"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/activity_my_sharecourse_detail_fill_confirm_button"/>
+    </RelativeLayout>
+
+    <TableLayout
+        style="@style/contentrealm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow
+            style="@style/itemtitle">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview"
+                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+            <EditText
+                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+        </TableRow>
+
+        <TableRow
+            style="@style/itemtitle">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview"
+                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+            <EditText
+                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+        </TableRow>
+
+        <TableRow
+            style="@style/itemtitle">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview"
+                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+            <EditText
+                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
