@@ -76,33 +76,25 @@
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
-        <activity android:name=".MyShareCourseDetailFillActivity">
-            android:name=".ManagerScoreUserActivity"
-            android:label="@string/title_activity_manager_score_user" >
-        </activity>
-        <activity
-            android:name=".ManagerScoreCourseActivity"
-            android:label="@string/title_activity_manager_score_course" />
+
+        <activity android:name=".ManagerScoreUserActivity"></activity>
         <activity
             android:name=".ManagerScoreUserDetailActivity"
             android:label="@string/title_activity_manager_score_user_detail"></activity>
+        <activity android:name=".ManagerScoreCourseDetailActivity"></activity>
         <activity
-            android:name=".ManagerScoreCourseDetailActivity"
-            android:label="@string/title_activity_manager_score_course_detail"></activity>
-            android:label="@string/title_activity_manager_score_course_detail" >
-        </activity>
+            android:name=".ManagerScoreCourseActivity"
+            android:label="@string/title_activity_manager_score_course" />
+
         <activity
             android:name=".ManagerCreditActivity"
-            android:label="@string/title_activity_manager_credit" >
-        </activity>
+            android:label="@string/title_activity_manager_credit"></activity>
         <activity
             android:name=".ManagerCreditTotalActivity"
-            android:label="@string/title_activity_manager_credit_total" >
-        </activity>
+            android:label="@string/title_activity_manager_credit_total"></activity>
         <activity
             android:name=".ManagerCreditCourseActivity"
-            android:label="@string/title_activity_manager_credit_course" >
-        </activity>
+            android:label="@string/title_activity_manager_credit_course"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
