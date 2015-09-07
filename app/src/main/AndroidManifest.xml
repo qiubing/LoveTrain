@@ -52,7 +52,6 @@
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar">
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,6 +119,11 @@
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
         <activity
+            android:name=".client.AllCourseClientActivity_2"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+
+        <activity
             android:name=".client.MyCourseClientActivity_1"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
@@ -131,6 +135,8 @@
         <activity
             android:name=".client.MyClientActivity_1"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+
 
 
 

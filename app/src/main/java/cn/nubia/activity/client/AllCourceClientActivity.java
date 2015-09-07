@@ -47,16 +47,27 @@ public class AllCourceClientActivity extends ActivityGroup {
         Intent i3 = new Intent(AllCourceClientActivity.this, CourseAdminActivity_1.class);
         listViews.add(getView("A", i3));
 
+        Intent i4 = new Intent(AllCourceClientActivity.this, AllCourseClientActivity_2.class);
+        listViews.add(getView("B", i4));
+
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(AllCourceClientActivity.this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton = (Button) tabIndicator3.findViewById(R.id.title_button);
-        titleButton.setVisibility(Button.GONE);
+        Button titleButton3 = (Button) tabIndicator3.findViewById(R.id.title_button);
+        titleButton3.setVisibility(Button.GONE);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("全部课程");
+
+        RelativeLayout tabIndicator4 = (RelativeLayout) LayoutInflater.from(
+                this).inflate(R.layout.layout_tab, null);
+        Button titleButton4 = (Button) tabIndicator4.findViewById(R.id.title_button);
+        titleButton4.setVisibility(Button.GONE);
+
+        TextView tvTab4 = (TextView) tabIndicator4.findViewById(R.id.tv_title);
+        tvTab4.setText("只考试");
 
         Intent intent = new Intent(AllCourceClientActivity.this, EmptyActivity.class);
         /*titleButton.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +79,10 @@ public class AllCourceClientActivity extends ActivityGroup {
 
         tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator3)
                 .setContent(intent));
+        tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator4)
+                .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
-       /* pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
@@ -96,11 +109,8 @@ public class AllCourceClientActivity extends ActivityGroup {
                 if ("B".equals(tabId)) {
                     pager.setCurrentItem(1);
                 }
-                if ("C".equals(tabId)) {
-                    pager.setCurrentItem(2);
-                }
             }
-        });*/
+        });
 
     }
 
