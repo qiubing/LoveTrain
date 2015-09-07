@@ -23,6 +23,9 @@
         <activity
             android:name=".MyShareCourseDetailDisplayActivity">
         </activity>
+        <activity
+            android:name=".AdminAllCourseActivity">
+        </activity>
     </application>
 
 </manifest>

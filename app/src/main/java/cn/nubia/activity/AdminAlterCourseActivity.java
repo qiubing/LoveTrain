@@ -1,0 +1,64 @@
+package cn.nubia.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+/**
+ * Created by hexiao on 2015/9/7.
+ */
+public class AdminAlterCourseActivity extends Activity implements View.OnClickListener{
+    private EditText alterCourseCourseNameEditText;
+    private EditText alterCourseCourseDescEditText;
+
+    private Button alterCourseButton;
+    private ImageView alterCourseBackImage;
+
+    //复选框
+    private CheckBox alterCourseWhetherExamCheckBox;
+    private CheckBox alterCourseWhetherHighLevelCourseCheckBox;
+
+    //保存是否是高级课程
+    private boolean whetherExam;
+    private boolean whetherHighLevelCourse;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_admin_alter_course);
+        alterCourseCourseNameEditText=(EditText)findViewById(R.id.alter_course_courseName_editText);
+        alterCourseCourseDescEditText=(EditText)findViewById(R.id.alter_course_courseDesc_editText);
+        alterCourseButton=(Button)findViewById(R.id.alter_course_button);
+        alterCourseBackImage=(ImageView)findViewById(R.id.admin_alter_course_backImage);
+
+        alterCourseWhetherExamCheckBox=(CheckBox)findViewById(R.id.alter_course_whetherExam_checkBox);
+        alterCourseWhetherHighLevelCourseCheckBox=(CheckBox)findViewById(R.id.alter_course_whetherHighLevelCourse_checkBox);
+
+        alterCourseButton.setOnClickListener(this);
+        alterCourseBackImage.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.admin_course_detail_backImage:
+                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this,AdminCourseDetailActivity.class);
+                startActivity(intentBackImage);
+                finish();
+                break;
+            case R.id.alter_course_button:
+                String courseName=alterCourseCourseNameEditText.getText().toString();
+                String courseDesc=alterCourseCourseDescEditText.getText().toString();
+                whetherExam=alterCourseWhetherExamCheckBox.isChecked();
+                whetherHighLevelCourse=alterCourseWhetherHighLevelCourseCheckBox.isChecked();
+                //加入到课程数据库中，返回是否加入成功的状态值
+                //....
+        }
+
+    }
+}

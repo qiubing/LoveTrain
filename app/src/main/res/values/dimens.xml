@@ -65,6 +65,4 @@
     <dimen name="register_terms_margin_top">10.0dip</dimen>
     <dimen name="register_read_and_agree_margin_left">0.0dip</dimen>
     <dimen name="register_terms_margin_left">7.0dip</dimen>
-
-
 </resources>

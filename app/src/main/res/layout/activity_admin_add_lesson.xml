@@ -175,9 +175,10 @@
 
     </TableLayout>
 
-    <Button android:id="@+id/add_course_button"
+    <Button android:id="@+id/add_lesson_addLessonForSureButton"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginBottom="0dp"
         android:text="@string/addLessonForSure"
         android:textSize="20sp"
         />
