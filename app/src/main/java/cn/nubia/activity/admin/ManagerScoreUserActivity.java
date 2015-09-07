@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,15 +14,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.R;
+
 public class ManagerScoreUserActivity extends Activity {
 
-    private String[] names;
-    private String[] ids;
+    private String[] mUserNames;
+    private String[] mIds;
 
     private void inti() {
         //TODO
-        names = new String[]{"张三", "李四", "王五"};
-        ids = new String[]{"0016003347", "0016003348", "0016003349"};
+        mUserNames = new String[]{"张三", "李四", "王五", "王老五", "隔壁老王", "张三丰", "张三丰", "张三丰", "张三丰",
+                "张三丰", "李四", "王五", "王老五", "隔壁老王", "张三丰", "张三丰", "张三丰", "张三丰", "张三丰"};
+        mIds = new String[]{"0016003347", "0016003348", "0016003349", "0016003347", "0016003348",
+                "0016003349", "0016003347", "0016003348", "0016003349", "0016003347", "0016003348", "0016003349",
+                "0016003348", "0016003349", "0016003347", "0016003348",
+                "0016003349", "0016003347", "0016003348", "0016003349", "0016003347", "0016003348", "0016003349"};
     }
 
     @Override
@@ -32,10 +38,10 @@ public class ManagerScoreUserActivity extends Activity {
         setContentView(R.layout.activity_manager_score_user);
         List<Map<String, Object>> listItems = new ArrayList<>();
         inti();
-        for (int i = 0; i < names.length; i++) {
+        for (int i = 0; i < mUserNames.length; i++) {
             Map<String, Object> item = new HashMap<>();
-            item.put("name", names[i]);
-            item.put("id", ids[i]);
+            item.put("name", mUserNames[i]);
+            item.put("id", mIds[i]);
             listItems.add(item);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_user_item,
@@ -46,7 +52,7 @@ public class ManagerScoreUserActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = names[position];
+                String name = mUserNames[position];
                 Intent intent = new Intent(ManagerScoreUserActivity.this, ManagerScoreUserDetailActivity.class);
                 intent.putExtra("name", name);
                 startActivity(intent);

@@ -23,39 +23,39 @@ import cn.nubia.util.Md5Encryption;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
-    private Button loginButton;
-    private Button registButton;
+    private Button mLoginButton;
+    private Button mRegistButton;
 
-    private EditText etUserID;
-    private EditText etUserName;
-    private EditText etPwd;
-    private EditText etRegistPwd;
-    private LinearLayout layout_sex;
-    private LinearLayout layout_ismanger;
-    private TextView tvTitle;
-    private Spinner spSex;
-    private Spinner spIsManager;
+    private EditText mUserIdET;
+    private EditText mUserNameET;
+    private EditText mPasswordET;
+    private EditText mRegistPasswordET;
+    private LinearLayout mSexLayout;
+    private LinearLayout mIsMangerLayout;
+    private TextView mTitleTV;
+    private Spinner mSexSpinner;
+    private Spinner mIsManagerSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginButton = (Button) findViewById(R.id.login_btn);
-        registButton = (Button) findViewById(R.id.regist_btn);
-        etUserID = (EditText) findViewById(R.id.login_userid);
-        etPwd = (EditText) findViewById(R.id.login_pwd);
-        etUserName = (EditText) findViewById(R.id.lgoin_username);
-        etRegistPwd = (EditText) findViewById(R.id.regist_pwd);
-        tvTitle = (TextView) findViewById(R.id.title);
-        spSex = (Spinner) findViewById(R.id.sex);
-        spIsManager = (Spinner) findViewById(R.id.ismanager);
-        layout_sex = (LinearLayout) findViewById(R.id.layout_sex);
-        spIsManager = (Spinner) findViewById(R.id.ismanager);
-        layout_ismanger = (LinearLayout) findViewById(R.id.layout_ismanager);
+        mLoginButton = (Button) findViewById(R.id.login_btn);
+        mRegistButton = (Button) findViewById(R.id.regist_btn);
+        mUserIdET = (EditText) findViewById(R.id.login_userid);
+        mPasswordET = (EditText) findViewById(R.id.login_pwd);
+        mUserNameET = (EditText) findViewById(R.id.lgoin_username);
+        mRegistPasswordET = (EditText) findViewById(R.id.regist_pwd);
+        mTitleTV = (TextView) findViewById(R.id.title);
+        mSexSpinner = (Spinner) findViewById(R.id.sex);
+        mIsManagerSpinner = (Spinner) findViewById(R.id.ismanager);
+        mSexLayout = (LinearLayout) findViewById(R.id.layout_sex);
+        mIsManagerSpinner = (Spinner) findViewById(R.id.ismanager);
+        mIsMangerLayout = (LinearLayout) findViewById(R.id.layout_ismanager);
 
-        loginButton.setOnClickListener(this);
-        registButton.setOnClickListener(this);
+        mLoginButton.setOnClickListener(this);
+        mRegistButton.setOnClickListener(this);
 
     }
 
@@ -64,10 +64,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
-                text = loginButton.getText().toString();
+                text = mLoginButton.getText().toString();
                 //TODO 模拟登录数据
                 if (text.equals("登录")) {
-                    if (etUserID.getText().toString().equals("user") && etPwd.getText().toString().equals("user")) {
+                    if (mUserIdET.getText().toString().equals("user") && mPasswordET.getText().toString().equals("user")) {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         this.finish();
@@ -82,23 +82,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.regist_btn:
-                text = registButton.getText().toString();
+                text = mRegistButton.getText().toString();
                 if (text.equals("会员注册")) {
-                    registButton.setText("会员登录");
-                    loginButton.setText("注册");
-                    layout_ismanger.setVisibility(View.GONE);
-                    tvTitle.setText(R.string.registtxt);
-                    etRegistPwd.setVisibility(View.VISIBLE);
-                    etUserName.setVisibility(View.VISIBLE);
-                    layout_sex.setVisibility(View.VISIBLE);
+                    mRegistButton.setText("会员登录");
+                    mLoginButton.setText("注册");
+                    mIsMangerLayout.setVisibility(View.GONE);
+                    mTitleTV.setText(R.string.registtxt);
+                    mRegistPasswordET.setVisibility(View.VISIBLE);
+                    mUserNameET.setVisibility(View.VISIBLE);
+                    mSexLayout.setVisibility(View.VISIBLE);
                 } else if (text.equals("会员登录")) {
-                    registButton.setText("会员注册");
-                    loginButton.setText("登录");
-                    tvTitle.setText(R.string.logintxt);
-                    etRegistPwd.setVisibility(View.GONE);
-                    etUserName.setVisibility(View.GONE);
-                    layout_sex.setVisibility(View.GONE);
-                    layout_ismanger.setVisibility(View.VISIBLE);
+                    mRegistButton.setText("会员注册");
+                    mLoginButton.setText("登录");
+                    mTitleTV.setText(R.string.logintxt);
+                    mRegistPasswordET.setVisibility(View.GONE);
+                    mUserNameET.setVisibility(View.GONE);
+                    mSexLayout.setVisibility(View.GONE);
+                    mIsMangerLayout.setVisibility(View.VISIBLE);
                 }
                 break;
             default:
@@ -107,9 +107,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void login() {
-        String userID = etUserID.getText().toString();
-        String pwd = etPwd.getText().toString();
-        String isManager = spIsManager.getSelectedItem().toString();
+        String userID = mUserIdET.getText().toString();
+        String pwd = mPasswordET.getText().toString();
+        String isManager = mIsManagerSpinner.getSelectedItem().toString();
         if(isManager.equals("是")){
 
         }
@@ -140,10 +140,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void regist() {
         JSONObject jsonObject;
-        String userID = etUserID.getText().toString();
-        String userName = etUserName.getText().toString();
-        String pwd = etPwd.getText().toString();
-        String sex = spSex.getSelectedItem().toString();
+        String userID = mUserIdET.getText().toString();
+        String userName = mUserNameET.getText().toString();
+        String pwd = mPasswordET.getText().toString();
+        String sex = mSexSpinner.getSelectedItem().toString();
         try {
             jsonObject = insert(userName, userID, pwd, sex);
             String result = jsonObject.getString("code");
@@ -174,12 +174,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     //对用户名和密码进行校验
     public boolean validateLogin() {
-        String username = etUserID.getText().toString().trim();
+        String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showDialog(this, "用户ID不能为空", false);
             return false;
         }
-        String pwd = etPwd.getText().toString().trim();
+        String pwd = mPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
             DialogUtil.showDialog(this, "密码不能为空", false);
             return false;
@@ -189,22 +189,22 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     //对用户名和密码进行校验
     public boolean validateRegist() {
-        String userID = etUserID.getText().toString().trim();
+        String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
             DialogUtil.showDialog(this, "用户ID不能为空", false);
             return false;
         }
-        String pwd = etPwd.getText().toString().trim();
+        String pwd = mPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
             DialogUtil.showDialog(this, "密码不能为空", false);
             return false;
         }
-        String pwd2 = etRegistPwd.getText().toString().trim();
+        String pwd2 = mRegistPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
             DialogUtil.showDialog(this, "确认密码不能为空", false);
             return false;
         }
-        String username = etUserName.getText().toString().trim();
+        String username = mUserNameET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showDialog(this, "用户姓名不能为空", false);
             return false;

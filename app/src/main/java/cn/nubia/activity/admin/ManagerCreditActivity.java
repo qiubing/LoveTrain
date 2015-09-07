@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
@@ -17,34 +17,37 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.activity.EmptyActivity;
+import cn.nubia.activity.R;
+
 public class ManagerCreditActivity extends ActivityGroup {
 
-    List<View> listViews;
-    Context context = null;
-    LocalActivityManager manager = null;
-    TabHost tabHost = null;
-    private ViewPager pager = null;
+    List<View> mListViews;
+    Context mContext = null;
+    LocalActivityManager mManager = null;
+    TabHost mTabHost = null;
+    private ViewPager mViewPage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_credit);
-        context = ManagerCreditActivity.this;
-        pager = (ViewPager) findViewById(R.id.viewpager);
+        mContext = ManagerCreditActivity.this;
+        mViewPage = (ViewPager) findViewById(R.id.viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
-        listViews = new ArrayList<>();
-        manager = this.getLocalActivityManager();
-        manager.dispatchCreate(savedInstanceState);
+        mListViews = new ArrayList<>();
+        mManager = this.getLocalActivityManager();
+        mManager.dispatchCreate(savedInstanceState);
 
-        Intent i1 = new Intent(context, ManagerCreditTotalActivity.class);
-        listViews.add(getView("A", i1));
-        Intent i2 = new Intent(context, ManagerCreditCourseActivity.class);
-        listViews.add(getView("B", i2));
+        Intent intent1 = new Intent(mContext, ManagerCreditTotalActivity.class);
+        mListViews.add(getView("A", intent1));
+        Intent intent2 = new Intent(mContext, ManagerCreditCourseActivity.class);
+        mListViews.add(getView("B", intent2));
 
 
-        tabHost = (TabHost) findViewById(R.id.tabhost);
-        tabHost.setup(manager);
+        mTabHost = (TabHost) findViewById(R.id.tabhost);
+        mTabHost.setup(mManager);
 
         // 这儿主要是自定义一下tabhost中的tab的样式
         RelativeLayout tabIndicator1 = (RelativeLayout) LayoutInflater.from(
@@ -57,19 +60,19 @@ public class ManagerCreditActivity extends ActivityGroup {
         TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
         tvTab2.setText("按课程查询");
 
-        Intent intent = new Intent(context, EmptyActivity.class);
+        Intent intent = new Intent(mContext, EmptyActivity.class);
         // 注意这儿Intent中的activity不能是自身
         // 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。
-        tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator1)
+        mTabHost.addTab(mTabHost.newTabSpec("A").setIndicator(tabIndicator1)
                 .setContent(intent));
-        tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator2)
+        mTabHost.addTab(mTabHost.newTabSpec("B").setIndicator(tabIndicator2)
                 .setContent(intent));
-        pager.setAdapter(new MyPageAdapter(listViews));
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPage.setAdapter(new MyPageAdapter(mListViews));
+        mViewPage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
-                tabHost.setCurrentTab(position);
+                mTabHost.setCurrentTab(position);
             }
 
             @Override
@@ -82,18 +85,18 @@ public class ManagerCreditActivity extends ActivityGroup {
         });
 
         // 点击tabhost中的tab时，要切换下面的viewPager
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
 
                 if ("A".equals(tabId)) {
-                    pager.setCurrentItem(0);
+                    mViewPage.setCurrentItem(0);
                 }
                 if ("B".equals(tabId)) {
-                    pager.setCurrentItem(1);
+                    mViewPage.setCurrentItem(1);
                 }
                 if ("C".equals(tabId)) {
-                    pager.setCurrentItem(2);
+                    mViewPage.setCurrentItem(2);
                 }
             }
         });
@@ -101,7 +104,7 @@ public class ManagerCreditActivity extends ActivityGroup {
     }
 
     private View getView(String id, Intent intent) {
-        return manager.startActivity(id, intent).getDecorView();
+        return mManager.startActivity(id, intent).getDecorView();
     }
 
     private class MyPageAdapter extends PagerAdapter {

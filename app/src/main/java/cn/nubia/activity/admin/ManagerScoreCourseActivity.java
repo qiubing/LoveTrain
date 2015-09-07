@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,15 +14,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.R;
+
 public class ManagerScoreCourseActivity extends Activity {
 
-    private String[] coursenames;
-    private String[] address;
+    private String[] mCourseNames;
+    private String[] mAddress;
 
     private void inti() {
         //TODO
-        coursenames = new String[]{"Java基础", "面向对象", "Android基础"};
-        address = new String[]{"C2-6", "C2-2", "C6-6"};
+        mCourseNames = new String[]{"Java基础", "面向对象", "Android基础"};
+        mAddress = new String[]{"C2-6", "C2-2", "C6-6"};
     }
 
     @Override
@@ -32,10 +34,10 @@ public class ManagerScoreCourseActivity extends Activity {
         setContentView(R.layout.activity_manager_score_course);
         List<Map<String, Object>> listItems = new ArrayList<>();
         inti();
-        for (int i = 0; i < coursenames.length; i++) {
+        for (int i = 0; i < mCourseNames.length; i++) {
             Map<String, Object> item = new HashMap<>();
-            item.put("coursename", coursenames[i]);
-            item.put("address", address[i]);
+            item.put("coursename", mCourseNames[i]);
+            item.put("address", mAddress[i]);
             listItems.add(item);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_course_item,
@@ -46,7 +48,7 @@ public class ManagerScoreCourseActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = coursenames[position];
+                String name = mCourseNames[position];
                 Intent intent = new Intent(ManagerScoreCourseActivity.this, ManagerScoreCourseDetailActivity.class);
                 intent.putExtra("coursename", name);
                 startActivity(intent);
