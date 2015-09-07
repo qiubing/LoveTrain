@@ -13,6 +13,7 @@ import android.widget.TextView;
 import cn.nubia.activity.BaseActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
+import cn.nubia.model.ShareUserInfo;
 
 /**
  * @Author: qiubing
@@ -22,6 +23,7 @@ public class AccountManagementActivity extends BaseActivity implements OnClickLi
     private static final String TAG = "Management";
 
     private static final int GET_PHOTO_CODE = 1;
+    //private UserInfo mUserInfo;
 
     private CircleImageView mCircleImageView;
     private TextView mPasswordChange;
@@ -38,7 +40,6 @@ public class AccountManagementActivity extends BaseActivity implements OnClickLi
 
     @Override
     protected void initBeforeData() {
-
     }
 
     @Override
@@ -101,14 +102,24 @@ public class AccountManagementActivity extends BaseActivity implements OnClickLi
             if(extras != null){
                 Bitmap photo = extras.getParcelable("data");
                 Drawable drawable = new BitmapDrawable(photo);
-                mCircleImageView.setImageDrawable(drawable);
+                ShareUserInfo.USER_INFO.setUserIcon(drawable);
+                //mUserInfo.setUserIcon(drawable);
+                mCircleImageView.setImageDrawable(ShareUserInfo.USER_INFO.getUserIcon());
             }
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+        mCircleImageView.setImageDrawable(ShareUserInfo.USER_INFO.getUserIcon());*/
+    }
+
     @Override
     protected void onStart() {
-
         super.onStart();
+
     }
 }
