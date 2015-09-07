@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_generateQRcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/ic_back" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal|right"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:id="@+id/lesson_QRCodeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher" />
+
+            <Button
+                android:id="@+id/lesson_QRCodeImage_generate_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lesson_QRCodeImage_generate_button_text"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_lessonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout_generateQRcode"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/lesson_name_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lessonName"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/lesson_detail_realName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lesson_name_textView"
+            android:text="XXXXXXXX"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/lesson_detail_signIn_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="签到xx人"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_lessonDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout_lessonName"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lessonDesc"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/lesson_detail_lessonInfo_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXXXXXX"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_lessonInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout_lessonDesc"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lessonInfo"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/lesson_detail_realDesc_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXXXXXX"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout_evaluation"
+        android:layout_below="@id/linearLayout_lessonInfo"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/evaluateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lessonComment"
+            android:textSize="25sp" />
+
+        <ListView
+            android:id="@+id/lesson_detail_allComment_listView"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_below="@id/evaluateTextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signUpAlterCourseRelativeLayout"
+        android:layout_below="@id/relativeLayout_evaluation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="3dp"
+        android:paddingTop="5dp">
+
+        <Button
+            android:id="@+id/signUpAdminBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signUpAdminBtn"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/alterCourseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/alterLesson"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+
+
+
+

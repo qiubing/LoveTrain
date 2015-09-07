@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sex">
         <item>男</item>
@@ -106,12 +105,86 @@
     <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>
     <string name="title_activity_manager_score_course">ManagerScoreCourseActivity</string>
     <string name="title_activity_manager_score_user_detail">ManagerScoreUserDetailActivity</string>
-    <string name="title_activity_manager_score_course_detail">ManagerScoreCourseDetailActivity
-    </string>
+    <string name="title_activity_manager_score_course_detail">ManagerScoreCourseDetailActivity</string>
     <string name="title_activity_manager_credit">ManagerCreditActivity</string>
     <string name="title_activity_manager_credit_total">ManagerCreditTotalActivity</string>
     <string name="title_activity_manager_credit_course">ManagerCreditCourseActivity</string>
     <string name="title_activity_manager_rate">ManagerRateActivity</string>
     <string name="component_piker_confirm_button">确定</string>
     <string name="component_piker_cancel_button">取消</string>
+    <string name="title_activity_regist">RegistActivity</string>
+
+
+    <!--管理员全部课程activity-->
+    <string name="allCourse">全部课程</string>
+    <string name="addCourse">新增课程</string>
+
+    <!--管理员课程详细Activity-->
+    <string name="returnBack">Back</string>
+    <string name="courseName">课程名称</string>
+    <string name="courseDesc">课程简介</string>
+    <string name="signUpAdminBtn">报名管理</string>
+    <string name="alterCourseBtn">修改课程</string>
+    <string name="lessonAddBtn">添加课时</string>
+    <string name="courseDeleteBtn">删除课程</string>
+
+    <!--管理员增加课程Activity-->
+    <string name="highLevelCoursePoints">高级课程积分</string>
+    <string name="addCourseForSure">确认新增</string>
+
+    <!--管理员修改课程Activity-->
+    <string name="alterCourse">修改课程</string>
+    <string name="whetherExam">是否考试</string>
+    <string name="whetherHighLevelCourse">是否高级课程</string>
+    <string name="alterCourseForSure">确认修改</string>
+
+
+    <!--管理员增加课时Activity-->
+    <string name="addLesson">添加课时</string>
+    <string name="lessonName">课时名称</string>
+    <string name="teacherName">教师姓名</string>
+    <string name="lessonDesc">课时简介</string>
+    <string name="lessonLocation">上课地点</string>
+    <string name="lessonStartTime">上课时间</string>
+    <string name="teacherGetPoints">讲师积分</string>
+    <string name="studentGetPoints">学员积分</string>
+    <string name="addLessonForSure">确认添加</string>
+
+    <!--管理员修改课时Activity-->
+    <string name="alterLesson">修改课时</string>
+    <string name="alterLessonForSure">确认修改</string>
+
+    <!--管理员课时详细Activity-->
+    <string name="lesson_QRCodeImage_generate_button_text">生成二维码</string>
+    <string name="lessonInfo">课时信息</string>
+    <string name="lessonComment">评价</string>
+
+    <!--管理员签到信息Activity-->
+    <string name="signInInfo">签到/报考人员信息</string>
+
+    <!--管理员所有考试Activity-->
+    <string name="allExam">所有考试</string>
+    <string name="addExam">新增考试</string>
+
+    <!--管理员新增考试Activity-->
+    <string name="examDesc">考试简介</string>
+    <string name="examLocation">考试地点</string>
+    <string name="examStartTime">考试时间</string>
+    <string name="examGetPoints">考试积分</string>
+    <string name="addExamForSure">确认增加</string>
+
+
+    <!--管理员录入成绩Activity-->
+    <string name="inputScore">考试成绩录入</string>
+
+    <string name="alterExam">修改考试</string>
+    <string name="getPoints">获得积分</string>
+    <string name="alterExamForSure">确定修改</string>
+    <string name="examInfo">考试信息</string>
+    <string name="deleteExam">删除考试</string>
+    <string name="markExam">批阅考试</string>
+
+
+
+
 </resources>

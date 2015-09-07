@@ -56,7 +56,7 @@ public class ManagerScoreCourseDetailActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogUtil.showDialog(ManagerScoreCourseDetailActivity.this, mNames[position]+
-                        " 《" + getIntent().getStringExtra("coursename") + "》的成绩为：" + mScores[position], false);
+                        " 《" + getIntent().getStringExtra("coursename") + "》的成绩为：" + mScores[position]);
             }
         });
     }

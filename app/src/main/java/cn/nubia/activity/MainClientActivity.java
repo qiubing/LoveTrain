@@ -14,7 +14,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import cn.nubia.activity.client.AllCourceClientActivity;
-import cn.nubia.activity.client.MyClientActivity;
+import cn.nubia.activity.client.MyClientActivity_1;
 import cn.nubia.activity.client.MyCourseClientActivity;
 
 /**
@@ -84,14 +84,14 @@ public class MainClientActivity extends ActivityGroup {
         mTabHost.addTab(buildTabSpec("tab2", "1", new Intent(MainClientActivity.this,
                 AllCourceClientActivity.class)));
         mTabHost.addTab(buildTabSpec("tab3", "2", new Intent(MainClientActivity.this,
-                MyClientActivity.class)));
+                MyClientActivity_1.class)));
     }
     /**
      * 判断两次返回时间间隔,小于两秒则退出程序
      */
     private void exit() {
         if (System.currentTimeMillis() - mExitTime > INTERVAL) {
-            Toast.makeText(this, "再按一次返回退出应用", 1000).show();
+            Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
             android.os.Process.killProcess(android.os.Process.myPid());

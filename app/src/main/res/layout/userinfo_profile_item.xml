@@ -39,8 +39,10 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="10.0dip"
             android:layout_toRightOf="@id/icon"
+            android:layout_alignTop="@+id/icon"
+            android:layout_alignBottom="@+id/icon"
             android:singleLine="true"
-            android:text="用户名"
+            android:text="用户名:"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/text_color"
             android:textStyle="bold" />
