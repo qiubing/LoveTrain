@@ -10,6 +10,13 @@
     </string-array>
 
     <string name="app_name">LoveTrain</string>
+    <string name="copyright">Copyright 2015–2020 nubia   版权所有</string>
+    <string name="icon_course">课程</string>
+    <string name="icon_exam">考试</string>
+    <string name="icon_share">技术分享</string>
+    <string name="icon_my">我的</string>
+
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

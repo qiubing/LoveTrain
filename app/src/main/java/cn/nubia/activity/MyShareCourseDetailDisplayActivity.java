@@ -1,12 +1,12 @@
 package cn.nubia.activity;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import cn.nubia.entity.ShareCourse;
 
