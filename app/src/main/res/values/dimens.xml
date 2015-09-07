@@ -68,4 +68,9 @@
 
     <dimen name="manager_score_hight">16dp</dimen>
     <dimen name="manager_score_image_hight">32dp</dimen>
+    <dimen name="manager_rate_layout_hight">60dp</dimen>
+    <dimen name="manager_rate_textSize">20sp</dimen>
+    <dimen name="manager_title_textSize">22sp</dimen>
+    <dimen name="manager_rate_paddingTop">10dp</dimen>
+    <dimen name="manager_title_high">45dp</dimen>
 </resources>

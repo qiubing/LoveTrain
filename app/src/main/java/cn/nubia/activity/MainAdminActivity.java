@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import cn.nubia.activity.admin.CourseAdminActivity;
 import cn.nubia.activity.admin.ExamAdminActivity;
+import cn.nubia.activity.admin.ManagerMySetting;
 import cn.nubia.activity.admin.ShareAdminActivity;
 
 /**
