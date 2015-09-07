@@ -23,10 +23,7 @@
             android:label="@string/title_activity_manager_score"></activity>
         <activity android:name=".EmptyActivity" />
         <activity android:name=".ManagerMySetting">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".GuideActivity"
@@ -34,7 +31,12 @@
 
         <activity
             android:name=".MainAdminActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".MainClientActivity"

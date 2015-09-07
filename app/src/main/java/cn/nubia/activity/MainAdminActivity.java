@@ -1,19 +1,16 @@
 package cn.nubia.activity;
 
 
-import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import cn.nubia.activity.admin.CourseAdminActivity;
 import cn.nubia.activity.admin.ExamAdminActivity;
-import cn.nubia.activity.admin.MyAdminActivity;
 import cn.nubia.activity.admin.ShareAdminActivity;
 
 /**
@@ -88,14 +85,14 @@ public class MainAdminActivity extends ActivityGroup {
         mTabHost.addTab(buildTabSpec("tab3", "2", new Intent(MainAdminActivity.this,
                 ShareAdminActivity.class)));
         mTabHost.addTab(buildTabSpec("tab4", "3", new Intent(MainAdminActivity.this,
-                MyAdminActivity.class)));
+                ManagerMySetting.class)));
     }
     /**
      * 判断两次返回时间间隔,小于两秒则退出程序
      */
     private void exit() {
         if (System.currentTimeMillis() - mExitTime > INTERVAL) {
-            Toast.makeText(this, "再按一次返回退出应用", 1000).show();
+            Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
         } else {
             android.os.Process.killProcess(android.os.Process.myPid());
