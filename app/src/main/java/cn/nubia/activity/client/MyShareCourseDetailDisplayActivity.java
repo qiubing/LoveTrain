@@ -29,14 +29,17 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
     private Button mCourseModifyButton;
     private CourseItem mShareCourseItem;
     private LessonItem mShareCourseLessonItem;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
 
+
         holdView();
         setViewLogic();
-        initViewData();
+//        initViewData();
     }
 
     private void holdView(){
@@ -77,7 +80,6 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         Bundle bundle = intent.getExtras();
         mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
         mShareCourseLessonItem = mShareCourseItem.getmLessonList().get(0);
-
         mCourseName.setText(mShareCourseItem.getCourseName());
         mCourseLevel.setText(
                 ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getShareType()));

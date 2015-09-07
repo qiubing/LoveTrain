@@ -9,12 +9,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.CourseItem;
 
 public class ManagerScoreUserActivity extends Activity {
 
@@ -32,7 +36,7 @@ public class ManagerScoreUserActivity extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_score_user);
@@ -54,7 +58,7 @@ public class ManagerScoreUserActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = mUserNames[position];
                 Intent intent = new Intent(ManagerScoreUserActivity.this, ManagerScoreUserDetailActivity.class);
-                intent.putExtra("name", name);
+                intent.putExtra("name",name);
                 startActivity(intent);
             }
         });

@@ -59,7 +59,7 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <cn.nubia.component.CircleImageView
                 android:id="@+id/image_view"
                 android:layout_width="120.0dip"
                 android:layout_height="120.0dip"

@@ -53,7 +53,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
 
         holdView();
         initViewLogic();
-        initViewData();
+        //initViewData();
     }
 
     /**

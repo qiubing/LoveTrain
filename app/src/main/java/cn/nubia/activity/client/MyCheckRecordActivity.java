@@ -1,12 +1,9 @@
-package cn.nubia.activity;
+package cn.nubia.activity.client;
 
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -17,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.R;
+import cn.nubia.util.Utils;
+
 /**
 * @ClassName: MyCheckRecordActivity
 * @Description: TODO
@@ -24,7 +24,7 @@ import java.util.Map;
 * @Date: 2015/9/2 9:26
 */ 
 public class MyCheckRecordActivity extends Activity {
-    private static final String TAG = "MyCheckRecordActivity";
+    private static final String TAG = "MyCheckRecord";
 
     private String[] courses = new String[]{
             "Java基础一","Android开发一","OO思想"
@@ -56,29 +56,11 @@ public class MyCheckRecordActivity extends Activity {
         Log.v(TAG, listItems.toString());
 
         SimpleAdapter adapter = new SimpleAdapter(this,listItems,
-                R.layout.activity_check_record_detail_item,
+                R.layout.activity_user_check_record_detail_item,
                 new String[] {"course","date","time"},
                 new int[] {R.id.check_course_title,R.id.check_record_date,R.id.check_record_time});
         ListView list = (ListView)findViewById(R.id.check_detail);
         list.setAdapter(adapter);
-        setListViewHeightBasedOnChildren(list);
-    }
-
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        if(listView == null) return;
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
+        Utils.setListViewHeightBasedOnChildren(list);
     }
 }
