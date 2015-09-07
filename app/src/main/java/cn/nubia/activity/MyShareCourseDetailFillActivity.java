@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.nubia.component.CourseLevelSpinnerAdapter;
-import cn.nubia.entity.ShareCourse;
+import cn.nubia.entity.ShareCourseItem;
 import cn.nubia.entity.ShareCourseLevel;
 
 /**
@@ -97,7 +97,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
         mConfirmButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareCourse shareCourse = new ShareCourse();
+                ShareCourseItem shareCourse = new ShareCourseItem();
                 shareCourse.setCourseName(
                         ((TextView) findViewById(R.id.my_sharecourse_detail_fill_coursename_filltextView))
                                 .getText().toString());

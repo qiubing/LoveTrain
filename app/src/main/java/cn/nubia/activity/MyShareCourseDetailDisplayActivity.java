@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
-import cn.nubia.entity.ShareCourse;
+import cn.nubia.entity.CourseItem;
 import cn.nubia.model.ShareCourseLevelModel;
 
 /**
@@ -25,14 +25,14 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseLocale;
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
-    private ShareCourse mShareCourse;
+    private CourseItem mShareCourseItem;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mShareCourse = (ShareCourse) bundle.getSerializable("shareCourse");
+        mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
 
         mCourseName =(TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursename_displaytextView);
@@ -51,16 +51,16 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         mCourseModifyButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_display_modifybutton);
 
-        mCourseName.setText(mShareCourse.getCourseName());
-        mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourse.getCourseLevel()));
-        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourse.getStartTime()));
-        mCourseStartTime.setText(
-                new SimpleDateFormat("HH:mm").format( mShareCourse.getStartTime()));
-        mCourseEndTime.setText(
-                new SimpleDateFormat("HH:mm").format( mShareCourse.getEndTime()));
-        mCourseLocale.setText(mShareCourse.getLocale());
-        mCourseDescription.setText(mShareCourse.getCourseDescription());
+//        mCourseName.setText(mShareCourseItem.getCourseName());
+//        mCourseLevel.setText(
+//                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getc.getCourseLevel()));
+//        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourseItem.getStartTime()));
+//        mCourseStartTime.setText(
+//                new SimpleDateFormat("HH:mm").format( mShareCourseItem.getStartTime()));
+//        mCourseEndTime.setText(
+//                new SimpleDateFormat("HH:mm").format( mShareCourseItem.getEndTime()));
+//        mCourseLocale.setText(mShareCourseItem.getLocale());
+        mCourseDescription.setText(mShareCourseItem.getCourseDescription());
 
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
