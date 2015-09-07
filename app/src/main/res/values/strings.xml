@@ -1,5 +1,21 @@
 <resources>
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="ismanager">
+        <item>否</item>
+        <item>是</item>
+    </string-array>
+
     <string name="app_name">LoveTrain</string>
+    <string name="copyright">Copyright 2015–2020 nubia   版权所有</string>
+    <string name="icon_course">课程</string>
+    <string name="icon_exam">考试</string>
+    <string name="icon_share">技术分享</string>
+    <string name="icon_my">我的</string>
+
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -7,8 +23,12 @@
 
 
     <!--登录Activity-->
-    <string name="login_name_hint">请输入用户名</string>
-    <string name="login_pwd_hint">请输入密码</string>
+    <string name="login_id_hint">请输入用户名</string>
+    <string name="login_name_hint">请输入个人姓名</string>
+    <string name="login_sex">性别：</string>
+    <string name="login_manager">是否管理员：</string>
+    <string name="login_pwd_hint">请输入用户密码</string>
+    <string name="login_ismanager">是否管理员</string>
     <string name="forget_pwd">忘记密码?</string>
     <string name="regist">注册账号</string>
     <string name="logintxt">爱培训会员登录</string>
@@ -18,6 +38,77 @@
     <string name="regist_name_hint">请输入用户名</string>
     <string name="regist_pwd1_hint">请输入用户密码</string>
     <string name="regist_pwd2_hint">请重复用户密码</string>
+    <!--我的分享课程详细信息Activity-->
+    <string name="activity_my_sharecourse_detail_display_title_textview">课程信息</string>
+    <string name="activity_my_sharecourse_detail_display_coursename_textView">课程名称：</string>
+    <string name="activity_my_sharecourse_detail_display_coursedescription_textView">课程简介：</string>
+    <string name="activity_my_sharecourse_detail_display_courselevel_textView">课程级别：</string>
+    <string name="activity_my_sharecourse_detail_display_coursedate_textView">上课日期：</string>
+    <string name="activity_my_sharecourse_detail_display_coursestarttime_textView">上课时间：</string>
+    <string name="activity_my_sharecourse_detail_display_courseendtime_textView">下课时间：</string>
+    <string name="activity_my_sharecourse_detail_display_courselocale_textView">上课地点：</string>
+    <string name="activity_my_sharecourse_detail_display_coursemodify_button">修改</string>
+    <!--我的账户管理修改密码Activity-->
+    <string name="activity_my_accountmana_pswmodify_tittle_textview">密码修改</string>
+    <string name="activity_my_accountmana_pswmodify_oldpsw_textview">请输入旧密码：</string>
+    <string name="activity_my_accountmana_pswmodify_newpsw_textview">请输入新密码：</string>
+    <string name="activity_my_accountmana_pswmodify_confirmpsw_textview">请确认新密码：</string>
+    <string name="activity_my_accountmana_pswmodify_cancel_button">取消</string>
+    <string name="activity_my_accountmana_pswmodify_confirm_button">确定</string>
+    <!--我的分享课程申请Activity-->
+    <string name="activity_my_sharecourse_detail_fill_confirm_button">确定</string>
+    <string name="activity_my_sharecourse_detail_fill_coursename_textView">课程名称：</string>
+    <string name="activity_my_sharecourse_detail_fill_coursedescription_textView">课程简介：</string>
+    <string name="activity_my_sharecourse_detail_fill_courselevel_textView">课程级别：</string>
+    <string name="activity_my_sharecourse_detail_fill_coursedate_textView">上课日期：</string>
+    <string name="activity_my_sharecourse_detail_fill_coursestarttime_textView">上课时间：</string>
+    <string name="activity_my_sharecourse_detail_fill_courseendtime_textView">下课时间：</string>
+    <string name="activity_my_sharecourse_detail_fill_courselocale_textView">上课地点：</string>
+    <string name="activity_my_sharecourse_detail_fill_courselocale_pikertime_button">选择时间</string>
+    <!--我的课程评价详细信息Activity-->
+    <string name="activity_mycourse_judge_detail_fill_confirm_button">确定</string>
+    <string name="activity_mycourse_judge_detail_fill_title_textView">课程评价</string>
+    <string name="activity_mycourse_judge_detail_fill_contentapplicability_textView">课程内容的适用性：</string>
+    <string name="activity_mycourse_judge_detail_fill_ContentRationality_textView">课程内容编排合理性：</string>
+    <string name="activity_mycourse_judge_detail_fill_Discussion_textView">授课内容中的活动、讨论、练习及案例的情况：</string>
+    <string name="activity_mycourse_judge_detail_fill_TimeRationality_textView">授课时间分配合理性：</string>
+    <string name="activity_mycourse_judge_detail_fill_ContentUnderstanding_textView">教师对授课内容有深刻认识：</string>
+    <string name="activity_mycourse_judge_detail_fill_ExpressionAbility_textView">教师的语言表达能力：</string>
+    <string name="activity_mycourse_judge_detail_fill_Communication_textView">教师与学员之间的沟通互动情况：</string>
+    <string name="activity_mycourse_judge_detail_fill_Organization_textView">培训组织工作满意度：</string>
+    <string name="activity_mycourse_judge_detail_fill_ComprehensiveEvaluation_textView">对此次课程的综合评价：</string>
+    <string name="activity_mycourse_judge_detail_fill_Suggestion_textView">对此次课程有何建议：</string>
+
+    <string name="component_timepiker_confirm_button">确定</string>
+    <string name="component_timepiker_cancel_button">取消</string>
+
+    <!--管理员 -->
+    <string name="manger_setting_title">设置</string>
+    <string name="manger_setting_score_title">考试成绩设置</string>
+
+
+    <string name="manger_setting_teb1">按学员查询</string>
+    <string name="manger_setting_tab2">按课程查询</string>
+    <string name="title_activity_manager_score">考试成绩查询</string>
+    <string name="title_activity_manager_credit_title">积分查询</string>
+    <string name="activity_manager_rate_title">评级规则设置</string>
+    <string name="activity_manager_rate_tip">请分别设定各个区间\n的取值范围！（0~5）</string>
+    <string name="activity_manager_rate_A">优秀课程</string>
+    <string name="activity_manager_rate_B">良好课程</string>
+    <string name="activity_manager_rate_C">一般课程</string>
+    <string name="activity_manager_rate_button">确认修改</string>
+    <string name="activity_manager_rate_hint">请输入取值范围</string>
+    <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>
+    <string name="title_activity_manager_score_course">ManagerScoreCourseActivity</string>
+    <string name="title_activity_manager_score_user_detail">ManagerScoreUserDetailActivity</string>
+    <string name="title_activity_manager_score_course_detail">ManagerScoreCourseDetailActivity
+    </string>
+    <string name="title_activity_manager_credit">ManagerCreditActivity</string>
+    <string name="title_activity_manager_credit_total">ManagerCreditTotalActivity</string>
+    <string name="title_activity_manager_credit_course">ManagerCreditCourseActivity</string>
+    <string name="title_activity_manager_rate">ManagerRateActivity</string>
+    <string name="component_piker_confirm_button">确定</string>
+    <string name="component_piker_cancel_button">取消</string>
     <string name="title_activity_regist">RegistActivity</string>
 
 

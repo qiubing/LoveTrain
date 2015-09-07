@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/score_user_linearyout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+    <!--</LinearLayout>-->
+        <TextView
+            android:id="@+id/credit_total_username"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/manager_score_hight"
+            android:text="testa" />
+
+        <TextView
+            android:layout_below="@+id/credit_total_username"
+            android:id="@+id/credit_total_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/manager_score_hight"
+            android:text="ak" />
+
+
+
+    <TextView
+        android:id="@+id/credit_totalcredit"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="@dimen/manager_score_image_hight"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/image_padding_right" />
+</RelativeLayout>

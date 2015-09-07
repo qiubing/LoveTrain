@@ -30,6 +30,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/my_sharecourse_detail_fill_contentscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/contentrealm"
@@ -74,11 +75,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_my_sharecourse_detail_fill_coursetime_textView"
+                    android:text="@string/activity_my_sharecourse_detail_fill_courselocale_textView"
                     android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
                 <EditText
-                    android:id="@+id/my_sharecourse_detail_fill_coursetime_filltextview"
+                    android:id="@+id/my_sharecourse_detail_fill_courselocale_filltextview"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </TableRow>
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_coursedate_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <TextView
+                    android:id="@+id/my_sharecourse_detail_fill_coursedate_filltextview"
                     android:clickable="true"
                     android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
             </TableRow>
@@ -88,11 +102,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_my_sharecourse_detail_fill_courselocale_textView"
+                    android:text="@string/activity_my_sharecourse_detail_fill_coursestarttime_textView"
                     android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
-                <EditText
-                    android:id="@+id/my_sharecourse_detail_fill_courselocale_filltextview"
+                <TextView
+                    android:id="@+id/my_sharecourse_detail_fill_coursestarttime_filltextview"
+                    android:clickable="true"
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+            </TableRow>
+
+            <TableRow
+                style="@style/itemtitle">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_my_sharecourse_detail_fill_courseendtime_textView"
+                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+
+                <TextView
+                    android:id="@+id/my_sharecourse_detail_fill_courseendtime_filltextview"
                     android:clickable="true"
                     android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
             </TableRow>

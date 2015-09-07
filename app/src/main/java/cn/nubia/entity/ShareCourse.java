@@ -9,6 +9,7 @@ public class ShareCourse extends Course {
     private short mCourseLevel;
     private String mLocale;
     private Date mStartTime;
+    private Date mEndTime;
 
     public short getCourseLevel() {
         return mCourseLevel;
@@ -32,5 +33,13 @@ public class ShareCourse extends Course {
 
     public void setStartTime(Date startTime) {
         this.mStartTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return mEndTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.mEndTime = endTime;
     }
 }

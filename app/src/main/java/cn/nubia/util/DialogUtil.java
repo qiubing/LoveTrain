@@ -37,6 +37,24 @@ public class DialogUtil {
         builder.create().show();
     }
 
+    public static void showDialog(final Context ctx, String msg) {
+        boolean goHome = false;
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx).setMessage(msg).setCancelable(true);
+        if (goHome) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(ctx, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    ctx.startActivity(intent);
+                }
+            });
+        } else {
+            builder.setPositiveButton("确定", null);
+        }
+        builder.create().show();
+    }
+
     /**
      * Toast
      *

@@ -1,5 +1,6 @@
 package cn.nubia.activity;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @Author: qiubing
  * @Date: 2015/9/2 9:32
  */
-public class CourseIntegrationRecordActivity extends Activity{
+public class CourseIntegrationRecordActivity extends Activity {
 
     private static final String TAG = "CourseRecordActivity";
 
