@@ -39,7 +39,6 @@
         <activity
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
             android:theme="@android:style/Theme.Light.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -151,10 +150,6 @@
             android:label="@string/title_activity_manager_credit_course"></activity>
 
         <activity android:name=".MyShareCourseDetailFillActivity" />
-
-        <activity
-            android:name=".MyShareCourseDetailDisplayActivity">
-        </activity>
 
         <activity
             android:name=".MyCourseJudgeDetailFillActivity">
