@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.nubia.activity.R;
 import cn.nubia.entity.PswModifyMsg;
 import cn.nubia.util.DialogUtil;
 
@@ -23,13 +24,8 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accountmana_pswmodify);
 
-        mConfirmButton =(Button) findViewById(
-                R.id.my_accountmana_pswmodify_confirmbutton);
-        mNewpswEditText =(EditText) findViewById(
-                R.id.my_accountmana_pswmodify_newpswedittext);
-
-        /**监听确认按钮，进行提交动作*/
-        mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+        holdView();
+        setViewLogic();
     }
 
     private boolean matchNewPsw(){
@@ -65,5 +61,17 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
                 }
             }
         };
+    }
+
+    private void holdView(){
+        mConfirmButton =(Button) findViewById(
+                R.id.my_accountmana_pswmodify_confirmbutton);
+        mNewpswEditText =(EditText) findViewById(
+                R.id.my_accountmana_pswmodify_newpswedittext);
+    }
+
+    private void setViewLogic(){
+        /**监听确认按钮，进行提交动作*/
+        mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 }

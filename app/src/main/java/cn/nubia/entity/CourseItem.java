@@ -30,6 +30,15 @@ public class CourseItem implements Serializable{
     private short mIsDelete;
     private long mRecordModifyTime;
     private short mShareType;
+    private List<LessonItem> mLessonList;
+
+    public List<LessonItem> getmLessonList() {
+        return mLessonList;
+    }
+
+    public void setmLessonList(List<LessonItem> mLessonList) {
+        this.mLessonList = mLessonList;
+    }
 
     public short getShareType() {
         return mShareType;
@@ -109,14 +118,6 @@ public class CourseItem implements Serializable{
 
     public void setCourseCredits(int courseCredits) {
         this.mCourseCredits = courseCredits;
-    }
-
-    public short isDelete() {
-        return mIsDelete;
-    }
-
-    public void setIsDelete(short isDelete) {
-        this.mIsDelete = isDelete;
     }
 
     public long getRecordModifyTime() {

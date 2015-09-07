@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.client;
 
 
 import android.app.Activity;
@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 
+import cn.nubia.activity.R;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.model.ShareCourseLevelModel;
 
 /**
@@ -26,14 +28,18 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
     private CourseItem mShareCourseItem;
+    private LessonItem mShareCourseLessonItem;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
 
+        holdView();
+        setViewLogic();
+        initViewData();
+    }
+
+    private void holdView(){
         mCourseName =(TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursename_displaytextView);
         mCourseLevel =(TextView) findViewById(R.id
@@ -50,25 +56,37 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
                 .my_sharecourse_detail_display_coursedescription_displaytextView);
         mCourseModifyButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_display_modifybutton);
+    }
 
-//        mCourseName.setText(mShareCourseItem.getCourseName());
-//        mCourseLevel.setText(
-//                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getc.getCourseLevel()));
-//        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourseItem.getStartTime()));
-//        mCourseStartTime.setText(
-//                new SimpleDateFormat("HH:mm").format( mShareCourseItem.getStartTime()));
-//        mCourseEndTime.setText(
-//                new SimpleDateFormat("HH:mm").format( mShareCourseItem.getEndTime()));
-//        mCourseLocale.setText(mShareCourseItem.getLocale());
-        mCourseDescription.setText(mShareCourseItem.getCourseDescription());
-
+    private void setViewLogic(){
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MyShareCourseDetailDisplayActivity.this
+                        ,MyShareCourseDetailFillActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("shareCourse",mShareCourseItem);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
 
+    private void initViewData(){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
+        mShareCourseLessonItem = mShareCourseItem.getmLessonList().get(0);
 
+        mCourseName.setText(mShareCourseItem.getCourseName());
+        mCourseLevel.setText(
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getShareType()));
+        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourseLessonItem.getStartTime()));
+        mCourseStartTime.setText(
+                new SimpleDateFormat("HH:mm").format( mShareCourseLessonItem.getStartTime()));
+        mCourseEndTime.setText(
+                new SimpleDateFormat("HH:mm").format(mShareCourseLessonItem.getEndTime()));
+        mCourseLocale.setText(mShareCourseLessonItem.getLocation());
+        mCourseDescription.setText(mShareCourseItem.getCourseDescription());
+    }
 }
