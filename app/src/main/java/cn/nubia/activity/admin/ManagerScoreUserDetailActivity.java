@@ -57,7 +57,7 @@ public class ManagerScoreUserDetailActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogUtil.showDialog(ManagerScoreUserDetailActivity.this,getIntent().getStringExtra("name")+
-                        " 《"+ mCourseNames[position]+"》的成绩为："+ mScores[position],false);
+                        " 《"+ mCourseNames[position]+"》的成绩为："+ mScores[position]);
             }
         });
     }
