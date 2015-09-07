@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
@@ -26,10 +27,7 @@
             android:label="@string/title_activity_manager_score"></activity>
         <activity android:name=".EmptyActivity" />
         <activity android:name=".ManagerMySetting">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".GuideActivity"
@@ -39,6 +37,12 @@
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".MainClientActivity"
@@ -120,19 +124,25 @@
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
-        <activity android:name=".MyShareCourseDetailFillActivity">
-            android:name=".ManagerScoreUserActivity"
-            android:label="@string/title_activity_manager_score_user" >
-        </activity>
-        <activity
-            android:name=".ManagerScoreCourseActivity"
-            android:label="@string/title_activity_manager_score_course" />
+
+        <activity android:name=".ManagerScoreUserActivity"></activity>
         <activity
             android:name=".ManagerScoreUserDetailActivity"
             android:label="@string/title_activity_manager_score_user_detail"></activity>
+        <activity android:name=".ManagerScoreCourseDetailActivity"></activity>
         <activity
-            android:name=".ManagerScoreCourseDetailActivity"
-            android:label="@string/title_activity_manager_score_course_detail"></activity>
+            android:name=".ManagerScoreCourseActivity"
+            android:label="@string/title_activity_manager_score_course" />
+
+        <activity
+            android:name=".ManagerCreditActivity"
+            android:label="@string/title_activity_manager_credit"></activity>
+        <activity
+            android:name=".ManagerCreditTotalActivity"
+            android:label="@string/title_activity_manager_credit_total"></activity>
+        <activity
+            android:name=".ManagerCreditCourseActivity"
+            android:label="@string/title_activity_manager_credit_course"></activity>
     </application>
 
 
