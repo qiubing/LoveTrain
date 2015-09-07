@@ -5,31 +5,33 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding">
 
-    <LinearLayout
-        android:id="@+id/score_user_linearyout"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+    <!--<LinearLayout-->
+        <!--android:id="@+id/score_user_linearyout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+    <!--</LinearLayout>-->
         <TextView
             android:id="@+id/score_user_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/manager_score_hight"
             android:text="testa" />
 
         <TextView
+            android:layout_below="@+id/score_user_name"
             android:id="@+id/score_user_id"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/manager_score_hight"
             android:text="ak" />
-    </LinearLayout>
+
+
 
     <ImageView
-        android:layout_alignParentRight="true"
         android:id="@+id/score_user_arrow"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_height="@dimen/manager_score_image_hight"
+        android:layout_alignParentRight="true"
         android:paddingRight="@dimen/image_padding_right"
         android:src="@mipmap/arrow" />
-
 </RelativeLayout>

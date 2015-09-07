@@ -2,6 +2,8 @@ package cn.nubia.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.nubia.util.DialogUtil;
 
 public class ManagerScoreUserDetailActivity extends Activity {
 
@@ -48,6 +52,13 @@ public class ManagerScoreUserDetailActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.manager_score_user_detail_listview);
         listView.setAdapter(simpleAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogUtil.showDialog(ManagerScoreUserDetailActivity.this,getIntent().getStringExtra("name")+
+                        " 《"+coursenames[position]+"》的成绩为："+scores[position],false);
+            }
+        });
     }
 
 

@@ -45,6 +45,10 @@ public class ManagerMySetting extends Activity implements View.OnClickListener {
                 intent = new Intent(ManagerMySetting.this, ManagerScoreActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.layout_querycredit:
+                intent = new Intent(ManagerMySetting.this, ManagerCreditActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }

@@ -5,30 +5,32 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding">
 
-    <LinearLayout
-        android:id="@+id/score_user_linearyout"
+    <!--<LinearLayout-->
+    <!--android:id="@+id/score_user_linearyout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <TextView
+        android:id="@+id/score_user_detail_coursename"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="testa" />
 
-        <TextView
-            android:id="@+id/score_user_detail_coursename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="testa" />
-
-        <TextView
-            android:id="@+id/score_user_detail_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ak" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/score_user_detail_address"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/manager_score_hight"
+        android:layout_below="@+id/score_user_detail_coursename"
+        android:text="ak" />
+    <!--</LinearLayout>-->
 
     <TextView
         android:id="@+id/score_user_detail_score"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="@dimen/manager_score_image_hight"
         android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
         android:text="80" />
 
 

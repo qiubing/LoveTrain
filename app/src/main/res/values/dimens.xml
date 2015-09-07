@@ -66,5 +66,6 @@
     <dimen name="register_read_and_agree_margin_left">0.0dip</dimen>
     <dimen name="register_terms_margin_left">7.0dip</dimen>
 
-
+    <dimen name="manager_score_hight">16dp</dimen>
+    <dimen name="manager_score_image_hight">32dp</dimen>
 </resources>

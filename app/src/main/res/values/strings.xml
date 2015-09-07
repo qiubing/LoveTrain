@@ -84,9 +84,13 @@
     <string name="manger_setting_teb1">按学员查询</string>
     <string name="manger_setting_tab2">按课程查询</string>
     <string name="title_activity_manager_score">考试成绩查询</string>
+    <string name="title_activity_manager_credit_title">积分查询</string>
     <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>
     <string name="title_activity_manager_score_course">ManagerScoreCourseActivity</string>
     <string name="title_activity_manager_score_user_detail">ManagerScoreUserDetailActivity</string>
     <string name="title_activity_manager_score_course_detail">ManagerScoreCourseDetailActivity
     </string>
+    <string name="title_activity_manager_credit">ManagerCreditActivity</string>
+    <string name="title_activity_manager_credit_total">ManagerCreditTotalActivity</string>
+    <string name="title_activity_manager_credit_course">ManagerCreditCourseActivity</string>
 </resources>

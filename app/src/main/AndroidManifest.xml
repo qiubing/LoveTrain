@@ -41,6 +41,18 @@
             android:name=".ManagerScoreCourseDetailActivity"
             android:label="@string/title_activity_manager_score_course_detail" >
         </activity>
+        <activity
+            android:name=".ManagerCreditActivity"
+            android:label="@string/title_activity_manager_credit" >
+        </activity>
+        <activity
+            android:name=".ManagerCreditTotalActivity"
+            android:label="@string/title_activity_manager_credit_total" >
+        </activity>
+        <activity
+            android:name=".ManagerCreditCourseActivity"
+            android:label="@string/title_activity_manager_credit_course" >
+        </activity>
     </application>
 
 </manifest>
