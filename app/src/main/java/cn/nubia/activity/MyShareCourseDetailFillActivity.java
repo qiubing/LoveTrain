@@ -1,12 +1,12 @@
 package cn.nubia.activity;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -20,7 +20,6 @@ import java.util.Date;
 import cn.nubia.component.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.ShareCourse;
 import cn.nubia.entity.ShareCourseLevel;
-
 
 /**
  * Created by JiangYu on 2015/9/1.
@@ -44,14 +43,14 @@ public class MyShareCourseDetailFillActivity extends Activity {
         mSpinner.setAdapter(spinnerAdapter);
 
         /**监听时间输入*/
-        mCoursetimeTextView.setOnClickListener(new OnClickListener() {
+        mCoursetimeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 makeDatePickDialog().show();
             }
         });
         /**监听确认按钮，进行提交动作*/
-        mConfirmButton.setOnClickListener(new OnClickListener() {
+        mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ShareCourse shareCourse = new ShareCourse();

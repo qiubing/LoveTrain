@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip">
+
+        <TextView
+            android:id="@+id/manager_my_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="85.0dip"
+            android:layout_marginRight="85.0dip"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/manger_setting_title"
+            android:textColor="@color/grayslate"
+            android:textSize="22.0sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_queryscore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom">
+        <!--android:background="@drawable/my_tab_background"-->
+        <TextView
+            android:id="@+id/manager_my_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="成绩查询"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_querycredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="积分查询"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_ratemanage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="评级管理"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_accountmanage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="账号管理"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_usermanage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/linear_padding_bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:background="@drawable/my_list_txt_background"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="用户管理"
+            android:textSize="@dimen/text_view_font_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/my_list_txt_background"
+            android:paddingRight="@dimen/image_padding_right"
+            android:src="@mipmap/arrow" />
+    </LinearLayout>
+
+</LinearLayout>

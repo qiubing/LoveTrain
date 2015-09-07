@@ -1,22 +1,16 @@
 package cn.nubia.activity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import cn.nubia.entity.ShareCourse;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -24,6 +18,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.currentTimeMillis();
+
+
+
+
 
         Intent intent = new Intent(MainActivity.this,MyShareCourseDetailDisplayActivity.class);
         ShareCourse shareCourse = new ShareCourse();

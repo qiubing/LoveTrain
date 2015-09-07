@@ -1,5 +1,6 @@
 package cn.nubia.component;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
