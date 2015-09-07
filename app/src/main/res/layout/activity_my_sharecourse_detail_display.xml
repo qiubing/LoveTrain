@@ -70,11 +70,11 @@
                 style="@style/itemtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_coursetime_textView"/>
+                android:text="@string/activity_my_sharecourse_detail_display_courselocale_textView"/>
 
             <TextView
                 style="@style/itemcontent"
-                android:id="@+id/my_sharecourse_detail_display_coursetime_displaytextView"
+                android:id="@+id/my_sharecourse_detail_display_courselocale_displaytextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -82,11 +82,35 @@
                 style="@style/itemtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_courselocale_textView"/>
+                android:text="@string/activity_my_sharecourse_detail_display_coursedate_textView"/>
 
             <TextView
                 style="@style/itemcontent"
-                android:id="@+id/my_sharecourse_detail_display_courselocale_displaytextView"
+                android:id="@+id/my_sharecourse_detail_display_coursedate_displaytextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_coursestarttime_textView"/>
+
+            <TextView
+                style="@style/itemcontent"
+                android:id="@+id/my_sharecourse_detail_display_coursestarttime_displaytextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_courseendtime_textView"/>
+
+            <TextView
+                style="@style/itemcontent"
+                android:id="@+id/my_sharecourse_detail_display_courseendtime_displaytextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -100,8 +124,9 @@
                 style="@style/itemcontent"
                 android:id="@+id/my_sharecourse_detail_display_coursedescription_displaytextView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
-                android:isScrollContainer="true"/>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/jiangyu_item_normallverticalmargin"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

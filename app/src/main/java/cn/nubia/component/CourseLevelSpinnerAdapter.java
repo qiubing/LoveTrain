@@ -27,11 +27,11 @@ public class CourseLevelSpinnerAdapter extends BaseAdapter {
     public CourseLevelSpinnerAdapter(Context context){
         this.mContext = context;
         this.mList = new ArrayList<ShareCourseLevel>();
-        Iterator<Map.Entry<Short,String>> iterator = ShareCourseLevelModel.SHARE_COURSE_MODEL.entrySet().iterator();
+        Iterator<Map.Entry<Short,String>> iterator =
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.entrySet().iterator();
        while(iterator.hasNext()){
            Map.Entry<Short,String> entry = iterator.next();
            mList.add(new ShareCourseLevel(entry.getValue(),entry.getKey()));
-
        }
     }
 
@@ -54,7 +54,8 @@ public class CourseLevelSpinnerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView text;
         if(convertView == null){
-            text= (TextView) LayoutInflater.from(mContext).inflate(R.layout.component_spinner_content,null);
+            text= (TextView) LayoutInflater.from(mContext)
+                    .inflate(R.layout.component_spinner_content,null);
         }else{
             text = (TextView) convertView;
         }
