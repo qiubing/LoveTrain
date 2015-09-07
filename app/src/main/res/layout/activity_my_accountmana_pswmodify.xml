@@ -22,6 +22,7 @@
             android:text="@string/activity_my_accountmana_pswmodify_tittle_textview"/>
 
         <Button
+            android:id="@+id/my_accountmana_pswmodify_confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -43,6 +44,8 @@
                 android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
             <EditText
+                android:id="@+id/my_accountmana_pswmodify_oldpswedittext"
+                android:inputType="textPassword"
                 android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </TableRow>
 
@@ -55,6 +58,8 @@
                 android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
             <EditText
+                android:id="@+id/my_accountmana_pswmodify_oldpswconfirmedittext"
+                android:inputType="textPassword"
                 android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </TableRow>
 
@@ -67,6 +72,8 @@
                 android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
             <EditText
+                android:id="@+id/my_accountmana_pswmodify_newpswedittext"
+                android:inputType="textPassword"
                 android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </TableRow>
     </TableLayout>

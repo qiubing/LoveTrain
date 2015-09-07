@@ -9,7 +9,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
@@ -20,15 +19,19 @@
             </intent-filter>
         </activity>
 
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MyShareCourseDetailDisplayActivity" />
+
         <activity
             android:name=".ManagerScoreActivity"
             android:label="@string/title_activity_manager_score"></activity>
-        <activity android:name=".EmptyActivity" />
-        <activity android:name=".ManagerMySetting">
 
-        </activity>
+        <activity android:name=".EmptyActivity" />
+
+        <activity android:name=".ManagerMySetting"></activity>
+
         <activity
             android:name=".GuideActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -119,17 +122,18 @@
 
         <activity android:name=".LoginTest"></activity>
 
-
         <activity
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
-
         <activity android:name=".ManagerScoreUserActivity"></activity>
+
         <activity
             android:name=".ManagerScoreUserDetailActivity"
             android:label="@string/title_activity_manager_score_user_detail"></activity>
+
         <activity android:name=".ManagerScoreCourseDetailActivity"></activity>
+
         <activity
             android:name=".ManagerScoreCourseActivity"
             android:label="@string/title_activity_manager_score_course" />
@@ -137,12 +141,28 @@
         <activity
             android:name=".ManagerCreditActivity"
             android:label="@string/title_activity_manager_credit"></activity>
+
         <activity
             android:name=".ManagerCreditTotalActivity"
             android:label="@string/title_activity_manager_credit_total"></activity>
+
         <activity
             android:name=".ManagerCreditCourseActivity"
             android:label="@string/title_activity_manager_credit_course"></activity>
+
+        <activity android:name=".MyShareCourseDetailFillActivity" />
+
+        <activity
+            android:name=".MyShareCourseDetailDisplayActivity">
+        </activity>
+
+        <activity
+            android:name=".MyCourseJudgeDetailFillActivity">
+        </activity>
+
+        <activity
+            android:name=".MyAccountmanaPswmodifyActivity">
+        </activity>
     </application>
 
 

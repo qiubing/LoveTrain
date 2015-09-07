@@ -22,6 +22,7 @@
             android:text="@string/activity_mycourse_judge_detail_fill_title_textView"/>
 
         <Button
+            android:id="@+id/mycourse_judge_detail_fill_confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -29,6 +30,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/mycourse_judge_detail_fill_contentscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/contentrealm"
@@ -47,6 +49,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_contentapplicability_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_contentapplicability_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -59,6 +62,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_ContentRationality_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_contentRationality_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -71,6 +75,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_Discussion_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_discussion_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -83,6 +88,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_TimeRationality_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_timerationality_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -95,6 +101,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_ContentUnderstanding_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_contentunderstanding_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -107,6 +114,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_ExpressionAbility_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_expressionability_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -119,6 +127,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_Communication_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_communication_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -131,6 +140,7 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_Organization_textView"/>
 
             <RatingBar
+                android:id="@+id/mycourse_judge_detail_fill_organization_ratingbar"
                 android:layout_gravity="right"
                 android:numStars="@integer/judgeScore"
                 android:layout_width="wrap_content"
@@ -143,9 +153,11 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_ComprehensiveEvaluation_textView"/>
 
             <EditText
+                android:id="@+id/mycourse_judge_detail_fill_comprehensiveevaluation_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
-                android:isScrollContainer="true"/>
+                android:isScrollContainer="true"
+                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
 
             <TextView
                 style="@style/itemtitle"
@@ -154,9 +166,11 @@
                 android:text="@string/activity_mycourse_judge_detail_fill_Suggestion_textView"/>
 
             <EditText
+                android:id="@+id/mycourse_judge_detail_fill_suggestion_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
-                android:isScrollContainer="true"/>
+                android:isScrollContainer="true"
+                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
