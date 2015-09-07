@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/adapter_item_outside_layout_padding_style"
+    android:id="@+id/classLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
@@ -28,8 +29,8 @@
             android:paddingRight="3dp"
             android:src="@mipmap/arrow" />
 
-        <Button
-            android:id="@+id/class_evaluateBtn"
+        <TextView
+            android:id="@+id/class_evaluateTextView"
             style="@style/item_operation_attention_style"
             android:layout_toStartOf="@id/next"
             android:layout_marginEnd="10dp"
@@ -40,30 +41,30 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/class_evaluateBtn">
+            android:layout_alignLeft="@id/class_evaluateTextView">
 
-            <Button
+            <TextView
                 android:id="@+id/flag_share_level"
                 style="@style/item_flag_attention_style"
                 android:background="@color/red"
                 android:layout_marginRight="8dp"
                 android:text="部"
                 />
-            <Button
+            <TextView
                 android:id="@+id/flag_person"
                 style="@style/item_flag_attention_style"
                 android:background="@color/green"
                 android:layout_marginRight="8dp"
                 android:text="讲"
                 />
-            <Button
+            <TextView
                 android:id="@+id/flag_share"
                 style="@style/item_flag_attention_style"
                 android:background="@color/orange"
                 android:layout_marginRight="8dp"
                 android:text="享"
                 />
-            <Button
+            <TextView
                 android:id="@+id/flag_exam"
                 style="@style/item_flag_attention_style"
                 android:background="@color/lightblue"
@@ -76,7 +77,7 @@
             style="@style/item_layout_title"
             android:layout_width="wrap_content"
             android:layout_toEndOf="@id/item_layout_imageview"
-            android:layout_toStartOf="@id/class_evaluateBtn"
+            android:layout_toStartOf="@id/class_evaluateTextView"
             android:layout_marginStart="20dp"
             android:textSize="24sp"
             android:paddingTop="8dp"

@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,20 +13,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
 public class ManagerScoreUserDetailActivity extends Activity {
 
-    private TextView titleTV;
-    private String[] coursenames;
-    private String[] address;
-    private int[] scores;
+    private TextView mTitleTextView;
+    private String[] mCourseNames;
+    private String[] mAddress;
+    private int[] mScores;
 
     private void inti() {
         //TODO
-        coursenames = new String[]{"Java基础", "面向对象", "Android基础"};
-        scores = new int[]{90, 98, 88};
-        address = new String[]{"C2-6", "C2-2", "C6-6"};
+        mCourseNames = new String[]{"Java基础", "面向对象", "Android基础"};
+        mScores = new int[]{90, 98, 88};
+        mAddress = new String[]{"C2-6", "C2-2", "C6-6"};
     }
 
     @Override
@@ -34,16 +35,16 @@ public class ManagerScoreUserDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score_user_detail);
 
-        titleTV = (TextView) findViewById(R.id.manager_score_user_detail_title);
-        titleTV.setText("考试成绩查询" + "/" + getIntent().getStringExtra("name"));
+        mTitleTextView = (TextView) findViewById(R.id.manager_score_user_detail_title);
+        mTitleTextView.setText("考试成绩查询" + "/" + getIntent().getStringExtra("name"));
 
         List<Map<String, Object>> listItems = new ArrayList<>();
         inti();
-        for (int i = 0; i < coursenames.length; i++) {
+        for (int i = 0; i < mCourseNames.length; i++) {
             Map<String, Object> item = new HashMap<>();
-            item.put("coursename", coursenames[i]);
-            item.put("address", address[i]);
-            item.put("score", scores[i]);
+            item.put("coursename", mCourseNames[i]);
+            item.put("address", mAddress[i]);
+            item.put("score", mScores[i]);
             listItems.add(item);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_user_item_detail,
@@ -56,7 +57,7 @@ public class ManagerScoreUserDetailActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DialogUtil.showDialog(ManagerScoreUserDetailActivity.this,getIntent().getStringExtra("name")+
-                        " 《"+coursenames[position]+"》的成绩为："+scores[position],false);
+                        " 《"+ mCourseNames[position]+"》的成绩为："+ mScores[position]);
             }
         });
     }

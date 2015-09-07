@@ -4,6 +4,8 @@ package cn.nubia.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +24,7 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseEndTime;
     private TextView mCourseLocale;
     private TextView mCourseDescription;
-
+    private Button mCourseModifyButton;
     private ShareCourse mShareCourse;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,18 +48,27 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
                 .my_sharecourse_detail_display_courselocale_displaytextView);
         mCourseDescription =(TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursedescription_displaytextView);
-
-        String startTime = new SimpleDateFormat("yyyy-MM-dd").format( mShareCourse.getStartTime());
+        mCourseModifyButton = (Button) findViewById(R.id
+                .my_sharecourse_detail_display_modifybutton);
 
         mCourseName.setText(mShareCourse.getCourseName());
         mCourseLevel.setText(
                 ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourse.getCourseLevel()));
-        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format( mShareCourse.getStartTime()));
+        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourse.getStartTime()));
         mCourseStartTime.setText(
                 new SimpleDateFormat("HH:mm").format( mShareCourse.getStartTime()));
         mCourseEndTime.setText(
                 new SimpleDateFormat("HH:mm").format( mShareCourse.getEndTime()));
         mCourseLocale.setText(mShareCourse.getLocale());
         mCourseDescription.setText(mShareCourse.getCourseDescription());
+
+        mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
+
+
 }
