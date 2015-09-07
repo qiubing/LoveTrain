@@ -32,6 +32,7 @@
 
     <dimen name="jiangyu_item_smallverticalmargin">5dp</dimen>
     <dimen name="jiangyu_item_smallhorizontalmargin">10dp</dimen>
+    <dimen name="jiangyu_item_normallverticalmargin">30dp</dimen>
     <dimen name="jiangyu_item_normalhorizontalmargin">30dp</dimen>
     <dimen name="jiangyu_item_bighorizontalmargin">50dp</dimen>
 

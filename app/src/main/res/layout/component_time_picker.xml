@@ -6,13 +6,10 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <DatePicker
-        android:id="@+id/jiangyu_datepicker"
+    <TimePicker
+        android:id="@+id/jiangyu_timepicker"
         style="@style/itemtitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:calendarViewShown="false"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
-

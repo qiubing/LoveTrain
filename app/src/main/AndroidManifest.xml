@@ -16,20 +16,33 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/mm"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        
         <activity
             android:name=".SplashActivity"
-            android:alwaysRetainTaskState="true"
             android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MyShareCourseDetailFillActivity" />
+
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MyShareCourseDetailDisplayActivity" />
+
         <activity
+            android:name=".ManagerScoreActivity"
+            android:label="@string/title_activity_manager_score"></activity>
+
             android:name=".admin.ManagerScoreActivity"
             android:label="@string/title_activity_manager_score" />
         <activity android:name=".EmptyActivity" />
+
+        <activity android:name=".ManagerMySetting"></activity>
+
         <activity android:name=".admin.ManagerMySetting" >
         </activity>
         <activity
@@ -37,6 +50,8 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".MainAdminActivity"
+            android:alwaysRetainTaskState="true"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
             android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,6 +61,9 @@
         </activity>
         <activity
             android:name=".MainClientActivity"
+            android:alwaysRetainTaskState="true"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".admin.CourseAdminActivity"
@@ -60,6 +78,26 @@
             android:name=".admin.MyAdminActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
+            android:name=".admin.CourseAdminActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".admin.ExamAdminActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".admin.ShareAdminActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".admin.ShareAdminActivity_2"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".admin.MyAdminActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
             android:name=".client.MyCourseClientActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
@@ -67,13 +105,47 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.MyClientActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".client.AllCourceClientActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".client.MyCourseClientActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".LoginTest" />
         <activity
+            android:name=".client.MyCourseClientActivity_2"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity
+            android:name=".client.MyClientActivity_1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+
+
+
+        <activity android:name=".LoginTest"></activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+        <activity android:name=".ManagerScoreUserActivity"></activity>
+
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity android:name=".admin.ManagerScoreUserActivity" />
         <activity
+            android:name=".ManagerScoreUserDetailActivity"
+            android:label="@string/title_activity_manager_score_user_detail"></activity>
+
+        <activity android:name=".ManagerScoreCourseDetailActivity"></activity>
+
             android:name=".admin.ManagerScoreUserDetailActivity"
             android:label="@string/title_activity_manager_score_user_detail" />
         <activity android:name=".admin.ManagerScoreCourseDetailActivity" />
@@ -81,12 +153,30 @@
             android:name=".admin.ManagerScoreCourseActivity"
             android:label="@string/title_activity_manager_score_course" />
         <activity
+            android:name=".ManagerCreditActivity"
+            android:label="@string/title_activity_manager_credit"></activity>
+
             android:name=".admin.ManagerCreditActivity"
             android:label="@string/title_activity_manager_credit" />
         <activity
+            android:name=".ManagerCreditTotalActivity"
+            android:label="@string/title_activity_manager_credit_total"></activity>
+
             android:name=".admin.ManagerCreditTotalActivity"
             android:label="@string/title_activity_manager_credit_total" />
         <activity
+            android:name=".ManagerCreditCourseActivity"
+            android:label="@string/title_activity_manager_credit_course"></activity>
+
+        <activity android:name=".MyShareCourseDetailFillActivity" />
+
+        <activity
+            android:name=".MyCourseJudgeDetailFillActivity">
+        </activity>
+
+        <activity
+            android:name=".MyAccountmanaPswmodifyActivity">
+        </activity>
             android:name=".admin.ManagerCreditCourseActivity"
             android:label="@string/title_activity_manager_credit_course" />
         <activity
@@ -94,5 +184,16 @@
             android:label="@string/title_activity_manager_rate" >
         </activity>
     </application>
+
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
 </manifest>
