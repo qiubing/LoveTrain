@@ -30,7 +30,7 @@ public class MyAdminActivity extends ActivityGroup implements View.OnClickListen
         integral_query = (TextView)findViewById(R.id.integral_query);
         assess_manage = (TextView)findViewById(R.id.assess_manage);
         user_manage = (TextView)findViewById(R.id.user_manage);
-        account_manage = (TextView) findViewById(R.id.account_manage);
+        account_manage = (TextView) findViewById(R.id.admin_account_manage);
         about_us = (TextView)findViewById(R.id.about_us);
         change_account = (Button)findViewById(R.id.change_account);
 
