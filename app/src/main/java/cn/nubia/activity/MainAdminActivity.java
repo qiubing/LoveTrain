@@ -1,12 +1,10 @@
 package cn.nubia.activity;
 
 
-import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -95,7 +93,7 @@ public class MainAdminActivity extends ActivityGroup {
      */
     private void exit() {
         if (System.currentTimeMillis() - mExitTime > INTERVAL) {
-            Toast.makeText(this, "再按一次返回退出应用", 1000).show();
+            Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
             android.os.Process.killProcess(android.os.Process.myPid());
