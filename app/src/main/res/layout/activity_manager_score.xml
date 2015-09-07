@@ -1,0 +1,48 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="0dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip">
+
+            <TextView
+                android:id="@+id/manager_my_title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="85.0dip"
+                android:layout_marginRight="85.0dip"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/title_activity_manager_score"
+                android:textColor="@color/grayslate"
+                android:textSize="22.0sp" />
+        </RelativeLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"></TabWidget>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+        <!-- 将tabhost的tabcontent隐藏，用viewPage填充 -->
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone"></FrameLayout>
+    </LinearLayout>
+
+</TabHost>
