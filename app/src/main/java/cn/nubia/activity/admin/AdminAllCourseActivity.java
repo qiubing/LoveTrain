@@ -1,7 +1,8 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import cn.nubia.activity.R;
 
 /**
  * Created by hexiao on 2015/9/2.
@@ -102,6 +105,16 @@ public class AdminAllCourseActivity extends Activity {
                 RelativeLayout relativeLayoutGroup = (RelativeLayout) layoutInflater.inflate(R.layout.class_info_item, null);
                 TextView mCourseNameTextView = (TextView) relativeLayoutGroup.findViewById(R.id.item_layout_title);
                 mCourseNameTextView.setText(groupArray[groupPosition].toString());
+                //为报名考试添加点击事件
+                TextView classEvaluateTextView=(TextView)relativeLayoutGroup.findViewById(R.id.class_evaluateTextView);
+                classEvaluateTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentSignUp = new Intent(AdminAllCourseActivity.this,AdminSignUpControlActivity.class);
+                        startActivity(intentSignUp);
+                        finish();
+                    }
+                });
                 return relativeLayoutGroup;
             }
 

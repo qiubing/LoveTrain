@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import cn.nubia.activity.R;
 
 /**
  * 管理员课程详细界面

@@ -1,10 +1,12 @@
-package cn.nubia.activity;
+package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import cn.nubia.activity.R;
 
 /**
  * Created by hexiao on 2015/9/7.
