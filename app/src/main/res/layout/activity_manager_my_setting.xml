@@ -1,164 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/soft_comment_title_content_windows"
+    android:orientation="vertical" >
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="45.0dip">-->
+    <include
+        android:id="@+id/titlecon"
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:layout_marginTop="5dp"
+        layout="@layout/header_home" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/manager_my_title"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="85.0dip"-->
-            <!--android:layout_marginRight="85.0dip"-->
-            <!--android:gravity="center"-->
-            <!--android:singleLine="true"-->
-            <!--android:text="@string/manger_setting_title"-->
-            <!--android:textColor="@color/grayslate"-->
-            <!--android:textSize="22.0sp" />-->
-    <!--</RelativeLayout>-->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/background" />
 
-    <LinearLayout
-        android:id="@+id/layout_queryscore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/linear_padding_bottom">
-        <!--android:background="@drawable/my_tab_background"-->
-        <TextView
-            android:id="@+id/manager_my_score"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@drawable/my_list_txt_background"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/text_padding_bottom"
-            android:paddingLeft="@dimen/text_padding_left"
-            android:paddingTop="@dimen/text_padding_top"
-            android:text="成绩查询"
-            android:textSize="@dimen/text_view_font_size" />
+            android:orientation="vertical" >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_list_txt_background"
-            android:paddingRight="@dimen/image_padding_right"
-            android:src="@mipmap/arrow" />
-    </LinearLayout>
+            <include
+                android:id="@+id/myProfile"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/userinfo_profile_item" />
 
-    <LinearLayout
-        android:id="@+id/layout_querycredit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/item_bg"
+                android:orientation="vertical" >
 
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/linear_padding_bottom">
+                <TextView
+                    android:id="@+id/queryscore"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="成绩查询" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@drawable/my_list_txt_background"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/text_padding_bottom"
-            android:paddingLeft="@dimen/text_padding_left"
-            android:paddingTop="@dimen/text_padding_top"
-            android:text="积分查询"
-            android:textSize="@dimen/text_view_font_size" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#dddbdb" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_list_txt_background"
-            android:paddingRight="@dimen/image_padding_right"
-            android:src="@mipmap/arrow" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/querycredit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="积分查询" />
 
-    <LinearLayout
-        android:id="@+id/layout_ratemanage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/linear_padding_bottom">
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#dddbdb" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@drawable/my_list_txt_background"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/text_padding_bottom"
-            android:paddingLeft="@dimen/text_padding_left"
-            android:paddingTop="@dimen/text_padding_top"
-            android:text="评级管理"
-            android:textSize="@dimen/text_view_font_size" />
+                <TextView
+                    android:id="@+id/ratemanage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="评级管理" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_list_txt_background"
-            android:paddingRight="@dimen/image_padding_right"
-            android:src="@mipmap/arrow" />
-    </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#dddbdb" />
 
-    <LinearLayout
-        android:id="@+id/layout_accountmanage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/linear_padding_bottom">
+                <TextView
+                    android:id="@+id/usermanage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="用户管理" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@drawable/my_list_txt_background"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/text_padding_bottom"
-            android:paddingLeft="@dimen/text_padding_left"
-            android:paddingTop="@dimen/text_padding_top"
-            android:text="账号管理"
-            android:textSize="@dimen/text_view_font_size" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#dddbdb" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_list_txt_background"
-            android:paddingRight="@dimen/image_padding_right"
-            android:src="@mipmap/arrow" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/accountmanage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="账号管理" />
 
-    <LinearLayout
-        android:id="@+id/layout_usermanage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/linear_padding_bottom">
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#dddbdb" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@drawable/my_list_txt_background"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/text_padding_bottom"
-            android:paddingLeft="@dimen/text_padding_left"
-            android:paddingTop="@dimen/text_padding_top"
-            android:text="用户管理"
-            android:textSize="@dimen/text_view_font_size" />
+                <TextView
+                    android:id="@+id/about_us"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="关于我们" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_list_txt_background"
-            android:paddingRight="@dimen/image_padding_right"
-            android:src="@mipmap/arrow" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/change_account"
+                style="@style/CustomBigLoginButton"
+                android:text="更换账号" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

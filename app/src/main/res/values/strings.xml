@@ -183,6 +183,8 @@
     <string name="examInfo">考试信息</string>
     <string name="deleteExam">删除考试</string>
     <string name="markExam">批阅考试</string>
+    <string name="title_activity_manager_user">ManagerUserActivity</string>
+    <string name="activity_manager_user">用户管理</string>
 
 
 
