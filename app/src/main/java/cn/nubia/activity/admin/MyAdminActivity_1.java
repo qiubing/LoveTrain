@@ -8,7 +8,6 @@ import android.view.Window;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
-import cn.nubia.util.DialogUtil;
 
 /**
  * 管理员-我的-主界面
@@ -64,9 +63,13 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.accountmanage:
+                intent = new Intent(MyAdminActivity_1.this,ManagerAddExamActivity.class);
+                startActivity(intent);
                 break;
             case R.id.about_us:
-                DialogUtil.showDialog(MyAdminActivity_1.this,"LoveTrain!");
+//                DialogUtil.showDialog(MyAdminActivity_1.this,"LoveTrain!");
+                intent = new Intent(MyAdminActivity_1.this,ManagerExamInputScoreActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
