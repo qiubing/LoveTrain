@@ -19,29 +19,60 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_launcher" />
 
-        <ImageView
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/my_list_txt_background"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="3dp"
-            android:src="@mipmap/arrow" />
+        <!--<TextView-->
+            <!--android:id="@+id/admin_all_course_addLessonTextView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/my_list_txt_background"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:paddingRight="3dp"-->
+            <!--android:paddingLeft="3dp"-->
+            <!--android:text="+"-->
+            <!--android:textSize="20sp"/>-->
+
 
         <TextView
-            android:id="@+id/class_evaluateTextView"
+        android:id="@+id/admin_all_course_courseDetailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_list_txt_background"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:text=">"
+        android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/class_signUpExamTextView"
             style="@style/item_operation_attention_style"
-            android:layout_toStartOf="@id/next"
+            android:layout_toLeftOf="@id/admin_all_course_courseDetailTextView"
+            android:layout_toStartOf="@id/admin_all_course_courseDetailTextView"
             android:layout_marginEnd="10dp"
+            android:layout_alignBottom="@+id/item_layout_imageview"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="报名考试"
             />
 
+        <TextView
+            android:id="@+id/admin_all_course_addLessonTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_list_txt_background"
+            android:layout_below="@+id/item_layout_title"
+            android:layout_toRightOf="@id/item_layout_imageview"
+            android:layout_alignLeft="@id/item_layout_title"
+            android:paddingRight="3dp"
+            android:paddingLeft="3dp"
+            android:text="+"
+            android:textSize="20sp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/class_evaluateTextView">
+            android:layout_alignLeft="@id/class_signUpExamTextView">
 
             <TextView
                 android:id="@+id/flag_share_level"
@@ -77,8 +108,11 @@
             style="@style/item_layout_title"
             android:layout_width="wrap_content"
             android:layout_toEndOf="@id/item_layout_imageview"
-            android:layout_toStartOf="@id/class_evaluateTextView"
+            android:layout_toRightOf="@id/item_layout_imageview"
+            android:layout_toStartOf="@id/class_signUpExamTextView"
+            android:layout_toLeftOf="@id/class_signUpExamTextView"
             android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:textSize="24sp"
             android:paddingTop="8dp"
             android:text="java基础"

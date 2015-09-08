@@ -158,6 +158,9 @@
     <string name="lesson_QRCodeImage_generate_button_text">生成二维码</string>
     <string name="lessonInfo">课时信息</string>
     <string name="lessonComment">评价</string>
+    <string name="deleteLessonButton">删除课时</string>
+    <string name="alterLessonButton">修改课时</string>
+
 
     <!--管理员签到信息Activity-->
     <string name="signInInfo">签到/报考人员信息</string>

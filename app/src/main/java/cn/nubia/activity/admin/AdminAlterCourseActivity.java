@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import cn.nubia.activity.MainAdminActivity;
 import cn.nubia.activity.R;
 
 /**
@@ -48,8 +50,9 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.admin_course_detail_backImage:
-                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this,AdminCourseDetailActivity.class);
+            case R.id.admin_alter_course_backImage:
+                Toast.makeText(AdminAlterCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
+                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this,MainAdminActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;
@@ -60,6 +63,11 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                 whetherHighLevelCourse=alterCourseWhetherHighLevelCourseCheckBox.isChecked();
                 //加入到课程数据库中，返回是否加入成功的状态值
                 //....
+                Intent intentAlterForSure = new Intent(AdminAlterCourseActivity.this,AdminCourseDetailActivity.class);
+                startActivity(intentAlterForSure);
+                Toast.makeText(AdminAlterCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
+                finish();
+                break;
         }
 
     }

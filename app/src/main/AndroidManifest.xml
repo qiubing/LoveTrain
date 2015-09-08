@@ -130,6 +130,17 @@
         <activity
             android:name=".admin.ManagerRateActivity"
             android:label="@string/title_activity_manager_rate"></activity>
+
+        <activity android:name=".admin.AdminAddLessonActivity"></activity>
+        <activity android:name=".admin.AdminAlterCourseActivity"></activity>
+        <activity android:name=".admin.AdminAlterLessonActivity"></activity>
+        <activity android:name=".admin.AdminCourseDetailActivity"></activity>
+        <activity android:name=".admin.AdminDeleteCourseActivity"></activity>
+        <activity android:name=".admin.AdminLessonDetailActivity"></activity>
+        <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>
+        <activity android:name=".admin.AdminSignUpManageActivity"></activity>
+
+
     </application>
 
 </manifest>

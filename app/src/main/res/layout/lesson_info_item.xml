@@ -27,7 +27,7 @@
             android:text="java基础一"
             />
 
-        <Button
+        <TextView
             android:id="@+id/evaluateBtn"
             style="@style/item_operation_attention_style"
             android:layout_alignParentRight="true"
