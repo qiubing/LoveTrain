@@ -3,6 +3,7 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -33,12 +34,12 @@ public class ExamScoreActivity extends Activity {
             "Java基础四","Android开发四","OO思想"
     };
 
-    private int[] scores = new int[]{
-            10,20,30,
-            20,30,40,
-            30,40,60,
-            40,50,70,
-            40,50,70
+    private String[] scores = new String[]{
+            "10","20","30",
+            "20","30","40",
+            "30","40","未考试",
+            "40","未考试","70",
+            "40","50","未考试"
     };
 
     @Override
@@ -67,5 +68,13 @@ public class ExamScoreActivity extends Activity {
         ListView list = (ListView)findViewById(R.id.exam_score_detail);
         list.setAdapter(adapter);
         Utils.setListViewHeightBasedOnChildren(list);
+    }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * @param view
+     */
+    public void back(View view){
+        this.finish();
     }
 }
