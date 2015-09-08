@@ -68,6 +68,11 @@ public class Constant {
      * 下载文件保存的本地路径
      */
     public static final String LOCAL_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MyDownloader" + File.separator;
+
+    /**
+     * 二维码保存的本地文件夹
+     */
+    public static final String BARCODE_PATH = LOCAL_PATH + "barcode" + File.separator;
     /**
      * 下载地址列表
      */

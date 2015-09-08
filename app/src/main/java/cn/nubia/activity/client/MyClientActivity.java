@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,11 +155,6 @@ public class MyClientActivity extends ActivityGroup {
         }
     }
 
-    // search
 
-    public void search(View view) {
-        //startActivity(new Intent(this, SearchActivity.class));
-        Toast.makeText(this, "二维码签到", Toast.LENGTH_LONG).show();
-    }
 }
 
