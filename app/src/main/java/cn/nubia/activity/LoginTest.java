@@ -15,20 +15,22 @@ public class LoginTest extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_test);
-        Button button1 = (Button)findViewById(R.id.asAdmin);
-        Button button2 = (Button)findViewById(R.id.asClient);
+        Button butonAsAdmin = (Button)findViewById(R.id.asAdmin);
+        Button buttonAsClient = (Button)findViewById(R.id.asClient);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        butonAsAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginTest.this, MainAdminActivity.class));
+                LoginTest.this.finish();
             }
         });
 
-       button2.setOnClickListener(new View.OnClickListener() {
+        buttonAsClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginTest.this, MainClientActivity.class));
+                LoginTest.this.finish();
             }
         });
 

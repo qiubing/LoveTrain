@@ -12,27 +12,12 @@
         android:scaleType="centerCrop" />
 
     <LinearLayout
-        android:id="@+id/copyright"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:paddingBottom="10.0dip" >
-
-        <TextView
-            android:id="@+id/copyrigh_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/copyright"
-            android:textColor="@color/E505050"
-            android:textSize="12.0sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/copyright" >
+        android:paddingBottom="10.0dip"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="fill_parent"
@@ -41,6 +26,14 @@
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textColor="@color/E505050"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/copyright"
+            android:textColor="@color/E505050"
+            android:textSize="12.0sp" />
     </LinearLayout>
 
 </RelativeLayout>

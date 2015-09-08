@@ -13,9 +13,16 @@ import java.util.TimerTask;
 import cn.nubia.util.Constant;
 import cn.nubia.util.SpUtil;
 
+
+/*胡立加，开机动画
+* activity_splash：相对布局，图片铺满全屏，然后app和版权TextView位于相对布局的底部，局部覆盖全屏图片
+* 如果是首次运行，跳转到GuideActivity，否则跳转到登录Activity
+* 非首次启动动画时间为600+1000
+* */
+
 public class SplashActivity extends Activity {
 
-	Timer mTimer = new Timer();
+	private Timer mTimer = new Timer();
 	private int flag = 0;
 
 	private Handler handler = new Handler() {
@@ -25,8 +32,8 @@ public class SplashActivity extends Activity {
 			case 1:
 				boolean isFirstRun = SpUtil.getBoolean(SplashActivity.this,
 						Constant.IS_FIRST_RUN);
-				if (!isFirstRun) {
-					SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, true);
+				if (isFirstRun) {
+					SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, false);
 					mTimer.cancel();
 					Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
 					startActivity(intent);
@@ -36,6 +43,7 @@ public class SplashActivity extends Activity {
 			case 2:
 				Intent intent = new Intent(SplashActivity.this, LoginTest.class);
 				startActivity(intent);
+				SplashActivity.this.finish();
 				break;
 			}
 
@@ -56,7 +64,6 @@ public class SplashActivity extends Activity {
 				handler.sendMessage(mesasge);
 			}
 		}, 600, 1000);
-
 	}
 
 	@Override
