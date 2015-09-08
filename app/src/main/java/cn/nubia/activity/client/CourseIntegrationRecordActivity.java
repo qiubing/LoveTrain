@@ -4,6 +4,7 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -71,5 +72,13 @@ public class CourseIntegrationRecordActivity extends Activity {
         ListView list = (ListView)findViewById(R.id.course_integration_detail);
         list.setAdapter(adapter);
         Utils.setListViewHeightBasedOnChildren(list);
+    }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * @param view
+     */
+    public void back(View view){
+        this.finish();
     }
 }

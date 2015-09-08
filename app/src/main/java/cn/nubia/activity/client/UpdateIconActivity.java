@@ -21,9 +21,13 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import cn.nubia.activity.BaseActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
+import cn.nubia.util.Constant;
+import cn.nubia.util.Utils;
 
 /**
  * @Description: 更新图像的类
@@ -31,6 +35,8 @@ import cn.nubia.component.CircleImageView;
  * @Date: 2015/9/6 20:23
  */
 public class UpdateIconActivity extends BaseActivity implements OnClickListener{
+    private static final String TAG = "UpdateIconActivity";
+
     private CircleImageView mCircleImageView;
     private Button mEditButton;
     private Button mUpLoadButton;
@@ -84,6 +90,7 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
                 break;
             case R.id.btn_upload:
                 showShortToast("长传头像");
+                //TODO:上传图像到服务器
                 break;
         }
     }
@@ -156,6 +163,7 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
                         android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                Log.v(TAG,photoUri.toString());
                 Log.e("takePhoto", "takePhoto");
             } else {
                 Toast.makeText(this, "发生意外，无法写入相册", Toast.LENGTH_LONG).show();
@@ -188,6 +196,7 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
             switch (requestCode) {
                 case IMAGE_REQUEST_CODE:
                     startPhotoZoom(data.getData());
+                    Log.v(TAG,data.getData().toString());
                     break;
                 case CAMERA_REQUEST_CODE:
                     Log.e("CAMERA_REQUEST_CODE", "CAMERA_REQUEST_CODE");
@@ -195,7 +204,11 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
                     break;
                 case RESULT_REQUEST_CODE:
                     if (data != null) {
-                        getImageToView(data);
+                        try {
+                            getImageToView(data);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         /*返回照片给上一级显示*/
                         UpdateIconActivity.this.setResult(RETURN_PHOTO_CODE,data);
                         UpdateIconActivity.this.finish();
@@ -212,10 +225,12 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
      * @param
      */
     @SuppressWarnings("deprecation")
-    private void getImageToView(Intent data) {
+    private void getImageToView(Intent data) throws IOException {
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
+            //保存文件到SD卡中
+            Utils.saveFile(photo, Constant.PORTRAIT);
             Drawable drawable = new BitmapDrawable(photo);
             mCircleImageView.setImageDrawable(drawable);
             // 上传头像到服务器上去

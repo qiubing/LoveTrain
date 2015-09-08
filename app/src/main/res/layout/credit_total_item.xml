@@ -5,12 +5,6 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding">
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/score_user_linearyout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-    <!--</LinearLayout>-->
         <TextView
             android:id="@+id/credit_total_username"
             android:layout_width="wrap_content"
@@ -27,8 +21,10 @@
 
 
     <TextView
+        android:text="88"
         android:id="@+id/credit_totalcredit"
         android:layout_width="wrap_content"
+        android:gravity="center_vertical"
         android:layout_centerVertical="true"
         android:layout_height="@dimen/manager_score_image_hight"
         android:layout_alignParentRight="true"

@@ -129,7 +129,7 @@ public class GuideActivity extends Activity {
 				startImg = (ImageView) findViewById(R.id.guide_logIn);
 				startImg.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						Intent intent = new Intent(GuideActivity.this, LoginTest.class);
+						Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
 						startActivity(intent);
 						GuideActivity.this.finish();
 					}

@@ -83,4 +83,12 @@ public class ShareCourseActivity extends Activity {
             }
         });
     }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * @param view
+     */
+    public void back(View view){
+        this.finish();
+    }
 }

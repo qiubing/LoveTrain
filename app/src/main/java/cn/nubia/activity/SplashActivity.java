@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
 				}
 				break;
 			case 2:
-				Intent intent = new Intent(SplashActivity.this, LoginTest.class);
+				Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
 				startActivity(intent);
 				SplashActivity.this.finish();
 				break;
