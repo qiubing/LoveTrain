@@ -36,7 +36,7 @@ public class GuideActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide);
-
+		//准备数据
 		View v1 = View.inflate(this, R.layout.guide_one, null);
 		View v2 = View.inflate(this, R.layout.guide_two, null);
 		View v3 = View.inflate(this, R.layout.guide_three, null);
@@ -45,10 +45,12 @@ public class GuideActivity extends Activity {
 		mViewList.add(v2);
 		mViewList.add(v3);
 		mViewList.add(v4);
+
+		initDots();
+
 		mViewPager = (ViewPager)findViewById(R.id.guide_viewPager);
 		mViewPager.setAdapter(pagerAdapter);
-		// 初始化底部小点
-		initDots();
+
 
 		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
