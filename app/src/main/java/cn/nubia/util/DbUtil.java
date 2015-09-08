@@ -195,7 +195,7 @@ public class DbUtil {
             lessonItem.setLessonName(cursor.getString(cursor.getColumnIndex(LessonItem.LESSON_NAME)));
             lessonItem.setLocation(cursor.getString(cursor.getColumnIndex(LessonItem.LOCALE)));
             lessonItem.setTeacherCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.TEACHER_CREDITS)));
-            lessonItem.setTeacherID(cursor.getString(cursor.getColumnIndex(LessonItem.LOCALE)));
+            lessonItem.setTeacherID(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_ID)));
             lessonItem.setTeacherName(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_NAME)));
             lessonItem.setLessonTheme(cursor.getString(cursor.getColumnIndex(LessonItem.LESSON_THEME)));
             lessonList.add(lessonItem);

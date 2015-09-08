@@ -9,12 +9,11 @@
     </string-array>
 
     <string name="app_name">LoveTrain</string>
-    <string name="copyright">Copyright 2015–2020 nubia   版权所有</string>
+    <string name="copyright">Copyright 2015–2120 nubia   版权所有</string>
     <string name="icon_course">课程</string>
     <string name="icon_exam">考试</string>
     <string name="icon_share">技术分享</string>
     <string name="icon_my">我的</string>
-
 
 
     <string name="hello_world">Hello world!</string>
@@ -186,8 +185,18 @@
     <string name="examInfo">考试信息</string>
     <string name="deleteExam">删除考试</string>
     <string name="markExam">批阅考试</string>
+    <string name="title_activity_manager_user">ManagerUserActivity</string>
+    <string name="activity_manager_user">用户管理</string>
 
-
+    <string name="activity_manager_add_exam_title">新增考试</string>
+    <string name="activity_manager_add_exam_one">一级课题</string>
+    <string name="activity_manager_add_exam_info">考试简介</string>
+    <string name="activity_manager_add_exam_address">考试地点</string>
+    <string name="activity_manager_add_exam_time">考试时间</string>
+    <string name="activity_manager_add_exam_credit">考试积分</string>
+    <string name="activity_manager_add_exam_add">确认增加</string>
+    <string name="activity_manager_add_exam_hint">请输入文本</string>
+    <string name="title_activity_manager_add_exam">ManagerAddExamActivity</string>
 
 
 </resources>

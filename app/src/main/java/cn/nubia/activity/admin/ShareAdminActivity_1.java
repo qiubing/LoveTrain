@@ -15,4 +15,6 @@ public class ShareAdminActivity_1 extends Activity {
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "ShareAdminActivity_1", Toast.LENGTH_LONG).show();
     }
+
+
 }

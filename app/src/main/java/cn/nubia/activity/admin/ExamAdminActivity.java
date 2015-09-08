@@ -4,11 +4,11 @@ import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
@@ -24,17 +24,16 @@ import cn.nubia.activity.R;
 /**
  * Created by 胡立 on 2015/9/6.
  */
-@SuppressWarnings("deprecation")
 public class ExamAdminActivity extends ActivityGroup {
     private List<View> listViews;
-    LocalActivityManager manager;
+    private LocalActivityManager manager;
     private TabHost tabHost;
     private ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_cource);
+        setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
@@ -50,7 +49,7 @@ public class ExamAdminActivity extends ActivityGroup {
         Intent i3 = new Intent(ExamAdminActivity.this, ExamAdminActivity_1.class);
         listViews.add(getView("C", i3));
 
-        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        tabHost = (TabHost)findViewById(R.id.admin_course_tabhost);
         tabHost.setup(ExamAdminActivity.this.getLocalActivityManager());
 
         // 这儿主要是自定义一下tabhost中的tab的样式
@@ -90,7 +89,7 @@ public class ExamAdminActivity extends ActivityGroup {
         tabHost.addTab(tabHost.newTabSpec("C").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+       /* pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
@@ -121,7 +120,7 @@ public class ExamAdminActivity extends ActivityGroup {
                     pager.setCurrentItem(2);
                 }
             }
-        });
+        });*/
 
     }
 
@@ -138,13 +137,8 @@ public class ExamAdminActivity extends ActivityGroup {
         }
 
         @Override
-        public void destroyItem(View view, int position, Object arg2) {
-            ViewPager pViewPager = ((ViewPager) view);
-            pViewPager.removeView(list.get(position));
-        }
-
-        @Override
-        public void finishUpdate(View arg0) {
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView( list.get(position));
         }
 
         @Override
@@ -153,9 +147,8 @@ public class ExamAdminActivity extends ActivityGroup {
         }
 
         @Override
-        public Object instantiateItem(View view, int position) {
-            ViewPager pViewPager = ((ViewPager) view);
-            pViewPager.addView(list.get(position));
+        public Object instantiateItem(ViewGroup container, int position) {
+            container.addView(list.get(position));
             return list.get(position);
         }
 
@@ -163,26 +156,7 @@ public class ExamAdminActivity extends ActivityGroup {
         public boolean isViewFromObject(View arg0, Object arg1) {
             return arg0 == arg1;
         }
-
-        @Override
-        public void restoreState(Parcelable arg0, ClassLoader arg1) {
-        }
-
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void startUpdate(View arg0) {
-        }
     }
 
-    // search
-
-    public void search(View view) {
-        //startActivity(new Intent(this, SearchActivity.class));
-        Toast.makeText(ExamAdminActivity.this, "二维码签到", Toast.LENGTH_LONG).show();
-    }
 }
 

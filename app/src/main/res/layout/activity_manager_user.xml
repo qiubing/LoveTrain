@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="cn.nubia.activity.admin.ManagerUserActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip">
+
+        <TextView
+            android:id="@+id/manager_my_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="85.0dip"
+            android:layout_marginRight="85.0dip"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/activity_manager_user"
+            android:textColor="@color/grayslate"
+            android:textSize="22.0sp" />
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/manager_user_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"></ListView>
+
+</LinearLayout>

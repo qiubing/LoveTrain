@@ -14,12 +14,19 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/*胡立加，用户向导
+* activity_guide：相对布局，ViewPager铺满全屏，然后四个dot位于相对布局的底部，局部覆盖ViewPager
+* mViewPager用于展示四个layout，使用PagerAdapter为其提供数据，数据源为四个layout的List<View>
+* 并为mViewPager绑定监听器，当ViewPager显示的Fragment发生改变时改变相应dot的状态
+* */
+
+
 public class GuideActivity extends Activity {
 
 
-	ViewPager mViewPager;
-	List<View> mViewList = new ArrayList<View>();
-	ImageView startImg;
+	private ViewPager mViewPager;
+	private List<View> mViewList = new ArrayList<View>();
+	private ImageView startImg;
 	// 底部小点图片
 	private ImageView[] dots;
 	// 记录当前选中位置
@@ -29,7 +36,7 @@ public class GuideActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide);
-
+		//准备数据
 		View v1 = View.inflate(this, R.layout.guide_one, null);
 		View v2 = View.inflate(this, R.layout.guide_two, null);
 		View v3 = View.inflate(this, R.layout.guide_three, null);
@@ -38,12 +45,14 @@ public class GuideActivity extends Activity {
 		mViewList.add(v2);
 		mViewList.add(v3);
 		mViewList.add(v4);
+
+		initDots();
+
 		mViewPager = (ViewPager)findViewById(R.id.guide_viewPager);
 		mViewPager.setAdapter(pagerAdapter);
-		// 初始化底部小点
-		initDots();
-		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
+
+		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int i, float v, int i1) {
 
@@ -76,7 +85,6 @@ public class GuideActivity extends Activity {
 	}
 
 	private void setCurrentDot(int position) {
-		//huhu，这个判断有必要？
 		if (position < 0 || position > mViewList.size() - 1
 				|| currentIndex == position) {
 			return;
@@ -121,7 +129,7 @@ public class GuideActivity extends Activity {
 				startImg = (ImageView) findViewById(R.id.guide_logIn);
 				startImg.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						Intent intent = new Intent(GuideActivity.this, LoginTest.class);
+						Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
 						startActivity(intent);
 						GuideActivity.this.finish();
 					}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/user_share_course_title"
+        android:layout_width="match_parent"
+        android:layout_height="48.0dip"
+        layout="@layout/include_back_title_item_layout"
+        android:layout_alignParentTop="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background" />
+
+
+    <ScrollView
+        android:id="@+id/scroll_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_share_course_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/share_course_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

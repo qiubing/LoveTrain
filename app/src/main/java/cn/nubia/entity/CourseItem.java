@@ -2,6 +2,7 @@ package cn.nubia.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by JiangYu on 2015/9/1.
@@ -15,8 +16,8 @@ public class CourseItem implements Serializable{
     public static String HASEXAM = "hasExam";
     public static String CREDITS = "course_credits";
     public static String RECORD_MODIFY_TIME = "course_record_modify_time";
-
     public static String COURSE_INDEX = "course_index";
+
     private int mCourseIndex;
     private String mCourseName;
     private String mCourseDescription;
@@ -29,6 +30,15 @@ public class CourseItem implements Serializable{
     private short mIsDelete;
     private long mRecordModifyTime;
     private short mShareType;
+    private List<LessonItem> mLessonList;
+
+    public List<LessonItem> getmLessonList() {
+        return mLessonList;
+    }
+
+    public void setmLessonList(List<LessonItem> mLessonList) {
+        this.mLessonList = mLessonList;
+    }
 
     public short getShareType() {
         return mShareType;
@@ -108,14 +118,6 @@ public class CourseItem implements Serializable{
 
     public void setCourseCredits(int courseCredits) {
         this.mCourseCredits = courseCredits;
-    }
-
-    public short isDelete() {
-        return mIsDelete;
-    }
-
-    public void setIsDelete(short isDelete) {
-        this.mIsDelete = isDelete;
     }
 
     public long getRecordModifyTime() {

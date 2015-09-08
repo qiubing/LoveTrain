@@ -34,7 +34,7 @@ public class MyClientActivity extends ActivityGroup {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_cource);
+        setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view

@@ -1,4 +1,4 @@
-package cn.nubia.activity;
+package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 
+import cn.nubia.activity.R;
 import cn.nubia.entity.LessonJudgement;
 
 /**
@@ -25,40 +26,8 @@ public class MyCourseJudgeDetailFillActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycourse_judge_detail_fill);
 
-        mConfirmButton =(Button) findViewById(
-                R.id.mycourse_judge_detail_fill_confirmbutton);
-        mComprehensiveEvaluationEditText =(EditText) findViewById(
-                R.id.mycourse_judge_detail_fill_comprehensiveevaluation_edittext);
-        mSuggestionEditText =(EditText) findViewById(
-                R.id.mycourse_judge_detail_fill_suggestion_edittext);
-        mContentScrollView =(ScrollView) findViewById(
-                R.id.mycourse_judge_detail_fill_contentscrollview);
-
-        /**设置当输入框被触碰时，内容滚动界面不响应触碰事件，及手指在输入框上移动时，
-         * 内容滚动界面不会滚动，只有输入框才会滚动*/
-        mComprehensiveEvaluationEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP)
-                    mContentScrollView.requestDisallowInterceptTouchEvent(false);
-                else
-                    mContentScrollView.requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-        mSuggestionEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP)
-                    mContentScrollView.requestDisallowInterceptTouchEvent(false);
-                else
-                    mContentScrollView.requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-
-        /**监听确认按钮，进行提交动作*/
-        mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+        holdView();
+        setViewLogic();
     }
 
     private View.OnClickListener makeConfirmOnClickListener(){
@@ -88,5 +57,44 @@ public class MyCourseJudgeDetailFillActivity extends Activity{
                         mSuggestionEditText.getText().toString());
             }
         };
+    }
+
+    private void holdView(){
+        mConfirmButton =(Button) findViewById(
+                R.id.mycourse_judge_detail_fill_confirmbutton);
+        mComprehensiveEvaluationEditText =(EditText) findViewById(
+                R.id.mycourse_judge_detail_fill_comprehensiveevaluation_edittext);
+        mSuggestionEditText =(EditText) findViewById(
+                R.id.mycourse_judge_detail_fill_suggestion_edittext);
+        mContentScrollView =(ScrollView) findViewById(
+                R.id.mycourse_judge_detail_fill_contentscrollview);
+    }
+
+    private void setViewLogic(){
+        /**设置当输入框被触碰时，内容滚动界面不响应触碰事件，及手指在输入框上移动时，
+         * 内容滚动界面不会滚动，只有输入框才会滚动*/
+        mComprehensiveEvaluationEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    mContentScrollView.requestDisallowInterceptTouchEvent(false);
+                else
+                    mContentScrollView.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        mSuggestionEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                    mContentScrollView.requestDisallowInterceptTouchEvent(false);
+                else
+                    mContentScrollView.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        /**监听确认按钮，进行提交动作*/
+        mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 }
