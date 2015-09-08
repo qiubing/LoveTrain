@@ -1,19 +1,20 @@
-package cn.nubia.activity.client;
-
+package cn.nubia.activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import cn.nubia.activity.BaseActivity;
-import cn.nubia.activity.R;
+import cn.nubia.activity.client.AccountManagementActivity;
+import cn.nubia.activity.client.CourseIntegrationRecordActivity;
+import cn.nubia.activity.client.ExamScoreActivity;
+import cn.nubia.activity.client.MyCheckRecordActivity;
+import cn.nubia.activity.client.ShareCourseActivity;
 
 /**
  * @Description:与我相关的
  * @Author: qiubing
  * @Date: 2015/9/6 19:28
  */
-
-public class MyClientActivity_1 extends BaseActivity implements OnClickListener {
+public class MyActivity extends BaseActivity implements OnClickListener{
     private ImageView mArrow1;
     private ImageView mArrow2;
     private ImageView mArrow3;
@@ -79,7 +80,7 @@ public class MyClientActivity_1 extends BaseActivity implements OnClickListener 
                 startActivity(ShareCourseActivity.class);
                 break;
             case R.id.arrow_image_5:
-                startActivity(MyShareCourseDetailFillActivity.class);
+//                startActivity(MyCheckRecordActivity.class);
                 break;
             case R.id.arrow_image_6:
                 startActivity(AccountManagementActivity.class);

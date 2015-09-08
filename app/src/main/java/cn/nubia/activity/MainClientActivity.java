@@ -94,8 +94,9 @@ public class MainClientActivity extends ActivityGroup {
             Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
+            /*android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);*/
+            finish();
         }
     }
 

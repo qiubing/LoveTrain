@@ -1,9 +1,10 @@
-package cn.nubia.activity;
+package cn.nubia.activity.client;
 
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -14,13 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.R;
+import cn.nubia.util.Utils;
+
 /**
  * @Author: qiubing
  * @Date: 2015/9/2 9:32
  */
 public class CourseIntegrationRecordActivity extends Activity {
 
-    private static final String TAG = "CourseRecordActivity";
+    private static final String TAG = "CourseIntegrationRecord";
 
     private String[] courses = new String[]{
             "Java基础一","Android开发一","OO思想",
@@ -67,6 +71,14 @@ public class CourseIntegrationRecordActivity extends Activity {
                 new int[] {R.id.course_title,R.id.course_score});
         ListView list = (ListView)findViewById(R.id.course_integration_detail);
         list.setAdapter(adapter);
-        MyCheckRecordActivity.setListViewHeightBasedOnChildren(list);
+        Utils.setListViewHeightBasedOnChildren(list);
+    }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * @param view
+     */
+    public void back(View view){
+        this.finish();
     }
 }
