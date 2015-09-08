@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.nubia.activity" >
+    package="cn.nubia.activity">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,40 +10,34 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-    <uses-feature
-        android:name="android.software.leanback"
-        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/mm"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.Light.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".client.MyShareCourseDetailDisplayActivity" />
+
+
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MyShareCourseDetailDisplayActivity" />
+
         <activity android:name=".EmptyActivity" />
+
+
         <activity
             android:name=".GuideActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".client.MyCheckRecordActivity" />
         <activity
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
@@ -57,7 +51,8 @@
         <activity
             android:name=".MainClientActivity"
             android:alwaysRetainTaskState="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".admin.CourseAdminActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -75,19 +70,24 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".admin.CourseAdminActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".admin.ExamAdminActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".admin.ShareAdminActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".admin.ShareAdminActivity_2"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".admin.MyAdminActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".client.MyCourseClientActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -96,10 +96,12 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.MyClientActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".client.AllCourceClientActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".client.AllCourseClientActivity_2"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -108,13 +110,17 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.MyCourseClientActivity_2"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
         <activity
             android:name=".client.MyClientActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+
+
         <activity
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".admin.ManagerMySetting" />
         <activity android:name=".admin.ManagerScoreActivity" />
         <activity android:name=".admin.ManagerScoreUserActivity" />
         <activity android:name=".admin.ManagerScoreUserDetailActivity" />
@@ -129,24 +135,24 @@
         <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
         <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
         <activity
+            android:name=".admin.ManagerRateActivity"
+            android:label="@string/title_activity_manager_rate"></activity>
+
+        <activity android:name=".admin.AdminAddLessonActivity"></activity>
+        <activity android:name=".admin.AdminAlterCourseActivity"></activity>
+        <activity android:name=".admin.AdminAlterLessonActivity"></activity>
+        <activity android:name=".admin.AdminCourseDetailActivity"></activity>
+        <activity android:name=".admin.AdminDeleteCourseActivity"></activity>
+        <activity android:name=".admin.AdminLessonDetailActivity"></activity>
+        <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>
+        <activity android:name=".admin.AdminSignUpManageActivity"></activity>
+
+<activity
             android:name=".admin.ManagerAddExamActivity"
             android:label="@string/title_activity_manager_add_exam" >
         </activity>
         <activity
-            android:name=".admin.ManagerExamInputScoreActivity"
-            android:icon="@drawable/app_icon_your_company"
-            android:label="@string/title_activity_manager_exam_input_score"
-            android:logo="@drawable/app_icon_your_company"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".admin.DetailsActivity" />
-        <activity android:name=".PlaybackOverlayActivity" />
-        <activity android:name=".BrowseErrorActivity" />
+            android:name=".admin.ManagerExamInputScoreActivity" />
     </application>
 
 </manifest>

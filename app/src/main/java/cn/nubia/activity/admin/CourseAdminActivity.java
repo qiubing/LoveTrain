@@ -65,7 +65,8 @@ public class CourseAdminActivity extends ActivityGroup {
         titleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+//                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+
             }
         });
         //此处貌似必须有setContent(intent)

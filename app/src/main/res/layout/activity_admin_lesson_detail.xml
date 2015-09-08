@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/admin_lesson_detail_backImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -24,8 +25,8 @@
             android:src="@mipmap/ic_back" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal|right"
             android:orientation="horizontal"
@@ -71,8 +72,8 @@
             android:text="XXXXXXXX"
             android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/lesson_detail_signIn_button"
+        <TextView
+            android:id="@+id/lesson_detail_signIn_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -147,31 +148,34 @@
             android:layout_below="@id/evaluateTextView" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/signUpAlterCourseRelativeLayout"
         android:layout_below="@id/relativeLayout_evaluation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentBottom="true"
         android:paddingBottom="3dp"
         android:paddingTop="5dp">
 
         <Button
-            android:id="@+id/signUpAdminBtn"
+            android:id="@+id/admin_lesson_detail_alterLessonButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/signUpAdminBtn"
+            android:layout_alignParentBottom="true"
+            android:text="@string/alterLessonButton"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/alterCourseBtn"
+            android:id="@+id/admin_lesson_detail_deleteLessonButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/alterLesson"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/admin_lesson_detail_alterLessonButton"
+            android:text="@string/deleteLessonButton"
             android:textSize="20sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
 
 
