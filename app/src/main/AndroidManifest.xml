@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.nubia.activity">
+    package="cn.nubia.activity" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,36 +18,28 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/mm"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".LoginActivity"></activity>
-
+        <activity android:name=".LoginActivity" />
         <activity android:name=".client.MyShareCourseDetailDisplayActivity" />
-
         <activity android:name=".EmptyActivity" />
-
         <activity
             android:name=".GuideActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-        <activity android:name=".client.MyCheckRecordActivity"></activity>
-
+        <activity android:name=".client.MyCheckRecordActivity" />
         <activity
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,15 +52,10 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".admin.CourseAdminActivity"
-
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-
-        <activity android:name=".client.ShareCourseActivity"></activity>
-
+        <activity android:name=".client.ShareCourseActivity" />
         <activity android:name=".MyActivity" />
         <activity android:name=".client.UpdateIconActivity" />
-
         <activity
             android:name=".admin.ExamAdminActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -107,9 +94,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.AllCourseClientActivity_2"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
-
-
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.MyCourseClientActivity_1"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -118,8 +103,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.MyClientActivity_1"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
-
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -133,13 +117,14 @@
         <activity android:name=".admin.ManagerCreditTotalActivity" />
         <activity android:name=".admin.ManagerCreditCourseActivity" />
         <activity android:name=".admin.ManagerRateActivity" />
-        <activity android:name=".admin.ManagerUserActivity"></activity>
-
+        <activity android:name=".admin.ManagerUserActivity" />
         <activity android:name=".client.MyShareCourseDetailFillActivity" />
-
-        <activity android:name=".client.MyCourseJudgeDetailFillActivity"></activity>
-
-        <activity android:name=".client.MyAccountmanaPswmodifyActivity"></activity>
+        <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
+        <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
+        <activity
+            android:name=".admin.ManagerAddExamActivity"
+            android:label="@string/title_activity_manager_add_exam" >
+        </activity>
     </application>
 
 </manifest>

@@ -65,10 +65,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.login_btn:
                 //TODO
-                if (mIsManagerSpinner.getSelectedItem().toString().equals("是"))
+                if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
                     startActivity(new Intent(LoginActivity.this, MainAdminActivity.class));
-                else
+                    this.finish();
+                }
+                else{
                     startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
+                    this.finish();
+                }
 
                 text = mLoginButton.getText().toString();
                 //TODO 模拟登录数据
