@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by WJ on 2015/9/6.
  */
-public class LessonItem implements Serializable {
+public class LessonItem extends Item implements Serializable {
     public static String LESSON_INDEX = "lesson_index";
     public static String COURSE_INDEX = "course_index";
     public static String LESSON_NAME = "lesson_name";

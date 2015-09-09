@@ -17,6 +17,7 @@ import android.widget.Toast;
 import cn.nubia.activity.client.AllCourceClientActivity;
 import cn.nubia.activity.client.MyClientActivity_1;
 import cn.nubia.activity.client.MyCourseClientActivity;
+import cn.nubia.zxing.barcode.CaptureActivity;
 
 /**普通用户主界面：Tab分页导航
  * activity_main_client(未修改版)：布局为TabHost框架，布局最下面为3个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget
@@ -117,7 +118,22 @@ public class MainClientActivity extends ActivityGroup {
 
     public void search(View view) {
         //startActivity(new Intent(this, SearchActivity.class));
-        Toast.makeText(this, "二维码签到", Toast.LENGTH_LONG).show();
+        //打开扫描界面扫描条形码或二维码
+        Intent openCameraIntent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(openCameraIntent, 0);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //处理扫描结果（在界面上显示）
+        if (resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Toast.makeText(this, scanResult, Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"扫描二维码成功",Toast.LENGTH_LONG).show();
+        }
     }
 }
 

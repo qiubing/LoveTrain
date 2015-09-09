@@ -67,6 +67,29 @@ public class Utils {
         bos.close();
     }
 
+    public static void saveBitmap(String fileName,Bitmap bitmap){
+        File pictureDir = new File(Constant.BARCODE_PATH);
+        if (!pictureDir.exists()){
+            pictureDir.mkdir();
+        }
+
+        File bitmapFile = new File(Constant.BARCODE_PATH + fileName);
+        //如果文件已经存在，则替换
+        if (bitmapFile.exists()){
+            bitmapFile.delete();
+        }
+
+        try{
+            bitmapFile.createNewFile();
+            FileOutputStream output = new FileOutputStream(bitmapFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,output);
+            output.flush();
+            output.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 从内存卡中读取文件
      * @param path 文件路径
