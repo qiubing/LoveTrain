@@ -1,6 +1,9 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,23 +53,46 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_add_course_back:
-                Intent intentBackImage = new Intent(AdminAddLessonActivity.this,MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminAddLessonActivity.this, MainAdminActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;
             case R.id.add_lesson_addLessonForSureButton:
-                String lessonNameStr = lessonName.getText().toString();
-                String teacherNameStr = teacherName.getText().toString();
-                String lessonDescStr = lessonDesc.getText().toString();
-                String lessonLocationStr = lessonLocation.getText().toString();
-                String lessonStartTimeStr = lessonStartTime.getText().toString();
-                String teacherGetPointsStr = teacherGetPoints.getText().toString();
-                String studentGetPointsStr = studentGetPoints.getText().toString();
-                //添加课时
-                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, MainAdminActivity.class);
-                Toast.makeText(AdminAddLessonActivity.this, "添加成功，从添加课时跳转到所有课程", Toast.LENGTH_LONG).show();
-                startActivity(intentAddLesson);
-                finish();
+
+                Dialog addLessonDialog = new AlertDialog.Builder(AdminAddLessonActivity.this)
+                        .setTitle("添加课时")
+                        .setMessage("确定添加？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                String lessonNameStr = lessonName.getText().toString();
+                                String teacherNameStr = teacherName.getText().toString();
+                                String lessonDescStr = lessonDesc.getText().toString();
+                                String lessonLocationStr = lessonLocation.getText().toString();
+                                String lessonStartTimeStr = lessonStartTime.getText().toString();
+                                String teacherGetPointsStr = teacherGetPoints.getText().toString();
+                                String studentGetPointsStr = studentGetPoints.getText().toString();
+
+                                //加入到课时数据库中，返回是否加入成功的状态值
+                                //....
+                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, AdminCourseDetailActivity.class);
+                                Toast.makeText(AdminAddLessonActivity.this, "添加成功，从添加课时跳转到所有课程", Toast.LENGTH_LONG).show();
+                                startActivity(intentAddLesson);
+                                //这里执行修改课程操作
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intentAddCancel = new Intent(AdminAddLessonActivity.this, AdminCourseDetailActivity.class);
+                                startActivity(intentAddCancel);
+                                finish();
+                            }
+                        })
+                        .create();
+                addLessonDialog.show();
                 break;
         }
     }

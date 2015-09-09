@@ -1,6 +1,15 @@
 package cn.nubia.activity;
 
 
+
+
+/*胡立加，用户向导
+* activity_guide：相对布局，ViewPager铺满全屏，然后四个dot位于相对布局的底部，局部覆盖ViewPager
+* mViewPager用于展示四个layout，使用PagerAdapter为其提供数据，数据源为四个layout的List<View>
+* 并为mViewPager绑定监听器，当ViewPager显示的Fragment发生改变时改变相应dot的状态
+* */
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +22,6 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/*胡立加，用户向导
-* activity_guide：相对布局，ViewPager铺满全屏，然后四个dot位于相对布局的底部，局部覆盖ViewPager
-* mViewPager用于展示四个layout，使用PagerAdapter为其提供数据，数据源为四个layout的List<View>
-* 并为mViewPager绑定监听器，当ViewPager显示的Fragment发生改变时改变相应dot的状态
-* */
-
 
 public class GuideActivity extends Activity {
 

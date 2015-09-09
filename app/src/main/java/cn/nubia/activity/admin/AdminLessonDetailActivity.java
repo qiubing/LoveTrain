@@ -60,7 +60,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Intent intentSignInInfo = new Intent(AdminLessonDetailActivity.this,AdminSignInExamPersonInfoActivity.class);
                 startActivity(intentSignInInfo);
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
-                finish();
                 break;
         }
 
