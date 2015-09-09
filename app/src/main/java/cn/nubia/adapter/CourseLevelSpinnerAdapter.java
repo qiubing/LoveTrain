@@ -1,4 +1,4 @@
-package cn.nubia.component;
+package cn.nubia.adapter;
 
 
 import android.content.Context;

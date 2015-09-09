@@ -19,6 +19,7 @@ import cn.nubia.util.DialogUtil;
 public class MyAccountmanaPswmodifyActivity extends Activity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
+    private Button mBackButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,7 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
                                         "其中至少有一个大写字母", false);
                     }else{
                         pswModifyMsg.setOldPsw(oldPsw);
-                        pswModifyMsg.setNewPsw(((EditText)findViewById(R.id.
-                                my_accountmana_pswmodify_newpswedittext)).getText().toString());
+                        pswModifyMsg.setNewPsw(mNewpswEditText.getText().toString());
                     }
                 }else {
                     DialogUtil.showDialog(
@@ -66,6 +66,8 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
     private void holdView(){
         mConfirmButton =(Button) findViewById(
                 R.id.my_accountmana_pswmodify_confirmbutton);
+        mBackButton =(Button) findViewById(
+                R.id.my_accountmana_pswmodify_backbutton);
         mNewpswEditText =(EditText) findViewById(
                 R.id.my_accountmana_pswmodify_newpswedittext);
     }
@@ -73,5 +75,12 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
     private void setViewLogic(){
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyAccountmanaPswmodifyActivity.this.finish();
+            }
+        });
     }
 }

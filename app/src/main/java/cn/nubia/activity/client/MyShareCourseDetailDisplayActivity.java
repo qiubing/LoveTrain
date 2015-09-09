@@ -27,6 +27,7 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseLocale;
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
+    private Button mBackButton;
     private CourseItem mShareCourseItem;
     private LessonItem mShareCourseLessonItem;
 
@@ -59,6 +60,8 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
                 .my_sharecourse_detail_display_coursedescription_displaytextView);
         mCourseModifyButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_display_modifybutton);
+        mBackButton = (Button) findViewById(R.id
+                .my_sharecourse_detail_display_backbutton);
     }
 
     private void setViewLogic(){
@@ -71,6 +74,13 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
                 bundle.putSerializable("shareCourse",mShareCourseItem);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyShareCourseDetailDisplayActivity.this.finish();
             }
         });
     }

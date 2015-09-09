@@ -18,6 +18,7 @@ import cn.nubia.entity.LessonJudgement;
  */
 public class MyCourseJudgeDetailFillActivity extends Activity{
     private Button mConfirmButton;
+    private Button mBackButton;
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
@@ -62,6 +63,8 @@ public class MyCourseJudgeDetailFillActivity extends Activity{
     private void holdView(){
         mConfirmButton =(Button) findViewById(
                 R.id.mycourse_judge_detail_fill_confirmbutton);
+        mBackButton =(Button) findViewById(
+                R.id.mycourse_judge_detail_fill_backbutton);
         mComprehensiveEvaluationEditText =(EditText) findViewById(
                 R.id.mycourse_judge_detail_fill_comprehensiveevaluation_edittext);
         mSuggestionEditText =(EditText) findViewById(
@@ -96,5 +99,11 @@ public class MyCourseJudgeDetailFillActivity extends Activity{
 
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyCourseJudgeDetailFillActivity.this.finish();
+            }
+        });
     }
 }
