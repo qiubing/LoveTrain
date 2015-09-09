@@ -10,7 +10,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -60,10 +59,7 @@ public class ManagerScoreActivity extends ActivityGroup {
                 this).inflate(R.layout.layout_tab, null);
         TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
         tvTab2.setText("按课程查询");
-        Button titleButton1 = (Button) tabIndicator1.findViewById(R.id.title_button);
-        titleButton1.setVisibility(Button.GONE);
-        Button titleButton2 = (Button) tabIndicator2.findViewById(R.id.title_button);
-        titleButton2.setVisibility(Button.GONE);
+
         Intent intent = new Intent(mContext, EmptyActivity.class);
         // 注意这儿Intent中的activity不能是自身
         // 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。

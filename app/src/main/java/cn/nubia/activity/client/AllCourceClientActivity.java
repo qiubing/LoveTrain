@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -54,16 +53,12 @@ public class AllCourceClientActivity extends ActivityGroup {
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton3 = (Button) tabIndicator3.findViewById(R.id.title_button);
-        titleButton3.setVisibility(Button.GONE);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("全部课程");
 
         RelativeLayout tabIndicator4 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton4 = (Button) tabIndicator4.findViewById(R.id.title_button);
-        titleButton4.setVisibility(Button.GONE);
 
         TextView tvTab4 = (TextView) tabIndicator4.findViewById(R.id.tv_title);
         tvTab4.setText("只考试");

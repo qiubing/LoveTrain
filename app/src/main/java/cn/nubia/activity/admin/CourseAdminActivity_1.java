@@ -48,8 +48,8 @@ public class CourseAdminActivity_1 extends Activity {
         @Override
         public void handleMessage(Message msg) {
             if (11 == msg.what) {
-                Log.i("g", "ggg");
-                Dialog signUpExamDialog = new AlertDialog.Builder(CourseAdminActivity_1.this)
+                Log.i("g", "ggghh");
+                Dialog signUpExamDialog = new AlertDialog.Builder(getParent())
                         .setTitle("报名考试")
                         .setMessage("确定报名考试？")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -162,23 +162,6 @@ public class CourseAdminActivity_1 extends Activity {
                 signUpExamTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Dialog signUpExamDialog = new AlertDialog.Builder(CourseAdminActivity_1.this)
-//                                .setTitle("报名考试")
-//                                .setMessage("确定报名考试？")
-//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        //这里执行报名操作
-//                                        Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-//                                    }
-//                                })
-//                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
-//                                    }
-//                                }).create();
-//                        signUpExamDialog.show();
                         Message message = new Message();
                         message.what = 11;
                         mHandle.sendMessage(message);

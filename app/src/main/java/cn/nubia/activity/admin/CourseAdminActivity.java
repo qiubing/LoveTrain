@@ -8,8 +8,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -27,6 +27,10 @@ import cn.nubia.activity.R;
  * TabHost的作用仅仅为对标题进行设置
  *ViewPager用于展示多个Activity，使用PagerAdapter为其提供数据，数据源为List<View> listViews
  * 并为TabHost和ViewPager互相绑定监听器，一个改变时，另一个跟着改变，你们这样真的不累吗？
+ * ViewPager+PagerTitleStrip  实现相同功能
+ * PagerTitleStrip的标题条是动态滑动的，TabHost是静态的
+ * 使用PagerTitleStrip可以避免继承废弃类ActivityGroup，但PagerAdapter的分页为View，仍然需要ActivityGroup将Activity转换为View
+ * 另外可以使用FragmentPagerAdapter代替PagerAdapter，以彻底避免废弃类，但此时分页内容为Fragment，程序修改力度较大，需讨论决定
  * Created by 胡立 on 2015/9/6.
  */
 public class CourseAdminActivity extends ActivityGroup {
@@ -51,21 +55,20 @@ public class CourseAdminActivity extends ActivityGroup {
         listViews.add(getView("A", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(CourseAdminActivity.this.getLocalActivityManager());
+        tabHost.setup(this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton = (Button) tabIndicator3.findViewById(R.id.title_button);
-        titleButton.setText("新增课程");
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setVisibility(TextView.GONE);
+        tvTab3.setText("新增课程");
+
 
         Intent intent = new Intent(CourseAdminActivity.this, EmptyActivity.class);
-        titleButton.setOnClickListener(new View.OnClickListener() {
+        tvTab3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
 
             }
         });

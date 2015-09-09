@@ -10,7 +10,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -68,10 +67,7 @@ public class ManagerCreditActivity extends ActivityGroup {
                 .setContent(intent));
         mTabHost.addTab(mTabHost.newTabSpec("B").setIndicator(tabIndicator2)
                 .setContent(intent));
-        Button titleButton1 = (Button) tabIndicator1.findViewById(R.id.title_button);
-        titleButton1.setVisibility(Button.GONE);
-        Button titleButton2 = (Button) tabIndicator2.findViewById(R.id.title_button);
-        titleButton2.setVisibility(Button.GONE);
+
         mViewPage.setAdapter(new MyPageAdapter(mListViews));
         mViewPage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
