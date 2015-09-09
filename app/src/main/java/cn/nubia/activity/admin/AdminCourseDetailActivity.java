@@ -30,6 +30,8 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     private Button courseDeleteBtn;
     private ImageView adminCourseDetailBackImage;
 
+    private String items[]={"zhangsan","lisi","wangwu"};
+
     private AdminCourseDetailActivity adminCourseDetailActivity;
 
     @Override
@@ -65,25 +67,42 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
             case R.id.admin_course_detail_backImage:
                 Intent intentBackImage = new Intent(AdminCourseDetailActivity.this, MainAdminActivity.class);
                 startActivity(intentBackImage);
-                finish();
                 break;
             case R.id.signUpAdminBtn:
-                Intent intentSignUp = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);
-                startActivity(intentSignUp);
-                finish();
+                //添加一个对话框即可
+                Dialog signUpAdminDialog = new AlertDialog.Builder(AdminCourseDetailActivity.this)
+                        .setTitle("课程报名情况")
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(AdminCourseDetailActivity.this, "你选择了其中一项", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(AdminCourseDetailActivity.this, "确定", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(AdminCourseDetailActivity.this, "取消", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .create();
+                signUpAdminDialog.show();
                 break;
             case R.id.alterCourseBtn:
                 Intent intentAlterCourse = new Intent(AdminCourseDetailActivity.this, AdminAlterCourseActivity.class);
                 startActivity(intentAlterCourse);
-                finish();
                 break;
             case R.id.lessonAddBtn:
                 Intent intentAddLesson = new Intent(AdminCourseDetailActivity.this, AdminAddLessonActivity.class);
                 startActivity(intentAddLesson);
-                finish();
                 break;
             case R.id.courseDeleteBtn:
-                Dialog alertDialogSignUpExam = new AlertDialog.Builder(adminCourseDetailActivity)
+                Dialog alterCourseDialog = new AlertDialog.Builder(adminCourseDetailActivity)
                         .setTitle("删除课程")
                         .setMessage("确定删除？")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -91,6 +110,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intentDeleteCourse = new Intent(AdminCourseDetailActivity.this, MainAdminActivity.class);
                                 startActivity(intentDeleteCourse);
+                                //这里执行删除课程操作
                                 Toast.makeText(AdminCourseDetailActivity.this, "确定 ", Toast.LENGTH_LONG).show();
                             }
                         })
@@ -101,8 +121,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                             }
                         })
                         .create();
-                alertDialogSignUpExam.show();
-
+                alterCourseDialog.show();
                 break;
         }
     }

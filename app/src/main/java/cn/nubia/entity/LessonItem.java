@@ -5,10 +5,10 @@ import java.io.Serializable;
 /**
  * Created by WJ on 2015/9/6.
  */
-public class LessonItem implements Serializable {
-    public static String LESSON_INDEX = "lesson_index";
+public class LessonItem extends Item implements Serializable {
+//    public static String LESSON_INDEX = "lesson_index";
     public static String COURSE_INDEX = "course_index";
-    public static String LESSON_NAME = "lesson_name";
+//    public static String LESSON_NAME = "lesson_name";
     public static String JUDGE_SCORE = "judge_score";
     public static String TEACHER_ID = "teacher_id";
     public static String TEACHER_NAME = "lesson_theme";
@@ -17,14 +17,14 @@ public class LessonItem implements Serializable {
     public static String LOCALE = "locale";
     public static String CHECK_CREDITS = "check_credits";
     public static String TEACHER_CREDITS = "teacher_credits";
-    public static String LESSON_THEME = "lesson_theme";
+//    public static String LESSON_THEME = "lesson_theme";
 
-    private int mLessonIndex;
-    private String mLessonName;
+//    private int mLessonIndex;
+//    private String mLessonName;
     private int mCourseIndex;
     private String mTeacherID;
     private String mTeacherName;
-    private String mLessonTheme;
+//    private String mLessonTheme;
     private String mStartTime;
     private String mEndTime;
     private String mLocale;
@@ -49,21 +49,21 @@ public class LessonItem implements Serializable {
         this.mTeacherName = mTeacherName;
     }
 
-    public int getLessonIndex() {
-        return mLessonIndex;
-    }
-
-    public void setLessonIndex(int mLessonIndex) {
-        this.mLessonIndex = mLessonIndex;
-    }
-
-    public String getLessonName() {
-        return mLessonName;
-    }
-
-    public void setLessonName(String mLessonName) {
-        this.mLessonName = mLessonName;
-    }
+//    public int getLessonIndex() {
+//        return mLessonIndex;
+////    }
+//
+//    public void setLessonIndex(int mLessonIndex) {
+//        this.mLessonIndex = mLessonIndex;
+//    }
+//
+//    public String getLessonName() {
+//        return mLessonName;
+//    }
+//
+//    public void setLessonName(String mLessonName) {
+//        this.mLessonName = mLessonName;
+//    }
 
     public int getCourseIndex() {
         return mCourseIndex;
@@ -80,14 +80,14 @@ public class LessonItem implements Serializable {
     public void setTeacherID(String mUserID) {
         this.mTeacherID = mUserID;
     }
-
-    public String getLessonTheme() {
-        return mLessonTheme;
-    }
-
-    public void setLessonTheme(String mLessonTheme) {
-        this.mLessonTheme = mLessonTheme;
-    }
+//
+//    public String getLessonTheme() {
+//        return mLessonTheme;
+//    }
+//
+//    public void setLessonTheme(String mLessonTheme) {
+//        this.mLessonTheme = mLessonTheme;
+//    }
 
     public String getStartTime() {
         return mStartTime;
@@ -136,5 +136,4 @@ public class LessonItem implements Serializable {
     public void setJudgeScore(float mJudgeScore) {
         this.mJudgeScore = mJudgeScore;
     }
-
 }

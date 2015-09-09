@@ -1,7 +1,10 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,8 +24,6 @@ import cn.nubia.activity.R;
  */
 public class CourseAdminActivity_1 extends Activity {
 
-    private static CourseAdminActivity_1 courseAdminActivity_1;
-
     private String[] groupArray = {"Java", "linux", "C++基础"};
     //课时名称
     private String[][] childArray = {
@@ -41,7 +42,6 @@ public class CourseAdminActivity_1 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_all_course);
-        courseAdminActivity_1 = this;
 
         ExpandableListAdapter expandableListViewAdapter = new BaseExpandableListAdapter() {
             /**
@@ -101,31 +101,8 @@ public class CourseAdminActivity_1 extends Activity {
                 TextView mCourseNameTextView = (TextView) relativeLayoutGroup.findViewById(R.id.item_layout_title);
                 mCourseNameTextView.setText(groupArray[groupPosition].toString());
 
-                //为报名考试添加点击事件
-                TextView classEvaluateTextView = (TextView) relativeLayoutGroup.findViewById(R.id.class_signUpExamTextView);
-                classEvaluateTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(CourseAdminActivity_1.this, "报名考试成功", Toast.LENGTH_LONG).show();
-//                        AlertDialog.Builder builderSignUpExam=new AlertDialog.Builder(courseAdminActivity_1);
-//                        builderSignUpExam.setTitle("报名考试");
-//
-//                        builderSignUpExam.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//                        builderSignUpExam.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//                        builderSignUpExam.create();
-//                        builderSignUpExam.show();
-                    }
-                });
+                //为"报名考试"添加点击事件
+
 
                 //为 "添加课时" 的textView添加监听事件
                 TextView addLessonTextView = (TextView) relativeLayoutGroup.findViewById(R.id.admin_all_course_addLessonTextView);
@@ -134,7 +111,6 @@ public class CourseAdminActivity_1 extends Activity {
                     public void onClick(View v) {
                         Intent intentAddLesson = new Intent(CourseAdminActivity_1.this, AdminAddLessonActivity.class);
                         startActivity(intentAddLesson);
-                        finish();
                     }
                 });
 
@@ -145,10 +121,34 @@ public class CourseAdminActivity_1 extends Activity {
                     public void onClick(View v) {
                         Intent intentCourseDetail = new Intent(CourseAdminActivity_1.this, AdminCourseDetailActivity.class);
                         startActivity(intentCourseDetail);
-                        finish();
                     }
                 });
 
+
+                TextView signUpExamTextView = (TextView) relativeLayoutGroup.findViewById(R.id.class_signUpExamTextView);
+                signUpExamTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Dialog signUpExamDialog = new AlertDialog.Builder(getParent())
+                                .setTitle("报名考试")
+                                .setMessage("确定报名考试？")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //这里执行报名操作
+                                        Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
+                                    }
+                                }).create();
+                        signUpExamDialog.show();
+                        Toast.makeText(CourseAdminActivity_1.this, "报名考试成功", Toast.LENGTH_LONG).show();
+                    }
+                });
                 return relativeLayoutGroup;
             }
 
@@ -173,7 +173,6 @@ public class CourseAdminActivity_1 extends Activity {
                 Toast.makeText(CourseAdminActivity_1.this, "你点击了lesson detail", Toast.LENGTH_LONG).show();
                 Intent intentLessonDetail = new Intent(CourseAdminActivity_1.this, AdminLessonDetailActivity.class);
                 startActivity(intentLessonDetail);
-                finish();
                 return false;
             }
         });
