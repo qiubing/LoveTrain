@@ -38,8 +38,7 @@
         <activity
             android:name=".MainAdminActivity"
             android:alwaysRetainTaskState="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
             android:name=".GuideActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -55,12 +54,6 @@
         <activity
             android:name=".admin.CourseAdminActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
-            android:name=".admin.ManagerScoreActivity"
-            android:label="@string/title_activity_manager_score" />
-        <activity
-            android:name=".admin.ManagerAddExamActivity"
-            android:label="@string/title_activity_manager_add_exam" />
         <activity
             android:name=".admin.ExamAdminActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -97,6 +90,11 @@
         <activity android:name=".admin.ManagerRateActivity" />
         <activity android:name=".admin.ManagerUserActivity" />
         <activity android:name=".admin.ManagerExamInputScoreActivity" />
+        <activity android:name=".admin.ManagerExamDetailActivity" />
+        <activity android:name=".admin.ManagerScoreActivity" />
+        <activity android:name=".admin.ManagerAddExamActivity" />
+        <activity android:name=".admin.ManagerEditExamActivity" />
+
         <activity android:name=".admin.AdminAddLessonActivity" />
         <activity android:name=".admin.AdminAlterCourseActivity" />
         <activity android:name=".admin.AdminCourseDetailActivity" />
@@ -139,7 +137,6 @@
         <activity android:name=".client.AccountManagementActivity" />
         <activity android:name=".client.MyShareCourseDetailFillActivity" />
         <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
-
 
 
         <activity

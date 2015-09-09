@@ -37,6 +37,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Spinner mIsManagerSpinner;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -58,6 +63,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mRegistButton.setOnClickListener(this);
 
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -128,11 +135,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             jsonObject = query(userID, pwd);
             String result = jsonObject.getString("code");
             if (result.equals("0")) {
-                DialogUtil.showDialog(this, "登录成功", false);
+                DialogUtil.showToast(this, "登录成功");
             } else if (result.equals("2001")) {
-                DialogUtil.showDialog(this, "用户名不存在，请重新输入！", false);
+                DialogUtil.showToast(this, "用户名不存在，请重新输入！");
             } else if (result.equals("2002")) {
-                DialogUtil.showDialog(this, "用户名密码错误，请重新输入！", false);
+                DialogUtil.showToast(this, "用户名密码错误，请重新输入！");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +167,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             if (result.equals("0")) {
                 DialogUtil.showToast(this, "注册成功！");
             } else if (result.equals("3000")) {
-                DialogUtil.showDialog(this, "用户名已存在！", false);
+                DialogUtil.showToast(this, "用户名已存在！");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,12 +193,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public boolean validateLogin() {
         String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
-            DialogUtil.showDialog(this, "用户ID不能为空", false);
+            DialogUtil.showToast(this, "用户ID不能为空");
             return false;
         }
         String pwd = mPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
-            DialogUtil.showDialog(this, "密码不能为空", false);
+            DialogUtil.showToast(this, "密码不能为空");
             return false;
         }
         return true;
@@ -201,26 +208,26 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public boolean validateRegist() {
         String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
-            DialogUtil.showDialog(this, "用户ID不能为空", false);
+            DialogUtil.showToast(this, "用户ID不能为空");
             return false;
         }
         String pwd = mPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
-            DialogUtil.showDialog(this, "密码不能为空", false);
+            DialogUtil.showToast(this, "密码不能为空");
             return false;
         }
         String pwd2 = mRegistPasswordET.getText().toString().trim();
         if (pwd.equals("")) {
-            DialogUtil.showDialog(this, "确认密码不能为空", false);
+            DialogUtil.showToast(this, "确认密码不能为空");
             return false;
         }
         String username = mUserNameET.getText().toString().trim();
         if (username.equals("")) {
-            DialogUtil.showDialog(this, "用户姓名不能为空", false);
+            DialogUtil.showToast(this, "用户姓名不能为空");
             return false;
         }
         if (!pwd.equals(pwd2)) {
-            DialogUtil.showDialog(this, "两次输入的密码不一致", false);
+            DialogUtil.showToast(this, "两次输入的密码不一致");
             return false;
         }
         return true;

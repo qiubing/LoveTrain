@@ -68,7 +68,7 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
                 break;
             case R.id.about_us:
 //                DialogUtil.showDialog(MyAdminActivity_1.this,"LoveTrain!");
-                intent = new Intent(MyAdminActivity_1.this,ManagerExamInputScoreActivity.class);
+                intent = new Intent(MyAdminActivity_1.this,ManagerExamDetailActivity.class);
                 startActivity(intent);
                 break;
             default:
