@@ -87,10 +87,10 @@ public class DbUtil {
 
     public long insertCourseItem(CourseItem courseItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX,courseItem.getCourseIndex());
-        newValues.put(CourseItem.NAME,courseItem.getCourseName());
+        newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
+        newValues.put(CourseItem.NAME,courseItem.getName());
         newValues.put(CourseItem.HASEXAM, courseItem.hasExam()); //1 有考试  0 无考试
-        newValues.put(CourseItem.DESCRIPTION,courseItem.getCourseDescription());
+        newValues.put(CourseItem.DESCRIPTION,courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
         newValues.put(CourseItem.CREDITS, courseItem.getCourseCredits());
         newValues.put(CourseItem.SHARETYPE, courseItem.getShareType());
@@ -100,24 +100,24 @@ public class DbUtil {
 
     public long updateCourseItem(CourseItem courseItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX,courseItem.getCourseIndex());
-        newValues.put(CourseItem.NAME,courseItem.getCourseName());
+        newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
+        newValues.put(CourseItem.NAME,courseItem.getName());
         newValues.put(CourseItem.HASEXAM, courseItem.hasExam()); //1 有考试  0 无考试
-        newValues.put(CourseItem.DESCRIPTION,courseItem.getCourseDescription());
+        newValues.put(CourseItem.DESCRIPTION,courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
         newValues.put(CourseItem.CREDITS, courseItem.getCourseCredits());
         newValues.put(CourseItem.SHARETYPE, courseItem.getShareType());
         newValues.put(CourseItem.TYPE,courseItem.getType());
-        return db.update(SqliteHelper.TB_NAME_CLASS, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getCourseIndex(), null);
+        return db.update(SqliteHelper.TB_NAME_CLASS, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getIndex(), null);
     }
 
     public int deleteCourseItem(CourseItem lessonItem) {
         //删除课时表
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON,CourseItem.COURSE_INDEX + "=?",
-                new String[]{String.valueOf(lessonItem.getCourseIndex())});
+                new String[]{String.valueOf(lessonItem.getIndex())});
         Log.e(TAG,"已删除课时表行数："+rows);
         return db.delete(SqliteHelper.TB_NAME_CLASS, CourseItem.COURSE_INDEX + "=?",
-                new String[]{String.valueOf(lessonItem.getCourseIndex())});
+                new String[]{String.valueOf(lessonItem.getIndex())});
     }
 
     public long insertLessonItem(LessonItem lessonItem) {
@@ -166,11 +166,11 @@ public class DbUtil {
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
             CourseItem courseItem = new CourseItem();
-            courseItem.setCourseIndex(cursor.getInt(cursor.getColumnIndex(CourseItem.COURSE_INDEX)));
-            courseItem.setCourseName(cursor.getString(cursor.getColumnIndex(CourseItem.NAME)));
+            courseItem.setIndex(cursor.getInt(cursor.getColumnIndex(CourseItem.COURSE_INDEX)));
+            courseItem.setName(cursor.getString(cursor.getColumnIndex(CourseItem.NAME)));
             courseItem.setHasExam(cursor.getShort(cursor.getColumnIndex(CourseItem.HASEXAM)));
             courseItem.setCourseStatus(cursor.getShort(cursor.getColumnIndex(CourseItem.STATUS)));
-            courseItem.setCourseDescription(cursor.getString(cursor.getColumnIndex(CourseItem.DESCRIPTION)));
+            courseItem.setDescription(cursor.getString(cursor.getColumnIndex(CourseItem.DESCRIPTION)));
 //            courseItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(CourseItem.JUDGE_SCORE)));
             courseItem.setCourseCredits(cursor.getInt(cursor.getColumnIndex(CourseItem.CREDITS)));
             courseItem.setShareType(cursor.getShort(cursor.getColumnIndex(CourseItem.SHARETYPE)));

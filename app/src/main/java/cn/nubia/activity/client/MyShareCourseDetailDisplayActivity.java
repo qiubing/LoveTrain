@@ -79,8 +79,8 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
-        mShareCourseLessonItem = mShareCourseItem.getmLessonList().get(0);
-        mCourseName.setText(mShareCourseItem.getCourseName());
+        mShareCourseLessonItem = mShareCourseItem.getLessonList().get(0);
+        mCourseName.setText(mShareCourseItem.getName());
         mCourseLevel.setText(
                 ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getShareType()));
         mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourseLessonItem.getStartTime()));
@@ -89,6 +89,6 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         mCourseEndTime.setText(
                 new SimpleDateFormat("HH:mm").format(mShareCourseLessonItem.getEndTime()));
         mCourseLocale.setText(mShareCourseLessonItem.getLocation());
-        mCourseDescription.setText(mShareCourseItem.getCourseDescription());
+        mCourseDescription.setText(mShareCourseItem.getDescription());
     }
 }

@@ -196,10 +196,10 @@ public class MyShareCourseDetailFillActivity extends Activity {
             @Override
             public void onClick(View v) {
                 CourseItem shareCourse = new CourseItem();
-                shareCourse.setCourseName(((TextView) findViewById(R.id
+                shareCourse.setName(((TextView) findViewById(R.id
                         .my_sharecourse_detail_fill_coursename_filltextView))
                         .getText().toString());
-                shareCourse.setCourseDescription(mCourseDescription.getText().toString());
+                shareCourse.setDescription(mCourseDescription.getText().toString());
                 shareCourse.setType((short) 2);
                 shareCourse.setLessones((short) 1);
                 shareCourse.setCourseStatus((short) 1);
@@ -226,11 +226,11 @@ public class MyShareCourseDetailFillActivity extends Activity {
 
         if(mCourseItem!=null){
             mOperateType = OperateType.UPDATE;
-            mLessonItem = mCourseItem.getmLessonList().get(0);
+            mLessonItem = mCourseItem.getLessonList().get(0);
 
-            mCourseName.setText(mCourseItem.getCourseName());
+            mCourseName.setText(mCourseItem.getName());
             mShareTypeSpinner.setSelection(mCourseItem.getShareType());
-            mCourseDescription.setText(mCourseItem.getCourseDescription());
+            mCourseDescription.setText(mCourseItem.getDescription());
             mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mLessonItem.getStartTime()));
             mCourseStarttime.setText(
                     new SimpleDateFormat("HH:mm").format(mLessonItem.getStartTime()));
