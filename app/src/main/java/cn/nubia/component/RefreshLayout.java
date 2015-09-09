@@ -224,7 +224,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          * @author mrsimple
          */
         public  interface OnLoadListener {
-                 void onLoad();
+                void onLoad();
         }
 }
 

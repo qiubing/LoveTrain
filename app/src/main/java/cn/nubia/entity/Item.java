@@ -3,9 +3,25 @@ package cn.nubia.entity;
 /**
  * Created by WJ on 2015/9/8.
  */
-public class Item {
+public abstract class Item {
+    public static String TYPE = "type";
+    public static String NAME = "name";
+    public static String DESCRIPTION = "description";
+    public static String INDEX = "index";
+
     private int mIndex;
     private String mOperator;
+    private String mType;
+    private String mName;
+    private String mDescription;
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String mType) {
+        this.mType = mType;
+    }
 
     public String getOperator() {
         return mOperator;
@@ -14,7 +30,6 @@ public class Item {
     public void setOperator(String mOperator) {
         this.mOperator = mOperator;
     }
-
 
     public int getIndex() {
         return mIndex;
@@ -40,6 +55,4 @@ public class Item {
         this.mName = mName;
     }
 
-    private String mName;
-    private String mDescription;
 }

@@ -10,7 +10,7 @@ import com.loopj.android.http.RequestParams;
  * transplanted by WJ on 2015/9/8.
  * 异步HTTP操作类
  */
-public class AsyncHttpUtil {
+public class AsyncHttpHelper {
     private static AsyncHttpClient client = new AsyncHttpClient(); // 实例话对象
 
     static {

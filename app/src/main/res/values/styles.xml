@@ -120,4 +120,21 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <!--admin class info-->
+    <style name="class_info_item_detail_outside_layout_padding_style">
+        <item name="android:paddingLeft">@dimen/item_outside_left_or_right_padding</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:paddingRight">@dimen/item_outside_left_or_right_padding</item>
+        <item name="android:paddingBottom">5.0dip</item>
+    </style>
+    <style name="item_layout_residue_gift">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ff9f9f9f</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+
 </resources>

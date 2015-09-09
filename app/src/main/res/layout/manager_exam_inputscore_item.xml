@@ -3,39 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingBottom="5dp"
     android:paddingLeft="10dp"
-    android:paddingRight="20dp"
-    android:paddingTop="10dp">
-
-    <TextView
-        android:id="@+id/manager_exam_inputscore_username"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/manager_score_hight"
-        android:text="testa"
-        android:textColor="@color/bigtitle" />
-
-    <TextView
-        android:id="@+id/manager_exam_inputscore_id"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/manager_score_hight"
-        android:layout_below="@+id/manager_username"
-        android:text="ak"
-        android:textColor="@color/bigtitle" />
+    android:paddingRight="20dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/manager_score_image_hight"
+        android:layout_height="43dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/manager_exam_inputscore_username"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="testa"
+            android:textColor="@color/bigtitle"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/manager_exam_inputscore_id"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="ak"
+            android:textColor="@color/bigtitle"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
         android:layout_alignParentRight="true">
 
         <EditText
             android:id="@+id/manager_exam_inputscore_score"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/manager_score_image_hight"
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/editview_selector"
+            android:gravity="center_vertical"
             android:hint="请输入成绩"
+            android:inputType="textNoSuggestions"
             android:singleLine="true"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint" />
     </LinearLayout>
-
 </RelativeLayout>

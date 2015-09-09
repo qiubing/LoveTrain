@@ -4,13 +4,19 @@
     android:layout_height="fill_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.nubia.activity.admin.ManagerExamInputScoreActivity">
 
     <RelativeLayout
         android:id="@+id/manager_exam_score_input_layout"
         android:layout_width="fill_parent"
-        android:layout_height="35.0dip">
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/manager_exam_backImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:id="@+id/manager_exam_score_input_title"
@@ -21,13 +27,22 @@
             android:singleLine="true"
             android:text="@string/title_activity_manager_score_input"
             android:textColor="@color/grayslate"
-            android:textSize="22.0sp" />
+            android:textSize="30.0sp" />
     </RelativeLayout>
 
+    <!--<Button-->
+    <!--android:id="@+id/manager_exam_score_input_button"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:text="@string/title_activity_manager_score_input_button"-->
+    <!--android:textSize="20sp" />-->
+
     <ListView
+        android:layout_marginTop="8dp"
         android:id="@+id/manager_exam_score_input_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/manager_exam_score_input_layout"></ListView>
 
 </RelativeLayout>
