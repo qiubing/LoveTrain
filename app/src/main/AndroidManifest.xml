@@ -30,7 +30,7 @@
 
 
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MyShareCourseDetailDisplayActivity" />
+
 
         <activity android:name=".EmptyActivity" />
 
@@ -120,7 +120,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".admin.ManagerMySetting" />
+
         <activity android:name=".admin.ManagerScoreActivity" />
         <activity android:name=".admin.ManagerScoreUserActivity" />
         <activity android:name=".admin.ManagerScoreUserDetailActivity" />
@@ -134,9 +134,7 @@
         <activity android:name=".client.MyShareCourseDetailFillActivity" />
         <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
         <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
-        <activity
-            android:name=".admin.ManagerRateActivity"
-            android:label="@string/title_activity_manager_rate"></activity>
+        <activity android:name=".admin.ManagerRateActivity" />
 
         <activity android:name=".admin.AdminAddLessonActivity"></activity>
         <activity android:name=".admin.AdminAlterCourseActivity"></activity>

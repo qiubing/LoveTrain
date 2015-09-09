@@ -78,7 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 //TODO 模拟登录数据
                 if (text.equals("登录")) {
                     if (mUserIdET.getText().toString().equals("user") && mPasswordET.getText().toString().equals("user")) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, EmptyActivity.class);
                         startActivity(intent);
                         this.finish();
                     }
