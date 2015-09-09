@@ -96,10 +96,9 @@
         <activity android:name=".admin.ManagerUserActivity" />
 
         <activity android:name=".admin.AdminAddLessonActivity"/>
+        <activity android:name=".admin.AdminAddCourseActivity"/>
         <activity android:name=".admin.AdminAlterCourseActivity"/>
         <activity android:name=".admin.AdminCourseDetailActivity"/>
-        <activity android:name=".admin.AdminDeleteCourseActivity"/>
-        <activity android:name=".admin.AdminSignUpManageActivity"/>
         <activity android:name=".admin.AdminLessonDetailActivity"/>
         <activity android:name=".admin.AdminAlterLessonActivity"></activity>
         <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>

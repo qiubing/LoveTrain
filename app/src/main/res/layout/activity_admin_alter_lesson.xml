@@ -43,9 +43,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_vertical"
         android:stretchColumns="1"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:paddingTop="20dp">
 
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/courseName"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/alter_lesson_courseName_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Java基础"
+                android:textSize="20sp"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
         <TableRow>
 
             <TextView
@@ -178,7 +200,7 @@
     <Button android:id="@+id/admin_alter_lesson_alterForeSureButton"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginBottom="0dp"
+        android:layout_gravity="bottom"
         android:text="@string/alterLessonForSure"
         android:textSize="20sp"
         />
