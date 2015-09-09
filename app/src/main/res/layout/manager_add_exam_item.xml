@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/manager_add_exam_coursename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testa"
+        android:textColor="@color/bigtitle"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/manager_add_exam_teachername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manager_username"
+        android:layout_marginLeft="10dp"
+        android:text="ak"
+        android:textColor="@color/bigtitle"
+        android:textSize="17sp" />
+
+</LinearLayout>

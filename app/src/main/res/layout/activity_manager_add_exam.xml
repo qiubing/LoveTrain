@@ -37,19 +37,18 @@
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_rate_textSize" />
 
-        <EditText
+        <Spinner
             android:id="@+id/activity_manager_add_exam_one"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_add_exam_hint"
-            android:padding="@dimen/padding"
-            android:paddingLeft="@dimen/login_edit_text_inner_padding"
-            android:singleLine="true"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp"
+            android:layout_gravity="left"
             android:textSize="@dimen/manager_rate_textSize" />
     </LinearLayout>
 
