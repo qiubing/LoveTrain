@@ -11,8 +11,10 @@
         android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
 
         <Button
+            android:id="@+id/mycourse_judge_detail_fill_backbutton"
             android:layout_width="@dimen/jiangyu_small_buttonsize"
-            android:layout_height="@dimen/jiangyu_small_buttonsize"/>
+            android:layout_height="@dimen/jiangyu_small_buttonsize"
+            android:background="@mipmap/ic_back"/>
 
         <TextView
             android:layout_width="wrap_content"

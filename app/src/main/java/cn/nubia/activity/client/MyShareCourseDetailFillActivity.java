@@ -17,11 +17,13 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import cn.nubia.activity.R;
-import cn.nubia.component.CourseLevelSpinnerAdapter;
+import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseLevel;
@@ -40,6 +42,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
     private TextView mCourseEndtime;
     private EditText mCourseDescription;
     private Button mConfirmButton;
+    private Button mBackButton;
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
 
@@ -76,7 +79,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
                 String starttime = new StringBuilder()
                         .append(datePicker.getYear())
                         .append("-")
-                        .append(datePicker.getMonth()+1)
+                        .append(datePicker.getMonth() + 1)
                         .append("-")
                         .append(datePicker.getDayOfMonth())
                         .toString();
@@ -98,7 +101,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
         LayoutInflater inflater = getLayoutInflater();
         final View timePickerLayout = inflater.inflate(R.layout.component_time_picker, null);
         final TimePicker timePicker = (TimePicker) timePickerLayout.findViewById(R.id.jiangyu_timepicker);
-
+        timePicker.setIs24HourView(true);
         DialogInterface.OnClickListener cancelButtonListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}
@@ -114,12 +117,6 @@ public class MyShareCourseDetailFillActivity extends Activity {
                         .toString();
                 switch (type){
                     case STARTTIME:
-//                        try {
-//                            mCourseStartTime =  new SimpleDateFormat("yyyy-mm-dd hh:mm")
-//                                    .parse(mCourseDate.getText().toString() + " " + time);
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
                         mCourseStarttime.setText(time);
                         break;
                     case ENDTIME:
@@ -153,6 +150,8 @@ public class MyShareCourseDetailFillActivity extends Activity {
                 .my_sharecourse_detail_fill_coursedescription_filltextview));
         mConfirmButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_fill_confirmbutton);
+        mBackButton = (Button) findViewById(R.id
+                .my_sharecourse_detail_fill_backbutton);
         mContentScrollView =(ScrollView) findViewById(R.id
                 .my_sharecourse_detail_fill_contentscrollview);
     }
@@ -172,7 +171,6 @@ public class MyShareCourseDetailFillActivity extends Activity {
         });
         /**监听日期输入动作，弹出选择日期框*/
         mCourseDate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 makeDatePickDialog().show();
@@ -191,31 +189,43 @@ public class MyShareCourseDetailFillActivity extends Activity {
                 makeTimePickDialog(TimeType.ENDTIME).show();
             }
         });
-
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                CourseItem shareCourse = new CourseItem();
-                shareCourse.setName(((TextView) findViewById(R.id
-                        .my_sharecourse_detail_fill_coursename_filltextView))
-                        .getText().toString());
-                shareCourse.setDescription(mCourseDescription.getText().toString());
-                shareCourse.setType("2");
-                shareCourse.setLessones((short)2);
-                shareCourse.setCourseStatus((short) 1);
-                shareCourse.setHasExam((short) 0);
-                shareCourse.setShareType(((ShareCourseLevel)mShareTypeSpinner.getSelectedItem())
-                         .getmCourseLevelSign());
-
-                LessonItem shareCourseLesson = new LessonItem();
-                shareCourseLesson.setLocation(((EditText) findViewById(R.id
-                        .my_sharecourse_detail_fill_courselocale_filltextview))
-                        .getTextLocale().toString());
-                shareCourseLesson.setStartTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
-                        .format(mCourseDate.getText() + " " + mCourseStarttime.getText()));
-                shareCourseLesson.setEndTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
-                        .format(mCourseDate.getText()+" "+mCourseEndtime.getText()));
+                if(checkData()){
+                    CourseItem shareCourse = new CourseItem();
+                    shareCourse.setName(mCourseName.getText().toString());
+                    shareCourse.setDescription(mCourseDescription.getText().toString());
+                    shareCourse.setType("2");
+                    shareCourse.setLessones((short) 2);
+                    shareCourse.setCourseStatus((short) 1);
+                    shareCourse.setHasExam((short) 0);
+                    shareCourse.setShareType(((ShareCourseLevel)mShareTypeSpinner.getSelectedItem())
+                             .getmCourseLevelSign());
+                    LessonItem shareCourseLesson = new LessonItem();
+                    shareCourseLesson.setLocation(mLessonLocation.getText().toString());
+                    try {
+                        shareCourseLesson.setStartTime(
+                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                        mCourseDate.getText().toString()
+                                        + " "
+                                        + mCourseStarttime.getText()).toString()));
+                        shareCourseLesson.setEndTime(
+                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                        mCourseDate.getText().toString()
+                                        + " "
+                                        + mCourseEndtime.getText()).toString()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        mBackButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyShareCourseDetailFillActivity.this.finish();
             }
         });
     }
@@ -223,10 +233,11 @@ public class MyShareCourseDetailFillActivity extends Activity {
     private void initViewData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
 
-        if(mCourseItem!=null){
+        if(bundle!=null){
             mOperateType = OperateType.UPDATE;
+            mLessonItem = mCourseItem.getLessonList().get(0);
+            mCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
             mLessonItem = mCourseItem.getLessonList().get(0);
 
             mCourseName.setText(mCourseItem.getName());
@@ -241,5 +252,46 @@ public class MyShareCourseDetailFillActivity extends Activity {
         }else{
             mOperateType = OperateType.INSERT;
         }
+    }
+
+    private boolean checkData(){
+        if(mCourseName.getText().toString().equals("")) {
+            Toast.makeText(this,"课程名不能为空",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mCourseDescription.getText().toString().equals("")){
+            Toast.makeText(this,"课程描述不能为空",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mShareTypeSpinner.getSelectedItem()==null){
+            Toast.makeText(this,"分享级别不能为空",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mLessonLocation.getText().toString().equals("")){
+            Toast.makeText(this,"上课地点不能为空",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        try {
+            new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                    mCourseDate.getText().toString()
+                    + " "
+                    + mCourseStarttime.getText());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this,"日期或上课时间设置不正确",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        try{
+            new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                    mCourseDate.getText().toString()
+                    + " "
+                    + mCourseEndtime.getText());
+        }catch (ParseException e){
+            e.printStackTrace();
+            Toast.makeText(this,"日期或下课时间设置不正确",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }
