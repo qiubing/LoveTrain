@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by JiangYu on 2015/9/1.
  */
-public class CourseItem implements Serializable{
+public class CourseItem extends Item implements Serializable{
     public static String NAME = "course_name";
     public static String DESCRIPTION = "course_description";
     public static String TYPE = "type";
@@ -18,9 +18,6 @@ public class CourseItem implements Serializable{
     public static String RECORD_MODIFY_TIME = "course_record_modify_time";
     public static String COURSE_INDEX = "course_index";
 
-    private int mCourseIndex;
-    private String mCourseName;
-    private String mCourseDescription;
     private short mType;
     private short mLessones;
     private short mCourseStatus;
@@ -32,11 +29,11 @@ public class CourseItem implements Serializable{
     private short mShareType;
     private List<LessonItem> mLessonList;
 
-    public List<LessonItem> getmLessonList() {
+    public List<LessonItem> getLessonList() {
         return mLessonList;
     }
 
-    public void setmLessonList(List<LessonItem> mLessonList) {
+    public void setLessonList(List<LessonItem> mLessonList) {
         this.mLessonList = mLessonList;
     }
 
@@ -46,30 +43,6 @@ public class CourseItem implements Serializable{
 
     public void setShareType(short mShareType) {
         this.mShareType = mShareType;
-    }
-
-    public int getCourseIndex() {
-        return mCourseIndex;
-    }
-
-    public void setCourseIndex(int courseIndex) {
-        this.mCourseIndex = courseIndex;
-    }
-
-    public String getCourseName() {
-        return mCourseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.mCourseName = courseName;
-    }
-
-    public String getCourseDescription() {
-        return mCourseDescription;
-    }
-
-    public void setCourseDescription(String courseDescription) {
-        this.mCourseDescription = courseDescription;
     }
 
     public short getType() {
