@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/admin_signIn_info_back"
                 android:text="@string/signInInfo"
-                android:textSize="36sp" />
+                android:textSize="30sp" />
     </RelativeLayout>
 
     <LinearLayout

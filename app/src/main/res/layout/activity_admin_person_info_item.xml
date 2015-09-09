@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/adapter_item_outside_layout_padding_style"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        style="@style/adapter_item_inside_layout_padding_style"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_layout_border" >
+    <ImageView
+        android:id="@+id/admin_personInfo_headViewImage"
+        style="@style/item_smart_icon_imageview_style"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher" />
 
-        <ImageView
-            android:id="@+id/admin_personInfo_headViewImage"
-            style="@style/item_smart_icon_imageview_style"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/admin_personInfo_contentTextView"
             style="@style/item_layout_content"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/admin_personInfo_headViewImage"
-            android:paddingLeft="8dp"
-            android:paddingTop="20dip"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:padding="10sp"
             android:text="张三,0016001"
-            android:textSize="20sp"/>
-    </RelativeLayout>
+            android:textSize="30sp" />
 
 </RelativeLayout>

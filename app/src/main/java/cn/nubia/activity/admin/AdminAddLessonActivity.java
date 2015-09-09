@@ -58,7 +58,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                 finish();
                 break;
             case R.id.add_lesson_addLessonForSureButton:
-
                 Dialog addLessonDialog = new AlertDialog.Builder(AdminAddLessonActivity.this)
                         .setTitle("添加课时")
                         .setMessage("确定添加？")
@@ -76,7 +75,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
 
                                 //加入到课时数据库中，返回是否加入成功的状态值
                                 //....
-                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, AdminCourseDetailActivity.class);
+                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, MainAdminActivity.class);
                                 Toast.makeText(AdminAddLessonActivity.this, "添加成功，从添加课时跳转到所有课程", Toast.LENGTH_LONG).show();
                                 startActivity(intentAddLesson);
                                 //这里执行修改课程操作

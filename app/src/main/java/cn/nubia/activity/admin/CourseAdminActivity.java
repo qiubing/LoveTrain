@@ -21,11 +21,12 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
-/**管理员课程界面：Tab分页导航
+/**
+ * 管理员课程界面：Tab分页导航
  * admin_course_viewpager：布局为TabHost框架，最上面为TabWidget，废弃了FrameLayout，下面为ViewPager(代替FrameLayout，
  * 以提供滑动功能)
  * TabHost的作用仅仅为对标题进行设置
- *ViewPager用于展示多个Activity，使用PagerAdapter为其提供数据，数据源为List<View> listViews
+ * ViewPager用于展示多个Activity，使用PagerAdapter为其提供数据，数据源为List<View> listViews
  * 并为TabHost和ViewPager互相绑定监听器，一个改变时，另一个跟着改变，你们这样真的不累吗？
  * Created by 胡立 on 2015/9/6.
  */
@@ -65,8 +66,9 @@ public class CourseAdminActivity extends ActivityGroup {
         titleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
-
+                Intent intentAddCourse = new Intent(CourseAdminActivity.this, AdminAddCourseActivity.class);
+                startActivity(intentAddCourse);
+                Toast.makeText(CourseAdminActivity.this, "添加课程", Toast.LENGTH_LONG).show();
             }
         });
         //此处貌似必须有setContent(intent)
@@ -122,7 +124,7 @@ public class CourseAdminActivity extends ActivityGroup {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView( list.get(position));
+            container.removeView(list.get(position));
         }
 
         @Override

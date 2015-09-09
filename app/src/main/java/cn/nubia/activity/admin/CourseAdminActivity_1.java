@@ -7,9 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +24,6 @@ import cn.nubia.activity.R;
  */
 public class CourseAdminActivity_1 extends Activity {
 
-    private static CourseAdminActivity_1 courseAdminActivity_1;
-
     private String[] groupArray = {"Java", "linux", "C++基础"};
     //课时名称
     private String[][] childArray = {
@@ -43,38 +38,10 @@ public class CourseAdminActivity_1 extends Activity {
             {"C2-6,2015年9月6日,14:53", "C2-3,2015年9月8日,14:53", "C2-6,2015年8月6日,20:15"}
     };
 
-    Handler mHandle = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (11 == msg.what) {
-                Log.i("g", "ggg");
-                Dialog signUpExamDialog = new AlertDialog.Builder(CourseAdminActivity_1.this)
-                        .setTitle("报名考试")
-                        .setMessage("确定报名考试？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //这里执行报名操作
-                                Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
-                            }
-                        }).create();
-                signUpExamDialog.show();
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_all_course);
-        courseAdminActivity_1 = this;
 
         ExpandableListAdapter expandableListViewAdapter = new BaseExpandableListAdapter() {
             /**
@@ -162,28 +129,24 @@ public class CourseAdminActivity_1 extends Activity {
                 signUpExamTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Dialog signUpExamDialog = new AlertDialog.Builder(CourseAdminActivity_1.this)
-//                                .setTitle("报名考试")
-//                                .setMessage("确定报名考试？")
-//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        //这里执行报名操作
-//                                        Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-//                                    }
-//                                })
-//                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
-//                                    }
-//                                }).create();
-//                        signUpExamDialog.show();
-                        Message message = new Message();
-                        message.what = 11;
-                        mHandle.sendMessage(message);
+                        Dialog signUpExamDialog = new AlertDialog.Builder(getParent())
+                                .setTitle("报名考试")
+                                .setMessage("确定报名考试？")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //这里执行报名操作
+                                        Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
+                                    }
+                                }).create();
+                        signUpExamDialog.show();
                         Toast.makeText(CourseAdminActivity_1.this, "报名考试成功", Toast.LENGTH_LONG).show();
-                        Log.i("g", "gggg");
                     }
                 });
                 return relativeLayoutGroup;
