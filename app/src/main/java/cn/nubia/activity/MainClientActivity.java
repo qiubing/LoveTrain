@@ -9,6 +9,7 @@ import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -16,8 +17,13 @@ import android.widget.Toast;
 import cn.nubia.activity.client.AllCourceClientActivity;
 import cn.nubia.activity.client.MyClientActivity_1;
 import cn.nubia.activity.client.MyCourseClientActivity;
+import cn.nubia.zxing.barcode.CaptureActivity;
 
-/**
+/**普通用户主界面：Tab分页导航
+ * activity_main_client(未修改版)：布局为TabHost框架，布局最下面为3个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget
+ * TabHost的内容为3个TabHost.TabSpec，展示于FrameLayout
+ * 为单选按钮绑定监听器，内容为修改相应TabHost.TabSpec页面
+ * 直接用tabHost.setOnTabChangedListener监听器不好么，为何要用四个单选按钮
  * Created by 胡立 on 2015/9/6.
  */
 public class MainClientActivity extends ActivityGroup {
@@ -49,8 +55,6 @@ public class MainClientActivity extends ActivityGroup {
         mRadioGroup=(RadioGroup) findViewById(R.id.main_client_group);
     }
 
-
-
     protected void initEvents() {
         // TODO Auto-generated method stub
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -58,13 +62,13 @@ public class MainClientActivity extends ActivityGroup {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // TODO Auto-generated method stub
                 switch (checkedId) {
-                    case R.id.main_client_radio_button1:
+                    case R.id.main_client_radio_myCourse:
                         mTabHost.setCurrentTab(0);
                         break;
-                    case R.id.main_client_radio_button2:
+                    case R.id.main_client_radio_allCourse:
                         mTabHost.setCurrentTab(1);
                         break;
-                    case R.id.main_client_radio_button3:
+                    case R.id.main_client_radio_my:
                         mTabHost.setCurrentTab(2);
                         break;
                 }
@@ -94,8 +98,9 @@ public class MainClientActivity extends ActivityGroup {
             Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
+            /*android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);*/
+            finish();
         }
     }
 
@@ -109,6 +114,26 @@ public class MainClientActivity extends ActivityGroup {
             return true;
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    public void search(View view) {
+        //startActivity(new Intent(this, SearchActivity.class));
+        //打开扫描界面扫描条形码或二维码
+        Intent openCameraIntent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(openCameraIntent, 0);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //处理扫描结果（在界面上显示）
+        if (resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString("result");
+            Toast.makeText(this, scanResult, Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"扫描二维码成功",Toast.LENGTH_LONG).show();
+        }
     }
 }
 

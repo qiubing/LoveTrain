@@ -9,11 +9,11 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
         <!-- 最上面的标题 -->
-        <include
+       <!-- <include
             android:layout_width="fill_parent"
             android:layout_height="48.0dip"
             layout="@layout/header_home" />
-
+-->
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"

@@ -26,8 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -62,8 +62,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -97,8 +97,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -111,7 +111,7 @@
             android:paddingBottom="@dimen/text_padding_bottom"
             android:paddingLeft="@dimen/text_padding_left"
             android:paddingTop="@dimen/text_padding_top"
-            android:text="我的考试成绩"
+            android:text="我的考试"
             android:textSize="@dimen/text_view_font_size" />
 
         <ImageView
@@ -133,8 +133,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -168,8 +168,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -200,11 +200,12 @@
         android:layout_height="@dimen/view_height"
         android:layout_alignParentBottom="true"
         android:background="@color/background" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/linear_padding_bottom">
         <!--android:background="@drawable/my_tab_background"-->
         <TextView
@@ -234,5 +235,47 @@
         android:layout_height="@dimen/view_height"
         android:layout_alignParentBottom="true"
         android:background="@color/background" />
+
+
+    <Button
+        android:id="@+id/btn_check_in"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="扫描二维码" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan result："
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/check_in_result"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_genrate_barcode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="生成二维码" />
+
+    <ImageView
+        android:id="@+id/iv_qr_image_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

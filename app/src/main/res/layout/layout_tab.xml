@@ -25,11 +25,11 @@
         android:textColor="@color/white"
         android:background="@drawable/tabwidget_btn_bg"/>
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/iv_mark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
 </RelativeLayout>

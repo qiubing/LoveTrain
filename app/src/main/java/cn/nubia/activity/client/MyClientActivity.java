@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class MyClientActivity extends ActivityGroup {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_cource);
+        setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
@@ -156,11 +155,6 @@ public class MyClientActivity extends ActivityGroup {
         }
     }
 
-    // search
 
-    public void search(View view) {
-        //startActivity(new Intent(this, SearchActivity.class));
-        Toast.makeText(this, "二维码签到", Toast.LENGTH_LONG).show();
-    }
 }
 

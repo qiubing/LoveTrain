@@ -64,6 +64,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
+                //TODO
+                if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+                    startActivity(new Intent(LoginActivity.this, MainAdminActivity.class));
+                    this.finish();
+                }
+                else{
+                    startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
+                    this.finish();
+                }
+
                 text = mLoginButton.getText().toString();
                 //TODO 模拟登录数据
                 if (text.equals("登录")) {
@@ -110,7 +120,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String userID = mUserIdET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
-        if(isManager.equals("是")){
+        if (isManager.equals("是")) {
 
         }
         JSONObject jsonObject;
