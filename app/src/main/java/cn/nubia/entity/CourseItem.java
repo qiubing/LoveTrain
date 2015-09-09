@@ -8,17 +8,14 @@ import java.util.List;
  * Created by JiangYu on 2015/9/1.
  */
 public class CourseItem extends Item implements Serializable{
-    public static String NAME = "course_name";
-    public static String DESCRIPTION = "course_description";
-    public static String TYPE = "type";
+//    public static String TYPE = "type";
     public static String SHARETYPE = "share_type";
     public static String STATUS = "course_status";
     public static String HASEXAM = "hasExam";
     public static String CREDITS = "course_credits";
     public static String RECORD_MODIFY_TIME = "course_record_modify_time";
-    public static String COURSE_INDEX = "course_index";
+//    public static String COURSE_INDEX = "course_index";
 
-    private short mType;
     private short mLessones;
     private short mCourseStatus;
     private short mHasExam;
@@ -43,14 +40,6 @@ public class CourseItem extends Item implements Serializable{
 
     public void setShareType(short mShareType) {
         this.mShareType = mShareType;
-    }
-
-    public short getType() {
-        return mType;
-    }
-
-    public void setType(short type) {
-        this.mType = type;
     }
 
     public short getLessones() {
@@ -100,4 +89,5 @@ public class CourseItem extends Item implements Serializable{
     public void setRecordModifyTime(long recordModifyTime) {
         mRecordModifyTime = recordModifyTime;
     }
+
 }

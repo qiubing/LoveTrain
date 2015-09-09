@@ -172,6 +172,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
         });
         /**监听日期输入动作，弹出选择日期框*/
         mCourseDate.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 makeDatePickDialog().show();
@@ -200,8 +201,8 @@ public class MyShareCourseDetailFillActivity extends Activity {
                         .my_sharecourse_detail_fill_coursename_filltextView))
                         .getText().toString());
                 shareCourse.setDescription(mCourseDescription.getText().toString());
-                shareCourse.setType((short) 2);
-                shareCourse.setLessones((short) 1);
+                shareCourse.setType("2");
+                shareCourse.setLessones((short)2);
                 shareCourse.setCourseStatus((short) 1);
                 shareCourse.setHasExam((short) 0);
                 shareCourse.setShareType(((ShareCourseLevel)mShareTypeSpinner.getSelectedItem())

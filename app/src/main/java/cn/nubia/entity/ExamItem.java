@@ -6,7 +6,6 @@ import java.io.Serializable;
  * Created by WJ on 2015/9/7.
  */
 public class ExamItem extends Item implements Serializable {
-
     private int mCourseIndex;
     private String mStartTime;
     private String mEndTime;

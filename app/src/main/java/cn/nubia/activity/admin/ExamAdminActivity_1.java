@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.TreeMap;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
@@ -30,18 +28,22 @@ import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.ExamItem;
-import cn.nubia.util.AsyncHttpUtil;
+import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.DataLoadUtil;
+import cn.nubia.util.LoadViewUtil;
+import cn.nubia.util.UpdateClassListHelper;
 
 /**
  * Created by 胡立 on 2015/9/7.
  */
 public class ExamAdminActivity_1 extends Activity {
-
     private ListView mAllExamListView;
     private ExamAdapter mExamAdapter;
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
-    private List<ExamItem> mExamList = new ArrayList<>();
+    private LoadViewUtil mLoadViewUtil;
+    private List<ExamItem> mExamList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +60,15 @@ public class ExamAdminActivity_1 extends Activity {
     }
 
     protected void initEvents() {
+        mExamList = new ArrayList<>();
+        mLoadViewUtil = new LoadViewUtil(this,mErrorHintView,mAllExamListView,hand);
+
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
 
-        /*for Debug  第一次加载数据*/
-        showLoading(4);
+        /*for Debug  模拟第一次加载数据*/
+        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
         Message msg = hand.obtainMessage();
         msg.what = 1;
         hand.sendMessage(msg);
@@ -72,11 +77,12 @@ public class ExamAdminActivity_1 extends Activity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showShortToast("刷新");
+                mLoadViewUtil.showShortToast("刷新");
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         // 更新最新数据
+                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
                     }
@@ -88,11 +94,12 @@ public class ExamAdminActivity_1 extends Activity {
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                showShortToast("加载更多");
+                mLoadViewUtil.showShortToast("加载更多");
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //加载历史数据
+                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
                     }
@@ -103,29 +110,19 @@ public class ExamAdminActivity_1 extends Activity {
 
     /*For debug*/
     private void loadData(){
+        DataLoadUtil.queryClassInfoDataforGet("aa");
+    }
+
+
+    /**
+     * for debug
+     * **/
+    public void loadData(int page) {
+        String url = "test" + page;
+        DataLoadUtil.queryClassInfoDataforGet(url);
         Message msg = hand.obtainMessage();
         msg.what = 2;
         hand.sendMessage(msg);
-    }
-
-    public void loadData(int page) {
-        String url = "test" + page;
-
-        AsyncHttpUtil.get(url,new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Message msg = hand.obtainMessage();
-                msg.what = 2;
-                hand.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                showLoading(2);
-            }
-        });
     }
 
     Handler hand = new Handler() {
@@ -144,7 +141,7 @@ public class ExamAdminActivity_1 extends Activity {
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
-                showLoading(1);
+                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             if(msg.what == 2)
             {
@@ -158,17 +155,9 @@ public class ExamAdminActivity_1 extends Activity {
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
-                showLoading(1);
+                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
-            Collections.sort(mExamList, new Comparator<ExamItem>() {
-                @Override
-                public int compare(ExamItem lhs, ExamItem rhs) {
-                    if(lhs.getIndex() == rhs.getIndex())
-                        return 0;
-                    else
-                        return lhs.getIndex()<= rhs.getIndex()?1 : -1;
-                }
-            });
+            UpdateClassListHelper.binarySort(mExamList);
             mExamAdapter.notifyDataSetChanged();
         }
     };
@@ -181,51 +170,5 @@ public class ExamAdminActivity_1 extends Activity {
             intent.putExtra("value",bundle);
             startActivity(intent);
         }
-    }
-
-    /**
-     * 等待
-     *
-     * @param i
-     */
-    private void showLoading(int i) {
-        mErrorHintView.setVisibility(View.GONE);
-        mAllExamListView.setVisibility(View.GONE);
-        switch (i) {
-            case 1:
-                mErrorHintView.hideLoading();
-                mAllExamListView.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                mErrorHintView.hideLoading();
-                mErrorHintView.netError(new ErrorHintView.OperateListener() {
-                    @Override
-                    public void operate() {
-                        showLoading(4);
-                        loadData(1);
-                    }
-                });
-                break;
-            case 3:
-                mErrorHintView.hideLoading();
-                mErrorHintView.loadFailure(new ErrorHintView.OperateListener() {
-                    @Override
-                    public void operate() {
-                        showLoading(4);
-                        loadData(1);
-                    }
-                });
-                break;
-            case 4:
-                mErrorHintView.loadingData();
-                break;
-        }
-    }
-
-    /**
-     * 短暂显示Toast提示(来自String) *
-     */
-    public void showShortToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }
