@@ -119,10 +119,9 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
-
-        <activity android:name=".admin.ManagerMySetting"></activity>
-        <activity android:name=".admin.ManagerScoreActivity"></activity>
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity android:name=".admin.ManagerMySetting" />
+        <activity android:name=".admin.ManagerScoreActivity" />
         <activity android:name=".admin.ManagerScoreUserActivity" />
         <activity android:name=".admin.ManagerScoreUserDetailActivity" />
         <activity android:name=".admin.ManagerScoreCourseDetailActivity" />
@@ -148,10 +147,12 @@
         <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>
         <activity android:name=".admin.AdminSignUpManageActivity"></activity>
 
-
+<activity
             android:name=".admin.ManagerAddExamActivity"
             android:label="@string/title_activity_manager_add_exam" >
         </activity>
+        <activity
+            android:name=".admin.ManagerExamInputScoreActivity" />
     </application>
 
 </manifest>
