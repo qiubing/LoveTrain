@@ -63,7 +63,7 @@ public class ShareAdminActivity extends ActivityGroup {
         titleButton3.setVisibility(Button.GONE);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setText("已分享");
+        tvTab3.setText("已批准");
 
         Intent intent = new Intent(ShareAdminActivity.this, EmptyActivity.class);
         /*titleButton.setOnClickListener(new View.OnClickListener() {

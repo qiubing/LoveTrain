@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_icon"
+        android:layout_width="match_parent"
+        android:layout_height="48.0dip"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back_image"
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="9.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@null"
+            android:contentDescription="@string/app_name"
+            android:onClick="back"
+            android:src="@drawable/back_button_xml" />
+        <TextView
+            android:id="@+id/approved_share_course_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="85.0dip"
+            android:layout_marginRight="85.0dip"
+            android:singleLine="true"
+            android:textColor="@color/grayslate"
+            android:textSize="@dimen/text_size_20"
+            android:text="课程信息"/>
+
+        <Button
+            android:id="@+id/btn_modify_share_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/btn_pressed_color_light"
+            android:textColor="@color/blue"
+            android:gravity="center"
+            android:text="修改" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_list_approved"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_icon">
+
+        <LinearLayout
+            style="@style/contentrealm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_coursename_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_name"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_courselevel_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_level"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_courselocale_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_locale"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_coursedate_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_date"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_coursestarttime_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_begin_time"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_courseendtime_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_end_time"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/itemtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_my_sharecourse_detail_display_coursedescription_textView" />
+
+            <TextView
+                android:id="@+id/approved_share_course_description"
+                style="@style/itemcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/jiangyu_item_normallverticalmargin" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
