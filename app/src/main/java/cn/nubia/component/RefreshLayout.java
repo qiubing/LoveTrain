@@ -135,7 +135,6 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 mNetworkLoadFailedView = LayoutInflater.from(context).inflate(
                         R.layout.network_load_failed, null, false);
 
-                loadingView=mListViewFooter.findViewById(R.id.loading_icon);
                 loadingView = mListViewFooter.findViewById(R.id.loading_icon);
                 refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
                         context, R.anim.rotating);
@@ -170,6 +169,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                         if (childView instanceof ListView) {
                                 mListView = (ListView) childView;
                                 // 设置滚动监听器给ListView, 使得滚动的情况下也可以自动加载
+                                //huhu，这个不是和dispatchTouchEvent方法功能重复了？
                                 mListView.setOnScrollListener(this);
                         }
                 }
@@ -275,8 +275,9 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         public void showNetworkFailedHeader(boolean loading) {
                 if (loading && mListView.getHeaderViewsCount()== 0) {
                         mListView.addHeaderView(mNetworkLoadFailedView);
-                }else
+                }else {
                         mListView.addFooterView(mNetworkLoadFailedView);
+                }
         }
 
         public void showNetworkFailedFooter(boolean loading) {
