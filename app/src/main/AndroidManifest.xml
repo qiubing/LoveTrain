@@ -136,7 +136,6 @@
         <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
         <activity android:name=".client.CourseIntegrationRecordActivity" />
         <activity android:name=".client.ExamScoreActivity" />
-        <activity android:name=".client.AccountManagementActivity" />
         <activity android:name=".client.MyShareCourseDetailFillActivity" />
         <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
 
