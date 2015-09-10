@@ -1,180 +1,201 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.nubia.activity.R;
+import cn.nubia.adapter.CourseExpandableListAdapter;
+import cn.nubia.component.ErrorHintView;
+import cn.nubia.component.RefreshLayout;
+import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
+import cn.nubia.util.DataLoadUtil;
+import cn.nubia.util.LoadViewUtil;
+import cn.nubia.util.UpdateClassListHelper;
 
 /**
  * Created by 胡立 on 2015/9/7.
  */
 public class AdminCourseAddTabActivity extends Activity {
 
-    private String[] groupArray = {"Java", "linux", "C++基础"};
-    //课时名称
-    private String[][] childArray = {
-            {"Java基础一", "Java基础二", "Java实践"},
-            {"Linux基础一", "Linux基础二", "Linux实践"},
-            {"C++基础一", "C++基础二", "C++实践"}
-    };
-    //课时信息，和课时名称一一对应
-    private String[][] childInfoArray = {
-            {"C2-6,2015年9月6日,14:53", "C2-3,2015年9月8日,14:53", "C2-6,2015年8月6日,20:15"},
-            {"C2-6,2015年9月6日,14:53", "C2-3,2015年9月8日,14:53", "C2-6,2015年8月6日,20:15"},
-            {"C2-6,2015年9月6日,14:53", "C2-3,2015年9月8日,14:53", "C2-6,2015年8月6日,20:15"}
-    };
+    private RefreshLayout mRefreshLayout;
+    private ErrorHintView mErrorHintView;
+    private LoadViewUtil mLoadViewUtil;
+
+
+    private ExpandableListView mExpandableListView;
+    private CourseExpandableListAdapter mCourseExpandableListAdapter;
+
+    private List<CourseItem> mCourseItemList;
+
+    /*三个textview*/
+//    private TextView mAddLessonTextView;
+//    private TextView mCourseDetailTextView;
+//    private TextView mSignUpExamTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_all_course);
+        initView();
+        initEvents();
+    }
 
-        ExpandableListAdapter expandableListViewAdapter = new BaseExpandableListAdapter() {
-            /**
-             * ***************************************child
-             */
+    public void initView() {
+        mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
+        mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
+        Log.e("test","mRefreshLayout"+mRefreshLayout);
+        mErrorHintView = (ErrorHintView) findViewById(R.id.admin_all_course_errorHintView);
+
+        /*初始化三个TextView*/
+//        mAddLessonTextView = (TextView) findViewById(R.id.admin_all_course_addLessonTextView);
+//        mCourseDetailTextView = (TextView) findViewById(R.id.admin_all_course_courseDetailTextView);
+//        mSignUpExamTextView = (TextView) findViewById(R.id.class_signUpExamTextView);
+    }
+
+    protected void initEvents() {
+        mCourseItemList = new ArrayList<>();
+        mLoadViewUtil = new LoadViewUtil(this, mErrorHintView, mExpandableListView, mHandler);
+        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
+
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
+        //为ExpandableListView指定填充数据的adapter
+        mExpandableListView.setAdapter(mCourseExpandableListAdapter);
+        /*去掉箭头*/
+        mExpandableListView.setGroupIndicator(null);
+        /*项的监听事件*/
+        mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
+
+        /*for Debug  模拟第一次加载数据*/
+        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
+        Message msg = mHandler.obtainMessage();
+        msg.what = 1;
+        mHandler.sendMessage(msg);
+
+        // 设置下拉刷新监听器
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public Object getChild(int groupPosition, int childPosition) {
-                return childArray[groupPosition][childPosition];
-            }
-
-            @Override
-            public long getChildId(int groupPosition, int childPosition) {
-                return childPosition;
-            }
-
-            @Override
-            public int getChildrenCount(int groupPosition) {
-                return childArray[groupPosition].length;
-            }
-
-            @Override
-            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-                //获得布局文件要使用LayoutInflater这个类
-                LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                RelativeLayout relativeLayoutChild = (RelativeLayout) layoutInflater.inflate(R.layout.lesson_info_item, null);
-                //设置课时名称
-                TextView mLessonNameTextView = (TextView) relativeLayoutChild.findViewById(R.id.item_layout_title);
-                mLessonNameTextView.setText(getChild(groupPosition, childPosition).toString());
-                //设置课时信息
-                TextView mLessonInfoTextView = (TextView) relativeLayoutChild.findViewById(R.id.item_layout_content);
-                mLessonInfoTextView.setText(childInfoArray[groupPosition][childPosition]);
-                return relativeLayoutChild;
-            }
-
-            /**
-             * ***************************************group
-             */
-            @Override
-            public Object getGroup(int groupPosition) {
-                return groupArray[groupPosition];
-            }
-
-            @Override
-            public int getGroupCount() {
-                return groupArray.length;
-            }
-
-            @Override
-            public long getGroupId(int groupPosition) {
-                return groupPosition;
-            }
-
-            @Override
-            public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-                LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                RelativeLayout relativeLayoutGroup = (RelativeLayout) layoutInflater.inflate(R.layout.class_info_item, null);
-                TextView mCourseNameTextView = (TextView) relativeLayoutGroup.findViewById(R.id.item_layout_title);
-                mCourseNameTextView.setText(groupArray[groupPosition].toString());
-
-                //为"报名考试"添加点击事件
-
-
-                //为 "添加课时" 的textView添加监听事件
-                TextView addLessonTextView = (TextView) relativeLayoutGroup.findViewById(R.id.admin_all_course_addLessonTextView);
-                addLessonTextView.setOnClickListener(new View.OnClickListener() {
+            public void onRefresh() {
+                mLoadViewUtil.showShortToast("刷新");
+                mRefreshLayout.postDelayed(new Runnable() {
                     @Override
-                    public void onClick(View v) {
-                        Intent intentAddLesson = new Intent(AdminCourseAddTabActivity.this, AdminAddLessonActivity.class);
-                        startActivity(intentAddLesson);
+                    public void run() {
+                        // 更新最新数据
+                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
+                        loadData();
+                        mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
                     }
-                });
-
-                //为 "课程详细" 的textView添加监听事件
-                TextView courseDetailTextView = (TextView) relativeLayoutGroup.findViewById(R.id.admin_all_course_courseDetailTextView);
-                courseDetailTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intentCourseDetail = new Intent(AdminCourseAddTabActivity.this, AdminCourseDetailActivity.class);
-                        startActivity(intentCourseDetail);
-                    }
-                });
-
-
-                TextView signUpExamTextView = (TextView) relativeLayoutGroup.findViewById(R.id.class_signUpExamTextView);
-                signUpExamTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Dialog signUpExamDialog = new AlertDialog.Builder(getParent())
-                                .setTitle("报名考试")
-                                .setMessage("确定报名考试？")
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //这里执行报名操作
-                                        Toast.makeText(AdminCourseAddTabActivity.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-                                    }
-                                })
-                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(AdminCourseAddTabActivity.this, "取消", Toast.LENGTH_LONG).show();
-                                    }
-                                }).create();
-                        signUpExamDialog.show();
-                        Toast.makeText(AdminCourseAddTabActivity.this, "报名考试成功", Toast.LENGTH_LONG).show();
-                    }
-                });
-                return relativeLayoutGroup;
-            }
-
-            @Override
-            public boolean isChildSelectable(int groupPosition, int childPosition) {
-                return true;
-            }
-
-            @Override
-            public boolean hasStableIds() {
-                return true;
-            }
-        };
-        ExpandableListView adminAllCourseExpListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
-        adminAllCourseExpListView.setAdapter(expandableListViewAdapter);
-
-        adminAllCourseExpListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                //String name = childArray[position];
-                //intent.putExtra("name", name);
-                Toast.makeText(AdminCourseAddTabActivity.this, "你点击了lesson detail", Toast.LENGTH_LONG).show();
-                Intent intentLessonDetail = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
-                startActivity(intentLessonDetail);
-                return false;
+                }, 1500);
             }
         });
+
+        // 加载监听器
+        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                mLoadViewUtil.showShortToast("加载更多");
+                mRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //加载历史数据
+                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
+                        loadData();
+                        mRefreshLayout.setLoading(false);
+                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
+                    }
+                }, 1500);
+            }
+        });
+    }
+
+    /*For debug*/
+    private void loadData() {
+        DataLoadUtil.queryClassInfoDataforGet("aa");
+    }
+
+    /**
+     * for debug
+     * *
+     */
+    public void loadData(int page) {
+        String url = "test" + page;
+        DataLoadUtil.queryClassInfoDataforGet(url);
+        Message msg = mHandler.obtainMessage();
+        msg.what = 2;
+        mHandler.sendMessage(msg);
+    }
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            List<CourseItem> mCourseList = new ArrayList<>();
+            List<LessonItem> mLessonList = new ArrayList<>();
+            /*For DEBUG  Need add data*/
+            if (msg.what == 1) {
+                for (int i = 10; i < 30; i++) {
+                    CourseItem mCourseItem = new CourseItem();
+                    mCourseItem.setIndex(i);
+                    mCourseItem.setName("Java基础");
+                    mCourseList.add(0, mCourseItem);
+                    for (int j = 0; j < 3; j++) {
+                        LessonItem mLessonItem = new LessonItem();
+                        mLessonItem.setIndex(i);
+                        mLessonItem.setName("Java基础" + i);
+                        mLessonItem.setStartTime("2015.9..6");
+                        mLessonItem.setLocation("C-2");
+                        mLessonList.add(0, mLessonItem);
+                    }
+                    mCourseItem.setLessonList(mLessonList);
+                }
+                mCourseItemList.addAll(mCourseList);
+                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
+            }
+            if (msg.what == 2) {
+                for (int i = 40; i < 50; i++) {
+                    CourseItem mCourseItem = new CourseItem();
+                    mCourseItem.setIndex(i);
+                    mCourseItem.setName("Android基础");
+                    mCourseList.add(0, mCourseItem);
+                    for (int j = 0; j < 3; j++) {
+                        LessonItem mLessonItem = new LessonItem();
+                        mLessonItem.setIndex(i);
+                        mLessonItem.setName("Android基础" + i);
+                        mLessonItem.setStartTime("2015.9..6");
+                        mLessonItem.setLocation("C-2");
+                        mLessonList.add(0, mLessonItem);
+                    }
+                    mCourseItem.setLessonList(mLessonList);
+                }
+                mCourseItemList.addAll(mCourseList);
+                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
+            }
+            UpdateClassListHelper.binarySort(mCourseItemList);
+            mCourseExpandableListAdapter.notifyDataSetChanged();
+        }
+    };
+
+    private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
+        @Override
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            Intent intent = new Intent(CourseAdminActivity_1.this, AdminLessonDetailActivity.class);
+            Bundle bundle = new Bundle();
+            //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
+            intent.putExtra("value", bundle);
+            startActivity(intent);
+            Toast.makeText(CourseAdminActivity_1.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 }

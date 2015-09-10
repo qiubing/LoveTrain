@@ -37,7 +37,6 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_course_detail);
-
         adminCourseDetailActivity = this;
 
         courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
@@ -47,10 +46,13 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 
 
         adminCourseDetailBackImage = (ImageView) findViewById(R.id.admin_course_detail_backImage);
+        /*four button*/
         signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
         alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
         lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
         courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
+
+
 
         //set the listening event;
         adminCourseDetailBackImage.setOnClickListener(this);

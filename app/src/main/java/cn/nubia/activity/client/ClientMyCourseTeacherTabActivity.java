@@ -2,6 +2,7 @@ package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import cn.nubia.activity.R;
 
