@@ -18,7 +18,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerAddExamActivity extends Activity {
+public class ManagerEditExamActivity extends Activity {
 
     private Button mAddButton;
     private EditText mExamInfo;
@@ -26,12 +26,15 @@ public class ManagerAddExamActivity extends Activity {
     private EditText mExamAddress;
     private EditText mExamTime;
     private EditText mExamCredit;
-    private ImageView mGoBack;
+    private ImageView mBack;
 
     private List<String> mList;
 
     private void initSpinner() {
         mList = new ArrayList<>();
+        mList.add("Java基础");
+        mList.add("Android基础");
+        mList.add("面向对象OO");
         mList.add("Java基础");
         mList.add("Android基础");
         mList.add("面向对象OO");
@@ -53,7 +56,7 @@ public class ManagerAddExamActivity extends Activity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater layoutInflater = LayoutInflater.from(ManagerAddExamActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(ManagerEditExamActivity.this);
                 convertView = layoutInflater.inflate(R.layout.manager_add_exam_item, null);
                 if (convertView != null) {
                     TextView coursenameTV = (TextView) convertView.findViewById(R.id.manager_add_exam_coursename);
@@ -66,33 +69,33 @@ public class ManagerAddExamActivity extends Activity {
         };
 
         mExamOneSpinner.setAdapter(baseAdapter);
+        mExamOneSpinner.setSelection(2);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_add_exam);
+        setContentView(R.layout.activity_manager_edit_exam);
 
-        mExamOneSpinner = (Spinner) findViewById(R.id.activity_manager_add_exam_one);
-        mExamInfo = (EditText) findViewById(R.id.activity_manager_add_exam_info);
-        mExamAddress = (EditText) findViewById(R.id.activity_manager_add_exam_address);
-        mExamTime = (EditText) findViewById(R.id.activity_manager_add_exam_time);
-        mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
-        mGoBack = (ImageView) findViewById(R.id.manager_exam_backImage);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
+        mExamOneSpinner = (Spinner) findViewById(R.id.activity_manager_edit_exam_one);
+        mExamInfo = (EditText) findViewById(R.id.activity_manager_edit_exam_info);
+        mExamAddress = (EditText) findViewById(R.id.activity_manager_edit_exam_address);
+        mExamTime = (EditText) findViewById(R.id.activity_manager_edit_exam_time);
+        mExamCredit = (EditText) findViewById(R.id.activity_manager_edit_exam_credit);
+        mAddButton = (Button) findViewById(R.id.activity_manager_edit_exam_button);
+        mBack = (ImageView) findViewById(R.id.manager_exam_backImage);
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         initSpinner();
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.showToast(ManagerAddExamActivity.this, "add exam");
+                DialogUtil.showToast(ManagerEditExamActivity.this, "edit exam");
             }
         });
     }

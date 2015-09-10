@@ -4,66 +4,83 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="cn.nubia.activity.admin.ManagerRateActivity">
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="@dimen/manager_title_high">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:gravity="center"-->
-    <!--android:singleLine="true"-->
-    <!--android:text="@string/activity_manager_rate_title"-->
-    <!--android:textColor="@color/grayslate"-->
-    <!--android:textSize="@dimen/manager_title_textSize" />-->
-    <!--</RelativeLayout>-->
-    <include
-        android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="cn.nubia.activity.admin.ManagerAddExamActivity">
 
     <RelativeLayout
-        android:paddingTop="8dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/manager_title_high">
 
-        <TextView
+        <ImageView
+            android:id="@+id/manager_exam_backImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/activity_manager_rate_tip"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/activity_manager_edit_exam_title"
             android:textColor="@color/grayslate"
-            android:textSize="@dimen/manager_rate_textSize" />
+            android:textSize="@dimen/manager_title_textSize" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_manager_rate_A"
+            android:text="@string/activity_manager_add_exam_one"
+            android:textColor="@color/grayslate"
+            android:textSize="@dimen/manager_rate_textSize" />
+
+        <Spinner
+            android:id="@+id/activity_manager_edit_exam_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_edit_text_height"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/login_edit_text_margin_left"
+            android:layout_marginRight="@dimen/login_edit_text_margin_right"
+            android:background="@drawable/editview_selector"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:textColor="@color/edit_text"
+            android:textColorHint="@color/edit_text_hint"
+            android:textSize="@dimen/manager_rate_textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/manager_rate_paddingTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/activity_manager_add_exam_info"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_rate_textSize" />
 
         <EditText
-            android:id="@+id/activity_manager_rate_A"
+            android:id="@+id/activity_manager_edit_exam_info"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_rate_hint"
+            android:hint="@string/activity_manager_add_exam_hint"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
@@ -76,26 +93,24 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_manager_rate_B"
+            android:text="@string/activity_manager_add_exam_address"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_rate_textSize" />
 
         <EditText
-            android:id="@+id/activity_manager_rate_B"
+            android:id="@+id/activity_manager_edit_exam_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_rate_hint"
+            android:hint="@string/activity_manager_add_exam_hint"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
@@ -108,26 +123,54 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_manager_rate_C"
+            android:text="@string/activity_manager_add_exam_time"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_rate_textSize" />
 
         <EditText
-            android:id="@+id/activity_manager_rate_C"
+            android:id="@+id/activity_manager_edit_exam_time"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_rate_hint"
+            android:hint="@string/activity_manager_add_exam_hint"
+            android:padding="@dimen/padding"
+            android:paddingLeft="@dimen/login_edit_text_inner_padding"
+            android:singleLine="true"
+            android:textColor="@color/edit_text"
+            android:textColorHint="@color/edit_text_hint"
+            android:textSize="@dimen/manager_rate_textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/manager_rate_paddingTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/activity_manager_add_exam_credit"
+            android:textColor="@color/grayslate"
+            android:textSize="@dimen/manager_rate_textSize" />
+
+        <EditText
+            android:id="@+id/activity_manager_edit_exam_credit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_edit_text_height"
+            android:layout_marginLeft="@dimen/login_edit_text_margin_left"
+            android:layout_marginRight="@dimen/login_edit_text_margin_right"
+            android:background="@drawable/editview_selector"
+            android:hint="20"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
@@ -140,15 +183,13 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:layout_marginTop="@dimen/manager_score_hight"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/padding">
 
         <Button
-            android:id="@+id/activity_manager_rate_button"
+            android:id="@+id/activity_manager_edit_exam_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="@string/activity_manager_rate_button"
+            android:text="@string/activity_manager_edit_exam_add"
             android:textSize="@dimen/manager_title_textSize" />
     </LinearLayout>
 </LinearLayout>

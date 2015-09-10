@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class ManagerScoreActivity extends ActivityGroup {
     LocalActivityManager mManager = null;
     TabHost mTabHost = null;
     private ViewPager mViewPager = null;
+    private ImageView mGoBack;
+    private TextView mManagerTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,17 @@ public class ManagerScoreActivity extends ActivityGroup {
         setContentView(R.layout.activity_manager_score);
         mContext = ManagerScoreActivity.this;
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        //公用部分
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.title_activity_manager_score);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // 定放一个放view的list，用于存放viewPager用到的view
         mListViews = new ArrayList<>();

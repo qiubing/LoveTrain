@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,8 +23,9 @@ public class ManagerUserActivity extends Activity {
     private ListView mListView;
     private List<String> mNameList;
     private List<String> mIdList;
+    private ImageView mGoBack;
 
-    private void inti() {
+    private void init() {
         mNameList = new ArrayList<>();
         mIdList = new ArrayList<>();
 
@@ -47,8 +49,15 @@ public class ManagerUserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_user);
+        mGoBack = (ImageView) findViewById(R.id.manager_backImage);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        inti();
+        init();
 
         mListView = (ListView) findViewById(R.id.manager_user_listview);
         BaseAdapter adapter = new BaseAdapter() {
@@ -92,7 +101,7 @@ public class ManagerUserActivity extends Activity {
                                 .setPositiveButton("重置", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        DialogUtil.showToast(ManagerUserActivity.this,"你重置了密码:" + userName + userId);
+                                        DialogUtil.showToast(ManagerUserActivity.this, "你重置了密码:" + userName + userId);
                                     }
                                 })
                                 .setNegativeButton("返回", new DialogInterface.OnClickListener() {
