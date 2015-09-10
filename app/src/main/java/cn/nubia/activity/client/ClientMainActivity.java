@@ -84,7 +84,7 @@ public class ClientMainActivity extends ActivityGroup {
         mTabHost.addTab(buildTabSpec("tab1", "0", new Intent(ClientMainActivity.this,
                 ClientMyCourseActivity.class)));
         mTabHost.addTab(buildTabSpec("tab2", "1", new Intent(ClientMainActivity.this,
-                ClientAllCourceActivity.class)));
+                ClientAllCourseActivity.class)));
         mTabHost.addTab(buildTabSpec("tab3", "2", new Intent(ClientMainActivity.this,
                 ClientMyTabActivity.class)));
     }

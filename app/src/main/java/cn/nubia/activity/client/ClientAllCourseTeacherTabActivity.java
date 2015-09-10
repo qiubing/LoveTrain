@@ -28,7 +28,7 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class MyCourseClientActivity_2 extends Activity {
+public class ClientAllCourseTeacherTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
@@ -189,12 +189,12 @@ public class MyCourseClientActivity_2 extends Activity {
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(MyCourseClientActivity_2.this, AdminLessonDetailActivity.class);
+            Intent intent = new Intent(ClientAllCourseTeacherTabActivity.this, AdminLessonDetailActivity.class);
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);
             startActivity(intent);
-            Toast.makeText(MyCourseClientActivity_2.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+            Toast.makeText(ClientAllCourseTeacherTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
             return false;
         }
     }

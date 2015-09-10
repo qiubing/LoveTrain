@@ -56,7 +56,7 @@ public class AdminCourseAddTabActivity extends Activity {
     public void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
-        Log.e("test","mRefreshLayout"+mRefreshLayout);
+        Log.e("test", "mRefreshLayout" + mRefreshLayout);
         mErrorHintView = (ErrorHintView) findViewById(R.id.admin_all_course_errorHintView);
 
         /*初始化三个TextView*/
@@ -189,12 +189,12 @@ public class AdminCourseAddTabActivity extends Activity {
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(CourseAdminActivity_1.this, AdminLessonDetailActivity.class);
+            Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);
             startActivity(intent);
-            Toast.makeText(CourseAdminActivity_1.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+            Toast.makeText(AdminCourseAddTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
             return false;
         }
     }

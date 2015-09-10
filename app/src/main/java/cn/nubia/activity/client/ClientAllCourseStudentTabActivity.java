@@ -28,15 +28,20 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class ClientAllCourceStudentTabActivity extends Activity {
+public class ClientAllCourseStudentTabActivity extends Activity {
+
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
 
 
+    /*expandableListView*/
     private ExpandableListView mExpandableListView;
+
+    /*adapter*/
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
 
+    /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
 
     /*三个textview*/
@@ -48,11 +53,14 @@ public class ClientAllCourceStudentTabActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*和管理员共用同一个页面*/
         setContentView(R.layout.activity_admin_all_course);
         initView();
         initEvents();
     }
 
+    /*初始化View*/
     public void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
@@ -66,15 +74,20 @@ public class ClientAllCourceStudentTabActivity extends Activity {
     }
 
     protected void initEvents() {
+
         mCourseItemList = new ArrayList<>();
+
         mLoadViewUtil = new LoadViewUtil(this, mErrorHintView, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
+
         //为ExpandableListView指定填充数据的adapter
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
+
         /*去掉箭头*/
         mExpandableListView.setGroupIndicator(null);
+
         /*项的监听事件*/
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
@@ -189,12 +202,12 @@ public class ClientAllCourceStudentTabActivity extends Activity {
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(MyCourseClientActivity_1.this, AdminLessonDetailActivity.class);
+            Intent intent = new Intent(ClientAllCourseStudentTabActivity.this, AdminLessonDetailActivity.class);
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);
             startActivity(intent);
-            Toast.makeText(MyCourseClientActivity_1.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+            Toast.makeText(ClientAllCourseStudentTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
             return false;
         }
     }
