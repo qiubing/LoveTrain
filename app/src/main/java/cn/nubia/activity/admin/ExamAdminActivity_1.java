@@ -10,25 +10,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.ExamItem;
-import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -164,10 +154,11 @@ public class ExamAdminActivity_1 extends Activity {
 
     private class ExamListOnItemClickListener implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            Intent intent = new Intent(ExamAdminActivity_1.this, EmptyActivity.class);
+            Intent intent = new Intent(ExamAdminActivity_1.this, ManagerExamDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("ExamInfo",mExamList.get(arg2-1));
-            intent.putExtra("value",bundle);
+            //bundle.putSerializable("ExamInfo",mExamList.get(arg2-1));
+            bundle.putSerializable("ExamInfo",mExamList.get(arg2));
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +41,14 @@ public class ExamAdminActivity extends ActivityGroup {
         manager.dispatchCreate(savedInstanceState);
 
         //huhu
-		/*Intent i1 = new Intent(context, Game1Activity.class);
+        /*Intent i1 = new Intent(context, Game1Activity.class);
 		listViews.add(getView("A", i1));
 		Intent i2 = new Intent(context, Game2Activity.class);
 		listViews.add(getView("B", i2));*/
         Intent i3 = new Intent(ExamAdminActivity.this, ExamAdminActivity_1.class);
         listViews.add(getView("C", i3));
 
-        tabHost = (TabHost)findViewById(R.id.admin_course_tabhost);
+        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(ExamAdminActivity.this.getLocalActivityManager());
 
         // 这儿主要是自定义一下tabhost中的tab的样式
@@ -76,7 +75,8 @@ public class ExamAdminActivity extends ActivityGroup {
         titleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ExamAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ExamAdminActivity.this, ManagerAddExamActivity.class);
+                startActivity(intent);
             }
         });
         // 注意这儿Intent中的activity不能是自身
@@ -138,7 +138,7 @@ public class ExamAdminActivity extends ActivityGroup {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView( list.get(position));
+            container.removeView(list.get(position));
         }
 
         @Override

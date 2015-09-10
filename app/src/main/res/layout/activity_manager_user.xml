@@ -10,8 +10,14 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45.0dip">
-
+        android:layout_height="50.0dip">
+        <ImageView
+            android:id="@+id/manager_backImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="0dp"
+            android:src="@mipmap/ic_back" />
         <TextView
             android:id="@+id/manager_my_title"
             android:layout_width="fill_parent"

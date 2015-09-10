@@ -5,20 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
+import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
+import cn.nubia.activity.client.MyAccountmanaPswmodifyActivity;
+import cn.nubia.util.DialogUtil;
 
 /**
  * 管理员-我的-主界面
  */
 public class MyAdminActivity_1 extends Activity implements View.OnClickListener {
-    TextView mQueryScoreTV;
-    TextView mQueryCreditTV;
-    TextView mRateManageTV;
-    TextView mAccountManageTV;
-    TextView mUserManageTV;
-    TextView mAboutUsTV;
+    private TextView mQueryScoreTV;
+    private TextView mQueryCreditTV;
+    private TextView mRateManageTV;
+    private TextView mAccountManageTV;
+    private TextView mUserManageTV;
+    private TextView mAboutUsTV;
+    private Button mChangeAccoutn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
         mAccountManageTV = (TextView) findViewById(R.id.accountmanage);
         mUserManageTV = (TextView) findViewById(R.id.usermanage);
         mAboutUsTV = (TextView) findViewById(R.id.about_us);
+        mChangeAccoutn = (Button) findViewById(R.id.change_account);
 
         mQueryScoreTV.setOnClickListener(this);
         mQueryCreditTV.setOnClickListener(this);
@@ -39,6 +45,7 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
         mAccountManageTV.setOnClickListener(this);
         mUserManageTV.setOnClickListener(this);
         mAboutUsTV.setOnClickListener(this);
+        mChangeAccoutn.setOnClickListener(this);
     }
 
     @Override
@@ -59,18 +66,20 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.usermanage:
-                intent = new Intent(MyAdminActivity_1.this,ManagerUserActivity.class);
+                intent = new Intent(MyAdminActivity_1.this, ManagerUserActivity.class);
                 startActivity(intent);
                 break;
             case R.id.accountmanage:
-                intent = new Intent(MyAdminActivity_1.this,ManagerAddExamActivity.class);
+                intent = new Intent(MyAdminActivity_1.this, MyAccountmanaPswmodifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.about_us:
-//                DialogUtil.showDialog(MyAdminActivity_1.this,"LoveTrain!");
-                intent = new Intent(MyAdminActivity_1.this,ManagerExamDetailActivity.class);
-                startActivity(intent);
+                DialogUtil.showDialog(MyAdminActivity_1.this, "LoveTrain!");
                 break;
+            case R.id.change_account:
+                intent = new Intent(MyAdminActivity_1.this, LoginActivity.class);
+                startActivity(intent);
+                this.finish();
             default:
                 break;
         }
