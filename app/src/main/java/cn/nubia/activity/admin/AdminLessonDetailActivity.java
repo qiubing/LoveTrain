@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 
-import cn.nubia.activity.MainAdminActivity;
 import cn.nubia.activity.R;
 import cn.nubia.util.Constant;
 import cn.nubia.util.Utils;

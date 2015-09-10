@@ -6,6 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/soft_comment_title_content_windows"
     tools:context="cn.nubia.activity.admin.ManagerAddExamActivity">
 
     <RelativeLayout

@@ -2,24 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="cn.nubia.activity.admin.ManagerRateActivity">
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="@dimen/manager_title_high">-->
-
-    <!--<TextView-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:gravity="center"-->
-    <!--android:singleLine="true"-->
-    <!--android:text="@string/activity_manager_rate_title"-->
-    <!--android:textColor="@color/grayslate"-->
-    <!--android:textSize="@dimen/manager_title_textSize" />-->
-    <!--</RelativeLayout>-->
     <include
         android:id="@+id/manager_score_user_detail_head"
         layout="@layout/manager_head"
@@ -27,9 +14,10 @@
         android:layout_height="50dp" />
 
     <RelativeLayout
-        android:paddingTop="8dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/soft_comment_title_content_windows"
+        android:paddingTop="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,6 +31,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
+        android:background="@color/soft_comment_title_content_windows"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -75,6 +64,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
+        android:background="@color/soft_comment_title_content_windows"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -107,6 +97,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
+        android:background="@color/soft_comment_title_content_windows"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -140,6 +131,7 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:layout_marginTop="@dimen/manager_score_hight"
+        android:background="@color/soft_comment_title_content_windows"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/padding">

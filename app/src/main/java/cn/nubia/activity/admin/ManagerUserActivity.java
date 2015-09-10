@@ -24,6 +24,7 @@ public class ManagerUserActivity extends Activity {
     private List<String> mNameList;
     private List<String> mIdList;
     private ImageView mGoBack;
+    private TextView mTitle;
 
     private void init() {
         mNameList = new ArrayList<>();
@@ -49,7 +50,9 @@ public class ManagerUserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_user);
-        mGoBack = (ImageView) findViewById(R.id.manager_backImage);
+        mTitle = (TextView) findViewById(R.id.manager_head_title);
+        mTitle.setText(R.string.activity_manager_user);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

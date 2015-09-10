@@ -2,25 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/soft_comment_title_content_windows"
     tools:context="cn.nubia.activity.admin.ManagerScoreUserDetailActivity">
 
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/manager_score_user_detail_layout"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="35.0dip">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/manager_score_user_detail_title"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:gravity="center"-->
-    <!--android:singleLine="true"-->
-    <!--android:text="@string/title_activity_manager_score"-->
-    <!--android:textColor="@color/grayslate"-->
-    <!--android:textSize="22.0sp" />-->
-    <!--</RelativeLayout>-->
     <include
         android:id="@+id/manager_score_user_detail_head"
         layout="@layout/manager_head"
@@ -32,6 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/manager_score_user_detail_head"
-        android:paddingLeft="@dimen/activity_horizontal_margin"></ListView>
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/item_bg">
+
+    </ListView>
 
 </RelativeLayout>

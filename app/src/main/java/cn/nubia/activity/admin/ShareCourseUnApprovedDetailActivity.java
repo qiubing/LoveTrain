@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import cn.nubia.activity.R;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
-import cn.nubia.model.ShareCourseLevelModel;
+import cn.nubia.entity.ShareCourseLevelModel;
 
 /**
  * @Description:
