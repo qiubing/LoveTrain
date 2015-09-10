@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -62,7 +63,7 @@ public class ExamAdminActivity_1 extends Activity {
     protected void initEvents() {
         mExamList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(this,mErrorHintView,mAllExamListView,hand);
-
+        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
@@ -85,6 +86,7 @@ public class ExamAdminActivity_1 extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -102,6 +104,7 @@ public class ExamAdminActivity_1 extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
+                        mRefreshLayout.showNetworkFailedFooter(mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -112,6 +115,7 @@ public class ExamAdminActivity_1 extends Activity {
     private void loadData(){
         DataLoadUtil.queryClassInfoDataforGet("aa");
     }
+
 
 
     /**

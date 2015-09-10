@@ -3,6 +3,7 @@ package cn.nubia.util;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,13 +29,27 @@ public class LoadViewUtil {
     private ErrorHintView mErrorHintView;
     private ListView mListView;
     private Handler mHandler; //重新请求数据Handler
-
+    private View mNetworkFailedView;
+    private boolean mNetworkFailedFlag = true;
     public LoadViewUtil(Context ctx,ErrorHintView errorHintView,ListView listView,Handler handler){
         this.mCtx = ctx;
         this.mErrorHintView = errorHintView;
         this.mListView = listView;
         this.mHandler = handler;
     }
+
+    public void setNetworkFailedViewVisible(boolean visible){
+        mNetworkFailedFlag = visible;
+    }
+
+    public void setNetworkFailedView(View view){
+        this.mNetworkFailedView = view;
+    }
+
+    public boolean getNetworkFailedFlag(){
+        return  mNetworkFailedFlag;
+    }
+
     /**
      * 等待
      *

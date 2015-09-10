@@ -182,9 +182,9 @@ public class ErrorHintView extends RelativeLayout {
     View loadingdata;
 
     /**
-     * 转菊花
      *
-     * @author 荣
+     *
+     * @author
      */
     class LoadingData implements IStrategy {
 
