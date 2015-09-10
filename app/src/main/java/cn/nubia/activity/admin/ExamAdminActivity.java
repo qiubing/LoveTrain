@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -65,14 +64,12 @@ public class ExamAdminActivity extends ActivityGroup {
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton = (Button) tabIndicator3.findViewById(R.id.title_button);
-        titleButton.setText("新增考试");
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setVisibility(TextView.GONE);
+        tvTab3.setText("新增考试");
 
         Intent intent = new Intent(ExamAdminActivity.this, EmptyActivity.class);
-        titleButton.setOnClickListener(new View.OnClickListener() {
+        tvTab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ExamAdminActivity.this, ManagerAddExamActivity.class);

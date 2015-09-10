@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+    <cn.nubia.component.RefreshLayout
+        android:id="@+id/approved_share_course_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ListView
+            android:id="@+id/admin_all_approved_share_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff4f7f9"
+            android:divider="#ffd9dd9c"
+            android:dividerHeight="1.0px"
+            android:drawSelectorOnTop="false"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"/>
+    </cn.nubia.component.RefreshLayout>
+
+    <cn.nubia.component.ErrorHintView
+        android:id="@+id/hintView_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>

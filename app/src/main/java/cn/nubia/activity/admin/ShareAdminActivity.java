@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -54,16 +53,12 @@ public class ShareAdminActivity extends ActivityGroup {
 				this).inflate(R.layout.layout_tab, null);
 		TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
 		tvTab2.setText("待审核");
-        Button titleButton2 = (Button) tabIndicator2.findViewById(R.id.title_button);
-        titleButton2.setVisibility(Button.GONE);
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
-        Button titleButton3 = (Button) tabIndicator3.findViewById(R.id.title_button);
-        titleButton3.setVisibility(Button.GONE);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setText("已分享");
+        tvTab3.setText("已批准");
 
         Intent intent = new Intent(ShareAdminActivity.this, EmptyActivity.class);
         /*titleButton.setOnClickListener(new View.OnClickListener() {

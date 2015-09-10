@@ -17,6 +17,8 @@ import cn.nubia.activity.R;
  * TabHost的内容为4个TabHost.TabSpec，展示于FrameLayout
  * 为单选按钮绑定监听器，内容为修改相应TabHost.TabSpec页面
  * 直接用tabHost.setOnTabChangedListener监听器不好么，为何要用四个单选按钮
+ * TabActivity，ActivityGroup，ActionBar均已废弃，不知应怎样用未废弃的类实现静态分页功能
+ * ViewPager为动态分页，且该类也很古老了
  * Created by 胡立加 on 2015/9/6.
  */
 public class MainAdminActivity extends ActivityGroup {
@@ -79,7 +81,8 @@ public class MainAdminActivity extends ActivityGroup {
 
     private void addTabIntent() {
         mTabHost = (TabHost) findViewById(R.id.main_admin_tabhost);
-        mTabHost.setup(MainAdminActivity.this.getLocalActivityManager());
+        mTabHost.setup(this.getLocalActivityManager());
+       //这个不行，所以无法避免废弃类ActivityGroup mTabHost.setup();
         mTabHost.addTab(buildTabSpec("tab1", "0", new Intent(MainAdminActivity.this,
                 CourseAdminActivity.class)));
         mTabHost.addTab(buildTabSpec("tab2", "1", new Intent(MainAdminActivity.this,
