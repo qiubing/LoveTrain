@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -18,10 +19,12 @@ import cn.nubia.util.DialogUtil;
 
 public class ManagerScoreCourseDetailActivity extends Activity {
 
-    private TextView mTitleTextView;
+//    private TextView mTitleTextView;
     private String[] mNames;
     private String[] mIds;
     private int[] mScores;
+    private ImageView mGoBack;
+    private TextView mManagerTitle;
 
     private void inti() {
         //TODO
@@ -35,8 +38,19 @@ public class ManagerScoreCourseDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score_course_detail);
 
-        mTitleTextView = (TextView) findViewById(R.id.manager_score_course_detail_title);
-        mTitleTextView.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
+        //公用部分
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+//        mTitleTextView = (TextView) findViewById(R.id.manager_score_course_detail_title);
+//        mTitleTextView.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
 
         List<Map<String, Object>> listItems = new ArrayList<>();
         inti();

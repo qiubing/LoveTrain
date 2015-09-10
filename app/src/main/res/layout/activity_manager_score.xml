@@ -9,23 +9,27 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <include
             android:layout_width="fill_parent"
-            android:layout_height="45.0dip">
+            android:layout_height="50dp"
+            layout="@layout/manager_head" />
+        <!--<RelativeLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="45.0dip">-->
 
-            <TextView
-                android:id="@+id/manager_my_title"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="85.0dip"
-                android:layout_marginRight="85.0dip"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/title_activity_manager_score"
-                android:textColor="@color/grayslate"
-                android:textSize="22.0sp" />
-        </RelativeLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/manager_my_title"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="85.0dip"-->
+                <!--android:layout_marginRight="85.0dip"-->
+                <!--android:gravity="center"-->
+                <!--android:singleLine="true"-->
+                <!--android:text="@string/title_activity_manager_score"-->
+                <!--android:textColor="@color/grayslate"-->
+                <!--android:textSize="22.0sp" />-->
+        <!--</RelativeLayout>-->
 
         <TabWidget
             android:id="@android:id/tabs"

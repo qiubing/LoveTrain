@@ -1,9 +1,11 @@
 package cn.nubia.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by WJ on 2015/9/8.
  */
-public abstract class Item {
+public abstract class Item implements Serializable{
     public static String TYPE = "type";
     public static String NAME = "name";
     public static String DESCRIPTION = "description";

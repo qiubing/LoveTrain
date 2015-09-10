@@ -98,6 +98,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          * ListView的加载中footer
          */
         private View mListViewFooter;
+        /**
+         * ListView的加载中网络错误
+         */
+        private View mNetworkLoadFailedView;
 
         /**
          * 按下时的y坐标
@@ -128,12 +132,20 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 
                 mListViewFooter = LayoutInflater.from(context).inflate(
                         R.layout.listview_footer, null, false);
+                mNetworkLoadFailedView = LayoutInflater.from(context).inflate(
+                        R.layout.network_load_failed, null, false);
+
+                loadingView=mListViewFooter.findViewById(R.id.loading_icon);
                 loadingView = mListViewFooter.findViewById(R.id.loading_icon);
                 refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
                         context, R.anim.rotating);
                 // 添加匀速转动动画
                 LinearInterpolator lir = new LinearInterpolator();
                 refreshingAnimation.setInterpolator(lir);
+        }
+
+        public View getNetworkLoadFailView(){
+                return mNetworkLoadFailedView;
         }
 
         //huhu，属于ViewGroup的方法，当View分配所有子元素的大小和位置时触发该方法
@@ -249,6 +261,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         public void setLoading(boolean loading) {
                 isLoading = loading;
                 if (isLoading) {
+                        mListView.removeFooterView(mNetworkLoadFailedView);
                         mListView.addFooterView(mListViewFooter);
                         loadingView.startAnimation(refreshingAnimation);
                 } else {
@@ -259,6 +272,20 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 }
         }
 
+        public void showNetworkFailedHeader(boolean loading) {
+                if (loading && mListView.getHeaderViewsCount()== 0) {
+                        mListView.addHeaderView(mNetworkLoadFailedView);
+                }else
+                        mListView.addFooterView(mNetworkLoadFailedView);
+        }
+
+        public void showNetworkFailedFooter(boolean loading) {
+                if (loading && mListView.getFooterViewsCount()== 0) {
+                        mListView.addFooterView(mNetworkLoadFailedView);
+                } else {
+                        mListView.removeFooterView(mNetworkLoadFailedView);
+                }
+        }
         /**
          * @param loadListener
          */

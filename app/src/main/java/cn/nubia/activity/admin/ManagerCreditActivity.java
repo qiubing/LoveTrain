@@ -10,6 +10,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -28,10 +30,25 @@ public class ManagerCreditActivity extends ActivityGroup {
     TabHost mTabHost = null;
     private ViewPager mViewPage = null;
 
+    private TextView mManagerTitle;
+    private ImageView mGoBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_credit);
+
+        //公用部分
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.title_activity_manager_credit_title);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mContext = ManagerCreditActivity.this;
         mViewPage = (ViewPager) findViewById(R.id.viewpager);
 
@@ -67,7 +84,10 @@ public class ManagerCreditActivity extends ActivityGroup {
                 .setContent(intent));
         mTabHost.addTab(mTabHost.newTabSpec("B").setIndicator(tabIndicator2)
                 .setContent(intent));
-
+        Button titleButton1 = (Button) tabIndicator1.findViewById(R.id.title_button);
+        titleButton1.setVisibility(Button.GONE);
+        Button titleButton2 = (Button) tabIndicator2.findViewById(R.id.title_button);
+        titleButton2.setVisibility(Button.GONE);
         mViewPage.setAdapter(new MyPageAdapter(mListViews));
         mViewPage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

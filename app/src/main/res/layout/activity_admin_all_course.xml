@@ -16,18 +16,29 @@
         android:padding="0dp"
         android:paddingTop="15dp">
 
-        <ExpandableListView
-            android:id="@+id/allCourse_ExpandableListView"
+        <cn.nubia.component.RefreshLayout
+            android:id="@+id/admin_all_course_refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ExpandableListView
+                android:id="@+id/allCourse_ExpandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff4f7f9"
+                android:cacheColorHint="#00000000"
+                android:divider="#dddbdb"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="false"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"></ExpandableListView>
+        </cn.nubia.component.RefreshLayout>
+
+        <cn.nubia.component.ErrorHintView
+            android:id="@+id/admin_all_course_errorHintView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff4f7f9"
-            android:cacheColorHint="#00000000"
-            android:divider="#dddbdb"
-            android:dividerHeight="0dp"
-            android:drawSelectorOnTop="false"
-            android:fadingEdge="none"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none">
-        </ExpandableListView>
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

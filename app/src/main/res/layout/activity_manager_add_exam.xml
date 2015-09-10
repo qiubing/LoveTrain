@@ -10,7 +10,16 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
+
         android:layout_height="@dimen/manager_title_high">
+
+        <ImageView
+            android:id="@+id/manager_exam_backImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="0dp"
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -41,14 +50,14 @@
             android:id="@+id/activity_manager_add_exam_one"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
+            android:layout_gravity="left"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
-            android:paddingTop="0dp"
-            android:paddingLeft="0dp"
-            android:layout_gravity="left"
             android:textSize="@dimen/manager_rate_textSize" />
     </LinearLayout>
 

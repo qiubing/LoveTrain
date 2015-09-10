@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class ManagerAddExamActivity extends Activity {
     private EditText mExamAddress;
     private EditText mExamTime;
     private EditText mExamCredit;
+    private ImageView mGoBack;
 
     private List<String> mList;
 
@@ -77,6 +79,13 @@ public class ManagerAddExamActivity extends Activity {
         mExamTime = (EditText) findViewById(R.id.activity_manager_add_exam_time);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
         mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+        mGoBack = (ImageView) findViewById(R.id.manager_exam_backImage);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         initSpinner();
 

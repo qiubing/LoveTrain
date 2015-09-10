@@ -22,7 +22,7 @@ public class DataLoadUtil {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-
+                mLoadViewUtil.setNetworkFailedViewVisible(false);
 //                updateAllData(response);
 
             }
@@ -30,7 +30,8 @@ public class DataLoadUtil {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADFAILURE);
+                mLoadViewUtil.setNetworkFailedViewVisible(true);
+
             }
         });
     }
@@ -54,7 +55,8 @@ public class DataLoadUtil {
                 /**
                  * 在这里修理我
                  * */
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADFAILURE);
+                 mLoadViewUtil.showShortToast("很抱歉\\n数据加载失败啦");
+//               mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADFAILURE);
             }
         });
     }
