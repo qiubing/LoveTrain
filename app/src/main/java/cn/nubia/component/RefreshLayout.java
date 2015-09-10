@@ -20,11 +20,67 @@ import cn.nubia.activity.R;
  * transplant by WJ on 2015/9/1.
  * 继承自SwipeRefreshLayout,从而实现滑动到底部时上拉加载更多的功能.
  */
+
+/*huhu，SwipeRefreshLayout类注释
+SwipeRefreshLayout是Google的support v419.1版本的library更新的一个下拉刷新组件，俗称“彩虹条”，继承于ViewGroup，
+但是官方版本只有下拉刷新而没有上拉加载更多，需进行继承扩展。也可以使用第三方库，如PullToRefresh,ActionBar-PullToRefresh等完成下拉上拉加载更多功能
+
+在xml文件中引用android.support.v4.widget.SwipeRefreshLayout控件，在里面可以放置任何一个控件，例如ListView，gridview等
+<android.support.v4.widget.SwipeRefreshLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/swipe_container"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<ScrollView
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<ListView
+android:id="@+id/listview"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+</ListView>
+</ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
+public class MainActivity extends ActionBarActivity implements OnRefreshListener{
+
+        private SwipeRefreshLayout swipeRefreshLayout;
+        Handler handler = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        swipeRefreshLayout.setRefreshing(false);
+                }
+        };
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
+                swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swip);
+                swipeRefreshLayout.setOnRefreshListener(this);
+                ////设置刷新时动画的颜色，可以设置4个
+                swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,android.R.color.holo_green_light,android.R.color.holo_orange_light,
+                        android.R.color.holo_red_light);
+        }
+
+        @Override
+        public void onRefresh() {
+                handler.sendEmptyMessageDelayed(1, 5000);
+        }
+}
+
+在上面的onRefresh()函数中实现获取数据功能以及更新数据，当更新完数据后，调用swipeRefreshLayout.setRefreshing(false);来关闭刷新。*/
+
+
+
 public class RefreshLayout extends SwipeRefreshLayout implements
         AbsListView.OnScrollListener {
 
         /**
-         * 滑动到最下面时的上拉操作
+         * huhu，是否触发操作的临界值
          */
 
         private int mTouchSlop;
@@ -34,7 +90,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         private ListView mListView;
 
         /**
-         * 上拉监听器, 到了最底部的上拉加载操作
+         * huhu，自定义实现上拉加载更多功能的接口
          */
         private OnLoadListener mOnLoadListener;
 
@@ -71,7 +127,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 
         public RefreshLayout(Context context, AttributeSet attrs) {
                 super(context, attrs);
-
+                //huhu,getScaledTouchSlop是一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件，得到系统的默认值
                 mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
                 mListViewFooter = LayoutInflater.from(context).inflate(
@@ -79,7 +135,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 mNetworkLoadFailedView = LayoutInflater.from(context).inflate(
                         R.layout.network_load_failed, null, false);
 
-                loadingView=mListViewFooter.findViewById(R.id.loading_icon);
+                loadingView = mListViewFooter.findViewById(R.id.loading_icon);
                 refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
                         context, R.anim.rotating);
                 // 添加匀速转动动画
@@ -91,6 +147,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 return mNetworkLoadFailedView;
         }
 
+        //huhu，属于ViewGroup的方法，当View分配所有子元素的大小和位置时触发该方法
         @Override
         protected void onLayout(boolean changed, int left, int top, int right,
                                 int bottom) {
@@ -112,6 +169,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                         if (childView instanceof ListView) {
                                 mListView = (ListView) childView;
                                 // 设置滚动监听器给ListView, 使得滚动的情况下也可以自动加载
+                                //huhu，这个不是和dispatchTouchEvent方法功能重复了？
                                 mListView.setOnScrollListener(this);
                         }
                 }
@@ -127,18 +185,23 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 final int action = event.getAction();
 
                 switch (action) {
+                        //huhu,A pressed gesture has started, the motion contains the initial starting location
                         case MotionEvent.ACTION_DOWN:
                                 // 按下
                                 mYDown = (int) event.getRawY();
                                 break;
-
-                        case MotionEvent.ACTION_MOVE:
+                        //huhu,  A change has happened during apress gesture (between {@link #ACTION_DOWN} and {@link #ACTION_UP}).
+                        //The motion contains the most recent point,
+                        //该参数主要用于描述轨迹的，不适合当前应用，应舍弃
+                       /* case MotionEvent.ACTION_MOVE:
                                 // 移动
                                 mLastY = (int) event.getRawY();
-                                break;
-
+                                break;*/
+                        //huhu,A pressed gesture has finished, the
+                        //motion contains the final release location
                         case MotionEvent.ACTION_UP:
-                                // 抬起
+                                //huhu，add  mLastY = (int) event.getRawY();
+                                mLastY = (int) event.getRawY();
                                 if (canLoad()) {
                                         loadData();
                                 }
@@ -212,8 +275,9 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         public void showNetworkFailedHeader(boolean loading) {
                 if (loading && mListView.getHeaderViewsCount()== 0) {
                         mListView.addHeaderView(mNetworkLoadFailedView);
-                }else
+                }else {
                         mListView.addFooterView(mNetworkLoadFailedView);
+                }
         }
 
         public void showNetworkFailedFooter(boolean loading) {
@@ -236,6 +300,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
         @Override
+        //该方法貌似没用
         public void onScroll(AbsListView view, int firstVisibleItem,
                              int visibleItemCount, int totalItemCount) {
                 // 滚动时到了最底部也可以加载更多
