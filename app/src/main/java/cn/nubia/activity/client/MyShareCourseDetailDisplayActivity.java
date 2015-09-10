@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import cn.nubia.activity.R;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
-import cn.nubia.model.ShareCourseLevelModel;
+import cn.nubia.entity.ShareCourseLevelModel;
 
 /**
  * Created by JiangYu on 2015/9/2.

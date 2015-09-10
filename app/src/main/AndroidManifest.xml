@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainAdminActivity"
+            android:name=".admin.MainAdminActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
@@ -46,7 +46,7 @@
 
 
         <activity
-            android:name=".MainClientActivity"
+            android:name=".client.MainClientActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity

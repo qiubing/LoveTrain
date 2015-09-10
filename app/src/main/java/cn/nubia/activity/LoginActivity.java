@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.nubia.activity.admin.MainAdminActivity;
+import cn.nubia.activity.client.MainClientActivity;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HttpUtil;
 import cn.nubia.util.Md5Encryption;
@@ -65,7 +67,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
         String text;
@@ -75,20 +76,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
                     startActivity(new Intent(LoginActivity.this, MainAdminActivity.class));
                     this.finish();
-                }
-                else{
+                } else {
                     startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
                     this.finish();
                 }
 
                 text = mLoginButton.getText().toString();
-                //TODO 模拟登录数据
                 if (text.equals("登录")) {
-                    if (mUserIdET.getText().toString().equals("user") && mPasswordET.getText().toString().equals("user")) {
-                        Intent intent = new Intent(LoginActivity.this, MainAdminActivity.class);
-                        startActivity(intent);
-                        this.finish();
-                    }
                     if (validateLogin()) {
                         login();
                     }
@@ -128,7 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         if (isManager.equals("是")) {
-
+            //TODO 模拟登录数据
         }
         JSONObject jsonObject;
         try {

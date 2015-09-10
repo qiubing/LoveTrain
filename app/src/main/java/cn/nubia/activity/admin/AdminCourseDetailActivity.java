@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cn.nubia.activity.MainAdminActivity;
 import cn.nubia.activity.R;
 
 /**

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import cn.nubia.activity.R;
+import cn.nubia.interfaces.IStrategy;
 
 /**
  * transplant by WJ on 2015/9/1.

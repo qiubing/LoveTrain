@@ -15,7 +15,7 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.ShareCourseLevel;
-import cn.nubia.model.ShareCourseLevelModel;
+import cn.nubia.entity.ShareCourseLevelModel;
 
 /**
  * Created by JiangYu on 2015/9/1.

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cn.nubia.activity.BaseActivity;
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;

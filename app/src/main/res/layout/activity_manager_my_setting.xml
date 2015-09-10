@@ -98,7 +98,7 @@
             <Button
                 android:id="@+id/change_account"
                 style="@style/CustomBigLoginButton"
-                android:text="更换账号" />
+                android:text="注销" />
 
         </LinearLayout>
     </ScrollView>

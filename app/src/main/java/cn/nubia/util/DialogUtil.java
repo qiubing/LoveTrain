@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
 
-import cn.nubia.activity.MainClientActivity;
+import cn.nubia.activity.client.MainClientActivity;
 
 /**
  * 对话框工具类

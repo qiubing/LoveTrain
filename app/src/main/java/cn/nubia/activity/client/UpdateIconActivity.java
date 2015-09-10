@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import cn.nubia.activity.BaseActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.util.Constant;
