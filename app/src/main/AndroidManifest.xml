@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".admin.MainAdminActivity"
+            android:name=".admin.AdminMainActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
@@ -46,35 +46,35 @@
 
 
         <activity
-            android:name=".client.MainClientActivity"
+            android:name=".client.ClientMainActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.CourseAdminActivity"
+            android:name=".admin.AdminCourseActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.ExamAdminActivity"
+            android:name=".admin.AdminExamActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.ShareAdminActivity"
+            android:name=".admin.AdminShareActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.MyAdminActivity"
+            android:name=".admin.AdminMyActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.CourseAdminActivity_1"
+            android:name=".admin.AdminCourseAddTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.ExamAdminActivity_1"
+            android:name=".admin.AdminExamAddTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.ShareAdminActivity_1"
+            android:name=".admin.AdminShareCheckTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.ShareAdminActivity_2"
+            android:name=".admin.AdminSharePassTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.MyAdminActivity_1"
+            android:name=".admin.AdminMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
 
 
@@ -100,33 +100,33 @@
         <activity android:name=".admin.AdminLessonDetailActivity"/>
         <activity android:name=".admin.AdminAlterLessonActivity"></activity>
         <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>
-        <activity android:name=".admin.ShareCourseApprovedDetailActivity"/>
-        <activity android:name=".admin.ShareCourseApprovedModifyActivity"/>
-        <activity android:name=".admin.ShareCourseUnApprovedDetailActivity"/>
+        <activity android:name=".admin.AdminShareCourseApprovedDetailActivity"/>
+        <activity android:name=".admin.AdminShareCourseApprovedModifyActivity"/>
+        <activity android:name=".admin.AdminShareCourseUnApprovedDetailActivity"/>
 
         <activity
-            android:name=".client.MyCourseClientActivity"
+            android:name=".client.ClientMyCourseActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.AllCourceClientActivity"
+            android:name=".client.ClientAllCourceActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.MyClientActivity"
+            android:name=".client.ClientMyActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.AllCourceClientActivity_1"
+            android:name=".client.ClientAllCourceStudentTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
-            android:name=".client.AllCourseClientActivity_2"
+            android:name=".client.ClientAllCourseTeacherTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
-            android:name=".client.MyCourseClientActivity_1"
+            android:name=".client.ClientMyCourseStudentTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.MyCourseClientActivity_2"
+            android:name=".client.ClientMyCourseTeacherTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.MyClientActivity_1"
+            android:name=".client.ClientMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
         <activity android:name=".client.MyCheckRecordActivity" />

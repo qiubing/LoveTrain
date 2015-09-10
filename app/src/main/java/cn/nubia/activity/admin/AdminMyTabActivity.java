@@ -16,7 +16,7 @@ import cn.nubia.util.DialogUtil;
 /**
  * 管理员-我的-主界面
  */
-public class MyAdminActivity_1 extends Activity implements View.OnClickListener {
+public class AdminMyTabActivity extends Activity implements View.OnClickListener {
     private TextView mQueryScoreTV;
     private TextView mQueryCreditTV;
     private TextView mRateManageTV;
@@ -54,30 +54,30 @@ public class MyAdminActivity_1 extends Activity implements View.OnClickListener 
         Intent intent = null;
         switch (viewId) {
             case R.id.queryscore:
-                intent = new Intent(MyAdminActivity_1.this, ManagerScoreActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, ManagerScoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.querycredit:
-                intent = new Intent(MyAdminActivity_1.this, ManagerCreditActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, ManagerCreditActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ratemanage:
-                intent = new Intent(MyAdminActivity_1.this, ManagerRateActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, ManagerRateActivity.class);
                 startActivity(intent);
                 break;
             case R.id.usermanage:
-                intent = new Intent(MyAdminActivity_1.this, ManagerUserActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, ManagerUserActivity.class);
                 startActivity(intent);
                 break;
             case R.id.accountmanage:
-                intent = new Intent(MyAdminActivity_1.this, MyAccountmanaPswmodifyActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, MyAccountmanaPswmodifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.about_us:
-                DialogUtil.showDialog(MyAdminActivity_1.this, "LoveTrain!");
+                DialogUtil.showDialog(AdminMyTabActivity.this, "LoveTrain!");
                 break;
             case R.id.change_account:
-                intent = new Intent(MyAdminActivity_1.this, LoginActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, LoginActivity.class);
                 startActivity(intent);
                 this.finish();
             default:

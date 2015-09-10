@@ -31,7 +31,7 @@ import cn.nubia.entity.ShareCourseLevel;
  * @Author: qiubing
  * @Date: 2015/9/10 10:41
  */
-public class ShareCourseApprovedModifyActivity extends Activity {
+public class AdminShareCourseApprovedModifyActivity extends Activity {
     private enum OperateType {INSERT, UPDATE}
 
     private enum TimeType {STARTTIME, ENDTIME}
@@ -113,7 +113,7 @@ public class ShareCourseApprovedModifyActivity extends Activity {
      * 每次都是创建一个新的对话框实例，包括DatePicker实例
      */
     private AlertDialog.Builder makeDatePickDialog() {
-        AlertDialog.Builder pickDateDialog = new AlertDialog.Builder(ShareCourseApprovedModifyActivity.this);
+        AlertDialog.Builder pickDateDialog = new AlertDialog.Builder(AdminShareCourseApprovedModifyActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         final View datePickerLayout = inflater.inflate(R.layout.component_date_picker, null);
         final DatePicker datePicker = (DatePicker) datePickerLayout.findViewById(R.id.jiangyu_datepicker);
@@ -149,7 +149,7 @@ public class ShareCourseApprovedModifyActivity extends Activity {
      * 每次都是创建一个新的对话框实例，包括TimePicker实例
      */
     private AlertDialog.Builder makeTimePickDialog(final TimeType type) {
-        AlertDialog.Builder pickTimeDialog = new AlertDialog.Builder(ShareCourseApprovedModifyActivity.this);
+        AlertDialog.Builder pickTimeDialog = new AlertDialog.Builder(AdminShareCourseApprovedModifyActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         final View timePickerLayout = inflater.inflate(R.layout.component_time_picker, null);
         final TimePicker timePicker = (TimePicker) timePickerLayout.findViewById(R.id.jiangyu_timepicker);
@@ -257,7 +257,7 @@ public class ShareCourseApprovedModifyActivity extends Activity {
                         .format(mCourseDate.getText() + " " + mCourseEndtime.getText()));
 
                 //TODO:提交修改后的课程信息到后台服务器
-                Toast.makeText(ShareCourseApprovedModifyActivity.this,"确认修改",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminShareCourseApprovedModifyActivity.this,"确认修改",Toast.LENGTH_LONG).show();
             }
         });
 

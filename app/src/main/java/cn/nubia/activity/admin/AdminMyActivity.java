@@ -13,7 +13,7 @@ import cn.nubia.activity.R;
  * Created by 胡立 on 2015/9/6.
  */
 @SuppressWarnings("deprecation")
-public class MyAdminActivity extends ActivityGroup implements View.OnClickListener  {
+public class AdminMyActivity extends ActivityGroup implements View.OnClickListener  {
     TextView score_query;
     TextView integral_query;
     TextView assess_manage;

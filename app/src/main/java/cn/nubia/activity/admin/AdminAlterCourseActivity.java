@@ -54,7 +54,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.admin_alter_course_backImage:
                 Toast.makeText(AdminAlterCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
-                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this, MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;

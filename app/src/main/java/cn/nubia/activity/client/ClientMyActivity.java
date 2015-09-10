@@ -15,7 +15,7 @@ import cn.nubia.activity.R;
  * Created by 胡立 on 2015/9/7.
  */
 @SuppressWarnings("deprecation")
-public class MyClientActivity extends ActivityGroup {
+public class ClientMyActivity extends ActivityGroup {
     private List<View> listViews;
     LocalActivityManager manager;
     private TabHost tabHost;

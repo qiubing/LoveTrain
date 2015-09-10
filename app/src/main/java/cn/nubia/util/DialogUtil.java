@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
 
-import cn.nubia.activity.client.MainClientActivity;
+import cn.nubia.activity.client.ClientMainActivity;
 
 /**
  * 对话框工具类
@@ -26,7 +26,7 @@ public class DialogUtil {
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(ctx, MainClientActivity.class);
+                    Intent intent = new Intent(ctx, ClientMainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ctx.startActivity(intent);
                 }
@@ -44,7 +44,7 @@ public class DialogUtil {
             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(ctx, MainClientActivity.class);
+                    Intent intent = new Intent(ctx, ClientMainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ctx.startActivity(intent);
                 }

@@ -24,7 +24,7 @@ import cn.nubia.util.Utils;
  * @Date: 2015/9/6 19:28
  */
 
-public class MyClientActivity_1 extends Activity implements OnClickListener {
+public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final String TAG = "UserSetting";
     private static final int GET_PHOTO_CODE = 1;
 

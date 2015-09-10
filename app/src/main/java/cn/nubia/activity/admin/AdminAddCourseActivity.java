@@ -57,7 +57,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         switch (v.getId()) {
             case R.id.admin_add_course_backImage:
                 Toast.makeText(AdminAddCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
-                Intent intentBackImage = new Intent(AdminAddCourseActivity.this, MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;
@@ -75,7 +75,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                                 whetherHighLevelCourse = addCourseWhetherHighLevelCourseCheckBox.isChecked();
                                 //加入到课程数据库中，返回是否加入成功的状态值
                                 //....
-                                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, MainAdminActivity.class);
+                                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                                 startActivity(intentAddForSure);
                                 //这里执行添加课程操作
                                 Toast.makeText(AdminAddCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
@@ -85,7 +85,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intentAddCancel = new Intent(AdminAddCourseActivity.this, MainAdminActivity.class);
+                                Intent intentAddCancel = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                                 startActivity(intentAddCancel);
                             }
                         }).create();

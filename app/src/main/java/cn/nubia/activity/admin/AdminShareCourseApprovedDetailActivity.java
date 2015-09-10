@@ -17,7 +17,7 @@ import cn.nubia.entity.ShareCourseLevelModel;
  * @Author: qiubing
  * @Date: 2015/9/10 9:23
  */
-public class ShareCourseApprovedDetailActivity extends Activity {
+public class AdminShareCourseApprovedDetailActivity extends Activity {
     private TextView mCourseName;
     private TextView mCourseLevel;
     private TextView mCourseDate;
@@ -40,8 +40,8 @@ public class ShareCourseApprovedDetailActivity extends Activity {
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShareCourseApprovedDetailActivity.this,
-                        ShareCourseApprovedModifyActivity.class);
+                Intent intent = new Intent(AdminShareCourseApprovedDetailActivity.this,
+                        AdminShareCourseApprovedModifyActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("ModifiedCourseInfo", mApprovedCourseItem);
                 intent.putExtras(bundle);

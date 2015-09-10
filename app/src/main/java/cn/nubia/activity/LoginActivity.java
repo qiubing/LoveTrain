@@ -17,8 +17,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.nubia.activity.admin.MainAdminActivity;
-import cn.nubia.activity.client.MainClientActivity;
+import cn.nubia.activity.admin.AdminMainActivity;
+import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HttpUtil;
 import cn.nubia.util.Md5Encryption;
@@ -74,10 +74,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login_btn:
                 //TODO
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
-                    startActivity(new Intent(LoginActivity.this, MainAdminActivity.class));
+                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     this.finish();
                 } else {
-                    startActivity(new Intent(LoginActivity.this, MainClientActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
                     this.finish();
                 }
 

@@ -26,7 +26,7 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class ShareAdminActivity_2 extends Activity {
+public class AdminSharePassTabActivity extends Activity {
 
     private ListView mAllShareCourse;
     private CourseAdapter mCourseAdapter;
@@ -163,7 +163,7 @@ public class ShareAdminActivity_2 extends Activity {
 
 
     /**
-    * @ClassName: ShareAdminActivity_2
+    * @ClassName:
     * @Description: 实现点击列表选项监听
     * @Author: qiubing
     * @Date: 2015/9/9 15:12
@@ -172,7 +172,7 @@ public class ShareAdminActivity_2 extends Activity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(ShareAdminActivity_2.this, ShareCourseApprovedDetailActivity.class);
+            Intent intent = new Intent(AdminSharePassTabActivity.this, AdminShareCourseApprovedDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("CourseInfo",mCourseList.get(position));
             intent.putExtras(bundle);

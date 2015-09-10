@@ -22,7 +22,7 @@ import cn.nubia.activity.R;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class CourseAdminActivity_1 extends Activity {
+public class AdminCourseAddTabActivity extends Activity {
 
     private String[] groupArray = {"Java", "linux", "C++基础"};
     //课时名称
@@ -109,7 +109,7 @@ public class CourseAdminActivity_1 extends Activity {
                 addLessonTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intentAddLesson = new Intent(CourseAdminActivity_1.this, AdminAddLessonActivity.class);
+                        Intent intentAddLesson = new Intent(AdminCourseAddTabActivity.this, AdminAddLessonActivity.class);
                         startActivity(intentAddLesson);
                     }
                 });
@@ -119,7 +119,7 @@ public class CourseAdminActivity_1 extends Activity {
                 courseDetailTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intentCourseDetail = new Intent(CourseAdminActivity_1.this, AdminCourseDetailActivity.class);
+                        Intent intentCourseDetail = new Intent(AdminCourseAddTabActivity.this, AdminCourseDetailActivity.class);
                         startActivity(intentCourseDetail);
                     }
                 });
@@ -136,17 +136,17 @@ public class CourseAdminActivity_1 extends Activity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //这里执行报名操作
-                                        Toast.makeText(CourseAdminActivity_1.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(AdminCourseAddTabActivity.this, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
                                     }
                                 })
                                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(CourseAdminActivity_1.this, "取消", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(AdminCourseAddTabActivity.this, "取消", Toast.LENGTH_LONG).show();
                                     }
                                 }).create();
                         signUpExamDialog.show();
-                        Toast.makeText(CourseAdminActivity_1.this, "报名考试成功", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminCourseAddTabActivity.this, "报名考试成功", Toast.LENGTH_LONG).show();
                     }
                 });
                 return relativeLayoutGroup;
@@ -170,8 +170,8 @@ public class CourseAdminActivity_1 extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 //String name = childArray[position];
                 //intent.putExtra("name", name);
-                Toast.makeText(CourseAdminActivity_1.this, "你点击了lesson detail", Toast.LENGTH_LONG).show();
-                Intent intentLessonDetail = new Intent(CourseAdminActivity_1.this, AdminLessonDetailActivity.class);
+                Toast.makeText(AdminCourseAddTabActivity.this, "你点击了lesson detail", Toast.LENGTH_LONG).show();
+                Intent intentLessonDetail = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
                 startActivity(intentLessonDetail);
                 return false;
             }

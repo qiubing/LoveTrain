@@ -8,10 +8,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,19 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
-/**
+/**管理员课程界面：Tab分页导航
+ * admin_course_viewpager：布局为TabHost框架，最上面为TabWidget，废弃了FrameLayout，下面为ViewPager(代替FrameLayout，
+ * 以提供滑动功能)
+ * TabHost的作用仅仅为对标题进行设置
+ *ViewPager用于展示多个Activity，使用PagerAdapter为其提供数据，数据源为List<View> listViews
+ * 并为TabHost和ViewPager互相绑定监听器，一个改变时，另一个跟着改变，你们这样真的不累吗？
+ * ViewPager+PagerTitleStrip  实现相同功能
+ * PagerTitleStrip的标题条是动态滑动的，TabHost是静态的
+ * 使用PagerTitleStrip可以避免继承废弃类ActivityGroup，但PagerAdapter的分页为View，仍然需要ActivityGroup将Activity转换为View
+ * 另外可以使用FragmentPagerAdapter代替PagerAdapter，以彻底避免废弃类，但此时分页内容为Fragment，程序修改力度较大，需讨论决定
  * Created by 胡立 on 2015/9/6.
  */
-public class ExamAdminActivity extends ActivityGroup {
+public class AdminCourseActivity extends ActivityGroup {
     private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
@@ -39,51 +50,30 @@ public class ExamAdminActivity extends ActivityGroup {
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-        //huhu
-        /*Intent i1 = new Intent(context, Game1Activity.class);
-		listViews.add(getView("A", i1));
-		Intent i2 = new Intent(context, Game2Activity.class);
-		listViews.add(getView("B", i2));*/
-        Intent i3 = new Intent(ExamAdminActivity.this, ExamAdminActivity_1.class);
-        listViews.add(getView("C", i3));
+
+        Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
+        listViews.add(getView("A", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(ExamAdminActivity.this.getLocalActivityManager());
-
-        // 这儿主要是自定义一下tabhost中的tab的样式
-        //huhu
-		/*RelativeLayout tabIndicator1 = (RelativeLayout) LayoutInflater.from(
-				this).inflate(R.layout.layout_tab, null);
-		TextView tvTab1 = (TextView) tabIndicator1.findViewById(R.id.tv_title);
-		tvTab1.setText("推荐");
-
-		RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
-				this).inflate(R.layout.layout_tab, null);
-		TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
-		tvTab2.setText("分类");*/
+        tabHost.setup(this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setText("新增考试");
+        tvTab3.setText("新增课程");
 
-        Intent intent = new Intent(ExamAdminActivity.this, EmptyActivity.class);
-        tvTab3.setOnClickListener(new View.OnClickListener() {
+
+        Intent intent = new Intent(AdminCourseActivity.this, EmptyActivity.class);
+        tvTab3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ExamAdminActivity.this, ManagerAddExamActivity.class);
-                startActivity(intent);
+                Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+
             }
         });
-        // 注意这儿Intent中的activity不能是自身
-        // 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。
-        //huhu
-		/*tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator1)
-				.setContent(intent));
-		tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator2)
-				.setContent(intent));*/
-        tabHost.addTab(tabHost.newTabSpec("C").setIndicator(tabIndicator3)
+        //此处貌似必须有setContent(intent)
+        tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
        /* pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -135,7 +125,7 @@ public class ExamAdminActivity extends ActivityGroup {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(list.get(position));
+            container.removeView( list.get(position));
         }
 
         @Override
@@ -156,4 +146,3 @@ public class ExamAdminActivity extends ActivityGroup {
     }
 
 }
-

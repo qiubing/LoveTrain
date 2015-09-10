@@ -1,4 +1,4 @@
-package cn.nubia.activity.client;
+package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
@@ -20,10 +20,9 @@ import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
 /**
- * Created by 胡立 on 2015/9/7.
+ * Created by 胡立 on 2015/9/6.
  */
-@SuppressWarnings("deprecation")
-public class MyCourseClientActivity extends ActivityGroup {
+public class AdminExamActivity extends ActivityGroup {
     private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
@@ -40,43 +39,54 @@ public class MyCourseClientActivity extends ActivityGroup {
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-        Intent i2 = new Intent(this, MyCourseClientActivity_1.class);
-        listViews.add(getView("A", i2));
-        Intent i3 = new Intent(this, MyCourseClientActivity_2.class);
-        listViews.add(getView("B", i3));
+        //huhu
+        /*Intent i1 = new Intent(context, Game1Activity.class);
+		listViews.add(getView("A", i1));
+		Intent i2 = new Intent(context, Game2Activity.class);
+		listViews.add(getView("B", i2));*/
+        Intent i3 = new Intent(AdminExamActivity.this, AdminExamAddTabActivity.class);
+        listViews.add(getView("C", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(this.getLocalActivityManager());
+        tabHost.setup(AdminExamActivity.this.getLocalActivityManager());
 
+        // 这儿主要是自定义一下tabhost中的tab的样式
+        //huhu
+		/*RelativeLayout tabIndicator1 = (RelativeLayout) LayoutInflater.from(
+				this).inflate(R.layout.layout_tab, null);
+		TextView tvTab1 = (TextView) tabIndicator1.findViewById(R.id.tv_title);
+		tvTab1.setText("推荐");
 
-        RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
-                this).inflate(R.layout.layout_tab, null);
-        TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
-        tvTab2.setText("我是学员");
-
+		RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
+				this).inflate(R.layout.layout_tab, null);
+		TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
+		tvTab2.setText("分类");*/
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setText("我是讲师");
+        tvTab3.setText("新增考试");
 
-        Intent intent = new Intent(this, EmptyActivity.class);
-        /*titleButton.setOnClickListener(new View.OnClickListener() {
+        Intent intent = new Intent(AdminExamActivity.this, EmptyActivity.class);
+        tvTab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ExamAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AdminExamActivity.this, ManagerAddExamActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
         // 注意这儿Intent中的activity不能是自身
         // 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。
-
-        tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator2)
-                .setContent(intent));
-        tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator3)
+        //huhu
+		/*tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator1)
+				.setContent(intent));
+		tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator2)
+				.setContent(intent));*/
+        tabHost.addTab(tabHost.newTabSpec("C").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+       /* pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
@@ -103,8 +113,11 @@ public class MyCourseClientActivity extends ActivityGroup {
                 if ("B".equals(tabId)) {
                     pager.setCurrentItem(1);
                 }
+                if ("C".equals(tabId)) {
+                    pager.setCurrentItem(2);
+                }
             }
-        });
+        });*/
 
     }
 
@@ -122,7 +135,7 @@ public class MyCourseClientActivity extends ActivityGroup {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView( list.get(position));
+            container.removeView(list.get(position));
         }
 
         @Override
@@ -141,4 +154,6 @@ public class MyCourseClientActivity extends ActivityGroup {
             return arg0 == arg1;
         }
     }
+
 }
+

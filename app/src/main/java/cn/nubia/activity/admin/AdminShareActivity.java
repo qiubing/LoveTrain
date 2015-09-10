@@ -1,4 +1,4 @@
-package cn.nubia.activity.client;
+package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
@@ -18,13 +18,12 @@ import java.util.List;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.CourseAdminActivity_1;
 
 /**
- * Created by 胡立 on 2015/9/7.
+ * Created by 胡立 on 2015/9/6.
  */
 @SuppressWarnings("deprecation")
-public class AllCourceClientActivity extends ActivityGroup {
+public class AdminShareActivity extends ActivityGroup {
     private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
@@ -41,39 +40,31 @@ public class AllCourceClientActivity extends ActivityGroup {
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-
-        Intent i3 = new Intent(AllCourceClientActivity.this, CourseAdminActivity_1.class);
-        listViews.add(getView("A", i3));
-
-        Intent i4 = new Intent(AllCourceClientActivity.this, AllCourseClientActivity_2.class);
-        listViews.add(getView("B", i4));
+		Intent i2 = new Intent(AdminShareActivity.this, AdminShareCheckTabActivity.class);
+		listViews.add(getView("A", i2));
+        Intent i3 = new Intent(AdminShareActivity.this, AdminSharePassTabActivity.class);
+        listViews.add(getView("B", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(AllCourceClientActivity.this.getLocalActivityManager());
+        tabHost.setup(AdminShareActivity.this.getLocalActivityManager());
+
+
+		RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
+				this).inflate(R.layout.layout_tab, null);
+		TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
+		tvTab2.setText("待审核");
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
-        tvTab3.setText("全部课程");
+        tvTab3.setText("已批准");
 
-        RelativeLayout tabIndicator4 = (RelativeLayout) LayoutInflater.from(
-                this).inflate(R.layout.layout_tab, null);
+        Intent intent = new Intent(AdminShareActivity.this, EmptyActivity.class);
 
-        TextView tvTab4 = (TextView) tabIndicator4.findViewById(R.id.tv_title);
-        tvTab4.setText("只考试");
-
-        Intent intent = new Intent(AllCourceClientActivity.this, EmptyActivity.class);
-        /*titleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(CourseAdminActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-        tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator3)
-                .setContent(intent));
-        tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator4)
+		tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator2)
+				.setContent(intent));
+        tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -141,5 +132,5 @@ public class AllCourceClientActivity extends ActivityGroup {
             return arg0 == arg1;
         }
     }
-}
 
+}

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -27,7 +26,7 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class ExamAdminActivity_1 extends Activity {
+public class AdminExamAddTabActivity extends Activity {
     private ListView mAllExamListView;
     private ExamAdapter mExamAdapter;
     private RefreshLayout mRefreshLayout;
@@ -158,7 +157,7 @@ public class ExamAdminActivity_1 extends Activity {
 
     private class ExamListOnItemClickListener implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            Intent intent = new Intent(ExamAdminActivity_1.this, ManagerExamDetailActivity.class);
+            Intent intent = new Intent(AdminExamAddTabActivity.this, ManagerExamDetailActivity.class);
             Bundle bundle = new Bundle();
             //bundle.putSerializable("ExamInfo",mExamList.get(arg2-1));
             bundle.putSerializable("ExamInfo",mExamList.get(arg2));

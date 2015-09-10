@@ -48,7 +48,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_lesson_detail_backImageView:
-                Intent intentBackImage = new Intent(AdminLessonDetailActivity.this, MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;
@@ -59,7 +59,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.admin_lesson_detail_deleteLessonButton:
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了删除课时", Toast.LENGTH_LONG).show();
-                Intent intentDeleteLesson = new Intent(AdminLessonDetailActivity.this, MainAdminActivity.class);
+                Intent intentDeleteLesson = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
                 startActivity(intentDeleteLesson);
                 break;
             case R.id.lesson_detail_signIn_textView:

@@ -64,7 +64,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_course_detail_backImage:
-                Intent intentBackImage = new Intent(AdminCourseDetailActivity.this, MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminCourseDetailActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 break;
             case R.id.signUpAdminBtn:
@@ -107,7 +107,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intentDeleteCourse = new Intent(AdminCourseDetailActivity.this, MainAdminActivity.class);
+                                Intent intentDeleteCourse = new Intent(AdminCourseDetailActivity.this, AdminMainActivity.class);
                                 startActivity(intentDeleteCourse);
                                 //这里执行删除课程操作
                                 Toast.makeText(AdminCourseDetailActivity.this, "确定 ", Toast.LENGTH_LONG).show();

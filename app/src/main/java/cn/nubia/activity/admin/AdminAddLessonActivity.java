@@ -52,7 +52,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_add_course_back:
-                Intent intentBackImage = new Intent(AdminAddLessonActivity.this, MainAdminActivity.class);
+                Intent intentBackImage = new Intent(AdminAddLessonActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
                 break;
@@ -74,7 +74,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
 
                                 //加入到课时数据库中，返回是否加入成功的状态值
                                 //....
-                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, MainAdminActivity.class);
+                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, AdminMainActivity.class);
                                 Toast.makeText(AdminAddLessonActivity.this, "添加成功，从添加课时跳转到所有课程", Toast.LENGTH_LONG).show();
                                 startActivity(intentAddLesson);
                                 //这里执行修改课程操作

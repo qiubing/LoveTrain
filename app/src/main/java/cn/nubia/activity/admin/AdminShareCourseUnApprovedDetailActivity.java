@@ -18,7 +18,7 @@ import cn.nubia.entity.ShareCourseLevelModel;
  * @Author: qiubing
  * @Date: 2015/9/10 14:43
  */
-public class ShareCourseUnApprovedDetailActivity extends Activity implements View.OnClickListener {
+public class AdminShareCourseUnApprovedDetailActivity extends Activity implements View.OnClickListener {
     private TextView mCourseName;
     private TextView mCourseLevel;
     private TextView mCourseDate;
