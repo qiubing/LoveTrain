@@ -1,22 +1,22 @@
 package cn.nubia.activity.client;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.zxing.WriterException;
-
+import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
+import cn.nubia.component.CircleImageView;
 import cn.nubia.util.Constant;
 import cn.nubia.util.Utils;
-import cn.nubia.zxing.barcode.CaptureActivity;
-import cn.nubia.zxing.encoding.EncodingHandler;
 
 /**
  * @Description:与我相关的
@@ -24,127 +24,136 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  * @Date: 2015/9/6 19:28
  */
 
-public class MyClientActivity_1 extends BaseActivity implements OnClickListener {
-    private ImageView mArrow1;
-    private ImageView mArrow2;
-    private ImageView mArrow3;
-    private ImageView mArrow4;
-    private ImageView mArrow5;
-    private ImageView mArrow6;
+public class MyClientActivity_1 extends Activity implements OnClickListener {
+    private static final String TAG = "UserSetting";
+    private static final int GET_PHOTO_CODE = 1;
 
-    private Button mScanBarCode;
-    private Button mGenerateBarCode;
-    private TextView mScanResult;
-    private ImageView mShowBarCode;
-
+    private CircleImageView mCircleImageView;
+    private TextView mCheckRecord;
+    private TextView mCourseIntergration;
+    private TextView mExamScore;
+    private TextView mCourseShare;
+    private TextView mIWantShare;
+    private TextView mPasswordChange;
+    private TextView mAboutMe;
+    private TextView mFanKui;
+    private TextView mVersion;
+    private Button mLogoutButton;
 
     @Override
-    protected void setMainLayout() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_my_setting);
-        findViews();
+        initViews();
+        initEvents();
     }
 
-    @Override
-    protected void initBeforeData() {
-
+    private void initViews(){
+        mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+        mCheckRecord = (TextView) findViewById(R.id.check_in_record);
+        mCourseIntergration = (TextView) findViewById(R.id.course_integration);
+        mCourseShare = (TextView) findViewById(R.id.course_share);
+        mIWantShare = (TextView) findViewById(R.id.i_want_share);
+        mExamScore = (TextView) findViewById(R.id.exam_score);
+        mPasswordChange = (TextView) findViewById(R.id.btn_passwd_change);
+        mAboutMe = (TextView) findViewById(R.id.btn_about);
+        mFanKui = (TextView) findViewById(R.id.btn_fankui);
+        mVersion = (TextView) findViewById(R.id.btn_version);
+        mLogoutButton = (Button) findViewById(R.id.bt_logout);
     }
 
-    @Override
-    protected void initEvents() {
-        mArrow1.setOnClickListener(this);
-        mArrow2.setOnClickListener(this);
-        mArrow3.setOnClickListener(this);
-        mArrow4.setOnClickListener(this);
-        mArrow5.setOnClickListener(this);
-        mArrow6.setOnClickListener(this);
-        mScanBarCode.setOnClickListener(this);
-        mGenerateBarCode.setOnClickListener(this);
-    }
-
-    private void findViews() {
-        mArrow1 = (ImageView) findViewById(R.id.arrow_image_1);
-        mArrow2 = (ImageView) findViewById(R.id.arrow_image_2);
-        mArrow3 = (ImageView) findViewById(R.id.arrow_image_3);
-        mArrow4 = (ImageView) findViewById(R.id.arrow_image_4);
-        mArrow5 = (ImageView) findViewById(R.id.arrow_image_5);
-        mArrow6 = (ImageView) findViewById(R.id.arrow_image_6);
-        mScanBarCode = (Button) findViewById(R.id.btn_check_in);
-        mScanResult = (TextView) findViewById(R.id.check_in_result);
-        mGenerateBarCode = (Button) findViewById(R.id.btn_genrate_barcode);
-        mShowBarCode = (ImageView) findViewById(R.id.iv_qr_image_show);
-    }
-
-    @Override
-    protected void initAfterData() {
-
-    }
-
-    @Override
-    public void back(View view) {
-        this.finish();
+    private void initEvents(){
+        mCircleImageView.setOnClickListener(this);
+        mCheckRecord.setOnClickListener(this);
+        mCourseIntergration.setOnClickListener(this);
+        mCourseShare.setOnClickListener(this);
+        mIWantShare.setOnClickListener(this);
+        mExamScore.setOnClickListener(this);
+        mPasswordChange.setOnClickListener(this);
+        mAboutMe.setOnClickListener(this);
+        mFanKui.setOnClickListener(this);
+        mVersion.setOnClickListener(this);
+        mLogoutButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.arrow_image_1:
-                startActivity(MyCheckRecordActivity.class);
+        switch (v.getId()){
+            case R.id.icon1:
+                Intent intent = new Intent(this, UpdateIconActivity.class);
+                startActivityForResult(intent, GET_PHOTO_CODE);
                 break;
-            case R.id.arrow_image_2:
-                startActivity(CourseIntegrationRecordActivity.class);
+            case R.id.check_in_record:
+               myStartActivity(MyCheckRecordActivity.class);
                 break;
-            case R.id.arrow_image_3:
-                startActivity(ExamScoreActivity.class);
+            case R.id.course_integration:
+                myStartActivity(CourseIntegrationRecordActivity.class);
                 break;
-            case R.id.arrow_image_4:
-                startActivity(ShareCourseActivity.class);
+            case R.id.exam_score:
+                myStartActivity(ExamScoreActivity.class);
                 break;
-            case R.id.arrow_image_5:
-                startActivity(MyShareCourseDetailFillActivity.class);
+            case R.id.course_share:
+                myStartActivity(ShareCourseActivity.class);
                 break;
-            case R.id.arrow_image_6:
-                startActivity(AccountManagementActivity.class);
+            case R.id.i_want_share:
+                myStartActivity(MyShareCourseDetailFillActivity.class);
                 break;
-            case R.id.btn_check_in:
-                //打开扫描界面扫描条形码或二维码
-                Intent openCameraIntent = new Intent(MyClientActivity_1.this, CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
+            case R.id.btn_passwd_change:
+                myStartActivity(MyAccountmanaPswmodifyActivity.class);
                 break;
-            case R.id.btn_genrate_barcode:
-                //TODO:生成具有课程和讲师信息的二维码
-
-                String contentString = "hello_nubia";
-                if (!contentString.equals("")) {
-                    //获取需要插入的头像logo
-                    Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.PORTRAIT);
-                    Bitmap qrCodeBitmap = null;
-                    try {
-                        //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-                        //Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 350);
-                        qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
-                    } catch (WriterException e) {
-                        e.printStackTrace();
-                    }
-                    mShowBarCode.setImageBitmap(qrCodeBitmap);
-                    String barCodeName = contentString + ".jpg";
-                    //保存二维码图片到SD卡中
-                    Utils.saveBitmap(barCodeName, qrCodeBitmap);
-                } else {
-                    Toast.makeText(MyClientActivity_1.this, "Text can not be empty", Toast.LENGTH_SHORT).show();
-                }
-
+            case R.id.btn_about:
+                Toast.makeText(this,"nubia LoveTrain",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.btn_fankui:
+                Toast.makeText(this,"谢谢您的反馈",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.btn_version:
+                Toast.makeText(this,"Version 1.0",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.bt_logout:
+                //注销登录
+                Intent logoutIntent = new Intent(this,
+                        LoginActivity.class);
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(logoutIntent);
                 break;
         }
     }
 
+    /**
+     * 自定义的startActivity
+     * @param cls 需要启动的Activity类
+     */
+    protected void myStartActivity(Class<?> cls) {
+        Intent intent  = new Intent();
+        intent.setClass(this,cls);
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //处理扫描结果（在界面上显示）
-        if (resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
-            mScanResult.setText(scanResult);
+        if (requestCode == GET_PHOTO_CODE && resultCode == 3) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                Drawable drawable = new BitmapDrawable(photo);
+                mCircleImageView.setImageDrawable(drawable);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //头像图片存储路径
+        String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
+        Log.v(TAG, path);
+        Bitmap bitmap = Utils.getPictureFromSD(path);
+        if (bitmap != null) {
+            Drawable drawable = new BitmapDrawable(bitmap);
+            mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+            mCircleImageView.setImageDrawable(drawable);
         }
     }
 }

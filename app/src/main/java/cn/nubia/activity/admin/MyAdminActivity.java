@@ -60,7 +60,7 @@ public class MyAdminActivity extends ActivityGroup implements View.OnClickListen
             case R.id.user_manage:
 
                 break;
-            case R.id.account_manage:
+            case R.id.admin_account_manage:
 
                 break;
             case R.id.about_us:
