@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="cn.nubia.activity.admin.ManagerExamInputScoreActivity">
+    tools:context="cn.nubia.activity.admin.AdminExamInputScoreActivity">
 
     <RelativeLayout
         android:id="@+id/manager_exam_score_input_layout"

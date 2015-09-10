@@ -2,7 +2,6 @@ package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +15,7 @@ import cn.nubia.entity.LessonJudgement;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class MyCourseJudgeDetailFillActivity extends Activity{
+public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private Button mConfirmButton;
     private Button mBackButton;
     private EditText mComprehensiveEvaluationEditText;
@@ -102,7 +101,7 @@ public class MyCourseJudgeDetailFillActivity extends Activity{
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyCourseJudgeDetailFillActivity.this.finish();
+                ClientMyCourseJudgeDetailFillActivity.this.finish();
             }
         });
     }

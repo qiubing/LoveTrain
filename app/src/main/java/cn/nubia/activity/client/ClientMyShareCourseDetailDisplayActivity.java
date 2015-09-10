@@ -18,7 +18,7 @@ import cn.nubia.entity.ShareCourseLevelModel;
 /**
  * Created by JiangYu on 2015/9/2.
  */
-public class MyShareCourseDetailDisplayActivity extends Activity {
+public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseName;
     private TextView mCourseLevel;
     private TextView mCourseDate;
@@ -68,8 +68,8 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyShareCourseDetailDisplayActivity.this
-                        ,MyShareCourseDetailFillActivity.class);
+                Intent intent = new Intent(ClientMyShareCourseDetailDisplayActivity.this
+                        ,ClientMyShareCourseDetailFillActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("shareCourse",mShareCourseItem);
                 intent.putExtras(bundle);
@@ -80,7 +80,7 @@ public class MyShareCourseDetailDisplayActivity extends Activity {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyShareCourseDetailDisplayActivity.this.finish();
+                ClientMyShareCourseDetailDisplayActivity.this.finish();
             }
         });
     }

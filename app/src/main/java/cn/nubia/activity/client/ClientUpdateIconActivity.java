@@ -33,8 +33,8 @@ import cn.nubia.util.Utils;
  * @Author: qiubing
  * @Date: 2015/9/6 20:23
  */
-public class UpdateIconActivity extends BaseActivity implements OnClickListener{
-    private static final String TAG = "UpdateIconActivity";
+public class ClientUpdateIconActivity extends BaseActivity implements OnClickListener{
+    private static final String TAG = "ClientUpdateIconActivity";
 
     private CircleImageView mCircleImageView;
     private Button mEditButton;
@@ -85,7 +85,7 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_edit_head_portrait:
-                new PopupWindows(UpdateIconActivity.this, mCircleImageView);
+                new PopupWindows(ClientUpdateIconActivity.this, mCircleImageView);
                 break;
             case R.id.btn_upload:
                 showShortToast("长传头像");
@@ -209,8 +209,8 @@ public class UpdateIconActivity extends BaseActivity implements OnClickListener{
                             e.printStackTrace();
                         }
                         /*返回照片给上一级显示*/
-                        UpdateIconActivity.this.setResult(RETURN_PHOTO_CODE,data);
-                        UpdateIconActivity.this.finish();
+                        ClientUpdateIconActivity.this.setResult(RETURN_PHOTO_CODE,data);
+                        ClientUpdateIconActivity.this.finish();
                     }
                     break;
             }

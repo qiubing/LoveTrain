@@ -5,7 +5,7 @@
     android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="cn.nubia.activity.admin.ManagerRateActivity">
+    tools:context="cn.nubia.activity.admin.AdminRateActivity">
 
     <include
         android:id="@+id/manager_score_user_detail_head"

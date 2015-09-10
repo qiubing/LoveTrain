@@ -21,7 +21,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerExamInputScoreActivity extends Activity {
+public class AdminExamInputScoreActivity extends Activity {
 
     private ListView mListView;
     private List<String> mDataList;
@@ -109,7 +109,6 @@ public class ManagerExamInputScoreActivity extends Activity {
                         } catch (Exception e) {
                             e.printStackTrace();
                             scores[position] = -1;
-                            //DialogUtil.showDialog(ManagerExamInputScoreActivity.this,"非法分数");
                         }
                     }
                 });
@@ -126,7 +125,7 @@ public class ManagerExamInputScoreActivity extends Activity {
             public void onClick(View v) {
                 for (float score : scores) {
                     if (score == -1) {
-                        DialogUtil.showToast(ManagerExamInputScoreActivity.this, "输入的分数含非数字，请检查后重新输入！");
+                        DialogUtil.showToast(AdminExamInputScoreActivity.this, "输入的分数含非数字，请检查后重新输入！");
                         return;
                     }
                 }
@@ -134,7 +133,7 @@ public class ManagerExamInputScoreActivity extends Activity {
                 for (int i = 0; i < scores.length; i++) {
                     sb.append(mDataList.get(i) + "-" + scores[i] + ";");
                 }
-                DialogUtil.showToast(ManagerExamInputScoreActivity.this, sb.toString());
+                DialogUtil.showToast(AdminExamInputScoreActivity.this, sb.toString());
             }
         });
         mListView.addFooterView(view);

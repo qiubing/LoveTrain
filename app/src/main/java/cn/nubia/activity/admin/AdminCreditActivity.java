@@ -21,7 +21,7 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
-public class ManagerCreditActivity extends ActivityGroup {
+public class AdminCreditActivity extends ActivityGroup {
 
     List<View> mListViews;
     Context mContext = null;
@@ -48,7 +48,7 @@ public class ManagerCreditActivity extends ActivityGroup {
             }
         });
 
-        mContext = ManagerCreditActivity.this;
+        mContext = AdminCreditActivity.this;
         mViewPage = (ViewPager) findViewById(R.id.viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
@@ -56,9 +56,9 @@ public class ManagerCreditActivity extends ActivityGroup {
         mManager = this.getLocalActivityManager();
         mManager.dispatchCreate(savedInstanceState);
 
-        Intent intent1 = new Intent(mContext, ManagerCreditTotalActivity.class);
+        Intent intent1 = new Intent(mContext, AdminCreditTotalActivity.class);
         mListViews.add(getView("A", intent1));
-        Intent intent2 = new Intent(mContext, ManagerCreditCourseActivity.class);
+        Intent intent2 = new Intent(mContext, AdminCreditCourseActivity.class);
         mListViews.add(getView("B", intent2));
 
 

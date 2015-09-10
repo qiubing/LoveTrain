@@ -78,20 +78,20 @@
             android:theme="@android:style/Theme.Light.NoTitleBar" />
 
 
-        <activity android:name=".admin.ManagerScoreUserActivity" />
-        <activity android:name=".admin.ManagerScoreUserDetailActivity" />
-        <activity android:name=".admin.ManagerScoreCourseDetailActivity" />
-        <activity android:name=".admin.ManagerScoreCourseActivity" />
-        <activity android:name=".admin.ManagerCreditActivity" />
-        <activity android:name=".admin.ManagerCreditTotalActivity" />
-        <activity android:name=".admin.ManagerCreditCourseActivity" />
-        <activity android:name=".admin.ManagerRateActivity" />
-        <activity android:name=".admin.ManagerUserActivity" />
-        <activity android:name=".admin.ManagerExamInputScoreActivity" />
-        <activity android:name=".admin.ManagerExamDetailActivity" />
-        <activity android:name=".admin.ManagerScoreActivity" />
-        <activity android:name=".admin.ManagerAddExamActivity" />
-        <activity android:name=".admin.ManagerEditExamActivity" />
+        <activity android:name=".admin.AdminScoreUserActivity" />
+        <activity android:name=".admin.AdminScoreUserDetailActivity" />
+        <activity android:name=".admin.AdminScoreCourseDetailActivity" />
+        <activity android:name=".admin.AdminScoreCourseActivity" />
+        <activity android:name=".admin.AdminCreditActivity" />
+        <activity android:name=".admin.AdminCreditTotalActivity" />
+        <activity android:name=".admin.AdminCreditCourseActivity" />
+        <activity android:name=".admin.AdminRateActivity" />
+        <activity android:name=".admin.AdminUserActivity" />
+        <activity android:name=".admin.AdminExamInputScoreActivity" />
+        <activity android:name=".admin.AdminExamDetailActivity" />
+        <activity android:name=".admin.AdminScoreActivity" />
+        <activity android:name=".admin.AdminAddExamActivity" />
+        <activity android:name=".admin.AdminEditExamActivity" />
 
         <activity android:name=".admin.AdminAddLessonActivity"/>
         <activity android:name=".admin.AdminAddCourseActivity"/>
@@ -129,15 +129,15 @@
             android:name=".client.ClientMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
-        <activity android:name=".client.MyCheckRecordActivity" />
-        <activity android:name=".client.ShareCourseActivity" />
-        <activity android:name=".client.MyShareCourseDetailDisplayActivity" />
-        <activity android:name=".client.UpdateIconActivity" />
-        <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
-        <activity android:name=".client.CourseIntegrationRecordActivity" />
-        <activity android:name=".client.ExamScoreActivity" />
-        <activity android:name=".client.MyShareCourseDetailFillActivity" />
-        <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
+        <activity android:name=".client.ClientMyCheckRecordActivity" />
+        <activity android:name=".client.ClientShareCourseActivity" />
+        <activity android:name=".client.ClientMyShareCourseDetailDisplayActivity" />
+        <activity android:name=".client.ClientUpdateIconActivity" />
+        <activity android:name=".client.ClientMyAccountmanaPswmodifyActivity" />
+        <activity android:name=".client.ClientCourseIntegrationRecordActivity" />
+        <activity android:name=".client.ClientExamScoreActivity" />
+        <activity android:name=".client.ClientMyShareCourseDetailFillActivity" />
+        <activity android:name=".client.ClientMyCourseJudgeDetailFillActivity" />
 
 
         <activity

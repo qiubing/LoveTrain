@@ -18,7 +18,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerAddExamActivity extends Activity {
+public class AdminAddExamActivity extends Activity {
 
     private Button mAddButton;
     private EditText mExamInfo;
@@ -53,7 +53,7 @@ public class ManagerAddExamActivity extends Activity {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater layoutInflater = LayoutInflater.from(ManagerAddExamActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(AdminAddExamActivity.this);
                 convertView = layoutInflater.inflate(R.layout.manager_add_exam_item, null);
                 if (convertView != null) {
                     TextView coursenameTV = (TextView) convertView.findViewById(R.id.manager_add_exam_coursename);
@@ -92,7 +92,7 @@ public class ManagerAddExamActivity extends Activity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.showToast(ManagerAddExamActivity.this, "add exam");
+                DialogUtil.showToast(AdminAddExamActivity.this, "add exam");
             }
         });
     }

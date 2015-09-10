@@ -157,7 +157,7 @@ public class AdminExamAddTabActivity extends Activity {
 
     private class ExamListOnItemClickListener implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            Intent intent = new Intent(AdminExamAddTabActivity.this, ManagerExamDetailActivity.class);
+            Intent intent = new Intent(AdminExamAddTabActivity.this, AdminExamDetailActivity.class);
             Bundle bundle = new Bundle();
             //bundle.putSerializable("ExamInfo",mExamList.get(arg2-1));
             bundle.putSerializable("ExamInfo",mExamList.get(arg2));

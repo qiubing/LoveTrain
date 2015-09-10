@@ -31,7 +31,7 @@ import cn.nubia.entity.ShareCourseLevel;
 /**
  * Created by JiangYu on 2015/9/1.
  */
-public class MyShareCourseDetailFillActivity extends Activity {
+public class ClientMyShareCourseDetailFillActivity extends Activity {
     private enum OperateType {INSERT,UPDATE}
     private enum TimeType {STARTTIME,ENDTIME}
 
@@ -63,7 +63,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
      * 创建选择日期的对话框
      * 每次都是创建一个新的对话框实例，包括DatePicker实例*/
     private AlertDialog.Builder makeDatePickDialog(){
-        AlertDialog.Builder pickDateDialog = new AlertDialog.Builder(MyShareCourseDetailFillActivity.this);
+        AlertDialog.Builder pickDateDialog = new AlertDialog.Builder(ClientMyShareCourseDetailFillActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         final View datePickerLayout = inflater.inflate(R.layout.component_date_picker, null);
         final DatePicker datePicker = (DatePicker) datePickerLayout.findViewById(R.id.jiangyu_datepicker);
@@ -97,7 +97,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
      * 创建选择时间的对话框
      * 每次都是创建一个新的对话框实例，包括TimePicker实例*/
     private AlertDialog.Builder makeTimePickDialog(final TimeType type){
-        AlertDialog.Builder pickTimeDialog = new AlertDialog.Builder(MyShareCourseDetailFillActivity.this);
+        AlertDialog.Builder pickTimeDialog = new AlertDialog.Builder(ClientMyShareCourseDetailFillActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         final View timePickerLayout = inflater.inflate(R.layout.component_time_picker, null);
         final TimePicker timePicker = (TimePicker) timePickerLayout.findViewById(R.id.jiangyu_timepicker);
@@ -225,7 +225,7 @@ public class MyShareCourseDetailFillActivity extends Activity {
         mBackButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyShareCourseDetailFillActivity.this.finish();
+                ClientMyShareCourseDetailFillActivity.this.finish();
             }
         });
     }

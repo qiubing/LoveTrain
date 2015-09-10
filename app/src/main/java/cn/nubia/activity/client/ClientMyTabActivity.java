@@ -80,26 +80,26 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.icon1:
-                Intent intent = new Intent(this, UpdateIconActivity.class);
+                Intent intent = new Intent(this, ClientUpdateIconActivity.class);
                 startActivityForResult(intent, GET_PHOTO_CODE);
                 break;
             case R.id.check_in_record:
-               myStartActivity(MyCheckRecordActivity.class);
+               myStartActivity(ClientMyCheckRecordActivity.class);
                 break;
             case R.id.course_integration:
-                myStartActivity(CourseIntegrationRecordActivity.class);
+                myStartActivity(ClientCourseIntegrationRecordActivity.class);
                 break;
             case R.id.exam_score:
-                myStartActivity(ExamScoreActivity.class);
+                myStartActivity(ClientExamScoreActivity.class);
                 break;
             case R.id.course_share:
-                myStartActivity(ShareCourseActivity.class);
+                myStartActivity(ClientShareCourseActivity.class);
                 break;
             case R.id.i_want_share:
-                myStartActivity(MyShareCourseDetailFillActivity.class);
+                myStartActivity(ClientMyShareCourseDetailFillActivity.class);
                 break;
             case R.id.btn_passwd_change:
-                myStartActivity(MyAccountmanaPswmodifyActivity.class);
+                myStartActivity(ClientMyAccountmanaPswmodifyActivity.class);
                 break;
             case R.id.btn_about:
                 Toast.makeText(this,"nubia LoveTrain",Toast.LENGTH_LONG).show();

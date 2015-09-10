@@ -16,7 +16,7 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 
-public class ManagerScoreCourseActivity extends Activity {
+public class AdminScoreCourseActivity extends Activity {
 
     private String[] mCourseNames;
     private String[] mAddress;
@@ -49,7 +49,7 @@ public class ManagerScoreCourseActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = mCourseNames[position];
-                Intent intent = new Intent(ManagerScoreCourseActivity.this, ManagerScoreCourseDetailActivity.class);
+                Intent intent = new Intent(AdminScoreCourseActivity.this, AdminScoreCourseDetailActivity.class);
                 intent.putExtra("coursename", name);
                 startActivity(intent);
             }

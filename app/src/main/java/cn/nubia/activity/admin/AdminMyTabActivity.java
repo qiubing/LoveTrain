@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
-import cn.nubia.activity.client.MyAccountmanaPswmodifyActivity;
+import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
 import cn.nubia.util.DialogUtil;
 
 /**
@@ -54,23 +54,23 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         Intent intent = null;
         switch (viewId) {
             case R.id.queryscore:
-                intent = new Intent(AdminMyTabActivity.this, ManagerScoreActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, AdminScoreActivity.class);
                 startActivity(intent);
                 break;
             case R.id.querycredit:
-                intent = new Intent(AdminMyTabActivity.this, ManagerCreditActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, AdminCreditActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ratemanage:
-                intent = new Intent(AdminMyTabActivity.this, ManagerRateActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, AdminRateActivity.class);
                 startActivity(intent);
                 break;
             case R.id.usermanage:
-                intent = new Intent(AdminMyTabActivity.this, ManagerUserActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, AdminUserActivity.class);
                 startActivity(intent);
                 break;
             case R.id.accountmanage:
-                intent = new Intent(AdminMyTabActivity.this, MyAccountmanaPswmodifyActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, ClientMyAccountmanaPswmodifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.about_us:

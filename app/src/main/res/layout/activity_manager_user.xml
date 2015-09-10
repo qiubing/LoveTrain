@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical"
-    tools:context="cn.nubia.activity.admin.ManagerUserActivity">
+    tools:context="cn.nubia.activity.admin.AdminUserActivity">
 
     <include
         android:id="@+id/manager_score_user_detail_head"

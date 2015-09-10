@@ -16,7 +16,7 @@ import cn.nubia.util.DialogUtil;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class MyAccountmanaPswmodifyActivity extends Activity {
+public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
     private Button mBackButton;
@@ -48,7 +48,7 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
                 if(oldPsw.equals(oldPswConfirm)) {
                     if(!matchNewPsw()){
                         DialogUtil.showDialog(
-                                MyAccountmanaPswmodifyActivity.this, "新密码格式不正确，" +
+                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确，" +
                                         "请确保密码长度至少为七位，且包含字母与数字，" +
                                         "其中至少有一个大写字母", false);
                     }else{
@@ -57,7 +57,7 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
                     }
                 }else {
                     DialogUtil.showDialog(
-                            MyAccountmanaPswmodifyActivity.this, "确认密码输入不一致", false);
+                            ClientMyAccountmanaPswmodifyActivity.this, "确认密码输入不一致", false);
                 }
             }
         };
@@ -79,7 +79,7 @@ public class MyAccountmanaPswmodifyActivity extends Activity {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyAccountmanaPswmodifyActivity.this.finish();
+                ClientMyAccountmanaPswmodifyActivity.this.finish();
             }
         });
     }

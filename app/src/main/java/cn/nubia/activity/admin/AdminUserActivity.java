@@ -18,7 +18,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerUserActivity extends Activity {
+public class AdminUserActivity extends Activity {
 
     private ListView mListView;
     private List<String> mNameList;
@@ -100,11 +100,11 @@ public class ManagerUserActivity extends Activity {
                 holder.resetPWD.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(ManagerUserActivity.this).setTitle("确认要重置" + userName + "的密码吗?")
+                        new AlertDialog.Builder(AdminUserActivity.this).setTitle("确认要重置" + userName + "的密码吗?")
                                 .setPositiveButton("重置", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        DialogUtil.showToast(ManagerUserActivity.this, "你重置了密码:" + userName + userId);
+                                        DialogUtil.showToast(AdminUserActivity.this, "你重置了密码:" + userName + userId);
                                     }
                                 })
                                 .setNegativeButton("返回", new DialogInterface.OnClickListener() {
@@ -118,14 +118,14 @@ public class ManagerUserActivity extends Activity {
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(ManagerUserActivity.this).setTitle("确认要删除" + userName + "吗?")
+                        new AlertDialog.Builder(AdminUserActivity.this).setTitle("确认要删除" + userName + "吗?")
                                 .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         mNameList.remove(position);
                                         mIdList.remove(position);
                                         notifyDataSetChanged();
-                                        DialogUtil.showToast(ManagerUserActivity.this, "你删除了用户:" + userName + userId);
+                                        DialogUtil.showToast(AdminUserActivity.this, "你删除了用户:" + userName + userId);
                                     }
                                 })
                                 .setNegativeButton("返回", new DialogInterface.OnClickListener() {

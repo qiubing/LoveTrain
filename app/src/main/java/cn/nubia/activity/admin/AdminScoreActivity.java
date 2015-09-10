@@ -21,7 +21,7 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
-public class ManagerScoreActivity extends ActivityGroup {
+public class AdminScoreActivity extends ActivityGroup {
 
     List<View> mListViews;
     Context mContext = null;
@@ -35,7 +35,7 @@ public class ManagerScoreActivity extends ActivityGroup {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score);
-        mContext = ManagerScoreActivity.this;
+        mContext = AdminScoreActivity.this;
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         //公用部分
@@ -54,9 +54,9 @@ public class ManagerScoreActivity extends ActivityGroup {
         mManager = this.getLocalActivityManager();
         mManager.dispatchCreate(savedInstanceState);
 
-        Intent i1 = new Intent(mContext, ManagerScoreUserActivity.class);
+        Intent i1 = new Intent(mContext, AdminScoreUserActivity.class);
         mListViews.add(getView("A", i1));
-        Intent i2 = new Intent(mContext, ManagerScoreCourseActivity.class);
+        Intent i2 = new Intent(mContext, AdminScoreCourseActivity.class);
         mListViews.add(getView("B", i2));
 
 

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerRateActivity extends Activity {
+public class AdminRateActivity extends Activity {
 
     private Button mButton;
     private EditText mRate_A;
@@ -44,7 +44,7 @@ public class ManagerRateActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //TODO
-                DialogUtil.showDialog(ManagerRateActivity.this, "save");
+                DialogUtil.showDialog(AdminRateActivity.this, "save");
             }
         });
     }

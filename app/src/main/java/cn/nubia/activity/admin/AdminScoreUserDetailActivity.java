@@ -17,7 +17,7 @@ import java.util.Map;
 import cn.nubia.activity.R;
 import cn.nubia.util.DialogUtil;
 
-public class ManagerScoreUserDetailActivity extends Activity {
+public class AdminScoreUserDetailActivity extends Activity {
 
 //    private TextView mTitleTextView;
     private String[] mCourseNames;
@@ -69,7 +69,7 @@ public class ManagerScoreUserDetailActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogUtil.showDialog(ManagerScoreUserDetailActivity.this,getIntent().getStringExtra("name")+
+                DialogUtil.showDialog(AdminScoreUserDetailActivity.this,getIntent().getStringExtra("name")+
                         " 《"+ mCourseNames[position]+"》的成绩为："+ mScores[position]);
             }
         });

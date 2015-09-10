@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cn.nubia.activity.admin.ManagerScoreCourseActivity">
+    tools:context="cn.nubia.activity.admin.AdminScoreCourseActivity">
 
     <ListView
         android:id="@+id/score_course_list"

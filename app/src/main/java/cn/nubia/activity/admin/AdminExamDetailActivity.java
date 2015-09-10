@@ -17,7 +17,7 @@ import cn.nubia.util.DialogUtil;
 /**
  * Created by LK on 2015/9/9.
  */
-public class ManagerExamDetailActivity extends Activity implements View.OnClickListener {
+public class AdminExamDetailActivity extends Activity implements View.OnClickListener {
     private Button mInputScore;
     private Button mDeleteExam;
     private Button mEditExam;
@@ -58,18 +58,18 @@ public class ManagerExamDetailActivity extends Activity implements View.OnClickL
                 finish();
                 break;
             case R.id.manager_exam_inputscorebtn:
-                intent = new Intent(ManagerExamDetailActivity.this, ManagerExamInputScoreActivity.class);
+                intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("ExamInfo",mExamItem);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.manager_exam_deletebtn:
-                new AlertDialog.Builder(ManagerExamDetailActivity.this).setTitle("确认要删除《"+mExamItem.getName()+ "》这门考试吗?")
+                new AlertDialog.Builder(AdminExamDetailActivity.this).setTitle("确认要删除《"+mExamItem.getName()+ "》这门考试吗?")
                         .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DialogUtil.showToast(ManagerExamDetailActivity.this, "你删除了《"+mExamItem.getName()+"》考试!");
+                                DialogUtil.showToast(AdminExamDetailActivity.this, "你删除了《"+mExamItem.getName()+"》考试!");
                             }
                         })
                         .setNegativeButton("返回", new DialogInterface.OnClickListener() {
@@ -80,7 +80,7 @@ public class ManagerExamDetailActivity extends Activity implements View.OnClickL
                         }).show();
                 break;
             case R.id.manager_exam_editbtn:
-                intent = new Intent(ManagerExamDetailActivity.this, ManagerEditExamActivity.class);
+                intent = new Intent(AdminExamDetailActivity.this, AdminEditExamActivity.class);
                 startActivity(intent);
                 break;
             default:
