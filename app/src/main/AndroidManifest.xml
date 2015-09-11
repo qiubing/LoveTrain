@@ -20,7 +20,7 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/mm"
+        android:icon="@mipmap/background01"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 

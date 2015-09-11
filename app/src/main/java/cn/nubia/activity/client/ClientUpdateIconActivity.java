@@ -34,7 +34,7 @@ import cn.nubia.util.Utils;
  * @Date: 2015/9/6 20:23
  */
 public class ClientUpdateIconActivity extends BaseActivity implements OnClickListener{
-    private static final String TAG = "ClientUpdateIconActivity";
+    private static final String TAG = "UpdateIconActivity";
 
     private CircleImageView mCircleImageView;
     private Button mEditButton;
