@@ -27,7 +27,6 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseLocale;
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
-    private Button mBackButton;
     private CourseItem mShareCourseItem;
     private LessonItem mShareCourseLessonItem;
 
@@ -43,35 +42,35 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
 //        initViewData();
     }
 
-    private void holdView(){
-        mCourseName =(TextView) findViewById(R.id
+    private void holdView() {
+        mCourseName = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursename_displaytextView);
-        mCourseLevel =(TextView) findViewById(R.id
+        mCourseLevel = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_courselevel_displaytextView);
-        mCourseDate =(TextView) findViewById(R.id
+        mCourseDate = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursedate_displaytextView);
-        mCourseStartTime =(TextView) findViewById(R.id
+        mCourseStartTime = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursestarttime_displaytextView);
-        mCourseEndTime =(TextView) findViewById(R.id
+        mCourseEndTime = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_courseendtime_displaytextView);
-        mCourseLocale =(TextView) findViewById(R.id
+        mCourseLocale = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_courselocale_displaytextView);
-        mCourseDescription =(TextView) findViewById(R.id
+        mCourseDescription = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursedescription_displaytextView);
         mCourseModifyButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_display_modifybutton);
-        mBackButton = (Button) findViewById(R.id
-                .my_sharecourse_detail_display_backbutton);
     }
 
-    private void setViewLogic(){
+    private void setViewLogic() {
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MyShareCourseDetailDisplayActivity.this
+                        , MyShareCourseDetailFillActivity.class);
                 Intent intent = new Intent(ClientMyShareCourseDetailDisplayActivity.this
                         ,ClientMyShareCourseDetailFillActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("shareCourse",mShareCourseItem);
+                bundle.putSerializable("shareCourse", mShareCourseItem);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -85,7 +84,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         });
     }
 
-    private void initViewData(){
+    private void initViewData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         mShareCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
@@ -95,10 +94,19 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
                 ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getShareType()));
         mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mShareCourseLessonItem.getStartTime()));
         mCourseStartTime.setText(
-                new SimpleDateFormat("HH:mm").format( mShareCourseLessonItem.getStartTime()));
+                new SimpleDateFormat("HH:mm").format(mShareCourseLessonItem.getStartTime()));
         mCourseEndTime.setText(
                 new SimpleDateFormat("HH:mm").format(mShareCourseLessonItem.getEndTime()));
         mCourseLocale.setText(mShareCourseLessonItem.getLocation());
         mCourseDescription.setText(mShareCourseItem.getDescription());
+    }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     *
+     * @param view
+     */
+    public void back(View view) {
+        this.finish();
     }
 }

@@ -3,32 +3,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/white_bg">
     <RelativeLayout
+        android:id="@+id/title_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
+        android:background="@color/titlebar_bg">
 
-        <Button
-            android:id="@+id/my_sharecourse_detail_fill_backbutton"
-            android:layout_width="@dimen/jiangyu_small_buttonsize"
-            android:layout_height="@dimen/jiangyu_small_buttonsize"
-            android:background="@mipmap/ic_back"/>
-
+        <ImageView
+            android:id="@+id/back_image"
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="9.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@null"
+            android:contentDescription="@string/app_name"
+            android:onClick="back"
+            android:src="@drawable/back_button_xml" />
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/approved_share_course_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/jiangyu_title_textsize"
-            android:text="@string/activity_my_sharecourse_detail_display_title_textview"/>
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="85.0dip"
+            android:layout_marginRight="85.0dip"
+            android:singleLine="true"
+            android:textColor="@color/grayslate"
+            android:textSize="@dimen/text_size_20"
+            android:text="课程信息"/>
 
         <Button
             android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/activity_my_sharecourse_detail_fill_confirm_button"/>
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/blue"
+            android:gravity="center"
+            android:textSize="@dimen/textSize18"
+            android:text="确定" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -55,7 +74,7 @@
 
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_coursename_filltextView"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    style="@style/edit_view_input_style" />
             </TableRow>
 
             <TableRow
@@ -82,7 +101,7 @@
 
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_courselocale_filltextview"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    style="@style/edit_view_input_style" />
             </TableRow>
 
             <TableRow
@@ -96,7 +115,8 @@
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_coursedate_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:background="@drawable/editview_selector"/>
             </TableRow>
 
             <TableRow
@@ -110,7 +130,8 @@
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_coursestarttime_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:background="@drawable/editview_selector"/>
             </TableRow>
 
             <TableRow
@@ -124,7 +145,8 @@
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_courseendtime_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:background="@drawable/editview_selector"/>
             </TableRow>
 
             <RelativeLayout
@@ -140,9 +162,11 @@
                     android:id="@+id/my_sharecourse_detail_fill_coursedescription_filltextview"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
-                    android:layout_toRightOf="@id/my_sharecourse_detail_fill_coursedescription_textview"
-                    android:isScrollContainer="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                    style="@style/edit_view_input_style"
+                    android:layout_below="@id/my_sharecourse_detail_fill_coursedescription_textview"
+                    android:layout_margin="5dp"
+                    android:gravity="top"
+                    android:isScrollContainer="true"/>
             </RelativeLayout>
         </TableLayout>
     </ScrollView>

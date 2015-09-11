@@ -24,7 +24,7 @@ import cn.nubia.util.Utils;
  * @Date: 2015/9/6 19:28
  */
 
-public class ClientMyTabActivity extends Activity implements OnClickListener {
+public class MyClientActivity_1 extends Activity implements OnClickListener {
     private static final String TAG = "UserSetting";
     private static final int GET_PHOTO_CODE = 1;
 
@@ -80,7 +80,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.icon1:
-                Intent intent = new Intent(this, ClientUpdateIconActivity.class);
+                Intent intent = new Intent(this, UpdateIconActivity.class);
                 startActivityForResult(intent, GET_PHOTO_CODE);
                 break;
             case R.id.check_in_record:
@@ -102,14 +102,14 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 myStartActivity(ClientMyAccountmanaPswmodifyActivity.class);
                 break;
             case R.id.btn_about:
-                Toast.makeText(this,"nubia LoveTrain",Toast.LENGTH_LONG).show();
+                myStartActivity(AboutUsActivity.class);
                 break;
             case R.id.btn_fankui:
-                Toast.makeText(this,"谢谢您的反馈",Toast.LENGTH_LONG).show();
+                myStartActivity(FeedBackActivity.class);
                 break;
             case R.id.btn_version:
-                Toast.makeText(this,"Version 1.0",Toast.LENGTH_LONG).show();
-                break;
+                showUpdatDialog();
+            break;
             case R.id.bt_logout:
                 //注销登录
                 Intent logoutIntent = new Intent(this,
@@ -121,13 +121,41 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         }
     }
 
+
+    /**
+     * 更新对话框
+     */
+    public void showUpdatDialog () {
+        new PromptDialog.Builder(MyClientActivity_1.this)
+                .setMessage("最新版本：1.1\n最新版本已下载，是否安装？\n更新内容\n这只是一个演示\n学习一下也不错",
+                        null).setTitle("发现新版本")
+                .setButton1("立即更新", new PromptDialog.OnClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog, int which) {
+                        // TODO Auto-generated method stub
+                        /**
+                         * 开始下载更新呗
+                         */
+                        Toast.makeText(MyClientActivity_1.this, "只是一个演示而已", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                }).setButton2("以后再说", new PromptDialog.OnClickListener() {
+            @Override
+            public void onClick(Dialog dialog, int which) {
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
+
     /**
      * 自定义的startActivity
+     *
      * @param cls 需要启动的Activity类
      */
     protected void myStartActivity(Class<?> cls) {
-        Intent intent  = new Intent();
-        intent.setClass(this,cls);
+        Intent intent = new Intent();
+        intent.setClass(this, cls);
         startActivity(intent);
     }
 

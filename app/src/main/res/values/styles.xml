@@ -136,5 +136,26 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="edit_view_input_style">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:background">@drawable/editview_selector</item>
+        <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+    </style>
+
+    <style name="PromptDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 
 </resources>
