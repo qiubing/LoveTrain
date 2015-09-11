@@ -17,8 +17,9 @@ import android.os.Message;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.nubia.util.Constant;
+import cn.nubia.entity.Constant;
 import cn.nubia.util.SpUtil;
+
 
 public class SplashActivity extends Activity {
 
