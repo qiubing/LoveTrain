@@ -183,6 +183,8 @@ public class ClientAllCourseTeacherTabActivity extends Activity {
         }
     };
 
+
+
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {

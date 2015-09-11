@@ -1,4 +1,4 @@
-package cn.nubia.util;
+package cn.nubia.entity;
 
 import android.os.Environment;
 
