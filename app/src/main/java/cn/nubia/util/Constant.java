@@ -12,6 +12,11 @@ import java.util.Map;
  * 类说明 一些常量都放在这里
  */
 public class Constant {
+    /****网络类型****/
+    public static final  int LOADING_FAILED = 1;
+    public static final  int NETWORK_UNUSABLE = 1;
+    public static final boolean SHOW_HEADER = true;
+    public static final boolean SHOW_FOOTER = false;
 
     public static final String NO_NETWORK_ACTION = "com.yuema.nonetwork.action";
     public static final String FORCE_OFFLINE_ACTION = "com.yuema.force.offline.action";

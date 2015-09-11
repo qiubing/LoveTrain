@@ -19,6 +19,7 @@ import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.util.Constant;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -48,7 +49,7 @@ public class AdminSharePassTabActivity extends Activity {
         mAllShareCourse = (ListView) findViewById(R.id.admin_all_approved_share_course);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.approved_share_course_refresh);
         mErrorHintView = (ErrorHintView) findViewById(R.id.hintView_1);
-        mLoadViewUtil = new LoadViewUtil(this,mErrorHintView,mAllShareCourse,handler);
+        mLoadViewUtil = new LoadViewUtil(this,mAllShareCourse,handler);
 
     }
 
@@ -64,7 +65,6 @@ public class AdminSharePassTabActivity extends Activity {
         /**
          * for Debug  模拟第一次加载数据
          */
-        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
         Message msg = handler.obtainMessage();
         msg.what = 1;
         handler.sendMessage(msg);
@@ -81,6 +81,8 @@ public class AdminSharePassTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 },1500);
             }
@@ -97,6 +99,8 @@ public class AdminSharePassTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 },1500);
             }
@@ -141,7 +145,6 @@ public class AdminSharePassTabActivity extends Activity {
                     courseList.add(0,courseItem);
                 }
                 mCourseList.addAll(courseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             if (msg.what == 2){
                 for(int i = 40; i < 50;i++){
@@ -154,7 +157,6 @@ public class AdminSharePassTabActivity extends Activity {
                     courseList.add(0,courseItem);
                 }
                 mCourseList.addAll(courseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             UpdateClassListHelper.binarySort(mCourseList);
             mCourseAdapter.notifyDataSetChanged();

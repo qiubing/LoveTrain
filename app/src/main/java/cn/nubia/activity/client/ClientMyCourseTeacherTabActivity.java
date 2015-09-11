@@ -21,6 +21,7 @@ import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.util.Constant;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -76,7 +77,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
 
         mCourseItemList = new ArrayList<>();
 
-        mLoadViewUtil = new LoadViewUtil(this, mErrorHintView, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
@@ -91,7 +91,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
-        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
         Message msg = mHandler.obtainMessage();
         msg.what = 1;
         mHandler.sendMessage(msg);
@@ -108,7 +107,8 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
-                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -126,7 +126,8 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
-                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -172,7 +173,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     mCourseItem.setLessonList(mLessonList);
                 }
                 mCourseItemList.addAll(mCourseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             if (msg.what == 2) {
                 for (int i = 40; i < 50; i++) {
@@ -191,7 +191,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     mCourseItem.setLessonList(mLessonList);
                 }
                 mCourseItemList.addAll(mCourseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             UpdateClassListHelper.binarySort(mCourseItemList);
             mCourseExpandableListAdapter.notifyDataSetChanged();

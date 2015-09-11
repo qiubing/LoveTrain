@@ -26,14 +26,14 @@ public class LoadViewUtil {
     final public static int VIEW_LOADING = 4;
 
     private Context mCtx;
-    private ErrorHintView mErrorHintView;
     private ListView mListView;
     private Handler mHandler; //重新请求数据Handler
     private View mNetworkFailedView;
     private boolean mNetworkFailedFlag = true;
-    public LoadViewUtil(Context ctx,ErrorHintView errorHintView,ListView listView,Handler handler){
+    private int mLoadingFailedFlag = Constant.LOADING_FAILED;
+
+    public LoadViewUtil(Context ctx,ListView listView,Handler handler){
         this.mCtx = ctx;
-        this.mErrorHintView = errorHintView;
         this.mListView = listView;
         this.mHandler = handler;
     }
@@ -50,12 +50,22 @@ public class LoadViewUtil {
         return  mNetworkFailedFlag;
     }
 
+    public int getLoadingFailedFlag() {
+        return mLoadingFailedFlag;
+    }
+
+    public void setLoadingFailedFlag(int mLoadingFailedFlag) {
+        this.mLoadingFailedFlag = mLoadingFailedFlag;
+        mNetworkFailedFlag = true;
+    }
+
     /**
      * 等待
      *
      * @param i
      */
-     public void showLoading(int i) {
+   /* public void showLoading(int i) {}
+     public void showLoading1(int i) {
         mErrorHintView.setVisibility(View.GONE);
         mListView.setVisibility(View.GONE);
         switch (i) {
@@ -89,7 +99,7 @@ public class LoadViewUtil {
                 mErrorHintView.loadingData();
                 break;
         }
-    }
+    }*/
     /**
      * 短暂显示Toast提示(来自String) *
      */

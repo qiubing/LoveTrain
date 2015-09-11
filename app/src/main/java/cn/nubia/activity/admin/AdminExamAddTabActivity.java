@@ -19,6 +19,7 @@ import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.util.Constant;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -51,14 +52,14 @@ public class AdminExamAddTabActivity extends Activity {
 
     protected void initEvents() {
         mExamList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(this,mErrorHintView,mAllExamListView,hand);
+        mLoadViewUtil = new LoadViewUtil(this,mAllExamListView,hand);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
-        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
+//        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
         Message msg = hand.obtainMessage();
         msg.what = 1;
         hand.sendMessage(msg);
@@ -75,7 +76,8 @@ public class AdminExamAddTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
-                        mRefreshLayout.showNetworkFailedHeader(mLoadViewUtil.getNetworkFailedFlag());
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -93,7 +95,8 @@ public class AdminExamAddTabActivity extends Activity {
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
-                        mRefreshLayout.showNetworkFailedFooter(mLoadViewUtil.getNetworkFailedFlag());
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -134,7 +137,7 @@ public class AdminExamAddTabActivity extends Activity {
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
+//                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             if(msg.what == 2)
             {
@@ -148,7 +151,7 @@ public class AdminExamAddTabActivity extends Activity {
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
+//                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             UpdateClassListHelper.binarySort(mExamList);
             mExamAdapter.notifyDataSetChanged();
@@ -159,7 +162,6 @@ public class AdminExamAddTabActivity extends Activity {
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             Intent intent = new Intent(AdminExamAddTabActivity.this, AdminExamDetailActivity.class);
             Bundle bundle = new Bundle();
-            //bundle.putSerializable("ExamInfo",mExamList.get(arg2-1));
             bundle.putSerializable("ExamInfo",mExamList.get(arg2));
             intent.putExtras(bundle);
             startActivity(intent);
