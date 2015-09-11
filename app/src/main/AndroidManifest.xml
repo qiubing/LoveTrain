@@ -92,6 +92,7 @@
         <activity android:name=".admin.AdminScoreActivity" />
         <activity android:name=".admin.AdminAddExamActivity" />
         <activity android:name=".admin.AdminEditExamActivity" />
+        <activity android:name=".admin.AdminCreditsAwardActivity" />
 
         <activity android:name=".admin.AdminAddLessonActivity"/>
         <activity android:name=".admin.AdminAddCourseActivity"/>

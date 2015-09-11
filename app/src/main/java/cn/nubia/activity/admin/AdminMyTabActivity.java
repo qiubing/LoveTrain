@@ -24,6 +24,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
     private TextView mUserManageTV;
     private TextView mAboutUsTV;
     private Button mChangeAccoutn;
+    private TextView mAwardCreditTV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         mUserManageTV = (TextView) findViewById(R.id.usermanage);
         mAboutUsTV = (TextView) findViewById(R.id.about_us);
         mChangeAccoutn = (Button) findViewById(R.id.change_account);
+        mAwardCreditTV = (TextView) findViewById(R.id.awardcredit);
 
         mQueryScoreTV.setOnClickListener(this);
         mQueryCreditTV.setOnClickListener(this);
@@ -46,6 +48,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         mUserManageTV.setOnClickListener(this);
         mAboutUsTV.setOnClickListener(this);
         mChangeAccoutn.setOnClickListener(this);
+        mAwardCreditTV.setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +62,10 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.querycredit:
                 intent = new Intent(AdminMyTabActivity.this, AdminCreditActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.awardcredit:
+                intent = new Intent(AdminMyTabActivity.this, AdminCreditsAwardActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ratemanage:

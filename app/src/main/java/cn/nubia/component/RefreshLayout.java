@@ -233,10 +233,11 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                         //huhu,  A change has happened during apress gesture (between {@link #ACTION_DOWN} and {@link #ACTION_UP}).
                         //The motion contains the most recent point,
                         //该参数主要用于描述轨迹的，不适合当前应用，应舍弃
-                    /*    case MotionEvent.ACTION_MOVE:
+                        //还是有比较好，这样可以更快的进行加载，缺点是需要不停的进行判断，资源消耗加大
+                        case MotionEvent.ACTION_MOVE:
                                 // 移动
                                 mLastY = (int) event.getRawY();
-                                break;*/
+                                break;
                         //huhu,A pressed gesture has finished, the
                         //motion contains the final release location
                         case MotionEvent.ACTION_UP:

@@ -195,6 +195,12 @@
     <string name="title_activity_manager_user">ManagerUserActivity</string>
     <string name="activity_manager_user">用户管理</string>
 
+    <!--管理员积分奖励Activity -->
+    <string name="activity_manager_award_title">积分奖励</string>
+    <string name="activity_manager_awarded_name">受奖人姓名</string>
+    <string name="activity_manager_awarded_credits">奖励积分</string>
+    <string name="activity_manager_awarded_cause">奖励原因</string>
+
     <string name="activity_manager_add_exam_title">新增考试</string>
     <string name="activity_manager_edit_exam_title">修改考试</string>
     <string name="activity_manager_add_exam_one">一级课题</string>
