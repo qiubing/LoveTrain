@@ -108,13 +108,13 @@
             android:name=".client.ClientMyCourseActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.ClientAllCourceActivity"
+            android:name=".client.ClientAllCourseActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".client.ClientMyActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".client.ClientAllCourceStudentTabActivity"
+            android:name=".client.ClientAllCourseStudentTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
             android:name=".client.ClientAllCourseTeacherTabActivity"

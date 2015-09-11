@@ -24,7 +24,7 @@ import cn.nubia.activity.admin.AdminCourseAddTabActivity;
  * Created by 胡立 on 2015/9/7.
  */
 @SuppressWarnings("deprecation")
-public class ClientAllCourceActivity extends ActivityGroup {
+public class ClientAllCourseActivity extends ActivityGroup {
     private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
@@ -42,14 +42,14 @@ public class ClientAllCourceActivity extends ActivityGroup {
         manager.dispatchCreate(savedInstanceState);
 
 
-        Intent i3 = new Intent(ClientAllCourceActivity.this, AdminCourseAddTabActivity.class);
+        Intent i3 = new Intent(ClientAllCourseActivity.this, AdminCourseAddTabActivity.class);
         listViews.add(getView("A", i3));
 
-        Intent i4 = new Intent(ClientAllCourceActivity.this, ClientAllCourseTeacherTabActivity.class);
+        Intent i4 = new Intent(ClientAllCourseActivity.this, ClientAllCourseTeacherTabActivity.class);
         listViews.add(getView("B", i4));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(ClientAllCourceActivity.this.getLocalActivityManager());
+        tabHost.setup(ClientAllCourseActivity.this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
@@ -63,7 +63,7 @@ public class ClientAllCourceActivity extends ActivityGroup {
         TextView tvTab4 = (TextView) tabIndicator4.findViewById(R.id.tv_title);
         tvTab4.setText("只考试");
 
-        Intent intent = new Intent(ClientAllCourceActivity.this, EmptyActivity.class);
+        Intent intent = new Intent(ClientAllCourseActivity.this, EmptyActivity.class);
 
         tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator3)
                 .setContent(intent));

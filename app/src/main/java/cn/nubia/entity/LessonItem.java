@@ -20,7 +20,7 @@ public class LessonItem extends Item implements Serializable {
 //    public static String LESSON_THEME = "lesson_theme";
 
 //    private int mLessonIndex;
-//    private String mLessonName;
+    private String mLessonName;
     private int mCourseIndex;
     private String mTeacherID;
     private String mTeacherName;
@@ -57,9 +57,9 @@ public class LessonItem extends Item implements Serializable {
 //        this.mLessonIndex = mLessonIndex;
 //    }
 //
-//    public String getLessonName() {
-//        return mLessonName;
-//    }
+    public String getLessonName() {
+        return mLessonName;
+    }
 //
 //    public void setLessonName(String mLessonName) {
 //        this.mLessonName = mLessonName;
