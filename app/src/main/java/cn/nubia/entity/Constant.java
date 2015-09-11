@@ -26,6 +26,9 @@ public class Constant {
     public static final int SELECT_PHOTO_REQUEST_CODE = 0x1000;
     public static final int DELETE_PHOTO_REQUEST_CODE = 0x1001;
     public static final int MAX_SELECTED_IMAGE = 9;// 最大图片数
+
+    public static boolean IS_ADMIN = true;/*登录的用户是否是管理员*/
+
     /**
      * **** down APP name *****
      */
