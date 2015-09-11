@@ -32,7 +32,7 @@ public class ErrorHintView extends RelativeLayout {
     }
 
     private OperateListener mOperateListener;
-
+    //该构造函数没用到，应删除
     public ErrorHintView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
