@@ -8,7 +8,7 @@
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:adjustViewBounds="false"
-        android:background="@mipmap/act_guide4"
+        android:background="@mipmap/act_guide04"
         android:focusable="true"
         android:scaleType="centerCrop" />
 
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="108.0dip"
+        android:layout_marginBottom="60.0dip"
         android:background="@drawable/guide_start_btn"
         android:focusable="true" />
 
