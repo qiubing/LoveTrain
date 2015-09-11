@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.LessonJudgement;
@@ -34,27 +35,29 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LessonJudgement judgement= new LessonJudgement();
-                judgement.setContentApplicability(((RatingBar)findViewById(R.id
-                        .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
-                judgement.setContentRationality(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
-                judgement.setDiscussion(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
-                judgement.setTimeRationality(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
-                judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
-                judgement.setExpressionAbility(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
-                judgement.setCommunication(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
-                judgement.setOrganization(((RatingBar) findViewById(R.id
-                        .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
-                judgement.setComprehensiveEvaluation(
-                        mComprehensiveEvaluationEditText.getText().toString());
-                judgement.setSuggestion(
-                        mSuggestionEditText.getText().toString());
+                if (checkData()) {
+                    LessonJudgement judgement = new LessonJudgement();
+                    judgement.setContentApplicability(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
+                    judgement.setContentRationality(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
+                    judgement.setDiscussion(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
+                    judgement.setTimeRationality(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
+                    judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
+                    judgement.setExpressionAbility(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
+                    judgement.setCommunication(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
+                    judgement.setOrganization(((RatingBar) findViewById(R.id
+                            .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
+                    judgement.setComprehensiveEvaluation(
+                            mComprehensiveEvaluationEditText.getText().toString());
+                    judgement.setSuggestion(
+                            mSuggestionEditText.getText().toString());
+                }
             }
         };
     }
@@ -104,5 +107,17 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                 ClientMyCourseJudgeDetailFillActivity.this.finish();
             }
         });
+    }
+
+    private boolean checkData(){
+        if(mComprehensiveEvaluationEditText.getText().toString()==null){
+            Toast.makeText(this, "课程综合评价不能为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mSuggestionEditText.getText().toString()==null){
+            Toast.makeText(this, "课程建议不能为空", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

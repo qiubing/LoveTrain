@@ -72,7 +72,23 @@ public class MainActivity extends ActionBarActivity implements OnRefreshListener
         }
 }
 
-在上面的onRefresh()函数中实现获取数据功能以及更新数据，当更新完数据后，调用swipeRefreshLayout.setRefreshing(false);来关闭刷新。*/
+在上面的onRefresh()函数中实现获取数据功能以及更新数据，当更新完数据后，调用swipeRefreshLayout.setRefreshing(false);来关闭刷新。
+或者，SwipeRefreshLayout有方法postDelayed(new Runnable()),Handle的postDelayed(new Runnable())是在主线程运行的
+      swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+              @Override
+              public void onRefresh() {
+                  tv.setText("正在刷新");
+                 swipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                     public void run() {
+                         loadData(34);
+                         swipeRefreshLayout.setRefreshing(false);
+                    }
+                 }, 6000);
+             }
+       });
+
+*/
 
 
 
