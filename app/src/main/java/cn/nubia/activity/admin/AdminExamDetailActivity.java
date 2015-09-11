@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.IOnGestureListener;
 
 /**
  * Created by LK on 2015/9/9.

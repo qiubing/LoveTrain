@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="project_background">#fff2fafc</color>
-    <!--android:background="@drawable/item_bg"-->
+    <!--LK style-->
+    <color name="first_layout_background">#fff2fafc</color>
 
+    <color name="text_color">#ff232427</color>
+    <!--android:background="@drawable/item_bg" content layout_background-->
+
+    <!--<color name="project_background">#fff2fafc</color>-->
     <color name="transparent">#00000000</color>
     <color name="greytow">#969696</color>
     <color name="DCDCDC">#dcdcdc</color>
@@ -45,14 +49,20 @@
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
 
-    <item name="vpi__bright_foreground_holo_dark" type="color">@color/vpi__background_holo_light</item>
-    <item name="vpi__bright_foreground_holo_light" type="color">@color/vpi__background_holo_dark</item>
+    <item name="vpi__bright_foreground_holo_dark" type="color">@color/vpi__background_holo_light
+    </item>
+    <item name="vpi__bright_foreground_holo_light" type="color">@color/vpi__background_holo_dark
+    </item>
 
     <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
     <color name="vpi__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
 
-    <item name="vpi__bright_foreground_inverse_holo_dark" type="color">@color/vpi__bright_foreground_holo_light</item>
-    <item name="vpi__bright_foreground_inverse_holo_light" type="color">@color/vpi__bright_foreground_holo_dark</item>
+    <item name="vpi__bright_foreground_inverse_holo_dark" type="color">
+        @color/vpi__bright_foreground_holo_light
+    </item>
+    <item name="vpi__bright_foreground_inverse_holo_light" type="color">
+        @color/vpi__bright_foreground_holo_dark
+    </item>
 
     <color name="default_circle_indicator_fill_color">#ffffffff</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -177,7 +187,6 @@
     <color name="tv_blue_start_color">#0093a3ba</color>
     <color name="tv_blue_center_color">#8093a3ba</color>
     <color name="tv_blue_end_color">#ff93a3ba</color>
-    <color name="text_color">#ff000000</color>
     <color name="base_start_color_default">#ffffffff</color>
     <color name="base_end_color_default">#ffffffff</color>
     <color name="base_start_color_pressed">#18ff0000</color>

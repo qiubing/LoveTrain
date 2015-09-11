@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
-import cn.nubia.util.Constant;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -29,7 +30,7 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class ClientMyCourseStudentTabActivity extends Activity{
+public class ClientMyCourseStudentTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
@@ -48,6 +49,12 @@ public class ClientMyCourseStudentTabActivity extends Activity{
 //    private TextView mAddLessonTextView;
 //    private TextView mCourseDetailTextView;
 //    private TextView mSignUpExamTextView;
+
+    /*four tags*/
+    private TextView mCourseLevel1;
+    private TextView mTeacher;
+    private TextView mCourseType;
+    private TextView mWhetherExam;
 
 
     @Override
@@ -77,18 +84,17 @@ public class ClientMyCourseStudentTabActivity extends Activity{
 
         mCourseItemList = new ArrayList<>();
 
-        mLoadViewUtil = new LoadViewUtil(this, mExpandableListView, mHandler);
+        mLoadViewUtil = new LoadViewUtil(ClientMyCourseStudentTabActivity.this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
-
-        //为ExpandableListView指定填充数据的adapter
+        /*为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
 
-        /*去掉箭头*/
+        /**去掉箭头**/
         mExpandableListView.setGroupIndicator(null);
 
-        /*项的监听事件*/
+        /**项的监听事件**/
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
@@ -96,7 +102,7 @@ public class ClientMyCourseStudentTabActivity extends Activity{
         msg.what = 1;
         mHandler.sendMessage(msg);
 
-        // 设置下拉刷新监听器
+        /**设置下拉刷新监听器**/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,7 +110,7 @@ public class ClientMyCourseStudentTabActivity extends Activity{
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // 更新最新数据
+                        /** 更新最新数据 **/
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);

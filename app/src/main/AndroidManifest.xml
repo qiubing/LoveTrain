@@ -104,6 +104,7 @@
         <activity android:name=".admin.AdminShareCourseApprovedDetailActivity"/>
         <activity android:name=".admin.AdminShareCourseApprovedModifyActivity"/>
         <activity android:name=".admin.AdminShareCourseUnApprovedDetailActivity"/>
+        <activity android:name=".admin.AdminSignInManageActivity"/>
 
         <activity
             android:name=".client.ClientMyCourseActivity"

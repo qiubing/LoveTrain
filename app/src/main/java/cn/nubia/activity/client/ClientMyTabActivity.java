@@ -12,10 +12,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
-import cn.nubia.util.Constant;
+import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 
 /**

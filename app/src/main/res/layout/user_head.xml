@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10.0dip"
         android:contentDescription="爱培训"
         android:src="@mipmap/ic_launcher" />
@@ -20,13 +21,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="85.0dip"
-        android:layout_marginRight="85.0dip"
         android:gravity="center"
         android:singleLine="true"
         android:text="爱培训"
         android:textColor="@color/grayslate"
-        android:textSize="20.0sp" />
+        android:textSize="@dimen/textSize22" />
 
     <ImageButton
         android:id="@+id/searchBtn"

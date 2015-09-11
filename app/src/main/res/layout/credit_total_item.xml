@@ -5,28 +5,32 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding">
 
-        <TextView
-            android:id="@+id/credit_total_username"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/manager_score_hight"
-            android:text="testa" />
+    <TextView
+        android:id="@+id/credit_total_username"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high18"
+        android:text="test的典范12"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize16" />
 
-        <TextView
-            android:layout_below="@+id/credit_total_username"
-            android:id="@+id/credit_total_id"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/manager_score_hight"
-            android:text="ak" />
-
+    <TextView
+        android:id="@+id/credit_total_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high16"
+        android:layout_below="@+id/credit_total_username"
+        android:text="ak1"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize14" />
 
 
     <TextView
-        android:text="88"
         android:id="@+id/credit_totalcredit"
         android:layout_width="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_centerVertical="true"
-        android:layout_height="@dimen/manager_score_image_hight"
+        android:layout_height="@dimen/high35"
         android:layout_alignParentRight="true"
-        android:paddingRight="@dimen/image_padding_right" />
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:text="80"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize18" />
 </RelativeLayout>

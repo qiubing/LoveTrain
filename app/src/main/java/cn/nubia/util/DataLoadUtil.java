@@ -2,8 +2,12 @@ package cn.nubia.util;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import cn.nubia.entity.Constant;
+
 
 /**
  * Created by WJ on 2015/9/9.

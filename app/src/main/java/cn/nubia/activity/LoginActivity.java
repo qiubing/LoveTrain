@@ -19,9 +19,12 @@ import java.util.Map;
 
 import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.entity.Constant;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HttpUtil;
 import cn.nubia.util.Md5Encryption;
+
+
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
@@ -74,9 +77,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login_btn:
                 //TODO
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+                    Constant.IS_ADMIN=true;
                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     this.finish();
                 } else {
+                    Constant.IS_ADMIN=false;
                     startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
                     this.finish();
                 }

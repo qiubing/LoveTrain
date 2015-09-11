@@ -17,6 +17,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import cn.nubia.entity.Constant;
+
+
 /**
  * @Author: qiubing
  * @Date: 2015/9/6 9:07

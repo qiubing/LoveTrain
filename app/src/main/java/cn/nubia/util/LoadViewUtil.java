@@ -2,14 +2,11 @@ package cn.nubia.util;
 
 import android.content.Context;
 import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
-import cn.nubia.component.ErrorHintView;
+import cn.nubia.entity.Constant;
 
 /**
  * Created by WJ on 2015/9/9.

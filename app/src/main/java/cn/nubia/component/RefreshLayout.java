@@ -4,7 +4,6 @@ package cn.nubia.component;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +15,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import cn.nubia.activity.R;
-import cn.nubia.util.Constant;
+import cn.nubia.entity.Constant;
 
 /**
  * transplant by WJ on 2015/9/1.
