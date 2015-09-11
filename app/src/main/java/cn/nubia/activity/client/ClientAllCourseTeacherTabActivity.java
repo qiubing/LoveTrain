@@ -67,7 +67,7 @@ public class ClientAllCourseTeacherTabActivity extends Activity {
 
     protected void initEvents() {
         mCourseItemList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(this, mErrorHintView, mExpandableListView, mHandler);
+        mLoadViewUtil = new LoadViewUtil(this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
@@ -79,7 +79,6 @@ public class ClientAllCourseTeacherTabActivity extends Activity {
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
-        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
         Message msg = mHandler.obtainMessage();
         msg.what = 1;
         mHandler.sendMessage(msg);
@@ -160,7 +159,6 @@ public class ClientAllCourseTeacherTabActivity extends Activity {
                     mCourseItem.setLessonList(mLessonList);
                 }
                 mCourseItemList.addAll(mCourseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             if (msg.what == 2) {
                 for (int i = 40; i < 50; i++) {
@@ -179,12 +177,13 @@ public class ClientAllCourseTeacherTabActivity extends Activity {
                     mCourseItem.setLessonList(mLessonList);
                 }
                 mCourseItemList.addAll(mCourseList);
-                mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LIST);
             }
             UpdateClassListHelper.binarySort(mCourseItemList);
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };
+
+
 
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override

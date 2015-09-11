@@ -3,6 +3,8 @@ package cn.nubia.util;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import cn.nubia.interfaces.IOnGestureListener;
+
 /**
  * Created by 胡立 on 2015/9/10.
  */

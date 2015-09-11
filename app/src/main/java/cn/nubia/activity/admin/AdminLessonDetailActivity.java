@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.zxing.WriterException;
+
 import cn.nubia.activity.R;
-import cn.nubia.util.Constant;
+import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
 

@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 
 /**
  * transplant by WJ on 2015/9/1.
@@ -113,11 +114,13 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         /**
          * ListView的加载中footer
          */
-        private View mListViewFooter;
+        private View mListViewOnLoadingFooter;
         /**
-         * ListView的加载中网络错误
+         * ListView的加载中网络未连接
          */
-        private View mNetworkLoadFailedView;
+        private View mNetworkUnusableView;
+
+        private View mLoadingFailedView;
 
         /**
          * 按下时的y坐标
@@ -146,12 +149,32 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 //huhu,getScaledTouchSlop是一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件，得到系统的默认值
                 mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
-                mListViewFooter = LayoutInflater.from(context).inflate(
+                mListViewOnLoadingFooter = LayoutInflater.from(context).inflate(
                         R.layout.listview_footer, null, false);
-                mNetworkLoadFailedView = LayoutInflater.from(context).inflate(
-                        R.layout.network_load_failed, null, false);
+                mListViewOnLoadingFooter.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                loadingView = mListViewFooter.findViewById(R.id.loading_icon);
+                        }
+                });
+                mNetworkUnusableView = LayoutInflater.from(context).inflate(
+                        R.layout.layout_network_unusable, null, false);
+
+                mNetworkUnusableView.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                /**go网络设置页面*/
+                        }
+                });
+                mLoadingFailedView = LayoutInflater.from(context).inflate(R.layout.layout_loading_failed,null,false);
+                mLoadingFailedView.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                });
+
+                loadingView = mListViewOnLoadingFooter.findViewById(R.id.loading_icon);
                 refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
                         context, R.anim.rotating);
                 // 添加匀速转动动画
@@ -159,8 +182,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 refreshingAnimation.setInterpolator(lir);
         }
 
-        public View getNetworkLoadFailView() {
-                return mNetworkLoadFailedView;
+        public View getNetworkLoadFailView(){
+                return mNetworkUnusableView;
         }
 
         //huhu，属于ViewGroup的方法，当View分配所有子元素的大小和位置时触发该方法
@@ -267,6 +290,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 if (mOnLoadListener != null) {
                         // 设置状态
                         setLoading(true);
+                        //
                         mOnLoadListener.onLoad();
                 }
         }
@@ -277,32 +301,79 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         public void setLoading(boolean loading) {
                 isLoading = loading;
                 if (isLoading) {
-                        mListView.removeFooterView(mNetworkLoadFailedView);
-                        mListView.addFooterView(mListViewFooter);
+                    mListView.removeFooterView(mNetworkUnusableView);
+                    mListView.removeFooterView(mNetworkUnusableView);
+                        mListView.addFooterView(mListViewOnLoadingFooter);
                         loadingView.startAnimation(refreshingAnimation);
                 } else {
-                        mListView.removeFooterView(mListViewFooter);
+                        mListView.removeFooterView(mListViewOnLoadingFooter);
                         loadingView.clearAnimation();
                         mYDown = 0;
                         mLastY = 0;
                 }
         }
 
+
+    /**
+     * @param isHeader 是否在头部显示
+     * @param loadingFailedFlag 显示哪个View
+     * @param isLoading  是否需要显示
+     * */
+    public void showLoadFailedView(boolean isHeader,int loadingFailedFlag,boolean isLoading){
+        if(isHeader) {
+            if (loadingFailedFlag == Constant.LOADING_FAILED)
+                showNetworkFailedHeader(isLoading);
+            else
+                showLoadingFailedHeader(isLoading);
+        }
+        else{
+            if (loadingFailedFlag == Constant.NETWORK_UNUSABLE)
+                showNetworkFailedFooter(isLoading);
+            else
+                showLoadingFailedFooter(isLoading);
+        }
+    }
+
         public void showNetworkFailedHeader(boolean loading) {
-                if (loading && mListView.getHeaderViewsCount()== 0) {
-                        mListView.addHeaderView(mNetworkLoadFailedView);
+                if (loading) {
+                    mListView.removeHeaderView(mLoadingFailedView);
+                    if(mListView.getHeaderViewsCount() == 0)
+                        mListView.addHeaderView(mNetworkUnusableView);
                 }else {
-                        mListView.addFooterView(mNetworkLoadFailedView);
+                        mListView.removeHeaderView(mNetworkUnusableView);
                 }
         }
 
         public void showNetworkFailedFooter(boolean loading) {
-                if (loading && mListView.getFooterViewsCount()== 0) {
-                        mListView.addFooterView(mNetworkLoadFailedView);
+                if (loading) {
+                    mListView.removeFooterView(mLoadingFailedView);
+                    if(mListView.getFooterViewsCount() == 0)
+                        mListView.addFooterView(mNetworkUnusableView);
                 } else {
-                        mListView.removeFooterView(mNetworkLoadFailedView);
+                        mListView.removeFooterView(mNetworkUnusableView);
+                }
+        } 
+
+        public void showLoadingFailedHeader(boolean loading) {
+                if (loading) {
+                    mListView.removeHeaderView(mNetworkUnusableView);
+                    if(mListView.getHeaderViewsCount() == 0)
+                        mListView.addHeaderView(mLoadingFailedView);
+                }else {
+                        mListView.removeHeaderView(mLoadingFailedView);
                 }
         }
+
+        public void showLoadingFailedFooter(boolean loading) {
+                if (loading) {
+                    mListView.removeFooterView(mNetworkUnusableView);
+                    if(mListView.getFooterViewsCount() == 0)
+                        mListView.addFooterView(mLoadingFailedView);
+                } else {
+                        mListView.removeFooterView(mLoadingFailedView);
+                }
+        }
+
         /**
          * @param loadListener
          */

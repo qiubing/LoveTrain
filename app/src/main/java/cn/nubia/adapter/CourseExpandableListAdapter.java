@@ -14,6 +14,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 
 /**
@@ -23,6 +24,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private List<CourseItem> mGroupList;
     private Context mContext;
+
+//    private TextView mCourseLevel;
+//    private TextView mTeacher;
+//    private TextView mCourseType;
+//    private TextView mWhetherExam;
 
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
         this.mGroupList = mCourseList;
@@ -92,7 +98,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final GroupViewHolder groupViewHolder;
         if (convertView == null) {
-            //不能用LayoutInflater，要使用inflate
+            /**不能用LayoutInflater，要使用inflate**/
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
             groupViewHolder = new GroupViewHolder();
 
@@ -100,8 +106,20 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mCourseDetailTextView = (TextView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
-            /** 加 标记**/
 
+            /**four tags**/
+            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_share_level);
+            groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_person);
+            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_share);
+            groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_exam);
+
+            if (!Constant.IS_ADMIN) {
+                /** 设置 标记不可见**/
+                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                groupViewHolder.mTeacher.setVisibility(View.GONE);
+                groupViewHolder.mCourseType.setVisibility(View.GONE);
+                groupViewHolder.mWhetherExam.setVisibility(View.GONE);
+            }
 
             Log.e("mAddLessonTextView", "mAddLessonTextView" + groupViewHolder.mAddLessonTextView);
 
@@ -110,7 +128,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
 
-        //为 "添加课时" 的textView添加监听事件
+        /**为 "添加课时" 的textView添加监听事件**/
         groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +137,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        //为 "课程详细" 的textView添加监听事件
+        /**为 "课程详细" 的textView添加监听事件**/
         groupViewHolder.mCourseDetailTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,11 +146,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        //为"报名考试" 的textview添加点击事件
+        /**为"报名考试" 的textview添加点击事件**/
         groupViewHolder.mSignUpExamTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*怎么getparent()？*/
+                /**怎么getparent()？**/
 //                Dialog signUpExamDialog = new AlertDialog.Builder(mContext)
 //                        .setTitle("报名考试")
 //                        .setMessage("确定报名考试？")
@@ -173,19 +191,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     public class ChildViewHolder {
         TextView mLessonNameTextView;
         TextView mLessonDetailTextView;
-        //TextView mSignUpExamTextView;
     }
 
-    public class GroupViewHolder {
+    static class GroupViewHolder {
         TextView mCourseNameTextView;
         TextView mAddLessonTextView;
         TextView mCourseDetailTextView;
         TextView mSignUpExamTextView;
-        /*four tags*/
-        TextView mFlagShareLevel;
-        TextView mFlagPerson;
-        TextView mFlagShare;
-        TextView mFlagExam;
+        /**four tags**/
+        TextView mCourseLevel;
+        TextView mTeacher;
+        TextView mCourseType;
+        TextView mWhetherExam;
 
     }
 }

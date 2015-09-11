@@ -71,28 +71,30 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.signUpAdminBtn:
                 //添加一个对话框即可
-                Dialog signUpAdminDialog = new AlertDialog.Builder(AdminCourseDetailActivity.this)
-                        .setTitle("课程报名情况")
-                        .setItems(items, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AdminCourseDetailActivity.this, "你选择了其中一项", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AdminCourseDetailActivity.this, "确定", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AdminCourseDetailActivity.this, "取消", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .create();
-                signUpAdminDialog.show();
+//                Dialog signUpAdminDialog = new AlertDialog.Builder(AdminCourseDetailActivity.this)
+//                        .setTitle("课程报名情况")
+//                        .setItems(items, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(AdminCourseDetailActivity.this, "你选择了其中一项", Toast.LENGTH_LONG).show();
+//                            }
+//                        })
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(AdminCourseDetailActivity.this, "确定", Toast.LENGTH_LONG).show();
+//                            }
+//                        })
+//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(AdminCourseDetailActivity.this, "取消", Toast.LENGTH_LONG).show();
+//                            }
+//                        })
+//                        .create();
+//                signUpAdminDialog.show();
+                Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignInManageActivity.class);
+                startActivity(intentSignInManage);
                 break;
             case R.id.alterCourseBtn:
                 Intent intentAlterCourse = new Intent(AdminCourseDetailActivity.this, AdminAlterCourseActivity.class);

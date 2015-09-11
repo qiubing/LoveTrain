@@ -2,8 +2,12 @@ package cn.nubia.util;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import cn.nubia.entity.Constant;
+
 
 /**
  * Created by WJ on 2015/9/9.
@@ -23,15 +27,16 @@ public class DataLoadUtil {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 mLoadViewUtil.setNetworkFailedViewVisible(false);
-//                updateAllData(response);
 
+//                updateAllData(response);
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                mLoadViewUtil.setNetworkFailedViewVisible(true);
-
+//                mLoadViewUtil.setNetworkFailedViewVisible(true);
+                mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             }
         });
     }
