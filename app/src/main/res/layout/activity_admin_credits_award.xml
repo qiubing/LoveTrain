@@ -3,39 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     tools:context="cn.nubia.activity.admin.AdminCreditsAwardActivity">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/manager_score_user_detail_head"
+        layout="@layout/manager_head"
         android:layout_width="fill_parent"
-
-        android:layout_height="@dimen/manager_title_high">
-
-        <ImageView
-            android:id="@+id/manager_award_backImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="0dp"
-            android:src="@mipmap/ic_back" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/activity_manager_award_title"
-            android:textColor="@color/grayslate"
-            android:textSize="@dimen/manager_title_textSize" />
-    </RelativeLayout>
+        android:layout_height="50dp" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:stretchColumns="1">
+
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="@dimen/manager_rate_layout_hight"
@@ -115,12 +99,11 @@
                 android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
                 android:layout_marginLeft="@dimen/login_edit_text_margin_left"
                 android:layout_marginRight="@dimen/login_edit_text_margin_right"
-                android:isScrollContainer="true"
                 android:background="@drawable/editview_selector"
                 android:hint="@string/activity_manager_add_exam_hint"
+                android:isScrollContainer="true"
                 android:padding="@dimen/padding"
                 android:paddingLeft="@dimen/login_edit_text_inner_padding"
-                android:singleLine="true"
                 android:textColor="@color/edit_text"
                 android:textColorHint="@color/edit_text_hint"
                 android:textSize="@dimen/manager_rate_textSize" />

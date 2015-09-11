@@ -17,12 +17,12 @@
         android:layout_width="fill_parent"
         android:layout_height="46dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/manager_goback"
         android:gravity="center"
         android:singleLine="true"
         android:text="title"
         android:textColor="@color/grayslate"
         android:textSize="22.0sp" />
+    <!--android:layout_toRightOf="@+id/manager_goback"-->
 
     <View
         android:layout_width="fill_parent"
