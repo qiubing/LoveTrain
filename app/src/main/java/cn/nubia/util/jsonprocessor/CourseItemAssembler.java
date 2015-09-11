@@ -19,7 +19,6 @@ public class CourseItemAssembler implements AssemblerGenerics<CourseItem> {
 
     @Override
     public boolean assemble(JSONArray jsonArray, List<CourseItem> list) {
-        Log.d("jiangyu", "in courseItemAssembler");
         try {
             int arrayIndex = 0;
             JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
@@ -27,13 +26,13 @@ public class CourseItemAssembler implements AssemblerGenerics<CourseItem> {
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "course":
+                    case "share":
+                    case "senior":
                         UpdateClassListHelper.updateDatabyClassType(
                                 "course",
                                 makeCourse(jsonObject.getJSONObject("detail")),
                                 list);
                         break;
-                    case "share":
-                    case "senior":
                     case "lesson":
                         UpdateClassListHelper.updateDatabyClassType(
                                 "lesson",
