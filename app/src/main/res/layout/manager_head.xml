@@ -21,8 +21,7 @@
         android:singleLine="true"
         android:text="title"
         android:textColor="@color/grayslate"
-        android:textSize="22.0sp" />
-    <!--android:layout_toRightOf="@+id/manager_goback"-->
+        android:textSize="@dimen/textSize22" />
 
     <View
         android:layout_width="fill_parent"

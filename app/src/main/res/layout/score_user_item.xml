@@ -5,33 +5,35 @@
     android:orientation="horizontal"
     android:padding="@dimen/padding">
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/score_user_linearyout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-    <!--</LinearLayout>-->
-        <TextView
-            android:id="@+id/score_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/manager_score_hight"
-            android:text="testa" />
+    <TextView
+        android:id="@+id/score_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high18"
+        android:text="testa"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize16" />
 
-        <TextView
-            android:layout_below="@+id/score_user_name"
-            android:id="@+id/score_user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/manager_score_hight"
-            android:text="ak" />
-
+    <TextView
+        android:id="@+id/score_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high16"
+        android:layout_below="@+id/score_user_name"
+        android:text="ak"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize14" />
 
 
     <ImageView
         android:id="@+id/score_user_arrow"
         android:layout_width="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_height="@dimen/manager_score_image_hight"
+        android:layout_height="@dimen/high35"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingRight="@dimen/image_padding_right"
         android:src="@mipmap/arrow" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_below="@+id/score_user_id" />
 </RelativeLayout>

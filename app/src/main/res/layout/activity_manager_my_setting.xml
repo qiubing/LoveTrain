@@ -3,36 +3,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/soft_comment_title_content_windows"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/myProfile"
+                layout="@layout/userinfo_profile_item"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/userinfo_profile_item" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/item_bg"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/queryscore"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="成绩查询" />
+                    android:text="成绩查询"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -44,7 +45,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="积分查询" />
+                    android:text="积分查询"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -56,7 +58,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="积分奖励" />
+                    android:text="积分奖励"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -68,7 +71,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="评级管理" />
+                    android:text="评级管理"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -80,7 +84,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="用户管理" />
+                    android:text="用户管理"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -92,7 +97,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="修改密码" />
+                    android:text="修改密码"
+                    android:textSize="@dimen/textSize16" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -104,13 +110,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"
-                    android:text="关于我们" />
+                    android:text="关于我们"
+                    android:textSize="@dimen/textSize16" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/change_account"
                 style="@style/CustomBigLoginButton"
-                android:text="注销" />
+                android:textSize="@dimen/textSize20"
+                android:text="退出登录" />
 
         </LinearLayout>
     </ScrollView>
