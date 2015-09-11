@@ -93,7 +93,6 @@
         <activity android:name=".admin.AdminAddExamActivity" />
         <activity android:name=".admin.AdminEditExamActivity" />
         <activity android:name=".admin.AdminCreditsAwardActivity" />
-
         <activity android:name=".admin.AdminAddLessonActivity"/>
         <activity android:name=".admin.AdminAddCourseActivity"/>
         <activity android:name=".admin.AdminAlterCourseActivity"/>
@@ -131,15 +130,6 @@
             android:name=".client.ClientMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
-        <activity android:name=".client.MyCheckRecordActivity" />
-        <activity android:name=".client.ShareCourseActivity" />
-        <activity android:name=".client.MyShareCourseDetailDisplayActivity" />
-        <activity android:name=".client.UpdateIconActivity" />
-        <activity android:name=".client.MyAccountmanaPswmodifyActivity" />
-        <activity android:name=".client.CourseIntegrationRecordActivity" />
-        <activity android:name=".client.ExamScoreActivity" />
-        <activity android:name=".client.MyShareCourseDetailFillActivity" />
-        <activity android:name=".client.MyCourseJudgeDetailFillActivity" />
         <activity android:name=".client.AboutUsActivity"/>
         <activity android:name=".client.FeedBackActivity"/>
         <activity android:name=".client.ClientMyCheckRecordActivity" />
@@ -151,7 +141,6 @@
         <activity android:name=".client.ClientExamScoreActivity" />
         <activity android:name=".client.ClientMyShareCourseDetailFillActivity" />
         <activity android:name=".client.ClientMyCourseJudgeDetailFillActivity" />
-
 
         <activity
             android:name="cn.nubia.zxing.barcode.CaptureActivity"

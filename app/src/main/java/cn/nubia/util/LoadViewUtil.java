@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+import cn.nubia.entity.Constant;
 
 import cn.nubia.entity.Constant;
 

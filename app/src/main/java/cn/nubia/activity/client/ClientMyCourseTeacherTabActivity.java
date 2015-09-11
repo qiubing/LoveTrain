@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
@@ -33,7 +31,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
-
 
     /*expandableListView*/
     private ExpandableListView mExpandableListView;
@@ -76,7 +73,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     protected void initEvents() {
 
         mCourseItemList = new ArrayList<>();
-
+        mLoadViewUtil = new LoadViewUtil(this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);

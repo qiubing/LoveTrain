@@ -35,8 +35,6 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
-
-
         holdView();
         setViewLogic();
 //        initViewData();
@@ -65,10 +63,8 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         mCourseModifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyShareCourseDetailDisplayActivity.this
-                        , MyShareCourseDetailFillActivity.class);
                 Intent intent = new Intent(ClientMyShareCourseDetailDisplayActivity.this
-                        ,ClientMyShareCourseDetailFillActivity.class);
+                        , ClientMyShareCourseDetailFillActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("shareCourse", mShareCourseItem);
                 intent.putExtras(bundle);
@@ -76,12 +72,6 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
             }
         });
 
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClientMyShareCourseDetailDisplayActivity.this.finish();
-            }
-        });
     }
 
     private void initViewData() {

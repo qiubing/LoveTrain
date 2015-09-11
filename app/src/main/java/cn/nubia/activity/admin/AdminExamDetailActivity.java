@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;

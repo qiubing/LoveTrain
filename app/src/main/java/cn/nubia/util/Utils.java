@@ -11,14 +11,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import cn.nubia.entity.Constant;
-
 
 /**
  * @Author: qiubing

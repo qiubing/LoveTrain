@@ -42,7 +42,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private TextView mCourseEndtime;
     private EditText mCourseDescription;
     private Button mConfirmButton;
-    private Button mBackButton;
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
 
@@ -150,8 +149,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                 .my_sharecourse_detail_fill_coursedescription_filltextview));
         mConfirmButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_fill_confirmbutton);
-        mBackButton = (Button) findViewById(R.id
-                .my_sharecourse_detail_fill_backbutton);
         mContentScrollView =(ScrollView) findViewById(R.id
                 .my_sharecourse_detail_fill_contentscrollview);
     }
@@ -220,12 +217,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-            }
-        });
-        mBackButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClientMyShareCourseDetailFillActivity.this.finish();
             }
         });
     }

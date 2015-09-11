@@ -13,7 +13,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 

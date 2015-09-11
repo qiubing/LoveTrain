@@ -1,6 +1,7 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
+import cn.nubia.component.PromptDialog;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 
@@ -25,7 +28,7 @@ import cn.nubia.util.Utils;
  * @Date: 2015/9/6 19:28
  */
 
-public class MyClientActivity_1 extends Activity implements OnClickListener {
+public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final String TAG = "UserSetting";
     private static final int GET_PHOTO_CODE = 1;
 
@@ -81,7 +84,7 @@ public class MyClientActivity_1 extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.icon1:
-                Intent intent = new Intent(this, UpdateIconActivity.class);
+                Intent intent = new Intent(this, ClientUpdateIconActivity.class);
                 startActivityForResult(intent, GET_PHOTO_CODE);
                 break;
             case R.id.check_in_record:
@@ -127,7 +130,7 @@ public class MyClientActivity_1 extends Activity implements OnClickListener {
      * 更新对话框
      */
     public void showUpdatDialog () {
-        new PromptDialog.Builder(MyClientActivity_1.this)
+        new PromptDialog.Builder(ClientMyTabActivity.this)
                 .setMessage("最新版本：1.1\n最新版本已下载，是否安装？\n更新内容\n这只是一个演示\n学习一下也不错",
                         null).setTitle("发现新版本")
                 .setButton1("立即更新", new PromptDialog.OnClickListener() {
@@ -137,7 +140,7 @@ public class MyClientActivity_1 extends Activity implements OnClickListener {
                         /**
                          * 开始下载更新呗
                          */
-                        Toast.makeText(MyClientActivity_1.this, "只是一个演示而已", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ClientMyTabActivity.this, "只是一个演示而已", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 }).setButton2("以后再说", new PromptDialog.OnClickListener() {

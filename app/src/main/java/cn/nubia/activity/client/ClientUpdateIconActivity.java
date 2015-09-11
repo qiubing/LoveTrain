@@ -20,9 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
-
 import java.io.IOException;
-
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
@@ -88,7 +86,8 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 new PopupWindows(ClientUpdateIconActivity.this, mCircleImageView);
                 break;
             case R.id.btn_upload:
-                showShortToast("长传头像");
+                showShortToast("长传头像成功");
+                ClientUpdateIconActivity.this.finish();
                 //TODO:上传图像到服务器
                 break;
         }
@@ -210,7 +209,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                         }
                         /*返回照片给上一级显示*/
                         ClientUpdateIconActivity.this.setResult(RETURN_PHOTO_CODE,data);
-                        ClientUpdateIconActivity.this.finish();
                     }
                     break;
             }
