@@ -18,7 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
 /**管理员课程界面：Tab分页导航
@@ -64,12 +63,12 @@ public class AdminCourseActivity extends ActivityGroup {
         tvTab3.setText("新增课程");
 
 
-        Intent intent = new Intent(AdminCourseActivity.this, EmptyActivity.class);
+        final Intent intent = new Intent(AdminCourseActivity.this, AdminAddCourseActivity.class);
         tvTab3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(intent);
                 Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
-
             }
         });
         //此处貌似必须有setContent(intent)
