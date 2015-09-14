@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,12 +81,21 @@ public class AdminSignInManageActivity extends Activity {
                 disagreeButton = (Button) convertView.findViewById(R.id.admin_signIn_manage_disagreeButton);
                 name.setText(listData.get(position));
 
+
                 /**同意或不同意**/
                 agreeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((Button)v).setBackgroundResource(R.color.green);
-                        disagreeButton.setBackgroundColor(getResources().getColor(R.color.white));
+                        RelativeLayout relativeLayout=(RelativeLayout)v.getParent();
+
+                        /**获取第一个button，第一个button是1*/
+                        Button agreeBtn=(Button)relativeLayout.getChildAt(1);
+                        agreeBtn.setBackgroundColor(getResources().getColor(R.color.green));
+
+                        /**获取第二个button，第二个button是0*/
+                        Button disagreeBtn=(Button)relativeLayout.getChildAt(0);
+                        disagreeBtn.setBackgroundColor(getResources().getColor(R.color.white));
+
                         Toast.makeText(AdminSignInManageActivity.this, "你点击了同意" + position, Toast.LENGTH_LONG).show();
                     }
                 });
@@ -93,8 +103,14 @@ public class AdminSignInManageActivity extends Activity {
                 disagreeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        agreeButton.setBackgroundColor(getResources().getColor(R.color.white));
-                        disagreeButton.setBackgroundColor(getResources().getColor(R.color.red));
+                        RelativeLayout relativeLayout=(RelativeLayout)v.getParent();
+
+                        Button agreeBtn=(Button)relativeLayout.getChildAt(1);
+                        agreeBtn.setBackgroundColor(getResources().getColor(R.color.white));
+
+                        Button disagreeBtn=(Button)relativeLayout.getChildAt(0);
+                        disagreeBtn.setBackgroundColor(getResources().getColor(R.color.red));
+                        Toast.makeText(AdminSignInManageActivity.this, "你点击了否决" + position, Toast.LENGTH_LONG).show();
                     }
                 });
                 return convertView;
