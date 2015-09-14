@@ -11,7 +11,7 @@ import org.json.JSONObject;
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class LessonJudgementAssembler implements AssemblerGenerics<LessonJudgement> {
+public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgement> {
 
     @Override
     public boolean assemble(JSONArray jsonArray, List<LessonJudgement> list) {

@@ -1,7 +1,5 @@
 package cn.nubia.util.jsonprocessor;
 
-import android.util.Log;
-
 import java.util.List;
 
 import cn.nubia.entity.CourseItem;
@@ -15,7 +13,7 @@ import org.json.JSONObject;
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class CourseItemAssembler implements AssemblerGenerics<CourseItem> {
+public class CourseItemAssembler implements IAssemblerGenerics<CourseItem> {
 
     @Override
     public boolean assemble(JSONArray jsonArray, List<CourseItem> list) {

@@ -10,7 +10,7 @@ import org.json.JSONObject;
  */
 public class EntityFactoryGenerics {
     public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA}
-    private AssemblerGenerics mAssembler;
+    private IAssemblerGenerics mAssembler;
 
     public EntityFactoryGenerics(ItemType type){
         switch (type){

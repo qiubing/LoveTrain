@@ -11,7 +11,7 @@ import org.json.JSONObject;
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class UserInfoAssembler implements AssemblerGenerics<UserInfo> {
+public class UserInfoAssembler implements IAssemblerGenerics<UserInfo> {
     @Override
     public boolean assemble(JSONArray jsonArray, List<UserInfo> list) {
         try {
