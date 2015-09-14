@@ -41,7 +41,7 @@
                 android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview" />
 
             <EditText
-                android:id="@+id/my_accountmana_pswmodify_oldpswconfirmedittext"
+                android:id="@+id/my_accountmana_pswmodify_newpswedittext"
                 style="@style/edittext_style"
                 android:hint="@string/activity_manager_add_exam_hint"
                 android:inputType="textPassword" />
@@ -54,7 +54,7 @@
                 android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview" />
 
             <EditText
-                android:id="@+id/my_accountmana_pswmodify_newpswedittext"
+                android:id="@+id/my_accountmana_pswmodify_newpswconfirmedittext"
                 style="@style/edittext_style"
                 android:hint="@string/activity_manager_add_exam_hint"
                 android:inputType="textPassword" />
