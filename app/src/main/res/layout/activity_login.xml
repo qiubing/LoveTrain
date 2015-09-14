@@ -58,6 +58,7 @@
     <EditText
         android:id="@+id/login_pwd"
         style="@style/edittext_style"
+        android:password="true"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
         android:hint="@string/login_pwd_hint" />
 
@@ -138,6 +139,7 @@
         android:id="@+id/regist_pwd"
         style="@style/edittext_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
+        android:password="true"
         android:hint="@string/regist_pwd2_hint"
         android:visibility="gone" />
 
