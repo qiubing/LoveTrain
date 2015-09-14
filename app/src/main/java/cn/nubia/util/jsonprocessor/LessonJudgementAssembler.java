@@ -1,35 +1,37 @@
 package cn.nubia.util.jsonprocessor;
 
-import java.util.List;
-
-import cn.nubia.entity.LessonJudgement;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.nubia.entity.LessonJudgement;
+
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class LessonJudgementAssembler implements AssemblerGenerics<LessonJudgement> {
+public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgement> {
 
     @Override
-    public boolean assemble(JSONArray jsonArray, List<LessonJudgement> list) {
+    public List<LessonJudgement> assemble(JSONArray jsonArray) {
         try {
+            List<LessonJudgement> itemList = new ArrayList<LessonJudgement>();
             int arrayIndex = 0;
             JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
             while (jsonObject != null){
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "judgement":
-                        list.add(makeLessonJudge(jsonObject.getJSONObject("detail")));
+                        itemList.add(makeLessonJudge(jsonObject.getJSONObject("detail")));
                 }
                 jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return true;
+            return null;
         } catch (JSONException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

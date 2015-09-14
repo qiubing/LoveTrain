@@ -1,25 +1,25 @@
 package cn.nubia.util.jsonprocessor;
 
-import android.util.Log;
-
-import java.util.List;
-
-import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
-import cn.nubia.util.UpdateClassListHelper;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.Item;
+import cn.nubia.entity.LessonItem;
+
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class CourseItemAssembler implements AssemblerGenerics<CourseItem> {
+public class CourseItemAssembler implements IAssemblerGenerics<Item> {
 
     @Override
-    public boolean assemble(JSONArray jsonArray, List<CourseItem> list) {
+    public List<Item> assemble(JSONArray jsonArray) {
         try {
+            List<Item> itemList = new ArrayList<Item>();
             int arrayIndex = 0;
             JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
             while (jsonObject != null){
@@ -28,24 +28,18 @@ public class CourseItemAssembler implements AssemblerGenerics<CourseItem> {
                     case "course":
                     case "share":
                     case "senior":
-                        UpdateClassListHelper.updateDatabyClassType(
-                                "course",
-                                makeCourse(jsonObject.getJSONObject("detail")),
-                                list);
+                        itemList.add(makeCourse(jsonObject.getJSONObject("detail")));
                         break;
                     case "lesson":
-                        UpdateClassListHelper.updateDatabyClassType(
-                                "lesson",
-                                makeLesson(jsonObject.getJSONObject("detail")),
-                                list);
+                        itemList.add(makeLesson(jsonObject.getJSONObject("detail")));
                         break;
                 }
                 jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return true;
+            return itemList;
         } catch (JSONException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

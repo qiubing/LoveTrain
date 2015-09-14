@@ -153,6 +153,8 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
+        <service android:name="cn.nubia.service.CommunicateService"/>
     </application>
 
 </manifest>
