@@ -1,5 +1,6 @@
 package cn.nubia.util.jsonprocessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,9 +12,13 @@ import org.json.JSONObject;
 public class EntityFactoryGenerics {
     public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA}
     private IAssemblerGenerics mAssembler;
+    private JSONObject mJsonObject;
+    private ItemType mType;
 
-    public EntityFactoryGenerics(ItemType type){
-        switch (type){
+    public EntityFactoryGenerics(ItemType type,JSONObject jsonObject){
+        mType = type;
+        mJsonObject = jsonObject;
+        switch (mType){
             case COURSE:
                 mAssembler = new CourseItemAssembler();
                 break;
@@ -29,22 +34,35 @@ public class EntityFactoryGenerics {
         }
     }
 
-    public  boolean getUpdate(JSONObject jsonObject,List<?> List){
-        JSONArray jsonArray = JSONResolver.readArray(jsonObject);
+    /**
+     * 获得返回结果中的code值
+     */
+    public int getCode(){
+        return JSONResolver.readCode(mJsonObject);
+    }
+
+    public List<?> get(){
+        if(mType ==ItemType.SIMPLEDATA)
+            return getOperateResult();
+        else
+            return getItemList();
+    }
+    /**
+     * 获得作为列表返回的实体值
+     */
+    private List<?> getItemList(){
+        JSONArray jsonArray = JSONResolver.readArray(mJsonObject);
         if (jsonArray == null){
-            return false;
+            return null;
         }else {
-            mAssembler.assemble(jsonArray,List);
-            return true;
+            return mAssembler.assemble(jsonArray);
         }
     }
 
     /**
-     * 处理作为字符串返回的简单值类型
-     *
-     * @param jsonObject    请求返回的JSON字符串
+     * 获得作为字符串返回的简单值
      */
-    public static String getResult(JSONObject jsonObject){
-        return JSONResolver.readString(jsonObject);
+    private List<String> getOperateResult(){
+        return JSONResolver.readOperateReult(mJsonObject);
     }
 }

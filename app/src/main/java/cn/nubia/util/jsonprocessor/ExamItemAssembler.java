@@ -1,12 +1,13 @@
 package cn.nubia.util.jsonprocessor;
 
-import java.util.List;
-
-import cn.nubia.entity.ExamItem;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.nubia.entity.ExamItem;
 
 /**
  * Created by JiangYu on 2015/9/10.
@@ -14,22 +15,23 @@ import org.json.JSONObject;
 public class ExamItemAssembler implements IAssemblerGenerics<ExamItem> {
 
     @Override
-    public boolean assemble(JSONArray jsonArray, List<ExamItem> examList) {
+    public List<ExamItem> assemble(JSONArray jsonArray) {
         try {
+            List<ExamItem> itemList = new ArrayList<ExamItem>();
             int arrayIndex = 0;
             JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
             while (jsonObject != null){
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "exam":
-                        examList.add(makeExam(jsonObject.getJSONObject("detail")));
+                        itemList.add(makeExam(jsonObject.getJSONObject("detail")));
                 }
                 jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return true;
+            return null;
         } catch (JSONException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -51,6 +53,4 @@ public class ExamItemAssembler implements IAssemblerGenerics<ExamItem> {
 
         return item;
     }
-
-
 }

@@ -1,5 +1,6 @@
 package cn.nubia.util.jsonprocessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.entity.UserInfo;
@@ -13,22 +14,23 @@ import org.json.JSONObject;
  */
 public class UserInfoAssembler implements IAssemblerGenerics<UserInfo> {
     @Override
-    public boolean assemble(JSONArray jsonArray, List<UserInfo> list) {
+    public List<UserInfo> assemble(JSONArray jsonArray) {
         try {
+            List<UserInfo> itemList = new ArrayList<UserInfo>();
             int arrayIndex = 0;
             JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
             while (jsonObject != null){
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "user":
-                        list.add(makeUserInfo(jsonObject.getJSONObject("detail")));
+                        itemList.add(makeUserInfo(jsonObject.getJSONObject("detail")));
                 }
                 jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return true;
+            return null;
         } catch (JSONException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

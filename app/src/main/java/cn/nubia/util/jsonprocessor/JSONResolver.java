@@ -4,33 +4,40 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by JiangYu on 2015/9/10.
  */
 public class JSONResolver {
 
-    /**当JSON字符串解析成功并且返回数据的code值为0（表示成功时）将该数据中的data部分
-     * 作为JSON数组返回;否则返回null*/
+    /**获得服务器端返回的JSON对象的code值*/
+    public static int readCode(JSONObject jsonObject){
+        try {
+            return jsonObject.getInt("code");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    /**获得服务器返回的JSON对象中包含的实体数组*/
     public static JSONArray readArray(JSONObject jsonObject){
         try {
-            if (jsonObject.getString("code").equals("0"))
-                return jsonObject.getJSONArray("data");
-            else
-                return null;
+            return jsonObject.getJSONArray("data");
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    /**当JSON字符串解析成功并且返回数据的code值为0（表示成功时）将该数据中的data部分
-     * 作为字符串返回;否则返回null*/
-    public static String readString(JSONObject jsonObject){
+    /**获得服务器返回的JSON对象中包含的操作结果*/
+    public static List<String> readOperateReult(JSONObject jsonObject){
         try {
-            if (jsonObject.getString("code").equals("0"))
-                return jsonObject.getString("data");
-            else
-                return null;
+            List<String> result = new ArrayList<String>();
+            result.add(jsonObject.getString("data"));
+            return result;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

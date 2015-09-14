@@ -23,13 +23,13 @@ public class CommunicateService extends Service {
     private static Map<Class<? extends Paramable>,String> sURLes;
     private static Map<Class<? extends Paramable>,JsonHttpResponseHandler> sHandleres;
 
-    static{
+    {
         sURLes = new HashMap<Class<? extends Paramable>,String>();
         sHandleres = new HashMap<Class<? extends Paramable>,JsonHttpResponseHandler>();
         sURLes.put(CreditsAwardMsg.class,"awarded.do");
-        sHandleres.put(CreditsAwardMsg.class,new AwardCreditsHandler());
+        sHandleres.put(CreditsAwardMsg.class,new AwardCreditsHandler(this));
         sURLes.put(PswModifyMsg.class,"modifyPsw.do");
-        sHandleres.put(PswModifyMsg.class,new PswModifyHandler());
+        sHandleres.put(PswModifyMsg.class,new PswModifyHandler(this));
     }
 
     @Override
