@@ -1,9 +1,14 @@
 package cn.nubia.entity;
 
+import com.loopj.android.http.RequestParams;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by JiangYu on 2015/9/7.
  */
-public class PswModifyMsg {
+public class PswModifyMsg implements Paramable{
     private String mOldPsw;
     private String mNewPsw;
 
@@ -21,5 +26,13 @@ public class PswModifyMsg {
 
     public void setNewPsw(String newPsw) {
         this.mNewPsw = newPsw;
+    }
+
+    @Override
+    public RequestParams toParams() {
+        Map<String,String> param = new HashMap<String,String>();
+        param.put("oldPsw",mOldPsw);
+        param.put("newPsw",mNewPsw);
+        return new RequestParams(param);
     }
 }

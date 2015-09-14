@@ -11,9 +11,8 @@ public class JSONResolver {
 
     /**当JSON字符串解析成功并且返回数据的code值为0（表示成功时）将该数据中的data部分
      * 作为JSON数组返回;否则返回null*/
-    public static JSONArray readArray(String JSONString){
+    public static JSONArray readArray(JSONObject jsonObject){
         try {
-            JSONObject jsonObject =  new JSONObject(JSONString);
             if (jsonObject.getString("code").equals("0"))
                 return jsonObject.getJSONArray("data");
             else
@@ -26,9 +25,8 @@ public class JSONResolver {
 
     /**当JSON字符串解析成功并且返回数据的code值为0（表示成功时）将该数据中的data部分
      * 作为字符串返回;否则返回null*/
-    public static String readString(String JSONString){
+    public static String readString(JSONObject jsonObject){
         try {
-            JSONObject jsonObject =  new JSONObject(JSONString);
             if (jsonObject.getString("code").equals("0"))
                 return jsonObject.getString("data");
             else
