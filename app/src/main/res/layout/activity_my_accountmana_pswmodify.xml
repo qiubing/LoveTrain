@@ -60,7 +60,7 @@
                 android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
             <EditText
-                android:id="@+id/my_accountmana_pswmodify_oldpswconfirmedittext"
+                android:id="@+id/my_accountmana_pswmodify_newpswedittext"
                 android:inputType="textPassword"
                 android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </TableRow>
@@ -74,7 +74,7 @@
                 android:textSize="@dimen/jiangyu_itemname_textsize"/>
 
             <EditText
-                android:id="@+id/my_accountmana_pswmodify_newpswedittext"
+                android:id="@+id/my_accountmana_pswmodify_newpswconfirmedittext"
                 android:inputType="textPassword"
                 android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
         </TableRow>
