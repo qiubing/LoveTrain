@@ -24,6 +24,7 @@
         <item name="android:layout_marginLeft">@dimen/jiangyu_item_normalhorizontalmargin</item>
         <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
     </style>
+
     <style name="CustomBigOrangeButton" parent="@android:style/Widget.Button">
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
         <item name="android:textColor">@color/custom_small_orange_btn_color</item>
@@ -42,6 +43,45 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">40.0dip</item>
         <item name="android:layout_margin">10.0dip</item>
+        <item name="android:textSize">@dimen/textSize20</item>
+    </style>
+
+    <style name="edittext_style">
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/login_edit_text_height</item>
+        <item name="android:layout_marginLeft">@dimen/login_edit_text_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/login_edit_text_margin_right</item>
+        <item name="android:paddingLeft">@dimen/login_edit_text_inner_padding</item>
+        <item name="android:background">@drawable/editview_selector</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:textSize">@dimen/textSize14</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="textview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/login_edit_text_height</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/textSize16</item>
+    </style>
+
+    <style name="edittext_style_multiline">
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/edittext_multi</item>
+        <item name="android:layout_marginLeft">@dimen/login_edit_text_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/login_edit_text_margin_right</item>
+        <item name="android:paddingLeft">@dimen/login_edit_text_inner_padding</item>
+        <item name="android:background">@drawable/editview_selector</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:gravity">left|top</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:isScrollContainer">true</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:textSize">@dimen/textSize14</item>
     </style>
 
     <style name="toolbar_button_style">
@@ -72,6 +112,7 @@
         <item name="android:paddingRight">@dimen/item_inside_left_or_right_padding</item>
         <item name="android:paddingBottom">@dimen/item_inside_top_or_bottom_padding</item>
     </style>
+
     <style name="item_smart_icon_imageview_style">
         <item name="android:paddingLeft">0.0dip</item>
         <item name="android:paddingRight">0.0dip</item>
@@ -87,6 +128,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="item_operation_stytle">
         <item name="android:textSize">16.0dip</item>
         <item name="android:paddingLeft">5.0dip</item>
@@ -100,6 +142,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@color/item_operation_attention</item>
     </style>
+
     <style name="item_flag_attention_style">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/white</item>
@@ -128,6 +171,7 @@
         <item name="android:paddingRight">@dimen/item_outside_left_or_right_padding</item>
         <item name="android:paddingBottom">5.0dip</item>
     </style>
+
     <style name="item_layout_residue_gift">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">#ff9f9f9f</item>

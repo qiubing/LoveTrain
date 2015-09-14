@@ -18,6 +18,8 @@
     <dimen name="high24">24dp</dimen>
     <dimen name="high35">35dp</dimen>
 
+    <dimen name="edittext_multi">100dp</dimen>
+
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -73,7 +75,7 @@
     <dimen name="login_edit_text_margin_right">14.0dip</dimen>
     <dimen name="login_edit_text_margin_left">14.0dip</dimen>
     <dimen name="login_edit_text_inner_padding">9.0dip</dimen>
-    <dimen name="login_edit_text_height">42.0dip</dimen>
+    <dimen name="login_edit_text_height">40.0dip</dimen>
     <dimen name="login_edit_hint_size">14.0dip</dimen>
     <dimen name="login_btn_height">40.0dip</dimen>
     <dimen name="login_btn_text_size">16.0dip</dimen>

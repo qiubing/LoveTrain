@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical"
-
     tools:context="cn.nubia.activity.admin.AdminCreditsAwardActivity">
 
     <include
@@ -25,28 +25,36 @@
             android:layout_height="@dimen/manager_rate_layout_hight"
             android:paddingTop="@dimen/manager_rate_paddingTop">
 
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/activity_manager_awarded_name"-->
+            <!--android:textColor="@color/grayslate"-->
+            <!--android:textSize="@dimen/textSize16" />-->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/activity_manager_awarded_name"
-                android:textColor="@color/grayslate"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/textview_style"
+                android:text="@string/activity_manager_awarded_name" />
 
             <EditText
                 android:id="@+id/activity_manager_awarded_name"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_edit_text_height"
-                android:layout_marginLeft="@dimen/login_edit_text_margin_left"
-                android:layout_marginRight="@dimen/login_edit_text_margin_right"
-                android:background="@drawable/editview_selector"
-                android:hint="@string/activity_manager_add_exam_hint"
-                android:padding="@dimen/padding"
-                android:paddingLeft="@dimen/login_edit_text_inner_padding"
-                android:singleLine="true"
-                android:textColor="@color/edit_text"
-                android:textColorHint="@color/edit_text_hint"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/edittext_style"
+                android:hint="@string/activity_manager_add_exam_hint" />
+
+            <!--<EditText-->
+            <!--android:id="@+id/activity_manager_awarded_name"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/login_edit_text_height"-->
+            <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
+            <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
+            <!--android:background="@drawable/editview_selector"-->
+            <!--android:hint="@string/activity_manager_add_exam_hint"-->
+            <!--android:padding="@dimen/padding"-->
+            <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/edit_text"-->
+            <!--android:textColorHint="@color/edit_text_hint"-->
+            <!--android:textSize="@dimen/textSize16" />-->
         </TableRow>
 
         <TableRow
@@ -55,28 +63,37 @@
             android:orientation="horizontal"
             android:paddingTop="@dimen/manager_rate_paddingTop">
 
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/activity_manager_awarded_credits"-->
+            <!--android:textColor="@color/grayslate"-->
+            <!--android:textSize="@dimen/textSize16" />-->
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/activity_manager_awarded_credits"
-                android:textColor="@color/grayslate"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/textview_style"
+                android:text="@string/activity_manager_awarded_credits" />
 
             <EditText
                 android:id="@+id/activity_manager_awarded_credit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_edit_text_height"
-                android:layout_marginLeft="@dimen/login_edit_text_margin_left"
-                android:layout_marginRight="@dimen/login_edit_text_margin_right"
-                android:background="@drawable/editview_selector"
-                android:hint="20"
-                android:padding="@dimen/padding"
-                android:paddingLeft="@dimen/login_edit_text_inner_padding"
-                android:singleLine="true"
-                android:textColor="@color/edit_text"
-                android:textColorHint="@color/edit_text_hint"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/edittext_style"
+                android:hint="20" />
+
+            <!--<EditText-->
+            <!--android:id="@+id/activity_manager_awarded_credit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/login_edit_text_height"-->
+            <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
+            <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
+            <!--android:background="@drawable/editview_selector"-->
+            <!--android:hint="20"-->
+            <!--android:padding="@dimen/padding"-->
+            <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColor="@color/edit_text"-->
+            <!--android:textColorHint="@color/edit_text_hint"-->
+            <!--android:textSize="@dimen/textSize16" />-->
         </TableRow>
 
         <TableRow
@@ -85,28 +102,37 @@
             android:orientation="horizontal"
             android:paddingTop="@dimen/manager_rate_paddingTop">
 
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="@string/activity_manager_awarded_cause"-->
+            <!--android:textColor="@color/grayslate"-->
+            <!--android:textSize="@dimen/textSize16" />-->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/activity_manager_awarded_cause"
-                android:textColor="@color/grayslate"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/textview_style"
+                android:text="@string/activity_manager_awarded_cause" />
 
             <EditText
                 android:id="@+id/activity_manager_awarded_cause"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
-                android:layout_marginLeft="@dimen/login_edit_text_margin_left"
-                android:layout_marginRight="@dimen/login_edit_text_margin_right"
-                android:background="@drawable/editview_selector"
-                android:hint="@string/activity_manager_add_exam_hint"
-                android:isScrollContainer="true"
-                android:padding="@dimen/padding"
-                android:paddingLeft="@dimen/login_edit_text_inner_padding"
-                android:textColor="@color/edit_text"
-                android:textColorHint="@color/edit_text_hint"
-                android:textSize="@dimen/manager_rate_textSize" />
+                style="@style/edittext_style_multiline"
+                android:hint="@string/activity_manager_add_exam_hint" />
+
+            <!--<EditText-->
+            <!--android:id="@+id/activity_manager_awarded_cause"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"-->
+            <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
+            <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
+            <!--android:background="@drawable/editview_selector"-->
+            <!--android:hint="@string/activity_manager_add_exam_hint"-->
+            <!--android:isScrollContainer="true"-->
+            <!--android:padding="@dimen/padding"-->
+            <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
+            <!--android:scrollHorizontally="false"-->
+            <!--android:textColor="@color/edit_text"-->
+            <!--android:textColorHint="@color/edit_text_hint"-->
+            <!--android:textSize="@dimen/textSize16" />-->
         </TableRow>
 
         <LinearLayout
@@ -115,12 +141,17 @@
             android:layout_marginTop="@dimen/manager_score_hight"
             android:paddingTop="@dimen/padding">
 
+            <!--<Button-->
+            <!--android:id="@+id/activity_manager_award_confirm_button"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:text="@string/activity_manager_add_exam_add"-->
+            <!--android:textSize="@dimen/manager_title_textSize" />-->
+
             <Button
                 android:id="@+id/activity_manager_award_confirm_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="@string/activity_manager_add_exam_add"
-                android:textSize="@dimen/manager_title_textSize" />
+                style="@style/CustomBigLoginButton"
+                android:text="@string/activity_manager_add_exam_add" />
         </LinearLayout>
     </TableLayout>
 </LinearLayout>
