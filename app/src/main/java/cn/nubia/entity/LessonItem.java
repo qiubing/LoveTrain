@@ -30,7 +30,7 @@ public class LessonItem extends Item implements Serializable {
     private String mLocale;
     private int mCheckCredits;  // 签到积分
     private int mTeacherCredits;//讲师上课积分
-    private float mJudgeScore;//该课程讲师评价综合得分
+    private double mJudgeScore;//该课程讲师评价综合得分
     private long mRecordModifyTime;
 
     public long getRecordModifyTime() {
@@ -129,11 +129,11 @@ public class LessonItem extends Item implements Serializable {
         this.mTeacherCredits = mTeacherCredits;
     }
 
-    public float getJudgeScore() {
+    public double getJudgeScore() {
         return mJudgeScore;
     }
 
-    public void setJudgeScore(float mJudgeScore) {
+    public void setJudgeScore(double mJudgeScore) {
         this.mJudgeScore = mJudgeScore;
     }
 }

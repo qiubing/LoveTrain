@@ -6,25 +6,35 @@ import com.google.gson.annotations.SerializedName;
  * Created by LK on 2015/9/14.
  */
 public class User {
-    @SerializedName("UserID")
+    @SerializedName("user_id")
     private String userID;
-    @SerializedName("UserName")
+    @SerializedName("user_name")
     private String userName;
     private boolean gender;
-    @SerializedName("LastLoginTime")
+    @SerializedName("last_login_time")
     private String lastLoginTime;
-    @SerializedName("RegisterTime")
+    @SerializedName("register_time")
     private String registerTime;
     @SerializedName("UserTotalCredits")
     private int userTotalCredits;
-    @SerializedName("UserIconURL")
+    @SerializedName("icon_url")
     private String userIconURL;
+    private int user_index;
 
     public User() {
 
     }
 
-    public User(String userID, String userName, boolean gender, String lastLoginTime, String registerTime, int userTotalCredits, String userIconURL) {
+    public int getUser_index() {
+        return user_index;
+    }
+
+    public void setUser_index(int user_index) {
+        this.user_index = user_index;
+    }
+
+    public User(String userID, String userName, boolean gender, String lastLoginTime, String registerTime, int userTotalCredits, String userIconURL, int user_index) {
+
         this.userID = userID;
         this.userName = userName;
         this.gender = gender;
@@ -32,6 +42,7 @@ public class User {
         this.registerTime = registerTime;
         this.userTotalCredits = userTotalCredits;
         this.userIconURL = userIconURL;
+        this.user_index = user_index;
     }
 
     public void setUserID(String userID) {

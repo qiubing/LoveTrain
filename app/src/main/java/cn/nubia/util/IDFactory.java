@@ -16,11 +16,11 @@ public class IDFactory {
     protected static final String DEVIDE_ID = "DEVIDE_ID";
     private Context context;
 
-    IDFactory(Context context) {
+    public IDFactory(Context context) {
         this.context = context;
     }
 
-    public String getVersionCode(){
+    public String getVersionCode() {
         String result = null;
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -31,6 +31,7 @@ public class IDFactory {
         }
         return result;
     }
+
     public String getDevideID() {
         String result = SpUtil.getString(context, DEVIDE_ID);
         if (null != result) {
@@ -43,13 +44,15 @@ public class IDFactory {
             return androidID;
         } else {
             String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-            if (null == deviceId) {
+            if (null != deviceId) {
+                SpUtil.putString(context, DEVIDE_ID, deviceId);
+                return deviceId;
+            } else {
                 Random random = new Random(100000);
                 deviceId = String.valueOf(System.currentTimeMillis()) + String.valueOf(random.nextInt());
                 SpUtil.putString(context, DEVIDE_ID, deviceId);
                 return deviceId;
             }
         }
-        return null;
     }
 }

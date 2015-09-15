@@ -4,6 +4,7 @@ package cn.nubia.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,20 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
+import cn.nubia.util.IDFactory;
 import cn.nubia.util.Md5Encryption;
 import cn.nubia.util.TestData;
 
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView mTitleTV;
     private Spinner mSexSpinner;
     private Spinner mIsManagerSpinner;
+    CustomProgressDialog dialog;
 
     @Override
     protected void onDestroy() {
@@ -69,6 +71,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         mLoginButton.setOnClickListener(this);
         mRegistButton.setOnClickListener(this);
+
+        IDFactory factory = new IDFactory(this);
+        Constant.devideID = factory.getDevideID();
+        Constant.apkVersion = factory.getVersionCode();
+        Log.e("LoginActivity", Constant.devideID + "-" + Constant.apkVersion);
+
     }
 
     @Override
@@ -79,10 +87,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
                     if (validateLogin()) {
+                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
                     }
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
+                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
                         regist();
                     }
                 }
@@ -116,36 +126,41 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String userID = mUserIdET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
-        JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                handleLogin(response);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-//                DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
-                handleLogin(errorResponse);
-            }
-        };
-        Map<String, String> params = new HashMap<>();
-        params.put("UserID", userID);
-        params.put("Password", Md5Encryption.getMD5(pwd));
-        String url = Constant.BASE_URL + "user/login.do";
+        RequestParams params = new RequestParams();
+        params.put("user_id", userID);
+        params.put("password", Md5Encryption.getMD5(pwd));
+        String url = "";
         if (isManager.equals("是")) {
-            params.put("isAdmin", "true");
+            url = Constant.BASE_URL + "ucent/admin_login.do";
         } else {
-            params.put("isAdmin", "false");
+            url = Constant.BASE_URL + "user/login.do";
         }
-        AsyncHttpHelper.post(url, params, handler);
+        AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                try {
+                    afterProcess("登录");
+                    String s = new String(bytes, "UTF-8");
+                    JSONObject response = new JSONObject(s);
+                    handleLogin(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
+                }
+            }
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                afterProcess("登录");
+                handleLogin(new JSONObject());
+                DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+            }
+        });
+        onProcess("登录中...");
     }
 
     private void handleLogin(JSONObject response) {
         try {
-            //TODO
-            response = TestData.getLoginResult();
+            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
                 DialogUtil.showToast(LoginActivity.this, "登录成功");
@@ -163,53 +178,85 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+            DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
         }
+
     }
 
     private void regist() {
-        JSONObject jsonObject;
         String userID = mUserIdET.getText().toString();
         String userName = mUserNameET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String sex = mSexSpinner.getSelectedItem().toString();
 
-        Map<String, String> params = new HashMap<>();
-        params.put("UserID", userID);
-        params.put("UserName", userName);
-        params.put("UserPasswd", Md5Encryption.getMD5(pwd));
+        RequestParams params = new RequestParams();
+
+        params.put("device_id", Constant.devideID);
+        params.put("request_time", System.currentTimeMillis());
+        params.put("apk_version", Constant.apkVersion);
+        params.put("sign", "");
+
+        params.put("user_id", userID);
+        params.put("user_name", userName);
+//        params.put("password", Md5Encryption.getMD5(pwd));
+        params.put("password", (pwd));
         if (sex.equals("男")) {
-            params.put("gender", "true");
+            params.put("gender", "1");
         } else {
-            params.put("gender", "false");
+            params.put("gender", "0");
         }
         String url = Constant.BASE_URL + "user/register.do";
-        JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
+        AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
+
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                afterProcess("注册");
                 try {
+                    String s = new String(bytes, "UTF-8");
+                    JSONObject response = new JSONObject(s);
                     String code = response.getString("code");
                     if (code.equals("0")) {
                         DialogUtil.showToast(LoginActivity.this, "注册成功！");
+
+                        mRegistButton.setText("会员注册");
+                        mLoginButton.setText("登录");
+                        mTitleTV.setText(R.string.logintxt);
+                        mRegistPasswordET.setVisibility(View.GONE);
+                        mUserNameET.setVisibility(View.GONE);
+                        mSexLayout.setVisibility(View.GONE);
+                        mIsMangerLayout.setVisibility(View.VISIBLE);
+
                     } else if (code.equals("3000")) {
                         DialogUtil.showToast(LoginActivity.this, "用户名已存在！");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+                    DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                afterProcess("登录");
                 DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
             }
-        };
-        AsyncHttpHelper.post(url, params, handler);
+        });
+        onProcess("注册中...");
     }
 
+    private void onProcess(String s) {
+//        dialog.show();
+//        mLoginButton.setEnabled(false);
+//        mRegistButton.setEnabled(false);
+//        mLoginButton.setText(s);
+    }
+
+    private void afterProcess(String s) {
+//        dialog.dismiss();
+//        mLoginButton.setEnabled(true);
+//        mRegistButton.setEnabled(true);
+//        mLoginButton.setText(s);
+    }
 
     //对用户名和密码进行校验
     public boolean validateLogin() {
