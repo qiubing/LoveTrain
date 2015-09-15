@@ -134,6 +134,9 @@
         <activity
             android:name=".client.ClientMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity
+            android:name=".client.ClientEvaluateActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
 
         <activity android:name=".client.AboutUsActivity"/>
         <activity android:name=".client.FeedBackActivity"/>

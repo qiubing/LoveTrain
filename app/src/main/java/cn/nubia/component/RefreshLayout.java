@@ -147,15 +147,16 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 super(context, attrs);
                 //huhu,getScaledTouchSlop是一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件，得到系统的默认值
                 mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-
                 mListViewOnLoadingFooter = LayoutInflater.from(context).inflate(
                         R.layout.listview_footer, null, false);
+
                 mListViewOnLoadingFooter.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
                         }
                 });
+
                 mNetworkUnusableView = LayoutInflater.from(context).inflate(
                         R.layout.layout_network_unusable, null, false);
 
@@ -165,6 +166,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                                 /**go网络设置页面*/
                         }
                 });
+
                 mLoadingFailedView = LayoutInflater.from(context).inflate(R.layout.layout_loading_failed,null,false);
                 mLoadingFailedView.setOnClickListener(new OnClickListener() {
                         @Override
@@ -302,8 +304,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 if (isLoading) {
                     mListView.removeFooterView(mNetworkUnusableView);
                     mListView.removeFooterView(mNetworkUnusableView);
-                        mListView.addFooterView(mListViewOnLoadingFooter);
-                        loadingView.startAnimation(refreshingAnimation);
+                    mListView.addFooterView(mListViewOnLoadingFooter);
+                    loadingView.startAnimation(refreshingAnimation);
                 } else {
                         mListView.removeFooterView(mListViewOnLoadingFooter);
                         loadingView.clearAnimation();
