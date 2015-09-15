@@ -1,17 +1,17 @@
 package cn.nubia.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
- * Created by JiangYu on 2015/9/11.
+ * Created by JiangYu on 2015/9/15.
  */
-public class AwardCreditsHandler extends Handler {
+public class LessonJudgementHandler extends Handler {
     private ActivityInter mInter;
 
     @Override
@@ -20,9 +20,14 @@ public class AwardCreditsHandler extends Handler {
     }
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        String str = "{code:0,data:[{type:course},{type:lesson}]}";
         EntityFactoryGenerics factoryGenerics =
                 new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SIMPLEDATA,response);
 //        List<String> resultStr =(List<String>) factoryGenerics.get();
+//        EntityFactoryGenerics factoryGenerics =
+//                new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSE,response);
+//        List<Item> resultList = (List<Item>)factoryGenerics.get();
+
         List<String> resultStr = new ArrayList<String>();
         resultStr.add("true");
         mInter.alter(resultStr,CommunicateService.OperateType.INSERT);
@@ -31,6 +36,7 @@ public class AwardCreditsHandler extends Handler {
     public void onFailure(int statusCode, Header[] headers,
                           Throwable throwable,
                           JSONObject errorResponse) {
+        String str = "{code:0,data:[{type:course},{type:lesson}]}";
         EntityFactoryGenerics factoryGenerics =
                 new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SIMPLEDATA,errorResponse);
 //        List<String> resultStr =(List<String>) factoryGenerics.get();
@@ -38,4 +44,6 @@ public class AwardCreditsHandler extends Handler {
         resultStr.add("true");
         mInter.alter(resultStr,CommunicateService.OperateType.INSERT);
     }
+
+
 }

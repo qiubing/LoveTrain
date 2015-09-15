@@ -1,9 +1,14 @@
 package cn.nubia.entity;
 
+import com.loopj.android.http.RequestParams;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class LessonJudgement {
+public class LessonJudgement implements Paramable{
     private float mContentApplicability;
     private float mContentRationality;
     private float mDiscussion;
@@ -93,5 +98,25 @@ public class LessonJudgement {
 
     public void setSuggestion(String suggestion) {
         this.mSuggestion = suggestion;
+    }
+
+    @Override
+    public RequestParams toInsertParams() {
+        Map<String,String> param = new HashMap<String,String>();
+        param.put("awardedName",String.valueOf(mContentApplicability));
+        param.put("awardedName",String.valueOf(mContentRationality));
+        param.put("awardedName",String.valueOf(mDiscussion));
+        param.put("awardedName",String.valueOf(mTimeRationality));
+        param.put("awardedName",String.valueOf(mExpressionAbility));
+        param.put("awardedName",String.valueOf(mCommunication));
+        param.put("awardedName",String.valueOf(mOrganization));
+        param.put("awardedCredits",mComprehensiveEvaluation);
+        param.put("awaredCause",mSuggestion);
+        return new RequestParams(param);
+    }
+
+    @Override
+    public RequestParams toUpdateParams() {
+        return null;
     }
 }

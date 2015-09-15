@@ -8,5 +8,6 @@ import java.io.Serializable;
  * Created by JiangYu on 2015/9/11.
  */
 public interface Paramable extends Serializable {
-    public RequestParams toParams();
+    public RequestParams toInsertParams();
+    public RequestParams toUpdateParams();
 }

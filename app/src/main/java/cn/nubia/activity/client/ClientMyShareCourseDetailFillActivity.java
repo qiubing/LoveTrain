@@ -2,9 +2,13 @@ package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -21,18 +26,23 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.entity.LessonJudgement;
+import cn.nubia.entity.ShareCourseItem;
 import cn.nubia.entity.ShareCourseLevel;
+import cn.nubia.service.ActivityInter;
+import cn.nubia.service.CommunicateService;
+import cn.nubia.util.DialogUtil;
 
 /**
  * Created by JiangYu on 2015/9/1.
  */
 public class ClientMyShareCourseDetailFillActivity extends Activity {
-    private enum OperateType {INSERT,UPDATE}
     private enum TimeType {STARTTIME,ENDTIME}
 
     private EditText mCourseName;
@@ -45,16 +55,37 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
 
-    private OperateType mOperateType;
+    private CommunicateService.OperateType mOperateType;
     private CourseItem mCourseItem;
     private LessonItem mLessonItem;
+
+    private CommunicateService.CommunicateBinder mBinder;
+    private ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mBinder = (CommunicateService.CommunicateBinder)service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBinder = null;
+        }
+    };
+
+    public class Inter implements ActivityInter {
+        public void alter(List<?> list,CommunicateService.OperateType type){
+            ClientMyShareCourseDetailFillActivity.this.showOperateResult((List<String>)list,type);
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
+        connectService();
 
         holdView();
-        initViewLogic();
+        setViewLogic();
         //initViewData();
     }
 
@@ -125,7 +156,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             }
         };
         pickTimeDialog.setView(timePickerLayout);
-        pickTimeDialog.setNegativeButton("取消",cancelButtonListener).setPositiveButton("确定",confirmButtonListener);
+        pickTimeDialog.setNegativeButton("取消",cancelButtonListener).setPositiveButton("确定", confirmButtonListener);
         return pickTimeDialog;
     }
 
@@ -153,7 +184,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                 .my_sharecourse_detail_fill_contentscrollview);
     }
 
-    private void initViewLogic(){
+    private void setViewLogic(){
         /**设置当输入框被触碰时，内容滚动界面不响应触碰事件，及手指在输入框上移动时，
          * 内容滚动界面不会滚动，只有输入框才会滚动*/
         mCourseDescription.setOnTouchListener(new View.OnTouchListener() {
@@ -187,38 +218,43 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             }
         });
         /**监听确认按钮，进行提交动作*/
-        mConfirmButton.setOnClickListener(new OnClickListener() {
+        mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+    }
+
+    private View.OnClickListener makeConfirmOnClickListener(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkData()){
-                    CourseItem shareCourse = new CourseItem();
+                if (checkData()) {
+                    ShareCourseItem shareCourse = new ShareCourseItem();
                     shareCourse.setName(mCourseName.getText().toString());
                     shareCourse.setDescription(mCourseDescription.getText().toString());
                     shareCourse.setType("2");
                     shareCourse.setLessones((short) 2);
                     shareCourse.setCourseStatus((short) 1);
                     shareCourse.setHasExam((short) 0);
-                    shareCourse.setShareType(((ShareCourseLevel)mShareTypeSpinner.getSelectedItem())
-                             .getmCourseLevelSign());
+                    shareCourse.setShareType(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
+                            .getmCourseLevelSign());
                     LessonItem shareCourseLesson = new LessonItem();
                     shareCourseLesson.setLocation(mLessonLocation.getText().toString());
-//                    try {
-//                        shareCourseLesson.setStartTime(
-//                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-//                                        mCourseDate.getText().toString()
-//                                        + " "
-//                                        + mCourseStarttime.getText()).toString()));
-//                        shareCourseLesson.setEndTime(
-//                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-//                                        mCourseDate.getText().toString()
-//                                        + " "
-//                                        + mCourseEndtime.getText()).toString()));
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        shareCourseLesson.setStartTime(
+                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                        mCourseDate.getText().toString()
+                                                + " "
+                                                + mCourseStarttime.getText()).getTime()));
+                        shareCourseLesson.setEndTime(
+                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                        mCourseDate.getText().toString()
+                                                + " "
+                                                + mCourseEndtime.getText()).getTime()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    mBinder.communicate(shareCourse, new Inter(),mOperateType);
                 }
             }
-        });
+        };
     }
 
     private void initViewData(){
@@ -226,7 +262,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         Bundle bundle = intent.getExtras();
 
         if(bundle!=null){
-            mOperateType = OperateType.UPDATE;
+            mOperateType = CommunicateService.OperateType.UPDATE;
             mLessonItem = mCourseItem.getLessonList().get(0);
             mCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
             mLessonItem = mCourseItem.getLessonList().get(0);
@@ -241,7 +277,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     new SimpleDateFormat("HH:mm").format(mLessonItem.getEndTime()));
             mLessonLocation.setText(mLessonItem.getLocation());
         }else{
-            mOperateType = OperateType.INSERT;
+            mOperateType = CommunicateService.OperateType.INSERT;
         }
     }
 
@@ -284,5 +320,30 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             return false;
         }
         return true;
+    }
+
+    private void connectService(){
+        Intent intent = new Intent(
+                ClientMyShareCourseDetailFillActivity.this, CommunicateService.class);
+        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
+    }
+
+    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
+        Boolean result = Boolean.getBoolean(list.get(0));
+        if(type==CommunicateService.OperateType.INSERT){
+            if(result)
+                DialogUtil.showDialog(
+                        ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", false);
+            else
+                DialogUtil.showDialog(
+                        ClientMyShareCourseDetailFillActivity.this,"申请提交失败!",false);
+        }else{
+            if(result)
+                DialogUtil.showDialog(
+                        ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", false);
+            else
+                DialogUtil.showDialog(
+                        ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
+        }
     }
 }

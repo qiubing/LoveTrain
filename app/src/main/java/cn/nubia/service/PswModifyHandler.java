@@ -27,7 +27,7 @@ public class PswModifyHandler extends Handler{
 //        List<String> resultStr =(List<String>) factoryGenerics.get();
         List<String> resultStr = new ArrayList<String>();
         resultStr.add("true");
-        mInter.alter(resultStr);
+        mInter.alter(resultStr,CommunicateService.OperateType.UPDATE);
     }
     @Override
     public void onFailure(int statusCode, Header[] headers,
@@ -39,6 +39,6 @@ public class PswModifyHandler extends Handler{
 //        List<String> resultStr =(List<String>) factoryGenerics.get();
         List<String> resultStr = new ArrayList<String>();
         resultStr.add("true");
-        mInter.alter(resultStr);
+        mInter.alter(resultStr,CommunicateService.OperateType.UPDATE);
     }
 }
