@@ -43,7 +43,7 @@ public class ClientEvaluateActivity  extends Activity {
     /** 显示加载数据失败 **/
     public static int VIEW_LOADFAILURE = 3;
     public static int VIEW_LOADING = 4;
-    private static final String URL_PATH = "http://love-train-dev.nubia.cn/train/";
+    private static final String URL_PATH = "http://love-train-dev.nubia.cn/";
     private List<LessonJudgement> mList = new ArrayList<>();
     EvaluateAdapter mEvaluateAdapter;
 

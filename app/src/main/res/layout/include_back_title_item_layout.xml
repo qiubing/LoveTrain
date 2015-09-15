@@ -3,20 +3,17 @@
     android:id="@+id/titlecon"
     android:layout_width="fill_parent"
     android:layout_height="48.0dip"
-    android:background="@color/white" >
+    android:background="@color/soft_comment_title_content_windows" >
 
     <ImageView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="9.0dip"
-        android:layout_marginRight="10.0dip"
         android:background="@null"
-        android:contentDescription="@string/app_name"
         android:gravity="center"
         android:onClick="back"
-        android:src="@drawable/back_button_xml" />
+        android:src="@mipmap/ic_back"  />
 
     <TextView
         android:id="@+id/sub_page_title"
@@ -33,9 +30,9 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="2dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/background"
+        android:background="@color/orange"
         />
 
 </RelativeLayout>
