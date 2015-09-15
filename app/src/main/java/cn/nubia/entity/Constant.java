@@ -3,6 +3,7 @@ package cn.nubia.entity;
 import android.os.Environment;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,6 @@ public class Constant {
     public static final int SELECT_PHOTO_REQUEST_CODE = 0x1000;
     public static final int DELETE_PHOTO_REQUEST_CODE = 0x1001;
     public static final int MAX_SELECTED_IMAGE = 9;// 最大图片数
-
     /**
      * 设备id
      */
@@ -55,6 +55,10 @@ public class Constant {
     // JPUSH
     public final static String KEY_MESSAGE = "message";
     public final static String MESSAGE_RECEIVED_ACTION = "com.shengge.client.MESSAGE_RECEIVED_ACTION";
+
+    //时间格式化
+    public final static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
     // upload image
     // 去上传文件
     public static final int TO_UPLOAD_FILE = 0x01;
