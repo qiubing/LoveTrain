@@ -66,7 +66,7 @@ public class ClientEvaluateActivity  extends Activity {
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout);
         mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
-        barTxt = (TextView) findViewById(R.id.barTxt);
+        barTxt = (TextView) findViewById(R.id.sub_page_title);
         barTxt.setText("我的课程评价");
         initBeforeData();
         initEvents();
