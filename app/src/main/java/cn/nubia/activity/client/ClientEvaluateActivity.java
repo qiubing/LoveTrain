@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,9 +33,10 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
  */
 public class ClientEvaluateActivity  extends Activity {
 
-    RefreshLayout mRefreshLayout;
-    ExpandableListView mExpandableListView;
+    private RefreshLayout mRefreshLayout;
+    private ExpandableListView mExpandableListView;
     private ErrorHintView mErrorHintView;
+    private TextView barTxt;
     public static int VIEW_LIST = 1;
     /** 显示断网 **/
     public static int VIEW_WIFIFAILUER = 2;
@@ -64,12 +66,15 @@ public class ClientEvaluateActivity  extends Activity {
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout);
         mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
+        barTxt = (TextView) findViewById(R.id.barTxt);
+        barTxt.setText("我的课程评价");
         initBeforeData();
         initEvents();
     }
 
     protected void initBeforeData() {
         mEvaluateAdapter = new  EvaluateAdapter(ClientEvaluateActivity.this);
+        mExpandableListView.setGroupIndicator(null);
         mExpandableListView.setAdapter(mEvaluateAdapter);
         showLoading(VIEW_LOADING);
         loadData("/my/find_course_judge.do");
@@ -87,8 +92,8 @@ public class ClientEvaluateActivity  extends Activity {
                         EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
                                 EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, obj);
                         List<LessonJudgement> list = (List<LessonJudgement>) factoryGenerics.get();
-                        Log.i("huhu","onSuccess");
-                        Log.i("huhu",list.toString());
+                        Log.i("huhu", "onSuccess");
+                        Log.i("huhu", list.toString());
                         showLoading(VIEW_LIST);
 
                         /*JSONArray array = obj.getJSONArray("items");
@@ -96,7 +101,7 @@ public class ClientEvaluateActivity  extends Activity {
                                 GameDetailItem.class, array);*/
 
                         if (list != null && list.size() > 0) {
-                            //mList.clear();
+                            mList.clear();
                             mList.addAll(list);
                             handler.sendEmptyMessage(0);
                         }
@@ -116,16 +121,15 @@ public class ClientEvaluateActivity  extends Activity {
             public void onFailure(int arg0, Header[] arg1, byte[] arg2,
                                   Throwable arg3) {
                 Log.i("huhu", "onFailure");
-//                String qusiba = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧我平衡你\",\"Suggestion\":\"我不去\"},{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧fgh我平衡你\",\"Suggestion\":\"我不gfhgfh去\"},{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死把你我阿克苏阿克苏健康阿卡拉速度进空间卡数据爱看书的话你\",\"Suggestion\":\"我大汉口路号码不换了不去\"}]}";
-                String qusiba ="{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧我平衡你\",\"Suggestion\":\"我不去\"}},{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧fgh我平衡你\",\"Suggestion\":\"我不gfhgfh去\"}},{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死把你我阿克苏阿克苏健康阿卡拉速度进空间卡数据爱看书的话你\",\"Suggestion\":\"我大汉口路号码不换了不去\"}}]}";
+
+                String qusiba = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧我平衡你\",\"Suggestion\":\"我不去\"}},{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死吧fgh我平衡你\",\"Suggestion\":\"我不gfhgfh去\"}},{\"type\":\"judgement\",\"detail\":{\"ContentApplicability\":1.5,\"ContentRationality\":2.5,\"Discussion\":3.5,\"TimeRationality\":4,\"ContentUnderstanding\":5,\"ExpressionAbility\":0,\"Communication\":3.5,\"Organization\":2,\"ComprehensiveEvaluation\":\"去死把你我阿克苏阿克苏健康阿卡拉速度进空间卡数据爱看书的话你\",\"Suggestion\":\"我大汉口路号码不换了不去\"}}]}";
+
                 try {
-                    if (qusiba != null ) {
+                    if (qusiba != null) {
                         JSONObject obj = new JSONObject(qusiba);
-                        Log.i("huhu",  obj.toString()+ "111");
                         EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
                                 EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, obj);
                         List<LessonJudgement> list = (List<LessonJudgement>) factoryGenerics.get();
-                        Log.i("huhu", list.toString() + "222");
                         showLoading(VIEW_LIST);
 
                         /*JSONArray array = obj.getJSONArray("items");
@@ -133,7 +137,7 @@ public class ClientEvaluateActivity  extends Activity {
                                 GameDetailItem.class, array);*/
 
                         if (list != null && list.size() > 0) {
-                            //mList.clear();
+                            mList.clear();
                             mList.addAll(list);
                             handler.sendEmptyMessage(0);
                         }
@@ -237,6 +241,11 @@ public class ClientEvaluateActivity  extends Activity {
                 mErrorHintView.loadingData();
                 break;
         }
+    }
+
+    public void back(View view) {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 }
