@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class LessonJudgement implements Paramable{
+public class LessonJudgement extends Paramable{
     private float mContentApplicability;
     private float mContentRationality;
     private float mDiscussion;
@@ -117,6 +117,16 @@ public class LessonJudgement implements Paramable{
 
     @Override
     public RequestParams toUpdateParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toQueryParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toDeleteParams() {
         return null;
     }
 }

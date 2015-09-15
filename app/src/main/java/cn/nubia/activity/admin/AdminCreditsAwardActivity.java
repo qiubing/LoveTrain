@@ -117,9 +117,9 @@ public class AdminCreditsAwardActivity extends Activity {
                     creditsAwardMsg.setAwardedCredits(
                             Integer.parseInt(mAwardCredits.getText().toString()));
                     creditsAwardMsg.setAwardedCause(mAwardCause.getText().toString());
-
+                    creditsAwardMsg.setOperateType(CommunicateService.OperateType.INSERT);
                     mBinder.communicate(
-                            creditsAwardMsg,new Inter(),CommunicateService.OperateType.INSERT);
+                            creditsAwardMsg,new Inter(),"creditsaward.do");
                 }
             }
         };

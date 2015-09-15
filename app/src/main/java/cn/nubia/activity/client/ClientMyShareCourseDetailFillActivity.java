@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -26,13 +25,11 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
-import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
-import cn.nubia.entity.LessonJudgement;
 import cn.nubia.entity.ShareCourseItem;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.service.ActivityInter;
@@ -56,8 +53,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private ScrollView mContentScrollView;
 
     private CommunicateService.OperateType mOperateType;
-    private CourseItem mCourseItem;
-    private LessonItem mLessonItem;
+    private ShareCourseItem mShareCourseItem;
 
     private CommunicateService.CommunicateBinder mBinder;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -86,7 +82,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
 
         holdView();
         setViewLogic();
-        //initViewData();
+        initViewData();
     }
 
     /**
@@ -227,31 +223,33 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             public void onClick(View v) {
                 if (checkData()) {
                     ShareCourseItem shareCourse = new ShareCourseItem();
-                    shareCourse.setName(mCourseName.getText().toString());
-                    shareCourse.setDescription(mCourseDescription.getText().toString());
-                    shareCourse.setType("2");
-                    shareCourse.setLessones((short) 2);
-                    shareCourse.setCourseStatus((short) 1);
-                    shareCourse.setHasExam((short) 0);
-                    shareCourse.setShareType(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
+                    shareCourse.setCourseName(mCourseName.getText().toString());
+                    shareCourse.setCourseDescription(mCourseDescription.getText().toString());
+                    shareCourse.setCourseLevel(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
                             .getmCourseLevelSign());
-                    LessonItem shareCourseLesson = new LessonItem();
-                    shareCourseLesson.setLocation(mLessonLocation.getText().toString());
+
+                    shareCourse.setLocale(mLessonLocation.getText().toString());
                     try {
-                        shareCourseLesson.setStartTime(
-                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                        mCourseDate.getText().toString()
-                                                + " "
-                                                + mCourseStarttime.getText()).getTime()));
-                        shareCourseLesson.setEndTime(
-                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                        mCourseDate.getText().toString()
-                                                + " "
-                                                + mCourseEndtime.getText()).getTime()));
+                        Date startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                mCourseDate.getText().toString()
+                                        + " "
+                                        + mCourseStarttime.getText());
+                        Date endTime =  new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                mCourseDate.getText().toString()
+                                        + " "
+                                        + mCourseStarttime.getText());
+                        shareCourse.setStartTime(startTime.getTime());
+                        shareCourse.setEndTime(endTime.getTime());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    mBinder.communicate(shareCourse, new Inter(),mOperateType);
+                    shareCourse.setOperateType(mOperateType);
+                    if(mOperateType==CommunicateService.OperateType.INSERT)
+                        mBinder.communicate(shareCourse, new Inter(),"newsharecourse.do");
+                    else{
+                        shareCourse.setCourseIndex(mShareCourseItem.getCourseIndex());
+                        mBinder.communicate(shareCourse, new Inter(),"updatesharecourse.do");
+                    }
                 }
             }
         };
@@ -260,22 +258,25 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private void initViewData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        String type = bundle.getString("type");
 
-        if(bundle!=null){
+        if(type.equals("update")){
             mOperateType = CommunicateService.OperateType.UPDATE;
-            mLessonItem = mCourseItem.getLessonList().get(0);
-            mCourseItem = (CourseItem) bundle.getSerializable("shareCourse");
-            mLessonItem = mCourseItem.getLessonList().get(0);
+            mShareCourseItem = (ShareCourseItem) bundle.getSerializable("shareCourse");
 
-            mCourseName.setText(mCourseItem.getName());
-            mShareTypeSpinner.setSelection(mCourseItem.getShareType());
-            mCourseDescription.setText(mCourseItem.getDescription());
-            mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mLessonItem.getStartTime()));
+            mCourseName.setText(mShareCourseItem.getCourseName());
+            mShareTypeSpinner.setSelection(mShareCourseItem.getCourseLevel());
+            mCourseDescription.setText(mShareCourseItem.getCourseDescription());
+            Date startTime = new Date();
+            startTime.setTime(mShareCourseItem.getStartTime());
+            Date endTime = new Date();
+            endTime.setTime(mShareCourseItem.getEndTime());
+            mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
             mCourseStarttime.setText(
-                    new SimpleDateFormat("HH:mm").format(mLessonItem.getStartTime()));
+                    new SimpleDateFormat("HH:mm").format(startTime));
             mCourseEndtime.setText(
-                    new SimpleDateFormat("HH:mm").format(mLessonItem.getEndTime()));
-            mLessonLocation.setText(mLessonItem.getLocation());
+                    new SimpleDateFormat("HH:mm").format(endTime));
+            mLessonLocation.setText(mShareCourseItem.getLocale());
         }else{
             mOperateType = CommunicateService.OperateType.INSERT;
         }

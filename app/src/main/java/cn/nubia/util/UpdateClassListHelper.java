@@ -82,7 +82,7 @@ public class UpdateClassListHelper {
         courseItem.setHasExam((short) jsonObjectDetail.getInt("has_exam"));
         courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
         if (courseType.equals("senior")){
-            courseItem.setEnrollCredits(jsonObjectDetail.getInt("enroll_credits"));
+            courseItem.setEnrollCredits((short)jsonObjectDetail.getInt("enroll_credits"));
         }else if (courseType.equals("share")){
             courseItem.setShareType((short)jsonObjectDetail.getInt("course_level"));
         }

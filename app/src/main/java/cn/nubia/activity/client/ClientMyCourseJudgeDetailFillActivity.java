@@ -88,8 +88,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                             mComprehensiveEvaluationEditText.getText().toString());
                     judgement.setSuggestion(
                             mSuggestionEditText.getText().toString());
-
-                    mBinder.communicate(judgement, new Inter(),CommunicateService.OperateType.INSERT);
+                    judgement.setOperateType(CommunicateService.OperateType.INSERT);
+                    mBinder.communicate(judgement, new Inter(),"newjudgement.do");
                 }
             }
         };

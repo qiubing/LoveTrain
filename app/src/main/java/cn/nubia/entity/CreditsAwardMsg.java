@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by JiangYu on 2015/9/11.
  */
-public class CreditsAwardMsg implements Paramable{
+public class CreditsAwardMsg extends Paramable{
 
     private String mAwardedName;
     private int mAwardedCredits;
@@ -49,6 +49,16 @@ public class CreditsAwardMsg implements Paramable{
 
     @Override
     public RequestParams toUpdateParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toQueryParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toDeleteParams() {
         return null;
     }
 }
