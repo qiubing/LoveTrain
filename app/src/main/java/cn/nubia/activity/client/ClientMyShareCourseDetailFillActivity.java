@@ -202,20 +202,20 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                              .getmCourseLevelSign());
                     LessonItem shareCourseLesson = new LessonItem();
                     shareCourseLesson.setLocation(mLessonLocation.getText().toString());
-                    try {
-                        shareCourseLesson.setStartTime(
-                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                        mCourseDate.getText().toString()
-                                        + " "
-                                        + mCourseStarttime.getText()).toString()));
-                        shareCourseLesson.setEndTime(
-                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                        mCourseDate.getText().toString()
-                                        + " "
-                                        + mCourseEndtime.getText()).toString()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        shareCourseLesson.setStartTime(
+//                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+//                                        mCourseDate.getText().toString()
+//                                        + " "
+//                                        + mCourseStarttime.getText()).toString()));
+//                        shareCourseLesson.setEndTime(
+//                                (new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+//                                        mCourseDate.getText().toString()
+//                                        + " "
+//                                        + mCourseEndtime.getText()).toString()));
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         });
