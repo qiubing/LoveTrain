@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 
 /**
  * 管理员课程详细界面
@@ -52,6 +53,12 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
         courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
 
+        if(Constant.IS_ADMIN==false){
+            signUpAdminBtn.setVisibility(View.GONE);
+            alterCourseBtn.setVisibility(View.GONE);
+            lessonAddBtn.setVisibility(View.GONE);
+            courseDeleteBtn.setVisibility(View.GONE);
+        }
 
 
         //set the listening event;

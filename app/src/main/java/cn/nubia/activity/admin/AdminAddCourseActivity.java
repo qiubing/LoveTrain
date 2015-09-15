@@ -48,6 +48,9 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
         addCourseWhetherHighLevelCourseCheckBox = (CheckBox) findViewById(R.id.add_course_whetherHighLevelCourse_checkBox);
 
+        /***/
+        whetherHighLevelCourse=addCourseWhetherHighLevelCourseCheckBox.isChecked();
+
         addCourseButton.setOnClickListener(this);
         addrCourseBackImage.setOnClickListener(this);
     }

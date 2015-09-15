@@ -78,8 +78,8 @@ public class UpdateClassListHelper {
         courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
         courseItem.setName(jsonObjectDetail.getString("course_name"));
         courseItem.setDescription(jsonObjectDetail.getString("course_description"));
-        courseItem.setLessones((short) jsonObjectDetail.getInt("lessons"));
-        courseItem.setHasExam((short) jsonObjectDetail.getInt("has_exam"));
+        courseItem.setLessones((short) jsonObjectDetail.getInt("lessones"));
+        courseItem.setHasExam(jsonObjectDetail.getBoolean("has_exam"));
         courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
         if (courseType.equals("senior")){
             courseItem.setEnrollCredits((short)jsonObjectDetail.getInt("enroll_credits"));
@@ -146,7 +146,7 @@ public class UpdateClassListHelper {
                 }
                 Log.e("updateCourseItem",""+item.getName()+(-(listIndex+1)));
 
-                  //如果不存在，返回负值
+                //如果不存在，返回负值
                 list.add(-(listIndex+1),item);
                 break;
             case "update":

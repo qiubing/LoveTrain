@@ -39,11 +39,23 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
         mGenerateQRCode = (Button) findViewById(R.id.lesson_QRCodeImage_generate_button);
 
+        /**设置监听事件**/
         backImageView.setOnClickListener(this);
         alterLessonBtn.setOnClickListener(this);
         deleteLessonBtn.setOnClickListener(this);
-        signUpPopulationTextView.setOnClickListener(this);
-        mGenerateQRCode.setOnClickListener(this);
+
+
+        /**非管理员隐去修改课时和删除课时按钮**/
+        if(Constant.IS_ADMIN==false){
+            alterLessonBtn.setVisibility(View.GONE);
+            deleteLessonBtn.setVisibility(View.GONE);
+            mGenerateQRCode.setVisibility(View.GONE);
+        }
+        /**只有管理员界面才可以查看签到人数的详细信息和生成二维码*/
+        else{
+            signUpPopulationTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
+        }
     }
 
     @Override

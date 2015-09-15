@@ -243,7 +243,7 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
                 approvedCourse.setType("2");
                 approvedCourse.setLessones((short) 2);
                 approvedCourse.setCourseStatus((short) 1);
-                approvedCourse.setHasExam((short) 0);
+                approvedCourse.setHasExam(false);
                 approvedCourse.setShareType(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
                         .getmCourseLevelSign());
 

@@ -128,6 +128,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams();
         params.put("user_id", userID);
+        Constant.USER_ID=userID;
         params.put("password", Md5Encryption.getMD5(pwd));
         String url = "";
         if (isManager.equals("是")) {
@@ -148,6 +149,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
                 }
             }
+
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 afterProcess("登录");

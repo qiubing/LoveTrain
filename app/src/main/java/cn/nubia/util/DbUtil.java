@@ -168,7 +168,7 @@ public class DbUtil {
             CourseItem courseItem = new CourseItem();
             courseItem.setIndex(cursor.getInt(cursor.getColumnIndex(CourseItem.INDEX)));
             courseItem.setName(cursor.getString(cursor.getColumnIndex(CourseItem.NAME)));
-            courseItem.setHasExam(cursor.getShort(cursor.getColumnIndex(CourseItem.HASEXAM)));
+            courseItem.setHasExam(cursor.getShort(cursor.getColumnIndex(CourseItem.HASEXAM)) != 0);
             courseItem.setCourseStatus(cursor.getShort(cursor.getColumnIndex(CourseItem.STATUS)));
             courseItem.setDescription(cursor.getString(cursor.getColumnIndex(CourseItem.DESCRIPTION)));
 //            courseItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(CourseItem.JUDGE_SCORE)));

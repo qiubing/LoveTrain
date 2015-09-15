@@ -88,6 +88,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
+
         /*为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
 
@@ -168,6 +169,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
                     CourseItem mCourseItem = new CourseItem();
                     mCourseItem.setIndex(i);
                     mCourseItem.setName("Java基础");
+                    mCourseItem.setHasExam(true);
                     mCourseList.add(0, mCourseItem);
                     for (int j = 0; j < 3; j++) {
                         LessonItem mLessonItem = new LessonItem();
@@ -203,6 +205,8 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };
+
+
 
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override

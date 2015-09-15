@@ -1,7 +1,6 @@
 package cn.nubia.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class CourseItem extends Item implements Serializable{
 
     private short mLessones;
     private short mCourseStatus;
-    private short mHasExam;
+    private boolean mHasExam;
 //    private float mJudgeScore;
     private int mCourseCredits;
     private short mIsDelete;
@@ -68,11 +67,11 @@ public class CourseItem extends Item implements Serializable{
         this.mCourseStatus = courseStatus;
     }
 
-    public short hasExam() {
+    public boolean hasExam() {
         return mHasExam;
     }
 
-    public void setHasExam(short hasExam) {
+    public void setHasExam(boolean hasExam) {
         this.mHasExam = hasExam;
     }
 
