@@ -29,7 +29,12 @@ public class PswModifyMsg implements Paramable{
     }
 
     @Override
-    public RequestParams toParams() {
+    public RequestParams toInsertParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toUpdateParams() {
         Map<String,String> param = new HashMap<String,String>();
         param.put("oldPsw",mOldPsw);
         param.put("newPsw",mNewPsw);

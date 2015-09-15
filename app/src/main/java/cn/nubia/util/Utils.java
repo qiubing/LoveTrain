@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.loopj.android.http.RequestParams;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import cn.nubia.entity.Constant;
 
@@ -136,5 +140,18 @@ public class Utils {
         display.getMetrics(dm);
 
         return dm.widthPixels;
+    }
+
+    /**
+     * 封装Map参数到HTTP请求参数中
+     * @param param
+     * @return
+     */
+    public static RequestParams toParams(HashMap<String,String> param){
+        param.put("device_id", "7234123953284193");
+        param.put("request_time", "2222222222222");
+        param.put("apk_version", "1.0");
+        param.put("sign", "abcd");
+        return new RequestParams(param);
     }
 }

@@ -191,8 +191,8 @@ public class DbUtil {
             LessonItem lessonItem = new LessonItem();
             lessonItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(LessonItem.JUDGE_SCORE)));
             lessonItem.setCheckCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_CREDITS)));
-            lessonItem.setEndTime(cursor.getString(cursor.getColumnIndex(LessonItem.END_TIME)));
-            lessonItem.setStartTime(cursor.getString(cursor.getColumnIndex(LessonItem.START_TIME)));
+//            lessonItem.setEndTime(cursor.getString(cursor.getColumnIndex(LessonItem.END_TIME)));
+//            lessonItem.setStartTime(cursor.getString(cursor.getColumnIndex(LessonItem.START_TIME)));
             lessonItem.setName(cursor.getString(cursor.getColumnIndex(LessonItem.NAME)));
             lessonItem.setLocation(cursor.getString(cursor.getColumnIndex(LessonItem.LOCALE)));
             lessonItem.setTeacherCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.TEACHER_CREDITS)));

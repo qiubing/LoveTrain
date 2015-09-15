@@ -21,7 +21,7 @@ import cn.nubia.activity.R;
 /**
  * Created by hexiao on 2015/9/11.
  */
-public class AdminSignInManageActivity extends Activity {
+public class AdminSignUpManageActivity extends Activity {
 
     private ImageView backImageView;
 
@@ -46,7 +46,7 @@ public class AdminSignInManageActivity extends Activity {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentBackImage = new Intent(AdminSignInManageActivity.this, AdminCourseDetailActivity.class);
+                Intent intentBackImage = new Intent(AdminSignUpManageActivity.this, AdminCourseDetailActivity.class);
                 startActivity(intentBackImage);
                 finish();
             }
@@ -96,7 +96,7 @@ public class AdminSignInManageActivity extends Activity {
                         Button disagreeBtn=(Button)relativeLayout.getChildAt(0);
                         disagreeBtn.setBackgroundColor(getResources().getColor(R.color.white));
 
-                        Toast.makeText(AdminSignInManageActivity.this, "你点击了同意" + position, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminSignUpManageActivity.this, "你点击了同意" + position, Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -110,7 +110,7 @@ public class AdminSignInManageActivity extends Activity {
 
                         Button disagreeBtn=(Button)relativeLayout.getChildAt(0);
                         disagreeBtn.setBackgroundColor(getResources().getColor(R.color.red));
-                        Toast.makeText(AdminSignInManageActivity.this, "你点击了否决" + position, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminSignUpManageActivity.this, "你点击了否决" + position, Toast.LENGTH_LONG).show();
                     }
                 });
                 return convertView;

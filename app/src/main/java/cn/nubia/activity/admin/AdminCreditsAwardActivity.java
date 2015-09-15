@@ -52,8 +52,8 @@ public class AdminCreditsAwardActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list){
-            AdminCreditsAwardActivity.this.showOperateResult((List<String>)list);
+        public void alter(List<?> list,CommunicateService.OperateType type){
+            AdminCreditsAwardActivity.this.showOperateResult((List<String>)list,type);
         }
     }
 
@@ -118,7 +118,8 @@ public class AdminCreditsAwardActivity extends Activity {
                             Integer.parseInt(mAwardCredits.getText().toString()));
                     creditsAwardMsg.setAwardedCause(mAwardCause.getText().toString());
 
-                    mBinder.communicate(creditsAwardMsg, new Inter());
+                    mBinder.communicate(
+                            creditsAwardMsg,new Inter(),CommunicateService.OperateType.INSERT);
                 }
             }
         };
@@ -130,7 +131,7 @@ public class AdminCreditsAwardActivity extends Activity {
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    private void showOperateResult(List<String> list) {
+    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
         Boolean result = Boolean.getBoolean(list.get(0));
         if(result)
             DialogUtil.showDialog(

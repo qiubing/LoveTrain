@@ -11,6 +11,13 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +28,7 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -74,15 +82,28 @@ public class AdminCourseAddTabActivity extends Activity {
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
         //为ExpandableListView指定填充数据的adapter
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
+
+
+
+        /**请求数据*/
+        RequestParams requestAllCourseParams = new RequestParams();
+        requestAllCourseParams.add("device_id", "7234123953284193");
+        requestAllCourseParams.add("request_time", "2222222222222  ");
+        requestAllCourseParams.add("apk_version", "1.1");
+        requestAllCourseParams.add("sign", "551646545646445645465");
+        AsyncHttpHelper.post("www.baidu.com", requestAllCourseParams, jsonHttpResponseHandler);
+
+
+
         /*去掉箭头*/
         mExpandableListView.setGroupIndicator(null);
         /*项的监听事件*/
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
-        Message msg = mHandler.obtainMessage();
-        msg.what = 1;
-        mHandler.sendMessage(msg);
+//        Message msg = mHandler.obtainMessage();
+//        msg.what = 1;
+//        mHandler.sendMessage(msg);
 
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -155,7 +176,7 @@ public class AdminCourseAddTabActivity extends Activity {
                         LessonItem mLessonItem = new LessonItem();
                         mLessonItem.setIndex(i);
                         mLessonItem.setName("Java基础" + i);
-                        mLessonItem.setStartTime("2015.9..6");
+                        mLessonItem.setStartTime((long)12345);
                         mLessonItem.setLocation("C-2");
                         mLessonList.add(0, mLessonItem);
                     }
@@ -173,7 +194,7 @@ public class AdminCourseAddTabActivity extends Activity {
                         LessonItem mLessonItem = new LessonItem();
                         mLessonItem.setIndex(i);
                         mLessonItem.setName("Android基础" + i);
-                        mLessonItem.setStartTime("2015.9..6");
+                        mLessonItem.setStartTime((long)23456);
                         mLessonItem.setLocation("C-2");
                         mLessonList.add(0, mLessonItem);
                     }
@@ -182,6 +203,33 @@ public class AdminCourseAddTabActivity extends Activity {
                 mCourseItemList.addAll(mCourseList);
             }
             UpdateClassListHelper.binarySort(mCourseItemList);
+            mCourseExpandableListAdapter.notifyDataSetChanged();
+        }
+    };
+
+
+    /**请求服务器数据的Handler*/
+    JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            super.onSuccess(statusCode, headers, response);
+            Log.e("AdminCourseAddTabA", "onSuccess");
+
+//            UpdateClassListHelper.updateAllClassData(response, mCourseItemList);
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("AdminCourseAddTabA", "onFailure");
+            String jsonStr= "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":1,\"lesson_name\":\"Java基础一\",\"lesson_description\":\"Java Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":2,\"lesson_name\":\"Java基础二\",\"lesson_description\":\"Java Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"course_name\":\"Android\",\"course_description\":\"Android是一门好课程\",\"lessons\":3,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"delete\",\"detail\":{\"course_index\":2,\"lesson_index\":1,\"lesson_name\":\"Android基础一\",\"lesson_description\":\"Android Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":2,\"lesson_name\":\"Android基础二\",\"lesson_description\":\"Android Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"update\",\"detail\":{\"course_index\":2,\"lesson_index\":2,\"lesson_name\":\"Android基san\",\"lesson_description\":\"Android Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":3,\"lesson_name\":\"Android基si\",\"lesson_description\":\"Android Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":3,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":4,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":5,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":6,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}}]}";
+
+            try {
+                errorResponse = new JSONObject(jsonStr);
+                UpdateClassListHelper.updateAllClassData(errorResponse.getJSONArray("data"),mCourseItemList);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };

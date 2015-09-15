@@ -77,8 +77,8 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
         item.setCourseIndex(jsonObject.getInt("course")) ;
         item.setTeacherID(jsonObject.getString("teacherID"));
         item.setTeacherName(jsonObject.getString("teacherName"));
-        item.setStartTime(jsonObject.getString("startTime")) ;
-        item.setEndTime(jsonObject.getString("endTime"));
+        item.setStartTime(jsonObject.getLong("startTime")) ;
+        item.setEndTime(jsonObject.getLong("endTime"));
         item.setLocation(jsonObject.getString("location"));
         item.setCheckCredits(jsonObject.getInt("checkcredits"));
         item.setTeacherCredits(jsonObject.getInt("teachercredits"));

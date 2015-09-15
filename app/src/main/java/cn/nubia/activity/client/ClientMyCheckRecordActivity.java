@@ -7,69 +7,95 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.nubia.activity.R;
+import cn.nubia.adapter.ClientCheckRecordAdapter;
+import cn.nubia.entity.CheckRecordItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.Utils;
+import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
-* @ClassName:
-* @Description: TODO
-* @Author: qiubing
-* @Date: 2015/9/2 9:26
-*/ 
+ * @ClassName:
+ * @Description: TODO
+ * @Author: qiubing
+ * @Date: 2015/9/2 9:26
+ */
 public class ClientMyCheckRecordActivity extends Activity {
     private static final String TAG = "MyCheckRecord";
-
-    private String[] courses = new String[]{
-            "Java基础一","Android开发一","OO思想"
-    };
-
-    private String dates[] = new String[]{
-            "2015年8月21日","2015年8月23日","2015年7月26日"
-    };
-    private String times[] = new String[]{
-            "15:33:21" ,"16:23:46","18:32:12"
-    };
+    private ClientCheckRecordAdapter mCheckAdapter;
+    private List<CheckRecordItem> mCheckList;//签到记录表
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_checked_record);
+        initEvents();
+    }
+
+    private void initEvents() {
         RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_check_title);
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
         text.setText("我的签到记录");
-
-        List<Map<String,Object>> listItems = new ArrayList<Map<String, Object>>();
-        for(int i = 0; i < courses.length; i++){
-            Map<String,Object> listItem = new HashMap<String, Object>();
-            listItem.put("course",courses[i]);
-            listItem.put("date",dates[i]);
-            listItem.put("time",times[i]);
-            listItems.add(listItem);
-        }
-        Log.v(TAG, listItems.toString());
-
-        SimpleAdapter adapter = new SimpleAdapter(this,listItems,
-                R.layout.activity_user_check_record_detail_item,
-                new String[] {"course","date","time"},
-                new int[] {R.id.check_course_title,R.id.check_record_date,R.id.check_record_time});
-        ListView list = (ListView)findViewById(R.id.check_detail);
-        list.setAdapter(adapter);
-        Utils.setListViewHeightBasedOnChildren(list);
+        mCheckList = new ArrayList<CheckRecordItem>();
+        //请求参数
+        HashMap<String,String> param = new HashMap<String,String>();
+        param.put("user_id", "001");
+        RequestParams request = Utils.toParams(param);
+        AsyncHttpHelper.post("www.baidu.com", request, mCheckRecordHandler);
     }
+
+    JsonHttpResponseHandler mCheckRecordHandler = new JsonHttpResponseHandler() {
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.v("bing", "success");
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.v("bing", "failure");
+            String str = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[]," +
+                    "\"data\":[{\"lesson_name\":\"Java基础一\",\"lesson_id\":\"1\",\"check_time\":1442261016111}," +
+                    "{\"lesson_name\":\"Android开发一\",\"lesson_id\":\"2\",\"check_time\":1442261016144}," +
+                    "{\"lesson_name\":\"OO思想\",\"lesson_id\":\"3\",\"check_time\":1442261016188}]}";
+            try {
+                JSONObject result = new JSONObject(str);
+                EntityFactoryGenerics factoryGenerics =
+                        new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.CHECKRECORD, result);
+                int code = factoryGenerics.getCode();
+                if (code == 0) {
+                    mCheckList = (List<CheckRecordItem>) factoryGenerics.get();
+                    mCheckAdapter = new ClientCheckRecordAdapter(mCheckList, ClientMyCheckRecordActivity.this);
+                    mListView = (ListView) findViewById(R.id.check_detail);
+                    mListView.setAdapter(mCheckAdapter);
+                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     /**
      * 返回箭头绑定事件，即退出该页面
+     *
      * @param view
      */
-    public void back(View view){
+    public void back(View view) {
         this.finish();
     }
 }

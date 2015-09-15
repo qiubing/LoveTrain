@@ -39,11 +39,16 @@ public class CreditsAwardMsg implements Paramable{
     }
 
     @Override
-    public RequestParams toParams() {
+    public RequestParams toInsertParams() {
         Map<String,String> param = new HashMap<String,String>();
         param.put("awardedName",mAwardedName);
         param.put("awardedCredits",String.valueOf(mAwardedCredits));
         param.put("awaredCause",mAwardedCause);
         return new RequestParams(param);
+    }
+
+    @Override
+    public RequestParams toUpdateParams() {
+        return null;
     }
 }
