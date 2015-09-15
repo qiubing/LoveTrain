@@ -347,4 +347,14 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                         ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
         }
     }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     *
+     * @param view
+     */
+    public void back(View view) {
+        this.finish();
+    }
+
 }

@@ -4,6 +4,7 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.nubia.activity.R;
-import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseItem;
 import cn.nubia.entity.ShareCourseLevelModel;
 
@@ -83,7 +82,8 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
 
         mCourseName.setText(mShareCourseItem.getCourseName());
         mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mShareCourseItem.getCourseLevel()));
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short)mShareCourseItem.getCourseLevel()));
+        Log.e("level",mShareCourseItem.getCourseLevel() + " ");
         Date startTime = new Date();
         startTime.setTime(mShareCourseItem.getStartTime());
         Date endTime = new Date();

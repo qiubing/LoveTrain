@@ -9,7 +9,8 @@ import java.util.List;
  * Created by JiangYu on 2015/9/10.
  */
 public class EntityFactoryGenerics {
-    public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA,CHECKRECORD}
+    public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA,
+        CHECKRECORD,COURSEINTEGRATION,EXAMRESULT,SHARECOURSE}
     private IAssemblerGenerics mAssembler;
     private JSONObject mJsonObject;
     private ItemType mType;
@@ -36,6 +37,15 @@ public class EntityFactoryGenerics {
                 break;
             case CHECKRECORD:
                 mAssembler = new CheckRecordAssembler();
+                break;
+            case COURSEINTEGRATION:
+                mAssembler = new CourseIntegrationAssembler();
+                break;
+            case EXAMRESULT:
+                mAssembler = new ExamResultAssembler();
+                break;
+            case SHARECOURSE:
+                mAssembler = new ShareCourseAssembler();
                 break;
         }
     }
