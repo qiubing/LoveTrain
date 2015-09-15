@@ -7,71 +7,46 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/layout01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/manager_exam_detail_backImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="10dp"
-            android:src="@mipmap/ic_back" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingBottom="3dp"
-            android:paddingTop="8dp">
-
-            <ImageView
-                android:id="@+id/manager_exam_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_launcher" />
-
-        </LinearLayout>
-    </RelativeLayout>
+    <include
+        android:id="@+id/manager_score_user_detail_head"
+        layout="@layout/manager_head"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
 
     <RelativeLayout
         android:id="@+id/layout02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout01"
+        android:layout_below="@id/manager_score_user_detail_head"
         android:orientation="vertical"
         android:padding="15dp"
         android:paddingTop="15sp">
 
         <TextView
             android:id="@+id/course_name_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
+            android:gravity="bottom"
             android:text="@string/courseName"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/course_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
             android:layout_below="@id/course_name_title"
+            android:gravity="top"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/manager_exam_menber"
+            style="@style/CustomBigLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="报考32人"
-            android:textSize="25dp" />
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:text="32人报考"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -83,20 +58,22 @@
         android:padding="15dp"
         android:paddingTop="15sp">
 
+
         <TextView
             android:id="@+id/exam_introduction_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
+            android:gravity="bottom"
             android:text="@string/activity_manager_exam_introduction"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_introduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
             android:layout_below="@id/exam_introduction_title"
+            android:gravity="top"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -110,90 +87,67 @@
 
         <TextView
             android:id="@+id/exam_info_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
+            android:gravity="bottom"
             android:text="@string/activity_manager_exam_info"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textview_style"
             android:layout_below="@id/exam_info_title"
+            android:gravity="top"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
+
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin">
 
+        <!--<Button-->
+        <!--android:id="@+id/manager_exam_editbtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/activity_manager_exam_editbtn"-->
+        <!--android:textSize="15sp" />-->
         <Button
             android:id="@+id/manager_exam_editbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="@string/activity_manager_exam_editbtn"
-            android:textSize="15sp" />
-
+            android:text="@string/activity_manager_exam_editbtn" />
+        <!--<Button-->
+        <!--android:id="@+id/manager_exam_deletebtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/activity_manager_exam_deletebtn"-->
+        <!--android:textSize="15sp" />-->
         <Button
             android:id="@+id/manager_exam_deletebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="@string/activity_manager_exam_deletebtn"
-            android:textSize="15sp" />
-
+            android:text="@string/activity_manager_exam_deletebtn" />
+        <!--<Button-->
+        <!--android:id="@+id/manager_exam_inputscorebtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/activity_manager_exam_scorebtn"-->
+        <!--android:textSize="15sp" />-->
         <Button
             android:id="@+id/manager_exam_inputscorebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="@string/activity_manager_exam_scorebtn"
-            android:textSize="15sp" />
-
+            android:text="@string/activity_manager_exam_scorebtn" />
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_gravity="center_horizontal"-->
-
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="15dp"-->
-    <!--android:paddingTop="40sp">-->
-
-    <!--<Button-->
-    <!--android:id="@+id/manager_exam_editbtn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:text="@string/activity_manager_exam_editbtn"-->
-    <!--android:textSize="15sp" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/manager_exam_deletebtn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:text="@string/activity_manager_exam_deletebtn"-->
-    <!--android:textSize="15sp" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/manager_exam_inputscorebtn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:text="@string/activity_manager_exam_scorebtn"-->
-    <!--android:textSize="15sp" />-->
-
-    <!--</RelativeLayout>-->
 </RelativeLayout>
 
 

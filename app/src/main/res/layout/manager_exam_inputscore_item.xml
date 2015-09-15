@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
-    android:paddingRight="20dp">
+    android:paddingRight="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,38 +14,35 @@
 
         <TextView
             android:id="@+id/manager_exam_inputscore_username"
+            style="@style/textview_style"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:text="testa"
-            android:textColor="@color/bigtitle"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/manager_exam_inputscore_id"
+            style="@style/textview_style"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="ak"
-            android:textColor="@color/bigtitle"
+            android:text="Htt"
             android:textSize="17sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_alignParentRight="true">
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        >
+
 
         <EditText
             android:id="@+id/manager_exam_inputscore_score"
+            style="@style/edittext_style"
+            android:layout_height="43dp"
+            android:layout_marginTop="3dp"
             android:layout_width="120dp"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/editview_selector"
-            android:gravity="center_vertical"
-            android:hint="请输入成绩"
-            android:inputType="textNoSuggestions"
-            android:singleLine="true"
-            android:textColor="@color/edit_text"
-            android:textColorHint="@color/edit_text_hint" />
+            android:hint="请输入成绩" />
     </LinearLayout>
 </RelativeLayout>

@@ -26,7 +26,9 @@ public class AdminEditExamActivity extends Activity {
     private EditText mExamAddress;
     private EditText mExamTime;
     private EditText mExamCredit;
-    private ImageView mBack;
+
+    private TextView mManagerTitle;
+    private ImageView mGoBack;
 
     private List<String> mList;
 
@@ -83,8 +85,10 @@ public class AdminEditExamActivity extends Activity {
         mExamTime = (EditText) findViewById(R.id.activity_manager_edit_exam_time);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_edit_exam_credit);
         mAddButton = (Button) findViewById(R.id.activity_manager_edit_exam_button);
-        mBack = (ImageView) findViewById(R.id.manager_exam_backImage);
-        mBack.setOnClickListener(new View.OnClickListener() {
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

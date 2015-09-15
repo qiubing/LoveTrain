@@ -60,11 +60,14 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private Button mInputScore;
     private Button mDeleteExam;
     private Button mEditExam;
-    private ImageView mImageView;
     private TextView mCourseName;
     private TextView mExamIntroduction;
     private TextView mExamInfo;
     private ExamItem mExamItem;
+
+
+    private TextView mManagerTitle;
+    private ImageView mGoBack;
 
     private GestureDetector gestureDetector;
 
@@ -73,14 +76,22 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_detail);
 
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mInputScore = (Button) findViewById(R.id.manager_exam_inputscorebtn);
         mDeleteExam = (Button) findViewById(R.id.manager_exam_deletebtn);
         mEditExam = (Button) findViewById(R.id.manager_exam_editbtn);
-        mImageView = (ImageView) findViewById(R.id.manager_exam_detail_backImage);
         mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
         mExamInfo = (TextView) findViewById(R.id.exam_info);
         mCourseName = (TextView) findViewById(R.id.course_name);
-        mImageView.setOnClickListener(this);
         mInputScore.setOnClickListener(this);
         mDeleteExam.setOnClickListener(this);
         mEditExam.setOnClickListener(this);
@@ -89,6 +100,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mCourseName.setText(mExamItem.getName());
         mExamIntroduction.setText(mExamItem.getDescription());
         mExamInfo.setText(mExamItem.getLocale());
+
 
         //创建手势管理单例对象
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
@@ -114,9 +126,6 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     public void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
-            case R.id.manager_exam_detail_backImage:
-                finish();
-                break;
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();

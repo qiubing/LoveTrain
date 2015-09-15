@@ -9,9 +9,6 @@
 
     <Button
         android:id="@+id/manager_exam_score_input_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_manager_score_input_button"
-        android:textSize="20sp" />
-
+        style="@style/CustomBigLoginButton"
+        android:text="@string/title_activity_manager_score_input_button" />
 </RelativeLayout>
