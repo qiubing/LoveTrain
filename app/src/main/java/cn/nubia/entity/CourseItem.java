@@ -24,6 +24,16 @@ public class CourseItem extends Item implements Serializable{
     private short mIsDelete;
     private long mRecordModifyTime;
     private short mShareType;
+
+    public short getEnrollCredits() {
+        return mEnrollCredits;
+    }
+
+    public void setEnrollCredits(short mEnrollCredits) {
+        this.mEnrollCredits = mEnrollCredits;
+    }
+
+    private short mEnrollCredits;
     private List<LessonItem> mLessonList;
 
     public List<LessonItem> getLessonList() {
