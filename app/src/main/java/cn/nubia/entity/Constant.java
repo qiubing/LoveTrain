@@ -13,7 +13,7 @@ import java.util.Map;
  * 类说明 一些常量都放在这里
  */
 public class Constant {
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
 
     /****网络类型****/
     public static final  int LOADING_FAILED = 1;
