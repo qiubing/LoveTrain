@@ -246,7 +246,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     shareCourse.setOperateType(mOperateType);
                     if(mOperateType==CommunicateService.OperateType.INSERT)
                         mBinder.communicate(shareCourse, new Inter(),"newsharecourse.do");
-                    else{
+                    else if(mOperateType==CommunicateService.OperateType.UPDATE){
                         shareCourse.setCourseIndex(mShareCourseItem.getCourseIndex());
                         mBinder.communicate(shareCourse, new Inter(),"updatesharecourse.do");
                     }
@@ -277,7 +277,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             mCourseEndtime.setText(
                     new SimpleDateFormat("HH:mm").format(endTime));
             mLessonLocation.setText(mShareCourseItem.getLocale());
-        }else{
+        }else if(type.equals("insert")){
             mOperateType = CommunicateService.OperateType.INSERT;
         }
     }

@@ -50,9 +50,27 @@ public class EntityFactoryGenerics {
         }
     }
 
+    public EntityFactoryGenerics(){
+        mType = ItemType.SIMPLEDATA;
+    }
+
+    public EntityFactoryGenerics(Class<? extends IAssemblerGenerics> assemblerClass){
+        try {
+            if(assemblerClass != null)
+                mAssembler = assemblerClass.newInstance();
+            else
+                mType = ItemType.SIMPLEDATA;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setJSON(JSONObject jsonObject){
         mJsonObject = jsonObject;
     }
+
     /**
      * 获得返回结果中的code值
      */
@@ -61,7 +79,7 @@ public class EntityFactoryGenerics {
     }
 
     public List<?> get(){
-        if(mType ==ItemType.SIMPLEDATA)
+        if(mType == ItemType.SIMPLEDATA)
             return getOperateResult();
         else
             return getItemList();
