@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dp30"
+    android:gravity="center_horizontal">
+
+    <!--private int ;
+    private int ;
+    private int ;
+    private int ;-->
+
+
+    <TextView
+        android:id="@+id/contentApplicability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="       内容适用性       "
+        android:textColor="@color/E505050"
+        android:layout_marginRight="@dimen/dp112"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/star_contentApplicability"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/contentApplicability"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/contentApplicability"
+        android:layout_alignBottom="@+id/contentApplicability"/>
+
+    <TextView
+        android:id="@+id/contentRationality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="内容编排合理性"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/contentApplicability"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_contentRationality"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/contentRationality"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/contentRationality"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/discussion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="案例分析"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/contentRationality"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_discussion"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/discussion"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/discussion"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/timeRationality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时间分配合理性"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/discussion"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_timeRationality"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/timeRationality"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/timeRationality"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/contentUnderstanding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="深刻认识教授内容"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/timeRationality"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_contentUnderstanding"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/contentUnderstanding"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/contentUnderstanding"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/expressionAbility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="语言组织表达能力"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/contentUnderstanding"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_expressionAbility"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/expressionAbility"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/expressionAbility"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/communication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="沟通互动性"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/expressionAbility"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_communication"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/communication"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/communication"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+    <TextView
+        android:id="@+id/organization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="安排组织性"
+        android:textColor="@color/E505050"
+        android:textSize="@dimen/dp40"
+        android:layout_below="@+id/communication"
+        android:layout_alignRight="@+id/contentApplicability"
+        android:layout_alignLeft="@+id/contentApplicability"
+        android:layout_marginBottom="@dimen/dp20"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/star_organization"
+        android:layout_width="@dimen/dp207"
+        android:layout_height="@dimen/dp35"
+        android:layout_toRightOf="@+id/organization"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/start3"
+        android:layout_alignTop="@+id/organization"
+        android:layout_alignLeft="@+id/star_contentApplicability"/>
+
+
+
+
+</RelativeLayout>

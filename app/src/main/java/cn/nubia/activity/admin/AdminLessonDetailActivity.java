@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.zxing.WriterException;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.client.ClientEvaluateActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
@@ -27,6 +28,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
     private Button mGenerateQRCode;
+    private TextView mEvaluateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,15 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
         signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
         mGenerateQRCode = (Button) findViewById(R.id.lesson_QRCodeImage_generate_button);
+        mEvaluateTextView = (TextView) findViewById(R.id.evaluateTextView);
 
         /**设置监听事件**/
         backImageView.setOnClickListener(this);
         alterLessonBtn.setOnClickListener(this);
         deleteLessonBtn.setOnClickListener(this);
+        signUpPopulationTextView.setOnClickListener(this);
+        mGenerateQRCode.setOnClickListener(this);
+        mEvaluateTextView.setOnClickListener(this);
 
 
         /**非管理员隐去修改课时和删除课时按钮**/
@@ -107,6 +113,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Toast.makeText(this, "Text can not be empty", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.evaluateTextView:
+                Intent intent = new Intent(this, ClientEvaluateActivity.class);
+                startActivity(intent);
+                break;
+
         }
 
     }

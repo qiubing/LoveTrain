@@ -19,6 +19,15 @@ public class LessonJudgement extends Paramable{
     private float mOrganization;
     private String mComprehensiveEvaluation;
     private String mSuggestion;
+    private String mName;
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
+    }
 
     public float getContentApplicability() {
         return mContentApplicability;
