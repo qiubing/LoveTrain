@@ -19,6 +19,7 @@ import cn.nubia.entity.CourseItem;
 
 /**
  * Created by hexiao on 2015/9/9.
+ * 显示全部课程的CourseExpandableAdapter
  */
 public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 

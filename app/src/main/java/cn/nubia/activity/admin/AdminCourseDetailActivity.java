@@ -70,7 +70,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 startActivity(intentBackImage);
                 break;
             case R.id.signUpAdminBtn:
-                //添加一个对话框即可
+//                //添加一个对话框即可
 //                Dialog signUpAdminDialog = new AlertDialog.Builder(AdminCourseDetailActivity.this)
 //                        .setTitle("课程报名情况")
 //                        .setItems(items, new DialogInterface.OnClickListener() {
@@ -93,7 +93,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 //                        })
 //                        .create();
 //                signUpAdminDialog.show();
-                Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignInManageActivity.class);
+                Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);
                 startActivity(intentSignInManage);
                 break;
             case R.id.alterCourseBtn:

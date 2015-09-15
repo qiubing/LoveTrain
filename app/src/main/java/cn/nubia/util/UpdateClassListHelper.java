@@ -26,57 +26,67 @@ public class UpdateClassListHelper {
      * 更新所有的课程类型数据，包括课程，课时更新
      * */
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList) throws JSONException {
-        Log.e("updateAllClassData","updateAllClassData");
         int len = jsonArray.length();
-        Log.e("updateAllClassData","updateAllClassData"+len);
+        Item item = null;
         for(int i = 0;i < len; i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-
             String type = jsonObject.getString("type");
-
+            String operater = jsonObject.getString("operate");
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
-
-            Log.e("updateAllClassData",jsonObjectDetail.toString());
             switch (type){
                 case "course":
-                    Log.e("updateAllClassData", type);
-                    List<LessonItem> lessonList = new ArrayList<>();
-                    CourseItem courseItem = new CourseItem();
-                    courseItem.setLessonList(lessonList);
-                    courseItem.setType(type);
-                    courseItem.setOperator(jsonObject.getString("operate"));
-                    courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
-                    courseItem.setName(jsonObjectDetail.getString("course_name"));
-                    courseItem.setDescription(jsonObjectDetail.getString("course_description"));
-                    courseItem.setLessones((short) jsonObjectDetail.getInt("lessons"));
-                    courseItem.setHasExam((short) jsonObjectDetail.getInt("has_exam"));
-                    courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
-                    UpdateClassListHelper.updateDatabyClassType(type, courseItem, courseList);
-                    Log.e("updateAllClassData", type);
+                case "senior":
+                case "share":
+                    item = makeCourse(type,operater,jsonObjectDetail);
                     break;
                 case "lesson":
-                    Log.e("updateAllClassData", type);
-                    LessonItem lessonItem = new LessonItem();
-                    lessonItem.setType(type);
-                    lessonItem.setOperator(jsonObject.getString("operate"));
-                    lessonItem.setIndex(jsonObjectDetail.getInt("lesson_index"));
-                    lessonItem.setName(jsonObjectDetail.getString("lesson_name"));
-                    lessonItem.setDescription(jsonObjectDetail.getString("lesson_description"));
-                    lessonItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
-                    lessonItem.setTeacherID(jsonObjectDetail.getString("user_id"));
-                    lessonItem.setTeacherName(jsonObjectDetail.getString("teacher_name"));
-                    lessonItem.setJudgeScore(jsonObjectDetail.getDouble("judge_score"));
-                    lessonItem.setStartTime(jsonObjectDetail.getLong("start_time"));
-                    lessonItem.setEndTime(jsonObjectDetail.getLong("start_time"));
-                    lessonItem.setTeacherCredits(jsonObjectDetail.getInt("teacher_credits"));
-                    lessonItem.setCheckCredits(jsonObjectDetail.getInt("check_credits"));
-                    lessonItem.setRecordModifyTime(jsonObjectDetail.getLong("lesson_record_modify_time"));
-                    UpdateClassListHelper.updateDatabyClassType(type, lessonItem, courseList);
+                    item = makeLesson(type,operater,jsonObjectDetail);
+                    break;
+                default:
                     break;
             }
+            UpdateClassListHelper.updateDataByClassType(type, item, courseList);
         }
         binarySort(courseList);
+    }
 
+    private static LessonItem makeLesson(String type,String operater,JSONObject jsonObjectDetail) throws JSONException {
+        LessonItem lessonItem = new LessonItem();
+        lessonItem.setType(type);
+        lessonItem.setOperator(operater);
+        lessonItem.setIndex(jsonObjectDetail.getInt("lesson_index"));
+        lessonItem.setName(jsonObjectDetail.getString("lesson_name"));
+        lessonItem.setDescription(jsonObjectDetail.getString("lesson_description"));
+        lessonItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
+        lessonItem.setTeacherID(jsonObjectDetail.getString("user_id"));
+        lessonItem.setTeacherName(jsonObjectDetail.getString("teacher_name"));
+        lessonItem.setJudgeScore(jsonObjectDetail.getDouble("judge_score"));
+        lessonItem.setStartTime(jsonObjectDetail.getLong("start_time"));
+        lessonItem.setEndTime(jsonObjectDetail.getLong("start_time"));
+        lessonItem.setTeacherCredits(jsonObjectDetail.getInt("teacher_credits"));
+        lessonItem.setCheckCredits(jsonObjectDetail.getInt("check_credits"));
+        lessonItem.setRecordModifyTime(jsonObjectDetail.getLong("lesson_record_modify_time"));
+        return lessonItem;
+    }
+
+    private static CourseItem makeCourse(String courseType,String operater,JSONObject jsonObjectDetail) throws JSONException {
+        List<LessonItem> lessonList = new ArrayList<>();
+        CourseItem courseItem = new CourseItem();
+        courseItem.setLessonList(lessonList);
+        courseItem.setType(courseType);
+        courseItem.setOperator(operater);
+        courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
+        courseItem.setName(jsonObjectDetail.getString("course_name"));
+        courseItem.setDescription(jsonObjectDetail.getString("course_description"));
+        courseItem.setLessones((short) jsonObjectDetail.getInt("lessons"));
+        courseItem.setHasExam((short) jsonObjectDetail.getInt("has_exam"));
+        courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
+        if (courseType.equals("senior")){
+            courseItem.setEnrollCredits((short)jsonObjectDetail.getInt("enroll_credits"));
+        }else if (courseType.equals("share")){
+            courseItem.setShareType((short)jsonObjectDetail.getInt("course_level"));
+        }
+        return courseItem;
     }
 
     /**
@@ -90,22 +100,16 @@ public class UpdateClassListHelper {
         binarySort(examList);
     }
 
-/*
-    *//**
-     * 更新所有的数据
-     * *//*
-    public void updateAllData(JSONObject jsonObject){
-
-    }*/
 
     /**
      * 根据类型更新数据
      * @param classType 课程类型
      * */
-    public static void updateDatabyClassType(String classType,Item item, List<CourseItem> list){
-        Log.e("updateDatabyClassType",classType);
+    public static void updateDataByClassType(String classType,Item item, List<CourseItem> list){
         switch (classType){
             case "course":
+            case "share":
+            case "senior":
                 if (item instanceof CourseItem){
                     updateCourseItem(item.getOperator(), (CourseItem) item, list);
                 }
@@ -114,9 +118,7 @@ public class UpdateClassListHelper {
                 if (item instanceof LessonItem){
                     int index = binarySearch(list,((LessonItem) item).getCourseIndex());
                     CourseItem courseItem = list.get(index);
-                    Log.e("updateDatabyClassType",""+index);
                     if (index >= 0) {
-
                         updateLessonItem(item.getOperator(), (LessonItem) item, courseItem.getLessonList());
                     }
                 }

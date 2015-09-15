@@ -163,7 +163,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                         LessonItem mLessonItem = new LessonItem();
                         mLessonItem.setIndex(i);
                         mLessonItem.setName("Java基础" + i);
-                        mLessonItem.setStartTime("2015.9..6");
+//                        mLessonItem.setStartTime("2015.9..6");
                         mLessonItem.setLocation("C-2");
                         mLessonList.add(0, mLessonItem);
                     }
@@ -181,7 +181,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                         LessonItem mLessonItem = new LessonItem();
                         mLessonItem.setIndex(i);
                         mLessonItem.setName("Android基础" + i);
-                        mLessonItem.setStartTime("2015.9..6");
+//                        mLessonItem.setStartTime("2015.9..6");
                         mLessonItem.setLocation("C-2");
                         mLessonList.add(0, mLessonItem);
                     }

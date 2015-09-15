@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,8 @@ public class AdminCourseActivity extends ActivityGroup {
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
+
+
         // 定放一个放view的list，用于存放viewPager用到的view
         listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
@@ -68,7 +69,7 @@ public class AdminCourseActivity extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
-                Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+//                Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
             }
         });
         //此处貌似必须有setContent(intent)

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by JiangYu on 2015/9/7.
  */
-public class PswModifyMsg implements Paramable{
+public class PswModifyMsg extends Paramable{
     private String mOldPsw;
     private String mNewPsw;
 
@@ -29,10 +29,25 @@ public class PswModifyMsg implements Paramable{
     }
 
     @Override
-    public RequestParams toParams() {
+    public RequestParams toInsertParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toUpdateParams() {
         Map<String,String> param = new HashMap<String,String>();
         param.put("oldPsw",mOldPsw);
         param.put("newPsw",mNewPsw);
         return new RequestParams(param);
+    }
+
+    @Override
+    public RequestParams toQueryParams() {
+        return null;
+    }
+
+    @Override
+    public RequestParams toDeleteParams() {
+        return null;
     }
 }

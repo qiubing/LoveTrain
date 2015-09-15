@@ -25,8 +25,8 @@ public class LessonItem extends Item implements Serializable {
     private String mTeacherID;
     private String mTeacherName;
 //    private String mLessonTheme;
-    private String mStartTime;
-    private String mEndTime;
+    private long mStartTime;
+    private long mEndTime;
     private String mLocale;
     private int mCheckCredits;  // 签到积分
     private int mTeacherCredits;//讲师上课积分
@@ -89,19 +89,19 @@ public class LessonItem extends Item implements Serializable {
 //        this.mLessonTheme = mLessonTheme;
 //    }
 
-    public String getStartTime() {
+    public long getStartTime() {
         return mStartTime;
     }
 
-    public void setStartTime(String mStartTime) {
+    public void setStartTime(long mStartTime) {
         this.mStartTime = mStartTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return mEndTime;
     }
 
-    public void setEndTime(String mEndTime) {
+    public void setEndTime(long mEndTime) {
         this.mEndTime = mEndTime;
     }
 

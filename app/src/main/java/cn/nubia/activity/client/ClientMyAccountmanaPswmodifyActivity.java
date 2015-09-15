@@ -48,8 +48,8 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list) {
-            ClientMyAccountmanaPswmodifyActivity.this.showOperateResult((List<String>) list);
+        public void alter(List<?> list,CommunicateService.OperateType type) {
+            ClientMyAccountmanaPswmodifyActivity.this.showOperateResult((List<String>) list,type);
         }
     }
 
@@ -101,8 +101,9 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                         PswModifyMsg pswModifyMsg = new PswModifyMsg();
                         pswModifyMsg.setOldPsw(oldPsw);
                         pswModifyMsg.setNewPsw(newPsw);
-
-                        mBinder.communicate(pswModifyMsg, new Inter());
+                        pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
+                        mBinder.communicate(
+                                pswModifyMsg,new Inter(),"passwordmodify.do");
                     }
                 } else {
                     DialogUtil.showDialog(
@@ -130,7 +131,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 
-    private void showOperateResult(List<String> list) {
+    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
         Boolean result = Boolean.getBoolean(list.get(0));
         if (result)
             DialogUtil.showDialog(

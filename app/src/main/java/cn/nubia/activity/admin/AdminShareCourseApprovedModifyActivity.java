@@ -251,10 +251,10 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
                 shareCourseLesson.setLocation(((EditText) findViewById(R.id
                         .approved_share_course_modified_locale))
                         .getText().toString());
-                shareCourseLesson.setStartTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
-                        .format(mCourseDate.getText() + " " + mCourseStarttime.getText()));
-                shareCourseLesson.setEndTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
-                        .format(mCourseDate.getText() + " " + mCourseEndtime.getText()));
+//                shareCourseLesson.setStartTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
+//                        .format(mCourseDate.getText() + " " + mCourseStarttime.getText()));
+//                shareCourseLesson.setEndTime(new SimpleDateFormat("yyyy-mm-dd hh:mm")
+//                        .format(mCourseDate.getText() + " " + mCourseEndtime.getText()));
 
                 //TODO:提交修改后的课程信息到后台服务器
                 Toast.makeText(AdminShareCourseApprovedModifyActivity.this,"确认修改",Toast.LENGTH_LONG).show();
