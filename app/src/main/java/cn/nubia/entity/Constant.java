@@ -32,10 +32,11 @@ public class Constant {
     /**
      * 设备id
      */
-    public static String DEVIDE_ID = null;
-    public static String versionCode = null;
+    public static String devideID = null;
+    public static String apkVersion = null;
+    public static String tokenKep = null;
 
-    public static boolean IS_ADMIN = true;/*登录的用户是否是管理员*/
+    public static boolean IS_ADMIN = false;/*登录的用户是否是管理员*/
 
     /**
      * **** down APP name *****

@@ -15,8 +15,12 @@ public class EntityFactoryGenerics {
     private ItemType mType;
 
     public EntityFactoryGenerics(ItemType type,JSONObject jsonObject){
-        mType = type;
+        this(type);
         mJsonObject = jsonObject;
+    }
+
+    public EntityFactoryGenerics(ItemType type){
+        mType = type;
         switch (mType){
             case COURSE:
                 mAssembler = new CourseItemAssembler();
@@ -36,6 +40,9 @@ public class EntityFactoryGenerics {
         }
     }
 
+    public void setJSON(JSONObject jsonObject){
+        mJsonObject = jsonObject;
+    }
     /**
      * 获得返回结果中的code值
      */

@@ -8,37 +8,51 @@ import java.util.List;
 
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
-
 /**
- * Created by JiangYu on 2015/9/11.
+ * Created by JiangYu on 2015/9/15.
  */
-public class PswModifyHandler extends Handler{
+public class NormalHandler extends Handler {
     private ActivityInter mInter;
+    private CommunicateService.OperateType mType;
+    private EntityFactoryGenerics mFactoryGenerics;
 
     @Override
     public void setActivityInter(ActivityInter inter) {
         mInter = inter;
     }
+
+    @Override
+    public void setOperateType(CommunicateService.OperateType type) {
+        mType = type;
+    }
+
+    @Override
+    public void initEntityFactory(EntityFactoryGenerics factoryGenerics){
+        mFactoryGenerics = factoryGenerics;
+    }
+
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        String str = "{code:0,data:[{type:course},{type:lesson}]}";
-        EntityFactoryGenerics factoryGenerics =
-                new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SIMPLEDATA,response);
-//        List<String> resultStr =(List<String>) factoryGenerics.get();
+        mFactoryGenerics.setJSON(response);
+//        List<String> resultStr =(List<String>) mFactoryGenerics.get();
         List<String> resultStr = new ArrayList<String>();
         resultStr.add("true");
-        mInter.alter(resultStr,CommunicateService.OperateType.UPDATE);
+        mInter.alter(resultStr, mType);
+        mInter = null;
     }
     @Override
     public void onFailure(int statusCode, Header[] headers,
                           Throwable throwable,
                           JSONObject errorResponse) {
-        String str = "{code:0,data:[{type:course},{type:lesson}]}";
-        EntityFactoryGenerics factoryGenerics =
-                new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SIMPLEDATA,errorResponse);
-//        List<String> resultStr =(List<String>) factoryGenerics.get();
+        mFactoryGenerics.setJSON(errorResponse);
+//        List<String> resultStr =(List<String>) mFactoryGenerics.get();
         List<String> resultStr = new ArrayList<String>();
         resultStr.add("true");
-        mInter.alter(resultStr,CommunicateService.OperateType.UPDATE);
+        mInter.alter(resultStr,mType);
+        mInter = null;
     }
+
+
+
+
 }

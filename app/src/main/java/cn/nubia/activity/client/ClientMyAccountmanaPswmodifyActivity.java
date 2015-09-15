@@ -101,9 +101,9 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                         PswModifyMsg pswModifyMsg = new PswModifyMsg();
                         pswModifyMsg.setOldPsw(oldPsw);
                         pswModifyMsg.setNewPsw(newPsw);
-
+                        pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
                         mBinder.communicate(
-                                pswModifyMsg,new Inter(),CommunicateService.OperateType.UPDATE);
+                                pswModifyMsg,new Inter(),"passwordmodify.do");
                     }
                 } else {
                     DialogUtil.showDialog(
