@@ -18,17 +18,15 @@ public class ExamItemAssembler implements IAssemblerGenerics<ExamItem> {
     public List<ExamItem> assemble(JSONArray jsonArray) {
         try {
             List<ExamItem> itemList = new ArrayList<ExamItem>();
-            int arrayIndex = 0;
-            JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
-            while (jsonObject != null){
+            for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "exam":
                         itemList.add(makeExam(jsonObject.getJSONObject("detail")));
                 }
-                jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return null;
+            return itemList;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

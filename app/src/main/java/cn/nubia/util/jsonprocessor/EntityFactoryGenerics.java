@@ -1,10 +1,9 @@
 package cn.nubia.util.jsonprocessor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by JiangYu on 2015/9/10.

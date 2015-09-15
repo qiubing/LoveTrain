@@ -18,17 +18,15 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
     public List<LessonJudgement> assemble(JSONArray jsonArray) {
         try {
             List<LessonJudgement> itemList = new ArrayList<LessonJudgement>();
-            int arrayIndex = 0;
-            JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
-            while (jsonObject != null){
+            for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "judgement":
                         itemList.add(makeLessonJudge(jsonObject.getJSONObject("detail")));
                 }
-                jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
-            return null;
+            return itemList;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

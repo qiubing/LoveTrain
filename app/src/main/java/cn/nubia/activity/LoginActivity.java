@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONException;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -20,10 +22,11 @@ import java.util.Map;
 import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.entity.Constant;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
-import cn.nubia.util.HttpUtil;
+import cn.nubia.util.HandleResponse;
 import cn.nubia.util.Md5Encryption;
-
+import cn.nubia.util.TestData;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -66,26 +69,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         mLoginButton.setOnClickListener(this);
         mRegistButton.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View v) {
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
-                //TODO
-                if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
-                    Constant.IS_ADMIN=true;
-                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                    this.finish();
-                } else {
-                    Constant.IS_ADMIN=false;
-                    startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
-                    this.finish();
-                }
-
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
                     if (validateLogin()) {
@@ -126,32 +116,55 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String userID = mUserIdET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
+        JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                handleLogin(response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+//                DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+                handleLogin(errorResponse);
+            }
+        };
+        Map<String, String> params = new HashMap<>();
+        params.put("UserID", userID);
+        params.put("Password", Md5Encryption.getMD5(pwd));
+        String url = Constant.BASE_URL + "user/login.do";
         if (isManager.equals("是")) {
-            //TODO 模拟登录数据
+            params.put("isAdmin", "true");
+        } else {
+            params.put("isAdmin", "false");
         }
-        JSONObject jsonObject;
+        AsyncHttpHelper.post(url, params, handler);
+    }
+
+    private void handleLogin(JSONObject response) {
         try {
-            jsonObject = query(userID, pwd);
-            String result = jsonObject.getString("code");
-            if (result.equals("0")) {
-                DialogUtil.showToast(this, "登录成功");
-            } else if (result.equals("2001")) {
-                DialogUtil.showToast(this, "用户名不存在，请重新输入！");
-            } else if (result.equals("2002")) {
-                DialogUtil.showToast(this, "用户名密码错误，请重新输入！");
+            //TODO
+            response = TestData.getLoginResult();
+            String code = response.getString("code");
+            if (code.equals("0")) {
+                DialogUtil.showToast(LoginActivity.this, "登录成功");
+                if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+                    Constant.IS_ADMIN = true;
+                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                    LoginActivity.this.finish();
+                } else {
+                    Constant.IS_ADMIN = false;
+                    startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
+                    LoginActivity.this.finish();
+                }
+            } else {
+                HandleResponse.excute(LoginActivity.this, code);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            DialogUtil.showToast(this, "连接服务器发生异常！");
+            DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
         }
-    }
-
-    private JSONObject query(String username, String pwd) throws JSONException {
-        Map<String, String> map = new HashMap<>();
-        map.put("UserID", username);
-        map.put("Password", Md5Encryption.getMD5(pwd));
-        String url = HttpUtil.BASE_URL + "user/login.do";
-        return new JSONObject((HttpUtil.postRequest(url, map)));
     }
 
     private void regist() {
@@ -160,33 +173,43 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String userName = mUserNameET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String sex = mSexSpinner.getSelectedItem().toString();
-        try {
-            jsonObject = insert(userName, userID, pwd, sex);
-            String result = jsonObject.getString("code");
-            if (result.equals("0")) {
-                DialogUtil.showToast(this, "注册成功！");
-            } else if (result.equals("3000")) {
-                DialogUtil.showToast(this, "用户名已存在！");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            DialogUtil.showToast(this, "连接服务器发生异常！");
+
+        Map<String, String> params = new HashMap<>();
+        params.put("UserID", userID);
+        params.put("UserName", userName);
+        params.put("UserPasswd", Md5Encryption.getMD5(pwd));
+        if (sex.equals("男")) {
+            params.put("gender", "true");
+        } else {
+            params.put("gender", "false");
         }
+        String url = Constant.BASE_URL + "user/register.do";
+        JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    String code = response.getString("code");
+                    if (code.equals("0")) {
+                        DialogUtil.showToast(LoginActivity.this, "注册成功！");
+                    } else if (code.equals("3000")) {
+                        DialogUtil.showToast(LoginActivity.this, "用户名已存在！");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+            }
+        };
+        AsyncHttpHelper.post(url, params, handler);
     }
 
-
-    private JSONObject insert(String userName, String userID, String pwd, String sex) throws JSONException {
-        Map<String, String> map = new HashMap<>();
-        map.put("UserName", userName);
-        map.put("UserId", userID);
-        map.put("UserPasswd", Md5Encryption.getMD5(pwd));
-        if (sex.equals("男"))
-            map.put("gender", "true");
-        else
-            map.put("gender", "false");
-        String url = HttpUtil.BASE_URL + "user/register.do";
-        return new JSONObject((HttpUtil.postRequest(url, map)));
-    }
 
     //对用户名和密码进行校验
     public boolean validateLogin() {
@@ -216,7 +239,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             return false;
         }
         String pwd2 = mRegistPasswordET.getText().toString().trim();
-        if (pwd.equals("")) {
+        if (pwd2.equals("")) {
             DialogUtil.showToast(this, "确认密码不能为空");
             return false;
         }

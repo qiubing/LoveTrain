@@ -20,9 +20,8 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
     public List<Item> assemble(JSONArray jsonArray) {
         try {
             List<Item> itemList = new ArrayList<Item>();
-            int arrayIndex = 0;
-            JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
-            while (jsonObject != null){
+            for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++){
+                JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
                 String objectType = jsonObject.getString("type");
                 switch (objectType) {
                     case "course":
@@ -34,7 +33,6 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
                         itemList.add(makeLesson(jsonObject.getJSONObject("detail")));
                         break;
                 }
-                jsonObject = jsonArray.getJSONObject(++arrayIndex);
             }
             return itemList;
         } catch (JSONException e) {

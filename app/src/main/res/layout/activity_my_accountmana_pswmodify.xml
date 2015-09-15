@@ -1,83 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/soft_comment_title_content_windows">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin">
-
-        <Button
-            android:id="@+id/my_accountmana_pswmodify_backbutton"
-            android:layout_width="@dimen/jiangyu_small_buttonsize"
-            android:layout_height="@dimen/jiangyu_small_buttonsize"
-            android:background="@mipmap/ic_back"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/jiangyu_title_textsize"
-            android:text="@string/activity_my_accountmana_pswmodify_tittle_textview"/>
-
-        <Button
-            android:id="@+id/my_accountmana_pswmodify_confirmbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/activity_my_sharecourse_detail_fill_confirm_button"/>
-    </RelativeLayout>
-
+        <include
+        android:id="@+id/manager_score_user_detail_head"
+        layout="@layout/manager_head"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
     <TableLayout
         style="@style/contentrealm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1">
 
-        <TableRow
-            style="@style/itemtitle">
+        <TableRow style="@style/itemtitle">
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview"-->
+            <!--android:textSize="@dimen/jiangyu_itemname_textsize"/>-->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview"
-                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                style="@style/textview_style"
+                android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview" />
+
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_oldpswedittext"
-                android:inputType="textPassword"
-                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                style="@style/edittext_style"
+                android:hint="@string/activity_manager_add_exam_hint" />
+
         </TableRow>
 
-        <TableRow
-            style="@style/itemtitle">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview"
-                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+        <TableRow style="@style/itemtitle">
 
-            <EditText
-                android:id="@+id/my_accountmana_pswmodify_oldpswconfirmedittext"
-                android:inputType="textPassword"
-                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
-        </TableRow>
-
-        <TableRow
-            style="@style/itemtitle">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview"
-                android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                style="@style/textview_style"
+                android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview" />
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_newpswedittext"
-                android:inputType="textPassword"
-                android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+                style="@style/edittext_style"
+                android:hint="@string/activity_manager_add_exam_hint"
+                android:inputType="textPassword" />
+        </TableRow>
+
+        <TableRow style="@style/itemtitle">
+
+            <TextView
+                style="@style/textview_style"
+                android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview" />
+
+            <EditText
+                android:id="@+id/my_accountmana_pswmodify_newpswconfirmedittext"
+                style="@style/edittext_style"
+                android:hint="@string/activity_manager_add_exam_hint"
+                android:inputType="textPassword" />
+
         </TableRow>
     </TableLayout>
 
+    <Button
+        android:id="@+id/my_accountmana_pswmodify_confirmbutton"
+        style="@style/CustomBigLoginButton"
+        android:text="@string/alterCourseForSure" />
 </LinearLayout>

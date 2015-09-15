@@ -12,6 +12,8 @@ import java.util.Map;
  * 类说明 一些常量都放在这里
  */
 public class Constant {
+    public static final String BASE_URL = "";
+
     /****网络类型****/
     public static final  int LOADING_FAILED = 1;
     public static final  int NETWORK_UNUSABLE = 1;
@@ -26,6 +28,12 @@ public class Constant {
     public static final int SELECT_PHOTO_REQUEST_CODE = 0x1000;
     public static final int DELETE_PHOTO_REQUEST_CODE = 0x1001;
     public static final int MAX_SELECTED_IMAGE = 9;// 最大图片数
+
+    /**
+     * 设备id
+     */
+    public static String DEVIDE_ID = null;
+    public static String versionCode = null;
 
     public static boolean IS_ADMIN = true;/*登录的用户是否是管理员*/
 
