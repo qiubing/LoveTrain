@@ -2,6 +2,8 @@ package cn.nubia.component;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -143,28 +145,32 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 this(context, null);
         }
 
-        public RefreshLayout(Context context, AttributeSet attrs) {
+        public RefreshLayout(final Context context, AttributeSet attrs) {
                 super(context, attrs);
                 //huhu,getScaledTouchSlop是一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件，得到系统的默认值
                 mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-
                 mListViewOnLoadingFooter = LayoutInflater.from(context).inflate(
                         R.layout.listview_footer, null, false);
+
                 mListViewOnLoadingFooter.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
                         }
                 });
+
                 mNetworkUnusableView = LayoutInflater.from(context).inflate(
                         R.layout.layout_network_unusable, null, false);
 
                 mNetworkUnusableView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                /**go网络设置页面*/
+                                /**网络设置页面*/
+                            Intent intent =  new Intent(Settings.ACTION_WIFI_SETTINGS);
+                            context.startActivity(intent);
                         }
                 });
+
                 mLoadingFailedView = LayoutInflater.from(context).inflate(R.layout.layout_loading_failed,null,false);
                 mLoadingFailedView.setOnClickListener(new OnClickListener() {
                         @Override
@@ -266,7 +272,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          */
         private boolean isBottom() {
 
-                if (mListView != null && mListView.getAdapter() != null) {
+                if (mListView != null && mListView.getAdapter() != null && mListView.getAdapter().getCount()>10) {
                         return mListView.getLastVisiblePosition() == (mListView
                                 .getAdapter().getCount() - 1);
                 }
@@ -302,8 +308,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 if (isLoading) {
                     mListView.removeFooterView(mNetworkUnusableView);
                     mListView.removeFooterView(mNetworkUnusableView);
-                        mListView.addFooterView(mListViewOnLoadingFooter);
-                        loadingView.startAnimation(refreshingAnimation);
+                    mListView.addFooterView(mListViewOnLoadingFooter);
+                    loadingView.startAnimation(refreshingAnimation);
                 } else {
                         mListView.removeFooterView(mListViewOnLoadingFooter);
                         loadingView.clearAnimation();
@@ -344,7 +350,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
         public void showNetworkFailedFooter(boolean loading) {
-                if (loading) {
+                if (loading && mListView.getAdapter().getCount()>10) {
                     mListView.removeFooterView(mLoadingFailedView);
                     if(mListView.getFooterViewsCount() == 0)
                         mListView.addFooterView(mNetworkUnusableView);
@@ -364,7 +370,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
         public void showLoadingFailedFooter(boolean loading) {
-                if (loading) {
+                if (loading  && mListView.getAdapter().getCount()>10) {
                     mListView.removeFooterView(mNetworkUnusableView);
                     if(mListView.getFooterViewsCount() == 0)
                         mListView.addFooterView(mLoadingFailedView);

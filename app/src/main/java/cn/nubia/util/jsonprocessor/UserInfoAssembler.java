@@ -1,13 +1,12 @@
 package cn.nubia.util.jsonprocessor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.nubia.entity.UserInfo;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+import cn.nubia.entity.UserInfo;
+
 
 /**
  * Created by JiangYu on 2015/9/10.

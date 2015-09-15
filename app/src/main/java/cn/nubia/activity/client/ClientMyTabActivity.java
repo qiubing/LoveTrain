@@ -19,7 +19,6 @@ import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 
 /**
@@ -100,7 +99,11 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 myStartActivity(ClientShareCourseActivity.class);
                 break;
             case R.id.i_want_share:
-                myStartActivity(ClientMyShareCourseDetailFillActivity.class);
+                Intent intent1 = new Intent(this,ClientMyShareCourseDetailFillActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("type","insert");
+                intent1.putExtras(bundle);
+                startActivity(intent1);
                 break;
             case R.id.btn_passwd_change:
                 myStartActivity(ClientMyAccountmanaPswmodifyActivity.class);

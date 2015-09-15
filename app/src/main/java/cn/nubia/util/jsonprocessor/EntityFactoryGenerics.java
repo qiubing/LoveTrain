@@ -9,7 +9,8 @@ import java.util.List;
  * Created by JiangYu on 2015/9/10.
  */
 public class EntityFactoryGenerics {
-    public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA,CHECKRECORD}
+    public enum ItemType{COURSE,EXAM,LESSONJUDGEMENT,USERINFO,SIMPLEDATA,
+        CHECKRECORD,COURSEINTEGRATION,EXAMRESULT,SHARECOURSE}
     private IAssemblerGenerics mAssembler;
     private JSONObject mJsonObject;
     private ItemType mType;
@@ -37,12 +38,39 @@ public class EntityFactoryGenerics {
             case CHECKRECORD:
                 mAssembler = new CheckRecordAssembler();
                 break;
+            case COURSEINTEGRATION:
+                mAssembler = new CourseIntegrationAssembler();
+                break;
+            case EXAMRESULT:
+                mAssembler = new ExamResultAssembler();
+                break;
+            case SHARECOURSE:
+                mAssembler = new ShareCourseAssembler();
+                break;
+        }
+    }
+
+    public EntityFactoryGenerics(){
+        mType = ItemType.SIMPLEDATA;
+    }
+
+    public EntityFactoryGenerics(Class<? extends IAssemblerGenerics> assemblerClass){
+        try {
+            if(assemblerClass != null)
+                mAssembler = assemblerClass.newInstance();
+            else
+                mType = ItemType.SIMPLEDATA;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     public void setJSON(JSONObject jsonObject){
         mJsonObject = jsonObject;
     }
+
     /**
      * 获得返回结果中的code值
      */
@@ -51,7 +79,7 @@ public class EntityFactoryGenerics {
     }
 
     public List<?> get(){
-        if(mType ==ItemType.SIMPLEDATA)
+        if(mType == ItemType.SIMPLEDATA)
             return getOperateResult();
         else
             return getItemList();

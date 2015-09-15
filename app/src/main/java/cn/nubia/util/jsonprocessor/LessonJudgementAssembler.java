@@ -36,16 +36,16 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
     public LessonJudgement makeLessonJudge(JSONObject jsonObject) throws JSONException {
         LessonJudgement item = new LessonJudgement();
 
-        item.setContentApplicability((float) jsonObject.getDouble("contentapplicability"));
-        item.setContentRationality((float) jsonObject.getDouble("contentrationality"));
-        item.setDiscussion((float) jsonObject.getDouble("discussion"));
-        item.setTimeRationality((float) jsonObject.getDouble("timerationality"));
-        item.setContentUnderstanding((float) jsonObject.getDouble("contentunderstanding"));
-        item.setExpressionAbility((float) jsonObject.getDouble("expressionability"));
-        item.setCommunication((float) jsonObject.getDouble("communication"));
+        item.setContentApplicability((float) jsonObject.getDouble("ContentApplicability"));
+        item.setContentRationality((float) jsonObject.getDouble("ContentRationality"));
+        item.setDiscussion((float) jsonObject.getDouble("Discussion"));
+        item.setTimeRationality((float) jsonObject.getDouble("TimeRationality"));
+        item.setContentUnderstanding((float) jsonObject.getDouble("ContentUnderstanding"));
+        item.setExpressionAbility((float) jsonObject.getDouble("ExpressionAbility"));
+        item.setCommunication((float) jsonObject.getDouble("Communication"));
         item.setOrganization((float) jsonObject.getDouble("Organization"));
-        item.setComprehensiveEvaluation(jsonObject.getString("comprehensiveevaluation"));
-        item.setSuggestion(jsonObject.getString("suggestion"));
+        item.setComprehensiveEvaluation(jsonObject.getString("ComprehensiveEvaluation"));
+        item.setSuggestion(jsonObject.getString("Suggestion"));
 
         return item;
     }

@@ -52,7 +52,7 @@ public class AdminExamAddTabActivity extends Activity {
 
     protected void initEvents() {
         mExamList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(this,mAllExamListView,hand);
+        mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, hand);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
