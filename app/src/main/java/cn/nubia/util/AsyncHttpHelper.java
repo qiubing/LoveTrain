@@ -1,5 +1,7 @@
 package cn.nubia.util;
 
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
@@ -17,6 +19,7 @@ public class AsyncHttpHelper {
 
     static {
         client.setTimeout(10000); // 设置链接超时，如果不设置，默认为10s
+        client.addHeader("X-Requested-With","JsonHttpRequest");
     }
 
     /**
@@ -48,6 +51,7 @@ public class AsyncHttpHelper {
      * @param res
      */
     public static void get(String urlString, JsonHttpResponseHandler res) {
+        Log.e("get",urlString);
         client.get(urlString, res);
     }
 
