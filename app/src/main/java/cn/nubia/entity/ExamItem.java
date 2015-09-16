@@ -7,8 +7,8 @@ import java.io.Serializable;
  */
 public class ExamItem extends Item implements Serializable {
     private int mCourseIndex;
-    private String mStartTime;
-    private String mEndTime;
+    private long mStartTime;
+    private long mEndTime;
     private String mLocale;
     private int mExamCredits;
     private long mRecordModifyTime;
@@ -30,19 +30,19 @@ public class ExamItem extends Item implements Serializable {
         this.mCourseIndex = mCourseIndex;
     }
 
-    public String getStartTime() {
+    public long getStartTime() {
         return mStartTime;
     }
 
-    public void setStartTime(String mStartTime) {
+    public void setStartTime(long mStartTime) {
         this.mStartTime = mStartTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return mEndTime;
     }
 
-    public void setEndTime(String mEndTime) {
+    public void setEndTime(long mEndTime) {
         this.mEndTime = mEndTime;
     }
 
