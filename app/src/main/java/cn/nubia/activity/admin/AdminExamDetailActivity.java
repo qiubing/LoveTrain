@@ -38,17 +38,18 @@ GestureDetector.OnGestureListener就是一个监听器，负责对用户手势�
 		return detector.onTouchEvent(me);
 	}
 
-共需如下四步：
-* GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
-  gestureDetector = new GestureDetector(this, gestureDetectorManager);
+共需如下五步：
+*  1 private GestureDetector gestureDetector;
+* 2 GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+  3 gestureDetector = new GestureDetector(this, gestureDetectorManager);
 
    @Override
-    public boolean onTouchEvent(MotionEvent event) {
+  4  public boolean onTouchEvent(MotionEvent event) {
 
         return  gestureDetector.onTouchEvent(event);
     }
 
-  gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+  5 gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
             @Override
             public void finishActivity() {
                 finish();

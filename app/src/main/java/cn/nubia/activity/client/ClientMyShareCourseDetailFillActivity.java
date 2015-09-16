@@ -245,7 +245,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     }
                     shareCourse.setOperateType(mOperateType);
                     if(mOperateType==CommunicateService.OperateType.INSERT)
-                        mBinder.communicate(shareCourse, new Inter(),"newsharecourse.do");
+                        mBinder.communicate(shareCourse, new Inter(),"share/add_share_course.do");
                     else if(mOperateType==CommunicateService.OperateType.UPDATE){
                         shareCourse.setCourseIndex(mShareCourseItem.getCourseIndex());
                         mBinder.communicate(shareCourse, new Inter(),"updatesharecourse.do");

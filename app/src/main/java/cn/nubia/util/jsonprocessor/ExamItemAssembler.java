@@ -44,8 +44,8 @@ public class ExamItemAssembler implements IAssemblerGenerics<ExamItem> {
 
         item.setRecordModifyTime(jsonObject.getLong("recordModifyTime"));
         item.setCourseIndex(jsonObject.getInt("courseindex"));
-        item.setStartTime(jsonObject.getString("startTime")) ;
-        item.setEndTime(jsonObject.getString("endTime"));
+//        item.setStartTime(jsonObject.getString("startTime")) ;
+//        item.setEndTime(jsonObject.getString("endTime"));
         item.setLocale(jsonObject.getString("location"));
         item.setExamCredits(jsonObject.getInt("examcredits"));
 

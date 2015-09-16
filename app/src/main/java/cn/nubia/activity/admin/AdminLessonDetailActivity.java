@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +16,10 @@ import com.google.zxing.WriterException;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientEvaluateActivity;
+import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.entity.Constant;
+import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
 
@@ -27,20 +32,28 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private Button alterLessonBtn;
     private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
-    private Button mGenerateQRCode;
-    private TextView mEvaluateTextView;
+    private TextView mGenerateQRCode;
+    private Button mEvaluateTextView;
+    private String status = "teacher";
+    private TextView sub_page_title;
 
+    private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
 
-        backImageView = (ImageView) findViewById(R.id.admin_lesson_detail_backImageView);
+
+        backImageView = (ImageView) findViewById(R.id.backButton);
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
         signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
-        mGenerateQRCode = (Button) findViewById(R.id.lesson_QRCodeImage_generate_button);
-        mEvaluateTextView = (TextView) findViewById(R.id.evaluateTextView);
+        mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
+        mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
+        sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+        sub_page_title.setText("课时管理");
+
+        mGenerateQRCode.setVisibility(View.VISIBLE);
 
         backImageView.setOnClickListener(this);
         alterLessonBtn.setOnClickListener(this);
@@ -48,14 +61,54 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         signUpPopulationTextView.setOnClickListener(this);
         mGenerateQRCode.setOnClickListener(this);
         mEvaluateTextView.setOnClickListener(this);
+
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Intent intent = getIntent();
+        if(intent.getStringExtra("status") != null) {
+            status = intent.getStringExtra("status");
+        }
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Intent intent = getIntent();
+        if(intent.getStringExtra("status") != null) {
+            status = intent.getStringExtra("status");
+        }
+    }
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_lesson_detail_backImageView:
-                Intent intentBackImage = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);
+            case R.id.backButton:
+                //huhu
+                /*Intent intentBackImage = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
+                startActivity(intentBackImage);*/
                 finish();
                 break;
             case R.id.admin_lesson_detail_alterLessonButton:
@@ -74,11 +127,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.lesson_QRCodeImage_generate_button:
+            case R.id.backupButton:
                 /**
                  * 生成二维码，edit by qiubing
                  */
                 //TODO:生成具有课程和讲师信息的二维码
+                Toast.makeText(this,"二维码生成中",Toast.LENGTH_SHORT).show();
                 String contentString = "nubia";
                 if (!contentString.equals("")) {
                     //获取需要插入的头像logo
@@ -100,11 +154,18 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 }
                 break;
             case R.id.evaluateTextView:
-                Intent intent = new Intent(this, ClientEvaluateActivity.class);
+                Intent intent = null;
+                if(status.equals("teacher")) {
+                    intent = new Intent(this, ClientEvaluateActivity.class);
+                } else {
+                    intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                }
                 startActivity(intent);
                 break;
 
         }
 
     }
+
+
 }

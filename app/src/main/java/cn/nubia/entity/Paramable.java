@@ -21,21 +21,27 @@ public abstract class Paramable implements Serializable {
     }
 
     public RequestParams toParams(){
+        RequestParams params = new RequestParams();
+        params.add("device_id","MXJSDLJFJFSFS");
+        params.add("request_time", "1445545456456");
+        params.add("apk_version", "1");
+        params.add("token_key", "wersdfffthnjimhtrfedsaw");
+
         switch (mType){
             case INSERT:
-                return toInsertParams();
+                return toInsertParams(params);
             case UPDATE:
-                return toUpdateParams();
+                return toUpdateParams(params);
             case DELETE:
-                return toDeleteParams();
+                return toDeleteParams(params);
             case QUERY:
-                return toQueryParams();
+                return toQueryParams(params);
             default:
                 return null;
         }
     }
-    protected abstract RequestParams toInsertParams();
-    protected abstract RequestParams toUpdateParams();
-    protected abstract RequestParams toQueryParams();
-    protected abstract RequestParams toDeleteParams();
+    protected abstract RequestParams toInsertParams(RequestParams params);
+    protected abstract RequestParams toUpdateParams(RequestParams params);
+    protected abstract RequestParams toQueryParams(RequestParams params);
+    protected abstract RequestParams toDeleteParams(RequestParams params);
 }
