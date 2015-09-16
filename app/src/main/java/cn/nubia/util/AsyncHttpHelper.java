@@ -118,4 +118,5 @@ public class AsyncHttpHelper {
         RequestParams params = new RequestParams(paramMap);
         client.post(urlString, params, res);
     }
+
 }

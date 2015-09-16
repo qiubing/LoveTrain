@@ -39,26 +39,25 @@ public class CreditsAwardMsg extends Paramable{
     }
 
     @Override
-    public RequestParams toInsertParams() {
-        Map<String,String> param = new HashMap<String,String>();
-        param.put("awardedName",mAwardedName);
-        param.put("awardedCredits",String.valueOf(mAwardedCredits));
-        param.put("awaredCause",mAwardedCause);
-        return new RequestParams(param);
+    protected RequestParams toInsertParams(RequestParams params) {
+        params.add("awardedName", mAwardedName);
+        params.add("awardedCredits", String.valueOf(mAwardedCredits));
+        params.add("awaredCause", mAwardedCause);
+        return params;
     }
 
     @Override
-    public RequestParams toUpdateParams() {
+    protected RequestParams toUpdateParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toQueryParams() {
+    protected RequestParams toQueryParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toDeleteParams() {
+    protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
 }

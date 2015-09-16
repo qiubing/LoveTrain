@@ -94,8 +94,8 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
        // holder.name.setText(mList.get(groupPosition).getName());
-        holder.evaluate.setText(mList.get(groupPosition).getComprehensiveEvaluation());
-        holder.suggest.setText(mList.get(groupPosition).getSuggestion());
+        holder.evaluate.setText("综合评价：" + mList.get(groupPosition).getComprehensiveEvaluation());
+        holder.suggest.setText("诚恳建议：" + mList.get(groupPosition).getSuggestion());
         return convertView;
     }
 

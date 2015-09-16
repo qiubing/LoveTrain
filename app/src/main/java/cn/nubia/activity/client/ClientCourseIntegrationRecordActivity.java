@@ -7,71 +7,97 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.nubia.activity.R;
+import cn.nubia.adapter.ClientCourseIntegrationAdapter;
+import cn.nubia.entity.Constant;
+import cn.nubia.entity.CourseIntegrationItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.Utils;
+import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
  * @Author: qiubing
  * @Date: 2015/9/2 9:32
  */
 public class ClientCourseIntegrationRecordActivity extends Activity {
-
     private static final String TAG = "CourseIntegrationRecord";
-
-    private String[] courses = new String[]{
-            "Java基础一","Android开发一","OO思想",
-            "Java基础二","Android开发二","OO思想",
-            "Java基础三","Android开发三","OO思想",
-            "Java基础四","Android开发四","OO思想",
-            "Java基础四","Android开发四","OO思想"
-    };
-
-    private int[] scores = new int[]{
-            10,20,30,
-            20,30,40,
-            30,40,60,
-            40,50,70,
-            40,50,70
-    };
-
+    private TextView mScoreText;
+    private ClientCourseIntegrationAdapter mAdapter;
+    private List<CourseIntegrationItem> mIntegrationList;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_course_integration_record);
+        initEvents();
+    }
 
+    private void initEvents(){
         RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_course_integration_title);
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
-        TextView scoreText = (TextView) findViewById(R.id.show_total_course_integration);
+        mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
         text.setText("课程积分记录");
+        mListView = (ListView) findViewById(R.id.course_integration_detail);
 
-        List<Map<String,Object>> listItems = new ArrayList<Map<String, Object>>();
-        int totalScore = 0;
-        for(int i = 0; i < courses.length; i++){
-            Map<String,Object> listItem = new HashMap<String, Object>();
-            listItem.put("course",courses[i]);
-            listItem.put("score",scores[i]);
-            listItems.add(listItem);
-            totalScore += scores[i];
+        //请求参数
+        HashMap<String,String> params = new HashMap<String,String>();
+        params.put("user_id","0001");
+        RequestParams request = Utils.toParams(params);
+        String url = Constant.BASE_URL ;
+        AsyncHttpHelper.post(url,request,mClientCourseIntegrationHandler);
+    }
+
+    AsyncHttpResponseHandler mClientCourseIntegrationHandler = new AsyncHttpResponseHandler() {
+        @Override
+        public void onSuccess(int i, Header[] headers, byte[] bytes) {
+            Log.e(TAG,"onSuccess");
+            String jsonStr = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[]," +
+                    "\"data\":[{\"lesson_name\":\"Java基础一\",\"lesson_index\":\"1\",\"check_credits\":\"30\",\"cause\":\"正常\",\"acquire_time\":1302122566546}," +
+                    "{\"lesson_name\":\"Android讲义一\",\"lesson_index\":\"2\",\"check_credits\":\"40\",\"cause\":\"分享\",\"acquire_time\":1302122566546}," +
+                    "{\"lesson_name\":\"概要需求分析\",\"lesson_index\":\"3\",\"check_credits\":\"50\",\"cause\":\"高级\",\"acquire_time\":1302122566546}]}";
+            try {
+                JSONObject result = new JSONObject(jsonStr);
+                EntityFactoryGenerics factoryGenerics =
+                        new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, result);
+                int code = factoryGenerics.getCode();
+                //成功返回
+                if (code == 0){
+                    mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
+                    mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList,ClientCourseIntegrationRecordActivity.this);
+                    mListView.setAdapter(mAdapter);
+                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                    mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        Log.v(TAG, listItems.toString());
 
-        scoreText.setText("截止到当前，您的积分总分为" + totalScore + "分" );
-        SimpleAdapter adapter = new SimpleAdapter(this,listItems,
-                R.layout.activity_user_course_integration_record_detail_item,
-                new String[] {"course","score"},
-                new int[] {R.id.course_title,R.id.course_score});
-        ListView list = (ListView)findViewById(R.id.course_integration_detail);
-        list.setAdapter(adapter);
-        Utils.setListViewHeightBasedOnChildren(list);
+        @Override
+        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+            Log.e(TAG, "onFailure");
+        }
+    };
+
+    private int getTotalScore(List<CourseIntegrationItem> list){
+        int total = 0;
+        for (int i = 0; i < list.size(); i++){
+            total += list.get(i).getmCheckCredits();
+        }
+        return total;
     }
 
     /**

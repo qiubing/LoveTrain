@@ -245,8 +245,8 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     }
                     shareCourse.setOperateType(mOperateType);
                     if(mOperateType==CommunicateService.OperateType.INSERT)
-                        mBinder.communicate(shareCourse, new Inter(),"newsharecourse.do");
-                    else{
+                        mBinder.communicate(shareCourse, new Inter(),"share/add_share_course.do");
+                    else if(mOperateType==CommunicateService.OperateType.UPDATE){
                         shareCourse.setCourseIndex(mShareCourseItem.getCourseIndex());
                         mBinder.communicate(shareCourse, new Inter(),"updatesharecourse.do");
                     }
@@ -277,7 +277,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             mCourseEndtime.setText(
                     new SimpleDateFormat("HH:mm").format(endTime));
             mLessonLocation.setText(mShareCourseItem.getLocale());
-        }else{
+        }else if(type.equals("insert")){
             mOperateType = CommunicateService.OperateType.INSERT;
         }
     }
@@ -347,4 +347,14 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                         ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
         }
     }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     *
+     * @param view
+     */
+    public void back(View view) {
+        this.finish();
+    }
+
 }

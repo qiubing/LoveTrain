@@ -27,7 +27,9 @@ public class AdminExamInputScoreActivity extends Activity {
     private List<String> mDataList;
     private float[] scores;
     private Button button;
-    private ImageView mImageView;
+
+    private TextView mManagerTitle;
+    private ImageView mGoBack;
 
     private void init() {
         mDataList = new ArrayList<>();
@@ -54,6 +56,16 @@ public class AdminExamInputScoreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_input_score);
+
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.title_activity_manager_score_input);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mListView = (ListView) findViewById(R.id.manager_exam_score_input_listview);
         init();
@@ -138,13 +150,7 @@ public class AdminExamInputScoreActivity extends Activity {
         });
         mListView.addFooterView(view);
         mListView.setAdapter(adapter);
-        mImageView = (ImageView) findViewById(R.id.manager_exam_backImage);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
     }
 
     class ViewHolder {

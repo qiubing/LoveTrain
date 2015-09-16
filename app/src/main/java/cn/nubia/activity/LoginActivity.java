@@ -130,7 +130,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         params.put("user_id", userID);
         Constant.USER_ID=userID;
         params.put("password", Md5Encryption.getMD5(pwd));
-        String url = "";
+        String url;
         if (isManager.equals("是")) {
             url = Constant.BASE_URL + "ucent/admin_login.do";
         } else {
@@ -147,6 +147,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } catch (Exception e) {
                     e.printStackTrace();
                     DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
+                    handleLogin(new JSONObject());
                 }
             }
 

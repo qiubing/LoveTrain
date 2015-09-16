@@ -7,6 +7,6 @@ import org.json.JSONArray;
 /**
  * Created by JiangYu on 2015/9/10.
  */
-interface IAssemblerGenerics<T> {
+public interface IAssemblerGenerics<T> {
      List<T> assemble(JSONArray jsonArray);
 }

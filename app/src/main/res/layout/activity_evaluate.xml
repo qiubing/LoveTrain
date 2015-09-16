@@ -2,19 +2,28 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/soft_comment_title_content_windows">
+
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="48.0dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
+
 
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/sub_title"
         >
 
         <ExpandableListView
             android:id="@+id/evaluate_expandableListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff4f7f9"
             android:cacheColorHint="#00000000"
             android:divider="#dddbdb"
             android:dividerHeight="1.0px"

@@ -1,7 +1,6 @@
 package cn.nubia.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -59,8 +58,8 @@ public class ClientCheckRecordAdapter extends BaseAdapter {
         CheckRecordItem checkItem = mCheckList.get(position);
         viewHold.mLessonName.setText(checkItem.getmLessonName());
         //格式化时间
-        long l = System.currentTimeMillis();
-        Log.v("current time","" + l);
+        //long l = System.currentTimeMillis();
+        //Log.v("current time","" + l);
         Date date = new Date();
         date.setTime(checkItem.getmCheckTime());
 //            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(checkItem.getmCheckTime());

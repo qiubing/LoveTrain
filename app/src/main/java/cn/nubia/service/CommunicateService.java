@@ -1,12 +1,10 @@
 package cn.nubia.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 
@@ -19,27 +17,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
  * Created by JiangYu on 2015/9/11.
  */
 public class CommunicateService extends Service {
-    private static Map<String,EntityFactoryGenerics.ItemType> sURLReturnType;
-
-    private static Map<OperateType,Class<? extends Handler>> sHandleres;
-
     public enum OperateType{INSERT,UPDATE,QUERY,DELETE}
-    static{
-        sURLReturnType = new HashMap<String,EntityFactoryGenerics.ItemType>();
-        sHandleres = new HashMap<OperateType,Class<? extends Handler>>();
-
-        sURLReturnType.put("creditsaward.do",EntityFactoryGenerics.ItemType.SIMPLEDATA);
-        sURLReturnType.put("passwordmodify.do",EntityFactoryGenerics.ItemType.SIMPLEDATA);
-        sURLReturnType.put("newsharecourse.do",EntityFactoryGenerics.ItemType.SIMPLEDATA);
-        sURLReturnType.put("updatesharecourse.do",EntityFactoryGenerics.ItemType.SIMPLEDATA);
-        sURLReturnType.put("add_course_judge.do",EntityFactoryGenerics.ItemType.SIMPLEDATA);
-
-        sHandleres.put(OperateType.INSERT,NormalHandler.class);
-        sHandleres.put(OperateType.DELETE,NormalHandler.class);
-        sHandleres.put(OperateType.UPDATE,NormalHandler.class);
-        sHandleres.put(OperateType.QUERY,NormalHandler.class);
-    }
-
     public class CommunicateBinder extends Binder {
         public void communicate(Paramable paramable,ActivityInter inter,String URL){
             CommunicateService.this.communicate(paramable,inter,URL);
@@ -59,12 +37,15 @@ public class CommunicateService extends Service {
     }
 
     private void communicate(Paramable paramable,ActivityInter inter,String URL){
+        Log.e("jiangyu",inter.getClass().getName());
         try {
-            Handler  handler = sHandleres.get(paramable.getOperateType()).newInstance();
+            Handler handler = MappingTable.HANDLER_MAPPING.get(URL).newInstance();
             handler.setActivityInter(inter);
             handler.setOperateType(paramable.getOperateType());
-            handler.initEntityFactory(new EntityFactoryGenerics(sURLReturnType.get(URL)));
+            handler.initEntityFactory(new EntityFactoryGenerics(MappingTable.ASSEMBLER_MAPPING.get(URL)));
+
             RequestParams params = paramable.toParams();
+
             AsyncHttpHelper.get(URL,params,handler);
         } catch (InstantiationException e1) {
             e1.printStackTrace();

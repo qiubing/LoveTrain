@@ -2,47 +2,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/soft_comment_title_content_windows"
+
     tools:context="cn.nubia.activity.admin.AdminExamInputScoreActivity">
 
-    <RelativeLayout
-        android:id="@+id/manager_exam_score_input_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:id="@+id/manager_exam_backImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_back" />
-
-        <TextView
-            android:id="@+id/manager_exam_score_input_title"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/title_activity_manager_score_input"
-            android:textColor="@color/grayslate"
-            android:textSize="30.0sp" />
-    </RelativeLayout>
-
-    <!--<Button-->
-    <!--android:id="@+id/manager_exam_score_input_button"-->
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/manager_exam_score_input_layout"-->
     <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="50dp">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/manager_exam_backImage"-->
+    <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:text="@string/title_activity_manager_score_input_button"-->
-    <!--android:textSize="20sp" />-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:src="@mipmap/ic_back" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/manager_exam_score_input_title"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:gravity="center"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="@string/title_activity_manager_score_input"-->
+    <!--android:textColor="@color/grayslate"-->
+    <!--android:textSize="30.0sp" />-->
+    <!--</RelativeLayout>-->
+
+    <include
+        android:id="@+id/manager_score_user_detail_head"
+        layout="@layout/manager_head"
+
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
 
     <ListView
-        android:layout_marginTop="8dp"
         android:id="@+id/manager_exam_score_input_listview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/manager_exam_score_input_layout"></ListView>
+        android:layout_below="@id/manager_score_user_detail_head"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"></ListView>
 
 </RelativeLayout>

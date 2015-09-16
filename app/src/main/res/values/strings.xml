@@ -211,6 +211,7 @@
     <string name="activity_manager_add_exam_add">确认增加</string>
     <string name="activity_manager_edit_exam_add">确认修改</string>
     <string name="activity_manager_add_exam_hint">请输入文本</string>
+    <string name="activity_manager_exam_detail_title">考试详情</string>
     <string name="title_activity_manager_add_exam">ManagerAddExamActivity</string>
     <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
     <string name="related_movies">Related Videos</string>

@@ -29,25 +29,24 @@ public class PswModifyMsg extends Paramable{
     }
 
     @Override
-    public RequestParams toInsertParams() {
+    protected RequestParams toInsertParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toUpdateParams() {
-        Map<String,String> param = new HashMap<String,String>();
-        param.put("oldPsw",mOldPsw);
-        param.put("newPsw",mNewPsw);
-        return new RequestParams(param);
+    protected RequestParams toUpdateParams(RequestParams params) {
+        params.add("oldPsw", mOldPsw);
+        params.add("newPsw", mNewPsw);
+        return params;
     }
 
     @Override
-    public RequestParams toQueryParams() {
+    protected RequestParams toQueryParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toDeleteParams() {
+    protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
 }

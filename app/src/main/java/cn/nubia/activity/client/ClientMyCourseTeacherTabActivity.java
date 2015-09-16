@@ -198,6 +198,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
             Intent intent = new Intent(ClientMyCourseTeacherTabActivity.this, AdminLessonDetailActivity.class);
+            intent.putExtra("status","teacher");
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);
