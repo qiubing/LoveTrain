@@ -89,14 +89,31 @@ public class UpdateClassListHelper {
         return courseItem;
     }
 
+    private static ExamItem makeExam(String operater,JSONObject jsonObjectDetail) throws JSONException{
+        ExamItem examItem = new ExamItem();
+        examItem.setOperator("insert");  //默认插入
+        examItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
+        examItem.setIndex(jsonObjectDetail.getInt("exam_index"));
+        examItem.setLocale(jsonObjectDetail.getString("locale"));
+        examItem.setStartTime(jsonObjectDetail.getLong("start_time"));
+        examItem.setEndTime(jsonObjectDetail.getLong("end_time"));
+        examItem.setExamCredits(jsonObjectDetail.getInt("exam_credits"));
+        examItem.setName(jsonObjectDetail.getString("course_name"));
+        examItem.setDescription(jsonObjectDetail.getString("exam_description"));
+        return examItem;
+    }
     /**
      * 更新所有的考试类型数据
      * */
-    public static void updateAllExamData(JSONObject jsonObject,List<ExamItem> examList){
-        /**修理我*/
-//        parseJson(jsonObject);
-        ExamItem examItem = new ExamItem();
-        updateExamItem(examItem.getOperator(),examItem,examList);
+    public static void updateAllExamData(JSONArray jsonArray,List<ExamItem> examList) throws JSONException {
+        int len = jsonArray.length();
+        ExamItem item = null;
+        for(int i = 0;i < len; i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
+            item = makeExam("insert",jsonObjectDetail);
+            updateExamItem(item.getOperator(),item,examList);
+        }
         binarySort(examList);
     }
 

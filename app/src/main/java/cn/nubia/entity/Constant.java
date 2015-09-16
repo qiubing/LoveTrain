@@ -16,8 +16,9 @@ public class Constant {
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
 
     /****网络类型****/
+    public static final  int LOADING_SUCCESS = 0;
     public static final  int LOADING_FAILED = 1;
-    public static final  int NETWORK_UNUSABLE = 1;
+    public static final  int NETWORK_UNUSABLE = 2;
     public static final boolean SHOW_HEADER = true;
     public static final boolean SHOW_FOOTER = false;
 

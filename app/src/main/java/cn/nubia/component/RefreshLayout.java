@@ -327,9 +327,9 @@ public class RefreshLayout extends SwipeRefreshLayout implements
     public void showLoadFailedView(boolean isHeader,int loadingFailedFlag,boolean isLoading){
         if(isHeader) {
             if (loadingFailedFlag == Constant.LOADING_FAILED)
-                showNetworkFailedHeader(isLoading);
-            else
                 showLoadingFailedHeader(isLoading);
+            else
+                showNetworkFailedHeader(isLoading);
         }
         else{
             if (loadingFailedFlag == Constant.NETWORK_UNUSABLE)
