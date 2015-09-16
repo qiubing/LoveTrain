@@ -26,7 +26,6 @@ import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.IDFactory;
-import cn.nubia.util.Md5Encryption;
 import cn.nubia.util.TestData;
 
 
@@ -75,6 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         IDFactory factory = new IDFactory(this);
         Constant.devideID = factory.getDevideID();
         Constant.apkVersion = factory.getVersionCode();
+        Constant.tokenKep = "sfdgfjh";
         Log.e("LoginActivity", Constant.devideID + "-" + Constant.apkVersion);
 
     }
@@ -128,13 +128,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams();
         params.put("user_id", userID);
+        params.put("password", (pwd));
+
+        params.put("device_id", Constant.devideID);
+        params.put("request_time", System.currentTimeMillis());
+        params.put("apk_version", Constant.apkVersion);
+        params.put("token_key", Constant.tokenKep);
+
         Constant.USER_ID=userID;
         params.put("password", Md5Encryption.getMD5(pwd));
         String url;
         if (isManager.equals("是")) {
             url = Constant.BASE_URL + "ucent/admin_login.do";
         } else {
-            url = Constant.BASE_URL + "user/login.do";
+            url = Constant.BASE_URL + "ucent/login.do";
         }
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override
@@ -150,7 +157,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     handleLogin(new JSONObject());
                 }
             }
-
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 afterProcess("登录");
@@ -198,6 +204,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         params.put("request_time", System.currentTimeMillis());
         params.put("apk_version", Constant.apkVersion);
         params.put("sign", "");
+        params.put("X-Requested-With","aa");
 
         params.put("user_id", userID);
         params.put("user_name", userName);

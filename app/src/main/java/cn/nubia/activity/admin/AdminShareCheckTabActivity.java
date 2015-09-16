@@ -3,37 +3,40 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import com.loopj.android.http.RequestParams;
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.CourseItem;
-import cn.nubia.util.DataLoadUtil;
+import cn.nubia.entity.TechnologyShareCourseItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.UpdateClassListHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.
  */
 public class AdminShareCheckTabActivity extends Activity {
-    private ListView mAllShareCourse;
+    private ListView mListView;
     private CourseAdapter mCourseAdapter;
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
-    private List<CourseItem> mCourseList = new ArrayList<>();
+    private List<TechnologyShareCourseItem> mCourseList = new ArrayList<TechnologyShareCourseItem>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,28 +44,80 @@ public class AdminShareCheckTabActivity extends Activity {
         setContentView(R.layout.activity_admin_unapproved_share_course);
         initViews();
         initEvents();
-        initViewLogic();
+        loadData();
+        //initViewLogic();
 
     }
 
     private void initViews(){
-        mAllShareCourse = (ListView) findViewById(R.id.admin_all_unapproved_share_course);
+        mListView = (ListView) findViewById(R.id.admin_all_unapproved_share_course);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.unapproved_share_course_refresh);
         mErrorHintView = (ErrorHintView) findViewById(R.id.hintView_2);
-        mLoadViewUtil = new LoadViewUtil(this,mAllShareCourse,handler);
+        //mLoadViewUtil = new LoadViewUtil(this,mListView,handler);
     }
 
     private void initEvents(){
-        mCourseAdapter = new CourseAdapter(mCourseList,this);
-        mAllShareCourse.setAdapter(mCourseAdapter);
-        mAllShareCourse.setOnItemClickListener(new CourseListOnItemClickListener());
+        mCourseList = new ArrayList<TechnologyShareCourseItem>();
+        mListView.setOnItemClickListener(new CourseListOnItemClickListener());
     }
 
-    private void initViewLogic(){
+    MyJsonHttpResponseHandler mShareCheckHandler = new MyJsonHttpResponseHandler(){
 
-        /**
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("onSuccess", response.toString());
+            try {
+                JSONArray jsonArray = response.getJSONArray("data");
+                for (int i = 0; i < jsonArray.length();i++){
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    mCourseList.add(makeTechnologyShareCourse(obj));
+                }
+                mCourseAdapter = new CourseAdapter(mCourseList, AdminShareCheckTabActivity.this);
+                mListView.setAdapter(mCourseAdapter);
+                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("onFailure", throwable.toString());
+        }
+    };
+
+    /**
+     * 加载全部数据
+     */
+    private void loadData(){
+        //获取请求参数
+        HashMap<String ,String> param = new HashMap<String,String>();
+        RequestParams request = Utils.toParams(param);
+        String url = Constant.BASE_URL + "share/list_apply_course.do";
+        AsyncHttpHelper.post(url, request, mShareCheckHandler);
+    }
+
+    public static TechnologyShareCourseItem makeTechnologyShareCourse(JSONObject jsonObject) throws JSONException {
+        TechnologyShareCourseItem technology = new TechnologyShareCourseItem();
+        technology.setmCourseName(jsonObject.getString("course_name"));
+        technology.setmCourseIndex(jsonObject.getInt("course_index"));
+        technology.setmCourseDescription(jsonObject.getString("course_description"));
+        technology.setmCourseLevel(jsonObject.getInt("course_level"));
+        technology.setmLocation(jsonObject.getString("location"));
+        technology.setmUserName(jsonObject.getString("user_name"));
+        technology.setmUserId(jsonObject.getString("user_id"));
+        technology.setmStartTime(jsonObject.getLong("start_time"));
+        technology.setmEndTime(jsonObject.getLong("end_time"));
+        return technology;
+    }
+
+
+   /* private void initViewLogic(){
+
+        *//**
          * for Debug  模拟第一次加载数据
-         */
+         *//*
         Message msg = handler.obtainMessage();
         msg.what = 1;
         handler.sendMessage(msg);
@@ -105,16 +160,16 @@ public class AdminShareCheckTabActivity extends Activity {
         });
     }
 
-    /**
+    *//**
      * For debug
-     * */
+     * *//*
     private void loadData(){
-        DataLoadUtil.queryClassInfoDataforGet("aa");
+//        DataLoadUtil.queryClassInfoDataforGet("aa");
     }
 
-    /**
+    *//**
      * for debug
-     * **/
+     * **//*
     public void loadData(int page) {
         String url = "test" + page;
         DataLoadUtil.queryClassInfoDataforGet(url);
@@ -126,38 +181,37 @@ public class AdminShareCheckTabActivity extends Activity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            List<CourseItem> courseList = new ArrayList<>();
-            /**
+            List<TechnologyShareCourseItem> courseList = new ArrayList<TechnologyShareCourseItem>();
+            *//**
              * For Debug
-             */
+             *//*
             if (msg.what == 1){
                 for (int i = 10;i < 30; i++){
-                    CourseItem courseItem = new CourseItem();
-                    courseItem.setIndex(i);
-                    courseItem.setName("Java 基础课程");
-                    courseItem.setCourseCredits(20 + i * 5);
-                    courseItem.setShareType((short)1);
-                    courseItem.setDescription("Java学习课程");
+                    TechnologyShareCourseItem courseItem = new TechnologyShareCourseItem();
+                    courseItem.setmCourseIndex(i);
+                    courseItem.setmCourseName("Java 基础课程");
+                    courseItem.setmCourseLevel((short) 1);
+                    courseItem.setmCourseDescription("Java学习课程");
                     courseList.add(0,courseItem);
                 }
                 mCourseList.addAll(courseList);
             }
             if (msg.what == 2){
                 for(int i = 40; i < 50;i++){
-                    CourseItem courseItem = new CourseItem();
-                    courseItem.setIndex(i);
-                    courseItem.setName("Android 讲义");
-                    courseItem.setCourseCredits(30 + i * 5);
-                    courseItem.setShareType((short)2);
-                    courseItem.setDescription("Android学习课程");
+                    TechnologyShareCourseItem courseItem = new TechnologyShareCourseItem();
+                    courseItem.setmCourseIndex(i);
+                    courseItem.setmCourseName("Android 基础课程");
+                    courseItem.setmCourseLevel((short) 2);
+                    courseItem.setmCourseDescription("Android 学习课程");
                     courseList.add(0,courseItem);
                 }
                 mCourseList.addAll(courseList);
             }
-            UpdateClassListHelper.binarySort(mCourseList);
+            //UpdateClassListHelper.binarySort(mCourseList);
             mCourseAdapter.notifyDataSetChanged();
         }
-    };
+    };*/
+
 
     /**
      * @ClassName:

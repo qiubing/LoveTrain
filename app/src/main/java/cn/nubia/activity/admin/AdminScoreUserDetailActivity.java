@@ -26,15 +26,14 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.Course;
+import cn.nubia.model.admin.Exam;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
-import cn.nubia.util.TestData;
 
 public class AdminScoreUserDetailActivity extends Activity {
 
-    private List<Course> list;
+    private List<Exam> list;
     private TextView mManagerTitle;
     private ImageView mGoBack;
 
@@ -42,7 +41,14 @@ public class AdminScoreUserDetailActivity extends Activity {
         list = new ArrayList<>();
         String url = Constant.BASE_URL + "user/find_score_student.do";
 
+        String userID = getIntent().getStringExtra("userid");
         RequestParams params = new RequestParams();
+        params.put("device_id", Constant.devideID);
+        params.put("request_time", System.currentTimeMillis());
+        params.put("apk_version", Constant.apkVersion);
+        params.put("token_key", Constant.tokenKep);
+        params.put("user_id",userID);
+
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
@@ -58,32 +64,25 @@ public class AdminScoreUserDetailActivity extends Activity {
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 DialogUtil.showToast(AdminScoreUserDetailActivity.this, "连接服务器发生异常！");
-                //TODO
-                try {
-                    handleData(null);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
 
     private void handleData(JSONObject response) throws JSONException {
-        //TODO
-        if(null==response)
-            response = TestData.getCourseUserDetailData();
+//        if (null == response)
+//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Course>>() {
+            Type listType = new TypeToken<ArrayList<Exam>>() {
             }.getType();
             list = gson.fromJson(data, listType);
             List<Map<String, Object>> listItems = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> item = new HashMap<>();
-                item.put("coursename", list.get(i).getCourse_name());
-                item.put("address", list.get(i).getAddress());
+                item.put("coursename", list.get(i).getExam_name());
+                item.put("address", list.get(i).getExam_name());
                 item.put("score", list.get(i).getExam_score());
                 listItems.add(item);
             }
@@ -97,7 +96,7 @@ public class AdminScoreUserDetailActivity extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     DialogUtil.showDialog(AdminScoreUserDetailActivity.this, getIntent().getStringExtra("name") +
-                            " 《" + list.get(position).getCourse_name() + "》的成绩为：" + list.get(position).getExam_score());
+                            " 《" + list.get(position).getExam_name() + "》的成绩为：" + list.get(position).getExam_score());
                 }
             });
         } else {
@@ -121,7 +120,6 @@ public class AdminScoreUserDetailActivity extends Activity {
             }
         });
 
-        List<Map<String, Object>> listItems = new ArrayList<>();
         init();
     }
 

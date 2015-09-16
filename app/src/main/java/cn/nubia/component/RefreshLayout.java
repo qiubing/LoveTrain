@@ -15,6 +15,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.ListView;
+
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 
@@ -127,10 +128,12 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          * 按下时的y坐标
          */
         private int mYDown;
+        //private int mXDown;
         /**
          * 抬起时的y坐标, 与mYDown一起用于滑动到底部时判断是上拉还是下拉
          */
         private int mLastY;
+        //private int mLastX;
         /**
          * 是否在加载中 ( 上拉加载更多 )
          */
@@ -233,6 +236,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                         case MotionEvent.ACTION_DOWN:
                                 // 按下
                                 mYDown = (int) event.getRawY();
+                                //mXDown = (int) event.getRawX();
                                 break;
                         //huhu,  A change has happened during apress gesture (between {@link #ACTION_DOWN} and {@link #ACTION_UP}).
                         //The motion contains the most recent point,
@@ -241,12 +245,16 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                         case MotionEvent.ACTION_MOVE:
                                 // 移动
                                 mLastY = (int) event.getRawY();
+                                //mLastX = (int) event.getRawX();
                                 break;
                         //huhu,A pressed gesture has finished, the
                         //motion contains the final release location
                         case MotionEvent.ACTION_UP:
                                 //huhu，add  mLastY = (int) event.getRawY();
-                                mLastY = (int) event.getRawY();
+                                //mLastY = (int) event.getRawY();
+                                /*if (mLastX - mXDown > 150) {
+                                    ((Activity)getContext()).finish();
+                                }*/
                                 if (canLoad()) {
                                         loadData();
                                 }

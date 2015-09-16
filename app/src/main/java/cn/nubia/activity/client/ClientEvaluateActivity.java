@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -25,7 +27,9 @@ import cn.nubia.adapter.EvaluateAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.LessonJudgement;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
@@ -46,6 +50,8 @@ public class ClientEvaluateActivity  extends Activity {
     private static final String URL_PATH = "http://love-train-dev.nubia.cn/";
     private List<LessonJudgement> mList = new ArrayList<>();
     EvaluateAdapter mEvaluateAdapter;
+    private GestureDetector gestureDetector;
+
 
     private Handler handler = new Handler() {
         @Override
@@ -68,8 +74,27 @@ public class ClientEvaluateActivity  extends Activity {
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
         barTxt = (TextView) findViewById(R.id.sub_page_title);
         barTxt.setText("我的课程评价");
+
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+
         initBeforeData();
         initEvents();
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
     }
 
     protected void initBeforeData() {

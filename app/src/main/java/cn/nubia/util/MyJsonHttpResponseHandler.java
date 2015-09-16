@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler {
 
-    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+    public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
     }
 
     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -43,7 +43,11 @@ public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler {
                         MyJsonHttpResponseHandler.this.postRunnable(new Runnable() {
                             public void run() {
                                 if(responseObj instanceof JSONObject) {
-                                    MyJsonHttpResponseHandler.this.onSuccess(statusCode, headers, (JSONObject)responseObj);
+                                    try {
+                                        MyJsonHttpResponseHandler.this.onSuccess(statusCode, headers, (JSONObject)responseObj);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 } else if(responseObj instanceof JSONArray) {
                                     MyJsonHttpResponseHandler.this.onSuccess(statusCode, headers, (JSONArray)responseObj);
                                 } else if(responseObj instanceof String) {
@@ -68,7 +72,11 @@ public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler {
                 parser.run();
             }
         } else {
-            this.onSuccess(statusCode, headers, new JSONObject());
+            try {
+                this.onSuccess(statusCode, headers, new JSONObject());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
