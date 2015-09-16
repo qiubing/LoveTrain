@@ -1,4 +1,4 @@
-package cn.nubia.model;
+package cn.nubia.model.admin;
 
 /**
  * Created by LK on 2015/9/15.

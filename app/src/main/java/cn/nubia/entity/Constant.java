@@ -36,6 +36,7 @@ public class Constant {
     public static String apkVersion = null;
     public static String tokenKep = null;
 
+
     public static boolean IS_ADMIN = false;/*登录的用户是否是管理员*/
 
     /**

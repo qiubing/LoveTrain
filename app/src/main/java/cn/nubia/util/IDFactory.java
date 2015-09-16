@@ -39,7 +39,7 @@ public class IDFactory {
         }
         String androidID = Settings.Secure
                 .getString(context.getContentResolver(), DEVIDE_ID);
-        if (!"9774d56d682e549c".equals(androidID)) {
+        if (null != androidID && !"9774d56d682e549c".equals(androidID)) {
             SpUtil.putString(context, DEVIDE_ID, androidID);
             return androidID;
         } else {

@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -11,7 +12,6 @@ import android.widget.SimpleAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -26,15 +26,33 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.User;
+import cn.nubia.model.admin.User;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.TestData;
 
 public class AdminScoreUserActivity extends Activity {
 
     private List<User> list;
+
+    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                Log.e("onSuccess", response.toString());
+                handleData(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.e("onFailure", statusCode + "");
+            Log.e("onFailure", throwable.toString());
+        }
+    };
 
     private void init() {
         //TODO
@@ -42,29 +60,12 @@ public class AdminScoreUserActivity extends Activity {
         String url = Constant.BASE_URL + "user/find_student.do";
 
         RequestParams params = new RequestParams();
-        AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                try {
-                    String s = new String(bytes, "UTF-8");
-                    handleData(new JSONObject(s));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    DialogUtil.showToast(AdminScoreUserActivity.this, "服务器返回异常！");
-                }
-            }
+        params.put("device_id", Constant.devideID);
+        params.put("request_time", System.currentTimeMillis());
+        params.put("apk_version", Constant.apkVersion);
+        params.put("token_key", Constant.tokenKep);
 
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                DialogUtil.showToast(AdminScoreUserActivity.this, "连接服务器发生异常！");
-                //TODO
-                try {
-                    handleData(null);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        AsyncHttpHelper.post(url, params, myJsonHttpResponseHandler);
     }
 
     private void handleData(JSONObject response) throws JSONException {
@@ -95,11 +96,9 @@ public class AdminScoreUserActivity extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String name = list.get(position).getUserName();
                     String userid = list.get(position).getUserID();
-                    int userIndex = list.get(position).getUser_index();
                     Intent intent = new Intent(AdminScoreUserActivity.this, AdminScoreUserDetailActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("userid", userid);
-                    intent.putExtra("userindex",userIndex);
                     startActivity(intent);
                 }
             });

@@ -1,4 +1,4 @@
-package cn.nubia.model;
+package cn.nubia.model.admin;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by LK on 2015/9/14.
  */
 public class User {
+    private int user_index;
     @SerializedName("user_id")
     private String userID;
     @SerializedName("user_name")
@@ -19,7 +20,6 @@ public class User {
     private int userTotalCredits;
     @SerializedName("icon_url")
     private String userIconURL;
-    private int user_index;
 
     public User() {
 
