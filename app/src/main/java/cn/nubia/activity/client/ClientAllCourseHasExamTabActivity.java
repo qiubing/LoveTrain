@@ -14,11 +14,13 @@ import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -39,8 +41,7 @@ import cn.nubia.util.Utils;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class ClientMyCourseStudentTabActivity extends Activity {
-
+public class ClientAllCourseHasExamTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
@@ -50,7 +51,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "share/add_share_course.do";
+    private String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
 
 
     @Override
@@ -73,7 +74,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     protected void initEvents() {
 
         mCourseItemList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(ClientMyCourseStudentTabActivity.this, mExpandableListView, mHandler);
+        mLoadViewUtil = new LoadViewUtil(ClientAllCourseHasExamTabActivity.this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
@@ -95,8 +96,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         RequestParams requestParams = Utils.toParams(getClassParam);
         Log.e("requestParams", requestParams.toString());
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
-
-
 
 
 //        /*for Debug  模拟第一次加载数据*/
@@ -149,7 +148,16 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("ClassonSuccess", response.toString());
             try {
-                UpdateClassListHelper.updateAllClassData(response.getJSONArray("data"), mCourseItemList);
+                if(response.getInt("code")==0) {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    Log.e("HasExam", mCourseItemList.size()+"" );
+                    UpdateClassListHelper.updateAllClassData(jsonArray, mCourseItemList);
+                    Log.e("HasExam", mCourseItemList.size() + "");
+                    /**根据user_id，只保留有考试的课程*/
+                    /**没有执行到这一步？*/
+                    getExamList(mCourseItemList);
+                    Log.e("HasExam", mCourseItemList.toString() );
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -162,7 +170,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             Log.e("Class onSuccess", "onFailure");
         }
     };
-
 
 
     /*For debug*/
@@ -229,20 +236,34 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         }
     };
 
-
+    /**只保留自己是讲师的课程显示*/
+    public void getExamList(List<CourseItem> mList){
+        ArrayList<CourseItem> resultList=new ArrayList<>();
+        if(mList.size()!=0){
+            Iterator<CourseItem> it=mList.iterator();
+            while(it.hasNext()){
+                CourseItem courseItem=it.next();
+                if(courseItem.hasExam()) {
+                    resultList.add(courseItem);
+                }
+            }
+        }
+        mList.clear();
+        mList.addAll(resultList);
+    }
 
 
 
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(ClientMyCourseStudentTabActivity.this, AdminLessonDetailActivity.class);
+            Intent intent = new Intent(ClientAllCourseHasExamTabActivity.this, AdminLessonDetailActivity.class);
             intent.putExtra("status","student");
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);
             startActivity(intent);
-            Toast.makeText(ClientMyCourseStudentTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+            Toast.makeText(ClientAllCourseHasExamTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
             return false;
         }
     }

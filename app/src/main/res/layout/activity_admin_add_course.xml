@@ -122,6 +122,7 @@
         <TableRow android:paddingTop="20sp">
 
             <TextView
+                android:id="@+id/add_course_highLevelCoursePoints_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"

@@ -27,6 +27,7 @@ public class UpdateClassListHelper {
      * */
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList) throws JSONException {
         int len = jsonArray.length();
+        Log.e("updateAllClassData",""+jsonArray.length());
         Item item = null;
         for(int i = 0;i < len; i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -82,9 +83,9 @@ public class UpdateClassListHelper {
         courseItem.setHasExam(jsonObjectDetail.getBoolean("has_exam"));
         courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
         if (courseType.equals("senior")){
-            courseItem.setEnrollCredits((short)jsonObjectDetail.getInt("enroll_credits"));
+            courseItem.setEnrollCredits(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("enroll_credits"):20);
         }else if (courseType.equals("share")){
-            courseItem.setShareType((short)jsonObjectDetail.getInt("course_level"));
+            courseItem.setShareType(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("course_level"):0);
         }
         return courseItem;
     }
@@ -133,9 +134,9 @@ public class UpdateClassListHelper {
                 break;
             case "lesson":
                 if (item instanceof LessonItem){
-                    int index = binarySearch(list,((LessonItem) item).getCourseIndex());
-                    CourseItem courseItem = list.get(index);
+                    int index = binarySearch(list, ((LessonItem) item).getCourseIndex());
                     if (index >= 0) {
+                        CourseItem courseItem = list.get(index);
                         updateLessonItem(item.getOperator(), (LessonItem) item, courseItem.getLessonList());
                     }
                 }

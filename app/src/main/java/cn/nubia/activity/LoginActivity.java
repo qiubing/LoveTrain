@@ -136,7 +136,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         params.put("token_key", Constant.tokenKep);
 
         Constant.USER_ID=userID;
-        params.put("password", Md5Encryption.getMD5(pwd));
         String url;
         if (isManager.equals("是")) {
             url = Constant.BASE_URL + "ucent/admin_login.do";

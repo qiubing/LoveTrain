@@ -74,7 +74,7 @@ public class AdminCourseAddTabActivity extends Activity {
         mLoadViewUtil = new LoadViewUtil(this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
 
-        /*生成ExpandableListAdapter**/
+        /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
@@ -169,43 +169,43 @@ public class AdminCourseAddTabActivity extends Activity {
             List<LessonItem> mLessonList = new ArrayList<>();
             /*For DEBUG  Need add data*/
             if (msg.what == 1) {
-                for (int i = 10; i < 30; i++) {
-                    CourseItem mCourseItem = new CourseItem();
-                    mCourseItem.setIndex(i);
-                    mCourseItem.setName("Java基础");
-                    mCourseList.add(0, mCourseItem);
-                    for (int j = 0; j < 3; j++) {
-                        LessonItem mLessonItem = new LessonItem();
-                        mLessonItem.setIndex(i);
-                        mLessonItem.setName("Java基础" + i);
-                        mLessonItem.setStartTime((long)12345);
-                        mLessonItem.setLocation("C-2");
-                        mLessonList.add(0, mLessonItem);
-                    }
-                    mCourseItem.setLessonList(mLessonList);
-                }
-                mCourseItemList.addAll(mCourseList);
+//                for (int i = 10; i < 30; i++) {
+//                    CourseItem mCourseItem = new CourseItem();
+//                    mCourseItem.setIndex(i);
+//                    mCourseItem.setName("Java基础");
+//                    mCourseList.add(0, mCourseItem);
+//                    for (int j = 0; j < 3; j++) {
+//                        LessonItem mLessonItem = new LessonItem();
+//                        mLessonItem.setIndex(i);
+//                        mLessonItem.setName("Java基础" + i);
+//                        mLessonItem.setStartTime((long)12345);
+//                        mLessonItem.setLocation("C-2");
+//                        mLessonList.add(0, mLessonItem);
+//                    }
+//                    mCourseItem.setLessonList(mLessonList);
+//                }
+//                mCourseItemList.addAll(mCourseList);
             }
             if (msg.what == 2) {
-                for (int i = 40; i < 50; i++) {
-                    CourseItem mCourseItem = new CourseItem();
-                    mCourseItem.setIndex(i);
-                    mCourseItem.setName("Android基础");
-                    mCourseList.add(0, mCourseItem);
-                    for (int j = 0; j < 3; j++) {
-                        LessonItem mLessonItem = new LessonItem();
-                        mLessonItem.setIndex(i);
-                        mLessonItem.setName("Android基础" + i);
-                        mLessonItem.setStartTime((long)23456);
-                        mLessonItem.setLocation("C-2");
-                        mLessonList.add(0, mLessonItem);
-                    }
-                    mCourseItem.setLessonList(mLessonList);
-                }
-                mCourseItemList.addAll(mCourseList);
+//                for (int i = 40; i < 50; i++) {
+//                    CourseItem mCourseItem = new CourseItem();
+//                    mCourseItem.setIndex(i);
+//                    mCourseItem.setName("Android基础");
+//                    mCourseList.add(0, mCourseItem);
+//                    for (int j = 0; j < 3; j++) {
+//                        LessonItem mLessonItem = new LessonItem();
+//                        mLessonItem.setIndex(i);
+//                        mLessonItem.setName("Android基础" + i);
+//                        mLessonItem.setStartTime((long)23456);
+//                        mLessonItem.setLocation("C-2");
+//                        mLessonList.add(0, mLessonItem);
+//                    }
+//                    mCourseItem.setLessonList(mLessonList);
+//                }
+//                mCourseItemList.addAll(mCourseList);
             }
-            UpdateClassListHelper.binarySort(mCourseItemList);
-            mCourseExpandableListAdapter.notifyDataSetChanged();
+//            UpdateClassListHelper.binarySort(mCourseItemList);
+//            mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };
 
@@ -214,15 +214,15 @@ public class AdminCourseAddTabActivity extends Activity {
     MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            super.onSuccess(statusCode, headers, response);
+//            super.onSuccess(statusCode, headers, response);
             Log.e("AdminCourseAddTabA", "onSuccess");
             Log.e("AdminCourseAddTabA", response.toString());
 
-//            try {
-//                UpdateClassListHelper.updateAllClassData(response.getJSONArray("data"), mCourseItemList);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                UpdateClassListHelper.updateAllClassData(response.getJSONArray("data"), mCourseItemList);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
 
@@ -230,15 +230,14 @@ public class AdminCourseAddTabActivity extends Activity {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("AdminCourseAddTabA", "onFailure");
-            String jsonStr= "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":1,\"lesson_name\":\"Java基础一\",\"lesson_description\":\"Java Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":2,\"lesson_name\":\"Java基础二\",\"lesson_description\":\"Java Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"course_name\":\"Android\",\"course_description\":\"Android是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":1,\"lesson_name\":\"Android基础一\",\"lesson_description\":\"Android Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":2,\"lesson_name\":\"Android基础二\",\"lesson_description\":\"Android Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}}]}";
-
-            try {
-                errorResponse = new JSONObject(jsonStr);
+//            String jsonStr= "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[],\"data\":[{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"course_name\":\"Java基础\",\"course_description\":\"Java是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":1,\"lesson_name\":\"Java基础一\",\"lesson_description\":\"Java Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":1,\"lesson_index\":2,\"lesson_name\":\"Java基础二\",\"lesson_description\":\"Java Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"course\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"course_name\":\"Android\",\"course_description\":\"Android是一门好课程\",\"lessons\":2,\"has_exam\":1,\"course_record_modify_time\":201503141545}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":1,\"lesson_name\":\"Android基础一\",\"lesson_description\":\"Android Hello World!第一课\",\"user_id\":\"0016002946\",\"teacher_name\":\"张三\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}},{\"type\":\"lesson\",\"operate\":\"insert\",\"detail\":{\"course_index\":2,\"lesson_index\":2,\"lesson_name\":\"Android基础二\",\"lesson_description\":\"Android Hello World!第二课\",\"user_id\":\"0016002946\",\"teacher_name\":\"李四\",\"locale\":\"C-6室\",\"start_time\":1322211211211,\"end_time\":12312312312,\"check_credits\":20,\"teacher_credits\":30,\"judge_score\":25,\"lesson_record_modify_time\":1231221312123}}]}";
+//            try {
+//                errorResponse = new JSONObject(jsonStr);
 //                UpdateClassListHelper.updateAllClassData(errorResponse.getJSONArray("data"),mCourseItemList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-//            mCourseExpandableListAdapter.notifyDataSetChanged();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//           mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };
 
