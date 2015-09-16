@@ -28,6 +28,19 @@
         android:textColor="@color/grayslate"
         android:textSize="20.0sp" />
 
+    <TextView
+        android:id="@+id/backupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="生成二维码"
+        android:layout_centerVertical="true"
+        android:textColor="@color/item_operation_download"
+        android:visibility="gone"
+        />
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
