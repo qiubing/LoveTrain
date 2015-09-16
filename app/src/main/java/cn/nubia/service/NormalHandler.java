@@ -47,7 +47,7 @@ public class NormalHandler extends Handler {
         mFactoryGenerics.setJSON(errorResponse);
 //        List<String> resultStr =(List<String>) mFactoryGenerics.get();
         List<String> resultStr = new ArrayList<String>();
-        resultStr.add("true");
+        resultStr.add("false");
         mInter.alter(resultStr,mType);
         mInter = null;
     }

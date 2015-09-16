@@ -74,28 +74,36 @@ public class ShareCourseItem extends Paramable{
     }
 
     @Override
-    public RequestParams toInsertParams() {
-        Map<String,String> param = new HashMap<String,String>();
-        param.put("course_name",mCourseName);
-        param.put("course_description",mCourseDescription);
-        param.put("type",String.valueOf(2));
-        param.put("course_level",String.valueOf(mCourseLevel));
-        param.put("locale",mLocale);
-        param.put("start_time",String.valueOf(mStartTime));
-        param.put("end_time",String.valueOf(mEndTime));
+    protected RequestParams toInsertParams(RequestParams params) {
+        params.add("course_name", mCourseName);
+        params.add("course_description", mCourseDescription);
+        params.add("type", String.valueOf(2));
+        params.add("course_level", String.valueOf(mCourseLevel));
+        params.add("locale", mLocale);
+        params.add("start_time", String.valueOf(mStartTime));
+        params.add("end_time", String.valueOf(mEndTime));
 
-        return new RequestParams(param);
+        return params;
     }
     @Override
-    public RequestParams toUpdateParams() {
+    protected RequestParams toUpdateParams(RequestParams params) {
+        params.add("course_index", String.valueOf(mCourseIndex));
+        params.add("course_name", mCourseName);
+        params.add("course_description", mCourseDescription);
+        params.add("type", String.valueOf(2));
+        params.add("course_level", String.valueOf(mCourseLevel));
+        params.add("locale", mLocale);
+        params.add("start_time", String.valueOf(mStartTime));
+        params.add("end_time", String.valueOf(mEndTime));
+
+        return params;
+    }
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
         return null;
     }
     @Override
-    public RequestParams toQueryParams() {
-        return null;
-    }
-    @Override
-    public RequestParams toDeleteParams() {
+    protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
 }

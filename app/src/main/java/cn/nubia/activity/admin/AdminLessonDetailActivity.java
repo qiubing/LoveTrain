@@ -14,6 +14,7 @@ import com.google.zxing.WriterException;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientEvaluateActivity;
+import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
@@ -29,11 +30,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private TextView signUpPopulationTextView;
     private Button mGenerateQRCode;
     private TextView mEvaluateTextView;
-
+    private String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
+
 
         backImageView = (ImageView) findViewById(R.id.admin_lesson_detail_backImageView);
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
@@ -49,7 +51,18 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         mGenerateQRCode.setOnClickListener(this);
         mEvaluateTextView.setOnClickListener(this);
     }
-
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Intent intent = getIntent();
+        status = intent.getStringExtra("status");
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        Intent intent = getIntent();
+        status = intent.getStringExtra("status");
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -100,7 +113,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 }
                 break;
             case R.id.evaluateTextView:
-                Intent intent = new Intent(this, ClientEvaluateActivity.class);
+                Intent intent = null;
+                if(status.equals("teacher"))
+                    intent = new Intent(this, ClientEvaluateActivity.class);
+                else if(status.equals("student"))
+                    intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                 startActivity(intent);
                 break;
 

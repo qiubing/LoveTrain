@@ -11,8 +11,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,10 +30,12 @@ import cn.nubia.util.DialogUtil;
  */
 public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private Button mConfirmButton;
-    private Button mBackButton;
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
+
+    private TextView mManagerTitle;
+    private ImageView mGoBack;
 
     private CommunicateService.CommunicateBinder mBinder;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -56,6 +60,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycourse_judge_detail_fill);
+
+        //公用部分
+        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
 
         connectService();
         holdView();
@@ -88,8 +97,9 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                             mComprehensiveEvaluationEditText.getText().toString());
                     judgement.setSuggestion(
                             mSuggestionEditText.getText().toString());
+
                     judgement.setOperateType(CommunicateService.OperateType.INSERT);
-                    mBinder.communicate(judgement, new Inter(),"newjudgement.do");
+                    mBinder.communicate(judgement, new Inter(),"/my/add_course_judge.do");
                 }
             }
         };
@@ -98,8 +108,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private void holdView(){
         mConfirmButton =(Button) findViewById(
                 R.id.mycourse_judge_detail_fill_confirmbutton);
-        mBackButton =(Button) findViewById(
-                R.id.mycourse_judge_detail_fill_backbutton);
         mComprehensiveEvaluationEditText =(EditText) findViewById(
                 R.id.mycourse_judge_detail_fill_comprehensiveevaluation_edittext);
         mSuggestionEditText =(EditText) findViewById(
@@ -134,7 +142,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
 
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
-        mBackButton.setOnClickListener(new View.OnClickListener() {
+        mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClientMyCourseJudgeDetailFillActivity.this.finish();

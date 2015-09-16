@@ -110,32 +110,31 @@ public class LessonJudgement extends Paramable{
     }
 
     @Override
-    public RequestParams toInsertParams() {
-        Map<String,String> param = new HashMap<String,String>();
-        param.put("awardedName",String.valueOf(mContentApplicability));
-        param.put("awardedName",String.valueOf(mContentRationality));
-        param.put("awardedName",String.valueOf(mDiscussion));
-        param.put("awardedName",String.valueOf(mTimeRationality));
-        param.put("awardedName",String.valueOf(mExpressionAbility));
-        param.put("awardedName",String.valueOf(mCommunication));
-        param.put("awardedName",String.valueOf(mOrganization));
-        param.put("awardedCredits",mComprehensiveEvaluation);
-        param.put("awaredCause",mSuggestion);
-        return new RequestParams(param);
+    protected RequestParams toInsertParams(RequestParams params) {
+        params.add("ContentApplicability", String.valueOf(mContentApplicability));
+        params.add("ContentRationality", String.valueOf(mContentRationality));
+        params.add("Discussion", String.valueOf(mDiscussion));
+        params.add("TimeRationality", String.valueOf(mTimeRationality));
+        params.add("ExpressionAbility", String.valueOf(mExpressionAbility));
+        params.add("Communication", String.valueOf(mCommunication));
+        params.add("Organization", String.valueOf(mOrganization));
+        params.add("ComprehensiveEvaluation", mComprehensiveEvaluation);
+        params.add("Suggestion", mSuggestion);
+        return params;
     }
 
     @Override
-    public RequestParams toUpdateParams() {
+    protected RequestParams toUpdateParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toQueryParams() {
+    protected RequestParams toQueryParams(RequestParams params) {
         return null;
     }
 
     @Override
-    public RequestParams toDeleteParams() {
+    protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
 }
