@@ -8,11 +8,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -23,6 +21,7 @@ import cn.nubia.adapter.ClientExamScoreAdapter;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamResultItem;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
@@ -52,13 +51,37 @@ public class ClientExamScoreActivity extends Activity {
 
         //请求参数
         HashMap<String,String> params = new HashMap<String,String>();
-        params.put("user_id","0001");
+        params.put("user_id","0016002946");
         RequestParams request = Utils.toParams(params);
-        String url = Constant.BASE_URL ;
+        String url = Constant.BASE_URL + "/exam/my_exam_list.do";
         AsyncHttpHelper.post(url, request, mClientExamScoreHandler);
     }
 
-    AsyncHttpResponseHandler mClientExamScoreHandler = new AsyncHttpResponseHandler(){
+    MyJsonHttpResponseHandler mClientExamScoreHandler = new MyJsonHttpResponseHandler(){
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("onSuccess", response.toString());
+            EntityFactoryGenerics factoryGenerics =
+                    new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.EXAMRESULT, response);
+            int code = factoryGenerics.getCode();
+            //成功返回
+            if(code == 0){
+                mResultList = (List<ExamResultItem>) factoryGenerics.get();
+                mAdapter = new ClientExamScoreAdapter(mResultList,ClientExamScoreActivity.this);
+                mListView.setAdapter(mAdapter);
+                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("onFailure", throwable.toString());
+        }
+    };
+
+   /* AsyncHttpResponseHandler mClientExamScoreHandler = new AsyncHttpResponseHandler(){
         @Override
         public void onSuccess(int i, Header[] headers, byte[] bytes) {
             Log.e(TAG, "onSuccess");
@@ -96,7 +119,7 @@ public class ClientExamScoreActivity extends Activity {
         @Override
         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
             Log.e(TAG, "onFailure");
-           /* String strJson = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[]," +
+           *//* String strJson = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[]," +
                     "\"data\":[{\"lesson_name\":\"Java基础一\",\"lesson_index\":1,\"exam_score\":30}," +
                     "{\"lesson_name\":\"Java基础二\",\"lesson_index\":2,\"exam_score\":40}," +
                     "{\"lesson_name\":\"Java基础三\",\"lesson_index\":3,\"exam_score\":50}," +
@@ -124,9 +147,9 @@ public class ClientExamScoreActivity extends Activity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }*/
+            }*//*
         }
-    };
+    };*/
 
     /**
      * 返回箭头绑定事件，即退出该页面

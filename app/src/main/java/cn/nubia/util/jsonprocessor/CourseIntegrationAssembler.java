@@ -34,7 +34,7 @@ public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseInte
     public CourseIntegrationItem makeCourseIntegration(JSONObject jsonObject) throws JSONException {
         CourseIntegrationItem integration = new CourseIntegrationItem();
         integration.setmLessonName(jsonObject.getString("lesson_name"));
-        integration.setmAcquireTime(jsonObject.getLong("acquire_time"));
+        integration.setmAcquireTime(jsonObject.getLong("achieve_time"));
         integration.setmCheckCredits(jsonObject.getInt("check_credits"));
         integration.setmCause(jsonObject.getString("cause"));
         integration.setmLessonIndex(jsonObject.getInt("lesson_index"));

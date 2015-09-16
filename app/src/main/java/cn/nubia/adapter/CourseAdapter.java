@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
 import cn.nubia.activity.R;
-import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
  * @Description:
@@ -18,14 +22,13 @@ import cn.nubia.entity.CourseItem;
  */
 public class CourseAdapter extends BaseAdapter {
 
-    private List<CourseItem> mCourseList;//考试信息表
+    private List<TechnologyShareCourseItem> mCourseList;//考试信息表
     private Context mContext;
 
-    public CourseAdapter(List<CourseItem> courseList,Context context){
+    public CourseAdapter(List<TechnologyShareCourseItem> courseList,Context context){
         this.mCourseList = courseList;
         this.mContext = context;
     }
-
 
     @Override
     public int getCount() {
@@ -55,20 +58,27 @@ public class CourseAdapter extends BaseAdapter {
         }else{
             viewHold = (ViewHolder) convertView.getTag();
         }
-        CourseItem course = mCourseList.get(position);
-        viewHold.mTitle.setText(course.getName());
+        TechnologyShareCourseItem course = mCourseList.get(position);
+        viewHold.mTitle.setText(course.getmCourseName());
 
         //组合课程信息
+        Date startTime = new Date();
+        startTime.setTime(course.getmStartTime());
+        Date endTime = new Date();
+        endTime.setTime(course.getmEndTime());
         StringBuilder sb = new StringBuilder();
-        sb.append(course.getLessones());
+        sb.append(course.getmLocation());
+        sb.append(", ");
+        sb.append(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
         sb.append(" ");
-        sb.append(course.getCourseCredits());
-        sb.append(" ");
-        sb.append(course.getShareType());
-        sb.append(" ");
-        sb.append(course.getDescription());
-        Log.v("course",sb.toString());
+        sb.append(new SimpleDateFormat("HH:mm").format(startTime));
+        sb.append("~");
+        sb.append(new SimpleDateFormat("HH:mm").format(endTime));
+        sb.append(", ");
+        sb.append(course.getmUserName());
         viewHold.mCourseInfo.setText(sb.toString());
+
+        Log.v("course", sb.toString());
         return convertView;
     }
 

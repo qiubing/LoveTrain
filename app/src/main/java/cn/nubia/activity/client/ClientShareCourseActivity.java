@@ -10,11 +10,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,6 +24,7 @@ import cn.nubia.adapter.ClientShareCourseAdapter;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
@@ -72,13 +71,36 @@ public class ClientShareCourseActivity extends Activity {
 
         //请求参数
         HashMap<String,String> param = new HashMap<String,String>();
-        param.put("user_id", "001");
+        param.put("user_id", "0016002946");
         RequestParams request = Utils.toParams(param);
-        String url = Constant.BASE_URL ;
+        String url = Constant.BASE_URL + "/share/list_my_share.do";
         AsyncHttpHelper.post(url, request, mCheckRecordHandler);
     }
 
-    AsyncHttpResponseHandler mCheckRecordHandler = new AsyncHttpResponseHandler(){
+    MyJsonHttpResponseHandler mCheckRecordHandler = new MyJsonHttpResponseHandler(){
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("onSuccess", response.toString());
+            EntityFactoryGenerics factoryGenerics =
+                    new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SHARECOURSE, response);
+            int code = factoryGenerics.getCode();
+            if (code == 0){
+                mCourseList = (List<ShareCourseItem>) factoryGenerics.get();
+                mAdapter = new ClientShareCourseAdapter(mCourseList,ClientShareCourseActivity.this);
+                mListView.setAdapter(mAdapter);
+                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("onFailure", throwable.toString());
+        }
+    };
+
+    /*AsyncHttpResponseHandler mCheckRecordHandler = new AsyncHttpResponseHandler(){
         @Override
         public void onSuccess(int i, Header[] headers, byte[] bytes) {
             Log.e(TAG,"onSuccess");
@@ -119,7 +141,7 @@ public class ClientShareCourseActivity extends Activity {
         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
             Log.e(TAG, "onFailure");
         }
-    };
+    };*/
 
     /**
      * 返回箭头绑定事件，即退出该页面
