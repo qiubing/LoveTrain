@@ -20,10 +20,22 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
+import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 
 /**
@@ -31,12 +43,13 @@ import cn.nubia.util.Utils;
  * @Author: qiubing
  * @Date: 2015/9/6 20:23
  */
-public class ClientUpdateIconActivity extends BaseActivity implements OnClickListener{
+public class ClientUpdateIconActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = "UpdateIconActivity";
 
     private CircleImageView mCircleImageView;
     private Button mEditButton;
     private Button mUpLoadButton;
+    private Bitmap mPhoto;
     /* 请求码 */
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -72,7 +85,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         this.finish();
     }
 
-    private void findViews(){
+    private void findViews() {
         mCircleImageView = (CircleImageView) findViewById(R.id.image_view);
         mEditButton = (Button) findViewById(R.id.btn_edit_head_portrait);
         mUpLoadButton = (Button) findViewById(R.id.btn_upload);
@@ -81,17 +94,71 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_edit_head_portrait:
                 new PopupWindows(ClientUpdateIconActivity.this, mCircleImageView);
                 break;
             case R.id.btn_upload:
-                showShortToast("长传头像成功");
-                ClientUpdateIconActivity.this.finish();
                 //TODO:上传图像到服务器
+                uploadFile(mPhoto);
                 break;
         }
     }
+
+    /**
+     * 上传文件到服务器
+     */
+    public void uploadFile(Bitmap bitmap) {
+        // bitmap 转换 String
+        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        ///bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+        ///byte[] b = stream.toByteArray();
+        try {
+            String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
+            File file = new File(path);
+            Log.v("file",file.toString());
+            if (file.exists() && file.length() > 0) {
+                //上传地址以及请求参数
+                String url = Constant.BASE_URL + "user/icon_set.do";
+                RequestParams params = new RequestParams();
+                params.put("device_id", "MXJSDLJFJFSFS");
+                params.put("request_time", "1445545456456");
+                params.put("apk_version", "1");
+                params.put("token_key", "wersdfffthnjimhtrfedsaw");
+                params.put("user_icon_type", "multipart/form-data");
+                params.put("user_icon", file);
+                params.put("user_id", "0016002946");
+                AsyncHttpHelper.post(url, params, mUpdateIconHandler);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+            super.onSuccess(statusCode, headers, response);
+            Log.e("onSuccess", response.toString());
+            if (response.getString("code").equals("0") && response.getInt("data") == 0) {
+                showShortToast("长传头像成功");
+            } else {
+                showShortToast("长传头像失败");
+            }
+            ClientUpdateIconActivity.this.finish();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("onFailure", throwable.toString());
+            //showShortToast("长传头像失败");
+            //ClientUpdateIconActivity.this.finish();
+        }
+    };
+
 
     /**
      * 处理头像的内部类
@@ -136,10 +203,10 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 }
             });
         }
+
     }
 
     /**
-     *
      * 系统相机拍照
      *
      * @return
@@ -161,7 +228,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                         android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(intent, CAMERA_REQUEST_CODE);
-                Log.v(TAG,photoUri.toString());
+                Log.v(TAG, photoUri.toString());
                 Log.e("takePhoto", "takePhoto");
             } else {
                 Toast.makeText(this, "发生意外，无法写入相册", Toast.LENGTH_LONG).show();
@@ -194,7 +261,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
             switch (requestCode) {
                 case IMAGE_REQUEST_CODE:
                     startPhotoZoom(data.getData());
-                    Log.v(TAG,data.getData().toString());
+                    Log.v(TAG, data.getData().toString());
                     break;
                 case CAMERA_REQUEST_CODE:
                     Log.e("CAMERA_REQUEST_CODE", "CAMERA_REQUEST_CODE");
@@ -208,7 +275,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                             e.printStackTrace();
                         }
                         /*返回照片给上一级显示*/
-                        ClientUpdateIconActivity.this.setResult(RETURN_PHOTO_CODE,data);
+                        ClientUpdateIconActivity.this.setResult(RETURN_PHOTO_CODE, data);
                     }
                     break;
             }
@@ -225,10 +292,10 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     private void getImageToView(Intent data) throws IOException {
         Bundle extras = data.getExtras();
         if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
+            mPhoto = extras.getParcelable("data");
             //保存文件到SD卡中
-            Utils.saveFile(photo, Constant.PORTRAIT);
-            Drawable drawable = new BitmapDrawable(photo);
+            Utils.saveFile(mPhoto, Constant.PORTRAIT);
+            Drawable drawable = new BitmapDrawable(mPhoto);
             mCircleImageView.setImageDrawable(drawable);
             // 上传头像到服务器上去
             //String imageStrData = "";

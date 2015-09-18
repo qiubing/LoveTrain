@@ -56,7 +56,7 @@ public class ClientMyCheckRecordActivity extends Activity {
         HashMap<String,String> param = new HashMap<String,String>();
         param.put("user_id", "0016002946");
         RequestParams request = Utils.toParams(param);
-        String url = Constant.BASE_URL + "/user/find_check_record.do";
+        String url = Constant.BASE_URL + "user/find_check_record.do";
         AsyncHttpHelper.post(url, request, mCheckRecordHandler);
     }
 
