@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import cn.nubia.db.DbUtil;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.Item;

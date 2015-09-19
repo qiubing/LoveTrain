@@ -25,7 +25,7 @@ import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.DbUtil;
+import cn.nubia.db.DbUtil;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.IDFactory;

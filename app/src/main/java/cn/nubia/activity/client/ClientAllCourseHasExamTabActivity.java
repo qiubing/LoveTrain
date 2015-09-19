@@ -25,11 +25,10 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.DataLoadUtil;
-import cn.nubia.util.DbUtil;
+import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.SqliteHelper;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -90,7 +89,6 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
                     @Override
                     public void run() {
                         // 更新最新数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
@@ -109,7 +107,6 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
                     @Override
                     public void run() {
                         //加载历史数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,

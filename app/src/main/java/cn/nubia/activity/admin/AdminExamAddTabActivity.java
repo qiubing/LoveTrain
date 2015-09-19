@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +23,11 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ExamAdapter;
-import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.DataLoadUtil;
-import cn.nubia.util.DbUtil;
+import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
@@ -81,7 +76,6 @@ public class AdminExamAddTabActivity extends Activity {
                     @Override
                     public void run() {
                         // 更新最新数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData(null);
                         mRefreshLayout.setRefreshing(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
@@ -100,7 +94,6 @@ public class AdminExamAddTabActivity extends Activity {
                     @Override
                     public void run() {
                         //加载历史数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData(null);
                         mRefreshLayout.setLoading(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,

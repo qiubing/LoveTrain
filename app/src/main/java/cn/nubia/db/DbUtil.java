@@ -1,4 +1,4 @@
-package cn.nubia.util;
+package cn.nubia.db;
 
 import android.content.ContentValues;
 import android.content.Context;

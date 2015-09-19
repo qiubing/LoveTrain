@@ -21,7 +21,7 @@ import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.entity.Constant;
-import cn.nubia.util.DbUtil;
+import cn.nubia.db.DbUtil;
 import cn.nubia.util.SpUtil;
 
 

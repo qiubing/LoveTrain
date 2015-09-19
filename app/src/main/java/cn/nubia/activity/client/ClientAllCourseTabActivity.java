@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.widget.ExpandableListView;
 
 import com.loopj.android.http.RequestParams;
@@ -24,11 +23,10 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.DataLoadUtil;
-import cn.nubia.util.DbUtil;
+import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.SqliteHelper;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -58,7 +56,6 @@ public class ClientAllCourseTabActivity extends Activity {
         initEvents();
     }
 
-
     /*初始化View*/
     public void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
@@ -66,7 +63,6 @@ public class ClientAllCourseTabActivity extends Activity {
     }
 
     protected void initEvents() {
-        Log.e("TEST","initEvents");
         mCourseItemList = new ArrayList<>();
 
         mLoadViewUtil = new LoadViewUtil(ClientAllCourseTabActivity.this, mExpandableListView, null);
@@ -87,7 +83,6 @@ public class ClientAllCourseTabActivity extends Activity {
                     @Override
                     public void run() {
                         /** 更新最新数据 **/
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
@@ -106,7 +101,6 @@ public class ClientAllCourseTabActivity extends Activity {
                     @Override
                     public void run() {
                         //加载历史数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setLoading(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
@@ -160,7 +154,6 @@ public class ClientAllCourseTabActivity extends Activity {
         getClassParam.put("lesson_index", "1");
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
-        Log.e("requestParams", requestParams.toString());
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 
@@ -196,15 +189,11 @@ public class ClientAllCourseTabActivity extends Activity {
 
         @Override
         protected void onPostExecute(List<CourseItem> courseList) {
-            Log.e("TEST", "AsyncLoadDBTask courseList SIZE" + courseList.size());
             if(courseList !=null && courseList.size() != 0){
                 mCourseItemList.clear();
                 mCourseItemList.addAll(courseList);
             }
-            Log.e("TEST", "AsyncLoadDBTask mCourseItemList SIZE" + mCourseItemList.size());
-            Log.e("ClientAllCourse", mCourseItemList.size() + "");
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
-
 }
