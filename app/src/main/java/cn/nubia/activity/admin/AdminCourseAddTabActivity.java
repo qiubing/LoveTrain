@@ -28,6 +28,7 @@ import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -172,8 +173,7 @@ public class AdminCourseAddTabActivity extends Activity {
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
-                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
-                DbUtil.getInstance(AdminCourseAddTabActivity.this).updateCourseList(courseItemList);
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_CLASS);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -196,7 +196,7 @@ public class AdminCourseAddTabActivity extends Activity {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(AdminCourseAddTabActivity.this);
-            return dbUtil.getCourseList();
+            return dbUtil.getCourseList(SqliteHelper.TB_NAME_CLASS);
         }
 
         @Override

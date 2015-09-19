@@ -1,7 +1,6 @@
 package cn.nubia.util;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -10,10 +9,13 @@ import android.util.Log;
  * Created by WJ on 2015/9/6.
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-    final static String TAG = "SqliteHelper";
-    final static String TB_NAME_CLASS = "CLASS_INFO";
-    final static String TB_NAME_LESSON = "LESSON_INFO";
-    final static String TB_NAME_EXAM = "EXAM_INFO";
+    final private String TAG = "SqliteHelper";
+    final public static String TB_NAME_CLASS = "ALL_CLASS_INFO";
+    final public static String TB_NAME_LESSON = "ALL_LESSON_INFO";
+    final public static String TB_NAME_EXAM = "ALL_EXAM_INFO";
+    final public static String TB_NAME_MY_CLASS_STU = "MY_CLASS_STU_INFO";
+    final public static String TB_NAME_MY_CLASS_TEACHER = "MY_CLASS_TEACHER_INFO";
+
     final static String CREATE_USERINFO_TABLE = "CREATE TABLE IF NOT EXISTS USER_INFO " +
             "(_id integer primary key autoincrement," +
             "user_id varchar(20)," +
@@ -24,6 +26,30 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "register_time Integer," +
             "user_total_credits Integer," +
             "user_icon blob)";
+
+    final static String CREATE_MYCLASS_STU_TABLE = "CREATE TABLE IF NOT EXISTS "+ TB_NAME_MY_CLASS_STU +
+            "(class_index Integer," +                    //课程索引
+            "name varchar(50)," +                 //课程名称
+            "description varchar(500)," +         //课程描述
+            "type Integer," +                            //课程类型
+            "share_type Integer," +                      //分享类型
+            "course_status Integer," +                   //课程状态
+            "hasExam Integer," +                             //是否有考试
+            "lessones Integer," +
+            "course_credits Integer," +                  //课程能获得的积分
+            "course_record_modify_time Integer)";        //课程修改时间
+
+    final static String CREATE_MYCLASS_TEACHER_TABLE = "CREATE TABLE IF NOT EXISTS "+ TB_NAME_MY_CLASS_TEACHER +
+            "(class_index Integer," +                    //课程索引
+            "name varchar(50)," +                 //课程名称
+            "description varchar(500)," +         //课程描述
+            "type Integer," +                            //课程类型
+            "share_type Integer," +                      //分享类型
+            "course_status Integer," +                   //课程状态
+            "hasExam Integer," +                             //是否有考试
+            "lessones Integer," +
+            "course_credits Integer," +                  //课程能获得的积分
+            "course_record_modify_time Integer)";        //课程修改时间
 
     final static String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS "+TB_NAME_CLASS +
             "(class_index Integer," +                    //课程索引
@@ -73,6 +99,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CLASS_TABLE);
         db.execSQL(CREATE_LESSON_TABLE);
         db.execSQL(CREATE_EXAM_TABLE);
+        db.execSQL(CREATE_MYCLASS_STU_TABLE);
+        db.execSQL(CREATE_MYCLASS_TEACHER_TABLE);
         Log.d(TAG, "onCreate");
     }
 
@@ -81,6 +109,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_CLASS);
         db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_LESSON);
         db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_EXAM);
+        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_MY_CLASS_STU);
+        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_MY_CLASS_TEACHER);
         onCreate(db);
         Log.d(TAG, "onUpgrade");
     }

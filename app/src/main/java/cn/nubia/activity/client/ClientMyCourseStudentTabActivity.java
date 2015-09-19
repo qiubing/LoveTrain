@@ -28,6 +28,7 @@ import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -45,7 +46,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     /**用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
     private String classUrl = Constant.BASE_URL + "share/add_share_course.do";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     private void loadData() {
         /**请求课程数据*/
         HashMap<String,String> getClassParam = new HashMap<>();
-        getClassParam.put("user_iD", "0016003317");
+        getClassParam.put("user_iD", "0016003315");
         getClassParam.put("course_index", "1");
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");
@@ -139,14 +139,15 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("TEST statusCode", "" + statusCode);
-                Log.e("TEST code",""+response.getInt("code"));
+                Log.e("TEST code",""+response.toString());
                 if(response.getInt("code") != 0){
                     Log.e("TEST code2",""+response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
-                }
-                if(response.getInt("code")==0 && response.getString("data")!=null) {
+                }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
+
+                if(response.getString("data") != null) {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
@@ -173,8 +174,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
-                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
-                DbUtil.getInstance(ClientMyCourseStudentTabActivity.this).updateCourseList(courseItemList);
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList,SqliteHelper.TB_NAME_MY_CLASS_STU);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -186,18 +186,18 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         protected void onPostExecute(List<CourseItem> courseList){
             if(courseList != null){
                 mCourseItemList.clear();
-                mCourseItemList.addAll(courseList) ;
+                mCourseItemList.addAll(courseList);
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
 
     /**加载数据库数据*/
-    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>>  {
+    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>> {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(ClientMyCourseStudentTabActivity.this);
-            return dbUtil.getCourseList();
+            return dbUtil.getCourseList(SqliteHelper.TB_NAME_MY_CLASS_STU);
         }
 
         @Override

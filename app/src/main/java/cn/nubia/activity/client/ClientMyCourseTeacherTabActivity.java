@@ -30,6 +30,7 @@ import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -154,9 +155,10 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     Log.e("TEST code2", "" + response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
-                }
-                if (response.getInt("code") == 0 && response.getString("data") != null) {
+                }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
+
+                if (response.getString("data") != null) {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
@@ -186,7 +188,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
-                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_MY_CLASS_TEACHER);
                 DbUtil.getInstance(ClientMyCourseTeacherTabActivity.this).updateCourseList(courseItemList);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -214,7 +216,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(ClientMyCourseTeacherTabActivity.this);
-            return dbUtil.getCourseList();
+            return dbUtil.getCourseList(SqliteHelper.TB_NAME_MY_CLASS_TEACHER);
         }
 
         @Override

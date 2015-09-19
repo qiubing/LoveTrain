@@ -24,7 +24,7 @@ public class UpdateClassListHelper {
     /**
      * 更新所有的课程类型数据，包括课程，课时更新
      * */
-    public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList) throws JSONException {
+    public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList,String tableName) throws JSONException {
         int len = jsonArray.length();
         Log.e("updateAllClassData",""+jsonArray.length());
         Item item = null;
@@ -45,7 +45,7 @@ public class UpdateClassListHelper {
                 default:
                     break;
             }
-            UpdateClassListHelper.updateDataByClassType(type, item, courseList);
+            UpdateClassListHelper.updateDataByClassType(type, item, courseList,tableName);
         }
 //        binarySort(courseList);
     }
@@ -123,13 +123,13 @@ public class UpdateClassListHelper {
      * 根据类型更新数据
      * @param classType 课程类型
      * */
-    public static void updateDataByClassType(String classType,Item item, List<CourseItem> list){
+    public static void updateDataByClassType(String classType,Item item, List<CourseItem> list,String tableName){
         switch (classType){
             case "course":
             case "share":
             case "senior":
                 if (item instanceof CourseItem){
-                    updateCourseItem(item.getOperator(), (CourseItem) item, list);
+                    updateCourseItem(item.getOperator(), (CourseItem) item, list,tableName);
                 }
                 break;
             case "lesson":
@@ -153,7 +153,7 @@ public class UpdateClassListHelper {
      * @param operate 操作类型
      * @param item  课程内容
      * */
-    private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list){
+    private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list,String tableName){
         int listIndex = binarySearch(list, item, false);
         Log.e("TEST","updateCourseItem"+item.getName()+"index= "+item.getIndex());
         Log.e("TEST","updateCourseItem"+listIndex);
@@ -166,7 +166,7 @@ public class UpdateClassListHelper {
                 }else {
                     Log.e("updateCourseItem",""+item.getName()+(-(listIndex+1)));
                     /***插入数据库**/
-                    DbUtil.getInstance(null).insertCourseItem(item);
+                    DbUtil.getInstance(null).insertCourseItem(item,tableName);
                     //如果不存在，返回负值
                     list.add(-(listIndex + 1), item);
                 }
@@ -175,13 +175,13 @@ public class UpdateClassListHelper {
                 if (listIndex >= 0){
                      list.set(listIndex, item);
                     /***插入数据库中字段**/
-                    DbUtil.getInstance(null).updateCourseItem(item);
+                    DbUtil.getInstance(null).updateCourseItem(item,tableName);
                 }
                 break;
             case "delete":
                 if (listIndex >= 0){
                     list.remove(listIndex);
-                    DbUtil.getInstance(null).deleteCourseItem(item);
+                    DbUtil.getInstance(null).deleteCourseItem(item,tableName);
                 }
                 break;
             default:
@@ -230,20 +230,20 @@ public class UpdateClassListHelper {
                     return;
                 }else {
                     //如果不存在，返回负值
-                    list.add(-(listIndex+1),item);
-//                    DbUtil.getInstance(null).insertExamItem(item);
+                    list.add(-(listIndex + 1), item);
+                    DbUtil.getInstance(null).insertExamItem(item);
                 }
                 break;
             case "update":
                 if (listIndex >= 0){
-                    list.set(listIndex,item);
-//                    DbUtil.getInstance(null).updateExamItem(item);
+                    list.set(listIndex, item);
+                    DbUtil.getInstance(null).updateExamItem(item);
                 }
                 break;
             case "delete":
                 if (listIndex >= 0){
                     list.remove(listIndex);
-//                    DbUtil.getInstance(null).deleteExamItem(item);
+                    DbUtil.getInstance(null).deleteExamItem(item);
                 }
                 break;
             default:

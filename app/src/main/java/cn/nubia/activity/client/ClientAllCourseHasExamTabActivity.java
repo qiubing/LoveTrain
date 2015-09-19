@@ -29,11 +29,14 @@ import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.
+ *与管理员功能重合
+ * Not usable
  */
 public class ClientAllCourseHasExamTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
@@ -163,7 +166,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
                     /**根据user_id，只保留有考试的课程*/
                     /**没有执行到这一步？*/
                     getExamList(mCourseItemList);
-                    Log.e("HasExam", mCourseItemList.toString() );
+                    Log.e("HasExam", mCourseItemList.toString());
                 }
             } catch (JSONException e) {
                 Log.e("TEST statusCode json", e.toString());
@@ -190,8 +193,8 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
-                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
-                DbUtil.getInstance(ClientAllCourseHasExamTabActivity.this).updateCourseList(courseItemList);
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList,SqliteHelper.TB_NAME_CLASS);
+//                DbUtil.getInstance(ClientAllCourseHasExamTabActivity.this).updateCourseList(courseItemList);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -219,7 +222,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(ClientAllCourseHasExamTabActivity.this);
-            return dbUtil.getCourseList();
+            return dbUtil.getCourseList(SqliteHelper.TB_NAME_CLASS);
         }
 
         @Override

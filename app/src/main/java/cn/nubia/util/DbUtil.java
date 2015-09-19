@@ -58,7 +58,7 @@ public class DbUtil {
     }
 
     /**
-     * for Debug
+     * for Debug NO USE
      */
     public long insertCourseItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
@@ -73,7 +73,7 @@ public class DbUtil {
     }
 
     /**
-     * for Debug
+     * for Debug NO USE
      */
     public long insertLessonItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
@@ -104,15 +104,15 @@ public class DbUtil {
         if(count != 0) /***数据库中有记录***/
         {
             if(courseItem.getOperator().equals("update")){
-                return updateCourseItem(courseItem);
+                return updateCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
             }else  //删除
-                return deleteCourseItem(courseItem);
+                return deleteCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
         }else
-            return  insertCourseItem(courseItem);
+            return  insertCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
     }
 
 
-    public long insertCourseItem(CourseItem courseItem) {
+    public long insertCourseItem(CourseItem courseItem,String tableName) {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
         newValues.put(CourseItem.NAME,courseItem.getName());
@@ -125,10 +125,10 @@ public class DbUtil {
         newValues.put(CourseItem.STATUS, courseItem.getCourseStatus());
         newValues.put(CourseItem.TYPE, courseItem.getType());
         newValues.put(CourseItem.RECORD_MODIFY_TIME, courseItem.getRecordModifyTime());
-        return db.insert(SqliteHelper.TB_NAME_CLASS, null, newValues);
+        return db.insert(tableName, null, newValues);
     }
 
-    public long updateCourseItem(CourseItem courseItem) {
+    public long updateCourseItem(CourseItem courseItem,String tableName) {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
         newValues.put(CourseItem.NAME,courseItem.getName());
@@ -141,15 +141,15 @@ public class DbUtil {
         newValues.put(CourseItem.STATUS, courseItem.getCourseStatus());
         newValues.put(CourseItem.TYPE,courseItem.getType());
         newValues.put(CourseItem.RECORD_MODIFY_TIME,courseItem.getRecordModifyTime());
-        return db.update(SqliteHelper.TB_NAME_CLASS, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getIndex(), null);
+        return db.update(tableName, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getIndex(), null);
     }
 
-    public int deleteCourseItem(CourseItem lessonItem) {
+    public int deleteCourseItem(CourseItem lessonItem,String tableName) {
         //删除课时表
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON,CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
         Log.e(TAG, "已删除课时表行数：" + rows);
-        return db.delete(SqliteHelper.TB_NAME_CLASS, CourseItem.COURSE_INDEX + "=?",
+        return db.delete(tableName, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
     }
 
@@ -225,9 +225,9 @@ public class DbUtil {
                 new String[]{String.valueOf(examItem.getIndex())});
     }
 
-    public List<CourseItem> getCourseList(){
+    public List<CourseItem> getCourseList(String tableName){
         ArrayList<CourseItem> courseList = new ArrayList<CourseItem>();
-        Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, null, null, null, null,
+        Cursor cursor = db.query(tableName, null, null, null, null,
                 null, CourseItem.COURSE_INDEX + " DESC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {

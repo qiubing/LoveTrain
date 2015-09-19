@@ -28,6 +28,7 @@ import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
 
@@ -169,7 +170,7 @@ public class ClientAllCourseTabActivity extends Activity {
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
-                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_CLASS);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -190,18 +191,18 @@ public class ClientAllCourseTabActivity extends Activity {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(ClientAllCourseTabActivity.this);
-            return dbUtil.getCourseList();
+            return dbUtil.getCourseList(SqliteHelper.TB_NAME_CLASS);
         }
 
         @Override
         protected void onPostExecute(List<CourseItem> courseList) {
-            Log.e("TEST","AsyncLoadDBTask courseList SIZE"+courseList.size());
+            Log.e("TEST", "AsyncLoadDBTask courseList SIZE" + courseList.size());
             if(courseList !=null && courseList.size() != 0){
                 mCourseItemList.clear();
                 mCourseItemList.addAll(courseList);
             }
-            Log.e("TEST","AsyncLoadDBTask mCourseItemList SIZE"+mCourseItemList.size());
-            Log.e("ClientAllCourse", mCourseItemList.size()+"");
+            Log.e("TEST", "AsyncLoadDBTask mCourseItemList SIZE" + mCourseItemList.size());
+            Log.e("ClientAllCourse", mCourseItemList.size() + "");
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
