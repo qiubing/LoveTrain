@@ -132,8 +132,8 @@ public class AdminExamAddTabActivity extends Activity {
                     examItem.setIndex(i);
                     examItem.setName("Java基础");
                     examItem.setLocale(String.valueOf(i) + "室");
-                    examItem.setStartTime("7月8号9点10分");
-                    examItem.setEndTime("7月8号10点10分");
+//                    examItem.setStartTime("7月8号9点10分");
+//                    examItem.setEndTime("7月8号10点10分");
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
@@ -146,8 +146,8 @@ public class AdminExamAddTabActivity extends Activity {
                     examItem.setIndex(i);
                     examItem.setName("Android基础");
                     examItem.setLocale(String.valueOf(i));
-                    examItem.setStartTime("7月8号9点10分");
-                    examItem.setEndTime("7月8号10点10分");
+//                    examItem.setStartTime("7月8号9点10分");
+//                    examItem.setEndTime("7月8号10点10分");
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);

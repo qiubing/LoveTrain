@@ -15,16 +15,15 @@ import android.widget.ListView;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ExamAdapter;
-import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
@@ -126,17 +125,21 @@ public class AdminAllExamActivity extends Activity{
     MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            super.onSuccess(statusCode, headers, response);
+            try {
+                super.onSuccess(statusCode, headers, response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
             Log.e("exam onSuccess", statusCode + "statusCode");
-            Log.e("exam onSuccess", statusCode+response.toString());
+            Log.e("exam onSuccess", statusCode + response.toString());
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("exam onFailure", statusCode + "statusCode");
-            Log.e("exam onFailure", statusCode +throwable.toString());
+            Log.e("exam onFailure", statusCode + throwable.toString());
         }
     };
 

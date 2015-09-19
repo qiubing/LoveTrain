@@ -94,7 +94,7 @@ public class AdminCreditTotalActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminCreditTotalActivity.this, code);
+            HandleResponse.excute(AdminCreditTotalActivity.this, code,response.getString("message"));
         }
     }
 

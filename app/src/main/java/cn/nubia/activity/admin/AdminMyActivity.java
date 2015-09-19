@@ -13,7 +13,7 @@ import cn.nubia.activity.R;
  * Created by 胡立 on 2015/9/6.
  */
 @SuppressWarnings("deprecation")
-public class AdminMyActivity extends ActivityGroup implements View.OnClickListener  {
+public class AdminMyActivity extends ActivityGroup implements View.OnClickListener {
     TextView score_query;
     TextView integral_query;
     TextView assess_manage;
@@ -26,13 +26,13 @@ public class AdminMyActivity extends ActivityGroup implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_my_admin);
-        score_query = (TextView)findViewById(R.id.score_query);
-        integral_query = (TextView)findViewById(R.id.integral_query);
-        assess_manage = (TextView)findViewById(R.id.assess_manage);
-        user_manage = (TextView)findViewById(R.id.user_manage);
+        score_query = (TextView) findViewById(R.id.score_query);
+        integral_query = (TextView) findViewById(R.id.integral_query);
+        assess_manage = (TextView) findViewById(R.id.assess_manage);
+        user_manage = (TextView) findViewById(R.id.user_manage);
         account_manage = (TextView) findViewById(R.id.admin_account_manage);
-        about_us = (TextView)findViewById(R.id.about_us);
-        change_account = (Button)findViewById(R.id.change_account);
+        about_us = (TextView) findViewById(R.id.about_us);
+        change_account = (Button) findViewById(R.id.change_account);
 
         score_query.setOnClickListener(this);
         integral_query.setOnClickListener(this);

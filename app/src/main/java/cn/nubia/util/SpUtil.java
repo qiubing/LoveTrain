@@ -51,13 +51,12 @@ public class SpUtil {
 
     public static boolean getBoolean(Context context, String key) {
         initSharedPreferences(context);
-        return sp.getBoolean(key, true);
+        return sp.getBoolean(key, false);
     }
 
     public static boolean isContains(Context context, String key) {
         initSharedPreferences(context);
         return sp.contains(key);
-        
     }
 
     public static void removeSetting(Context context, String key) {

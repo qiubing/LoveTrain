@@ -9,6 +9,6 @@ import android.util.Log;
  */
 public class Logger {
     public static void Log(final Context ctx, final String msg) {
-        Log.d(ctx.getClass().toString(), msg);
+        Log.d("Log-"+ctx.getClass().toString(), msg);
     }
 }

@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public class Constant {
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
+    public static UserInfo user =new UserInfo();//登录成功后保存用户信息
 
     /****网络类型****/
     public static final  int LOADING_SUCCESS = 0;

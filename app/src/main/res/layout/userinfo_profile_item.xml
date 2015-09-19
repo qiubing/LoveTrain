@@ -43,12 +43,11 @@
             android:layout_marginLeft="10.0dip"
             android:layout_toRightOf="@id/icon1"
             android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="用户名:"
+            android:text="用户名:\n"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/textSize20"
-            android:textStyle="bold" />
+            android:textSize="@dimen/textSize20" />
+
 
     </RelativeLayout>
 

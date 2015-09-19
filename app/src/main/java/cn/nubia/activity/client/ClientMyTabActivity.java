@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
@@ -42,6 +43,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     private TextView mFanKui;
     private TextView mVersion;
     private Button mLogoutButton;
+    private TextView myUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,9 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     }
 
     private void initViews(){
+        myUserName = (TextView) findViewById(R.id.my_nick);
+        myUserName.setText("用户名：\n"+ Constant.user.getUserName());
+
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
         mCheckRecord = (TextView) findViewById(R.id.check_in_record);
         mCourseIntergration = (TextView) findViewById(R.id.course_integration);
@@ -123,6 +128,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                         LoginActivity.class);
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
                         Intent.FLAG_ACTIVITY_NEW_TASK);
+                ProcessSPData.clearSP(ClientMyTabActivity.this);//清楚缓存的数据
                 startActivity(logoutIntent);
                 break;
         }

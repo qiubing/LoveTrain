@@ -18,15 +18,16 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.IDFactory;
-import cn.nubia.util.TestData;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -86,6 +87,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login_btn:
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
+                    //TODO
+//                    int temp = 1;
+//                    if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+//                        Constant.IS_ADMIN = true;
+//                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+//                        LoginActivity.this.finish();
+//                    } else {
+//                        Constant.IS_ADMIN = false;
+//                        startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
+//                        LoginActivity.this.finish();
+//                    }
+//                    if(temp==1)
+//                        break;
+
                     if (validateLogin()) {
                         dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
@@ -152,13 +167,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } catch (Exception e) {
                     e.printStackTrace();
                     DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
-                    handleLogin(new JSONObject());
                 }
             }
+
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 afterProcess("登录");
-                handleLogin(new JSONObject());
                 DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
             }
         });
@@ -167,21 +181,42 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void handleLogin(JSONObject response) {
         try {
-            response = TestData.getLoginResult();//模拟数据
+//            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
+                JSONObject json = response.getJSONObject("data");
+                String tokenKey = json.getString("token_key");
+                UserInfo user = new UserInfo();
+                user.setUserID(json.getString("user_id"));
+                user.setGender(json.getBoolean("gender"));
+                user.setUserName(json.getString("user_name"));
+                user.setUserIconURL(json.getString("icon_url"));
+                user.setUserTotalCredits(json.getInt("userTotalCredits"));
+                user.setLastLoginTime(System.currentTimeMillis());
+                Constant.user = user;
+                if (null != tokenKey) {
+                    Constant.tokenKep = tokenKey;
+                }
+                ProcessSPData.putIntoSP(this, user);
+                ProcessSPData.putIntoSP(this, "tokenKey", Constant.tokenKep);
+                ProcessSPData.putIntoSP(this, "isLogin", true);
+
                 DialogUtil.showToast(LoginActivity.this, "登录成功");
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+                    ProcessSPData.putIntoSP(this, "isAdmin", true);
                     Constant.IS_ADMIN = true;
                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     LoginActivity.this.finish();
                 } else {
+                    ProcessSPData.putIntoSP(this, "isAdmin", false);
                     Constant.IS_ADMIN = false;
+//                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
                     LoginActivity.this.finish();
                 }
             } else {
-                HandleResponse.excute(LoginActivity.this, code);
+                String msg = response.getString("message");
+                HandleResponse.excute(LoginActivity.this, code,msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,7 +237,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         params.put("request_time", System.currentTimeMillis());
         params.put("apk_version", Constant.apkVersion);
         params.put("sign", "");
-        params.put("X-Requested-With","aa");
 
         params.put("user_id", userID);
         params.put("user_name", userName);
@@ -213,7 +247,70 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } else {
             params.put("gender", "0");
         }
+        //ucent/admin_register.do?admin_name&admin_id&password
         String url = Constant.BASE_URL + "user/register.do";
+        AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                afterProcess("注册");
+                try {
+                    String s = new String(bytes, "UTF-8");
+                    JSONObject response = new JSONObject(s);
+                    String code = response.getString("code");
+                    if (code.equals("0")) {
+                        DialogUtil.showToast(LoginActivity.this, "注册成功！");
+
+                        mRegistButton.setText("会员注册");
+                        mLoginButton.setText("登录");
+                        mTitleTV.setText(R.string.logintxt);
+                        mRegistPasswordET.setVisibility(View.GONE);
+                        mUserNameET.setVisibility(View.GONE);
+                        mSexLayout.setVisibility(View.GONE);
+                        mIsMangerLayout.setVisibility(View.VISIBLE);
+
+                    } else if (code.equals("3000")) {
+                        DialogUtil.showToast(LoginActivity.this, "用户名已存在！");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
+                }
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                afterProcess("登录");
+                DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
+            }
+        });
+        onProcess("注册中...");
+    }
+
+    private void adminRegist() {
+        String userID = mUserIdET.getText().toString();
+        String userName = mUserNameET.getText().toString();
+        String pwd = mPasswordET.getText().toString();
+        String sex = mSexSpinner.getSelectedItem().toString();
+
+        RequestParams params = new RequestParams();
+
+        params.put("device_id", Constant.devideID);
+        params.put("request_time", System.currentTimeMillis());
+        params.put("apk_version", Constant.apkVersion);
+        params.put("sign", "");
+
+        params.put("admin_id", userID);
+        params.put("admin_name", userName);
+        params.put("password", (pwd));
+        if (sex.equals("男")) {
+            params.put("gender", "1");
+        } else {
+            params.put("gender", "0");
+        }
+        //ucent/admin_register.do?admin_name&admin_id&password
+        //String url = Constant.BASE_URL + "user/register.do";
+        String url = Constant.BASE_URL + "ucent/admin_register.do";
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
 
             @Override
