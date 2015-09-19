@@ -19,15 +19,11 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import cn.nubia.activity.admin.AdminMainActivity;
-import cn.nubia.activity.admin.ProcessSPData;
-import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.db.DbUtil;
 import cn.nubia.util.DialogUtil;
-import cn.nubia.util.HandleResponse;
 import cn.nubia.util.IDFactory;
 
 
@@ -186,7 +182,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void handleLogin(JSONObject response) {
-        try {
+        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+        /*try {
 //            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
@@ -239,7 +236,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             e.printStackTrace();
             DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
         }
-
+*/
     }
 
     private void regist() {

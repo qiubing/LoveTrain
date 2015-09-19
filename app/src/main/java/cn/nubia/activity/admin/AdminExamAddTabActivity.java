@@ -133,7 +133,7 @@ public class AdminExamAddTabActivity extends Activity {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 boolean result = response.getBoolean("result");
                 JSONArray jsonArray = response.getJSONArray("data");
-
+                Log.i("huhu", jsonArray.toString());
                 Log.e("test","onSuccess2");
                 if(result && jsonArray != null){
                     AsyncLoadJsonTask asyncLoadJsonTask  = new AsyncLoadJsonTask();

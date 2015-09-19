@@ -1,14 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="cn.nubia.activity.admin.AdminAddExamActivity">
+    android:background="@color/soft_comment_title_content_windows">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_loading_failed"
+        />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_network_unusable" />
+
+
+   <!-- <RelativeLayout
         android:layout_width="fill_parent"
 
         android:layout_height="@dimen/manager_title_high">
@@ -30,9 +51,10 @@
             android:text="@string/activity_manager_add_exam_title"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_title_textSize" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <LinearLayout
+        android:id="@+id/firstLinearLayout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/manager_rate_layout_hight"
         android:orientation="horizontal"
@@ -40,13 +62,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
             android:layout_centerHorizontal="true"
             android:text="@string/activity_manager_add_exam_one"
             android:textColor="@color/grayslate"
-            android:textSize="@dimen/manager_rate_textSize" />
+            android:textSize="@dimen/manager_rate_textSize"
+            android:gravity="center"/>
 
-        <Spinner
+        <EditText
             android:id="@+id/activity_manager_add_exam_one"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
@@ -69,7 +92,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
             android:layout_centerHorizontal="true"
             android:text="@string/activity_manager_add_exam_info"
             android:textColor="@color/grayslate"
@@ -78,14 +101,13 @@
         <EditText
             android:id="@+id/activity_manager_add_exam_info"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/login_edit_text_height"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_add_exam_hint"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
-            android:singleLine="true"
+            android:singleLine="false"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSize" />
@@ -99,7 +121,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
             android:layout_centerHorizontal="true"
             android:text="@string/activity_manager_add_exam_address"
             android:textColor="@color/grayslate"
@@ -112,7 +134,6 @@
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_add_exam_hint"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
@@ -129,26 +150,26 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
             android:layout_centerHorizontal="true"
-            android:text="@string/activity_manager_add_exam_time"
+            android:text="@string/activity_manager_add_exam_time_start"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/manager_rate_textSize" />
 
         <EditText
-            android:id="@+id/activity_manager_add_exam_time"
+            android:id="@+id/activity_manager_add_exam_time_start"
             android:layout_width="match_parent"
             android:layout_height="@dimen/login_edit_text_height"
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="@string/activity_manager_add_exam_hint"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
-            android:textSize="@dimen/manager_rate_textSize" />
+            android:textSize="@dimen/manager_rate_textSize"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout
@@ -159,7 +180,37 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
+            android:layout_centerHorizontal="true"
+            android:text="@string/activity_manager_add_exam_time_end"
+            android:textColor="@color/grayslate"
+            android:textSize="@dimen/manager_rate_textSize" />
+
+        <EditText
+            android:id="@+id/activity_manager_add_exam_time_end"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_edit_text_height"
+            android:layout_marginLeft="@dimen/login_edit_text_margin_left"
+            android:layout_marginRight="@dimen/login_edit_text_margin_right"
+            android:background="@drawable/editview_selector"
+            android:padding="@dimen/padding"
+            android:paddingLeft="@dimen/login_edit_text_inner_padding"
+            android:singleLine="true"
+            android:textColor="@color/edit_text"
+            android:textColorHint="@color/edit_text_hint"
+            android:textSize="@dimen/manager_rate_textSize"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/manager_rate_paddingTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_edit_text_height"
             android:layout_centerHorizontal="true"
             android:text="@string/activity_manager_add_exam_credit"
             android:textColor="@color/grayslate"
@@ -172,13 +223,13 @@
             android:layout_marginLeft="@dimen/login_edit_text_margin_left"
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
-            android:hint="20"
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
-            android:textSize="@dimen/manager_rate_textSize" />
+            android:textSize="@dimen/manager_rate_textSize"
+            android:inputType="time"/>
     </LinearLayout>
 
     <LinearLayout
@@ -189,9 +240,11 @@
 
         <Button
             android:id="@+id/activity_manager_add_exam_button"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/activity_manager_add_exam_add"
-            android:textSize="@dimen/manager_title_textSize" />
+            android:textSize="@dimen/manager_title_textSize"
+            android:background="@color/common_green"/>
     </LinearLayout>
 </LinearLayout>
