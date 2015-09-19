@@ -39,8 +39,9 @@ public class SplashActivity extends Activity {
 			case 1:
 				boolean isFirstRun = SpUtil.getBoolean(SplashActivity.this,
 						Constant.IS_FIRST_RUN);
-				if (isFirstRun) {
-					SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, false);
+				if (!isFirstRun) {
+					SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, true);
+
 					mTimer.cancel();
 					Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
 					startActivity(intent);

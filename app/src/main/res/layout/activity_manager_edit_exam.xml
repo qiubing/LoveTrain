@@ -167,7 +167,7 @@
         <TextView
             style="@style/textview_style"
             android:layout_width="wrap_content"
-            android:text="@string/activity_manager_add_exam_time" />
+            android:text="@string/activity_manager_add_exam_time_start" />
 
         <EditText
             android:id="@+id/activity_manager_edit_exam_time"
