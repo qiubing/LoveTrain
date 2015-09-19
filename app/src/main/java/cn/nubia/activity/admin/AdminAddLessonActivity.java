@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.CourseItem;
 
 /**
  * Created by hexiao on 2015/9/7.
@@ -28,6 +29,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private Button addLessonSureBtn;
     private ImageView addLessonImageView;
 
+    private CourseItem mCourseItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         studentGetPoints = (EditText) findViewById(R.id.add_lesson_studentGetPoints_editText);
         addLessonSureBtn = (Button) findViewById(R.id.add_lesson_addLessonForSureButton);
         addLessonImageView = (ImageView) findViewById(R.id.admin_add_course_back);
+
+        Intent intent=getIntent();
+        mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
 
         //添加课时按钮的事件
         addLessonSureBtn.setOnClickListener(this);

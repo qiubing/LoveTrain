@@ -41,6 +41,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private TextView lessonNameTextView;
     private TextView lessDescTextView;
     private TextView lessonInfoTextView;
+    private TextView signInPopulationTextView;
 
     /**从前一个页面传过来的LessonItem对象*/
     LessonItem lessonItem;
@@ -65,6 +66,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
         lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
         lessonInfoTextView=(TextView)findViewById(R.id.lesson_detail_lessonInfo_textView);
+        signInPopulationTextView=(TextView)findViewById(R.id.lesson_detail_signIn_textView);
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
@@ -73,6 +75,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
             lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
             lessonInfoTextView.setText(lessonItem.getTeacherName()+lessonItem.getLocation()+lessonItem.getStartTime());
+            /**签到人数怎么获得？*/
+//            signInPopulationTextView.setText(lessonItem.getIndex());
         }
 
 

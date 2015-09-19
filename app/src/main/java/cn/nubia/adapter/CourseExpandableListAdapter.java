@@ -29,6 +29,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     private List<CourseItem> mGroupList;
     private Context mContext;
 
+    private CourseItem courseItem;
 //    private TextView mCourseLevel;
 //    private TextView mTeacher;
 //    private TextView mCourseType;
@@ -120,6 +121,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final GroupViewHolder groupViewHolder;
+        final int groupID=groupPosition;
         if (convertView == null) {
             /**不能用LayoutInflater，要使用inflate**/
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
@@ -190,6 +192,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intentAddLesson = new Intent(mContext, AdminAddLessonActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("CourseItem",mGroupList.get(groupID));
+                intentAddLesson.putExtras(bundle);
                 mContext.startActivity(intentAddLesson);
             }
         });
@@ -198,7 +203,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         groupViewHolder.mCourseDetailTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intentCourseDetail = new Intent(mContext, AdminCourseDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CourseItem", mGroupList.get(groupID));
+                intentCourseDetail.putExtras(bundle);
                 mContext.startActivity(intentCourseDetail);
             }
         });
