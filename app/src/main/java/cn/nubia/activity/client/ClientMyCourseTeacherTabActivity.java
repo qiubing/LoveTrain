@@ -10,8 +10,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
@@ -20,31 +31,28 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
+import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.
  */
 public class ClientMyCourseTeacherTabActivity extends Activity {
+
     private RefreshLayout mRefreshLayout;
     private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
-
     /*expandableListView*/
     private ExpandableListView mExpandableListView;
-
     /*adapter*/
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
-
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
-
-    /*三个textview*/
-//    private TextView mAddLessonTextView;
-//    private TextView mCourseDetailTextView;
-//    private TextView mSignUpExamTextView;
+    private String classUrl = Constant.BASE_URL + "share/add_share_course.do";
 
 
     @Override
@@ -61,38 +69,42 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     public void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
-        Log.e("test", "mRefreshLayout" + mRefreshLayout);
         mErrorHintView = (ErrorHintView) findViewById(R.id.admin_all_course_errorHintView);
-
-        /*初始化三个TextView*/
-//        mAddLessonTextView = (TextView) findViewById(R.id.admin_all_course_addLessonTextView);
-//        mCourseDetailTextView = (TextView) findViewById(R.id.admin_all_course_courseDetailTextView);
-//        mSignUpExamTextView = (TextView) findViewById(R.id.class_signUpExamTextView);
     }
 
     protected void initEvents() {
 
         mCourseItemList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(this, mExpandableListView, mHandler);
+        mLoadViewUtil = new LoadViewUtil(ClientMyCourseTeacherTabActivity.this, mExpandableListView, mHandler);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
-
+        /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
-
-        //为ExpandableListView指定填充数据的adapter
+        /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
-
-        /*去掉箭头*/
+        /**去掉箭头**/
         mExpandableListView.setGroupIndicator(null);
-
-        /*项的监听事件*/
+        /**项的监听事件**/
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
-        /*for Debug  模拟第一次加载数据*/
-        Message msg = mHandler.obtainMessage();
-        msg.what = 1;
-        mHandler.sendMessage(msg);
 
-        // 设置下拉刷新监听器
+        /**请求课程数据*/
+        HashMap<String,String> getClassParam = new HashMap<String,String>();
+        getClassParam.put("user_id",Constant.USER_ID);
+        getClassParam.put("course_index", "1");
+        getClassParam.put("course_record_modify_time", "1245545456456");
+        getClassParam.put("lesson_index", "1");
+        getClassParam.put("lesson_record_modify_time", "1245545456456");
+        RequestParams requestParams = Utils.toParams(getClassParam);
+        Log.e("requestParams", requestParams.toString());
+        AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
+
+
+//        /*for Debug  模拟第一次加载数据*/
+//        Message msg = mHandler.obtainMessage();
+//        msg.what = 1;
+//        mHandler.sendMessage(msg);
+
+        /**设置下拉刷新监听器**/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -100,7 +112,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // 更新最新数据
+                        /** 更新最新数据 **/
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
                         loadData();
                         mRefreshLayout.setRefreshing(false);
@@ -131,6 +143,32 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         });
     }
 
+    /**请求课程数据服务器数据的Handler*/
+    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("ClassonSuccess", response.toString());
+            try {
+                if(response.getInt("code")==0) {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    UpdateClassListHelper.updateAllClassData(jsonArray, mCourseItemList);
+                    /**根据user_id，只保留自己是讲师的课程*/
+                    getTeacherList(mCourseItemList);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mCourseExpandableListAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("Class onSuccess", "onFailure");
+        }
+    };
+
+
     /*For debug*/
     private void loadData() {
         DataLoadUtil.queryClassInfoDataforGet("aa");
@@ -154,51 +192,75 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             List<LessonItem> mLessonList = new ArrayList<>();
             /*For DEBUG  Need add data*/
             if (msg.what == 1) {
-                for (int i = 10; i < 30; i++) {
-                    CourseItem mCourseItem = new CourseItem();
-                    mCourseItem.setIndex(i);
-                    mCourseItem.setName("Java基础");
-                    mCourseList.add(0, mCourseItem);
-                    for (int j = 0; j < 3; j++) {
-                        LessonItem mLessonItem = new LessonItem();
-                        mLessonItem.setIndex(i);
-                        mLessonItem.setName("Java基础" + i);
-//                        mLessonItem.setStartTime("2015.9..6");
-                        mLessonItem.setLocation("C-2");
-                        mLessonList.add(0, mLessonItem);
-                    }
-                    mCourseItem.setLessonList(mLessonList);
-                }
-                mCourseItemList.addAll(mCourseList);
+//                for (int i = 10; i < 30; i++) {
+//                    CourseItem mCourseItem = new CourseItem();
+//                    mCourseItem.setIndex(i);
+//                    mCourseItem.setName("Java基础");
+//                    mCourseItem.setHasExam(true);
+//                    mCourseList.add(0, mCourseItem);
+//                    for (int j = 0; j < 3; j++) {
+//                        LessonItem mLessonItem = new LessonItem();
+//                        mLessonItem.setIndex(i);
+//                        mLessonItem.setName("Java基础" + i);
+////                        mLessonItem.setStartTime("2015.9..6");
+//                        mLessonItem.setLocation("C-2");
+//                        mLessonList.add(0, mLessonItem);
+//                    }
+//                    mCourseItem.setLessonList(mLessonList);
+//                }
+//                mCourseItemList.addAll(mCourseList);
             }
             if (msg.what == 2) {
-                for (int i = 40; i < 50; i++) {
-                    CourseItem mCourseItem = new CourseItem();
-                    mCourseItem.setIndex(i);
-                    mCourseItem.setName("Android基础");
-                    mCourseList.add(0, mCourseItem);
-                    for (int j = 0; j < 3; j++) {
-                        LessonItem mLessonItem = new LessonItem();
-                        mLessonItem.setIndex(i);
-                        mLessonItem.setName("Android基础" + i);
-//                        mLessonItem.setStartTime("2015.9..6");
-                        mLessonItem.setLocation("C-2");
-                        mLessonList.add(0, mLessonItem);
-                    }
-                    mCourseItem.setLessonList(mLessonList);
-                }
-                mCourseItemList.addAll(mCourseList);
+//                for (int i = 40; i < 50; i++) {
+//                    CourseItem mCourseItem = new CourseItem();
+//                    mCourseItem.setIndex(i);
+//                    mCourseItem.setName("Android基础");
+//                    mCourseList.add(0, mCourseItem);
+//                    for (int j = 0; j < 3; j++) {
+//                        LessonItem mLessonItem = new LessonItem();
+//                        mLessonItem.setIndex(i);
+//                        mLessonItem.setName("Android基础" + i);
+////                        mLessonItem.setStartTime("2015.9..6");
+//                        mLessonItem.setLocation("C-2");
+//                        mLessonList.add(0, mLessonItem);
+//                    }
+//                    mCourseItem.setLessonList(mLessonList);
+//                }
+//                mCourseItemList.addAll(mCourseList);
             }
-            UpdateClassListHelper.binarySort(mCourseItemList);
-            mCourseExpandableListAdapter.notifyDataSetChanged();
+//            UpdateClassListHelper.binarySort(mCourseItemList);
+//            mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     };
+
+    /**只保留自己是讲师的课程显示*/
+    public void getTeacherList(List<CourseItem> mList){
+        ArrayList<CourseItem> resultList=new ArrayList<>();
+        if(mList.size()!=0){
+            Iterator<CourseItem> it=mList.iterator();
+            while(it.hasNext()){
+                CourseItem courseItem=it.next();
+                List<LessonItem> lessonList=courseItem.getLessonList();
+                for(int i=0;i<lessonList.size();i++){
+                    LessonItem lessonItem=lessonList.get(i);
+                    if(lessonItem.getTeacherID()==Constant.USER_ID){
+                        resultList.add(courseItem);
+                        break;
+                    }
+                }
+            }
+        }
+        mList.clear();
+        mList.addAll(resultList);
+    }
+
+
 
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
             Intent intent = new Intent(ClientMyCourseTeacherTabActivity.this, AdminLessonDetailActivity.class);
-            intent.putExtra("status","teacher");
+            intent.putExtra("status","student");
             Bundle bundle = new Bundle();
             //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
             intent.putExtra("value", bundle);

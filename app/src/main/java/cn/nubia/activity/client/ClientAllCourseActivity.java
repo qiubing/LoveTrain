@@ -42,10 +42,10 @@ public class ClientAllCourseActivity extends ActivityGroup {
         manager.dispatchCreate(savedInstanceState);
 
 
-        Intent i3 = new Intent(ClientAllCourseActivity.this, AdminCourseAddTabActivity.class);
+        Intent i3 = new Intent(ClientAllCourseActivity.this, ClientAllCourseTabActivity.class);
         listViews.add(getView("A", i3));
 
-        Intent i4 = new Intent(ClientAllCourseActivity.this, ClientAllCourseTeacherTabActivity.class);
+        Intent i4 = new Intent(ClientAllCourseActivity.this, ClientAllCourseHasExamTabActivity.class);
         listViews.add(getView("B", i4));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);

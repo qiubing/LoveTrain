@@ -2,20 +2,23 @@ package cn.nubia.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
+import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 
 /**
  * Created by hexiao on 2015/9/9.
@@ -36,6 +39,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         this.mContext = mCtx;
     }
 
+
     /**
      * ***************************************child
      */
@@ -51,11 +55,17 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mGroupList.get(groupPosition).getLessonList().size();
+        /**空指针异常**/
+        if(mGroupList.get(groupPosition).getLessonList() != null)
+            return mGroupList.get(groupPosition).getLessonList().size();
+        else
+            return 0;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final int mGroupID=groupPosition;
+        final int mChildID=childPosition;
         final ChildViewHolder childViewHolder;
         if (convertView == null) {
             childViewHolder = new ChildViewHolder();
@@ -74,6 +84,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         childViewHolder.mLessonDetailTextView.setText(
                 mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()
         );
+        /**设置课时点击事件*/
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, "XXXXXXXXXXXXX", Toast.LENGTH_LONG).show();
+            }
+        });
         return convertView;
     }
 
@@ -114,20 +136,54 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_share);
             groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_exam);
 
-            if (!Constant.IS_ADMIN) {
-                /** 设置 标记不可见**/
-                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
-                groupViewHolder.mTeacher.setVisibility(View.GONE);
-                groupViewHolder.mCourseType.setVisibility(View.GONE);
-                groupViewHolder.mWhetherExam.setVisibility(View.GONE);
-            }
 
-            Log.e("mAddLessonTextView", "mAddLessonTextView" + groupViewHolder.mAddLessonTextView);
+            /**
+             * 四个标记的意思是：
+             * a.部：课程级别，只有分享课程才有的标记
+             * b.讲：是否是讲师，因此只有讲师才会出现这个标记
+             * c.享：是否是分享课程，和“部”是同时出现的
+             * d.考：表明该课程是否有考试
+             * 如果不是管理员，学员只能看到“考”的标记
+             * 讲师还可以看到“讲”的标记
+             * 还有其他需要隐去的标记*/
+            if (Constant.IS_ADMIN==false) {
+                /**隐去添加课时标记*/
+                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
+
+                /** 普通用户看不到“部”“享”不可见**/
+                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                groupViewHolder.mCourseType.setVisibility(View.GONE);
+                /**如果hasExam属性为0表示没有考试，则将该标记也隐去，同时肯定就不用报名考试了*/
+                if(mGroupList.get(groupPosition).hasExam()==false) {
+                    groupViewHolder.mWhetherExam.setVisibility(View.GONE);
+                    groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
+                }
+                /** 如果不是讲师看不到“讲”**/
+                if(!isTeacher(groupPosition)) {
+                    groupViewHolder.mTeacher.setVisibility(View.GONE);
+                }
+            }
+            /**如果是管理员*/
+            else{
+                /**如果不是分享课程,则隐去“享”，同时课程级别“部”也要隐去*/
+                if(mGroupList.get(groupPosition).getType()!="2"){
+                    groupViewHolder.mCourseType.setVisibility(View.GONE);
+                    groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                }
+                /**如果没有考试,则隐去“考”，同时隐藏报名考试标记*/
+                if(mGroupList.get(groupPosition).hasExam()==false) {
+                    groupViewHolder.mWhetherExam.setVisibility(View.GONE);
+                    groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
+                }
+                /**管理员不应该在管理员界面看到“讲”，即使它是讲师，也应该在普通账号里面看到*/
+                groupViewHolder.mTeacher.setVisibility(View.GONE);
+            }
 
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+
 
         /**为 "添加课时" 的textView添加监听事件**/
         groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +233,26 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
         return convertView;
     }
+
+    /**判断是否是讲师*/
+    public boolean isTeacher(int groupPosition){
+        ArrayList<LessonItem> mLessonList=(ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
+        if(mLessonList == null)
+            return false;
+        for(int i=0;i<mLessonList.size();i++){
+            if(Constant.USER_ID.equals(mLessonList.get(i).getTeacherID())){
+                /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
+                if(i==mLessonList.size()-1){
+                    return false;
+                }
+            }
+            else {
+                break;
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

@@ -148,10 +148,10 @@ public class Utils {
      * @return
      */
     public static RequestParams toParams(HashMap<String,String> param){
-        param.put("device_id", "7234123953284193");
-        param.put("request_time", "2222222222222");
-        param.put("apk_version", "1.0");
-        param.put("sign", "abcd");
+        param.put("device_id", "MXJSDLJFJFSFS");
+        param.put("request_time", "1445545456456");
+        param.put("apk_version", "1");
+        param.put("sign", "");
         return new RequestParams(param);
     }
 }

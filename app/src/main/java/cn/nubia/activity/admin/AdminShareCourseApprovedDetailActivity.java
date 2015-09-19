@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 import cn.nubia.activity.R;
-import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseLevelModel;
+import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
  * @Description:
@@ -26,9 +27,7 @@ public class AdminShareCourseApprovedDetailActivity extends Activity {
     private TextView mCourseLocale;
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
-    private CourseItem mApprovedCourseItem;
-    private LessonItem mApprovedCourseLessonItem;
-
+    private TechnologyShareCourseItem mApprovedCourseItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +66,17 @@ public class AdminShareCourseApprovedDetailActivity extends Activity {
         //获取上一个Activity发送的Intent
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mApprovedCourseItem = (CourseItem) bundle.getSerializable("CourseInfo");
-        //mApprovedCourseLessonItem = (LessonItem) mApprovedCourseItem.getLessonList().get(0);
-        mCourseName.setText(mApprovedCourseItem.getName());
+        mApprovedCourseItem = (TechnologyShareCourseItem) bundle.getSerializable("CourseInfo");
+        mCourseName.setText(mApprovedCourseItem.getmCourseName());
         mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mApprovedCourseItem.getShareType()));
-        //mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mApprovedCourseLessonItem.getStartTime()));
-//        mCourseStartTime.setText(
-//                new SimpleDateFormat("HH:mm").format(mApprovedCourseLessonItem.getStartTime()));
-//        mCourseEndTime.setText(
-//                new SimpleDateFormat("HH:mm").format(mApprovedCourseLessonItem.getEndTime()));
-//        mCourseLocale.setText(mApprovedCourseLessonItem.getLocation());
-        mCourseDescription.setText(mApprovedCourseItem.getDescription());
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mApprovedCourseItem.getmCourseLevel()));
+        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mApprovedCourseItem.getmStartTime()));
+        mCourseStartTime.setText(
+                new SimpleDateFormat("HH:mm").format(mApprovedCourseItem.getmStartTime()));
+        mCourseEndTime.setText(
+                new SimpleDateFormat("HH:mm").format(mApprovedCourseItem.getmEndTime()));
+        mCourseLocale.setText(mApprovedCourseItem.getmLocation());
+        mCourseDescription.setText(mApprovedCourseItem.getmCourseName());
     }
 
     /**

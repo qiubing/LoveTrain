@@ -9,11 +9,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -24,6 +22,7 @@ import cn.nubia.adapter.ClientCourseIntegrationAdapter;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseIntegrationItem;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
@@ -54,13 +53,37 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
         //请求参数
         HashMap<String,String> params = new HashMap<String,String>();
-        params.put("user_id","0001");
+        params.put("user_id","0016002946");
         RequestParams request = Utils.toParams(params);
-        String url = Constant.BASE_URL ;
+        String url = Constant.BASE_URL + "/credit/find_lesson_credits.do";
         AsyncHttpHelper.post(url,request,mClientCourseIntegrationHandler);
     }
 
-    AsyncHttpResponseHandler mClientCourseIntegrationHandler = new AsyncHttpResponseHandler() {
+    MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler(){
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("onSuccess", response.toString());
+            EntityFactoryGenerics factoryGenerics =
+                    new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, response);
+            int code = factoryGenerics.getCode();
+            //成功返回
+            if (code == 0){
+                mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
+                mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList,ClientCourseIntegrationRecordActivity.this);
+                mListView.setAdapter(mAdapter);
+                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("onFailure", throwable.toString());
+        }
+    };
+    /*AsyncHttpResponseHandler mClientCourseIntegrationHandler = new AsyncHttpResponseHandler() {
         @Override
         public void onSuccess(int i, Header[] headers, byte[] bytes) {
             Log.e(TAG,"onSuccess");
@@ -90,7 +113,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
             Log.e(TAG, "onFailure");
         }
-    };
+    };*/
 
     private int getTotalScore(List<CourseIntegrationItem> list){
         int total = 0;

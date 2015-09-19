@@ -54,7 +54,8 @@ public class LoadViewUtil {
 
     public void setLoadingFailedFlag(int mLoadingFailedFlag) {
         this.mLoadingFailedFlag = mLoadingFailedFlag;
-        mNetworkFailedFlag = true;
+        if(mLoadingFailedFlag == Constant.LOADING_FAILED || mLoadingFailedFlag == Constant.NETWORK_UNUSABLE)
+            mNetworkFailedFlag = true;
     }
 
     /**

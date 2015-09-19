@@ -150,6 +150,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         params.put("apk_version", Constant.apkVersion);
         params.put("token_key", Constant.tokenKep);
 
+        Constant.USER_ID=userID;
         String url;
         if (isManager.equals("是")) {
             url = Constant.BASE_URL + "ucent/admin_login.do";

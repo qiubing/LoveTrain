@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
@@ -24,11 +26,14 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private EditText addCourseCourseDescEditText;
 
     private Button addCourseButton;
-    private ImageView addrCourseBackImage;
+    private ImageView addCourseBackImage;
 
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
     private CheckBox addCourseWhetherHighLevelCourseCheckBox;
+
+    private TextView highLevelTextView;
+    private EditText highLevelCoursePoints;
 
     //保存是否是高级课程
     private boolean whetherExam;
@@ -43,13 +48,36 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
 
         addCourseButton = (Button) findViewById(R.id.add_course_button);
-        addrCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
+        addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
         addCourseWhetherHighLevelCourseCheckBox = (CheckBox) findViewById(R.id.add_course_whetherHighLevelCourse_checkBox);
 
+        highLevelTextView=(TextView)findViewById(R.id.add_course_highLevelCoursePoints_textView);
+        highLevelCoursePoints=(EditText)findViewById(R.id.add_course_highLevelCoursePoints_editText);
+
+        /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
+        if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
+            highLevelCoursePoints.setVisibility(View.GONE);
+        }
+
+
         addCourseButton.setOnClickListener(this);
-        addrCourseBackImage.setOnClickListener(this);
+        addCourseBackImage.setOnClickListener(this);
+        addCourseWhetherHighLevelCourseCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
+                    highLevelTextView.setVisibility(View.GONE);
+                    highLevelCoursePoints.setVisibility(View.GONE);
+                }
+                else{
+                    highLevelTextView.setVisibility(View.VISIBLE);
+                    highLevelCoursePoints.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
     }
 
     @Override
