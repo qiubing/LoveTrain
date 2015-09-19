@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.nubia.entity.Constant;
+import cn.nubia.util.DbUtil;
 import cn.nubia.util.SpUtil;
 
 
@@ -29,12 +30,15 @@ public class SplashActivity extends Activity {
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			DbUtil.getInstance(SplashActivity.this);
+
 			switch (flag) {
 			case 1:
 				boolean isFirstRun = SpUtil.getBoolean(SplashActivity.this,
 						Constant.IS_FIRST_RUN);
 				if (isFirstRun) {
 					SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, false);
+
 					mTimer.cancel();
 					Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
 					startActivity(intent);

@@ -1,23 +1,24 @@
 package cn.nubia.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
  * Created by JiangYu on 2015/9/1.
  */
 public class CourseItem extends Item implements Serializable{
-//    public static String TYPE = "type";
-    public static String SHARETYPE = "share_type";
-    public static String STATUS = "course_status";
-    public static String HASEXAM = "hasExam";
-    public static String CREDITS = "course_credits";
-    public static String RECORD_MODIFY_TIME = "course_record_modify_time";
-//    public static String COURSE_INDEX = "course_index";
+    public final static String STATUS = "course_status";
+    public final static String HAS_EXAM = "hasExam";
+    public final static String COURSE_INDEX = "class_index";
+    public final static String CREDITS = "course_credits";
+    public final static String RECORD_MODIFY_TIME = "course_record_modify_time";
+    public final static String LESSONES_COUNT = "lessones";
+    public final static String SHARE_TYPE = "share_type";
 
     private short mLessones;
-    private short mCourseStatus;
     private boolean mHasExam;
+    private short mCourseStatus;
 //    private float mJudgeScore;
     private int mCourseCredits;
     private short mIsDelete;

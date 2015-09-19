@@ -25,19 +25,20 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "user_icon blob)";
 
     final String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS CLASS_INFO " +
-            "(index Integer," +                    //课程索引
+            "(class_index Integer," +                    //课程索引
             "name varchar(50)," +                 //课程名称
             "description varchar(500)," +         //课程描述
             "type Integer," +                            //课程类型
             "share_type Integer," +                      //分享类型
             "course_status Integer," +                   //课程状态
-            "hasExam bit," +                             //是否有考试
+            "hasExam Integer," +                             //是否有考试
+            "lessones Integer," +
             "course_credits Integer," +                  //课程能获得的积分
             "course_record_modify_time Integer)";        //课程修改时间
 
     final String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS LESSON_INFO " +
             "(course_index Integer," +                    //课程索引
-            "index Integer," +                    //课时索引
+            "lesson_index Integer," +                    //课时索引
             "name varchar(50)," +                 //课时名称
             "teacher_id varchar(20)," +                  //讲师ID
             "teacher_name varchar(20)," +                //讲师姓名

@@ -2,6 +2,7 @@ package cn.nubia.activity.client;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,7 @@ import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
+import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
@@ -43,7 +46,6 @@ import cn.nubia.util.Utils;
 public class ClientAllCourseTabActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
-    private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
     /*expandableListView*/
     private ExpandableListView mExpandableListView;
@@ -52,7 +54,6 @@ public class ClientAllCourseTabActivity extends Activity {
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
     private String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +69,12 @@ public class ClientAllCourseTabActivity extends Activity {
     public void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
-        mErrorHintView = (ErrorHintView) findViewById(R.id.admin_all_course_errorHintView);
     }
 
     protected void initEvents() {
-
+        Log.e("TEST","initEvents");
         mCourseItemList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(ClientAllCourseTabActivity.this, mExpandableListView, mHandler);
+        mLoadViewUtil = new LoadViewUtil(ClientAllCourseTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
@@ -84,24 +84,6 @@ public class ClientAllCourseTabActivity extends Activity {
         mExpandableListView.setGroupIndicator(null);
         /**项的监听事件**/
         mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
-
-
-        /**请求课程数据*/
-        HashMap<String,String> getClassParam = new HashMap<String,String>();
-
-        getClassParam.put("course_index", "1");
-        getClassParam.put("course_record_modify_time", "1245545456456");
-        getClassParam.put("lesson_index", "1");
-        getClassParam.put("lesson_record_modify_time", "1245545456456");
-        RequestParams requestParams = Utils.toParams(getClassParam);
-        Log.e("requestParams", requestParams.toString());
-        AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
-
-
-//        /*for Debug  模拟第一次加载数据*/
-//        Message msg = mHandler.obtainMessage();
-//        msg.what = 1;
-//        mHandler.sendMessage(msg);
 
         /**设置下拉刷新监听器**/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -140,98 +122,94 @@ public class ClientAllCourseTabActivity extends Activity {
                 }, 1500);
             }
         });
+
+        /****先从数据库中加载数据**/
+        AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
+        mAsyncTask.execute();
+        /****从网络中获取数据**/
+        loadData();
     }
 
     /**请求课程数据服务器数据的Handler*/
     MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("ClassonSuccess", response.toString());
             try {
-                if(response.getInt("code")==0) {
+                if(statusCode != 200){
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                    return;
+                }
+                if(response.getInt("code")==0 && response.getString("data")!=null) {
                     JSONArray jsonArray = response.getJSONArray("data");
-                    UpdateClassListHelper.updateAllClassData(jsonArray, mCourseItemList);
-                    Log.e("AllCourse",mCourseItemList.size()+"");
+                    AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
+                    mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
-            mCourseExpandableListAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("Class onSuccess", "onFailure");
+            mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
-
 
     /*For debug*/
     private void loadData() {
-        DataLoadUtil.queryClassInfoDataforGet("aa");
+        /**请求课程数据*/
+        HashMap<String,String> getClassParam = new HashMap<>();
+
+        getClassParam.put("course_index", "1");
+        getClassParam.put("course_record_modify_time", "1245545456456");
+        getClassParam.put("lesson_index", "1");
+        getClassParam.put("lesson_record_modify_time", "1245545456456");
+        RequestParams requestParams = Utils.toParams(getClassParam);
+        Log.e("requestParams", requestParams.toString());
+        AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 
-    /**
-     * for debug
-     * *
-     */
-    public void loadData(int page) {
-        String url = "test" + page;
-        DataLoadUtil.queryClassInfoDataforGet(url);
-        Message msg = mHandler.obtainMessage();
-        msg.what = 2;
-        mHandler.sendMessage(msg);
-    }
-
-    Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            List<CourseItem> mCourseList = new ArrayList<>();
-            List<LessonItem> mLessonList = new ArrayList<>();
-            /*For DEBUG  Need add data*/
-            if (msg.what == 1) {
-//                for (int i = 10; i < 30; i++) {
-//                    CourseItem mCourseItem = new CourseItem();
-//                    mCourseItem.setIndex(i);
-//                    mCourseItem.setName("Java基础");
-//                    mCourseItem.setHasExam(true);
-//                    mCourseList.add(0, mCourseItem);
-//                    for (int j = 0; j < 3; j++) {
-//                        LessonItem mLessonItem = new LessonItem();
-//                        mLessonItem.setIndex(i);
-//                        mLessonItem.setName("Java基础" + i);
-////                        mLessonItem.setStartTime("2015.9..6");
-//                        mLessonItem.setLocation("C-2");
-//                        mLessonList.add(0, mLessonItem);
-//                    }
-//                    mCourseItem.setLessonList(mLessonList);
-//                }
-//                mCourseItemList.addAll(mCourseList);
+    private class AsyncLoadHttpTask extends AsyncTask<JSONArray, Void, List<CourseItem>>  {
+        List<CourseItem> courseItemList;
+        @Override
+        protected List<CourseItem> doInBackground(JSONArray... params) {
+            courseItemList = new ArrayList<CourseItem>(mCourseItemList);
+            try {
+                UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
+                DbUtil.getInstance(ClientAllCourseTabActivity.this).updateCourseList(courseItemList);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            if (msg.what == 2) {
-//                for (int i = 40; i < 50; i++) {
-//                    CourseItem mCourseItem = new CourseItem();
-//                    mCourseItem.setIndex(i);
-//                    mCourseItem.setName("Android基础");
-//                    mCourseList.add(0, mCourseItem);
-//                    for (int j = 0; j < 3; j++) {
-//                        LessonItem mLessonItem = new LessonItem();
-//                        mLessonItem.setIndex(i);
-//                        mLessonItem.setName("Android基础" + i);
-////                        mLessonItem.setStartTime("2015.9..6");
-//                        mLessonItem.setLocation("C-2");
-//                        mLessonList.add(0, mLessonItem);
-//                    }
-//                    mCourseItem.setLessonList(mLessonList);
-//                }
-//                mCourseItemList.addAll(mCourseList);
-            }
-//            UpdateClassListHelper.binarySort(mCourseItemList);
-//            mCourseExpandableListAdapter.notifyDataSetChanged();
+            return courseItemList;
         }
-    };
 
+        @Override
+        protected void onPostExecute(List<CourseItem> courseList){
+            if(courseList != null){
+                mCourseItemList.clear();
+                mCourseItemList.addAll(courseList) ;
+            }
+            mCourseExpandableListAdapter.notifyDataSetChanged();
+        }
+    }
 
+    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>>  {
+        @Override
+        protected List<CourseItem> doInBackground(Void... params) {
+            DbUtil dbUtil = DbUtil.getInstance(ClientAllCourseTabActivity.this);
+            return dbUtil.getCourseList();
+        }
+
+        @Override
+        protected void onPostExecute(List<CourseItem> courseList) {
+            if(courseList != null){
+                mCourseItemList.addAll(courseList);
+            }
+            mCourseExpandableListAdapter.notifyDataSetChanged();
+        }
+    }
 
     private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
         @Override
@@ -246,4 +224,5 @@ public class ClientAllCourseTabActivity extends Activity {
             return false;
         }
     }
+
 }

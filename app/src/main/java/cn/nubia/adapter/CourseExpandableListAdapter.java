@@ -37,6 +37,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         this.mContext = mCtx;
     }
 
+
     /**
      * ***************************************child
      */
@@ -52,7 +53,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mGroupList.get(groupPosition).getLessonList().size();
+        /**空指针异常**/
+        if(mGroupList.get(groupPosition).getLessonList() != null)
+            return mGroupList.get(groupPosition).getLessonList().size();
+        else
+            return 0;
     }
 
     @Override
@@ -216,13 +221,14 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     /**判断是否是讲师*/
     public boolean isTeacher(int groupPosition){
         ArrayList<LessonItem> mLessonList=(ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
+        if(mLessonList == null)
+            return false;
         for(int i=0;i<mLessonList.size();i++){
-            if(mLessonList.get(i).getTeacherID()!=Constant.USER_ID){
+            if(Constant.USER_ID.equals(mLessonList.get(i).getTeacherID())){
                 /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
                 if(i==mLessonList.size()-1){
                     return false;
                 }
-                continue;
             }
             else {
                 break;

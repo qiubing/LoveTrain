@@ -20,7 +20,7 @@ import cn.nubia.entity.LessonItem;
  * 内存中维护课程信息的list更新类
  */
 public class UpdateClassListHelper {
-    final private static String TAG = "DataLoadUtil";
+    final private static String TAG = "UpdateClassListHelper";
 
     /**
      * 更新所有的课程类型数据，包括课程，课时更新
@@ -48,7 +48,7 @@ public class UpdateClassListHelper {
             }
             UpdateClassListHelper.updateDataByClassType(type, item, courseList);
         }
-        binarySort(courseList);
+//        binarySort(courseList);
     }
 
     private static LessonItem makeLesson(String type,String operater,JSONObject jsonObjectDetail) throws JSONException {
