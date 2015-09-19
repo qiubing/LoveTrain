@@ -25,6 +25,7 @@ import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.DbUtil;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.IDFactory;
@@ -45,6 +46,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Spinner mSexSpinner;
     private Spinner mIsManagerSpinner;
     CustomProgressDialog dialog;
+
+    private DbUtil mybUtil;
 
     @Override
     protected void onDestroy() {

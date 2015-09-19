@@ -2,6 +2,7 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,9 +28,11 @@ import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
+import cn.nubia.util.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
@@ -43,6 +46,7 @@ public class AdminExamAddTabActivity extends Activity {
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
     private List<ExamItem> mExamList;
+
     private static final String URL = Constant.BASE_URL + "exam/find_all.do";
 
     @Override
@@ -61,18 +65,13 @@ public class AdminExamAddTabActivity extends Activity {
 
     protected void initEvents() {
         mExamList = new ArrayList<>();
-        mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, hand);
+
+        mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
 
-        /*for Debug  模拟第一次加载数据*/
-//        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
-/*        Message msg = hand.obtainMessage();
-        msg.what = 1;
-        hand.sendMessage(msg);*/
-        loadData("122212332132");
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -83,7 +82,7 @@ public class AdminExamAddTabActivity extends Activity {
                     public void run() {
                         // 更新最新数据
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-                        loadData("122212332132");
+                        loadData(null);
                         mRefreshLayout.setRefreshing(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
                                 mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
@@ -102,7 +101,7 @@ public class AdminExamAddTabActivity extends Activity {
                     public void run() {
                         //加载历史数据
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-//                        loadData();
+                        loadData(null);
                         mRefreshLayout.setLoading(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
                                 mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
@@ -110,6 +109,11 @@ public class AdminExamAddTabActivity extends Activity {
                 }, 1500);
             }
         });
+
+        AsyncLoadDBTask dbTask = new AsyncLoadDBTask();
+        dbTask.execute();
+
+        loadData(null);
     }
 
     void loadData(String updateTime){
@@ -120,49 +124,47 @@ public class AdminExamAddTabActivity extends Activity {
         requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
 
-        Log.e("exam loadData", URL);
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
     MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("test","onSuccess");
             try {
-                int code = response.getInt("code");
+                if(response.getInt("code") != 0){
+                    Log.e("test","onSuccess1");
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                    return;
+                }else
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 boolean result = response.getBoolean("result");
                 JSONArray jsonArray = response.getJSONArray("data");
-                if(result && code == 0 && jsonArray != null){
-                    UpdateClassListHelper.updateAllExamData(jsonArray,mExamList);
+
+                Log.e("test","onSuccess2");
+                if(result && jsonArray != null){
+                    AsyncLoadJsonTask asyncLoadJsonTask  = new AsyncLoadJsonTask();
+                    asyncLoadJsonTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
+                Log.e("test","onSuccess3");
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 e.printStackTrace();
             }
-            mExamAdapter.notifyDataSetChanged();
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("test","onFailure");
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
 
-    /**
-     * for debug
-     * **/
-    public void loadData(int page) {
-        String url = "test" + page;
-        DataLoadUtil.queryClassInfoDataforGet(url);
-        Message msg = hand.obtainMessage();
-        msg.what = 2;
-        hand.sendMessage(msg);
-    }
-
-    Handler hand = new Handler() {
+/*    Handler hand = new Handler() {
         public void handleMessage(Message msg) {
             List<ExamItem> examList = new ArrayList<>();
-            /*For DEBUG  Need add data*/
+            *//*For DEBUG  Need add data*//*
             if(msg.what == 1)
             {
                 for (int i = 10; i<21;i++){
@@ -194,7 +196,46 @@ public class AdminExamAddTabActivity extends Activity {
             UpdateClassListHelper.binarySort(mExamList);
             mExamAdapter.notifyDataSetChanged();
         }
-    };
+    };*/
+private class AsyncLoadJsonTask extends AsyncTask<JSONArray, Void, List<ExamItem>>  {
+    List<ExamItem> examItemList;
+    @Override
+    protected List<ExamItem> doInBackground(JSONArray... params) {
+        examItemList = new ArrayList<ExamItem>(mExamList);
+        try {
+            UpdateClassListHelper.updateAllExamData(params[0], examItemList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return examItemList;
+    }
+
+    @Override
+    protected void onPostExecute(List<ExamItem> examItemList){
+        if(examItemList != null){
+            mExamList.clear();
+            mExamList.addAll(examItemList) ;
+        }
+        mExamAdapter.notifyDataSetChanged();
+    }
+}
+
+    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<ExamItem>> {
+        @Override
+        protected List<ExamItem> doInBackground(Void... params) {
+            DbUtil dbUtil = DbUtil.getInstance(AdminExamAddTabActivity.this);
+            return dbUtil.getExamList();
+        }
+
+        @Override
+        protected void onPostExecute(List<ExamItem> courseList) {
+            if(courseList != null){
+                mExamList.clear();
+                mExamList.addAll(courseList);
+            }
+            mExamAdapter.notifyDataSetChanged();
+        }
+    }
 
     private class ExamListOnItemClickListener implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

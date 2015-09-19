@@ -6,6 +6,8 @@ import cn.nubia.interfaces.IOnGestureListener;
 
 import cn.nubia.interfaces.IOnGestureListener;
 
+import cn.nubia.interfaces.IOnGestureListener;
+
 /**
  * Created by 胡立 on 2015/9/10.
  */

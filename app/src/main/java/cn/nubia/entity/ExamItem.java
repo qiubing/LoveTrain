@@ -6,6 +6,13 @@ import java.io.Serializable;
  * Created by WJ on 2015/9/7.
  */
 public class ExamItem extends Item implements Serializable {
+    public final static String EXAM_INDEX = "exam_index";
+    public final static String COURSE_INDEX = "class_index";
+    public final static String START_TIME = "start_time";
+    public final static String END_TIME = "end_time";
+    public final static String LOCALE = "locale";
+    public final static String EXAM_CREDITS = "exam_credits";
+
     private int mCourseIndex;
     private long mStartTime;
     private long mEndTime;

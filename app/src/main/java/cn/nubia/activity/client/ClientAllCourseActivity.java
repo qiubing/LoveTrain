@@ -19,6 +19,7 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminCourseAddTabActivity;
+import cn.nubia.activity.admin.AdminExamAddTabActivity;
 
 /**
  * Created by 胡立 on 2015/9/7.
@@ -41,11 +42,10 @@ public class ClientAllCourseActivity extends ActivityGroup {
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-
         Intent i3 = new Intent(ClientAllCourseActivity.this, ClientAllCourseTabActivity.class);
         listViews.add(getView("A", i3));
 
-        Intent i4 = new Intent(ClientAllCourseActivity.this, ClientAllCourseHasExamTabActivity.class);
+        Intent i4 = new Intent(ClientAllCourseActivity.this, AdminExamAddTabActivity.class);
         listViews.add(getView("B", i4));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
@@ -61,7 +61,7 @@ public class ClientAllCourseActivity extends ActivityGroup {
                 this).inflate(R.layout.layout_tab, null);
 
         TextView tvTab4 = (TextView) tabIndicator4.findViewById(R.id.tv_title);
-        tvTab4.setText("只考试");
+        tvTab4.setText("考试");
 
         Intent intent = new Intent(ClientAllCourseActivity.this, EmptyActivity.class);
 

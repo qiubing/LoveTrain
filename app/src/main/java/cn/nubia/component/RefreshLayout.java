@@ -315,20 +315,27 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 isLoading = loading;
                 if (isLoading) {
                     mListView.removeFooterView(mNetworkUnusableView);
-                    mListView.removeHeaderView(mNetworkUnusableView);
                     mListView.removeFooterView(mLoadingFailedView);
-                    mListView.removeHeaderView(mLoadingFailedView);
 
                     mListView.addFooterView(mListViewOnLoadingFooter);
                     loadingView.startAnimation(refreshingAnimation);
                 } else {
-                        mListView.removeFooterView(mListViewOnLoadingFooter);
-                        loadingView.clearAnimation();
-                        mYDown = 0;
-                        mLastY = 0;
+                    mListView.removeFooterView(mListViewOnLoadingFooter);
+                    loadingView.clearAnimation();
+                    mYDown = 0;
+                    mLastY = 0;
                 }
         }
 
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        super.setRefreshing(refreshing);
+        if(refreshing && mListView != null){
+            mListView.removeHeaderView(mLoadingFailedView);
+            mListView.addHeaderView(mNetworkUnusableView);
+        }
+
+    }
 
     /**
      * @param isHeader 是否在头部显示
@@ -336,8 +343,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
      * @param isLoading  是否需要显示
      * */
     public void showLoadFailedView(boolean isHeader,int loadingFailedFlag,boolean isLoading){
-        if(loadingFailedFlag == Constant.LOADING_SUCCESS)
+        if(loadingFailedFlag == Constant.LOADING_SUCCESS){
+            hiddenListViewHeader();
             return;
+        }
         if(isHeader) {
             if (loadingFailedFlag == Constant.LOADING_FAILED)
                 showLoadingFailedHeader(isLoading);
@@ -350,6 +359,11 @@ public class RefreshLayout extends SwipeRefreshLayout implements
             else
                 showLoadingFailedFooter(isLoading);
         }
+    }
+
+    public void hiddenListViewHeader() {
+        showNetworkFailedHeader(false);
+        showLoadingFailedHeader(false);
     }
 
         public void showNetworkFailedHeader(boolean loading) {

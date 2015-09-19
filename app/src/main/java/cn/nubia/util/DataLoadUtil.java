@@ -11,6 +11,8 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.Constant;
 
 
+import cn.nubia.entity.Constant;
+
 /**
  * Created by WJ on 2015/9/9.
  *

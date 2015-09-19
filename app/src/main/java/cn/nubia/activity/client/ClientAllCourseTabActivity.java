@@ -48,7 +48,8 @@ public class ClientAllCourseTabActivity extends Activity {
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
+
+    private String classUrl = Constant.BASE_URL + "course/get_courses_lessons.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class ClientAllCourseTabActivity extends Activity {
     protected void initEvents() {
         Log.e("TEST","initEvents");
         mCourseItemList = new ArrayList<>();
+
         mLoadViewUtil = new LoadViewUtil(ClientAllCourseTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
@@ -131,21 +133,17 @@ public class ClientAllCourseTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("TEST statusCode",""+statusCode);
-                Log.e("TEST code",""+response.getInt("code"));
                 if(response.getInt("code") != 0){
-                    Log.e("TEST code2",""+response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
-                }
-                if(response.getInt("code")==0 && response.getString("data")!=null) {
+                }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
-                    mLoadHttpTask.execute(jsonArray);
+                JSONArray jsonArray = response.getJSONArray("data");
+                if(jsonArray!=null) {
+                    AsyncLoadHttpTask loadHttpTask = new AsyncLoadHttpTask();
+                    loadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json",e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
@@ -154,7 +152,6 @@ public class ClientAllCourseTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", ""+statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
@@ -177,10 +174,11 @@ public class ClientAllCourseTabActivity extends Activity {
         List<CourseItem> courseItemList;
         @Override
         protected List<CourseItem> doInBackground(JSONArray... params) {
+            Log.e("TEST2","doInBackground before"+mCourseItemList.size());
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
-                DbUtil.getInstance(ClientAllCourseTabActivity.this).updateCourseList(courseItemList);
+                Log.e("TEST2", "doInBackground after" + courseItemList.size());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -193,6 +191,7 @@ public class ClientAllCourseTabActivity extends Activity {
                 mCourseItemList.clear();
                 mCourseItemList.addAll(courseList) ;
             }
+            Log.e("TEST2", "doInBackground after" + mCourseItemList.size());
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
@@ -206,9 +205,12 @@ public class ClientAllCourseTabActivity extends Activity {
 
         @Override
         protected void onPostExecute(List<CourseItem> courseList) {
-            if(courseList != null){
+            Log.e("TEST","AsyncLoadDBTask courseList SIZE"+courseList.size());
+            if(courseList !=null && courseList.size() != 0){
+                mCourseItemList.clear();
                 mCourseItemList.addAll(courseList);
             }
+            Log.e("TEST","AsyncLoadDBTask mCourseItemList SIZE"+mCourseItemList.size());
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }

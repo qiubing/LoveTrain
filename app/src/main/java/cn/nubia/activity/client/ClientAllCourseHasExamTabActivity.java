@@ -151,7 +151,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
                 if(response.getInt("code")==0) {
                     JSONArray jsonArray = response.getJSONArray("data");
                     Log.e("HasExam", mCourseItemList.size()+"" );
-                    UpdateClassListHelper.updateAllClassData(jsonArray, mCourseItemList);
+//                    UpdateClassListHelper.updateAllClassData(jsonArray, mCourseItemList);
                     Log.e("HasExam", mCourseItemList.size() + "");
                     /**根据user_id，只保留有考试的课程*/
                     /**没有执行到这一步？*/

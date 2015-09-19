@@ -21,7 +21,6 @@ import cn.nubia.entity.LessonItem;
  */
 public class UpdateClassListHelper {
     final private static String TAG = "UpdateClassListHelper";
-
     /**
      * 更新所有的课程类型数据，包括课程，课时更新
      * */
@@ -108,6 +107,7 @@ public class UpdateClassListHelper {
      * */
     public static void updateAllExamData(JSONArray jsonArray,List<ExamItem> examList) throws JSONException {
         int len = jsonArray.length();
+        Log.e("tst","ARRAY len"+len);
         ExamItem item = null;
         for(int i = 0;i < len; i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -115,7 +115,7 @@ public class UpdateClassListHelper {
             item = makeExam("insert",jsonObjectDetail);
             updateExamItem(item.getOperator(),item,examList);
         }
-        binarySort(examList);
+//        binarySort(examList);
     }
 
 
@@ -149,31 +149,40 @@ public class UpdateClassListHelper {
 
     /**
      * @// TODO: 2015/9/8  在List中更新单个数据
+     * binarySearch(list,item),如果没有查找到数据，则返回(-(插入点) - 1)。插入点即第一个大于此键的元素索引
      * @param operate 操作类型
      * @param item  课程内容
      * */
     private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list){
-        Log.e("updateCourseItem",list.toString());
-        int listIndex = binarySearch(list,item);
+        int listIndex = binarySearch(list, item, false);
+        Log.e("TEST","updateCourseItem"+item.getName()+"index= "+item.getIndex());
+        Log.e("TEST","updateCourseItem"+listIndex);
         switch (operate){
             case "insert":
-                if(listIndex >= 0)
+                if(listIndex > -1 || item.getName().equals("null"))
                 {
-                    Log.e(TAG,"插入重复课程！");
-                    break;
+                    Log.e(TAG,"插入重复课程！或Name为null");
+                    return;
+                }else {
+                    Log.e("updateCourseItem",""+item.getName()+(-(listIndex+1)));
+                    /***插入数据库**/
+                    DbUtil.getInstance(null).insertCourseItem(item);
+                    //如果不存在，返回负值
+                    list.add(-(listIndex + 1), item);
                 }
-                Log.e("updateCourseItem",""+item.getName()+(-(listIndex+1)));
-
-                //如果不存在，返回负值
-                list.add(-(listIndex+1),item);
                 break;
             case "update":
-                if (listIndex >= 0)
-                    list.set(listIndex, item);
+                if (listIndex >= 0){
+                     list.set(listIndex, item);
+                    /***插入数据库中字段**/
+                    DbUtil.getInstance(null).updateCourseItem(item);
+                }
                 break;
             case "delete":
-                if (listIndex >= 0)
+                if (listIndex >= 0){
                     list.remove(listIndex);
+                    DbUtil.getInstance(null).deleteCourseItem(item);
+                }
                 break;
             default:
                 break;
@@ -182,24 +191,29 @@ public class UpdateClassListHelper {
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
         Log.e("updateLessonItem list",list.toString());
-        int listIndex = binarySearch(list,item);
+        int listIndex = binarySearch(list, item, true);
         switch (operate){
             case "insert":
-                if(listIndex >= 0)
+                if(listIndex > -1|| item.getName().equals("null"))
                 {
-                    Log.e(TAG,"插入重复课时！");
+                    Log.e(TAG, "插入重复课时！或Name为null");
                     break;
                 }
                 //如果不存在，返回负值
                 list.add(-(listIndex+1),item);
+                DbUtil.getInstance(null).insertLessonItem(item);
                 break;
             case "update":
-                if (listIndex >= 0)
+                if (listIndex >= 0){
                     list.set(listIndex,item);
+                    DbUtil.getInstance(null).updateLessonItem(item);
+                }
                 break;
             case "delete":
-                if (listIndex >= 0)
+                if (listIndex >= 0){
                     list.remove(listIndex);
+                    DbUtil.getInstance(null).deleteLessonItem(item);
+                }
                 break;
             default:
                 break;
@@ -207,24 +221,30 @@ public class UpdateClassListHelper {
     }
 
     private static void updateExamItem(String operate,ExamItem item, List<ExamItem> list){
-        int listIndex = binarySearch(list,item);
+        int listIndex = binarySearch(list, item, false);
         switch (operate){
             case "insert":
-                if(listIndex >= 0)
+                if(listIndex > -1 || item.getName().equals("null"))
                 {
-                    Log.e(TAG,"插入重复课时！");
-                    break;
+                    Log.e(TAG,"插入重复课时！或Name为null");
+                    return;
+                }else {
+                    //如果不存在，返回负值
+                    list.add(-(listIndex+1),item);
+//                    DbUtil.getInstance(null).insertExamItem(item);
                 }
-                //如果不存在，返回负值
-                list.add(-(listIndex+1),item);
                 break;
             case "update":
-                if (listIndex >= 0)
+                if (listIndex >= 0){
                     list.set(listIndex,item);
+//                    DbUtil.getInstance(null).updateExamItem(item);
+                }
                 break;
             case "delete":
-                if (listIndex >= 0)
+                if (listIndex >= 0){
                     list.remove(listIndex);
+//                    DbUtil.getInstance(null).deleteExamItem(item);
+                }
                 break;
             default:
                 break;
@@ -232,16 +252,16 @@ public class UpdateClassListHelper {
     }
 
     /**
-     * 根据课程索引查找
+     * 根据课程索引查找，降序排列
      * */
     public static int binarySearch(List<? extends Item> list,int index){
         Log.e("binarySearch",""+index+list.toString());
         Item item = new CourseItem();
         item.setIndex(index);
-        return binarySearch(list, item);
+        return binarySearch(list, item,false);
     }
 
-    public static int binarySearch(List<? extends Item> list,Item item){
+    public static int binarySearch(List<? extends Item> list,Item item, final boolean isAsc){
         Log.e("binarySearch list",list.toString());
         //二分查找课程该Item对应的记录，
         return Collections.binarySearch(list, item, new Comparator<Item>() {
@@ -250,8 +270,10 @@ public class UpdateClassListHelper {
                 Log.e("binarySearch","lhs"+lhs.toString()+"rhs"+rhs.toString());
                 if (lhs.getIndex() == rhs.getIndex())
                     return 0;
-                else
+                else if(isAsc){
                     return lhs.getIndex() > rhs.getIndex() ? 1 : -1;
+                }else
+                    return lhs.getIndex() > rhs.getIndex() ? -1 : 1;
             }
         });
     }

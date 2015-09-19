@@ -13,7 +13,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
     final static String TAG = "SqliteHelper";
     final static String TB_NAME_CLASS = "CLASS_INFO";
     final static String TB_NAME_LESSON = "LESSON_INFO";
-    final String CREATE_USERINFO_TABLE = "CREATE TABLE IF NOT EXISTS USER_INFO " +
+    final static String TB_NAME_EXAM = "EXAM_INFO";
+    final static String CREATE_USERINFO_TABLE = "CREATE TABLE IF NOT EXISTS USER_INFO " +
             "(_id integer primary key autoincrement," +
             "user_id varchar(20)," +
             "user_password varchar(20)," +
@@ -24,7 +25,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "user_total_credits Integer," +
             "user_icon blob)";
 
-    final String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS CLASS_INFO " +
+    final static String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS "+TB_NAME_CLASS +
             "(class_index Integer," +                    //课程索引
             "name varchar(50)," +                 //课程名称
             "description varchar(500)," +         //课程描述
@@ -36,7 +37,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "course_credits Integer," +                  //课程能获得的积分
             "course_record_modify_time Integer)";        //课程修改时间
 
-    final String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS LESSON_INFO " +
+    final static String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS " + TB_NAME_LESSON +
             "(class_index Integer," +                    //课程索引
             "lesson_index Integer," +                    //课时索引
             "name varchar(50)," +                 //课时名称
@@ -51,6 +52,16 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "judge_score float," +                       //学员评分结果
             "lesson_record_modify_time Integer)" ;       //课时信息修改时间
 
+    final static String CREATE_EXAM_TABLE = "CREATE TABLE IF NOT EXISTS "+ TB_NAME_EXAM +
+            "(class_index Integer," +                    //课程索引
+            "exam_index Integer," +                    //考试索引
+            "name varchar(50)," +                    //考试名称
+            "description varchar(500)," +                    //课时索引
+            "start_time Integer," +                      //开始时间
+            "end_time Integer," +                        //结束时间
+            "locale varchar(50)," +                      //考试地点
+            "exam_credits Integer)";                //考试能得到的积分
+
     public SqliteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, null, version);
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(name, null);
@@ -61,6 +72,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_CLASS_TABLE);
         db.execSQL(CREATE_LESSON_TABLE);
+        db.execSQL(CREATE_EXAM_TABLE);
         Log.d(TAG, "onCreate");
     }
 
@@ -68,6 +80,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_CLASS);
         db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_LESSON);
+        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_EXAM);
         onCreate(db);
         Log.d(TAG, "onUpgrade");
     }
