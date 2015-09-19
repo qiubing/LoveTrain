@@ -6,18 +6,17 @@ import java.io.Serializable;
  * Created by WJ on 2015/9/6.
  */
 public class LessonItem extends Item implements Serializable {
-//    public static String LESSON_INDEX = "lesson_index";
-    public static String COURSE_INDEX = "course_index";
-//    public static String LESSON_NAME = "lesson_name";
-    public static String JUDGE_SCORE = "judge_score";
-    public static String TEACHER_ID = "teacher_id";
-    public static String TEACHER_NAME = "lesson_theme";
-    public static String START_TIME = "start_time";
-    public static String END_TIME = "end_time";
-    public static String LOCALE = "locale";
-    public static String CHECK_CREDITS = "check_credits";
-    public static String TEACHER_CREDITS = "teacher_credits";
-//    public static String LESSON_THEME = "lesson_theme";
+    public final static String COURSE_INDEX = "class_index";
+    public final static String LESSON_INDEX = "lesson_index";
+    public final static String JUDGE_SCORE = "judge_score";
+    public final static String TEACHER_ID = "teacher_id";
+    public final static String TEACHER_NAME = "teacher_name";
+    public final static String START_TIME = "start_time";
+    public final static String END_TIME = "end_time";
+    public final static String LOCALE = "locale";
+    public final static String CHECK_CREDITS = "check_credits";
+    public final static String TEACHER_CREDITS = "teacher_credits";
+    public final static String RECORD_MODIFY_TIME = "lesson_record_modify_time";
 
 //    private int mLessonIndex;
     private String mLessonName;

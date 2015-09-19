@@ -8,10 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 import cn.nubia.activity.R;
-import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseLevelModel;
+import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
  * @Description:
@@ -28,8 +29,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
     private TextView mCourseDescription;
     private Button mPassButton;
     private Button mRejectButton;
-    private CourseItem mUnApprovedCourseItem;
-    private LessonItem mUnApprovedCourseLessonItem;
+    private TechnologyShareCourseItem mUnApprovedCourseItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         setContentView(R.layout.activity_unapproved_share_course_detail);
         initViews();
         initEvents();
-
+        logicProcess();
     }
 
     private void initViews() {
@@ -64,18 +64,17 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mUnApprovedCourseItem = (CourseItem) bundle.getSerializable("CourseInfo");
-        //mUnApprovedCourseLessonItem = (LessonItem) mUnApprovedCourseItem.getLessonList().get(0);
-        mCourseName.setText(mUnApprovedCourseItem.getName());
+        mUnApprovedCourseItem = (TechnologyShareCourseItem) bundle.getSerializable("CourseInfo");
+        mCourseName.setText(mUnApprovedCourseItem.getmCourseName());
         mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(mUnApprovedCourseItem.getShareType()));
-       /* mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mUnApprovedCourseLessonItem.getStartTime()));
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short)mUnApprovedCourseItem.getmCourseLevel()));
+        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mUnApprovedCourseItem.getmStartTime()));
         mCourseStartTime.setText(
-                new SimpleDateFormat("HH:mm").format(mUnApprovedCourseLessonItem.getStartTime()));
+                new SimpleDateFormat("HH:mm").format(mUnApprovedCourseItem.getmStartTime()));
         mCourseEndTime.setText(
-                new SimpleDateFormat("HH:mm").format(mUnApprovedCourseLessonItem.getEndTime()));
-        mCourseLocale.setText(mUnApprovedCourseLessonItem.getLocation());*/
-        mCourseDescription.setText(mUnApprovedCourseItem.getDescription());
+                new SimpleDateFormat("HH:mm").format(mUnApprovedCourseItem.getmEndTime()));
+        mCourseLocale.setText(mUnApprovedCourseItem.getmLocation());
+        mCourseDescription.setText(mUnApprovedCourseItem.getmCourseDescription());
     }
 
 

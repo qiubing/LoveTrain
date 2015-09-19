@@ -6,10 +6,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +28,10 @@ import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.LoadViewUtil;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
 
 /**
@@ -31,9 +41,9 @@ public class AdminExamAddTabActivity extends Activity {
     private ListView mAllExamListView;
     private ExamAdapter mExamAdapter;
     private RefreshLayout mRefreshLayout;
-    private ErrorHintView mErrorHintView;
     private LoadViewUtil mLoadViewUtil;
     private List<ExamItem> mExamList;
+    private static final String URL = Constant.BASE_URL + "exam/find_all.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +57,6 @@ public class AdminExamAddTabActivity extends Activity {
     public void initView(){
         mAllExamListView = (ListView) findViewById(R.id.admin_all_exam_list);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
-        mErrorHintView = (ErrorHintView) findViewById(R.id.hintView);
     }
 
     protected void initEvents() {
@@ -60,10 +69,10 @@ public class AdminExamAddTabActivity extends Activity {
 
         /*for Debug  模拟第一次加载数据*/
 //        mLoadViewUtil.showLoading(LoadViewUtil.VIEW_LOADING);
-        Message msg = hand.obtainMessage();
+/*        Message msg = hand.obtainMessage();
         msg.what = 1;
-        hand.sendMessage(msg);
-
+        hand.sendMessage(msg);*/
+        loadData("122212332132");
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -74,7 +83,7 @@ public class AdminExamAddTabActivity extends Activity {
                     public void run() {
                         // 更新最新数据
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-                        loadData();
+                        loadData("122212332132");
                         mRefreshLayout.setRefreshing(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
                                 mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
@@ -93,7 +102,7 @@ public class AdminExamAddTabActivity extends Activity {
                     public void run() {
                         //加载历史数据
                         DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-                        loadData();
+//                        loadData();
                         mRefreshLayout.setLoading(false);
                         mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
                                 mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
@@ -103,12 +112,41 @@ public class AdminExamAddTabActivity extends Activity {
         });
     }
 
-    /*For debug*/
-    private void loadData(){
-        DataLoadUtil.queryClassInfoDataforGet("aa");
+    void loadData(String updateTime){
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("record_modify_time_course", "1435125456111");
+
+        Log.e("exam loadData", URL);
+        AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
+    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                int code = response.getInt("code");
+                boolean result = response.getBoolean("result");
+                JSONArray jsonArray = response.getJSONArray("data");
+                if(result && code == 0 && jsonArray != null){
+                    UpdateClassListHelper.updateAllExamData(jsonArray,mExamList);
+                }
+            } catch (JSONException e) {
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                e.printStackTrace();
+            }
+            mExamAdapter.notifyDataSetChanged();
+        }
 
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
+        }
+    };
 
     /**
      * for debug
@@ -127,13 +165,13 @@ public class AdminExamAddTabActivity extends Activity {
             /*For DEBUG  Need add data*/
             if(msg.what == 1)
             {
-                for (int i = 10; i<30;i++){
+                for (int i = 10; i<21;i++){
                     ExamItem examItem = new ExamItem();
                     examItem.setIndex(i);
                     examItem.setName("Java基础");
                     examItem.setLocale(String.valueOf(i) + "室");
-                    examItem.setStartTime("7月8号9点10分");
-                    examItem.setEndTime("7月8号10点10分");
+//                    examItem.setStartTime("7月8号9点10分");
+//                    examItem.setEndTime("7月8号10点10分");
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);
@@ -146,8 +184,8 @@ public class AdminExamAddTabActivity extends Activity {
                     examItem.setIndex(i);
                     examItem.setName("Android基础");
                     examItem.setLocale(String.valueOf(i));
-                    examItem.setStartTime("7月8号9点10分");
-                    examItem.setEndTime("7月8号10点10分");
+//                    examItem.setStartTime("7月8号9点10分");
+//                    examItem.setEndTime("7月8号10点10分");
                     examList.add(0, examItem);
                 }
                 mExamList.addAll(examList);

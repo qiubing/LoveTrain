@@ -34,6 +34,7 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
                         break;
                 }
             }
+
             return itemList;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -53,7 +54,7 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
 
         item.setLessones((short) jsonObject.getInt("lesson"));
         item.setCourseStatus((short) jsonObject.getInt("status"));
-        item.setHasExam((short) jsonObject.getInt("hasExam"));
+        item.setHasExam( jsonObject.getBoolean("hasExam"));
         item.setRecordModifyTime(jsonObject.getLong("recordModifyTime"));
         if(item.getType().equals("sharecourse"))
             item.setShareType((short) jsonObject.getInt(""));

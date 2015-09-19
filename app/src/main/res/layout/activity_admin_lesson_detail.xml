@@ -78,7 +78,7 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/lesson_detail_lessonInfo_textView"
+            android:id="@+id/lesson_detail_realDesc_textView"
             style="@style/textview_style"
             android:layout_below="@id/exam_introduction_title"
             android:gravity="top"
@@ -104,7 +104,7 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/lesson_detail_realDesc_textView"
+            android:id="@+id/lesson_detail_lessonInfo_textView"
             style="@style/textview_style"
             android:layout_below="@id/exam_info_title"
             android:gravity="top"

@@ -185,7 +185,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 loadingView = mListViewOnLoadingFooter.findViewById(R.id.loading_icon);
                 refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
                         context, R.anim.rotating);
-                // 添加匀速转动动画
+//                 添加匀速转动动画
                 LinearInterpolator lir = new LinearInterpolator();
                 refreshingAnimation.setInterpolator(lir);
         }
@@ -315,7 +315,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 isLoading = loading;
                 if (isLoading) {
                     mListView.removeFooterView(mNetworkUnusableView);
-                    mListView.removeFooterView(mNetworkUnusableView);
+                    mListView.removeHeaderView(mNetworkUnusableView);
+                    mListView.removeFooterView(mLoadingFailedView);
+                    mListView.removeHeaderView(mLoadingFailedView);
+
                     mListView.addFooterView(mListViewOnLoadingFooter);
                     loadingView.startAnimation(refreshingAnimation);
                 } else {
@@ -333,6 +336,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
      * @param isLoading  是否需要显示
      * */
     public void showLoadFailedView(boolean isHeader,int loadingFailedFlag,boolean isLoading){
+        if(loadingFailedFlag == Constant.LOADING_SUCCESS)
+            return;
         if(isHeader) {
             if (loadingFailedFlag == Constant.LOADING_FAILED)
                 showLoadingFailedHeader(isLoading);
@@ -348,43 +353,47 @@ public class RefreshLayout extends SwipeRefreshLayout implements
     }
 
         public void showNetworkFailedHeader(boolean loading) {
-                if (loading) {
-                    mListView.removeHeaderView(mLoadingFailedView);
-                    if(mListView.getHeaderViewsCount() == 0)
-                        mListView.addHeaderView(mNetworkUnusableView);
-                }else {
-                        mListView.removeHeaderView(mNetworkUnusableView);
-                }
+            if(mListView == null)
+                return;
+            if (loading) {
+                mListView.removeHeaderView(mLoadingFailedView);
+                if(mListView.getHeaderViewsCount() == 0)
+                    mListView.addHeaderView(mNetworkUnusableView);
+            }else {
+                mListView.removeHeaderView(mNetworkUnusableView);
+            }
         }
 
         public void showNetworkFailedFooter(boolean loading) {
-                if (loading && mListView.getAdapter().getCount()>10) {
-                    mListView.removeFooterView(mLoadingFailedView);
-                    if(mListView.getFooterViewsCount() == 0)
-                        mListView.addFooterView(mNetworkUnusableView);
-                } else {
-                        mListView.removeFooterView(mNetworkUnusableView);
-                }
+            if (loading && mListView.getAdapter().getCount()>10) {
+                mListView.removeFooterView(mLoadingFailedView);
+                if(mListView.getFooterViewsCount() == 0)
+                    mListView.addFooterView(mNetworkUnusableView);
+            } else {
+                mListView.removeFooterView(mNetworkUnusableView);
+            }
         } 
 
         public void showLoadingFailedHeader(boolean loading) {
-                if (loading) {
-                    mListView.removeHeaderView(mNetworkUnusableView);
-                    if(mListView.getHeaderViewsCount() == 0)
-                        mListView.addHeaderView(mLoadingFailedView);
-                }else {
-                        mListView.removeHeaderView(mLoadingFailedView);
-                }
+            if(mListView == null)
+                return;
+            if (loading) {
+                mListView.removeHeaderView(mNetworkUnusableView);
+                if(mListView.getHeaderViewsCount() == 0)
+                    mListView.addHeaderView(mLoadingFailedView);
+            }else {
+                mListView.removeHeaderView(mLoadingFailedView);
+            }
         }
 
         public void showLoadingFailedFooter(boolean loading) {
-                if (loading  && mListView.getAdapter().getCount()>10) {
-                    mListView.removeFooterView(mNetworkUnusableView);
-                    if(mListView.getFooterViewsCount() == 0)
-                        mListView.addFooterView(mLoadingFailedView);
-                } else {
-                        mListView.removeFooterView(mLoadingFailedView);
-                }
+            if (loading  && mListView.getAdapter().getCount()>10) {
+                mListView.removeFooterView(mNetworkUnusableView);
+                if(mListView.getFooterViewsCount() == 0)
+                    mListView.addFooterView(mLoadingFailedView);
+            } else {
+                mListView.removeFooterView(mLoadingFailedView);
+            }
         }
 
         /**
