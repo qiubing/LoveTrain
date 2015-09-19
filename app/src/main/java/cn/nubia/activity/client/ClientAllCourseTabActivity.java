@@ -135,16 +135,21 @@ public class ClientAllCourseTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                if(statusCode != 200){
+                Log.e("TEST statusCode",""+statusCode);
+                Log.e("TEST code",""+response.getInt("code"));
+                if(response.getInt("code") != 0){
+                    Log.e("TEST code2",""+response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }
                 if(response.getInt("code")==0 && response.getString("data")!=null) {
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
+                Log.e("TEST statusCode json",e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
@@ -153,6 +158,7 @@ public class ClientAllCourseTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("TEST onFailure", ""+statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };

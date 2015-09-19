@@ -37,7 +37,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "course_record_modify_time Integer)";        //课程修改时间
 
     final String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS LESSON_INFO " +
-            "(course_index Integer," +                    //课程索引
+            "(class_index Integer," +                    //课程索引
             "lesson_index Integer," +                    //课时索引
             "name varchar(50)," +                 //课时名称
             "teacher_id varchar(20)," +                  //讲师ID

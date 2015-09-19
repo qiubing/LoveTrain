@@ -315,7 +315,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 isLoading = loading;
                 if (isLoading) {
                     mListView.removeFooterView(mNetworkUnusableView);
-                    mListView.removeFooterView(mNetworkUnusableView);
+                    mListView.removeHeaderView(mNetworkUnusableView);
+                    mListView.removeFooterView(mLoadingFailedView);
+                    mListView.removeHeaderView(mLoadingFailedView);
+
                     mListView.addFooterView(mListViewOnLoadingFooter);
                     loadingView.startAnimation(refreshingAnimation);
                 } else {
@@ -333,6 +336,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
      * @param isLoading  是否需要显示
      * */
     public void showLoadFailedView(boolean isHeader,int loadingFailedFlag,boolean isLoading){
+        if(loadingFailedFlag == Constant.LOADING_SUCCESS)
+            return;
         if(isHeader) {
             if (loadingFailedFlag == Constant.LOADING_FAILED)
                 showLoadingFailedHeader(isLoading);

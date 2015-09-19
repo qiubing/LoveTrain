@@ -97,8 +97,10 @@ public class DbUtil {
     public long insertOrUpdateCourseItem(CourseItem courseItem){
         Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, new String[]{CourseItem.COURSE_INDEX}, CourseItem.COURSE_INDEX+"= ?",
                 new String[]{String.valueOf(courseItem.getIndex())}, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
         Log.e(TAG,String.valueOf(courseItem));
-        if (cursor.getCount() == 0){
+        if (count == 0){
             return  insertCourseItem(courseItem);
         }else {
             return  updateCourseItem(courseItem);
@@ -206,6 +208,8 @@ public class DbUtil {
             courseItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(CourseItem.RECORD_MODIFY_TIME)));
             courseItem.setShareType(cursor.getShort(cursor.getColumnIndex(CourseItem.SHARE_TYPE)));
             courseItem.setType(cursor.getString(cursor.getColumnIndex(CourseItem.TYPE)));
+            List<LessonItem> lessonItemList = getLessonList(courseItem.getIndex());
+            courseItem.setLessonList(lessonItemList);
             courseList.add(courseItem);
             cursor.moveToNext();
         }
@@ -213,7 +217,7 @@ public class DbUtil {
         return courseList;
     }
 
-    public List<LessonItem> getLessionList(int CourseIndex ){
+    public List<LessonItem> getLessonList(int CourseIndex ){
         ArrayList<LessonItem> lessonList = new ArrayList<>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null,LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
                 null, LessonItem.LESSON_INDEX + " DESC");
