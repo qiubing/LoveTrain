@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.CourseItem;
 
 /**
  * 管理员课程详细界面
@@ -30,7 +31,9 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     private Button courseDeleteBtn;
     private ImageView adminCourseDetailBackImage;
 
-    private String items[]={"zhangsan","lisi","wangwu"};
+    private CourseItem mCourseItem;
+    private Bundle bundle;
+
 
     private AdminCourseDetailActivity adminCourseDetailActivity;
 
@@ -39,12 +42,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_course_detail);
         adminCourseDetailActivity = this;
-
-        courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
-        courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
-        courseRealNameTextview.setText("JAVA基础");
-        courseRealDescTextview.setText("JAVA基础是一门非常有用的入门课程");
-
+        bundle=new Bundle();
 
         adminCourseDetailBackImage = (ImageView) findViewById(R.id.admin_course_detail_backImage);
         /*four button*/
@@ -60,6 +58,19 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
             courseDeleteBtn.setVisibility(View.GONE);
         }
 
+        courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
+        courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
+
+        /**获取启动该Activity的Intent*/
+        Intent intent=getIntent();
+        mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
+        if(mCourseItem!=null) {
+            courseRealNameTextview.setText(mCourseItem.getName());
+            courseRealDescTextview.setText(mCourseItem.getDescription());
+
+        }
+
+        bundle.putSerializable("CourseItem",mCourseItem);
 
         //set the listening event;
         adminCourseDetailBackImage.setOnClickListener(this);
@@ -77,34 +88,14 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 startActivity(intentBackImage);
                 break;
             case R.id.signUpAdminBtn:
-//                //添加一个对话框即可
-//                Dialog signUpAdminDialog = new AlertDialog.Builder(AdminCourseDetailActivity.this)
-//                        .setTitle("课程报名情况")
-//                        .setItems(items, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(AdminCourseDetailActivity.this, "你选择了其中一项", Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(AdminCourseDetailActivity.this, "确定", Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(AdminCourseDetailActivity.this, "取消", Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .create();
-//                signUpAdminDialog.show();
                 Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);
+                intentSignInManage.putExtras(bundle);
                 startActivity(intentSignInManage);
                 break;
             case R.id.alterCourseBtn:
                 Intent intentAlterCourse = new Intent(AdminCourseDetailActivity.this, AdminAlterCourseActivity.class);
+                bundle.putSerializable("CourseItem",mCourseItem);
+                intentAlterCourse.putExtras(bundle);
                 startActivity(intentAlterCourse);
                 break;
             case R.id.lessonAddBtn:

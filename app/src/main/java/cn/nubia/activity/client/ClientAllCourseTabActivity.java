@@ -1,14 +1,11 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
 
@@ -22,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
@@ -80,8 +76,6 @@ public class ClientAllCourseTabActivity extends Activity {
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头**/
         mExpandableListView.setGroupIndicator(null);
-        /**项的监听事件**/
-        mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /**设置下拉刷新监听器**/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -160,7 +154,6 @@ public class ClientAllCourseTabActivity extends Activity {
     private void loadData() {
         /**请求课程数据*/
         HashMap<String,String> getClassParam = new HashMap<>();
-
         getClassParam.put("course_index", "1");
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");
@@ -174,11 +167,9 @@ public class ClientAllCourseTabActivity extends Activity {
         List<CourseItem> courseItemList;
         @Override
         protected List<CourseItem> doInBackground(JSONArray... params) {
-            Log.e("TEST2","doInBackground before"+mCourseItemList.size());
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList);
-                Log.e("TEST2", "doInBackground after" + courseItemList.size());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -191,7 +182,6 @@ public class ClientAllCourseTabActivity extends Activity {
                 mCourseItemList.clear();
                 mCourseItemList.addAll(courseList) ;
             }
-            Log.e("TEST2", "doInBackground after" + mCourseItemList.size());
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
@@ -211,21 +201,8 @@ public class ClientAllCourseTabActivity extends Activity {
                 mCourseItemList.addAll(courseList);
             }
             Log.e("TEST","AsyncLoadDBTask mCourseItemList SIZE"+mCourseItemList.size());
+            Log.e("ClientAllCourse", mCourseItemList.size()+"");
             mCourseExpandableListAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
-        @Override
-        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(ClientAllCourseTabActivity.this, AdminLessonDetailActivity.class);
-            intent.putExtra("status","student");
-            Bundle bundle = new Bundle();
-            //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
-            intent.putExtra("value", bundle);
-            startActivity(intent);
-            Toast.makeText(ClientAllCourseTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
-            return false;
         }
     }
 
