@@ -1,15 +1,12 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
 
@@ -100,7 +97,7 @@ public class AdminCourseAddTabActivity extends Activity {
         /*去掉箭头*/
         mExpandableListView.setGroupIndicator(null);
         /*项的监听事件*/
-        mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
+//        mExpandableListView.setOnChildClickListener(new ExpandableListViewOnItemClickListener());
 
         /*for Debug  模拟第一次加载数据*/
 //        Message msg = mHandler.obtainMessage();
@@ -241,16 +238,16 @@ public class AdminCourseAddTabActivity extends Activity {
         }
     };
 
-    private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
-        @Override
-        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
-            Bundle bundle = new Bundle();
-            //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
-            intent.putExtra("value", bundle);
-            startActivity(intent);
-            Toast.makeText(AdminCourseAddTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
-            return false;
-        }
-    }
+//    private class ExpandableListViewOnItemClickListener implements ExpandableListView.OnChildClickListener {
+//        @Override
+//        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//            Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
+//            Bundle bundle = new Bundle();
+//            //bundle.putSerializable("mCourseItem", mCourseItemList.get(arg2 - 1));
+//            intent.putExtra("value", bundle);
+//            startActivity(intent);
+//            Toast.makeText(AdminCourseAddTabActivity.this, "你点击了ExpandableListView的某条", Toast.LENGTH_LONG).show();
+//            return false;
+//        }
+//    }
 }

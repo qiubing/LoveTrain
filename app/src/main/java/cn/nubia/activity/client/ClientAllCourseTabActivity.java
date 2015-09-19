@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +24,9 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
-import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DataLoadUtil;
 import cn.nubia.util.DbUtil;
@@ -64,6 +59,7 @@ public class ClientAllCourseTabActivity extends Activity {
         initView();
         initEvents();
     }
+
 
     /*初始化View*/
     public void initView() {

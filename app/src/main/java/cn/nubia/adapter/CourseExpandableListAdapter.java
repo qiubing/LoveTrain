@@ -2,6 +2,7 @@ package cn.nubia.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -14,6 +15,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
+import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
@@ -62,6 +64,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final int mGroupID=groupPosition;
+        final int mChildID=childPosition;
         final ChildViewHolder childViewHolder;
         if (convertView == null) {
             childViewHolder = new ChildViewHolder();
@@ -80,6 +84,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         childViewHolder.mLessonDetailTextView.setText(
                 mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()
         );
+        /**设置课时点击事件*/
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, "XXXXXXXXXXXXX", Toast.LENGTH_LONG).show();
+            }
+        });
         return convertView;
     }
 

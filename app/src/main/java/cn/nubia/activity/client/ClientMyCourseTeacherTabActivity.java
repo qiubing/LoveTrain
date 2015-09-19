@@ -89,7 +89,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
 
         /**请求课程数据*/
         HashMap<String,String> getClassParam = new HashMap<String,String>();
-        getClassParam.put("user_id", "0016002946");
+        getClassParam.put("user_id",Constant.USER_ID);
         getClassParam.put("course_index", "1");
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");

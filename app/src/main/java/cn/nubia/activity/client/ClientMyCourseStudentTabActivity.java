@@ -87,7 +87,8 @@ public class ClientMyCourseStudentTabActivity extends Activity {
 
         /**请求课程数据*/
         HashMap<String,String> getClassParam = new HashMap<String,String>();
-        getClassParam.put("user_id", "0016002946");
+
+        getClassParam.put("user_id",Constant.USER_ID);
         getClassParam.put("course_index", "1");
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");
@@ -149,7 +150,10 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("ClassonSuccess", response.toString());
             try {
-                UpdateClassListHelper.updateAllClassData(response.getJSONArray("data"), mCourseItemList);
+                if(response.getInt("code")==0) {
+                    UpdateClassListHelper.updateAllClassData(response.getJSONArray("data"), mCourseItemList);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -18,6 +18,7 @@ import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientEvaluateActivity;
 import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.Utils;
@@ -37,6 +38,13 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private String status = "teacher";
     private TextView sub_page_title;
 
+    private TextView lessonNameTextView;
+    private TextView lessDescTextView;
+    private TextView lessonInfoTextView;
+
+    /**从前一个页面传过来的LessonItem对象*/
+    LessonItem lessonItem;
+
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         setContentView(R.layout.activity_admin_lesson_detail);
 
 
+        /**获取控件**/
         backImageView = (ImageView) findViewById(R.id.backButton);
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
@@ -52,10 +61,23 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText("课时管理");
+        /**获取相关的TextView*/
+        lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
+        lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
+        lessonInfoTextView=(TextView)findViewById(R.id.lesson_detail_lessonInfo_textView);
+
+        /**获取启动该Activity的Intent*/
+        Intent intent=getIntent();
+        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+        if(lessonItem!=null) {
+            lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
+            lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
+            lessonInfoTextView.setText(lessonItem.getTeacherName()+lessonItem.getLocation()+lessonItem.getStartTime());
+        }
+
 
         /**设置监听事件**/
         mGenerateQRCode.setVisibility(View.VISIBLE);
-
         backImageView.setOnClickListener(this);
         alterLessonBtn.setOnClickListener(this);
         deleteLessonBtn.setOnClickListener(this);
