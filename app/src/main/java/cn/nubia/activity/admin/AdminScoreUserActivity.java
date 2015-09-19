@@ -103,7 +103,7 @@ public class AdminScoreUserActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminScoreUserActivity.this, code);
+            HandleResponse.excute(AdminScoreUserActivity.this, code,response.getString("message"));
         }
     }
 

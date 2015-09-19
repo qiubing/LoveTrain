@@ -100,7 +100,7 @@ public class AdminScoreCourseDetailActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminScoreCourseDetailActivity.this, code);
+            HandleResponse.excute(AdminScoreCourseDetailActivity.this, code,response.getString("message"));
         }
     }
 

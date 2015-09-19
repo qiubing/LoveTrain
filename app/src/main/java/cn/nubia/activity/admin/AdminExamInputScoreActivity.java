@@ -23,8 +23,9 @@ import cn.nubia.util.DialogUtil;
 
 public class AdminExamInputScoreActivity extends Activity {
 
-    private ListView mListView;
     private List<String> mDataList;
+
+    private ListView mListView;
     private float[] scores;
     private Button button;
 
@@ -128,7 +129,6 @@ public class AdminExamInputScoreActivity extends Activity {
             }
         };
 
-//        button = (Button) findViewById(R.id.manager_exam_score_input_button);
         View view = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.manager_exam_listviewfoot, null, false);
         button = (Button) view.findViewById(R.id.manager_exam_score_input_button);

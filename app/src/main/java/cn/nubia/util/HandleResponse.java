@@ -8,11 +8,11 @@ import android.content.Context;
  */
 public class HandleResponse {
 
-    public static void excute(Context context, String code) {
+    public static void excute(Context context, String code,String msg) {
         if (code.equals("1000")) {
-            DialogUtil.showToast(context, "未知系统错误！！");
+            DialogUtil.showToast(context, "未知系统错误("+msg+")");
         } else if (code.equals("1001")) {
-            DialogUtil.showToast(context, "参数错误！！");
+            DialogUtil.showToast(context, "参数错误("+msg+")");
         } else if (code.equals("2001")) {
             DialogUtil.showToast(context, "用户名不存在，请重新输入！");
         } else if (code.equals("2002")) {

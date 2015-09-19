@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,6 +127,7 @@ public class AdminUserActivity extends Activity {
                                             params.put("apk_version", Constant.apkVersion);
                                             params.put("token_key", Constant.tokenKep);
                                             params.put("user_id", list.get(position).getUserID());
+                                            Log.e("LK",Constant.devideID+"-"+Constant.tokenKep+"-"+System.currentTimeMillis());
                                             String url = Constant.BASE_URL + "user/reset.do";
                                             AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
                                                 @Override
@@ -137,7 +139,7 @@ public class AdminUserActivity extends Activity {
                                                         if (code.equals("0")) {
                                                             DialogUtil.showToast(AdminUserActivity.this, "你重置了" + userName + userId + "的密码！");
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败！");
+                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败"+ jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -186,7 +188,7 @@ public class AdminUserActivity extends Activity {
                                                             notifyDataSetChanged();
                                                             DialogUtil.showToast(AdminUserActivity.this, "你删除了用户:" + userName + userId);
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败！");
+                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败"+ jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -218,7 +220,7 @@ public class AdminUserActivity extends Activity {
             mListView.setAdapter(adapter);
 
         } else {
-            HandleResponse.excute(AdminUserActivity.this, code);
+            HandleResponse.excute(AdminUserActivity.this, code,response.getString("message"));
         }
     }
 

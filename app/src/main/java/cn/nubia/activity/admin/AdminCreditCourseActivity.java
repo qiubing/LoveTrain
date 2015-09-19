@@ -94,7 +94,7 @@ public class AdminCreditCourseActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminCreditCourseActivity.this, code);
+            HandleResponse.excute(AdminCreditCourseActivity.this, code,response.getString("message"));
         }
     }
 
