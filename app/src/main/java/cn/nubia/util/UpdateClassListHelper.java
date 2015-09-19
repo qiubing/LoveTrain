@@ -28,7 +28,6 @@ public class UpdateClassListHelper {
      * */
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList,String tableName) throws JSONException {
         int len = jsonArray.length();
-        Log.e("updateAllClassData",""+jsonArray.length());
         Item item = null;
         for(int i = 0;i < len; i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -117,7 +116,6 @@ public class UpdateClassListHelper {
             item = makeExam("insert",jsonObjectDetail);
             updateExamItem(item.getOperator(),item,examList);
         }
-//        binarySort(examList);
     }
 
 
@@ -146,7 +144,6 @@ public class UpdateClassListHelper {
             default:
                 break;
         }
-        Log.e("updateDatabyClassType",list.toString());
     }
 
     /**
@@ -157,8 +154,6 @@ public class UpdateClassListHelper {
      * */
     private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list,String tableName){
         int listIndex = binarySearch(list, item, false);
-        Log.e("TEST","updateCourseItem"+item.getName()+"index= "+item.getIndex());
-        Log.e("TEST","updateCourseItem"+listIndex);
         switch (operate){
             case "insert":
                 if(listIndex > -1 || item.getName().equals("null"))
@@ -166,7 +161,6 @@ public class UpdateClassListHelper {
                     Log.e(TAG,"插入重复课程！或Name为null");
                     return;
                 }else {
-                    Log.e("updateCourseItem",""+item.getName()+(-(listIndex+1)));
                     /***插入数据库**/
                     DbUtil.getInstance(null).insertCourseItem(item,tableName);
                     //如果不存在，返回负值
@@ -192,7 +186,6 @@ public class UpdateClassListHelper {
     }
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
-        Log.e("updateLessonItem list",list.toString());
         int listIndex = binarySearch(list, item, true);
         switch (operate){
             case "insert":
@@ -257,19 +250,16 @@ public class UpdateClassListHelper {
      * 根据课程索引查找，降序排列
      * */
     public static int binarySearch(List<? extends Item> list,int index){
-        Log.e("binarySearch",""+index+list.toString());
         Item item = new CourseItem();
         item.setIndex(index);
         return binarySearch(list, item,false);
     }
 
     public static int binarySearch(List<? extends Item> list,Item item, final boolean isAsc){
-        Log.e("binarySearch list",list.toString());
         //二分查找课程该Item对应的记录，
         return Collections.binarySearch(list, item, new Comparator<Item>() {
             @Override
             public int compare(Item lhs, Item rhs) {
-                Log.e("binarySearch","lhs"+lhs.toString()+"rhs"+rhs.toString());
                 if (lhs.getIndex() == rhs.getIndex())
                     return 0;
                 else if(isAsc){
