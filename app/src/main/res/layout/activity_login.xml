@@ -52,7 +52,7 @@
         android:hint="@string/login_id_hint" />
 
     <EditText
-        android:text="123456"
+        android:text="111111"
         android:id="@+id/login_pwd"
         style="@style/edittext_style"
         android:password="true"

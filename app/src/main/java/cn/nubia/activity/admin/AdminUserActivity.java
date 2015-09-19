@@ -139,7 +139,7 @@ public class AdminUserActivity extends Activity {
                                                         if (code.equals("0")) {
                                                             DialogUtil.showToast(AdminUserActivity.this, "你重置了" + userName + userId + "的密码！");
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败--"+ jsonObject.getString("message"));
+                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败"+ jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -188,7 +188,7 @@ public class AdminUserActivity extends Activity {
                                                             notifyDataSetChanged();
                                                             DialogUtil.showToast(AdminUserActivity.this, "你删除了用户:" + userName + userId);
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败--"+ jsonObject.getString("message"));
+                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败"+ jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();

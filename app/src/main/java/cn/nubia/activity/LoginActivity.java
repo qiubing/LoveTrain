@@ -18,8 +18,8 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.activity.admin.AdminMainActivity;
+import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
@@ -108,7 +108,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
                         dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
-                        regist();
+                        adminRegist();
                     }
                 }
                 break;
@@ -142,19 +142,21 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams();
-        params.put("user_id", userID);
-        params.put("password", (pwd));
 
         params.put("device_id", Constant.devideID);
         params.put("request_time", System.currentTimeMillis());
         params.put("apk_version", Constant.apkVersion);
         params.put("token_key", Constant.tokenKep);
 
-        Constant.USER_ID=userID;
+        Constant.USER_ID = userID;
         String url;
         if (isManager.equals("是")) {
+            params.put("admin_id", userID);
+            params.put("password", (pwd));
             url = Constant.BASE_URL + "ucent/admin_login.do";
         } else {
+            params.put("user_id", userID);
+            params.put("password", (pwd));
             url = Constant.BASE_URL + "ucent/login.do";
         }
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
@@ -188,27 +190,38 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 JSONObject json = response.getJSONObject("data");
                 String tokenKey = json.getString("token_key");
                 UserInfo user = new UserInfo();
-                user.setUserID(json.getString("user_id"));
-                user.setGender(json.getBoolean("gender"));
-                user.setUserName(json.getString("user_name"));
-                user.setUserIconURL(json.getString("icon_url"));
-                user.setUserTotalCredits(json.getInt("userTotalCredits"));
-                user.setLastLoginTime(System.currentTimeMillis());
-                Constant.user = user;
+
                 if (null != tokenKey) {
                     Constant.tokenKep = tokenKey;
                 }
-                ProcessSPData.putIntoSP(this, user);
                 ProcessSPData.putIntoSP(this, "tokenKey", Constant.tokenKep);
                 ProcessSPData.putIntoSP(this, "isLogin", true);
 
                 DialogUtil.showToast(LoginActivity.this, "登录成功");
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
+                    user.setUserID(json.getString("admin_id"));
+                    user.setUserName(json.getString("admin_name"));
+                    user.setGender(true);
+                    user.setUserIconURL(null);
+                    user.setUserTotalCredits(0);
+                    user.setLastLoginTime(System.currentTimeMillis());
+                    Constant.user = user;
+
+                    ProcessSPData.putIntoSP(this, user);
                     ProcessSPData.putIntoSP(this, "isAdmin", true);
                     Constant.IS_ADMIN = true;
                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     LoginActivity.this.finish();
                 } else {
+                    user.setUserID(json.getString("user_id"));
+                    user.setGender(json.getBoolean("gender"));
+                    user.setUserName(json.getString("user_name"));
+                    user.setUserIconURL(json.getString("icon_url"));
+                    user.setUserTotalCredits(json.getInt("userTotalCredits"));
+                    user.setLastLoginTime(System.currentTimeMillis());
+                    Constant.user = user;
+
+                    ProcessSPData.putIntoSP(this, user);
                     ProcessSPData.putIntoSP(this, "isAdmin", false);
                     Constant.IS_ADMIN = false;
 //                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
@@ -217,7 +230,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             } else {
                 String msg = response.getString("message");
-                HandleResponse.excute(LoginActivity.this, code,msg);
+                HandleResponse.excute(LoginActivity.this, code, msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,7 +323,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             params.put("gender", "0");
         }
         //ucent/admin_register.do?admin_name&admin_id&password
-        //String url = Constant.BASE_URL + "user/register.do";
         String url = Constant.BASE_URL + "ucent/admin_register.do";
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
 

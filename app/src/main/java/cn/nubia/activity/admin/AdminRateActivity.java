@@ -40,14 +40,88 @@ public class AdminRateActivity extends Activity {
         mRate_A = (EditText) findViewById(R.id.activity_manager_rate_A);
         mRate_B = (EditText) findViewById(R.id.activity_manager_rate_B);
         mRate_C = (EditText) findViewById(R.id.activity_manager_rate_C);
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                DialogUtil.showDialog(AdminRateActivity.this, "save");
+//                RequestParams params = new RequestParams();
+//                params.put("level_name");
+//                String url = Constant.BASE_URL + "my/judge_manage.do";
+//                AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int i, Header[] headers, byte[] bytes) {
+//                        try {
+//                            String s = new String(bytes, "UTF-8");
+//                            JSONObject response = new JSONObject(s);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+//                        DialogUtil.showToast(AdminRateActivity.this, "连接服务器发生异常！");
+//                    }
+//                });
+                if (validate()) {
+                    DialogUtil.showDialog(AdminRateActivity.this, "评级规则设置成功！");
+//                    startActivity(new Intent(AdminRateActivity.this,AdminMyTabActivity.class));
+//                    finish();
+                }
             }
         });
     }
 
-
+    private boolean validate() {
+        String input = mRate_A.getText().toString();
+        int value = 0;
+        if (input.equals("")) {
+            DialogUtil.showToast(this, "请输入优秀课程取值");
+            return false;
+        } else {
+            try {
+                value = Integer.valueOf(input);
+                if (value < 0 || value > 5) {
+                    DialogUtil.showToast(this, "请输入0~5之间的值");
+                    return false;
+                }
+            } catch (Exception e) {
+                DialogUtil.showToast(this, "请输入0~5之间的值");
+                return false;
+            }
+        }
+        input = mRate_B.getText().toString();
+        if (input.equals("")) {
+            DialogUtil.showToast(this, "请输入良好课程取值");
+            return false;
+        } else {
+            try {
+                value = Integer.valueOf(input);
+                if (value < 0 || value > 5) {
+                    DialogUtil.showToast(this, "请输入0~5之间的值");
+                    return false;
+                }
+            } catch (Exception e) {
+                DialogUtil.showToast(this, "请输入0~5之间的值");
+                return false;
+            }
+        }
+        input = mRate_C.getText().toString();
+        if (input.equals("")) {
+            DialogUtil.showToast(this, "请输入一般课程取值");
+            return false;
+        } else {
+            try {
+                value = Integer.valueOf(input);
+                if (value < 0 || value > 5) {
+                    DialogUtil.showToast(this, "请输入0~5之间的值");
+                    return false;
+                }
+            } catch (Exception e) {
+                DialogUtil.showToast(this, "请输入0~5之间的值");
+                return false;
+            }
+        }
+        return true;
+    }
 }
