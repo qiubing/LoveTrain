@@ -23,6 +23,7 @@ public class Constant {
     public static final boolean SHOW_HEADER = true;
     public static final boolean SHOW_FOOTER = false;
 
+    public static final String IS_FIRST_RUN = "isFirstRun";
     /**
      * 设备id
      */
