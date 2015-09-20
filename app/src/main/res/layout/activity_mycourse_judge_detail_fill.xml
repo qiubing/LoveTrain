@@ -25,7 +25,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_contentapplicability_textView"/>
 
             <RatingBar
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_ContentRationality_textView"/>
 
             <RatingBar
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_Discussion_textView"/>
 
             <RatingBar
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_TimeRationality_textView"/>
 
             <RatingBar
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_ContentUnderstanding_textView"/>
 
             <RatingBar
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_ExpressionAbility_textView"/>
 
             <RatingBar
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_Communication_textView"/>
 
             <RatingBar
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_Organization_textView"/>
 
             <RatingBar
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_ComprehensiveEvaluation_textView"/>
 
             <EditText
@@ -122,7 +122,7 @@
                 style="@style/edittext_style_multiline"/>
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_mycourse_judge_detail_fill_Suggestion_textView"/>
 
             <EditText

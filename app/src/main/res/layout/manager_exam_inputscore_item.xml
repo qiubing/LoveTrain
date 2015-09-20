@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/manager_exam_inputscore_username"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:text="testa"
@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/manager_exam_inputscore_id"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="Htt"
@@ -39,7 +39,7 @@
 
         <EditText
             android:id="@+id/manager_exam_inputscore_score"
-            style="@style/edittext_style"
+            style="@style/edit_text_style"
             android:layout_height="43dp"
             android:layout_marginTop="3dp"
             android:layout_width="120dp"

@@ -24,14 +24,14 @@
 
         <TextView
             android:id="@+id/course_name_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="@string/courseName"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/course_name"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/course_name_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -61,14 +61,14 @@
 
         <TextView
             android:id="@+id/exam_introduction_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="@string/activity_manager_exam_introduction"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_introduction"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_introduction_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -87,14 +87,14 @@
 
         <TextView
             android:id="@+id/exam_info_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="@string/activity_manager_exam_info"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_info"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_info_title"
             android:gravity="top"
             android:text="XXXXXXXX"

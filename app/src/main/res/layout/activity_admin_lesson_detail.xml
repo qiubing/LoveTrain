@@ -32,14 +32,14 @@
 
         <TextView
             android:id="@+id/course_name_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="课时名称"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/lesson_detail_realName_textView"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/course_name_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -72,14 +72,14 @@
 
         <TextView
             android:id="@+id/exam_introduction_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="课时简介"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/lesson_detail_realDesc_textView"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_introduction_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -98,14 +98,14 @@
 
         <TextView
             android:id="@+id/exam_info_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="课时信息"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/lesson_detail_lessonInfo_textView"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_info_title"
             android:gravity="top"
             android:text="XXXXXXXX"
