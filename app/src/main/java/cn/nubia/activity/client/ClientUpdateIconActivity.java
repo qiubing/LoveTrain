@@ -121,13 +121,13 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 //上传地址以及请求参数
                 String url = Constant.BASE_URL + "user/icon_set.do";
                 RequestParams params = new RequestParams();
-                params.put("device_id", "MXJSDLJFJFSFS");
-                params.put("request_time", "1445545456456");
-                params.put("apk_version", "1");
-                params.put("token_key", "wersdfffthnjimhtrfedsaw");
+                params.put("device_id","87654321");
+                params.put("request_time","1444444444444");
+                params.put("apk_version","1.0");
+                params.put("token_key","123456789");
                 params.put("user_icon_type", "multipart/form-data");
                 params.put("user_icon", file);
-                params.put("user_id", "0016002946");
+                params.put("user_id", Constant.USER_ID);
                 AsyncHttpHelper.post(url, params, mUpdateIconHandler);
             }
         } catch (FileNotFoundException e) {
@@ -212,7 +212,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      * @return
      */
     public void takePhoto() {
-        // TODO Auto-generated method stub
         // 执行拍照前，应该先判断SD卡是否存在
         String SDState = Environment.getExternalStorageState();
         if (!SDState.equals(Environment.MEDIA_MOUNTED)) {

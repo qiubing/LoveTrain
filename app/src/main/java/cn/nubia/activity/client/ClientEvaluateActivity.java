@@ -184,7 +184,6 @@ public class ClientEvaluateActivity  extends Activity {
 
 
     protected void initEvents() {
-        // TODO Auto-generated method stub
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -220,7 +219,6 @@ public class ClientEvaluateActivity  extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                // TODO Auto-generated method stub
                 //showSpotAd();
                 Bundle b = new Bundle();
                 b.putSerializable("data", adapter.getItem(arg2));
@@ -269,7 +267,6 @@ public class ClientEvaluateActivity  extends Activity {
     }
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 

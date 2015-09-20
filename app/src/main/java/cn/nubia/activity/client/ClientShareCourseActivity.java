@@ -71,9 +71,9 @@ public class ClientShareCourseActivity extends Activity {
 
         //请求参数
         HashMap<String,String> param = new HashMap<String,String>();
-        param.put("user_id", "0016002946");
+        param.put("user_id", Constant.USER_ID);
         RequestParams request = Utils.toParams(param);
-        String url = Constant.BASE_URL + "/share/list_my_share.do";
+        String url = Constant.BASE_URL + "share/list_my_share.do";
         AsyncHttpHelper.post(url, request, mCheckRecordHandler);
     }
 

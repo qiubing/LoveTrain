@@ -36,7 +36,6 @@ public class AdminMainActivity extends ActivityGroup {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
         initBeforeData();
@@ -52,11 +51,9 @@ public class AdminMainActivity extends ActivityGroup {
 
 
     protected void initEvents() {
-        // TODO Auto-generated method stub
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO Auto-generated method stub
                 switch (checkedId) {
                     case R.id.main_admin_radio_course:
                         mTabHost.setCurrentTab(0);
