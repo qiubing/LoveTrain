@@ -9,9 +9,14 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import cn.nubia.activity.R;
+import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.DialogUtil;
@@ -77,45 +82,21 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_detail);
 
+        //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
         mGoBack = (ImageView) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-        mInputScore = (Button) findViewById(R.id.manager_exam_inputscorebtn);
-        mDeleteExam = (Button) findViewById(R.id.manager_exam_deletebtn);
-        mEditExam = (Button) findViewById(R.id.manager_exam_editbtn);
-        mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
-        mExamInfo = (TextView) findViewById(R.id.exam_info);
-        mCourseName = (TextView) findViewById(R.id.course_name);
-        mInputScore.setOnClickListener(this);
-        mDeleteExam.setOnClickListener(this);
-        mEditExam.setOnClickListener(this);
+        holdView();
+        setViewLogic();
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
         mExamItem = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
-        mCourseName.setText(mExamItem.getName());
-        mExamIntroduction.setText(mExamItem.getDescription());
-        mExamInfo.setText(mExamItem.getLocale());
 
-
-        //创建手势管理单例对象
-        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
-        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
-        gestureDetector = new GestureDetector(this, gestureDetectorManager);
-
-        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
-        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
-            @Override
-            public void finishActivity() {
-                finish();
-            }
-        });
-
+        initViewData();
     }
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
@@ -130,6 +111,8 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();
+                mExamItem = new ExamItem();
+                mExamItem.setIndex(1);
                 bundle.putSerializable("ExamInfo",mExamItem);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -156,5 +139,45 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    private void holdView(){
+        mInputScore = (Button) findViewById(R.id.manager_exam_inputscorebtn);
+        mDeleteExam = (Button) findViewById(R.id.manager_exam_deletebtn);
+        mEditExam = (Button) findViewById(R.id.manager_exam_editbtn);
+        mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
+        mExamInfo = (TextView) findViewById(R.id.exam_info);
+        mCourseName = (TextView) findViewById(R.id.course_name);
+    }
+
+    private void setViewLogic(){
+        mInputScore.setOnClickListener(this);
+        mDeleteExam.setOnClickListener(this);
+        mEditExam.setOnClickListener(this);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    private void initViewData() {
+        mCourseName.setText(mExamItem.getName());
+        mExamIntroduction.setText(mExamItem.getDescription());
+        mExamInfo.setText(mExamItem.getLocale());
     }
 }

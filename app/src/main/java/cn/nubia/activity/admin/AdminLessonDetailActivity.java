@@ -199,6 +199,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     intent = new Intent(this, ClientEvaluateActivity.class);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                    intent.putExtra("lessonIndex",0);
                 }
                 startActivity(intent);
                 break;

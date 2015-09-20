@@ -24,6 +24,7 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.CreditsAwardMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
 
 /**
@@ -52,8 +53,8 @@ public class AdminCreditsAwardActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,CommunicateService.OperateType type){
-            AdminCreditsAwardActivity.this.showOperateResult((List<String>)list,type);
+        public void alter(List<?> list,String URL){
+            AdminCreditsAwardActivity.this.showOperateResult((List<String>)list,URL);
         }
     }
 
@@ -88,6 +89,7 @@ public class AdminCreditsAwardActivity extends Activity {
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                disconectService();
                 finish();
             }
         });
@@ -119,7 +121,7 @@ public class AdminCreditsAwardActivity extends Activity {
                     creditsAwardMsg.setAwardedCause(mAwardCause.getText().toString());
                     creditsAwardMsg.setOperateType(CommunicateService.OperateType.INSERT);
                     mBinder.communicate(
-                            creditsAwardMsg,new Inter(),"creditsaward.do");
+                            creditsAwardMsg,new Inter(), URLMap.URL_AWARD_CREDITS);
                 }
             }
         };
@@ -131,14 +133,22 @@ public class AdminCreditsAwardActivity extends Activity {
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
-        Boolean result = Boolean.getBoolean(list.get(0));
-        if(result)
-            DialogUtil.showDialog(
-                    AdminCreditsAwardActivity.this,"积分奖励成功!",false);
-        else
-            DialogUtil.showDialog(
-                    AdminCreditsAwardActivity.this,"积分奖励失败!",false);
+    private void disconectService(){
+        unbindService(mConn);
+    }
 
+    private void showOperateResult(List<String> list,String tagetURL) {
+        if(list==null){
+            DialogUtil.showDialog(
+                    AdminCreditsAwardActivity.this,"操作失败!",false);
+        }else{
+            String result = list.get(0);
+            if(result.equals("0"))
+                DialogUtil.showDialog(
+                        AdminCreditsAwardActivity.this,"积分奖励成功!",false);
+            else if(result.equals("1"))
+                DialogUtil.showDialog(
+                        AdminCreditsAwardActivity.this, "积分奖励失败!", false);
+        }
     }
 }

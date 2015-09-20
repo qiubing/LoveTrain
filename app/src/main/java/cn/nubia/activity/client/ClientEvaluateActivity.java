@@ -26,7 +26,7 @@ import cn.nubia.activity.R;
 import cn.nubia.adapter.EvaluateAdapter;
 import cn.nubia.component.ErrorHintView;
 import cn.nubia.component.RefreshLayout;
-import cn.nubia.entity.LessonJudgement;
+import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
@@ -48,7 +48,7 @@ public class ClientEvaluateActivity  extends Activity {
     public static int VIEW_LOADFAILURE = 3;
     public static int VIEW_LOADING = 4;
     private static final String URL_PATH = "http://love-train-dev.nubia.cn/";
-    private List<LessonJudgement> mList = new ArrayList<>();
+    private List<LessonJudgementMsg> mList = new ArrayList<>();
     EvaluateAdapter mEvaluateAdapter;
     private GestureDetector gestureDetector;
 
@@ -116,7 +116,7 @@ public class ClientEvaluateActivity  extends Activity {
                         JSONObject obj = new JSONObject(new String(responseBody));
                         EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
                                 EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, obj);
-                        List<LessonJudgement> list = (List<LessonJudgement>) factoryGenerics.get();
+                        List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
                         Log.i("huhu", "onSuccess");
                         Log.i("huhu", list.toString());
                         showLoading(VIEW_LIST);
@@ -154,7 +154,7 @@ public class ClientEvaluateActivity  extends Activity {
                         JSONObject obj = new JSONObject(qusiba);
                         EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
                                 EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, obj);
-                        List<LessonJudgement> list = (List<LessonJudgement>) factoryGenerics.get();
+                        List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
                         showLoading(VIEW_LIST);
 
                         /*JSONArray array = obj.getJSONArray("items");

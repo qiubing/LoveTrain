@@ -1,5 +1,9 @@
 package cn.nubia.activity.client;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
@@ -13,14 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import cn.nubia.activity.R;
 import cn.nubia.entity.PswModifyMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
 
 /**
@@ -48,8 +49,8 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,CommunicateService.OperateType type) {
-            ClientMyAccountmanaPswmodifyActivity.this.showOperateResult((List<String>) list,type);
+        public void alter(List<?> list,String URL) {
+            ClientMyAccountmanaPswmodifyActivity.this.showOperateResult((List<String>) list,URL);
         }
     }
 
@@ -66,6 +67,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                disconectService();
                 finish();
             }
         });
@@ -103,7 +105,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                         pswModifyMsg.setNewPsw(newPsw);
                         pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
                         mBinder.communicate(
-                                pswModifyMsg,new Inter(),"passwordmodify.do");
+                                pswModifyMsg,new Inter(), URLMap.URL_UPD_PSW);
                     }
                 } else {
                     DialogUtil.showDialog(
@@ -126,19 +128,27 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
+    private void disconectService(){
+        unbindService(mConn);
+    }
+
     private void setViewLogic() {
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 
-    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
-        Boolean result = Boolean.getBoolean(list.get(0));
-        if (result)
+    private void showOperateResult(List<String> list,String tagetURL) {
+        if(list==null){
             DialogUtil.showDialog(
-                    ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", false);
-        else
-            DialogUtil.showDialog(
-                    ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败!", false);
-
+                    ClientMyAccountmanaPswmodifyActivity.this,"操作失败!",false);
+        }else{
+            String result = list.get(0);
+            if(result.equals("0"))
+                DialogUtil.showDialog(
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", false);
+            else if(result.equals("1"))
+                DialogUtil.showDialog(
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败!", false);
+        }
     }
 }

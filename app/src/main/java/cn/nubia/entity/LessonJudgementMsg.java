@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class LessonJudgement extends Paramable{
+public class LessonJudgementMsg extends Paramable{
     private float mContentApplicability;
     private float mContentRationality;
     private float mDiscussion;
@@ -20,7 +20,13 @@ public class LessonJudgement extends Paramable{
     private String mComprehensiveEvaluation;
     private String mSuggestion;
     private String mName;
+    private int mLessonIndex;
 
+    public int getLessonIndex(){return mLessonIndex;}
+
+    public void setLessonIndex(int lessonIndex){
+        this.mLessonIndex = lessonIndex;
+    }
     public String getName() {
         return mName;
     }
@@ -111,15 +117,19 @@ public class LessonJudgement extends Paramable{
 
     @Override
     protected RequestParams toInsertParams(RequestParams params) {
-        params.add("ContentApplicability", String.valueOf(mContentApplicability));
-        params.add("ContentRationality", String.valueOf(mContentRationality));
-        params.add("Discussion", String.valueOf(mDiscussion));
-        params.add("TimeRationality", String.valueOf(mTimeRationality));
-        params.add("ExpressionAbility", String.valueOf(mExpressionAbility));
-        params.add("Communication", String.valueOf(mCommunication));
-        params.add("Organization", String.valueOf(mOrganization));
-        params.add("ComprehensiveEvaluation", mComprehensiveEvaluation);
-        params.add("Suggestion", mSuggestion);
+        params.add("lesson_index", String.valueOf(mLessonIndex));
+        params.add("content_applicability", String.valueOf(mContentApplicability));
+        params.add("content_rationality", String.valueOf(mContentRationality));
+        params.add("discussion", String.valueOf(mDiscussion));
+        params.add("time_rationality", String.valueOf(mTimeRationality));
+        params.add("content_understanding", String.valueOf(mContentUnderstanding));
+        params.add("expression_ability", String.valueOf(mExpressionAbility));
+        params.add("communication", String.valueOf(mCommunication));
+        params.add("organization", String.valueOf(mOrganization));
+        params.add("comprehensive_evaluation", mComprehensiveEvaluation);
+        params.add("suggestion", mSuggestion);
+
+        params.add("user_id", "0016003317");
         return params;
     }
 

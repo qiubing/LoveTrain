@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.entity.ShareCourseItem;
+import cn.nubia.entity.ShareCourseMsg;
 
 /**
  * @Description:
@@ -19,10 +19,10 @@ import cn.nubia.entity.ShareCourseItem;
  * @Date: 2015/9/15 15:53
  */
 public class ClientShareCourseAdapter extends BaseAdapter {
-    private List<ShareCourseItem> mCourseList;
+    private List<ShareCourseMsg> mCourseList;
     private Context mContext;
 
-    public ClientShareCourseAdapter(List<ShareCourseItem> courseList,Context context){
+    public ClientShareCourseAdapter(List<ShareCourseMsg> courseList,Context context){
         this.mContext = context;
         this.mCourseList = courseList;
     }

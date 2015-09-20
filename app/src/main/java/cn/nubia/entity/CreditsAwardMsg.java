@@ -40,9 +40,9 @@ public class CreditsAwardMsg extends Paramable{
 
     @Override
     protected RequestParams toInsertParams(RequestParams params) {
-        params.add("awardedName", mAwardedName);
-        params.add("awardedCredits", String.valueOf(mAwardedCredits));
-        params.add("awaredCause", mAwardedCause);
+        params.add("user_name", mAwardedName);
+        params.add("credits", String.valueOf(mAwardedCredits));
+        params.add("cause", mAwardedCause);
         return params;
     }
 

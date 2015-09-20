@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by JiangYu on 2015/9/15.
  */
-public class ShareCourseItem extends Paramable{
+public class ShareCourseMsg extends Paramable{
     private int mCourseIndex;
     private String mCourseName;
     private String mCourseDescription;
@@ -77,24 +77,29 @@ public class ShareCourseItem extends Paramable{
     protected RequestParams toInsertParams(RequestParams params) {
         params.add("course_name", mCourseName);
         params.add("course_description", mCourseDescription);
-        params.add("type", String.valueOf(2));
+//        params.add("type", String.valueOf(2));
         params.add("course_level", String.valueOf(mCourseLevel));
         params.add("locale", mLocale);
         params.add("start_time", String.valueOf(mStartTime));
         params.add("end_time", String.valueOf(mEndTime));
+        params.add("user_id","0016003317");
 
         return params;
     }
     @Override
     protected RequestParams toUpdateParams(RequestParams params) {
-        params.add("course_index", String.valueOf(mCourseIndex));
+        params.add("course_index", "22");
+//        params.add("course_index", String.valueOf(mCourseIndex));
         params.add("course_name", mCourseName);
         params.add("course_description", mCourseDescription);
-        params.add("type", String.valueOf(2));
+//        params.add("type", String.valueOf(2));
         params.add("course_level", String.valueOf(mCourseLevel));
         params.add("locale", mLocale);
         params.add("start_time", String.valueOf(mStartTime));
         params.add("end_time", String.valueOf(mEndTime));
+//        params.add("user_name",null);
+        params.add("user_name","pxc");
+
 
         return params;
     }
