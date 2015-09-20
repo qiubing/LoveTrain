@@ -103,9 +103,9 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                     judgement.setOrganization(((RatingBar) findViewById(R.id
                             .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
                     judgement.setComprehensiveEvaluation(
-                            mComprehensiveEvaluationEditText.getText().toString());
+                            mComprehensiveEvaluationEditText.getText().toString().trim());
                     judgement.setSuggestion(
-                            mSuggestionEditText.getText().toString());
+                            mSuggestionEditText.getText().toString().trim());
                     judgement.setLessonIndex(mLessonIndex);
 
                     judgement.setOperateType(CommunicateService.OperateType.INSERT);
@@ -162,11 +162,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     }
 
     private boolean checkData(){
-        if(mComprehensiveEvaluationEditText.getText().toString()==null){
+        if(mComprehensiveEvaluationEditText.getText().toString().trim().equals("")){
             Toast.makeText(this, "课程综合评价不能为空", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mSuggestionEditText.getText().toString()==null){
+        if(mSuggestionEditText.getText().toString().trim().equals("")){
             Toast.makeText(this, "课程建议不能为空", Toast.LENGTH_SHORT).show();
             return false;
         }
