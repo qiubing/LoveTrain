@@ -44,6 +44,8 @@ import cn.nubia.util.DialogUtil;
 public class AdminExamInputScoreActivity extends Activity {
     private ExamItem mExamItem;
     private List<ExamScoreMsg> mExamScoreList;
+    private int mResultNum = 0;
+    private boolean mNextPress;
 
     private ListView mExamScoreListView;
     private AdminExamScoreInputAdapter mExamScoreAdapter;
@@ -96,6 +98,7 @@ public class AdminExamInputScoreActivity extends Activity {
     @Override
     public void onStart(){
         super.onStart();
+        mNextPress = true;
         Intent intent =getIntent();
         mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
         final ExamMsg examMsg = new ExamMsg();
@@ -123,8 +126,11 @@ public class AdminExamInputScoreActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkData()){
-
+                if( mNextPress ) {
+                    if (checkData()) {
+                        scoreUpload();
+                    }
+                    mNextPress = false;
                 }
             }
         });
@@ -157,7 +163,7 @@ public class AdminExamInputScoreActivity extends Activity {
             @Override
             public void run() {
                 while(mBinder==null){}
-                mBinder.loopCommunicate(mExamScoreList, new Inter(), URLMap.URL_QUE_EXAMENROLLLIST);
+                mBinder.loopCommunicate(mExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
             }
         }).start();
     }
@@ -171,8 +177,13 @@ public class AdminExamInputScoreActivity extends Activity {
                 mExamScoreList = (List<ExamScoreMsg>) list;
                 mExamScoreAdapter = new AdminExamScoreInputAdapter(this,mExamScoreList);
                 mExamScoreListView.setAdapter(mExamScoreAdapter);
-            }else if(tagetURL.equals(URLMap.URL_UPD_SHARE)){
-
+            }else if(tagetURL.equals(URLMap.URL_ADD_EXAMSCORE)){
+                mResultNum++;
+                if(mResultNum == mExamScoreList.size()) {
+                    DialogUtil.showDialog(
+                            AdminExamInputScoreActivity.this, "操作成功!", false);
+                    mNextPress = true;
+                }
             }
         }
     }

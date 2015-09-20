@@ -79,7 +79,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private boolean matchNewPsw() {
         String str = "^(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";
         Pattern p = Pattern.compile(str);
-        Matcher m = p.matcher(mNewpswEditText.getText().toString());
+        Matcher m = p.matcher(mNewpswEditText.getText().toString().trim());
         return m.matches();
     }
 
@@ -89,10 +89,10 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
             public void onClick(View v) {
 
                 String oldPsw = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_oldpswedittext)).getText().toString();
-                String newPsw = mNewpswEditText.getText().toString();
+                        my_accountmana_pswmodify_oldpswedittext)).getText().toString().trim();
+                String newPsw = mNewpswEditText.getText().toString().trim();
                 String newPswConfirm = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString();
+                        my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString().trim();
                 if (newPsw.equals(newPswConfirm)) {
                     if (!matchNewPsw()) {
                         DialogUtil.showDialog(

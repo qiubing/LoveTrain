@@ -4,7 +4,6 @@ package cn.nubia.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +27,6 @@ import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
-import cn.nubia.util.IDFactory;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -74,13 +72,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         mLoginButton.setOnClickListener(this);
         mRegistButton.setOnClickListener(this);
-
-        IDFactory factory = new IDFactory(this);
-        Constant.devideID = factory.getDevideID();
-        Constant.apkVersion = factory.getVersionCode();
-        Constant.tokenKep = "sfdgfjh";
-        Log.e("LoginActivity", Constant.devideID + "-" + Constant.apkVersion);
-
     }
 
     @Override
@@ -90,20 +81,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             case R.id.login_btn:
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
-                    //TODO
-//                    int temp = 1;
-//                    if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
-//                        Constant.IS_ADMIN = true;
-//                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-//                        LoginActivity.this.finish();
-//                    } else {
-//                        Constant.IS_ADMIN = false;
-//                        startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
-//                        LoginActivity.this.finish();
-//                    }
-//                    if(temp==1)
-//                        break;
-
                     if (validateLogin()) {
                         dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
@@ -144,12 +121,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String userID = mUserIdET.getText().toString();
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
-        RequestParams params = new RequestParams();
+        RequestParams params = new RequestParams(Constant.getRequestParams());
 
-        params.put("device_id", Constant.devideID);
-        params.put("request_time", System.currentTimeMillis());
-        params.put("apk_version", Constant.apkVersion);
-        params.put("token_key", Constant.tokenKep);
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("token_key", Constant.tokenKep);
 
         Constant.USER_ID = userID;
         String url;

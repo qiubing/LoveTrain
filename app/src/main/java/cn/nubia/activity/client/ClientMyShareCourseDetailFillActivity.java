@@ -292,11 +292,11 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     }
 
     private boolean checkData(){
-        if(mCourseName.getText().toString().equals("")) {
+        if(mCourseName.getText().toString().trim().equals("")) {
             Toast.makeText(this,"课程名不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mCourseDescription.getText().toString().equals("")){
+        if(mCourseDescription.getText().toString().trim().equals("")){
             Toast.makeText(this,"课程描述不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
