@@ -10,7 +10,9 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.client.ClientMyShareCourseDetailFillActivity;
 import cn.nubia.entity.ShareCourseLevelModel;
+import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
@@ -40,9 +42,11 @@ public class AdminShareCourseApprovedDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminShareCourseApprovedDetailActivity.this,
-                        AdminShareCourseApprovedModifyActivity.class);
+                        ClientMyShareCourseDetailFillActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("ModifiedCourseInfo", mApprovedCourseItem);
+                bundle.putString("type","update");
+                ShareCourseMsg msg = new ShareCourseMsg(mApprovedCourseItem);
+                bundle.putSerializable("shareCourse", msg);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

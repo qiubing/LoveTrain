@@ -109,6 +109,8 @@ public class CommunicateService extends Service {
                                     lastMissionFinished = true;
                                     List<?> mResultList = asyncGetResult.getResultList();
                                     inter.alter(mResultList, tagetURL);
+
+                                    lastMissionFinishedContain.notifyAll();
                                 }
                             }
                         });
@@ -118,18 +120,24 @@ public class CommunicateService extends Service {
                         int loopIndex = 0;
                         while(loopIndex<paramList.size()){
                             synchronized (lastMissionFinishedContain) {
-                                if(lastMissionFinishedContain.get(0)) {
-                                    Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
-                                    lastMissionFinished = false;
+                                Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
 
-                                    Paramable currentParamable = paramList.get(loopIndex);
-                                    RequestParams params = currentParamable.toParams();
-                                    Log.e("jiangyu", params.toString());
-                                    client.get(tagetURL, params, httpHandler);
-
-                                    loopIndex++;
+                                while(!lastMissionFinished){
+                                    try {
+                                        lastMissionFinishedContain.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
+
+                                Paramable currentParamable = paramList.get(loopIndex);
+                                RequestParams params = currentParamable.toParams();
+                                Log.e("jiangyu", params.toString());
+                                client.get(tagetURL, params, httpHandler);
+                                lastMissionFinished = false;
+                                loopIndex++;
                             }
+
                         }
                         Log.e("jiangyu", "loopCommunicate thread begin");
                     }

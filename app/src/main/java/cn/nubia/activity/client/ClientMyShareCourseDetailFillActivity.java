@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -89,6 +90,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     @Override
     public void onStart(){
         super.onStart();
+        Log.e("jiangyu", "share start");
         initViewData();
     }
 
@@ -252,9 +254,11 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     }
 
                     if(mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
+                        Log.e("jiangyu","add share");
                         shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
                         mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
                     }else if(mOperateURL.equals(URLMap.URL_UPD_SHARE)){
+                        Log.e("jiangyu","upd share");
                         shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
                         shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
                         mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
