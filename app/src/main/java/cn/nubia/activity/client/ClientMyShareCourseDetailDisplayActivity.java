@@ -1,5 +1,7 @@
 package cn.nubia.activity.client;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cn.nubia.activity.R;
-import cn.nubia.entity.ShareCourseItem;
+import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.ShareCourseLevelModel;
 
 /**
@@ -28,7 +27,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     private TextView mCourseLocale;
     private TextView mCourseDescription;
     private Button mCourseModifyButton;
-    private ShareCourseItem mShareCourseItem;
+    private ShareCourseMsg mShareCourseMsg;
 
 
     @Override
@@ -37,6 +36,16 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         setContentView(R.layout.activity_my_sharecourse_detail_display);
         holdView();
         setViewLogic();
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
+
         initViewData();
     }
 
@@ -67,7 +76,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
                         , ClientMyShareCourseDetailFillActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("type","update");
-                bundle.putSerializable("shareCourse", mShareCourseItem);
+                bundle.putSerializable("shareCourse", mShareCourseMsg);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -76,25 +85,21 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     }
 
     private void initViewData() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        mShareCourseItem = (ShareCourseItem) bundle.getSerializable("shareCourse");
-
-        mCourseName.setText(mShareCourseItem.getCourseName());
+        mCourseName.setText(mShareCourseMsg.getCourseName());
         mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short)mShareCourseItem.getCourseLevel()));
-        Log.e("level",mShareCourseItem.getCourseLevel() + " ");
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mShareCourseMsg.getCourseLevel()));
+        Log.e("level", mShareCourseMsg.getCourseLevel() + " ");
         Date startTime = new Date();
-        startTime.setTime(mShareCourseItem.getStartTime());
+        startTime.setTime(mShareCourseMsg.getStartTime());
         Date endTime = new Date();
-        endTime.setTime(mShareCourseItem.getEndTime());
+        endTime.setTime(mShareCourseMsg.getEndTime());
         mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
         mCourseStartTime.setText(
                 new SimpleDateFormat("HH:mm").format(startTime));
         mCourseEndTime.setText(
                 new SimpleDateFormat("HH:mm").format(endTime));
-        mCourseLocale.setText(mShareCourseItem.getLocale());
-        mCourseDescription.setText(mShareCourseItem.getCourseDescription());
+        mCourseLocale.setText(mShareCourseMsg.getLocale());
+        mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
     }
 
     /**

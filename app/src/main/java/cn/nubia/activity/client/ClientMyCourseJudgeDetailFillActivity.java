@@ -20,15 +20,17 @@ import android.widget.Toast;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.entity.LessonJudgement;
+import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
 
 /**
  * Created by JiangYu on 2015/9/6.
  */
 public class ClientMyCourseJudgeDetailFillActivity extends Activity{
+    private int mLessonIndex;
     private Button mConfirmButton;
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
@@ -51,8 +53,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,CommunicateService.OperateType type){
-            ClientMyCourseJudgeDetailFillActivity.this.showOperateResult((List<String>)list,type);
+        public void alter(List<?> list,String URL){
+            ClientMyCourseJudgeDetailFillActivity.this.showOperateResult((List<String>)list,URL);
         }
     }
 
@@ -71,12 +73,19 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         setViewLogic();
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        Intent intent = getIntent();
+        mLessonIndex = intent.getIntExtra("lessonIndex",-1);
+    }
+
     private View.OnClickListener makeConfirmOnClickListener(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkData()) {
-                    LessonJudgement judgement = new LessonJudgement();
+                    LessonJudgementMsg judgement = new LessonJudgementMsg();
                     judgement.setContentApplicability(((RatingBar) findViewById(R.id
                             .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
                     judgement.setContentRationality(((RatingBar) findViewById(R.id
@@ -97,9 +106,10 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                             mComprehensiveEvaluationEditText.getText().toString());
                     judgement.setSuggestion(
                             mSuggestionEditText.getText().toString());
+                    judgement.setLessonIndex(mLessonIndex);
 
                     judgement.setOperateType(CommunicateService.OperateType.INSERT);
-                    mBinder.communicate(judgement, new Inter(),"/my/add_course_judge.do");
+                    mBinder.communicate(judgement, new Inter(), URLMap.URL_JUDGE_LESSON);
                 }
             }
         };
@@ -145,6 +155,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                disconectService();
                 ClientMyCourseJudgeDetailFillActivity.this.finish();
             }
         });
@@ -168,14 +179,22 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
-        Boolean result = Boolean.getBoolean(list.get(0));
-        if(result)
-            DialogUtil.showDialog(
-                    ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", false);
-        else
-            DialogUtil.showDialog(
-                    ClientMyCourseJudgeDetailFillActivity.this,"课程评价失败!",false);
+    private void disconectService(){
+        unbindService(mConn);
+    }
 
+    private void showOperateResult(List<String> list,String tagetURL) {
+        if(list==null){
+            DialogUtil.showDialog(
+                    ClientMyCourseJudgeDetailFillActivity.this,"操作失败!",false);
+        }else{
+            String result = list.get(0);
+            if(result.equals("0"))
+                DialogUtil.showDialog(
+                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", false);
+            else if(result.equals("1"))
+                DialogUtil.showDialog(
+                        ClientMyCourseJudgeDetailFillActivity.this,"课程评价失败!",false);
+        }
     }
 }

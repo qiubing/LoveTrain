@@ -33,6 +33,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final int GET_PHOTO_CODE = 1;
 
     private CircleImageView mCircleImageView;
+    //private TextView mUser_name;
     private TextView mCheckRecord;
     private TextView mCourseIntergration;
     private TextView mExamScore;
@@ -58,6 +59,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         myUserName.setText("用户名：\n"+ Constant.user.getUserName());
 
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+        //mUser_name = (TextView) findViewById(R.id.user_name);
         mCheckRecord = (TextView) findViewById(R.id.check_in_record);
         mCourseIntergration = (TextView) findViewById(R.id.course_integration);
         mCourseShare = (TextView) findViewById(R.id.course_share);
@@ -82,6 +84,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         mFanKui.setOnClickListener(this);
         mVersion.setOnClickListener(this);
         mLogoutButton.setOnClickListener(this);
+        //mUser_name.setText(Constant.USER_ID);
     }
 
     @Override
@@ -145,7 +148,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 .setButton1("立即更新", new PromptDialog.OnClickListener() {
                     @Override
                     public void onClick(Dialog dialog, int which) {
-                        // TODO Auto-generated method stub
                         /**
                          * 开始下载更新呗
                          */

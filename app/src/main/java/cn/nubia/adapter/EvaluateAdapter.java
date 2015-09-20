@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.entity.LessonJudgement;
+import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.util.MyViewHolder;
 
 /**
@@ -20,7 +20,7 @@ import cn.nubia.util.MyViewHolder;
  */
 public class EvaluateAdapter extends BaseExpandableListAdapter {
 
-    private List<LessonJudgement> mList = new ArrayList<>();;
+    private List<LessonJudgementMsg> mList = new ArrayList<>();;
     private Context mContext;
     public LayoutInflater inflater;
 
@@ -30,7 +30,7 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
 
     }
 
-    public void updateData(List<LessonJudgement> newData) {
+    public void updateData(List<LessonJudgementMsg> newData) {
         mList.clear();
         mList.addAll(newData);
         notifyDataSetChanged();

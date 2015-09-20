@@ -1,6 +1,8 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -172,8 +174,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                  * 生成二维码，edit by qiubing
                  */
                 //TODO:生成具有课程和讲师信息的二维码
+                //获取要生成课程的ID索引
                 Toast.makeText(this,"二维码生成中",Toast.LENGTH_SHORT).show();
-                String contentString = "nubia";
+                int lesson_index = lessonItem.getIndex();
+                String contentString = String.valueOf(lesson_index);
                 if (!contentString.equals("")) {
                     //获取需要插入的头像logo
                     Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.PORTRAIT);
@@ -186,19 +190,43 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                         e.printStackTrace();
                     }
                     //mShowBarCode.setImageBitmap(qrCodeBitmap);
-                    String barCodeName = contentString + ".jpg";
-                    //保存二维码图片到SD卡中
-                    Utils.saveBitmap(barCodeName, qrCodeBitmap);
+                    final String barCodeName = contentString + ".jpg";
+                    final Bitmap bitmap = qrCodeBitmap;
+                    ImageView image = new ImageView(this);
+                    image.setMaxHeight(350);
+                    image.setMaxWidth(350);
+                    image.setImageBitmap(qrCodeBitmap);
+
+                    //弹框显示二维码图片
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this).
+                            setTitle("保存二维码图片到本地").setView(image);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //保存二维码图片到SD卡中
+                            Utils.saveBitmap(barCodeName, bitmap);
+                            Toast.makeText(AdminLessonDetailActivity.this,
+                                    "二维码保存在/MyDownloader/barcode目录下",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.show();
                 } else {
-                    Toast.makeText(this, "Text can not be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Lesson id can not be empty", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
             case R.id.evaluateTextView:
                 Intent intent = null;
                 if(status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                    intent.putExtra("lessonIndex",0);
                 }
                 startActivity(intent);
                 break;

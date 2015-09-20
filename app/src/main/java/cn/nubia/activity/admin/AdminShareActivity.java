@@ -1,11 +1,13 @@
 package cn.nubia.activity.admin;
 
+import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +42,8 @@ public class AdminShareActivity extends ActivityGroup {
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-		Intent i2 = new Intent(AdminShareActivity.this, AdminShareCheckTabActivity.class);
-		listViews.add(getView("A", i2));
+        Intent i2 = new Intent(AdminShareActivity.this, AdminShareCheckTabActivity.class);
+        listViews.add(getView("A", i2));
         Intent i3 = new Intent(AdminShareActivity.this, AdminSharePassTabActivity.class);
         listViews.add(getView("B", i3));
 
@@ -49,10 +51,10 @@ public class AdminShareActivity extends ActivityGroup {
         tabHost.setup(AdminShareActivity.this.getLocalActivityManager());
 
 
-		RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
-				this).inflate(R.layout.layout_tab, null);
-		TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
-		tvTab2.setText("待审核");
+        RelativeLayout tabIndicator2 = (RelativeLayout) LayoutInflater.from(
+                this).inflate(R.layout.layout_tab, null);
+        TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
+        tvTab2.setText("待审核");
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
@@ -62,8 +64,8 @@ public class AdminShareActivity extends ActivityGroup {
 
         Intent intent = new Intent(AdminShareActivity.this, EmptyActivity.class);
 
-		tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator2)
-				.setContent(intent));
+        tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator2)
+                .setContent(intent));
         tabHost.addTab(tabHost.newTabSpec("B").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
@@ -113,7 +115,7 @@ public class AdminShareActivity extends ActivityGroup {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView( list.get(position));
+            container.removeView(list.get(position));
         }
 
         @Override
@@ -131,6 +133,30 @@ public class AdminShareActivity extends ActivityGroup {
         public boolean isViewFromObject(View arg0, Object arg1) {
             return arg0 == arg1;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("xxxxx","uuuuuuuu");
+        // 获取当前活动的Activity实例
+        Activity subActivity = getLocalActivityManager().getCurrentActivity();
+        //判断是否实现返回值接口
+        if (subActivity instanceof OnTabActivityResultListener) {
+            //获取返回值接口实例
+            OnTabActivityResultListener listener = (OnTabActivityResultListener) subActivity;
+            //转发请求到子Activity
+            listener.onTabActivityResult(requestCode, resultCode, data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 解决子Activity无法接收Activity回调的问题
+     * @author Administrator
+     *
+     */
+    public interface OnTabActivityResultListener {
+        public void onTabActivityResult(int requestCode, int resultCode, Intent data);
     }
 
 }

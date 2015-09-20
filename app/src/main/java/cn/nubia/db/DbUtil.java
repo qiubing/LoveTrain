@@ -17,18 +17,19 @@ import cn.nubia.entity.LessonItem;
  * Created by WJ on 2015/9/6.
  */
 public class DbUtil {
-    private static  String TAG = "DbUtil";
+    private static String TAG = "DbUtil";
     private static String DB_NAME = "/loveTrain.db3";
     private static int DB_VERSION = 1;
     private static DbUtil s_Db;
     private SQLiteDatabase db;
     private SqliteHelper dbHelper;
+
     private DbUtil(Context context) {
-        dbHelper = new SqliteHelper(context, context.getFilesDir().toString() +DB_NAME, null, DB_VERSION );
+        dbHelper = new SqliteHelper(context, context.getFilesDir().toString() + DB_NAME, null, DB_VERSION);
         db = dbHelper.getWritableDatabase();
     }
 
-    public synchronized static DbUtil getInstance(Context context){
+    public synchronized static DbUtil getInstance(Context context) {
         if (s_Db == null)
             s_Db = new DbUtil(context);
         return s_Db;
@@ -37,21 +38,22 @@ public class DbUtil {
     public void closeDb() {
         if (s_Db == null)
             return;
-        if(s_Db.db != null)
+        if (s_Db.db != null)
             s_Db.db.close();
         if (s_Db.dbHelper != null)
             s_Db.dbHelper.close();
     }
-/**
- * for Debug
- */
-    public void insertDataTest(){
+
+    /**
+     * for Debug
+     */
+    public void insertDataTest() {
         //插入10个课程
-        for(int i = 0; i<10;i++){
+        for (int i = 0; i < 10; i++) {
             insertCourseItemTest(String.valueOf(i));
             //每个课程4个课时
-            Log.e(TAG,"INSERT  data+");
-            for (int j = 0; j<4;j++){
+            Log.e(TAG, "INSERT  data+");
+            for (int j = 0; j < 4; j++) {
                 insertLessonItemTest(String.valueOf(i));
             }
         }
@@ -62,8 +64,8 @@ public class DbUtil {
      */
     public long insertCourseItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX,courseIndex);
-        newValues.put(CourseItem.NAME,"Java基础");
+        newValues.put(CourseItem.COURSE_INDEX, courseIndex);
+        newValues.put(CourseItem.NAME, "Java基础");
         newValues.put(CourseItem.HAS_EXAM, "0"); //1 有考试  0 无考试
         newValues.put(CourseItem.DESCRIPTION, "JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好");
         newValues.put(CourseItem.CREDITS, "20");
@@ -77,8 +79,8 @@ public class DbUtil {
      */
     public long insertLessonItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
-        newValues.put(LessonItem.COURSE_INDEX,courseIndex);
-        newValues.put(LessonItem.NAME,"Java基础一");
+        newValues.put(LessonItem.COURSE_INDEX, courseIndex);
+        newValues.put(LessonItem.NAME, "Java基础一");
         newValues.put(LessonItem.JUDGE_SCORE, "90.5"); //1 有考试  0 无考试
         newValues.put(LessonItem.CHECK_CREDITS, "10");
         newValues.put(LessonItem.TEACHER_CREDITS, "30");
@@ -90,34 +92,32 @@ public class DbUtil {
         return db.insert(SqliteHelper.TB_NAME_LESSON, null, newValues);
     }
 
-    public void updateCourseList(List<CourseItem> courseItemList){
-        for(CourseItem item : courseItemList)
-             insertOrUpdateCourseItem(item);
+    public void updateCourseList(List<CourseItem> courseItemList) {
+        for (CourseItem item : courseItemList)
+            insertOrUpdateCourseItem(item);
     }
 
-    public long insertOrUpdateCourseItem(CourseItem courseItem){
-        Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, new String[]{CourseItem.COURSE_INDEX}, CourseItem.COURSE_INDEX+"= ?",
+    public long insertOrUpdateCourseItem(CourseItem courseItem) {
+        Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, new String[]{CourseItem.COURSE_INDEX}, CourseItem.COURSE_INDEX + "= ?",
                 new String[]{String.valueOf(courseItem.getIndex())}, null, null, null);
         int count = cursor.getCount();
         cursor.close();
-        Log.e(TAG,String.valueOf(courseItem));
-        if(count != 0) /***数据库中有记录***/
-        {
-            if(courseItem.getOperator().equals("update")){
-                return updateCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
-            }else  //删除
-                return deleteCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
-        }else
-            return  insertCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
+        Log.e(TAG, String.valueOf(courseItem));
+        if (count != 0) /***数据库中有记录***/ {
+            if (courseItem.getOperator().equals("update")) {
+                return updateCourseItem(courseItem, SqliteHelper.TB_NAME_CLASS);
+            } else  //删除
+                return deleteCourseItem(courseItem, SqliteHelper.TB_NAME_CLASS);
+        } else
+            return insertCourseItem(courseItem, SqliteHelper.TB_NAME_CLASS);
     }
 
-
-    public long insertCourseItem(CourseItem courseItem,String tableName) {
+    public long insertCourseItem(CourseItem courseItem, String tableName) {
         ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
-        newValues.put(CourseItem.NAME,courseItem.getName());
+        newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
+        newValues.put(CourseItem.NAME, courseItem.getName());
         newValues.put(CourseItem.HAS_EXAM, courseItem.hasExam()); //1 有考试  0 无考试
-        newValues.put(CourseItem.DESCRIPTION,courseItem.getDescription());
+        newValues.put(CourseItem.DESCRIPTION, courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
         newValues.put(CourseItem.CREDITS, courseItem.getCourseCredits());
         newValues.put(CourseItem.SHARE_TYPE, courseItem.getShareType());
@@ -128,43 +128,45 @@ public class DbUtil {
         return db.insert(tableName, null, newValues);
     }
 
-    public long updateCourseItem(CourseItem courseItem,String tableName) {
+    public long updateCourseItem(CourseItem courseItem, String tableName) {
         ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX,courseItem.getIndex());
-        newValues.put(CourseItem.NAME,courseItem.getName());
+        newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
+        newValues.put(CourseItem.NAME, courseItem.getName());
         newValues.put(CourseItem.HAS_EXAM, courseItem.hasExam()); //1 有考试  0 无考试
-        newValues.put(CourseItem.DESCRIPTION,courseItem.getDescription());
+        newValues.put(CourseItem.DESCRIPTION, courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
         newValues.put(CourseItem.CREDITS, courseItem.getCourseCredits());
         newValues.put(CourseItem.SHARE_TYPE, courseItem.getShareType());
         newValues.put(CourseItem.LESSONES_COUNT, courseItem.getLessones());
         newValues.put(CourseItem.STATUS, courseItem.getCourseStatus());
-        newValues.put(CourseItem.TYPE,courseItem.getType());
-        newValues.put(CourseItem.RECORD_MODIFY_TIME,courseItem.getRecordModifyTime());
+        newValues.put(CourseItem.TYPE, courseItem.getType());
+        newValues.put(CourseItem.RECORD_MODIFY_TIME, courseItem.getRecordModifyTime());
         return db.update(tableName, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getIndex(), null);
     }
 
-    public int deleteCourseItem(CourseItem lessonItem,String tableName) {
+    public int deleteCourseItem(CourseItem lessonItem, String tableName) {
         //删除课时表
-        int rows = db.delete(SqliteHelper.TB_NAME_LESSON,CourseItem.COURSE_INDEX + "=?",
+        int rows = db.delete(SqliteHelper.TB_NAME_LESSON, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
+
         Log.e(TAG, "已删除课时表行数：" + rows);
         return db.delete(tableName, CourseItem.COURSE_INDEX + "=?",
+
                 new String[]{String.valueOf(lessonItem.getIndex())});
     }
 
     public long insertLessonItem(LessonItem lessonItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(LessonItem.COURSE_INDEX,lessonItem.getCourseIndex());
-        newValues.put(LessonItem.LESSON_INDEX,lessonItem.getIndex());
-        newValues.put(LessonItem.NAME,lessonItem.getName());
+        newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
+        newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
+        newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
         newValues.put(LessonItem.TEACHER_ID, lessonItem.getTeacherID());
         newValues.put(LessonItem.TEACHER_NAME, lessonItem.getTeacherName());
         newValues.put(LessonItem.TEACHER_CREDITS, lessonItem.getTeacherCredits());
         newValues.put(LessonItem.LOCALE, lessonItem.getLocation());
-        newValues.put(LessonItem.DESCRIPTION,lessonItem.getDescription());
+        newValues.put(LessonItem.DESCRIPTION, lessonItem.getDescription());
         newValues.put(LessonItem.START_TIME, lessonItem.getStartTime());
         newValues.put(LessonItem.END_TIME, lessonItem.getEndTime());
         newValues.put(LessonItem.RECORD_MODIFY_TIME, lessonItem.getRecordModifyTime());
@@ -173,16 +175,16 @@ public class DbUtil {
 
     public long updateLessonItem(LessonItem lessonItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(LessonItem.COURSE_INDEX,lessonItem.getCourseIndex());
-        newValues.put(LessonItem.LESSON_INDEX,lessonItem.getIndex());
-        newValues.put(LessonItem.NAME,lessonItem.getName());
+        newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
+        newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
+        newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
         newValues.put(LessonItem.TEACHER_ID, lessonItem.getTeacherID());
         newValues.put(LessonItem.TEACHER_NAME, lessonItem.getTeacherName());
         newValues.put(LessonItem.TEACHER_CREDITS, lessonItem.getTeacherCredits());
         newValues.put(LessonItem.LOCALE, lessonItem.getLocation());
-        newValues.put(LessonItem.DESCRIPTION,lessonItem.getDescription());
+        newValues.put(LessonItem.DESCRIPTION, lessonItem.getDescription());
         newValues.put(LessonItem.START_TIME, lessonItem.getStartTime());
         newValues.put(LessonItem.END_TIME, lessonItem.getEndTime());
         newValues.put(LessonItem.RECORD_MODIFY_TIME, lessonItem.getRecordModifyTime());
@@ -190,18 +192,18 @@ public class DbUtil {
     }
 
     public int deleteLessonItem(LessonItem lessonItem) {
-        return db.delete(SqliteHelper.TB_NAME_LESSON,LessonItem.LESSON_INDEX + " =? ",
+        return db.delete(SqliteHelper.TB_NAME_LESSON, LessonItem.LESSON_INDEX + " =? ",
                 new String[]{String.valueOf(lessonItem.getIndex())});
     }
 
     public long insertExamItem(ExamItem examItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(ExamItem.COURSE_INDEX,examItem.getCourseIndex());
-        newValues.put(ExamItem.EXAM_INDEX,examItem.getIndex());
-        newValues.put(ExamItem.NAME,examItem.getName());
+        newValues.put(ExamItem.COURSE_INDEX, examItem.getCourseIndex());
+        newValues.put(ExamItem.EXAM_INDEX, examItem.getIndex());
+        newValues.put(ExamItem.NAME, examItem.getName());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
-        newValues.put(ExamItem.DESCRIPTION,examItem.getDescription());
+        newValues.put(ExamItem.DESCRIPTION, examItem.getDescription());
         newValues.put(ExamItem.START_TIME, examItem.getStartTime());
         newValues.put(ExamItem.END_TIME, examItem.getEndTime());
         return db.insert(SqliteHelper.TB_NAME_EXAM, null, newValues);
@@ -209,12 +211,12 @@ public class DbUtil {
 
     public long updateExamItem(ExamItem examItem) {
         ContentValues newValues = new ContentValues();
-        newValues.put(ExamItem.COURSE_INDEX,examItem.getCourseIndex());
-        newValues.put(ExamItem.EXAM_INDEX,examItem.getIndex());
-        newValues.put(ExamItem.NAME,examItem.getName());
+        newValues.put(ExamItem.COURSE_INDEX, examItem.getCourseIndex());
+        newValues.put(ExamItem.EXAM_INDEX, examItem.getIndex());
+        newValues.put(ExamItem.NAME, examItem.getName());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
-        newValues.put(ExamItem.DESCRIPTION,examItem.getDescription());
+        newValues.put(ExamItem.DESCRIPTION, examItem.getDescription());
         newValues.put(ExamItem.START_TIME, examItem.getStartTime());
         newValues.put(ExamItem.END_TIME, examItem.getEndTime());
         return db.update(SqliteHelper.TB_NAME_EXAM, newValues, ExamItem.EXAM_INDEX + "=" + examItem.getIndex(), null);
@@ -225,7 +227,7 @@ public class DbUtil {
                 new String[]{String.valueOf(examItem.getIndex())});
     }
 
-    public List<CourseItem> getCourseList(String tableName){
+    public List<CourseItem> getCourseList(String tableName) {
         ArrayList<CourseItem> courseList = new ArrayList<CourseItem>();
         Cursor cursor = db.query(tableName, null, null, null, null,
                 null, CourseItem.COURSE_INDEX + " DESC");
@@ -252,9 +254,9 @@ public class DbUtil {
         return courseList;
     }
 
-    public List<LessonItem> getLessonList(int CourseIndex ){
+    public List<LessonItem> getLessonList(int CourseIndex) {
         ArrayList<LessonItem> lessonList = new ArrayList<>();
-        Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null,LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
+        Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null, LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
                 null, LessonItem.LESSON_INDEX + " DESC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -277,8 +279,7 @@ public class DbUtil {
         return lessonList;
     }
 
-
-    public List<ExamItem> getExamList(){
+    public List<ExamItem> getExamList() {
         ArrayList<ExamItem> examItemList = new ArrayList<ExamItem>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_EXAM, null, null, null, null,
                 null, ExamItem.EXAM_INDEX + " DESC");

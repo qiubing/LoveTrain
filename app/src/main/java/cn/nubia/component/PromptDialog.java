@@ -359,7 +359,6 @@ public class PromptDialog extends Dialog {
             addView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    // TODO Auto-generated method stub
                     if (linearListener != null) {
                         linearListener.onClick(0);
                     }
@@ -368,7 +367,6 @@ public class PromptDialog extends Dialog {
             addView2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    // TODO Auto-generated method stub
                     if (linearListener != null) {
                         linearListener.onClick(1);
                     }

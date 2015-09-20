@@ -25,6 +25,7 @@ import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseLevel;
+import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
  * @Description:
@@ -48,8 +49,9 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
     private ScrollView mContentScrollView;
 
     private OperateType mOperateType;
-    private CourseItem mCourseItem;
-    private LessonItem mLessonItem;
+    private TechnologyShareCourseItem mModifiedItem;
+    //private CourseItem mCourseItem;
+    //private LessonItem mLessonItem;
 
 
     @Override
@@ -57,7 +59,7 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_approved_share_course_modified);
         initViews();
-        //initEvents();
+        initEvents();
         initViewLogic();
     }
 
@@ -90,7 +92,26 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
         //获取当前的Intent
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mCourseItem = (CourseItem) bundle.getSerializable("ModifiedCourseInfo");
+        /**
+         * edit by qiubing 2015.9.19 20:46
+         */
+        mModifiedItem = (TechnologyShareCourseItem) bundle.getSerializable("ModifiedCourseInfo");
+        if (mModifiedItem != null){
+            mOperateType = OperateType.UPDATE;
+            mCourseName.setText(mModifiedItem.getmCourseName());
+            mShareTypeSpinner.setSelection((short) mModifiedItem.getmCourseLevel());
+            mCourseDescription.setText(mModifiedItem.getmCourseDescription());
+            mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(mModifiedItem.getmStartTime()));
+            mCourseStarttime.setText(
+                    new SimpleDateFormat("HH:mm").format(mModifiedItem.getmStartTime()));
+            mCourseEndtime.setText(
+                    new SimpleDateFormat("HH:mm").format(mModifiedItem.getmEndTime()));
+            mLessonLocation.setText(mModifiedItem.getmLocation());
+        }else {
+            mOperateType = OperateType.INSERT;
+        }
+
+        /*mCourseItem = (CourseItem) bundle.getSerializable("ModifiedCourseInfo");
         if (mCourseItem != null) {
             mOperateType = OperateType.UPDATE;
             mLessonItem = mCourseItem.getLessonList().get(0);
@@ -105,7 +126,7 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
             mLessonLocation.setText(mLessonItem.getLocation());
         } else {
             mOperateType = OperateType.INSERT;
-        }
+        }*/
     }
 
     /**

@@ -1,5 +1,7 @@
 package cn.nubia.util.jsonprocessor;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,10 +81,14 @@ public class EntityFactoryGenerics {
     }
 
     public List<?> get(){
-        if(mType == ItemType.SIMPLEDATA)
-            return getOperateResult();
-        else
-            return getItemList();
+        Log.e("jiangyu", "factory get");
+        if(getCode()==0) {
+            if (mType == ItemType.SIMPLEDATA)
+                return getOperateResult();
+            else
+                return getItemList();
+        }else
+            return null;
     }
     /**
      * 获得作为列表返回的实体值

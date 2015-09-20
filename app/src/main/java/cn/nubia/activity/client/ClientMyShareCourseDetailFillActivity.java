@@ -1,5 +1,10 @@
 package cn.nubia.activity.client;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
@@ -23,17 +28,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
-import cn.nubia.entity.ShareCourseItem;
+import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
 
 /**
@@ -52,8 +53,8 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
 
-    private CommunicateService.OperateType mOperateType;
-    private ShareCourseItem mShareCourseItem;
+    private String mOperateURL;
+    private ShareCourseMsg mShareCourseMsg;
 
     private CommunicateService.CommunicateBinder mBinder;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -69,8 +70,8 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,CommunicateService.OperateType type){
-            ClientMyShareCourseDetailFillActivity.this.showOperateResult((List<String>)list,type);
+        public void alter(List<?> list,String URL){
+            ClientMyShareCourseDetailFillActivity.this.showOperateResult((List<String>)list,URL);
         }
     }
 
@@ -82,6 +83,12 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
 
         holdView();
         setViewLogic();
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
         initViewData();
     }
 
@@ -222,7 +229,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (checkData()) {
-                    ShareCourseItem shareCourse = new ShareCourseItem();
+                    ShareCourseMsg shareCourse = new ShareCourseMsg();
                     shareCourse.setCourseName(mCourseName.getText().toString());
                     shareCourse.setCourseDescription(mCourseDescription.getText().toString());
                     shareCourse.setCourseLevel(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
@@ -243,12 +250,14 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    shareCourse.setOperateType(mOperateType);
-                    if(mOperateType==CommunicateService.OperateType.INSERT)
-                        mBinder.communicate(shareCourse, new Inter(),"share/add_share_course.do");
-                    else if(mOperateType==CommunicateService.OperateType.UPDATE){
-                        shareCourse.setCourseIndex(mShareCourseItem.getCourseIndex());
-                        mBinder.communicate(shareCourse, new Inter(),"updatesharecourse.do");
+
+                    if(mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
+                        shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
+                        mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
+                    }else if(mOperateURL.equals(URLMap.URL_UPD_SHARE)){
+                        shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
+                        shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
+                        mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
                     }
                 }
             }
@@ -261,24 +270,24 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         String type = bundle.getString("type");
 
         if(type.equals("update")){
-            mOperateType = CommunicateService.OperateType.UPDATE;
-            mShareCourseItem = (ShareCourseItem) bundle.getSerializable("shareCourse");
+            mOperateURL = URLMap.URL_UPD_SHARE;
+            mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
 
-            mCourseName.setText(mShareCourseItem.getCourseName());
-            mShareTypeSpinner.setSelection(mShareCourseItem.getCourseLevel());
-            mCourseDescription.setText(mShareCourseItem.getCourseDescription());
+            mCourseName.setText(mShareCourseMsg.getCourseName());
+            mShareTypeSpinner.setSelection(mShareCourseMsg.getCourseLevel());
+            mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
             Date startTime = new Date();
-            startTime.setTime(mShareCourseItem.getStartTime());
+            startTime.setTime(mShareCourseMsg.getStartTime());
             Date endTime = new Date();
-            endTime.setTime(mShareCourseItem.getEndTime());
+            endTime.setTime(mShareCourseMsg.getEndTime());
             mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
             mCourseStarttime.setText(
                     new SimpleDateFormat("HH:mm").format(startTime));
             mCourseEndtime.setText(
                     new SimpleDateFormat("HH:mm").format(endTime));
-            mLessonLocation.setText(mShareCourseItem.getLocale());
+            mLessonLocation.setText(mShareCourseMsg.getLocale());
         }else if(type.equals("insert")){
-            mOperateType = CommunicateService.OperateType.INSERT;
+            mOperateURL = URLMap.URL_ADD_SHARE;
         }
     }
 
@@ -329,22 +338,31 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    private void showOperateResult(List<String> list,CommunicateService.OperateType type) {
-        Boolean result = Boolean.getBoolean(list.get(0));
-        if(type==CommunicateService.OperateType.INSERT){
-            if(result)
-                DialogUtil.showDialog(
-                        ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", false);
-            else
-                DialogUtil.showDialog(
-                        ClientMyShareCourseDetailFillActivity.this,"申请提交失败!",false);
+    private void disconectService(){
+        unbindService(mConn);
+    }
+
+    private void showOperateResult(List<String> list,String tagetURL) {
+        if(list==null){
+            DialogUtil.showDialog(
+                    ClientMyShareCourseDetailFillActivity.this,"操作失败!",false);
         }else{
-            if(result)
-                DialogUtil.showDialog(
-                        ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", false);
-            else
-                DialogUtil.showDialog(
-                        ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
+            Boolean result = Boolean.valueOf(list.get(0));
+            if(tagetURL.equals(URLMap.URL_ADD_SHARE)){
+                if(result)
+                    DialogUtil.showDialog(
+                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", false);
+                else
+                    DialogUtil.showDialog(
+                            ClientMyShareCourseDetailFillActivity.this,"申请提交失败!",false);
+            }else if(tagetURL.equals(URLMap.URL_UPD_SHARE)){
+                if(result)
+                    DialogUtil.showDialog(
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", false);
+                else
+                    DialogUtil.showDialog(
+                            ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
+            }
         }
     }
 
@@ -354,6 +372,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
      * @param view
      */
     public void back(View view) {
+        disconectService();
         this.finish();
     }
 

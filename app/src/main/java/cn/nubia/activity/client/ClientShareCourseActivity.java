@@ -22,7 +22,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientShareCourseAdapter;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.ShareCourseItem;
+import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
@@ -34,7 +34,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
  */
 public class ClientShareCourseActivity extends Activity {
     private static final String TAG = "ShareCourse";
-    private List<ShareCourseItem> mCourseList;
+    private List<ShareCourseMsg> mCourseList;
     private ListView mListView;
     private ClientShareCourseAdapter mAdapter;
 
@@ -50,7 +50,7 @@ public class ClientShareCourseActivity extends Activity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShareCourseItem course = mCourseList.get(position);
+                ShareCourseMsg course = mCourseList.get(position);
                 Intent intent = new Intent(ClientShareCourseActivity.this,
                         ClientMyShareCourseDetailDisplayActivity.class);
                 Bundle bundle = new Bundle();
@@ -66,14 +66,14 @@ public class ClientShareCourseActivity extends Activity {
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
         text.setText("我的课程分享");
 
-        mCourseList = new ArrayList<ShareCourseItem>();
+        mCourseList = new ArrayList<ShareCourseMsg>();
         mListView = (ListView)findViewById(R.id.share_course_detail);
 
         //请求参数
         HashMap<String,String> param = new HashMap<String,String>();
-        param.put("user_id", "0016002946");
+        param.put("user_id", Constant.USER_ID);
         RequestParams request = Utils.toParams(param);
-        String url = Constant.BASE_URL + "/share/list_my_share.do";
+        String url = Constant.BASE_URL + "share/list_my_share.do";
         AsyncHttpHelper.post(url, request, mCheckRecordHandler);
     }
 
@@ -86,7 +86,7 @@ public class ClientShareCourseActivity extends Activity {
                     new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.SHARECOURSE, response);
             int code = factoryGenerics.getCode();
             if (code == 0){
-                mCourseList = (List<ShareCourseItem>) factoryGenerics.get();
+                mCourseList = (List<ShareCourseMsg>) factoryGenerics.get();
                 mAdapter = new ClientShareCourseAdapter(mCourseList,ClientShareCourseActivity.this);
                 mListView.setAdapter(mAdapter);
                 Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度

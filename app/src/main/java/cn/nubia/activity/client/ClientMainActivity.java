@@ -8,13 +8,23 @@ package cn.nubia.activity.client;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
+import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.zxing.barcode.CaptureActivity;
 
 /**普通用户主界面：Tab分页导航
@@ -25,7 +35,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  * Created by 胡立 on 2015/9/6.
  */
 public class ClientMainActivity extends ActivityGroup {
-
+    private static final String TAG = "ClientMainActivity";
     private TabHost mTabHost;
     private RadioGroup mRadioGroup;
     /**
@@ -39,7 +49,6 @@ public class ClientMainActivity extends ActivityGroup {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_client);
@@ -54,11 +63,9 @@ public class ClientMainActivity extends ActivityGroup {
     }
 
     protected void initEvents() {
-        // TODO Auto-generated method stub
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO Auto-generated method stub
                 switch (checkedId) {
                     case R.id.main_client_radio_myCourse:
                         mTabHost.setCurrentTab(0);
@@ -129,10 +136,44 @@ public class ClientMainActivity extends ActivityGroup {
         if (resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
-            Toast.makeText(this, scanResult, Toast.LENGTH_LONG).show();
-            Toast.makeText(this,"扫描二维码成功",Toast.LENGTH_LONG).show();
+            int lesson_index = Integer.parseInt(scanResult);
+            Log.e(TAG,"user_id: " + Constant.USER_ID + ",lesson_index: " + lesson_index);
+            if (!Constant.USER_ID.equals("")&& lesson_index > 0){
+                //请求参数，包括用户的Id和课程的索引信息index
+                RequestParams params = new RequestParams();
+                params.put("user_id",Constant.USER_ID);
+                params.put("lesson_index",29);
+                //params.put("lesson_index",lesson_index);
+                params.put("device_id","87654321");
+                params.put("request_time","1444444444444");
+                params.put("apk_version","1.0");
+                params.put("token_key","123456789");
+                //网络链接
+                String url = Constant.BASE_URL + "user/user_check.do";
+                AsyncHttpHelper.post(url, params, mCheckHandler);
+            }
         }
     }
+
+    MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+            Log.e(TAG, "onSuccess: " + response.toString());
+            /*long check_time = response.getLong("check_time");
+            int check_credits = response.getInt("check_credits");
+            Date date = new Date();
+            date.setTime(check_time);
+            String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+            Toast.makeText(ClientMainActivity.this,
+                    "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();*/
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.e(TAG,"onFailure: " + errorResponse.toString());
+            //Toast.makeText(ClientMainActivity.this,"扫描二维码失败，请稍后重试",Toast.LENGTH_LONG).show();
+        }
+    };
 }
 
 

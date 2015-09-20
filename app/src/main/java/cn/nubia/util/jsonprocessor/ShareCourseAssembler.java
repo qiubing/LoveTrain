@@ -7,17 +7,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nubia.entity.ShareCourseItem;
+import cn.nubia.entity.ShareCourseMsg;
 
 /**
  * @Description:
  * @Author: qiubing
  * @Date: 2015/9/15 17:03
  */
-public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseItem> {
+public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseMsg> {
     @Override
-    public List<ShareCourseItem> assemble(JSONArray jsonArray) {
-        List<ShareCourseItem> mCourseList = new ArrayList<ShareCourseItem>();
+    public List<ShareCourseMsg> assemble(JSONArray jsonArray) {
+        List<ShareCourseMsg> mCourseList = new ArrayList<ShareCourseMsg>();
 
         for (int i = 0; i < jsonArray.length(); i++){
             try {
@@ -30,8 +30,8 @@ public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseItem>
         }
         return mCourseList;
     }
-    public ShareCourseItem makeShareCourse(JSONObject jsonObject) throws JSONException {
-        ShareCourseItem course = new ShareCourseItem();
+    public ShareCourseMsg makeShareCourse(JSONObject jsonObject) throws JSONException {
+        ShareCourseMsg course = new ShareCourseMsg();
         course.setCourseName(jsonObject.getString("course_name"));
         course.setCourseIndex(jsonObject.getInt("course_index"));
         course.setCourseDescription(jsonObject.getString("course_description"));

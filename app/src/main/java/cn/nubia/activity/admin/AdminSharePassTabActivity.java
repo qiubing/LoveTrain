@@ -22,12 +22,9 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
-import cn.nubia.component.ErrorHintView;
-import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 
@@ -38,9 +35,6 @@ public class AdminSharePassTabActivity extends Activity {
 
     private ListView mListView;
     private CourseAdapter mCourseAdapter;
-    private RefreshLayout mRefreshLayout;
-    private ErrorHintView mErrorHintView;
-    private LoadViewUtil mLoadViewUtil;
     private List<TechnologyShareCourseItem> mCourseList;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +44,10 @@ public class AdminSharePassTabActivity extends Activity {
         initViews();
         initEvents();
         loadData();
-        //initViewLogic();
     }
 
     private void initViews(){
         mListView = (ListView) findViewById(R.id.admin_all_approved_share_course);
-        mRefreshLayout = (RefreshLayout) findViewById(R.id.approved_share_course_refresh);
-        mErrorHintView = (ErrorHintView) findViewById(R.id.hintView_1);
-        //mLoadViewUtil = new LoadViewUtil(this,mListView,handler);
     }
 
     private void initEvents(){
@@ -69,7 +59,7 @@ public class AdminSharePassTabActivity extends Activity {
         //获取请求参数
         HashMap<String,String> params = new HashMap<String,String>();
         RequestParams request = Utils.toParams(params);
-        String url = Constant.BASE_URL + "/share/list_going_course.do";
+        String url = Constant.BASE_URL + "share/list_going_course.do";
         AsyncHttpHelper.post(url, request, mSharePassHandler);
         mCourseAdapter = new CourseAdapter(mCourseList,this);
         mListView.setAdapter(mCourseAdapter);
@@ -100,109 +90,6 @@ public class AdminSharePassTabActivity extends Activity {
             Log.e("onFailure", throwable.toString());
         }
     };
-
-   /* private void initViewLogic(){
-
-        *//**
-         * for Debug  模拟第一次加载数据
-         *//*
-        Message msg = handler.obtainMessage();
-        msg.what = 1;
-        handler.sendMessage(msg);
-
-        //设置下拉刷新监听器
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mLoadViewUtil.showShortToast("刷新");
-                mRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //更新最新的数据
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-                        loadData();
-                        mRefreshLayout.setRefreshing(false);
-                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
-                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
-                    }
-                },1500);
-            }
-        });
-
-        //加载监听器
-        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
-            @Override
-            public void onLoad() {
-                mLoadViewUtil.showShortToast("加载更多");
-                mRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        DataLoadUtil.setLoadViewUtil(mLoadViewUtil);
-                        loadData();
-                        mRefreshLayout.setLoading(false);
-                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
-                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
-                    }
-                },1500);
-            }
-        });
-    }
-*/
-    /**
-     * For debug
-     * */
-   /* private void loadData(){
-        DataLoadUtil.queryClassInfoDataforGet("aa");
-    }*/
-
-    /**
-     * for debug
-     * **/
-    /*public void loadData(int page) {
-        String url = "test" + page;
-        DataLoadUtil.queryClassInfoDataforGet(url);
-        Message msg = handler.obtainMessage();
-        msg.what = 2;
-        handler.sendMessage(msg);
-    }
-*/
-
-
-   /* Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            List<TechnologyShareCourseItem> courseList = new ArrayList<TechnologyShareCourseItem>();
-
-            *//**
-             * For Debug
-             *//*
-            if (msg.what == 1){
-                for (int i = 10;i < 30; i++){
-                    TechnologyShareCourseItem courseItem = new TechnologyShareCourseItem();
-                    courseItem.setmCourseIndex(i);
-                    courseItem.setmCourseName("Java 基础课程");
-                    courseItem.setmCourseLevel((short) 1);
-                    courseItem.setmCourseDescription("Java学习课程");
-                    courseList.add(0,courseItem);
-                }
-                mCourseList.addAll(courseList);
-            }
-            if (msg.what == 2){
-                for(int i = 40; i < 50;i++){
-                    TechnologyShareCourseItem courseItem = new TechnologyShareCourseItem();
-                    courseItem.setmCourseIndex(i);
-                    courseItem.setmCourseName("Android 基础课程");
-                    courseItem.setmCourseLevel((short) 2);
-                    courseItem.setmCourseDescription("Android 学习课程");
-                    courseList.add(0,courseItem);
-                }
-                mCourseList.addAll(courseList);
-            }
-            //UpdateClassListHelper.binarySort(mCourseList);
-            mCourseAdapter.notifyDataSetChanged();
-        }
-    };
-*/
 
     /**
     * @ClassName:

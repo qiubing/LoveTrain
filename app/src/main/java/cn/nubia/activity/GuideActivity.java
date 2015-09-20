@@ -63,7 +63,6 @@ public class GuideActivity extends Activity {
 			@Override
 			//当ViewPager显示的Fragment发生改变时激发该方法
 			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
 				setCurrentDot(arg0);
 			}
 

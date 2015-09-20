@@ -46,7 +46,6 @@ public class AdminMyActivity extends ActivityGroup implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.score_query:
                 Toast.makeText(this, "fghfgh", Toast.LENGTH_LONG).show();
