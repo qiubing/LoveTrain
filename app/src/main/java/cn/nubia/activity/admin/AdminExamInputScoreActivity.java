@@ -174,7 +174,14 @@ public class AdminExamInputScoreActivity extends Activity {
                     AdminExamInputScoreActivity.this,"操作失败!",false);
         }else{
             if(tagetURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
-                mExamScoreList = (List<ExamScoreMsg>) list;
+//                mExamScoreList = (List<ExamScoreMsg>) list;
+                mExamScoreList = new ArrayList<ExamScoreMsg>();
+                for(int i =0;i<10;i++){
+                    ExamScoreMsg msg = new ExamScoreMsg();
+                    msg.setUserID(String.valueOf(i));
+                    msg.setUserName("name"+String.valueOf(i));
+                    mExamScoreList.add(msg);
+                }
                 mExamScoreAdapter = new AdminExamScoreInputAdapter(this,mExamScoreList);
                 mExamScoreListView.setAdapter(mExamScoreAdapter);
             }else if(tagetURL.equals(URLMap.URL_ADD_EXAMSCORE)){

@@ -96,16 +96,19 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                 if (newPsw.equals(newPswConfirm)) {
                     if (!matchNewPsw()) {
                         DialogUtil.showDialog(
-                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确，" +
+                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确：\n" +
                                         "请确保密码长度至少为七位，且包含字母与数字，" +
                                         "其中至少有一个大写字母", false);
-                    } else {
+                    } else if(oldPsw.equals("")) {
+                        DialogUtil.showDialog(
+                                ClientMyAccountmanaPswmodifyActivity.this, "原密码不能为空！", false);
+                    }else{
                         PswModifyMsg pswModifyMsg = new PswModifyMsg();
                         pswModifyMsg.setOldPsw(oldPsw);
                         pswModifyMsg.setNewPsw(newPsw);
                         pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
                         mBinder.communicate(
-                                pswModifyMsg,new Inter(), URLMap.URL_UPD_PSW);
+                                pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
                     }
                 } else {
                     DialogUtil.showDialog(
