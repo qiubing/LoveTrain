@@ -10,8 +10,8 @@
             <sign>2</sign>
         </item>
         <item>
-            <name>科室级</name>
-            <sign>2</sign>
+            <name>团队级</name>
+            <sign>3</sign>
         </item>
     </array>
 </resources>

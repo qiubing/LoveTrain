@@ -5,6 +5,7 @@
     <color name="first_layout_background">#fff2fafc</color>
 
     <color name="text_color">#ff232427</color>
+    <color name="background_color">#f8f8f8</color>
     <!--android:background="@drawable/item_bg" content layout_background-->
 
     <!--<color name="project_background">#fff2fafc</color>-->
