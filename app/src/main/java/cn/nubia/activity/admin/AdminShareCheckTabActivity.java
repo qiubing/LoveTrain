@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
 
@@ -49,6 +50,12 @@ public class AdminShareCheckTabActivity extends Activity  implements AdminShareA
     private void initViews(){
         mListView = (ListView) findViewById(R.id.admin_all_unapproved_share_course);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(AdminShareCheckTabActivity.this, "fdsghdh", Toast.LENGTH_LONG).show();
     }
 
     private void initEvents(){
@@ -121,7 +128,8 @@ public class AdminShareCheckTabActivity extends Activity  implements AdminShareA
             bundle.putSerializable("CourseInfo", mCourseList.get(position));
             intent.putExtras(bundle);
             Log.e("text", "tedxt" + getParent().getClass().toString());
-            getParent().startActivityForResult(intent, 2);
+            startActivity(intent);
+            //getParent().startActivityForResult(intent, 2);
         }
     }
 
