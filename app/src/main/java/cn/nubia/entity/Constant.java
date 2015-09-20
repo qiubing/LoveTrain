@@ -4,9 +4,7 @@ import android.os.Environment;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,12 +12,15 @@ import java.util.Map;
  */
 public class Constant {
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
-    public static UserInfo user =new UserInfo();//登录成功后保存用户信息
+    public static UserInfo user = new UserInfo();//登录成功后保存用户信息
 
-    /****网络类型****/
-    public static final  int LOADING_SUCCESS = 0;
-    public static final  int LOADING_FAILED = 1;
-    public static final  int NETWORK_UNUSABLE = 2;
+
+    /****
+     * 网络类型
+     ****/
+    public static final int LOADING_SUCCESS = 0;
+    public static final int LOADING_FAILED = 1;
+    public static final int NETWORK_UNUSABLE = 2;
     public static final boolean SHOW_HEADER = true;
     public static final boolean SHOW_FOOTER = false;
 
@@ -27,12 +28,37 @@ public class Constant {
     /**
      * 设备id
      */
+    public static Long systemTime = 0L;
+    public static Long loginTime = 0L;
     public static String devideID = null;
     public static String apkVersion = null;
-    public static String tokenKep = null;
+    public static String tokenKep = "sfdgfjh";
+    public static boolean IS_ADMIN = false;
 
-    public static boolean IS_ADMIN = true;/**登录的用户是否是管理员*/
-    public static String USER_ID="";/**记录用户ID*/
+    /**
+     * 必要的四个参数
+     * @return
+     */
+    public static Map<String, String> getRequestParams() {
+        Map<String, String> map = new HashMap<>();
+        map.put("device_id", devideID);
+        map.put("apk_version", apkVersion);
+        map.put("token_key", tokenKep);
+        map.put("request_time", String.valueOf(getRequestTime()));
+        return map;
+    }
+
+    public static Long getRequestTime() {
+        return (systemTime + System.currentTimeMillis() - loginTime);
+    }
+
+    /**
+     * 登录的用户是否是管理员
+     */
+    public static String USER_ID = "";
+    /**
+     * 记录用户ID
+     */
 
 
     //时间格式化
