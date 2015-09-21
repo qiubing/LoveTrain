@@ -33,12 +33,12 @@
             <!--android:textColor="@color/grayslate"-->
             <!--android:textSize="@dimen/textSize16" />-->
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_manager_awarded_name" />
 
             <EditText
                 android:id="@+id/activity_manager_awarded_name"
-                style="@style/edittext_style"
+                style="@style/edit_text_style"
                 android:hint="@string/activity_manager_add_exam_hint" />
 
             <!--<EditText-->
@@ -72,13 +72,14 @@
             <!--android:textSize="@dimen/textSize16" />-->
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_manager_awarded_credits" />
 
             <EditText
                 android:id="@+id/activity_manager_awarded_credit"
-                style="@style/edittext_style"
-                android:hint="20" />
+                style="@style/edit_text_style"
+                android:hint="20"
+                android:numeric="integer"/>
 
             <!--<EditText-->
             <!--android:id="@+id/activity_manager_awarded_credit"-->
@@ -110,7 +111,7 @@
             <!--android:textColor="@color/grayslate"-->
             <!--android:textSize="@dimen/textSize16" />-->
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_manager_awarded_cause" />
 
             <EditText

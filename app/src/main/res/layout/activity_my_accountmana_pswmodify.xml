@@ -23,13 +23,13 @@
             <!--android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview"-->
             <!--android:textSize="@dimen/jiangyu_itemname_textsize"/>-->
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview" />
 
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_oldpswedittext"
-                style="@style/edittext_style"
+                style="@style/edit_text_style"
                 android:inputType="textPassword"
                 android:hint="@string/activity_manager_add_exam_hint" />
 
@@ -38,12 +38,12 @@
         <TableRow style="@style/itemtitle">
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview" />
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_newpswedittext"
-                style="@style/edittext_style"
+                style="@style/edit_text_style"
                 android:hint="@string/activity_manager_add_exam_hint"
                 android:inputType="textPassword" />
         </TableRow>
@@ -51,12 +51,12 @@
         <TableRow style="@style/itemtitle">
 
             <TextView
-                style="@style/textview_style"
+                style="@style/text_view_style"
                 android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview" />
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_newpswconfirmedittext"
-                style="@style/edittext_style"
+                style="@style/edit_text_style"
                 android:hint="@string/activity_manager_add_exam_hint"
                 android:inputType="textPassword" />
 

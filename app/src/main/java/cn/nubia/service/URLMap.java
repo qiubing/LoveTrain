@@ -30,6 +30,7 @@ public class URLMap {
     public final static String URL_AWARD_CREDITS = BASE_URL+"credit/ give_credits.do";
     public final static String URL_JUDGE_LESSON = BASE_URL+"my/add_lesson_judge.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
+    public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/ add_score.do";
 
     static {
         URL_MAPPING.put(AdminCreditsAwardActivity.Inter.class,URL_AWARD_CREDITS);
@@ -50,6 +51,9 @@ public class URLMap {
         URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_QUE_EXAMENROLLLIST);
         HANDLER_MAPPING.put(URL_QUE_EXAMENROLLLIST,NormalHttpHandler.class);
         ASSEMBLER_MAPPING.put(URL_QUE_EXAMENROLLLIST,ExamEnrollAssembler.class);
+
+        URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_ADD_EXAMSCORE);
+        HANDLER_MAPPING.put(URL_ADD_EXAMSCORE,NormalHttpHandler.class);
 
 //        URL_MAPPING.put(AdminCreditsAwardActivity.Inter.class,"queryAllJudgement.do");
 //        HANDLER_MAPPING.put("queryAllJudgement.do",NormalHandler.class);

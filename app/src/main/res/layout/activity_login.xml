@@ -47,14 +47,14 @@
     <EditText
         android:text="0016003347"
         android:id="@+id/login_userid"
-        style="@style/edittext_style"
+        style="@style/edit_text_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
         android:hint="@string/login_id_hint" />
 
     <EditText
         android:text="111111"
         android:id="@+id/login_pwd"
-        style="@style/edittext_style"
+        style="@style/edit_text_style"
         android:password="true"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
         android:hint="@string/login_pwd_hint" />
@@ -134,7 +134,7 @@
 
     <EditText
         android:id="@+id/regist_pwd"
-        style="@style/edittext_style"
+        style="@style/edit_text_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
         android:password="true"
         android:hint="@string/regist_pwd2_hint"
@@ -142,7 +142,7 @@
 
     <EditText
         android:id="@+id/lgoin_username"
-        style="@style/edittext_style"
+        style="@style/edit_text_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
         android:hint="@string/login_name_hint"
         android:visibility="gone" />

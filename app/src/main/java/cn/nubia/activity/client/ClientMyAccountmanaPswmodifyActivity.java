@@ -79,7 +79,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private boolean matchNewPsw() {
         String str = "^(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";
         Pattern p = Pattern.compile(str);
-        Matcher m = p.matcher(mNewpswEditText.getText().toString());
+        Matcher m = p.matcher(mNewpswEditText.getText().toString().trim());
         return m.matches();
     }
 
@@ -89,23 +89,26 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
             public void onClick(View v) {
 
                 String oldPsw = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_oldpswedittext)).getText().toString();
-                String newPsw = mNewpswEditText.getText().toString();
+                        my_accountmana_pswmodify_oldpswedittext)).getText().toString().trim();
+                String newPsw = mNewpswEditText.getText().toString().trim();
                 String newPswConfirm = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString();
+                        my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString().trim();
                 if (newPsw.equals(newPswConfirm)) {
                     if (!matchNewPsw()) {
                         DialogUtil.showDialog(
-                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确，" +
+                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确：\n" +
                                         "请确保密码长度至少为七位，且包含字母与数字，" +
                                         "其中至少有一个大写字母", false);
-                    } else {
+                    } else if(oldPsw.equals("")) {
+                        DialogUtil.showDialog(
+                                ClientMyAccountmanaPswmodifyActivity.this, "原密码不能为空！", false);
+                    }else{
                         PswModifyMsg pswModifyMsg = new PswModifyMsg();
                         pswModifyMsg.setOldPsw(oldPsw);
                         pswModifyMsg.setNewPsw(newPsw);
                         pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
                         mBinder.communicate(
-                                pswModifyMsg,new Inter(), URLMap.URL_UPD_PSW);
+                                pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
                     }
                 } else {
                     DialogUtil.showDialog(

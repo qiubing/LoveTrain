@@ -105,6 +105,7 @@
     <string name="activity_manager_rate_hint">请输入取值范围</string>
     <string name="activity_manager_exam_scorebtn">试卷批阅</string>
     <string name="activity_manager_exam_editbtn">修改考试</string>
+    <string name="activity_manager_exam_name">考试名称</string>
     <string name="activity_manager_exam_deletebtn">删除考试</string>
     、<string name="activity_manager_exam_introduction">考试简介</string>
     <string name="activity_manager_exam_info">考试信息</string>
@@ -203,8 +204,8 @@
 
     <string name="activity_manager_add_exam_title">新增考试</string>
     <string name="activity_manager_edit_exam_title">修改考试</string>
-    <string name="activity_manager_add_exam_one">课程名称</string>
-    <string name="activity_manager_add_exam_info">课程简介</string>
+    <string name="activity_manager_add_exam_one">考试名称</string>
+    <string name="activity_manager_add_exam_info">考试简介</string>
     <string name="activity_manager_add_exam_address">考试地点</string>
     <string name="activity_manager_add_exam_time_start">开始时间</string>
     <string name="activity_manager_add_exam_time_end">结束时间</string>
@@ -212,7 +213,7 @@
     <string name="activity_manager_add_exam_add">确认增加</string>
     <string name="activity_manager_edit_exam_add">确认修改</string>
     <string name="activity_manager_add_exam_hint">请输入文本</string>
-    <string name="activity_manager_exam_detail_title">考试详情</string>
+    <string name="activity_manager_exam_detail_title">考试课程详情</string>
     <string name="title_activity_manager_add_exam">ManagerAddExamActivity</string>
     <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
     <string name="related_movies">Related Videos</string>
@@ -252,6 +253,12 @@
     <string name="dismiss_error">Dismiss</string>
     <string name="oops">Oops</string>
     <string name="title_activity_manager_exam_input_score">ManagerExamInputScoreActivity</string>
+
+
+    <!-- about us -->
+    <string name="about_us_title">关于我们</string>
+    <string name="two_dimension">二维码图片</string>
+    <string name="app_version">版本：Version 1.0</string>
     <string name="about_us">\u0020\u0020\u0020\u0020\u0020\u0020\u0020爱培训是nubia技术有限公司推出的一款专门为部门内部员工量身定制的培训神器，拥有最全面的最及时的课程信息，第一时间为你提供最精准便捷的课程分享信息，爱培训将给你最畅快的上课体验。</string>
 
 

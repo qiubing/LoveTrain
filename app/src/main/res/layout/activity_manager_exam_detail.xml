@@ -8,30 +8,31 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
+        android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
 
     <RelativeLayout
         android:id="@+id/layout02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/manager_score_user_detail_head"
+        android:layout_below="@+id/sub_title"
         android:orientation="vertical"
         android:padding="15dp"
         android:paddingTop="15sp">
 
         <TextView
             android:id="@+id/course_name_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
-            android:text="@string/courseName"
+            android:text="@string/activity_manager_exam_name"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/course_name"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/course_name_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -45,7 +46,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:text="32人报考"
+            android:text="xxx人报考"
             android:textSize="25sp" />
     </RelativeLayout>
 
@@ -61,14 +62,14 @@
 
         <TextView
             android:id="@+id/exam_introduction_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="@string/activity_manager_exam_introduction"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_introduction"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_introduction_title"
             android:gravity="top"
             android:text="XXXXXXXX"
@@ -87,14 +88,14 @@
 
         <TextView
             android:id="@+id/exam_info_title"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:gravity="bottom"
             android:text="@string/activity_manager_exam_info"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/exam_info"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_below="@id/exam_info_title"
             android:gravity="top"
             android:text="XXXXXXXX"

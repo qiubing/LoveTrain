@@ -46,7 +46,7 @@
         <item name="android:textSize">@dimen/textSize20</item>
     </style>
 
-    <style name="edittext_style">
+    <style name="edit_text_style">
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/login_edit_text_height</item>
@@ -59,7 +59,7 @@
         <item name="android:textSize">@dimen/textSize14</item>
         <item name="android:singleLine">true</item>
     </style>
-    <style name="textview_style">
+    <style name="text_view_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/login_edit_text_height</item>
         <item name="android:textColor">@color/edit_text</item>

@@ -12,6 +12,7 @@ import android.util.Log;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.entity.Paramable;
@@ -94,13 +95,23 @@ public class CommunicateService extends Service {
                 public void run() {
                     Log.e("jiangyu", "loopCommunicate thread begin");
                     if (httpHandler != null) {
+
+                        final List<Boolean> lastMissionFinishedContain = new ArrayList<Boolean>();
+                        lastMissionFinishedContain.add(true);
+
                         final AsyncGetResult asyncGetResult = new AsyncGetResult();
                         asyncGetResult.setEntityFactory(new EntityFactoryGenerics(URLMap.ASSEMBLER_MAPPING.get(tagetURL)));
                         asyncGetResult.setMainHandler(new Handler(Looper.getMainLooper()) {
                             @Override
                             public void handleMessage(Message msg) {
-                                List<?> mResultList = asyncGetResult.getResultList();
-                                inter.alter(mResultList, tagetURL);
+                                synchronized (lastMissionFinishedContain) {
+                                    Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
+                                    lastMissionFinished = true;
+                                    List<?> mResultList = asyncGetResult.getResultList();
+                                    inter.alter(mResultList, tagetURL);
+
+                                    lastMissionFinishedContain.notifyAll();
+                                }
                             }
                         });
 
@@ -108,12 +119,26 @@ public class CommunicateService extends Service {
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         int loopIndex = 0;
                         while(loopIndex<paramList.size()){
-                            Paramable currentParamable = paramList.get(loopIndex);
-                            RequestParams params = currentParamable.toParams();
-                            Log.e("jiangyu", params.toString());
-                            client.get(tagetURL, params, httpHandler);
-                        }
+                            synchronized (lastMissionFinishedContain) {
+                                Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
 
+                                while(!lastMissionFinished){
+                                    try {
+                                        lastMissionFinishedContain.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                Paramable currentParamable = paramList.get(loopIndex);
+                                RequestParams params = currentParamable.toParams();
+                                Log.e("jiangyu", params.toString());
+                                client.get(tagetURL, params, httpHandler);
+                                lastMissionFinished = false;
+                                loopIndex++;
+                            }
+
+                        }
                         Log.e("jiangyu", "loopCommunicate thread begin");
                     }
                 }

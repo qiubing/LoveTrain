@@ -11,12 +11,44 @@ import java.util.Map;
 public class ShareCourseMsg extends Paramable{
     private int mCourseIndex;
     private String mCourseName;
+    private String mUserId;
+    private String mUserName;
     private String mCourseDescription;
     private String mLocale;
     private int mCourseLevel;
     private long mStartTime;
     private long mEndTime;
 
+    public ShareCourseMsg(){
+
+    }
+
+    public ShareCourseMsg(TechnologyShareCourseItem item){
+        mCourseIndex = item.getmCourseIndex();
+        mCourseName = item.getmCourseName();
+        mUserId = item.getmUserId();
+        mUserName = item.getmUserName();
+        mCourseDescription = item.getmCourseDescription();
+        mLocale = item.getmLocation();
+        mCourseLevel = item.getmCourseLevel();
+        mStartTime = item.getmStartTime();
+        mEndTime = item.getmEndTime();
+    }
+    public String getUserId(){
+        return mUserId;
+    }
+
+    public void setUserId(String userId){
+        mUserId = userId;
+    }
+
+    public String getUserName(){
+        return mUserName;
+    }
+
+    public void setUserName(String userName){
+        mUserName = userName;
+    }
     public int getCourseIndex() {
         return mCourseIndex;
     }

@@ -45,12 +45,13 @@
             <!--android:textColor="@color/grayslate"-->
             <!--android:textSize="@dimen/textSize16" />-->
         <TextView
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_width="wrap_content"
             android:text="@string/activity_manager_rate_A" />
         <EditText
             android:id="@+id/activity_manager_rate_A"
-            style="@style/edittext_style"
+            android:inputType="numberDecimal"
+            style="@style/edit_text_style"
             android:hint="@string/activity_manager_rate_hint" />
         <!--<EditText-->
             <!--android:id="@+id/activity_manager_rate_A"-->
@@ -85,12 +86,13 @@
             <!--android:textColor="@color/grayslate"-->
             <!--android:textSize="@dimen/textSize16" />-->
         <TextView
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_width="wrap_content"
             android:text="@string/activity_manager_rate_B" />
         <EditText
             android:id="@+id/activity_manager_rate_B"
-            style="@style/edittext_style"
+            style="@style/edit_text_style"
+            android:inputType="numberDecimal"
             android:hint="@string/activity_manager_rate_hint" />
         <!--<EditText-->
             <!--android:id="@+id/activity_manager_rate_B"-->
@@ -125,12 +127,13 @@
             <!--android:textColor="@color/grayslate"-->
             <!--android:textSize="@dimen/textSize16" />-->
         <TextView
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:layout_width="wrap_content"
             android:text="@string/activity_manager_rate_C" />
         <EditText
             android:id="@+id/activity_manager_rate_C"
-            style="@style/edittext_style"
+            style="@style/edit_text_style"
+            android:inputType="numberDecimal"
             android:hint="@string/activity_manager_rate_hint" />
         <!--<EditText-->
             <!--android:id="@+id/activity_manager_rate_C"-->
