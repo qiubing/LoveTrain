@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.LessonItem;
 
 /**
  * Created by hexiao on 2015/9/8.
@@ -18,14 +20,50 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private Button alterLessonButton;
     private ImageView alterLessonBackImage;
 
+    private LessonItem lessonItem;
+    private Bundle bundle;
+    private Intent intent;
+
+    private EditText lessonName;
+    private EditText teacherName;
+    private EditText lessonDesc;
+    private EditText lessonLocation;
+    private EditText lessonStartTime;
+    private EditText teacherPoints;
+    private EditText studentPoints;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_alter_lesson);
-
+        bundle=new Bundle();
 
         alterLessonBackImage=(ImageView)findViewById(R.id.admin_alter_lesson_backImage);
         alterLessonButton=(Button)findViewById(R.id.admin_alter_lesson_alterForeSureButton);
+
+        lessonName=(EditText)findViewById(R.id.alter_lesson_lessonName_editText);
+        teacherName=(EditText)findViewById(R.id.alter_lesson_teacherName_editText);
+        lessonDesc=(EditText)findViewById(R.id.alter_lesson_lessonDesc_editText);
+        lessonLocation=(EditText)findViewById(R.id.alter_lesson_lessonLocation_editText);
+        lessonStartTime=(EditText)findViewById(R.id.alter_lesson_lessonStartTime_editText);
+        teacherPoints=(EditText)findViewById(R.id.alter_lesson_teacherGetPoints_editText);
+        studentPoints=(EditText)findViewById(R.id.alter_lesson_studentGetPoints_editText);
+
+        /**获取并放入LessonItem*/
+        intent=getIntent();
+        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+
+        if(lessonItem!=null) {
+            lessonName.setText(lessonItem.getName());
+            teacherName.setText(lessonItem.getTeacherName());
+            lessonDesc.setText(lessonItem.getDescription());
+            lessonLocation.setText(lessonItem.getLocation());
+            lessonStartTime.setText(lessonItem.getStartTime() + "");
+            teacherPoints.setText(lessonItem.getTeacherCredits() + "");
+            studentPoints.setText(lessonItem.getCheckCredits() + "");
+        }
+
 
         alterLessonButton.setOnClickListener(this);
         alterLessonBackImage.setOnClickListener(this);
@@ -37,11 +75,24 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
             case R.id.admin_alter_lesson_backImage:
                 Toast.makeText(AdminAlterLessonActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
                 Intent intentBackImage = new Intent(AdminAlterLessonActivity.this,AdminLessonDetailActivity.class);
+                bundle.putSerializable("LessonItem", lessonItem);
+                intentBackImage.putExtras(bundle);
                 startActivity(intentBackImage);
                 finish();
                 break;
             case R.id.admin_alter_lesson_alterForeSureButton:
                 Intent intentAlterForSure = new Intent(AdminAlterLessonActivity.this,AdminLessonDetailActivity.class);
+                lessonItem.setName(lessonName.getText().toString());
+                lessonItem.setTeacherName(teacherName.getText().toString());
+                lessonItem.setDescription(lessonDesc.getText().toString());
+                lessonItem.setLocation(lessonLocation.getText().toString());
+                lessonItem.setStartTime((long) 10096);
+                lessonItem.setTeacherCredits(20);
+                lessonItem.setCheckCredits(10);
+
+                bundle.putSerializable("LessonItem", lessonItem);
+                intentAlterForSure.putExtras(bundle);
+
                 startActivity(intentAlterForSure);
                 Toast.makeText(AdminAlterLessonActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
                 finish();

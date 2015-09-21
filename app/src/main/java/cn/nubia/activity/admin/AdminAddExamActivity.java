@@ -124,7 +124,6 @@ public class AdminAddExamActivity extends Activity {
                     Toast.makeText(AdminAddExamActivity.this, "考试积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 upData();
 
             }
