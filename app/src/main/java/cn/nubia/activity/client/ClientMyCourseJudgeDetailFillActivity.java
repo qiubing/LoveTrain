@@ -11,13 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.LessonJudgementMsg;
@@ -31,16 +30,15 @@ import cn.nubia.util.DialogUtil;
  */
 public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private int mLessonIndex;
+    private Boolean mNextPressReady;
+
     private Button mConfirmButton;
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
 
-    private TextView mManagerTitle;
-    private ImageView mGoBack;
-
     private CommunicateService.CommunicateBinder mBinder;
-    private ServiceConnection mConn = new ServiceConnection() {
+    private final ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBinder = (CommunicateService.CommunicateBinder)service;
@@ -53,8 +51,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,String URL){
-            ClientMyCourseJudgeDetailFillActivity.this.showOperateResult((List<String>)list,URL);
+        public void handleResponse(Map<String,?> response,String responseURL){
+            ClientMyCourseJudgeDetailFillActivity.this.handleResponse(response,responseURL);
         }
     }
 
@@ -64,11 +62,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         setContentView(R.layout.activity_mycourse_judge_detail_fill);
 
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        ((TextView) findViewById(R.id.manager_head_title)).setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
 
-        connectService();
         holdView();
         setViewLogic();
     }
@@ -76,40 +71,52 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     @Override
     public void onStart(){
         super.onStart();
+        connectService();
+        mNextPressReady = true;
+
         Intent intent = getIntent();
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     private View.OnClickListener makeConfirmOnClickListener(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkData()) {
-                    LessonJudgementMsg judgement = new LessonJudgementMsg();
-                    judgement.setContentApplicability(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
-                    judgement.setContentRationality(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
-                    judgement.setDiscussion(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
-                    judgement.setTimeRationality(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
-                    judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
-                    judgement.setExpressionAbility(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
-                    judgement.setCommunication(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
-                    judgement.setOrganization(((RatingBar) findViewById(R.id
-                            .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
-                    judgement.setComprehensiveEvaluation(
-                            mComprehensiveEvaluationEditText.getText().toString().trim());
-                    judgement.setSuggestion(
-                            mSuggestionEditText.getText().toString().trim());
-                    judgement.setLessonIndex(mLessonIndex);
+                if (mNextPressReady) {
+                   if (checkData()) {
+                        LessonJudgementMsg judgement = new LessonJudgementMsg();
+                        judgement.setContentApplicability(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
+                        judgement.setContentRationality(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
+                        judgement.setDiscussion(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
+                        judgement.setTimeRationality(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
+                        judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
+                        judgement.setExpressionAbility(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
+                        judgement.setCommunication(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
+                        judgement.setOrganization(((RatingBar) findViewById(R.id
+                                .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
+                        judgement.setComprehensiveEvaluation(
+                                mComprehensiveEvaluationEditText.getText().toString().trim());
+                        judgement.setSuggestion(
+                                mSuggestionEditText.getText().toString().trim());
+                        judgement.setLessonIndex(mLessonIndex);
 
-                    judgement.setOperateType(CommunicateService.OperateType.INSERT);
-                    mBinder.communicate(judgement, new Inter(), URLMap.URL_JUDGE_LESSON);
+                        judgement.setOperateType(CommunicateService.OperateType.INSERT);
+                        mBinder.communicate(judgement, new Inter(), URLMap.URL_JUDGE_LESSON);
+                       mNextPressReady = false;
+                    }
                 }
             }
         };
@@ -152,10 +159,9 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
 
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
-        mGoBack.setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                disconectService();
                 ClientMyCourseJudgeDetailFillActivity.this.finish();
             }
         });
@@ -183,18 +189,22 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         unbindService(mConn);
     }
 
-    private void showOperateResult(List<String> list,String tagetURL) {
-        if(list==null){
+    private void handleResponse(Map<String,?> response,String responseURL){
+        mNextPressReady = true;
+        if(response==null){
             DialogUtil.showDialog(
                     ClientMyCourseJudgeDetailFillActivity.this,"操作失败!",false);
         }else{
-            String result = list.get(0);
-            if(result.equals("0"))
+            String operateResult = (String)response.get("operateResult");
+            if(operateResult.equals("success")) {
                 DialogUtil.showDialog(
-                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", false);
-            else if(result.equals("1"))
+                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
+            }else if(operateResult.equals("failure")) {
+                String message = (String) response.get("message");
                 DialogUtil.showDialog(
-                        ClientMyCourseJudgeDetailFillActivity.this,"课程评价失败!",false);
+                        ClientMyCourseJudgeDetailFillActivity.this,"课程评价失败：\n"+
+                                message,false);
+            }
         }
     }
 }

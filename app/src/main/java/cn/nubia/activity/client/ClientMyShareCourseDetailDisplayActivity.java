@@ -34,9 +34,9 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
+
         holdView();
         setViewLogic();
-
     }
 
     @Override
@@ -82,6 +82,12 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
             }
         });
 
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientMyShareCourseDetailDisplayActivity.this.finish();
+            }
+        });
     }
 
     private void initViewData() {
@@ -100,14 +106,5 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
                 new SimpleDateFormat("HH:mm").format(endTime));
         mCourseLocale.setText(mShareCourseMsg.getLocale());
         mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
-    }
-
-    /**
-     * 返回箭头绑定事件，即退出该页面
-     *
-     * @param view
-     */
-    public void back(View view) {
-        this.finish();
     }
 }

@@ -1,7 +1,5 @@
 package cn.nubia.util.jsonprocessor;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +16,6 @@ public class ExamEnrollAssembler implements IAssemblerGenerics<ExamScoreMsg> {
 
     @Override
     public List<ExamScoreMsg> assemble(JSONArray jsonArray) {
-        Log.e("jiangyu", "enroll assemble");
         try {
             List<ExamScoreMsg> itemList = new ArrayList<ExamScoreMsg>();
             for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++) {

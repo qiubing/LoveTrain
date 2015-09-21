@@ -11,7 +11,7 @@ import java.util.List;
  * Created by JiangYu on 2015/9/10.
  */
 public class JSONResolver {
-
+    private final static String UNHANDLE_ERR = "未知错误";
     /**获得服务器端返回的JSON对象的code值*/
     public static int readCode(JSONObject jsonObject){
         try {
@@ -19,6 +19,16 @@ public class JSONResolver {
         } catch (JSONException e) {
             e.printStackTrace();
             return -1;
+        }
+    }
+
+    /**获得服务器端返回的JSON对象的message值*/
+    public static String readMessage(JSONObject jsonObject){
+        try {
+            return jsonObject.getString("message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return UNHANDLE_ERR;
         }
     }
 

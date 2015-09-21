@@ -13,7 +13,7 @@
         android:background="@color/titlebar_bg">
 
         <ImageView
-            android:id="@+id/back_image"
+            android:id="@+id/manager_goback"
             android:layout_width="@dimen/text_size_20"
             android:layout_height="@dimen/text_size_20"
             android:layout_centerVertical="true"
@@ -22,7 +22,6 @@
             android:layout_marginRight="10.0dip"
             android:background="@null"
             android:contentDescription="@string/app_name"
-            android:onClick="back"
             android:src="@drawable/back_button_xml" />
         <TextView
             android:id="@+id/approved_share_course_title"
