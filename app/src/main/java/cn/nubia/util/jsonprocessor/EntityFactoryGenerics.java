@@ -1,11 +1,11 @@
 package cn.nubia.util.jsonprocessor;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by JiangYu on 2015/9/10.
@@ -81,7 +81,6 @@ public class EntityFactoryGenerics {
     }
 
     public List<?> get(){
-        Log.e("jiangyu", "factory get");
         if(getCode()==0) {
             if (mType == ItemType.SIMPLEDATA)
                 return getOperateResult();
@@ -90,6 +89,14 @@ public class EntityFactoryGenerics {
         }else
             return null;
     }
+
+    public Map<String,?> getResponse(){
+        if (mType == ItemType.SIMPLEDATA)
+            return getResponseOperateResult();
+        else
+            return getResponseItemList();
+    }
+
     /**
      * 获得作为列表返回的实体值
      */
@@ -102,10 +109,45 @@ public class EntityFactoryGenerics {
         }
     }
 
+    private Map<String,Object> getResponseItemList(){
+        Map<String,Object> response = new HashMap<String,Object>();
+        if(JSONResolver.readCode(mJsonObject)==0){
+            JSONArray jsonArray = JSONResolver.readArray(mJsonObject);
+            if (jsonArray == null) {
+                return null;
+            } else {
+                response.put("operateResult","success");
+                response.put("message",JSONResolver.readMessage(mJsonObject));
+                response.put("detail",mAssembler.assemble(jsonArray));
+                return response;
+            }
+        }else{
+            response.put("operateResult","failure");
+            response.put("message",JSONResolver.readMessage(mJsonObject));
+            response.put("detail",null);
+            return response;
+        }
+    }
+
     /**
      * 获得作为字符串返回的简单值
      */
     private List<String> getOperateResult(){
         return JSONResolver.readOperateReult(mJsonObject);
+    }
+
+    private Map<String,Object> getResponseOperateResult(){
+        Map<String,Object> response = new HashMap<String,Object>();
+        if(JSONResolver.readCode(mJsonObject)==0){
+            response.put("operateResult","success");
+            response.put("message",JSONResolver.readMessage(mJsonObject));
+            response.put("detail",JSONResolver.readOperateReult(mJsonObject));
+            return response;
+        }else{
+            response.put("operateResult","failure");
+            response.put("message",JSONResolver.readMessage(mJsonObject));
+            response.put("detail",JSONResolver.readOperateReult(mJsonObject));
+            return response;
+        }
     }
 }

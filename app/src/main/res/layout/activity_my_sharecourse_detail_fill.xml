@@ -12,29 +12,23 @@
         android:background="@color/titlebar_bg">
 
         <ImageView
-            android:id="@+id/back_image"
-            android:layout_width="@dimen/text_size_20"
-            android:layout_height="@dimen/text_size_20"
+            android:id="@+id/manager_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9.0dip"
-            android:layout_marginRight="10.0dip"
-            android:background="@null"
-            android:contentDescription="@string/app_name"
-            android:onClick="back"
-            android:src="@drawable/back_button_xml" />
+            android:paddingLeft="0dp"
+            android:src="@mipmap/ic_back" />
+
         <TextView
-            android:id="@+id/approved_share_course_title"
-            android:layout_width="match_parent"
+            android:id="@+id/manager_head_title"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:layout_marginLeft="85.0dip"
-            android:layout_marginRight="85.0dip"
             android:singleLine="true"
+            android:text="@string/activity_my_sharecourse_detail_display_title_textview"
             android:textColor="@color/grayslate"
-            android:textSize="@dimen/text_size_20"
-            android:text="课程信息"/>
+            android:textSize="@dimen/textSize22" />
 
         <Button
             android:id="@+id/my_sharecourse_detail_fill_confirmbutton"

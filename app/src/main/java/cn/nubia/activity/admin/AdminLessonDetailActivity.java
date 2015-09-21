@@ -257,6 +257,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Intent intent = null;
                 if(status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
+                    intent.putExtras(bundle);
+                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex()+"," + lessonItem.getTeacherID());
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                     intent.putExtra("lessonIndex",0);

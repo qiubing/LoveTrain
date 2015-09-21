@@ -19,9 +19,8 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import cn.nubia.activity.admin.AdminMainActivity;
-import cn.nubia.activity.admin.ProcessSPData;
+import cn.nubia.util.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
-import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
@@ -43,12 +42,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView mTitleTV;
     private Spinner mSexSpinner;
     private Spinner mIsManagerSpinner;
-    CustomProgressDialog dialog;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +64,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String select = mIsManagerSpinner.getSelectedItem().toString();
-                if(select.equals("是")){
+                if (select.equals("是")) {
                     mUserIdET.setText("0016002652");
                     mPasswordET.setText("123456");
-                }else {
+                } else {
                     mUserIdET.setText("0016003347");
                     mPasswordET.setText("111111");
                 }
@@ -92,18 +85,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+//        CustomProgressDialog dialog;
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
                     if (validateLogin()) {
-                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
+//                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
                     }
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
-                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
+//                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
                         regist();
                     }
                 }
@@ -139,6 +133,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
 
+        Constant.USER_ID = userID;
 //        params.put("device_id", Constant.devideID);
 //        params.put("request_time", System.currentTimeMillis());
 //        params.put("apk_version", Constant.apkVersion);
@@ -179,9 +174,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void handleLogin(JSONObject response) {
-          startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
         try {
-//            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
                 JSONObject json = response.getJSONObject("data");
@@ -221,7 +214,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     ProcessSPData.putIntoSP(this, user);
                     ProcessSPData.putIntoSP(this, "isAdmin", false);
                     Constant.IS_ADMIN = false;
-//                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
                     LoginActivity.this.finish();
                 }
@@ -250,7 +242,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         params.put("user_id", userID);
         params.put("user_name", userName);
-//        params.put("password", Md5Encryption.getMD5(pwd));
         params.put("password", (pwd));
         if (sex.equals("男")) {
             params.put("gender", "1");
@@ -297,6 +288,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         onProcess("注册中...");
     }
 
+    /**
     private void adminRegist() {
         String userID = mUserIdET.getText().toString();
         String userName = mUserNameET.getText().toString();
@@ -322,7 +314,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String url = Constant.BASE_URL + "ucent/admin_register.do";
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
 
-            @Override
+            @ Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 afterProcess("注册");
                 try {
@@ -349,7 +341,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             }
 
-            @Override
+            @ Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 afterProcess("登录");
                 DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
@@ -357,7 +349,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         });
         onProcess("注册中...");
     }
-
+**/
     private void onProcess(String s) {
 //        dialog.show();
         mLoginButton.setEnabled(false);
@@ -373,7 +365,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateLogin() {
+    private boolean validateLogin() {
         String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");
@@ -388,7 +380,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateRegist() {
+    private boolean validateRegist() {
         String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.EmptyActivity;
+import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 
 /**
@@ -44,7 +45,7 @@ public class AdminExamActivity extends ActivityGroup {
 		listViews.add(getView("A", i1));
 		Intent i2 = new Intent(context, Game2Activity.class);
 		listViews.add(getView("B", i2));*/
-        Intent i3 = new Intent(AdminExamActivity.this, AdminExamAddTabActivity.class);
+        Intent i3 = new Intent(AdminExamActivity.this, ExamAddTabActivity.class);
         listViews.add(getView("C", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);

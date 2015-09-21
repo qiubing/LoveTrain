@@ -2,12 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_loading_failed"
+        />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_network_unusable" />
+
+
+
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -37,7 +62,7 @@
                 android:textSize="36sp" />
 
         </LinearLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <TableLayout
         android:layout_width="match_parent"
@@ -184,6 +209,7 @@
         android:layout_width="match_parent"
         android:text="@string/addCourseForSure"
         android:textSize="20sp"
+        android:background="@color/common_green"
         />
 
 </LinearLayout>

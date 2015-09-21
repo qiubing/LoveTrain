@@ -94,6 +94,7 @@
     <!--管理员 -->
     <string name="manger_setting_title">设置</string>
     <string name="manger_setting_score_title">考试成绩设置</string>
+    <string name="manager_no_record">没有数据。</string>
 
 
     <string name="manger_setting_teb1">按学员查询</string>

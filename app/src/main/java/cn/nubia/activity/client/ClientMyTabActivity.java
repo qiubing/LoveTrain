@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.ProcessSPData;
+import cn.nubia.util.ProcessSPData;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;

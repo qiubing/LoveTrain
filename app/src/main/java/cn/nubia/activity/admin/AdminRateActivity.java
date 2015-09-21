@@ -13,18 +13,19 @@ import cn.nubia.util.DialogUtil;
 
 public class AdminRateActivity extends Activity {
 
-    private Button mButton;
+
     private EditText mRate_A;
     private EditText mRate_B;
     private EditText mRate_C;
-    private TextView mManagerTitle;
-    private ImageView mGoBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_rate);
 
+        Button mButton;
+        TextView mManagerTitle;
+        ImageView mGoBack;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_manager_rate_title);
@@ -74,7 +75,7 @@ public class AdminRateActivity extends Activity {
 
     private boolean validate() {
         String input = mRate_A.getText().toString();
-        int value = 0;
+        int value;
         if (input.equals("")) {
             DialogUtil.showToast(this, "请输入优秀课程取值");
             return false;

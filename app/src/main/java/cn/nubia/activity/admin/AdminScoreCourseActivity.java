@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,18 +27,17 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.Course;
+import cn.nubia.model.Course;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.TestData;
 
 public class AdminScoreCourseActivity extends Activity {
 
     private List<Course> list;
+    private TextView mNoRecord;
 
     private void init() {
-        //TODO
         list = new ArrayList<>();
         String url = Constant.BASE_URL + "user/find_course.do";
 
@@ -47,6 +47,7 @@ public class AdminScoreCourseActivity extends Activity {
         params.put("apk_version", Constant.apkVersion);
         params.put("token_key", Constant.tokenKep);
         MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -57,6 +58,7 @@ public class AdminScoreCourseActivity extends Activity {
                 }
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e("onFailure", statusCode + "");
@@ -67,9 +69,7 @@ public class AdminScoreCourseActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-        //TODO
-        if (response == null)
-            response = TestData.getCourseUserData();
+
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
@@ -84,10 +84,18 @@ public class AdminScoreCourseActivity extends Activity {
                 item.put("address", list.get(i).getCourse_name());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.score_course_list);
+            if (list.size() == 0) {
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_course_item,
                     new String[]{"coursename", "address"},
                     new int[]{R.id.score_course_coursename, R.id.score_course_address});
-            ListView listView = (ListView) findViewById(R.id.score_course_list);
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -101,7 +109,7 @@ public class AdminScoreCourseActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminScoreCourseActivity.this, code,response.getString("message"));
+            HandleResponse.excute(AdminScoreCourseActivity.this, code, response.getString("message"));
         }
     }
 
@@ -110,6 +118,7 @@ public class AdminScoreCourseActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_score_course);
+        mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
     }
 

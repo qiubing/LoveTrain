@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,17 +27,18 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.User;
+import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.TestData;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreUserActivity extends Activity {
 
     private List<User> list;
+    private TextView mNoRecord;
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -69,9 +71,7 @@ public class AdminScoreUserActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-        //TODO
-        if (response == null)
-            response = TestData.getCourseUserData();
+
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
@@ -86,10 +86,18 @@ public class AdminScoreUserActivity extends Activity {
                 item.put("id", list.get(i).getUserID());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.score_user_list);
+            if (list.size() == 0) {
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_user_item,
                     new String[]{"name", "id"},
                     new int[]{R.id.score_user_name, R.id.score_user_id});
-            ListView listView = (ListView) findViewById(R.id.score_user_list);
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -103,7 +111,7 @@ public class AdminScoreUserActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminScoreUserActivity.this, code,response.getString("message"));
+            HandleResponse.excute(AdminScoreUserActivity.this, code, response.getString("message"));
         }
     }
 
@@ -112,7 +120,7 @@ public class AdminScoreUserActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_score_user);
-
+        mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
 
     }
