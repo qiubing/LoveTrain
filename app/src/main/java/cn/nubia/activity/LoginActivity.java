@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -65,6 +66,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mSexLayout = (LinearLayout) findViewById(R.id.layout_sex);
         mIsManagerSpinner = (Spinner) findViewById(R.id.ismanager);
         mIsMangerLayout = (LinearLayout) findViewById(R.id.layout_ismanager);
+        mIsManagerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String select = mIsManagerSpinner.getSelectedItem().toString();
+                if(select.equals("是")){
+                    mUserIdET.setText("0016002652");
+                    mPasswordET.setText("123456");
+                }else {
+                    mUserIdET.setText("0016003347");
+                    mPasswordET.setText("111111");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mLoginButton.setOnClickListener(this);
         mRegistButton.setOnClickListener(this);

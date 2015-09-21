@@ -11,15 +11,13 @@ import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.Item;
 import cn.nubia.entity.LessonItem;
 
-/**
- * Created by JiangYu on 2015/9/10.
- */
+
 public class CourseItemAssembler implements IAssemblerGenerics<Item> {
 
     @Override
     public List<Item> assemble(JSONArray jsonArray) {
         try {
-            List<Item> itemList = new ArrayList<Item>();
+            List<Item> itemList = new ArrayList<>();
             for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++){
                 JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
                 String objectType = jsonObject.getString("type");
