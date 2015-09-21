@@ -7,6 +7,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -33,6 +34,7 @@ import cn.nubia.util.HandleResponse;
 public class AdminCreditTotalActivity extends Activity {
 
     private List<CreditUser> list;
+    private TextView mNoRecord;
 
     private void init() {
         list = new ArrayList<>();
@@ -64,8 +66,6 @@ public class AdminCreditTotalActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-//        if (null == response)
-//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
@@ -81,10 +81,18 @@ public class AdminCreditTotalActivity extends Activity {
                 item.put("credit", list.get(i).getUser_total_credits());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.credit_total_list);
+            if (list.size() == 0) {
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.credit_total_item,
                     new String[]{"name", "id", "credit"},
                     new int[]{R.id.credit_total_username, R.id.credit_total_id, R.id.credit_totalcredit});
-            ListView listView = (ListView) findViewById(R.id.credit_total_list);
+
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -94,7 +102,7 @@ public class AdminCreditTotalActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminCreditTotalActivity.this, code,response.getString("message"));
+            HandleResponse.excute(AdminCreditTotalActivity.this, code, response.getString("message"));
         }
     }
 
@@ -103,6 +111,7 @@ public class AdminCreditTotalActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_credit_total);
+        mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
     }
 

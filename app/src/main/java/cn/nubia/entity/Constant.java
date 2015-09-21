@@ -48,7 +48,7 @@ public class Constant {
         return map;
     }
 
-    public static Long getRequestTime() {
+    private static Long getRequestTime() {
         return (systemTime + System.currentTimeMillis() - loginTime);
     }
 

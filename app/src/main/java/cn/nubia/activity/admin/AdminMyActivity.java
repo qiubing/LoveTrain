@@ -14,18 +14,20 @@ import cn.nubia.activity.R;
  */
 @SuppressWarnings("deprecation")
 public class AdminMyActivity extends ActivityGroup implements View.OnClickListener {
-    TextView score_query;
-    TextView integral_query;
-    TextView assess_manage;
-    TextView user_manage;
-    TextView account_manage;
-    TextView about_us;
-    Button change_account;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_my_admin);
+
+        TextView score_query;
+        TextView integral_query;
+        TextView assess_manage;
+        TextView user_manage;
+        TextView account_manage;
+        TextView about_us;
+        Button change_account;
         score_query = (TextView) findViewById(R.id.score_query);
         integral_query = (TextView) findViewById(R.id.integral_query);
         assess_manage = (TextView) findViewById(R.id.assess_manage);
