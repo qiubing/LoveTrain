@@ -42,7 +42,10 @@ public class AsyncGetResult implements Runnable {
             mFactoryGenerics.setJSON(mJSONObject);
             mResponse = mFactoryGenerics.getResponse();
             mResultHandler.sendMessage(new Message());
-            Log.e("jiangyu", "result Thread success end");
+            Log.e("jiangyu", "result get Thread called nomal handle");
+        }else{
+            mResultHandler.sendMessage(new Message());
+            Log.e("jiangyu", "result get Thread called undisconnected handle");
         }
     }
 }
