@@ -137,11 +137,11 @@ public class ClientMainActivity extends ActivityGroup {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
             int lesson_index = Integer.parseInt(scanResult);
-            Log.e(TAG,"user_id: " + Constant.USER_ID + ",lesson_index: " + lesson_index);
-            if (!Constant.USER_ID.equals("")&& lesson_index > 0){
+            Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",lesson_index: " + lesson_index);
+            if (!Constant.user.getUserID().equals("")&& lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
                 RequestParams params = new RequestParams();
-                params.put("user_id",Constant.USER_ID);
+                params.put("user_id",Constant.user.getUserID());
                 params.put("lesson_index",29);
                 //params.put("lesson_index",lesson_index);
                 params.put("device_id","87654321");

@@ -3,6 +3,7 @@ package cn.nubia.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -87,7 +88,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         final Bundle bundle = new Bundle();
         bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
 
-
+        Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
 
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
+                Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex()+"+ExpandableListView");
                 Toast.makeText(mContext, "XXXXXXXXXXXXX", Toast.LENGTH_LONG).show();
             }
         });
@@ -251,7 +253,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         if(mLessonList == null)
             return false;
         for(int i=0;i<mLessonList.size();i++){
-            if(Constant.USER_ID.equals(mLessonList.get(i).getTeacherID())){
+            if(Constant.user.getUserID().equals(mLessonList.get(i).getTeacherID())){
                 /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
                 if(i==mLessonList.size()-1){
                     return false;

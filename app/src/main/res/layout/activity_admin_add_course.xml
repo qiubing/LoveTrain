@@ -84,19 +84,38 @@
 
         <TableRow android:paddingTop="20sp">
 
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="课程类型"-->
+                <!--android:textColor="#666666"-->
+                <!--android:textSize="20sp" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/add_course_courseType_editText"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:selectAllOnFocus="true" />-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="课程类型"
+                android:text="课程类型："
                 android:textColor="#666666"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/add_course_courseType_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+            <Spinner
+                android:id="@+id/add_course_courseType"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/login_edit_text_height"
+                android:entries="@array/courseType"
+                android:padding="@dimen/padding"
+                android:singleLine="true"
+                android:textColor="@color/edit_text"
+                android:textSize="@dimen/login_edit_hint_size">
+
+            </Spinner>
 
         </TableRow>
 

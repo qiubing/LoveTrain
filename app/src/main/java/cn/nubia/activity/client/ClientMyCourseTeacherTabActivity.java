@@ -131,7 +131,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private void loadData() {
         /**请求课程数据*/
         HashMap<String, String> getClassParam = new HashMap<>();
-        getClassParam.put("user_iD", "0016003317");
+        getClassParam.put("user_iD", Constant.user.getUserID());
         getClassParam.put("course_index", "1");
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");
@@ -241,7 +241,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                 List<LessonItem> lessonList = courseItem.getLessonList();
                 for (int i = 0; i < lessonList.size(); i++) {
                     LessonItem lessonItem = lessonList.get(i);
-                    if (lessonItem.getTeacherID() == Constant.USER_ID) {
+                    if (lessonItem.getTeacherID() == Constant.user.getUserID()) {
                         resultList.add(courseItem);
                         break;
                     }
