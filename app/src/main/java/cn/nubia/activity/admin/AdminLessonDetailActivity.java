@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -73,7 +74,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
-        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+        lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
 
 
         if(lessonItem!=null) {
@@ -230,6 +231,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Intent intent = null;
                 if(status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
+                    intent.putExtras(bundle);
+                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex()+"," + lessonItem.getTeacherID());
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                     intent.putExtra("lessonIndex",0);
