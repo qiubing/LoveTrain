@@ -1,4 +1,4 @@
-package cn.nubia.model.admin;
+package cn.nubia.model;
 
 /**
  * Created by LK on 2015/9/16.
@@ -35,10 +35,4 @@ public class Exam {
     public Exam() {
     }
 
-    public Exam(int exam_index, String exam_name, double exam_score) {
-
-        this.exam_index = exam_index;
-        this.exam_name = exam_name;
-        this.exam_score = exam_score;
-    }
 }

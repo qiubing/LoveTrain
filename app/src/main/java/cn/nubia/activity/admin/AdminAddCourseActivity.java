@@ -1,14 +1,14 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -29,12 +29,12 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
-
     private EditText addCourseCourseTypeEditText;
     private EditText addCourseCoursePointsEditText;
-
     private Button addCourseButton;
-    private ImageView addCourseBackImage;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private TextView mTitleText;
 
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
@@ -62,9 +62,15 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
         addCourseCourseTypeEditText = (EditText) findViewById(R.id.add_course_courseType_editText);
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
-
         addCourseButton = (Button) findViewById(R.id.add_course_button);
-        addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
+
+        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        mTitleText.setText("新增课程");
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 //        addCourseWhetherHighLevelCourseCheckBox = (CheckBox) findViewById(R.id.add_course_whetherHighLevelCourse_checkBox);
@@ -79,7 +85,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
 
         addCourseButton.setOnClickListener(this);
-        addCourseBackImage.setOnClickListener(this);
 
 //        addCourseWhetherHighLevelCourseCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
@@ -100,12 +105,12 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_add_course_backImage:
+            /*case R.id.admin_add_course_backImage:
                 Toast.makeText(AdminAddCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
                 Intent intentBackImage = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
-                break;
+                break;*/
             case R.id.add_course_button:
 
 //                Dialog addCourseDialog = new AlertDialog.Builder(AdminAddCourseActivity.this)
@@ -158,11 +163,14 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setCourseCredits(10);
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
-                Bundle bundle=new Bundle();
+
+
+                //huhu，这些数据传过去没用吧
+                /*Bundle bundle=new Bundle();
                 bundle.putSerializable("CourseItem", courseItem);
                 Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 intentAddForSure.putExtras(bundle);
-                startActivity(intentAddForSure);
+                startActivity(intentAddForSure);*/
                 break;
         }
     }
@@ -194,7 +202,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 //                boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + "," + "," +isOk);
+                Log.i("huhu", "addcource" + code + "," + "," +isOk);
 //                if(result && code == 0 && isOk) {
                 if(code == 0 && isOk) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
@@ -206,7 +214,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 }
 
             } catch (Exception e) {
-                Toast.makeText(AdminAddCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
         }
@@ -214,7 +222,13 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
         }
     };
+
+
+    public void back(View view) {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
 }

@@ -49,6 +49,7 @@ public class ClientEvaluateActivity  extends Activity {
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private String lession_index_ID;
 
 
     private Handler handler = new Handler() {
@@ -74,6 +75,9 @@ public class ClientEvaluateActivity  extends Activity {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
+
+        lession_index_ID = getIntent().getExtras().getString("lession_index_ID");
+        Log.i("huhu", "get lession_index_ID" + lession_index_ID);
 
         //mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
@@ -116,6 +120,10 @@ public class ClientEvaluateActivity  extends Activity {
         requestParams.add("apk_version","1");
         requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
+
+        String stringArray []  = lession_index_ID.split(",");
+        requestParams.add("lession_index", stringArray[0]);
+        requestParams.add("user_id", stringArray[1]);
 
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);

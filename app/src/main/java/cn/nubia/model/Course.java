@@ -1,4 +1,4 @@
-package cn.nubia.model.admin;
+package cn.nubia.model;
 
 /**
  * Created by LK on 2015/9/15.
@@ -8,14 +8,6 @@ public class Course {
     private String course_name;
     private double exam_score;
     private String address;
-
-    public Course(int course_index, String course_name, double exam_score, String address) {
-        this.course_index = course_index;
-        this.course_name = course_name;
-        this.exam_score = exam_score;
-        this.address = address;
-    }
-
     public Course() {
 
     }

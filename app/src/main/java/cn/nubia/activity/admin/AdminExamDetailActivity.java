@@ -203,7 +203,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     }
 
 
-    void deleteData(){
+    private void deleteData(){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -216,7 +216,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "addExam" + "onSuccess");
@@ -233,7 +233,6 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
-            //mExamAdapter.notifyDataSetChanged();
         }
 
         @Override

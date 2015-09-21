@@ -21,6 +21,7 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreActivity extends ActivityGroup {
 
     List<View> mListViews;
@@ -28,8 +29,6 @@ public class AdminScoreActivity extends ActivityGroup {
     LocalActivityManager mManager = null;
     TabHost mTabHost = null;
     private ViewPager mViewPager = null;
-    private ImageView mGoBack;
-    private TextView mManagerTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,8 @@ public class AdminScoreActivity extends ActivityGroup {
         mContext = AdminScoreActivity.this;
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        ImageView mGoBack;
+        TextView mManagerTitle;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.title_activity_manager_score);

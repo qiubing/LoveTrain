@@ -25,7 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.nubia.activity.admin.AdminMainActivity;
-import cn.nubia.activity.admin.ProcessSPData;
+import cn.nubia.util.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
