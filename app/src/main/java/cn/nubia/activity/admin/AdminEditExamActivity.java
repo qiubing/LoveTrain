@@ -89,12 +89,12 @@ public class AdminEditExamActivity extends Activity {
 
         requestParams.add("course_index", mExamItemExamEdit.getCourseIndex() + "");
         requestParams.add("exam_index", mExamItemExamEdit.getIndex() + "");
-        requestParams.add("exam_name",  mExamItemExamEdit.getName());
-        requestParams.add("exam_description",  mExamItemExamEdit.getDescription());
-        requestParams.add("locale",  mExamItemExamEdit.getLocale());
-        requestParams.add("start_time",  mExamItemExamEdit.getStartTime()+"");
-        requestParams.add("end_time", mExamItemExamEdit.getEndTime()+"");
-        requestParams.add("exam_credits", mExamItemExamEdit.getExamCredits()+"");
+        requestParams.add("exam_name",  mExamTitle.getText().toString());
+        requestParams.add("exam_description",  mExamInfo.getText().toString());
+        requestParams.add("locale",  mExamAddress.getText().toString());
+        requestParams.add("start_time",  mExamStartTime.getText().toString());
+        requestParams.add("end_time", mExamEndTime.getText().toString());
+        requestParams.add("exam_credits", mExamCredit.getText().toString());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
