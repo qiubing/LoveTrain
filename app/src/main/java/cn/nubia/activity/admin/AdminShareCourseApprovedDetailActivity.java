@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -16,9 +17,9 @@ import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/10 9:23
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/10 9:23
  */
 public class AdminShareCourseApprovedDetailActivity extends Activity {
     private TextView mCourseName;
@@ -66,7 +67,6 @@ public class AdminShareCourseApprovedDetailActivity extends Activity {
 
     private void initEvents(){
 
-
         //获取上一个Activity发送的Intent
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -85,7 +85,7 @@ public class AdminShareCourseApprovedDetailActivity extends Activity {
 
     /**
      * 返回箭头绑定事件，即退出该页面
-     * @param view
+     * param view
      */
     public void back(View view){
         this.finish();

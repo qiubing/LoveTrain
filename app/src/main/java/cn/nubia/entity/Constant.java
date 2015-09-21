@@ -34,7 +34,10 @@ public class Constant {
     public static String tokenKep = "sfdgfjh";
     public static boolean IS_ADMIN = false;
 
-
+    /**
+     * 必要的四个参数
+     * return
+     */
     public static Map<String, String> getRequestParams() {
         Map<String, String> map = new HashMap<>();
         map.put("device_id", devideID);

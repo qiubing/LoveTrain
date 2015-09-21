@@ -17,20 +17,13 @@ import cn.nubia.entity.LessonItem;
  */
 public class AdminAlterLessonActivity extends Activity implements View.OnClickListener{
 
-    private Button alterLessonButton;
-    private ImageView alterLessonBackImage;
-
     private LessonItem lessonItem;
     private Bundle bundle;
-    private Intent intent;
 
     private EditText lessonName;
     private EditText teacherName;
     private EditText lessonDesc;
     private EditText lessonLocation;
-    private EditText lessonStartTime;
-    private EditText teacherPoints;
-    private EditText studentPoints;
 
 
     @Override
@@ -39,20 +32,20 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_admin_alter_lesson);
         bundle=new Bundle();
 
-        alterLessonBackImage=(ImageView)findViewById(R.id.admin_alter_lesson_backImage);
-        alterLessonButton=(Button)findViewById(R.id.admin_alter_lesson_alterForeSureButton);
+        ImageView alterLessonBackImage = (ImageView) findViewById(R.id.admin_alter_lesson_backImage);
+        Button alterLessonButton = (Button) findViewById(R.id.admin_alter_lesson_alterForeSureButton);
 
         lessonName=(EditText)findViewById(R.id.alter_lesson_lessonName_editText);
         teacherName=(EditText)findViewById(R.id.alter_lesson_teacherName_editText);
         lessonDesc=(EditText)findViewById(R.id.alter_lesson_lessonDesc_editText);
         lessonLocation=(EditText)findViewById(R.id.alter_lesson_lessonLocation_editText);
-        lessonStartTime=(EditText)findViewById(R.id.alter_lesson_lessonStartTime_editText);
-        teacherPoints=(EditText)findViewById(R.id.alter_lesson_teacherGetPoints_editText);
-        studentPoints=(EditText)findViewById(R.id.alter_lesson_studentGetPoints_editText);
+        EditText lessonStartTime = (EditText) findViewById(R.id.alter_lesson_lessonStartTime_editText);
+        EditText teacherPoints = (EditText) findViewById(R.id.alter_lesson_teacherGetPoints_editText);
+        EditText studentPoints = (EditText) findViewById(R.id.alter_lesson_studentGetPoints_editText);
 
         /**获取并放入LessonItem*/
-        intent=getIntent();
-        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+        Intent intent = getIntent();
+        lessonItem=(LessonItem) intent.getSerializableExtra("LessonItem");
 
         if(lessonItem!=null) {
             lessonName.setText(lessonItem.getName());

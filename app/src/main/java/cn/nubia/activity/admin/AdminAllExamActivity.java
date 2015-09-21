@@ -37,7 +37,6 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
  */
 public class AdminAllExamActivity extends Activity{
     private ListView mAllExamListView;
-    private ExamAdapter mExamAdapter;
     private List<ExamItem> mExamList;
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
@@ -60,7 +59,7 @@ public class AdminAllExamActivity extends Activity{
         mExamList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, hand);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
-        mExamAdapter = new ExamAdapter(mExamList,this);
+        ExamAdapter mExamAdapter = new ExamAdapter(mExamList, this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
 

@@ -22,7 +22,6 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 
 public class AdminAddExamActivity extends Activity {
 
-
     private EditText mExamInfo;
     private EditText mExamTitle;
     private EditText mExamAddress;
@@ -37,8 +36,7 @@ public class AdminAddExamActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_add_exam);
-        Button mAddButton;
-        TextView mTitleText;
+
 
         mExamTitle = (EditText) findViewById(R.id.activity_manager_add_exam_one);
         mExamInfo = (EditText) findViewById(R.id.activity_manager_add_exam_info);
@@ -46,9 +44,9 @@ public class AdminAddExamActivity extends Activity {
         mExamStartTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_start);
         mExamEndTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_end);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+        Button mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
 
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增考试");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
@@ -60,28 +58,28 @@ public class AdminAddExamActivity extends Activity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mExamTitle.getText().toString().trim().equals("")) {
+                if (mExamTitle.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "考试名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(mExamAddress.getText().toString().trim().equals("")) {
+                if (mExamAddress.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "考试地址不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamStartTime.getText().toString().trim().equals("")) {
+                if (mExamStartTime.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "开始时间不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamEndTime.getText().toString().trim().equals("")) {
+                if (mExamEndTime.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "结束时间不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamCredit.getText().toString().trim().equals("")) {
+                if (mExamCredit.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "考试积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamInfo.getText().toString().trim().equals("")) {
+                if (mExamInfo.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "考试简介不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }

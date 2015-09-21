@@ -14,13 +14,13 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.CheckRecordItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/14 15:17
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/14 15:17
  */
 public class ClientCheckRecordAdapter extends BaseAdapter {
-    private List<CheckRecordItem> mCheckList;//签到记录表
-    private Context mContext;
+    private final List<CheckRecordItem> mCheckList;//签到记录表
+    private final Context mContext;
 
     public ClientCheckRecordAdapter(List<CheckRecordItem> checkList,Context context){
         this.mCheckList = checkList;

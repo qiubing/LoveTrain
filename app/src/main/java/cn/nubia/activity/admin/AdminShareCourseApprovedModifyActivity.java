@@ -28,13 +28,12 @@ import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/10 10:41
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/10 10:41
  */
 public class AdminShareCourseApprovedModifyActivity extends Activity {
     private enum OperateType {INSERT, UPDATE}
-
     private enum TimeType {STARTTIME, ENDTIME}
 
     private EditText mCourseName;
@@ -44,15 +43,8 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
     private TextView mCourseEndtime;
     private EditText mCourseDescription;
     private Button mConfirmButton;
-
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
-
-    private OperateType mOperateType;
-    private TechnologyShareCourseItem mModifiedItem;
-    //private CourseItem mCourseItem;
-    //private LessonItem mLessonItem;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +87,8 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
         /**
          * edit by qiubing 2015.9.19 20:46
          */
-        mModifiedItem = (TechnologyShareCourseItem) bundle.getSerializable("ModifiedCourseInfo");
+        TechnologyShareCourseItem mModifiedItem = (TechnologyShareCourseItem) bundle.getSerializable("ModifiedCourseInfo");
+        OperateType mOperateType;
         if (mModifiedItem != null){
             mOperateType = OperateType.UPDATE;
             mCourseName.setText(mModifiedItem.getmCourseName());
@@ -286,7 +279,7 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
 
     /**
      * 返回箭头绑定事件，即退出该页面
-     * @param view
+     * param view
      */
     public void back(View view){
         this.finish();

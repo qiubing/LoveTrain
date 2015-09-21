@@ -16,14 +16,14 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.TechnologyShareCourseItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/9 14:28
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/9 14:28
  */
 public class CourseAdapter extends BaseAdapter {
 
-    private List<TechnologyShareCourseItem> mCourseList;//考试信息表
-    private Context mContext;
+    private final List<TechnologyShareCourseItem> mCourseList;//考试信息表
+    private final Context mContext;
 
     public CourseAdapter(List<TechnologyShareCourseItem> courseList,Context context){
         this.mCourseList = courseList;

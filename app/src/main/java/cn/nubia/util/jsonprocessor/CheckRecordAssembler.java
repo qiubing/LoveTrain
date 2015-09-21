@@ -12,9 +12,9 @@ import java.util.List;
 import cn.nubia.entity.CheckRecordItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/14 19:05
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/14 19:05
  */
 public class CheckRecordAssembler implements IAssemblerGenerics<CheckRecordItem> {
     @Override
@@ -36,7 +36,7 @@ public class CheckRecordAssembler implements IAssemblerGenerics<CheckRecordItem>
         return itemList;
     }
 
-    public CheckRecordItem makeCheckRecord(JSONObject jsonObject) throws JSONException {
+    private CheckRecordItem makeCheckRecord(JSONObject jsonObject) throws JSONException {
         CheckRecordItem check = new CheckRecordItem();
         check.setmLessonName(jsonObject.getString("lesson_name"));
         check.setmCheckTime(jsonObject.getLong("check_time"));

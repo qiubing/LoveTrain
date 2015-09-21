@@ -7,13 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.util.ProcessSPData;
@@ -23,9 +21,9 @@ import cn.nubia.entity.Constant;
 import cn.nubia.util.Utils;
 
 /**
- * @Description:与我相关的
- * @Author: qiubing
- * @Date: 2015/9/6 19:28
+ * Description:与我相关的
+ * Author: qiubing
+ * Date: 2015/9/6 19:28
  */
 
 public class ClientMyTabActivity extends Activity implements OnClickListener {
@@ -33,7 +31,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final int GET_PHOTO_CODE = 1;
 
     private CircleImageView mCircleImageView;
-    //private TextView mUser_name;
     private TextView mCheckRecord;
     private TextView mCourseIntergration;
     private TextView mExamScore;
@@ -44,7 +41,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     private TextView mFanKui;
     private TextView mVersion;
     private Button mLogoutButton;
-    private TextView myUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +51,10 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     }
 
     private void initViews(){
-        myUserName = (TextView) findViewById(R.id.user_name);
+        TextView myUserName = (TextView) findViewById(R.id.user_name);
         myUserName.setText(Constant.user.getUserName());
 
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
-        //mUser_name = (TextView) findViewById(R.id.user_name);
         mCheckRecord = (TextView) findViewById(R.id.check_in_record);
         mCourseIntergration = (TextView) findViewById(R.id.course_integration);
         mCourseShare = (TextView) findViewById(R.id.course_share);
@@ -84,7 +79,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         mFanKui.setOnClickListener(this);
         mVersion.setOnClickListener(this);
         mLogoutButton.setOnClickListener(this);
-        //mUser_name.setText(Constant.USER_ID);
     }
 
     @Override
@@ -141,7 +135,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     /**
      * 更新对话框
      */
-    public void showUpdatDialog () {
+    private void showUpdatDialog() {
         new PromptDialog.Builder(ClientMyTabActivity.this)
                 .setMessage("最新版本：1.1\n最新版本已下载，是否安装？\n更新内容\n这只是一个演示\n学习一下也不错",
                         null).setTitle("发现新版本")
@@ -168,7 +162,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
      *
      * @param cls 需要启动的Activity类
      */
-    protected void myStartActivity(Class<?> cls) {
+    private void myStartActivity(Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(this, cls);
         startActivity(intent);
@@ -191,7 +185,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         super.onResume();
         //头像图片存储路径
         String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
-        Log.v(TAG, path);
         Bitmap bitmap = Utils.getPictureFromSD(path);
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(bitmap);

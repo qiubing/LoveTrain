@@ -36,42 +36,32 @@ import cn.nubia.util.Utils;
  */
 public class AdminSignUpManageActivity extends Activity {
 
-    private ImageView backImageView;
-
-    private ListView listView;
-
     ArrayList<String> listData;
     ArrayList<SignUpItem> signUpList;
 
     private TextView name;
     private Button agreeButton;
     private Button disagreeButton;
-    private Intent intent;
-    private CourseItem mCourseItem;
-
-    private SignUpManageAdapter signUpManageAdapter;
-    private Context ctx;
-
-    private String signUpInfoUrl = Constant.BASE_URL + "enroll/list_enroll_users.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_signin_manage);
-        ctx = this;
+        Context ctx = this;
 
-        intent=getIntent();
-        mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
+        Intent intent = getIntent();
+        CourseItem mCourseItem = (CourseItem) intent.getSerializableExtra("CourseItem");
 
         /***构造请求参数*/
         HashMap<String,String> getClassParam = new HashMap<>();
         getClassParam.put("course_index", mCourseItem.getIndex() + "");
         RequestParams requestParams = Utils.toParams(getClassParam);
         Log.e("requestParams", requestParams.toString());
+        String signUpInfoUrl = Constant.BASE_URL + "enroll/list_enroll_users.do";
         AsyncHttpHelper.post(signUpInfoUrl, requestParams, jsonHttpResponseHandler);
 
 
-        backImageView = (ImageView) findViewById(R.id.admin_signIn_manage_back);
+        ImageView backImageView = (ImageView) findViewById(R.id.admin_signIn_manage_back);
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +72,8 @@ public class AdminSignUpManageActivity extends Activity {
         });
 //        listData = getData();
         listData=new ArrayList<>();
-        listView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
-        signUpManageAdapter=new SignUpManageAdapter(listData,ctx);
+        ListView listView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
+        SignUpManageAdapter signUpManageAdapter = new SignUpManageAdapter(listData, ctx);
         listView.setAdapter(signUpManageAdapter);
 
     }

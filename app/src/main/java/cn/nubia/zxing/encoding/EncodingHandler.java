@@ -16,10 +16,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
- * @ClassName: EncodingHandler
- * @Description: 创建二维码的类
- * @Author: qiubing
- * @Date: 2015/9/8 14:48
+ * ClassName: EncodingHandler
+ * Description: 创建二维码的类
+ * Author: qiubing
+ * Date: 2015/9/8 14:48
  */
 public final class EncodingHandler {
     private static final int BLACK = 0xff000000;
@@ -102,9 +102,9 @@ public final class EncodingHandler {
 
     /**
      * 在二维码中间添加Logo图案
-     * @param src  二维码图片
-     * @param logo 要插入的logo
-     * @return
+     * param src  二维码图片
+     * param logo 要插入的logo
+     * return
      */
     private static Bitmap addLogo(Bitmap src, Bitmap logo) {
         if (src == null) {

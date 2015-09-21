@@ -23,14 +23,12 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 
 public class AdminEditExamActivity extends Activity {
 
-    private Button mAddButton;
     private EditText mExamInfo;
     private EditText mExamTitle;
     private EditText mExamAddress;
     private EditText mExamStartTime;
     private EditText mExamEndTime;
     private EditText mExamCredit;
-    private TextView mTitleText;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
@@ -50,9 +48,9 @@ public class AdminEditExamActivity extends Activity {
         mExamStartTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_start);
         mExamEndTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_end);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+        Button mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
 
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("修改考试");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);

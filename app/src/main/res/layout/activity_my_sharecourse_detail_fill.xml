@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_bg">
+    android:background="@color/soft_comment_title_content_windows">
     <RelativeLayout
         android:id="@+id/title_icon"
         android:layout_width="match_parent"

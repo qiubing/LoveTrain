@@ -25,7 +25,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import java.util.regex.Pattern;
 
-public final class CameraConfigurationManager {
+final class CameraConfigurationManager {
 
     private static final String TAG = CameraConfigurationManager.class.getSimpleName();
     private static final int TEN_DESIRED_ZOOM = 27;
@@ -253,10 +253,6 @@ public final class CameraConfigurationManager {
         if (takingPictureZoomMaxString != null) {
             parameters.set("taking-picture-zoom", tenDesiredZoom);
         }
-    }
-
-    public static int getDesiredSharpness() {
-        return DESIRED_SHARPNESS;
     }
 
 }

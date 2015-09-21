@@ -2,27 +2,26 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
+import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
@@ -32,11 +31,13 @@ import cn.nubia.util.Utils;
 /**
  * Created by 胡立 on 2015/9/7.
  */
-public class AdminShareCheckTabActivity extends Activity  implements AdminShareActivity.OnTabActivityResultListener {
+public class AdminShareCheckTabActivity extends Activity {
     private static final String TAG = "ShareCheck";
     private ListView mListView;
     private CourseAdapter mCourseAdapter;
     private List<TechnologyShareCourseItem> mCourseList;
+    private RefreshLayout mRefreshLayout;
+    private RelativeLayout loadingFailedRelativeLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,53 +50,101 @@ public class AdminShareCheckTabActivity extends Activity  implements AdminShareA
 
     private void initViews(){
         mListView = (ListView) findViewById(R.id.admin_all_unapproved_share_course);
+        mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_share);
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_share);
+        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_share);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(AdminShareCheckTabActivity.this, "fdsghdh", Toast.LENGTH_LONG).show();
     }
 
     private void initEvents(){
-        mCourseList = new ArrayList<TechnologyShareCourseItem>();
+        mCourseList = new ArrayList<>();
         mListView.setOnItemClickListener(new CourseListOnItemClickListener());
+
+        mCourseAdapter = new CourseAdapter(mCourseList, AdminShareCheckTabActivity.this);
+        mListView.setAdapter(mCourseAdapter);
+
+        // 设置下拉刷新监听器
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(AdminShareCheckTabActivity.this, "刷新", Toast.LENGTH_SHORT).show();
+                mRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData();
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
+            }
+        });
     }
 
-    MyJsonHttpResponseHandler mShareCheckHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler mShareCheckHandler = new MyJsonHttpResponseHandler(){
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e(TAG,"onSuccess: " + response.toString());
             try {
-                JSONArray jsonArray = response.getJSONArray("data");
-                for (int i = 0; i < jsonArray.length();i++){
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    mCourseList.add(makeTechnologyShareCourse(obj));
+                if (response != null && response.getJSONArray("data") != null) {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
+                    asyncParseJsonTask.execute(jsonArray);
+                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                }else {
+                    Log.e(TAG,"VIEW_LOADFAILURE");
+                    loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 }
-                mCourseAdapter = new CourseAdapter(mCourseList, AdminShareCheckTabActivity.this);
-                mListView.setAdapter(mCourseAdapter);
-                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.e(TAG, "VIEW_LOADFAILURE");
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG, "onFailure: ");
+            Log.e(TAG, "onFailure: " + errorResponse.toString());
         }
     };
+
+
+    private class AsyncParseJsonTask extends AsyncTask<JSONArray,Void,List<TechnologyShareCourseItem>> {
+        @Override
+        protected List<TechnologyShareCourseItem> doInBackground(JSONArray... params) {
+            List<TechnologyShareCourseItem> CourseList = new ArrayList<TechnologyShareCourseItem>();
+            for (int i = 0; i < params[0].length();i++){
+                JSONObject obj;
+                try {
+                    obj = params[0].getJSONObject(i);
+                    CourseList.add(makeTechnologyShareCourse(obj));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return CourseList;
+        }
+
+        @Override
+        protected void onPostExecute(List<TechnologyShareCourseItem> technologyShareCourseItems) {
+            super.onPostExecute(technologyShareCourseItems);
+            if(technologyShareCourseItems != null && technologyShareCourseItems.size()!=0){
+                mCourseList.clear();
+                mCourseList.addAll(technologyShareCourseItems);
+            }
+            mCourseAdapter.notifyDataSetChanged();
+        }
+    }
 
     /**
      * 加载全部数据
      */
     private void loadData(){
         //获取请求参数
-        HashMap<String ,String> param = new HashMap<String,String>();
-        RequestParams request = Utils.toParams(param);
-        String url = Constant.BASE_URL + "share/list_apply_course.do";
-        AsyncHttpHelper.post(url, request, mShareCheckHandler);
+        RequestParams params = new RequestParams(Constant.getRequestParams());
+        String SHARE_CHECK_URL = Constant.BASE_URL + "share/list_apply_course.do";
+        AsyncHttpHelper.post(SHARE_CHECK_URL, params, mShareCheckHandler);
     }
 
     public static TechnologyShareCourseItem makeTechnologyShareCourse(JSONObject jsonObject) throws JSONException {
@@ -114,10 +163,10 @@ public class AdminShareCheckTabActivity extends Activity  implements AdminShareA
 
 
     /**
-     * @ClassName:
-     * @Description: 实现点击列表选项监听
-     * @Author: qiubing
-     * @Date: 2015/9/9 15:12
+     * ClassName:
+     * Description: 实现点击列表选项监听
+     * Author: qiubing
+     * Date: 2015/9/9 15:12
      */
     private class CourseListOnItemClickListener implements AdapterView.OnItemClickListener{
 
@@ -127,26 +176,15 @@ public class AdminShareCheckTabActivity extends Activity  implements AdminShareA
             Bundle bundle = new Bundle();
             bundle.putSerializable("CourseInfo", mCourseList.get(position));
             intent.putExtras(bundle);
-            Log.e("text", "tedxt" + getParent().getClass().toString());
             startActivity(intent);
-            //getParent().startActivityForResult(intent, 2);
         }
     }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG,"sddddddd " + requestCode);
-        if (resultCode == 1 || resultCode == 2){
-            TechnologyShareCourseItem item = (TechnologyShareCourseItem) data.getSerializableExtra("result");
-            mCourseList.remove(item);
-            mCourseAdapter.notifyDataSetChanged();
-        }
-    }*/
-
-
-    public void onTabActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(TAG,"sddddddd " + requestCode);
-        if (requestCode == 2 && resultCode == 1) {
-        }
+    @Override
+    protected void onResume() {
+        Log.e("ShareCheck","onResume");
+        super.onResume();
+        loadData();
     }
+
 }

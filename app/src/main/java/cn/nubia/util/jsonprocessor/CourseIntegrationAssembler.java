@@ -10,9 +10,9 @@ import java.util.List;
 import cn.nubia.entity.CourseIntegrationItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 11:10
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 11:10
  */
 public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseIntegrationItem> {
     @Override
@@ -30,7 +30,7 @@ public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseInte
         return mIntegartionList;
     }
 
-    public CourseIntegrationItem makeCourseIntegration(JSONObject jsonObject) throws JSONException {
+    private CourseIntegrationItem makeCourseIntegration(JSONObject jsonObject) throws JSONException {
         CourseIntegrationItem integration = new CourseIntegrationItem();
         integration.setmLessonName(jsonObject.getString("lesson_name"));
         integration.setmAcquireTime(jsonObject.getLong("achieve_time"));

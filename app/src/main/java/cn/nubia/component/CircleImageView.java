@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import cn.nubia.activity.R;
 
 /**
- * @Description: 产生圆形图片的类
- * @Author: qiubing
- * @Date: 2015/9/7 9:41
+ * Description: 产生圆形图片的类
+ * Author: qiubing
+ * Date: 2015/9/7 9:41
  */
 public class CircleImageView extends ImageView {
     private static final ScaleType SCALE_TYPE;
@@ -201,7 +201,7 @@ public class CircleImageView extends ImageView {
     private void updateShaderMatrix() {
         float dx = 0.0F;
         float dy = 0.0F;
-        this.mShaderMatrix.set((Matrix)null);
+        this.mShaderMatrix.set(null);
         float scale;
         if((float)this.mBitmapWidth * this.mDrawableRect.height() > this.mDrawableRect.width() * (float)this.mBitmapHeight) {
             scale = this.mDrawableRect.height() / (float)this.mBitmapHeight;

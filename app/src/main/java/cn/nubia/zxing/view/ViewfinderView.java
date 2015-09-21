@@ -32,11 +32,11 @@ import cn.nubia.zxing.camera.CameraManager;
 
 
 /**
- * @Description: This view is overlaid on top of the camera preview.
+ * Description: This view is overlaid on top of the camera preview.
  * It adds the viewfinder rectangle and partial transparency outside it,
  * as well as the laser scanner animation and result points.
- * @Author: qiubing
- * @Date: 2015/9/8 14:49
+ * Author: qiubing
+ * Date: 2015/9/8 14:49
  */
 public final class ViewfinderView extends View {
 

@@ -3,9 +3,9 @@ package cn.nubia.entity;
 import java.io.Serializable;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 10:18
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 10:18
  */
 public class CourseIntegrationItem implements Serializable{
     private String mLessonName;

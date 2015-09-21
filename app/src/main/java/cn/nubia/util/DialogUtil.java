@@ -16,9 +16,9 @@ public class DialogUtil {
     /**
      * 弹框提示，只有确定一个选项
      *
-     * @param ctx    传入当前类
-     * @param msg    提示消息
-     * @param goHome 确定后是否返主界面
+     * param ctx    传入当前类
+     * param msg    提示消息
+     * param goHome 确定后是否返主界面
      */
     public static void showDialog(final Context ctx, String msg, boolean goHome) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx).setMessage(msg).setCancelable(false);
@@ -58,8 +58,8 @@ public class DialogUtil {
     /**
      * Toast
      *
-     * @param ctx
-     * @param msg
+     * param ctx
+     * param msg
      */
     public static void showToast(Context ctx, String msg) {
         Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();

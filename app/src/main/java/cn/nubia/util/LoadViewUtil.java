@@ -7,8 +7,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import cn.nubia.entity.Constant;
 
-import cn.nubia.entity.Constant;
-
 /**
  * Created by WJ on 2015/9/9.
  * 刷新页面控制工具
@@ -24,16 +22,13 @@ public class LoadViewUtil {
     final public static int VIEW_LOADING = 4;
 
     private Context mCtx;
-    private ListView mListView;
-    private Handler mHandler; //重新请求数据Handler
-    private View mNetworkFailedView;
     private boolean mNetworkFailedFlag = true;
     private int mLoadingFailedFlag = Constant.LOADING_FAILED;
 
     public LoadViewUtil(Context ctx,ListView listView,Handler handler){
         this.mCtx = ctx;
-        this.mListView = listView;
-        this.mHandler = handler;
+        ListView mListView = listView;
+        Handler mHandler = handler;
     }
 
     public void setNetworkFailedViewVisible(boolean visible){
@@ -41,7 +36,7 @@ public class LoadViewUtil {
     }
 
     public void setNetworkFailedView(View view){
-        this.mNetworkFailedView = view;
+        View mNetworkFailedView = view;
     }
 
     public boolean getNetworkFailedFlag(){
