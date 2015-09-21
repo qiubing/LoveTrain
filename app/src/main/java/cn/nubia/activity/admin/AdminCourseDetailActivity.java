@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 
     private TextView courseRealNameTextview;
     private TextView courseRealDescTextview;
+    private TextView courseRealTypeTextView;
 
     private Button signUpAdminBtn;
     private Button alterCourseBtn;
@@ -60,6 +62,8 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 
         courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
         courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
+        courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
+
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
@@ -67,7 +71,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());
             courseRealDescTextview.setText(mCourseItem.getDescription());
-
+            courseRealTypeTextView.setText(mCourseItem.getType());
         }
 
         bundle.putSerializable("CourseItem",mCourseItem);
@@ -99,7 +103,10 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 startActivity(intentAlterCourse);
                 break;
             case R.id.lessonAddBtn:
+                Log.i("hexiao","lesonAddBtn");
+                bundle.putSerializable("CourseItem", mCourseItem);
                 Intent intentAddLesson = new Intent(AdminCourseDetailActivity.this, AdminAddLessonActivity.class);
+                intentAddLesson.putExtras(bundle);
                 startActivity(intentAddLesson);
                 break;
             case R.id.courseDeleteBtn:

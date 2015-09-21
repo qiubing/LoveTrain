@@ -127,7 +127,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 params.put("token_key","123456789");
                 params.put("user_icon_type", "multipart/form-data");
                 params.put("user_icon", file);
-                params.put("user_id", Constant.USER_ID);
+                params.put("user_id", Constant.user.getUserID());
                 AsyncHttpHelper.post(url, params, mUpdateIconHandler);
             }
         } catch (FileNotFoundException e) {

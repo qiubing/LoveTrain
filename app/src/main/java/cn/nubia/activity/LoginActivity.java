@@ -144,7 +144,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 //        params.put("apk_version", Constant.apkVersion);
 //        params.put("token_key", Constant.tokenKep);
 
-        Constant.USER_ID = userID;
+//        Constant.user.setUserID(userID);
         String url;
         if (isManager.equals("是")) {
             params.put("admin_id", userID);

@@ -55,7 +55,7 @@ public class Constant {
     /**
      * 登录的用户是否是管理员
      */
-    public static String USER_ID = "";
+    //public static String USER_ID = "";
     /**
      * 记录用户ID
      */

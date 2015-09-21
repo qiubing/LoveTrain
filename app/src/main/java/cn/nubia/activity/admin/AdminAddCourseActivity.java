@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -30,7 +31,9 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
 
-    private EditText addCourseCourseTypeEditText;
+//    private EditText addCourseCourseTypeEditText;
+    private Spinner courseTypeSpinner;
+
     private EditText addCourseCoursePointsEditText;
 
     private Button addCourseButton;
@@ -60,17 +63,16 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         addCourseCourseNameEditText = (EditText) findViewById(R.id.add_course_courseName_editText);
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
-        addCourseCourseTypeEditText = (EditText) findViewById(R.id.add_course_courseType_editText);
+//        addCourseCourseTypeEditText = (EditText) findViewById(R.id.add_course_courseType_editText);
+        courseTypeSpinner=(Spinner)findViewById(R.id.add_course_courseType);
+
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
         addCourseButton = (Button) findViewById(R.id.add_course_button);
         addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
-//        addCourseWhetherHighLevelCourseCheckBox = (CheckBox) findViewById(R.id.add_course_whetherHighLevelCourse_checkBox);
 
-//        highLevelTextView=(TextView)findViewById(R.id.add_course_highLevelCoursePoints_textView);
-//        highLevelCoursePoints=(EditText)findViewById(R.id.add_course_highLevelCoursePoints_editText);
 
         /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
 //        if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
@@ -81,19 +83,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseButton.setOnClickListener(this);
         addCourseBackImage.setOnClickListener(this);
 
-//        addCourseWhetherHighLevelCourseCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
-//                    highLevelTextView.setVisibility(View.GONE);
-//                    highLevelCoursePoints.setVisibility(View.GONE);
-//                }
-//                else{
-//                    highLevelTextView.setVisibility(View.VISIBLE);
-//                    highLevelCoursePoints.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
 
     }
 
@@ -144,7 +133,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     Toast.makeText(AdminAddCourseActivity.this, "课程简介不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(addCourseCourseTypeEditText.getText().toString().trim().equals("")) {
+                if(courseTypeSpinner.getSelectedItem().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程类型不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -154,8 +143,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 }
                 courseItem.setName(addCourseCourseNameEditText.getText().toString());
                 courseItem.setDescription(addCourseCourseDescEditText.getText().toString());
-                courseItem.setType(addCourseCourseTypeEditText.getText().toString());
-                courseItem.setCourseCredits(10);
+
+                courseItem.setType(courseTypeSpinner.getSelectedItem().toString());
+
+                courseItem.setCourseCredits(Integer.parseInt(addCourseCoursePointsEditText.getText().toString()));
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
                 Bundle bundle=new Bundle();
@@ -178,9 +169,16 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         // requestParams.add("course_index", "");
         requestParams.add("course_name", addCourseCourseNameEditText.getText().toString());
         requestParams.add("course_description", addCourseCourseDescEditText.getText().toString());
-        requestParams.add("type", addCourseCourseTypeEditText.getText().toString());
-        requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
+
+        /**普通课程course，type为1；
+         * 技术分享share，type为2；
+         * 高级课程senior，type为3；*/
+        String courseTypeStr=courseTypeSpinner.getSelectedItem().toString();
+        requestParams.add("type",(courseTypeStr=="course"?1:(courseTypeStr=="share"?2:3))+"");
+
         requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
+        requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
+
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
@@ -188,19 +186,24 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
+            Log.i("xx", "addCourse" + "onSuccess");
+            Log.i("xx", response.toString());
             try {
+                Log.i("xx", "code");
                 int code = response.getInt("code");
-//                boolean result = response.getBoolean("result");
+                Log.i("xx", "aftercode"+code);
                 boolean isOk = response.getBoolean("data");
+                Log.i("xx", "afterdata"+isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + "," + "," +isOk);
+                Log.i("xx", "addCourseinside" + "onSuccess");
 //                if(result && code == 0 && isOk) {
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
-                    addCourseCourseTypeEditText.setText("");
+
+                    courseTypeSpinner.setSelection(0);
+
                     addCourseCoursePointsEditText.setText("");
                     addCourseWhetherExamCheckBox.setChecked(false);
                 }
