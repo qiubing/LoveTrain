@@ -17,6 +17,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -26,9 +27,7 @@ import java.util.List;
 public class GuideActivity extends Activity {
 
 
-	private ViewPager mViewPager;
-	private final List<View> mViewList = new ArrayList<View>();
-	private ImageView startImg;
+	private final List<View> mViewList = new ArrayList<>();
 	// 底部小点图片
 	private ImageView[] dots;
 	// 记录当前选中位置
@@ -50,7 +49,7 @@ public class GuideActivity extends Activity {
 
 		initDots();
 
-		mViewPager = (ViewPager)findViewById(R.id.guide_viewPager);
+		ViewPager mViewPager = (ViewPager)findViewById(R.id.guide_viewPager);
 		mViewPager.setAdapter(pagerAdapter);
 
 
@@ -127,7 +126,7 @@ public class GuideActivity extends Activity {
 		public Object instantiateItem(ViewGroup container, int position) {
 			container.addView( mViewList.get(position));
 			if (position ==  mViewList.size() - 1) {
-				startImg = (ImageView) findViewById(R.id.guide_logIn);
+				Button startImg = (Button) findViewById(R.id.guide_logIn);
 				startImg.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Intent intent = new Intent(GuideActivity.this, LoginActivity.class);

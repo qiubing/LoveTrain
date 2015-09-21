@@ -12,14 +12,28 @@
         android:focusable="true"
         android:scaleType="centerCrop" />
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:id="@+id/guide_logIn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="60.0dip"-->
+        <!--android:background="@drawable/guide_start_btn"-->
+        <!--android:focusable="true" />-->
+
+    <Button
         android:id="@+id/guide_logIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_guide_selector"
+        android:text="开始体验"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60.0dip"
-        android:background="@drawable/guide_start_btn"
-        android:focusable="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"
+        android:textColor="#024a0d"
+        android:textSize="@dimen/textSize20"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>
