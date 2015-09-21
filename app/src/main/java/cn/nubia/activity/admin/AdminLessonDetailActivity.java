@@ -46,14 +46,15 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private TextView signInPopulationTextView;
 
     /**从前一个页面传过来的LessonItem对象*/
-    LessonItem lessonItem;
+    private LessonItem lessonItem;
+    private Bundle bundle;
 
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
-
+        bundle=new Bundle();
 
         /**获取控件**/
         backImageView = (ImageView) findViewById(R.id.backButton);
@@ -73,6 +74,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+
+
         if(lessonItem!=null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
             lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
@@ -155,6 +158,9 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.admin_lesson_detail_alterLessonButton:
                 Intent intentAlterLesson = new Intent(AdminLessonDetailActivity.this, AdminAlterLessonActivity.class);
+                Bundle alterBundle=new Bundle();
+                alterBundle.putSerializable("LessonItem", lessonItem);
+                intentAlterLesson.putExtras(alterBundle);
                 startActivity(intentAlterLesson);
                 finish();
                 break;

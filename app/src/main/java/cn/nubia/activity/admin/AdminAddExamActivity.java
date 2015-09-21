@@ -30,49 +30,9 @@ public class AdminAddExamActivity extends Activity {
     private EditText mExamEndTime;
     private EditText mExamCredit;
     private TextView mTitleText;
-    RelativeLayout loadingFailedRelativeLayout;
-    RelativeLayout networkUnusableRelativeLayout;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
-
-   /* private void initSpinner() {
-        mList = new ArrayList<>();
-        mList.add("Java基础");
-        mList.add("Android基础");
-        mList.add("面向对象OO");
-
-        BaseAdapter baseAdapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return mList.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater layoutInflater = LayoutInflater.from(AdminAddExamActivity.this);
-                convertView = layoutInflater.inflate(R.layout.manager_add_exam_item, null);
-                if (convertView != null) {
-                    TextView coursenameTV = (TextView) convertView.findViewById(R.id.manager_add_exam_coursename);
-                    TextView teachernameTV = (TextView) convertView.findViewById(R.id.manager_add_exam_teachername);
-                    coursenameTV.setText(mList.get(position));
-                    teachernameTV.setText(mList.get(position));
-                }
-                return convertView;
-            }
-        };
-
-        mExamOneSpinner.setAdapter(baseAdapter);
-    }
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,15 +61,12 @@ public class AdminAddExamActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(mExamTitle.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程名称不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddExamActivity.this, "考试名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamInfo.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程简介不可为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if(mExamAddress.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程地址不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddExamActivity.this, "考试地址不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(mExamStartTime.getText().toString().trim().equals("")) {
@@ -124,7 +81,10 @@ public class AdminAddExamActivity extends Activity {
                     Toast.makeText(AdminAddExamActivity.this, "考试积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                if(mExamInfo.getText().toString().trim().equals("")) {
+                    Toast.makeText(AdminAddExamActivity.this, "考试简介不可为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 upData();
 
             }
@@ -132,15 +92,15 @@ public class AdminAddExamActivity extends Activity {
     }
 
 
-    void upData(){
+    private void upData(){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
         requestParams.add("apk_version","1");
         requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-        //requestParams.add("record_modify_time_course", "1435125456111");
+        requestParams.add("record_modify_time_course", "1435125456111");
 
-       // requestParams.add("course_index", "");
+        requestParams.add("course_index", null);
         requestParams.add("exam_name", mExamTitle.getText().toString());
         requestParams.add("exam_description", mExamInfo.getText().toString());
         requestParams.add("locale", mExamAddress.getText().toString());
@@ -159,9 +119,7 @@ public class AdminAddExamActivity extends Activity {
                 int code = response.getInt("code");
                 Log.i("huhu", "addExam" + code);
                 boolean result = response.getBoolean("result");
-                Log.i("huhu", "addExam" + result);
                 boolean isOk = response.getBoolean("data");
-                Log.i("huhu", "addExam" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
                 if(result && code == 0 && isOk) {

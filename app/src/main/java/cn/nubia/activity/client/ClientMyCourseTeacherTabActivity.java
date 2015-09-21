@@ -52,7 +52,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
      * 用来存储courseItem的List
      */
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "share/add_share_course.do";
+    private String classUrl = Constant.BASE_URL + "get_courses_lessons2.do";
 
 
     @Override

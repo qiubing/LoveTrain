@@ -42,7 +42,7 @@ public class AdminUserActivity extends Activity {
 
     private void init() {
         list = new ArrayList<>();
-        String url = Constant.BASE_URL + "credit/find_total_credits.do";
+        String url = Constant.BASE_URL + "user/manage.do";
 
         RequestParams params = new RequestParams();
         params.put("device_id", Constant.devideID);

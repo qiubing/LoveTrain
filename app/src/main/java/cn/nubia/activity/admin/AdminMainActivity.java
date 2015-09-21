@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
+import cn.nubia.db.DbUtil;
 
 /**管理员主界面：Tab分页导航
  * activity_main_admin(修改对比版)：布局为TabHost框架，布局最下面为4个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget
@@ -46,6 +48,8 @@ public class AdminMainActivity extends ActivityGroup {
         addTabIntent();
         mTabHost.setCurrentTab(0);
         mRadioGroup=(RadioGroup) findViewById(R.id.main_admin_group);
+        ImageView signIn = (ImageView) findViewById(R.id.signIn);
+        signIn.setVisibility(View.GONE);
     }
 
 
@@ -99,7 +103,8 @@ public class AdminMainActivity extends ActivityGroup {
         } else {
             /*android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);*/
-            finish();
+            DbUtil.getInstance(this).closeDb();
+            finishAffinity();
 
         }
         return true;

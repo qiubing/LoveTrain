@@ -35,7 +35,7 @@ public class JSONResolver {
     /**获得服务器返回的JSON对象中包含的操作结果*/
     public static List<String> readOperateReult(JSONObject jsonObject){
         try {
-            List<String> result = new ArrayList<String>();
+            List<String> result = new ArrayList<>();
             result.add(jsonObject.getString("data"));
             return result;
         } catch (JSONException e) {

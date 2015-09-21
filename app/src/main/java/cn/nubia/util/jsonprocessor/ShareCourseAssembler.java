@@ -17,7 +17,7 @@ import cn.nubia.entity.ShareCourseMsg;
 public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseMsg> {
     @Override
     public List<ShareCourseMsg> assemble(JSONArray jsonArray) {
-        List<ShareCourseMsg> mCourseList = new ArrayList<ShareCourseMsg>();
+        List<ShareCourseMsg> mCourseList = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++){
             try {
