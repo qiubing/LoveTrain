@@ -121,7 +121,8 @@
                 android:id="@+id/add_course_courseType_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                />
 
         </TableRow>
 
@@ -140,7 +141,8 @@
                 android:id="@+id/add_course_CoursePoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:inputType="number"/>
 
         </TableRow>
 

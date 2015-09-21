@@ -205,6 +205,7 @@
     <string name="activity_manager_add_exam_one">考试名称</string>
     <string name="activity_manager_add_exam_info">考试简介</string>
     <string name="activity_manager_add_exam_address">考试地点</string>
+    <string name="activity_manager_add_exam_time_data">开始日期</string>
     <string name="activity_manager_add_exam_time_start">开始时间</string>
     <string name="activity_manager_add_exam_time_end">结束时间</string>
     <string name="activity_manager_add_exam_credit">考试积分</string>
