@@ -61,15 +61,12 @@ public class AdminAddExamActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(mExamTitle.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程名称不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddExamActivity.this, "考试名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(mExamInfo.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程简介不可为空", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if(mExamAddress.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddExamActivity.this, "课程地址不可为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddExamActivity.this, "考试地址不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(mExamStartTime.getText().toString().trim().equals("")) {
@@ -82,6 +79,10 @@ public class AdminAddExamActivity extends Activity {
                 }
                 if(mExamCredit.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddExamActivity.this, "考试积分不可为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mExamInfo.getText().toString().trim().equals("")) {
+                    Toast.makeText(AdminAddExamActivity.this, "考试简介不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 upData();
