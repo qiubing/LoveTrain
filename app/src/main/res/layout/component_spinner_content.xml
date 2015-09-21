@@ -4,6 +4,6 @@
     android:id="@+id/my_sharecourse_detail_fill_courselevel_filltextview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/jiangyu_item_smallverticalmargin"
-    android:layout_marginBottom="@dimen/jiangyu_item_smallverticalmargin"
-    android:textSize="@dimen/jiangyu_itemcontent_textsize"/>
+    android:layout_marginTop="@dimen/item_smallverticalmargin"
+    android:layout_marginBottom="@dimen/item_smallverticalmargin"
+    android:textSize="@dimen/itemcontent_textsize"/>

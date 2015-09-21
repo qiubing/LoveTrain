@@ -48,19 +48,19 @@
     <dimen name="marginTop">10dp</dimen>
     <dimen name="padding">5dp</dimen>
 
-    <dimen name="jiangyu_item_smallverticalmargin">5dp</dimen>
-    <dimen name="jiangyu_item_smallhorizontalmargin">10dp</dimen>
-    <dimen name="jiangyu_item_normallverticalmargin">30dp</dimen>
-    <dimen name="jiangyu_item_normalhorizontalmargin">30dp</dimen>
-    <dimen name="jiangyu_item_bighorizontalmargin">50dp</dimen>
+    <dimen name="item_smallverticalmargin">5dp</dimen>
+    <dimen name="item_smallhorizontalmargin">10dp</dimen>
+    <dimen name="item_normallverticalmargin">30dp</dimen>
+    <dimen name="item_normalhorizontalmargin">30dp</dimen>
+    <dimen name="item_bighorizontalmargin">50dp</dimen>
 
-    <dimen name="jiangyu_small_buttonsize">50dp</dimen>
+    <dimen name="small_buttonsize">50dp</dimen>
 
-    <dimen name="jiangyu_title_textsize">30sp</dimen>
-    <dimen name="jiangyu_itemname_textsize">22sp</dimen>
-    <dimen name="jiangyu_itemcontent_textsize">18sp</dimen>
+    <dimen name="title_textsize">30sp</dimen>
+    <dimen name="itemname_textsize">22sp</dimen>
+    <dimen name="itemcontent_textsize">18sp</dimen>
 
-    <dimen name="jiangyu_itemcontent_bigtextview_height">160dp</dimen>
+    <dimen name="itemcontent_bigtextview_height">160dp</dimen>
 
     <dimen name="item_inside_left_or_right_padding">10.0dip</dimen>
     <dimen name="item_inside_top_or_bottom_padding">10.0dip</dimen>

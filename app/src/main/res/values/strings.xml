@@ -56,16 +56,13 @@
     <string name="activity_my_sharecourse_detail_display_coursestarttime_textView">上课时间：</string>
     <string name="activity_my_sharecourse_detail_display_courseendtime_textView">下课时间：</string>
     <string name="activity_my_sharecourse_detail_display_courselocale_textView">上课地点：</string>
-    <string name="activity_my_sharecourse_detail_display_coursemodify_button">修改</string>
+
     <!--我的账户管理修改密码Activity-->
     <string name="activity_my_accountmana_pswmodify_tittle_textview">密码修改</string>
     <string name="activity_my_accountmana_pswmodify_oldpsw_textview">请输入旧密码：</string>
     <string name="activity_my_accountmana_pswmodify_newpsw_textview">请输入新密码：</string>
     <string name="activity_my_accountmana_pswmodify_confirmpsw_textview">请确认新密码：</string>
-    <string name="activity_my_accountmana_pswmodify_cancel_button">取消</string>
-    <string name="activity_my_accountmana_pswmodify_confirm_button">确定</string>
     <!--我的分享课程申请Activity-->
-    <string name="activity_my_sharecourse_detail_fill_confirm_button">确定</string>
     <string name="activity_my_sharecourse_detail_fill_coursename_textView">课程名称：</string>
     <string name="activity_my_sharecourse_detail_fill_coursedescription_textView">课程简介：</string>
     <string name="activity_my_sharecourse_detail_fill_courselevel_textView">课程级别：</string>
@@ -75,7 +72,6 @@
     <string name="activity_my_sharecourse_detail_fill_courselocale_textView">上课地点：</string>
     <string name="activity_my_sharecourse_detail_fill_courselocale_pikertime_button">选择时间</string>
     <!--我的课程评价详细信息Activity-->
-    <string name="activity_mycourse_judge_detail_fill_confirm_button">确定</string>
     <string name="activity_mycourse_judge_detail_fill_title_textView">课程评价</string>
     <string name="activity_mycourse_judge_detail_fill_contentapplicability_textView">课程内容的适用性：</string>
     <string name="activity_mycourse_judge_detail_fill_ContentRationality_textView">课程内容编排合理性：</string>
@@ -88,8 +84,9 @@
     <string name="activity_mycourse_judge_detail_fill_ComprehensiveEvaluation_textView">对此次课程的综合评价：</string>
     <string name="activity_mycourse_judge_detail_fill_Suggestion_textView">对此次课程有何建议：</string>
 
-    <string name="component_timepiker_confirm_button">确定</string>
-    <string name="component_timepiker_cancel_button">取消</string>
+    <string name="modify_button">修改</string>
+    <string name="confirm_button">确定</string>
+    <string name="cancel_button">取消</string>
 
     <!--管理员 -->
     <string name="manger_setting_title">设置</string>
