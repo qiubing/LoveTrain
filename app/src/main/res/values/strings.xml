@@ -8,6 +8,12 @@
         <item>是</item>
     </string-array>
 
+    <string-array name="courseType">
+        <item>course</item>
+        <item>share</item>
+        <item>senior</item>
+    </string-array>
+
     <string name="app_name">LoveTrain</string>
     <string name="copyright">Copyright 2015–2120 nubia   版权所有</string>
     <string name="icon_course">课程</string>

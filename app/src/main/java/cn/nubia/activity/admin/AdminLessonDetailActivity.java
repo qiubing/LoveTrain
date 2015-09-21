@@ -16,6 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.WriterException;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientEvaluateActivity;
@@ -23,7 +33,9 @@ import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
 
@@ -49,6 +61,13 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     /**从前一个页面传过来的LessonItem对象*/
     private LessonItem lessonItem;
     private Bundle bundle;
+    private Bundle signUpBundle;
+    private SignUpData mSignUpData;
+
+    /**保存签到人员信息*/
+//    private List<String> mList;
+
+    private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
 
     private GestureDetector gestureDetector;
     @Override
@@ -56,6 +75,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
         bundle=new Bundle();
+        signUpBundle=new Bundle();
 
         /**获取控件**/
         backImageView = (ImageView) findViewById(R.id.backButton);
@@ -74,7 +94,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
-        lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+        Log.e("hexiao",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
 
 
         if(lessonItem!=null) {
@@ -84,8 +105,9 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             /**签到人数怎么获得？*/
 //            signInPopulationTextView.setText(lessonItem.getIndex());
         }
-
-
+        Log.e("hexiao","beforeLoadData");
+        loadData();
+        Log.e("hexiao", "afterLoadData");
         /**设置监听事件**/
         mGenerateQRCode.setVisibility(View.VISIBLE);
         backImageView.setOnClickListener(this);
@@ -107,6 +129,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             signUpPopulationTextView.setOnClickListener(this);
             mGenerateQRCode.setOnClickListener(this);
         }
+
+
 
     }
 
@@ -172,6 +196,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.lesson_detail_signIn_textView:
                 Intent intentSignInInfo = new Intent(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
+                signUpBundle.putSerializable("LessonItem", lessonItem);
+                intentSignInInfo.putExtras(signUpBundle);
                 startActivity(intentSignInInfo);
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
                 break;
@@ -246,5 +272,73 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
     }
 
+    private void loadData() {
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+
+        requestParams.add("lesson_index", lessonItem.getIndex()+"");
+        Log.e("hexiao", lessonItem.getIndex() + "+loadData");
+        AsyncHttpHelper.post(signUpUrl, requestParams, jsonHttpResponseHandler);
+    }
+
+    /**请求课程数据服务器数据的Handler*/
+    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                Log.e("hexiao", response.toString());
+                if(response.getInt("code") != 0){
+                    Log.e("hexiao", "responseCode!=0");
+                    return;
+                }
+                if(response.getInt("code")==0 && response.getString("data")!=null) {
+                    Log.e("hexiao","signUpInfoSuccess");
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    mSignUpData=new SignUpData(jsonArray);
+                    signUpPopulationTextView.setText("签到"+mSignUpData.getSize()+"人");
+                    signUpBundle.putSerializable("SignUpData", mSignUpData);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("hexiao","signUpInfoFailure");
+        }
+    };
+
+    class SignUpData implements Serializable {
+        private final static long serialVersionUID = 1234567890L;
+        private List<String> mList;
+        private int mSize;
+        public SignUpData(){}
+        public SignUpData(JSONArray jsonArray){
+            this.mList=new ArrayList<>();
+            for(int i=0;i<jsonArray.length();i++){
+                try {
+                    JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    mList.add(jsonObject.getString("user_name")+","+jsonObject.getString("user_id")+","+jsonObject.getString("check_time"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            mSize=mList.size();
+        }
+        public List<String> getList(){
+            return mList;
+        }
+        public void setList(List<String> list){
+            mList.addAll(list);
+        }
+        public int getSize(){
+            return mSize;
+        }
+    }
 
 }

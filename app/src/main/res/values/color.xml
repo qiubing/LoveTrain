@@ -65,6 +65,8 @@
         @color/vpi__bright_foreground_holo_dark
     </item>
 
+    <color name="button_guide_press">#354FE6</color>
+    <color name="button_guide_unpress">#CCE8FE</color>
     <color name="default_circle_indicator_fill_color">#ffffffff</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
     <color name="default_circle_indicator_stroke_color">#ffdddddd</color>

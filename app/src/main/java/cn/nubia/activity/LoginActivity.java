@@ -133,7 +133,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
 
-        Constant.USER_ID = userID;
+//        Constant.USER_ID = userID;
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("token_key", Constant.tokenKep);
+
+        Constant.user.setUserID(userID);
         String url;
         if (isManager.equals("是")) {
             params.put("admin_id", userID);
