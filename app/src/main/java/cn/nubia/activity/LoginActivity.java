@@ -19,11 +19,14 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import cn.nubia.activity.admin.AdminMainActivity;
+import cn.nubia.activity.admin.ProcessSPData;
+import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.component.CustomProgressDialog;
-import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
+import cn.nubia.util.HandleResponse;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -41,8 +44,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Spinner mSexSpinner;
     private Spinner mIsManagerSpinner;
     CustomProgressDialog dialog;
-
-    private DbUtil mybUtil;
 
     @Override
     protected void onDestroy() {
@@ -103,7 +104,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
                         dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
-                        adminRegist();
+                        regist();
                     }
                 }
                 break;
@@ -179,7 +180,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void handleLogin(JSONObject response) {
           startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-/*        try {
+        try {
 //            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
@@ -231,7 +232,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
             DialogUtil.showToast(LoginActivity.this, "服务器返回异常！");
-        }*/
+        }
     }
 
     private void regist() {
@@ -359,16 +360,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void onProcess(String s) {
 //        dialog.show();
-//        mLoginButton.setEnabled(false);
-//        mRegistButton.setEnabled(false);
-//        mLoginButton.setText(s);
+        mLoginButton.setEnabled(false);
+        mRegistButton.setEnabled(false);
+        mLoginButton.setText(s);
     }
 
     private void afterProcess(String s) {
 //        dialog.dismiss();
-//        mLoginButton.setEnabled(true);
-//        mRegistButton.setEnabled(true);
-//        mLoginButton.setText(s);
+        mLoginButton.setEnabled(true);
+        mRegistButton.setEnabled(true);
+        mLoginButton.setText(s);
     }
 
     //对用户名和密码进行校验
