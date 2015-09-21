@@ -91,7 +91,7 @@ public class AdminAddExamActivity extends Activity {
     }
 
 
-    void upData(){
+    private void upData(){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -118,9 +118,7 @@ public class AdminAddExamActivity extends Activity {
                 int code = response.getInt("code");
                 Log.i("huhu", "addExam" + code);
                 boolean result = response.getBoolean("result");
-                Log.i("huhu", "addExam" + result);
                 boolean isOk = response.getBoolean("data");
-                Log.i("huhu", "addExam" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
                 if(result && code == 0 && isOk) {
