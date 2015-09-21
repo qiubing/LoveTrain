@@ -134,6 +134,7 @@ public class AdminCourseAddTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("HeXiao",""+response.toString());
+                Log.e("HeXiaoServer",""+response.toString());
                 if(response.getInt("code") != 0){
 
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
@@ -200,6 +201,9 @@ public class AdminCourseAddTabActivity extends Activity {
             }
             for(int i=0;i<mCourseItemList.size();i++) {
                 Log.e("HeXiao", mCourseItemList.get(i).getType());
+            }
+            for(int i=0;i<mCourseItemList.size();i++) {
+                Log.e("HeXiaoType", mCourseItemList.get(i).getType());
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }

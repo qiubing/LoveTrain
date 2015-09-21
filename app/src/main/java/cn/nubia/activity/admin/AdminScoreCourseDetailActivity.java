@@ -26,17 +26,18 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.ExamUser;
+import cn.nubia.model.ExamUser;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreCourseDetailActivity extends Activity {
 
 
-    private ImageView mGoBack;
-    private TextView mManagerTitle;
+
     private List<ExamUser> list;
+    private TextView mNoRecord;
 
     private void init() {
         list = new ArrayList<>();
@@ -70,8 +71,6 @@ public class AdminScoreCourseDetailActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-//        if (null == response)
-//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
@@ -87,10 +86,18 @@ public class AdminScoreCourseDetailActivity extends Activity {
                 item.put("score", list.get(i).getExam_score());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.manager_score_course_detail_listview);
+            if(list.size()==0){
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_course_item_detail,
                     new String[]{"name", "id", "score"},
                     new int[]{R.id.score_course_detail_name, R.id.score_course_detail_id, R.id.score_course_detail_score});
-            ListView listView = (ListView) findViewById(R.id.manager_score_course_detail_listview);
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -108,7 +115,8 @@ public class AdminScoreCourseDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score_course_detail);
-
+        ImageView mGoBack;
+        TextView mManagerTitle;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
@@ -119,6 +127,7 @@ public class AdminScoreCourseDetailActivity extends Activity {
                 finish();
             }
         });
+        mNoRecord = (TextView) findViewById(R.id.no_record);
 
         init();
 

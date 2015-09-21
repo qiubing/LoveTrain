@@ -1,10 +1,5 @@
 package cn.nubia.activity.client;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
@@ -14,7 +9,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,10 +23,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
-import cn.nubia.entity.ShareCourseMsg;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevel;
+import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
@@ -54,11 +54,12 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private Spinner mShareTypeSpinner;
     private ScrollView mContentScrollView;
 
+    private boolean mNextPressReady;
     private String mOperateURL;
     private ShareCourseMsg mShareCourseMsg;
 
     private CommunicateService.CommunicateBinder mBinder;
-    private ServiceConnection mConn = new ServiceConnection() {
+    private final ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBinder = (CommunicateService.CommunicateBinder)service;
@@ -71,8 +72,8 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,String URL){
-            ClientMyShareCourseDetailFillActivity.this.showOperateResult((List<String>)list,URL);
+        public void handleResponse(Map<String,?> response,String responseURL){
+            ClientMyShareCourseDetailFillActivity.this.handleResponse(response,responseURL);
         }
     }
 
@@ -80,18 +81,24 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
-        connectService();
 
         holdView();
         setViewLogic();
-
     }
 
     @Override
     public void onStart(){
         super.onStart();
-        Log.e("jiangyu", "share start");
+        connectService();
+        mNextPressReady = true;
+
         initViewData();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     /**
@@ -224,44 +231,53 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         });
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientMyShareCourseDetailFillActivity.this.finish();
+            }
+        });
     }
 
     private View.OnClickListener makeConfirmOnClickListener(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkData()) {
-                    ShareCourseMsg shareCourse = new ShareCourseMsg();
-                    shareCourse.setCourseName(mCourseName.getText().toString());
-                    shareCourse.setCourseDescription(mCourseDescription.getText().toString());
-                    shareCourse.setCourseLevel(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
-                            .getmCourseLevelSign());
+                if(mNextPressReady) {
+                    if (checkData()) {
+                        ShareCourseMsg shareCourse = new ShareCourseMsg();
+                        shareCourse.setCourseName(mCourseName.getText().toString());
+                        shareCourse.setCourseDescription(mCourseDescription.getText().toString());
+                        shareCourse.setCourseLevel(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
+                                .getmCourseLevelSign());
 
-                    shareCourse.setLocale(mLessonLocation.getText().toString());
-                    try {
-                        Date startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                mCourseDate.getText().toString()
-                                        + " "
-                                        + mCourseStarttime.getText());
-                        Date endTime =  new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                mCourseDate.getText().toString()
-                                        + " "
-                                        + mCourseStarttime.getText());
-                        shareCourse.setStartTime(startTime.getTime());
-                        shareCourse.setEndTime(endTime.getTime());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                        shareCourse.setLocale(mLessonLocation.getText().toString());
+                        try {
+                            Date startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                    mCourseDate.getText().toString()
+                                            + " "
+                                            + mCourseStarttime.getText());
+                            Date endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
+                                    mCourseDate.getText().toString()
+                                            + " "
+                                            + mCourseStarttime.getText());
+                            shareCourse.setStartTime(startTime.getTime());
+                            shareCourse.setEndTime(endTime.getTime());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
-                    if(mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
-                        Log.e("jiangyu","add share");
-                        shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
-                        mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
-                    }else if(mOperateURL.equals(URLMap.URL_UPD_SHARE)){
-                        Log.e("jiangyu","upd share");
-                        shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
-                        shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
-                        mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
+                        if (mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
+                            shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
+                            mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
+                        } else if (mOperateURL.equals(URLMap.URL_UPD_SHARE)) {
+                            shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
+                            shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
+                            shareCourse.setUserName(Constant.user.getUserName());
+                            mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
+                        }
+                        mNextPressReady =false;
                     }
                 }
             }
@@ -346,38 +362,33 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         unbindService(mConn);
     }
 
-    private void showOperateResult(List<String> list,String tagetURL) {
-        if(list==null){
+    private void handleResponse(Map<String,?> response,String responseURL){
+        mNextPressReady = true;
+        if(response==null){
             DialogUtil.showDialog(
                     ClientMyShareCourseDetailFillActivity.this,"操作失败!",false);
         }else{
-            Boolean result = Boolean.valueOf(list.get(0));
-            if(tagetURL.equals(URLMap.URL_ADD_SHARE)){
-                if(result)
+            String operateResult = (String)response.get("operateResult");
+            if(operateResult.equals("success")) {
+                if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
                     DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", false);
-                else
+                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true);
+                } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
                     DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this,"申请提交失败!",false);
-            }else if(tagetURL.equals(URLMap.URL_UPD_SHARE)){
-                if(result)
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true);
+                }
+            }else if (operateResult.equals("failure")) {
+                String message = (String) response.get("message");
+                if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
                     DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", false);
-                else
+                            ClientMyShareCourseDetailFillActivity.this, "申请提交失败：\n" +
+                                    message, false);
+                } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
                     DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this,"课程修改失败!",false);
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改失败：\n"+
+                            message, false);
+                }
             }
         }
     }
-
-    /**
-     * 返回箭头绑定事件，即退出该页面
-     *
-     * @param view
-     */
-    public void back(View view) {
-        disconectService();
-        this.finish();
-    }
-
 }

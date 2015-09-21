@@ -28,21 +28,19 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.User;
+import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 
+@SuppressWarnings("deprecation")
 public class AdminUserActivity extends Activity {
 
-    private ListView mListView;
-    private ImageView mGoBack;
-    private TextView mTitle;
     private List<User> list;
 
     private void init() {
         list = new ArrayList<>();
-        String url = Constant.BASE_URL + "credit/find_total_credits.do";
+        String url = Constant.BASE_URL + "user/manage.do";
 
         RequestParams params = new RequestParams();
         params.put("device_id", Constant.devideID);
@@ -78,7 +76,7 @@ public class AdminUserActivity extends Activity {
             }.getType();
             list = gson.fromJson(data, listType);
 
-            mListView = (ListView) findViewById(R.id.manager_user_listview);
+            ListView mListView = (ListView) findViewById(R.id.manager_user_listview);
             BaseAdapter adapter = new BaseAdapter() {
                 @Override
                 public int getCount() {
@@ -127,7 +125,7 @@ public class AdminUserActivity extends Activity {
                                             params.put("apk_version", Constant.apkVersion);
                                             params.put("token_key", Constant.tokenKep);
                                             params.put("user_id", list.get(position).getUserID());
-                                            Log.e("LK",Constant.devideID+"-"+Constant.tokenKep+"-"+System.currentTimeMillis());
+                                            Log.e("LK", Constant.devideID + "-" + Constant.tokenKep + "-" + System.currentTimeMillis());
                                             String url = Constant.BASE_URL + "user/reset.do";
                                             AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
                                                 @Override
@@ -139,7 +137,7 @@ public class AdminUserActivity extends Activity {
                                                         if (code.equals("0")) {
                                                             DialogUtil.showToast(AdminUserActivity.this, "你重置了" + userName + userId + "的密码！");
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败"+ jsonObject.getString("message"));
+                                                            DialogUtil.showToast(AdminUserActivity.this, "重置密码失败" + jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -188,7 +186,7 @@ public class AdminUserActivity extends Activity {
                                                             notifyDataSetChanged();
                                                             DialogUtil.showToast(AdminUserActivity.this, "你删除了用户:" + userName + userId);
                                                         } else {
-                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败"+ jsonObject.getString("message"));
+                                                            DialogUtil.showToast(AdminUserActivity.this, "删除失败" + jsonObject.getString("message"));
                                                         }
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -220,7 +218,7 @@ public class AdminUserActivity extends Activity {
             mListView.setAdapter(adapter);
 
         } else {
-            HandleResponse.excute(AdminUserActivity.this, code,response.getString("message"));
+            HandleResponse.excute(AdminUserActivity.this, code, response.getString("message"));
         }
     }
 
@@ -228,6 +226,9 @@ public class AdminUserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_user);
+
+        ImageView mGoBack;
+        TextView mTitle;
         mTitle = (TextView) findViewById(R.id.manager_head_title);
         mTitle.setText(R.string.activity_manager_user);
         mGoBack = (ImageView) findViewById(R.id.manager_goback);

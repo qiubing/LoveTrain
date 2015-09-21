@@ -10,10 +10,18 @@
     tools:context="cn.nubia.activity.admin.AdminScoreUserActivity">
 
 
+    <TextView
+        android:id="@+id/no_record"
+        style="@style/text_view_style"
+        android:background="@drawable/item_bg"
+        android:gravity="center"
+        android:text="@string/manager_no_record" />
+
     <ListView
         android:id="@+id/score_user_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_bg"></ListView>
+        android:background="@drawable/item_bg"
+        android:visibility="gone"></ListView>
 
 </LinearLayout>

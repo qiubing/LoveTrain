@@ -2,9 +2,6 @@ package cn.nubia.entity;
 
 import com.loopj.android.http.RequestParams;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by JiangYu on 2015/9/15.
  */
@@ -109,28 +106,24 @@ public class ShareCourseMsg extends Paramable{
     protected RequestParams toInsertParams(RequestParams params) {
         params.add("course_name", mCourseName);
         params.add("course_description", mCourseDescription);
-//        params.add("type", String.valueOf(2));
         params.add("course_level", String.valueOf(mCourseLevel));
         params.add("locale", mLocale);
         params.add("start_time", String.valueOf(mStartTime));
         params.add("end_time", String.valueOf(mEndTime));
-        params.add("user_id","0016003317");
+        params.add("user_id",Constant.user.getUserID());
 
         return params;
     }
     @Override
     protected RequestParams toUpdateParams(RequestParams params) {
-        params.add("course_index", "22");
-//        params.add("course_index", String.valueOf(mCourseIndex));
+        params.add("course_index", String.valueOf(mCourseIndex));
         params.add("course_name", mCourseName);
         params.add("course_description", mCourseDescription);
-//        params.add("type", String.valueOf(2));
         params.add("course_level", String.valueOf(mCourseLevel));
         params.add("locale", mLocale);
         params.add("start_time", String.valueOf(mStartTime));
         params.add("end_time", String.valueOf(mEndTime));
-//        params.add("user_name",null);
-        params.add("user_name","pxc");
+        params.add("user_name",mUserName);
 
 
         return params;

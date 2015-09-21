@@ -1,4 +1,4 @@
-package cn.nubia.model.admin;
+package cn.nubia.model;
 
 /**
  * Created by LK on 2015/9/16.
@@ -7,12 +7,6 @@ public class CreditCourse {
     private int course_index;
     private String course_name;
     private int course_total_credits;
-
-    public CreditCourse(int course_index, String course_name, int course_total_credits) {
-        this.course_index = course_index;
-        this.course_name = course_name;
-        this.course_total_credits = course_total_credits;
-    }
 
     public CreditCourse() {
     }

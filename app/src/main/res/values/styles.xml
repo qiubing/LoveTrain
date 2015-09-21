@@ -6,23 +6,23 @@
     </style>
 
     <style name="contentrealm">
-        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:layout_marginLeft">@dimen/jiangyu_item_smallhorizontalmargin</item>
-        <item name="android:layout_marginRight">@dimen/jiangyu_item_smallhorizontalmargin</item>
+        <item name="android:layout_marginTop">@dimen/item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/item_smallverticalmargin</item>
+        <item name="android:layout_marginLeft">@dimen/item_smallhorizontalmargin</item>
+        <item name="android:layout_marginRight">@dimen/item_smallhorizontalmargin</item>
     </style>
 
     <style name="itemtitle">
-        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:textSize">@dimen/jiangyu_itemname_textsize</item>
+        <item name="android:layout_marginTop">@dimen/item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/item_smallverticalmargin</item>
+        <item name="android:textSize">@dimen/itemname_textsize</item>
     </style>
 
     <style name="itemcontent">
-        <item name="android:layout_marginTop">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:layout_marginBottom">@dimen/jiangyu_item_smallverticalmargin</item>
-        <item name="android:layout_marginLeft">@dimen/jiangyu_item_normalhorizontalmargin</item>
-        <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
+        <item name="android:layout_marginTop">@dimen/item_smallverticalmargin</item>
+        <item name="android:layout_marginBottom">@dimen/item_smallverticalmargin</item>
+        <item name="android:layout_marginLeft">@dimen/item_normalhorizontalmargin</item>
+        <item name="android:textSize">@dimen/itemcontent_textsize</item>
     </style>
 
     <style name="CustomBigOrangeButton" parent="@android:style/Widget.Button">
@@ -183,7 +183,7 @@
     <style name="edit_view_input_style">
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:background">@drawable/editview_selector</item>
-        <item name="android:textSize">@dimen/jiangyu_itemcontent_textsize</item>
+        <item name="android:textSize">@dimen/itemcontent_textsize</item>
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:textColorHint">@color/edit_text_hint</item>
     </style>

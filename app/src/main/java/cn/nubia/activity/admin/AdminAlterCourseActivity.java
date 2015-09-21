@@ -97,18 +97,18 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         alterCourseBackImage.setOnClickListener(this);
     }
 
-    /**构造请求参数*/
-    private void upLoadData() {
-        /**请求课程数据*/
-        HashMap<String,String> getClassParam = new HashMap<>();
-        getClassParam.put("course_index", "1");
-        getClassParam.put("course_record_modify_time", "1245545456456");
-        getClassParam.put("lesson_index", "1");
-        getClassParam.put("lesson_record_modify_time", "1245545456456");
-        RequestParams requestParams = Utils.toParams(getClassParam);
-        Log.e("requestParams", requestParams.toString());
-//        AsyncHttpHelper.post(alterCourseUrl, requestParams, jsonHttpResponseHandler);
-    }
+//    /**构造请求参数*/
+//    private void upLoadData() {
+//        /**请求课程数据*/
+//        HashMap<String,String> getClassParam = new HashMap<>();
+//        getClassParam.put("course_index", "1");
+//        getClassParam.put("course_record_modify_time", "1245545456456");
+//        getClassParam.put("lesson_index", "1");
+//        getClassParam.put("lesson_record_modify_time", "1245545456456");
+//        RequestParams requestParams = Utils.toParams(getClassParam);
+//        Log.e("requestParams", requestParams.toString());
+////        AsyncHttpHelper.post(alterCourseUrl, requestParams, jsonHttpResponseHandler);
+//    }
 
 
 

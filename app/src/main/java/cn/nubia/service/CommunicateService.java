@@ -14,6 +14,7 @@ import com.loopj.android.http.SyncHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.nubia.entity.Paramable;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
@@ -24,6 +25,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
  */
 public class CommunicateService extends Service {
     public enum OperateType{INSERT,UPDATE,QUERY,DELETE}
+    private final SyncHttpClient client = new SyncHttpClient();
     public class CommunicateBinder extends Binder {
         public void communicate(Paramable paramable,ActivityInter inter,String URL){
             CommunicateService.this.communicate(paramable, inter, URL);
@@ -61,14 +63,13 @@ public class CommunicateService extends Service {
                         asyncGetResult.setMainHandler(new Handler(Looper.getMainLooper()) {
                             @Override
                             public void handleMessage(Message msg) {
-                                List<?> mResultList = asyncGetResult.getResultList();
-                                inter.alter(mResultList, tagetURL);
+                                Map<String, ?> mResponse = asyncGetResult.getResultList();
+                                inter.handleResponse(mResponse, tagetURL);
                             }
                         });
                         RequestParams params = paramable.toParams();
                         Log.e("jiangyu", params.toString());
 
-                        SyncHttpClient client = new SyncHttpClient();
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         client.get(tagetURL, params, httpHandler);
                         Log.e("jiangyu", "communicate thread end");
@@ -105,24 +106,22 @@ public class CommunicateService extends Service {
                             @Override
                             public void handleMessage(Message msg) {
                                 synchronized (lastMissionFinishedContain) {
-                                    Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
-                                    lastMissionFinished = true;
-                                    List<?> mResultList = asyncGetResult.getResultList();
-                                    inter.alter(mResultList, tagetURL);
+                                    lastMissionFinishedContain.remove(0);
+                                    lastMissionFinishedContain.add(true);
 
+                                    Map<String,?> mResponse = asyncGetResult.getResultList();
+                                    inter.handleResponse(mResponse, tagetURL);
+                                    Log.e("jiangyu", "loopCommunicate handled, lastMissionFinished = "+lastMissionFinishedContain.get(0));
                                     lastMissionFinishedContain.notifyAll();
                                 }
                             }
                         });
 
-                        SyncHttpClient client = new SyncHttpClient();
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         int loopIndex = 0;
                         while(loopIndex<paramList.size()){
                             synchronized (lastMissionFinishedContain) {
-                                Boolean lastMissionFinished = lastMissionFinishedContain.get(0);
-
-                                while(!lastMissionFinished){
+                                while(!lastMissionFinishedContain.get(0)){
                                     try {
                                         lastMissionFinishedContain.wait();
                                     } catch (InterruptedException e) {
@@ -134,7 +133,10 @@ public class CommunicateService extends Service {
                                 RequestParams params = currentParamable.toParams();
                                 Log.e("jiangyu", params.toString());
                                 client.get(tagetURL, params, httpHandler);
-                                lastMissionFinished = false;
+
+                                lastMissionFinishedContain.remove(0);
+                                lastMissionFinishedContain.add(false);
+                                Log.e("jiangyu", "loopCommunicate sended, lastMissionFinished = "+lastMissionFinishedContain.get(0));
                                 loopIndex++;
                             }
 

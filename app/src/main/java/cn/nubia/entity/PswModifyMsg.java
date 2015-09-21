@@ -2,9 +2,6 @@ package cn.nubia.entity;
 
 import com.loopj.android.http.RequestParams;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by JiangYu on 2015/9/7.
  */

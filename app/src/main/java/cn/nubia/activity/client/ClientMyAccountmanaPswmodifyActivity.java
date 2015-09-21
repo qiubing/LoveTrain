@@ -1,9 +1,5 @@
 package cn.nubia.activity.client;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
@@ -16,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.PswModifyMsg;
@@ -31,12 +31,14 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
 
+    private boolean mNextPressReady;
+
     private ImageView mGoBack;
     private TextView mManagerTitle;
 
 
     private CommunicateService.CommunicateBinder mBinder;
-    private ServiceConnection mConn = new ServiceConnection() {
+    private final ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBinder = (CommunicateService.CommunicateBinder) service;
@@ -49,8 +51,8 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,String URL) {
-            ClientMyAccountmanaPswmodifyActivity.this.showOperateResult((List<String>) list,URL);
+        public void handleResponse(Map<String,?> response,String responseURL){
+            ClientMyAccountmanaPswmodifyActivity.this.handleResponse(response,responseURL);
         }
     }
 
@@ -58,22 +60,25 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accountmana_pswmodify);
-        connectService();
 
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                disconectService();
-                finish();
-            }
-        });
+        ((TextView) findViewById(R.id.manager_head_title)).setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
 
         holdView();
         setViewLogic();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        connectService();
+        mNextPressReady = true;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     private boolean matchNewPsw() {
@@ -87,32 +92,34 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String oldPsw = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_oldpswedittext)).getText().toString().trim();
-                String newPsw = mNewpswEditText.getText().toString().trim();
-                String newPswConfirm = ((EditText) findViewById(R.id.
-                        my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString().trim();
-                if (newPsw.equals(newPswConfirm)) {
-                    if (!matchNewPsw()) {
+                if(mNextPressReady ) {
+                    String oldPsw = ((EditText) findViewById(R.id.
+                            my_accountmana_pswmodify_oldpswedittext)).getText().toString().trim();
+                    String newPsw = mNewpswEditText.getText().toString().trim();
+                    String newPswConfirm = ((EditText) findViewById(R.id.
+                            my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString().trim();
+                    if (newPsw.equals(newPswConfirm)) {
+                        if (!matchNewPsw()) {
+                            DialogUtil.showDialog(
+                                    ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确：\n" +
+                                            "请确保密码长度至少为七位，且包含字母与数字，" +
+                                            "其中至少有一个大写字母", false);
+                        } else if (oldPsw.equals("")) {
+                            DialogUtil.showDialog(
+                                    ClientMyAccountmanaPswmodifyActivity.this, "原密码不能为空！", false);
+                        } else {
+                            PswModifyMsg pswModifyMsg = new PswModifyMsg();
+                            pswModifyMsg.setOldPsw(oldPsw);
+                            pswModifyMsg.setNewPsw(newPsw);
+                            pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
+                            mBinder.communicate(
+                                    pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
+                            mNextPressReady = false;
+                        }
+                    } else {
                         DialogUtil.showDialog(
-                                ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确：\n" +
-                                        "请确保密码长度至少为七位，且包含字母与数字，" +
-                                        "其中至少有一个大写字母", false);
-                    } else if(oldPsw.equals("")) {
-                        DialogUtil.showDialog(
-                                ClientMyAccountmanaPswmodifyActivity.this, "原密码不能为空！", false);
-                    }else{
-                        PswModifyMsg pswModifyMsg = new PswModifyMsg();
-                        pswModifyMsg.setOldPsw(oldPsw);
-                        pswModifyMsg.setNewPsw(newPsw);
-                        pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
-                        mBinder.communicate(
-                                pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
+                                ClientMyAccountmanaPswmodifyActivity.this, "确认密码输入不一致", false);
                     }
-                } else {
-                    DialogUtil.showDialog(
-                            ClientMyAccountmanaPswmodifyActivity.this, "确认密码输入不一致", false);
                 }
             }
         };
@@ -136,22 +143,33 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     }
 
     private void setViewLogic() {
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 
-    private void showOperateResult(List<String> list,String tagetURL) {
-        if(list==null){
+    private void handleResponse(Map<String,?> response,String responseURL){
+        mNextPressReady = true;
+        if(response==null){
             DialogUtil.showDialog(
                     ClientMyAccountmanaPswmodifyActivity.this,"操作失败!",false);
         }else{
-            String result = list.get(0);
-            if(result.equals("0"))
+            String operateResult = (String)response.get("operateResult");
+            if(operateResult.equals("success")) {
                 DialogUtil.showDialog(
                         ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", false);
-            else if(result.equals("1"))
+            }else if(operateResult.equals("failure")) {
+                String message = (String) response.get("message");
                 DialogUtil.showDialog(
-                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败!", false);
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败：\n"+
+                                message , false);
+            }
         }
     }
 }

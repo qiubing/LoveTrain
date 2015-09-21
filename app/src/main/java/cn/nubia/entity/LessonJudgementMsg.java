@@ -2,9 +2,6 @@ package cn.nubia.entity;
 
 import com.loopj.android.http.RequestParams;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by JiangYu on 2015/9/6.
  */
@@ -19,20 +16,40 @@ public class LessonJudgementMsg extends Paramable{
     private float mOrganization;
     private String mComprehensiveEvaluation;
     private String mSuggestion;
-    private String mName;
+
     private int mLessonIndex;
+    private String mUserID;
+    private String mUserName;
+
+    private long mRecordModifyTime;
+
 
     public int getLessonIndex(){return mLessonIndex;}
 
     public void setLessonIndex(int lessonIndex){
         this.mLessonIndex = lessonIndex;
     }
-    public String getName() {
-        return mName;
+
+    public String getUserName() {
+        return mUserName;
     }
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setUserName(String userName) {
+        this.mUserName = userName;
+    }
+
+    public String getUserID(){return mUserID;}
+
+    public void setUserID(String userID){
+        mUserID = userID;
+    }
+
+    public long getRecordModifyTime(){
+        return mRecordModifyTime;
+    }
+
+    public void setRecordModifyTime(long recordModifyTime){
+        mRecordModifyTime = recordModifyTime;
     }
 
     public float getContentApplicability() {

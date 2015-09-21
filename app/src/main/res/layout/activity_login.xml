@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.nubia.activity.LoginActivity">
 
-        <RelativeLayout
+    <RelativeLayout
         android:id="@+id/titlecon"
         android:layout_width="fill_parent"
         android:layout_height="48.0dip">
@@ -45,19 +45,19 @@
     <!--android:textColorHint="@color/edit_text_hint"-->
     <!--android:textSize="@dimen/login_edit_hint_size" />-->
     <EditText
-        android:text="0016003347"
         android:id="@+id/login_userid"
         style="@style/edit_text_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
-        android:hint="@string/login_id_hint" />
+        android:hint="@string/login_id_hint"
+        android:text="0016003347" />
 
     <EditText
-        android:text="111111"
         android:id="@+id/login_pwd"
         style="@style/edit_text_style"
-        android:password="true"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
-        android:hint="@string/login_pwd_hint" />
+        android:hint="@string/login_pwd_hint"
+        android:password="true"
+        android:text="111111" />
 
     <!--<EditText-->
     <!--android:id="@+id/login_pwd"-->
@@ -136,8 +136,8 @@
         android:id="@+id/regist_pwd"
         style="@style/edit_text_style"
         android:layout_marginTop="@dimen/register_edit_text_margin_top"
-        android:password="true"
         android:hint="@string/regist_pwd2_hint"
+        android:password="true"
         android:visibility="gone" />
 
     <EditText

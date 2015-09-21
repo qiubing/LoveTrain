@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -31,6 +31,7 @@ import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
@@ -39,14 +40,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 public class ClientEvaluateActivity  extends Activity {
 
     private ExpandableListView mExpandableListView;
-    //private ErrorHintView mErrorHintView;
     private TextView barTxt;
-    /*public static int VIEW_LIST = 1;
-    *//** 显示断网 **//*
-    public static int VIEW_WIFIFAILUER = 2;
-    *//** 显示加载数据失败 **//*
-    public static int VIEW_LOADFAILURE = 3;
-    public static int VIEW_LOADING = 4;*/
     private static final String URL = Constant.BASE_URL + "/my/find_lesson_judge.do";
     private List<LessonJudgementMsg> mList = new ArrayList<>();
     EvaluateAdapter mEvaluateAdapter;
@@ -55,6 +49,7 @@ public class ClientEvaluateActivity  extends Activity {
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private String lession_index_ID;
 
 
     private Handler handler = new Handler() {
@@ -81,6 +76,9 @@ public class ClientEvaluateActivity  extends Activity {
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
 
+        lession_index_ID = getIntent().getExtras().getString("lession_index_ID");
+        Log.i("huhu", "get lession_index_ID" + lession_index_ID);
+
         //mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
         barTxt = (TextView) findViewById(R.id.sub_page_title);
@@ -98,8 +96,8 @@ public class ClientEvaluateActivity  extends Activity {
             }
         });
 
-        initBeforeData();
         initEvents();
+        initBeforeData();
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -115,53 +113,68 @@ public class ClientEvaluateActivity  extends Activity {
         //showLoading(VIEW_LOADING);
         loadData();
     }
+    private void loadData(){
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("record_modify_time_course", "1435125456111");
 
-    public void loadData() {
-        AsyncHttpHelper.get(URL, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int code, Header[] headers,
-                                  byte[] responseBody) {
-                try {
-                    if (responseBody != null && responseBody.length > 0) {
-                        JSONObject obj = new JSONObject(new String(responseBody));
-                        EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
-                                EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, obj);
-                        List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
-                        Log.i("huhu", "onSuccess");
-                        Log.i("huhu", list.toString());
+        String stringArray []  = lession_index_ID.split(",");
+        requestParams.add("lession_index", stringArray[0]);
+        requestParams.add("user_id", stringArray[1]);
 
-                        /*JSONArray array = obj.getJSONArray("items");
-                        List<GameDetailItem> list = JsonUtils.getInstance(
-                                GameDetailItem.class, array);*/
 
-                        if (list != null && list.size() > 0) {
-                            mList.clear();
-                            mList.addAll(list);
-                            handler.sendEmptyMessage(0);
-                        }
-                    } else {
-                        Log.i("huhu", "VIEW_LOADFAILURE");
-                        loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-                    Log.i("huhu", "VIEW_LOADFAILURE");
-                }
-            }
-
-            @Override
-            public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                                  Throwable arg3) {
-                Log.i("huhu", "onFailure");
-                networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            }
-        });
+        AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
+    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+            Log.i("huhu", "addExam" + "EvaluateonSuccess");
+            try {
+                int code = response.getInt("code");
+               // boolean result = response.getBoolean("result");
+                //boolean isOk = response.getBoolean("data");
+//                JSONArray jsonArray = response.getJSONArray("data");
+//                JSONObject obj = (JSONObject)jsonArray;
+                Log.i("huhu", "Evaluate" + code + "," + response);
 
+                if(code == 0 && response != null) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
+                                    EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, response);
+                            List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
+                            if (list != null && list.size() > 0) {
+                                mList.clear();
+                                mList.addAll(list);
+                                handler.sendEmptyMessage(0);
+                                Log.i("huhu", "Evaluate list" + list);
+                            }
+                        }
+                    }.start();
+                }else {
+                    Log.i("huhu", "VIEW_LOADFAILURE");
+                    loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                }
 
+            } catch (Exception e) {
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                e.printStackTrace();
+                Log.i("huhu", "VIEW_LOADFAILURE");
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Log.i("huhu", "onFailure");
+        }
+    };
 
     protected void initEvents() {
         // 设置下拉刷新监听器
@@ -172,7 +185,6 @@ public class ClientEvaluateActivity  extends Activity {
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         loadData();
                         mRefreshLayout.setRefreshing(false);
                     }

@@ -133,7 +133,7 @@
             <Button
                 android:id="@+id/mycourse_judge_detail_fill_confirmbutton"
                 style="@style/CustomBigLoginButton"
-                android:text="@string/activity_mycourse_judge_detail_fill_confirm_button" />
+                android:text="@string/confirm_button" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

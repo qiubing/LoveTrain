@@ -151,7 +151,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 upData();
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("CourseItem", courseItem);
-                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
+                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminCourseDetailActivity.class);
                 intentAddForSure.putExtras(bundle);
                 startActivity(intentAddForSure);
                 break;
@@ -178,7 +178,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
-
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }

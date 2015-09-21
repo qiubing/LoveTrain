@@ -25,7 +25,7 @@ public class NormalHttpHandler extends HttpHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers,Throwable throwable,
                           JSONObject errorResponse) {
-
         Log.e("jiangyu", "onFailure : ");
+        new Thread(mAsynGetResult).start();
     }
 }

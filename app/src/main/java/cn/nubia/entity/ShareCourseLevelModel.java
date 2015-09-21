@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by JiangYu on 2015/9/6.
  */
 public class ShareCourseLevelModel {
-    public static Map<Short,String> SHARE_COURSE_MODEL;
+    public final static Map<Short,String> SHARE_COURSE_MODEL;
 
     static{
         SHARE_COURSE_MODEL = new HashMap<Short,String>();

@@ -10,6 +10,7 @@ import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.activity.client.ClientMyShareCourseDetailFillActivity;
 import cn.nubia.util.jsonprocessor.ExamEnrollAssembler;
 import cn.nubia.util.jsonprocessor.IAssemblerGenerics;
+import cn.nubia.util.jsonprocessor.LessonJudgementAssembler;
 
 
 /**
@@ -27,10 +28,12 @@ public class URLMap {
     public final static String URL_ADD_SHARE = BASE_URL+"share/add_share_course.do";
     public final static String URL_UPD_SHARE = BASE_URL+"share/edit_going_course.do";
     public final static String URL_UPD_PSW = BASE_URL+"user/modify.do";
-    public final static String URL_AWARD_CREDITS = BASE_URL+"credit/ give_credits.do";
+    public final static String URL_AWARD_CREDITS = BASE_URL+"credit/give_credits.do";
     public final static String URL_JUDGE_LESSON = BASE_URL+"my/add_lesson_judge.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
-    public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/ add_score.do";
+    public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
+    public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
+    public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
 
     static {
         URL_MAPPING.put(AdminCreditsAwardActivity.Inter.class,URL_AWARD_CREDITS);
@@ -55,8 +58,11 @@ public class URLMap {
         URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_ADD_EXAMSCORE);
         HANDLER_MAPPING.put(URL_ADD_EXAMSCORE,NormalHttpHandler.class);
 
-//        URL_MAPPING.put(AdminCreditsAwardActivity.Inter.class,"queryAllJudgement.do");
-//        HANDLER_MAPPING.put("queryAllJudgement.do",NormalHandler.class);
-//        ASSEMBLER_MAPPING.put("queryAllJudgement.do",LessonJudgementAssembler.class);
+        URL_MAPPING.put(ClientMyCourseJudgeDetailFillActivity.Inter.class,URL_ADD_JUDGEMENT);
+        HANDLER_MAPPING.put(URL_ADD_JUDGEMENT,NormalHttpHandler.class);
+
+//        URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_QUE_JUDGEMENT);
+        HANDLER_MAPPING.put(URL_QUE_JUDGEMENT,NormalHttpHandler.class);
+        ASSEMBLER_MAPPING.put(URL_QUE_JUDGEMENT,LessonJudgementAssembler.class);
     }
 }
