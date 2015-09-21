@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.nubia.activity.R;
+import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -105,7 +106,8 @@ public class ClientMainActivity extends ActivityGroup {
         } else {
             /*android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);*/
-            finish();
+            DbUtil.getInstance(this).closeDb();
+            finishAffinity();
         }
     }
 
