@@ -17,12 +17,12 @@ import cn.nubia.entity.LessonItem;
  * Created by WJ on 2015/9/6.
  */
 public class DbUtil {
-    private static String TAG = "DbUtil";
-    private static String DB_NAME = "/loveTrain.db3";
-    private static int DB_VERSION = 1;
+    private static final String TAG = "DbUtil";
+    private static final String DB_NAME = "/loveTrain.db3";
+    private static final int DB_VERSION = 1;
     private static DbUtil s_Db;
-    private SQLiteDatabase db;
-    private SqliteHelper dbHelper;
+    private final SQLiteDatabase db;
+    private final SqliteHelper dbHelper;
 
     private DbUtil(Context context) {
         dbHelper = new SqliteHelper(context, context.getFilesDir().toString() + DB_NAME, null, DB_VERSION);

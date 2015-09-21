@@ -34,18 +34,6 @@ public class User {
         this.user_index = user_index;
     }
 
-    public User(String userID, String userName, boolean gender, String lastLoginTime, String registerTime, int userTotalCredits, String userIconURL, int user_index) {
-
-        this.userID = userID;
-        this.userName = userName;
-        this.gender = gender;
-        this.lastLoginTime = lastLoginTime;
-        this.registerTime = registerTime;
-        this.userTotalCredits = userTotalCredits;
-        this.userIconURL = userIconURL;
-        this.user_index = user_index;
-    }
-
     public void setUserID(String userID) {
         this.userID = userID;
     }

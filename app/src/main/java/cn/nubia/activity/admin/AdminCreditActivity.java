@@ -29,8 +29,6 @@ public class AdminCreditActivity extends ActivityGroup {
     TabHost mTabHost = null;
     private ViewPager mViewPage = null;
 
-    private TextView mManagerTitle;
-    private ImageView mGoBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,8 @@ public class AdminCreditActivity extends ActivityGroup {
         setContentView(R.layout.activity_manager_credit);
 
         //公用部分
+        TextView mManagerTitle;
+        ImageView mGoBack;
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.title_activity_manager_credit_title);
         mGoBack = (ImageView) findViewById(R.id.manager_goback);
@@ -126,7 +126,7 @@ public class AdminCreditActivity extends ActivityGroup {
 
     private class MyPageAdapter extends PagerAdapter {
 
-        private List<View> list;
+        private final List<View> list;
 
         private MyPageAdapter(List<View> list) {
             this.list = list;

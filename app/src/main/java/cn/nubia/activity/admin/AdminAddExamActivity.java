@@ -22,14 +22,13 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 
 public class AdminAddExamActivity extends Activity {
 
-    private Button mAddButton;
+
     private EditText mExamInfo;
     private EditText mExamTitle;
     private EditText mExamAddress;
     private EditText mExamStartTime;
     private EditText mExamEndTime;
     private EditText mExamCredit;
-    private TextView mTitleText;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
@@ -38,7 +37,8 @@ public class AdminAddExamActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_add_exam);
-
+        Button mAddButton;
+        TextView mTitleText;
 
         mExamTitle = (EditText) findViewById(R.id.activity_manager_add_exam_one);
         mExamInfo = (EditText) findViewById(R.id.activity_manager_add_exam_info);

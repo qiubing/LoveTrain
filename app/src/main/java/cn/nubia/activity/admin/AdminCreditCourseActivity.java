@@ -66,8 +66,6 @@ public class AdminCreditCourseActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-//        if (null == response)
-//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");

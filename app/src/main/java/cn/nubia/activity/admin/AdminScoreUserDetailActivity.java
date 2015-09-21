@@ -34,8 +34,6 @@ import cn.nubia.util.HandleResponse;
 public class AdminScoreUserDetailActivity extends Activity {
 
     private List<Exam> list;
-    private TextView mManagerTitle;
-    private ImageView mGoBack;
     private TextView mNoRecord;
 
     private void init() {
@@ -70,8 +68,6 @@ public class AdminScoreUserDetailActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-//        if (null == response)
-//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
@@ -117,6 +113,8 @@ public class AdminScoreUserDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score_user_detail);
 
+        TextView mManagerTitle;
+        ImageView mGoBack;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("name"));

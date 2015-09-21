@@ -45,10 +45,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Spinner mIsManagerSpinner;
     CustomProgressDialog dialog;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,6 +285,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         onProcess("注册中...");
     }
 
+    /**
     private void adminRegist() {
         String userID = mUserIdET.getText().toString();
         String userName = mUserNameET.getText().toString();
@@ -349,7 +346,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         });
         onProcess("注册中...");
     }
-
+**/
     private void onProcess(String s) {
 //        dialog.show();
         mLoginButton.setEnabled(false);

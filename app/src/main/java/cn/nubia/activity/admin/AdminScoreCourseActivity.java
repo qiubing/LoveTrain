@@ -31,7 +31,6 @@ import cn.nubia.model.admin.Course;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.TestData;
 
 public class AdminScoreCourseActivity extends Activity {
 
@@ -49,6 +48,7 @@ public class AdminScoreCourseActivity extends Activity {
         params.put("apk_version", Constant.apkVersion);
         params.put("token_key", Constant.tokenKep);
         MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+            @SuppressWarnings("deprecation")
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -59,6 +59,7 @@ public class AdminScoreCourseActivity extends Activity {
                 }
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e("onFailure", statusCode + "");
@@ -69,9 +70,7 @@ public class AdminScoreCourseActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-        //TODO
-        if (response == null)
-            response = TestData.getCourseUserData();
+
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");

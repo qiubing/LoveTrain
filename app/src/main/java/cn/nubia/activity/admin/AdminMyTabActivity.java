@@ -26,17 +26,9 @@ import cn.nubia.util.Utils;
  */
 public class AdminMyTabActivity extends Activity implements View.OnClickListener {
     private static final int GET_PHOTO_CODE_ADMIN = 1010;
-    private TextView mQueryScoreTV;
-    private TextView mQueryCreditTV;
-    private TextView mRateManageTV;
-    private TextView mAccountManageTV;
-    private TextView mUserManageTV;
-    private TextView mAboutUsTV;
-    private Button mChangeAccoutn;
-    private TextView mAwardCreditTV;
+
 
     private CircleImageView mCircleImageView;
-    private TextView myUserName;
 
 
     @Override
@@ -44,6 +36,15 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_my_setting);
+        TextView mQueryScoreTV;
+        TextView mQueryCreditTV;
+        TextView mRateManageTV;
+        TextView mAccountManageTV;
+        TextView mUserManageTV;
+        TextView mAboutUsTV;
+        Button mChangeAccoutn;
+        TextView mAwardCreditTV;
+        TextView myUserName;
 
         mQueryScoreTV = (TextView) findViewById(R.id.queryscore);
         mQueryCreditTV = (TextView) findViewById(R.id.querycredit);
@@ -55,7 +56,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         mAwardCreditTV = (TextView) findViewById(R.id.awardcredit);
 
         myUserName = (TextView) findViewById(R.id.user_name);
-        myUserName.setText( Constant.user.getUserName());
+        myUserName.setText(Constant.user.getUserName());
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
         mCircleImageView.setOnClickListener(this);
 
@@ -98,7 +99,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        Intent intent = null;
+        Intent intent;
         switch (viewId) {
             case R.id.icon1:
                 intent = new Intent(this, ClientUpdateIconActivity.class);
