@@ -71,10 +71,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String select = mIsManagerSpinner.getSelectedItem().toString();
-                if(select.equals("是")){
+                if (select.equals("是")) {
                     mUserIdET.setText("0016002652");
                     mPasswordET.setText("123456");
-                }else {
+                } else {
                     mUserIdET.setText("0016003347");
                     mPasswordET.setText("111111");
                 }
@@ -139,11 +139,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
 
-//        params.put("device_id", Constant.devideID);
-//        params.put("request_time", System.currentTimeMillis());
-//        params.put("apk_version", Constant.apkVersion);
-//        params.put("token_key", Constant.tokenKep);
-
         Constant.USER_ID = userID;
         String url;
         if (isManager.equals("是")) {
@@ -179,9 +174,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void handleLogin(JSONObject response) {
-          startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
         try {
-//            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
             if (code.equals("0")) {
                 JSONObject json = response.getJSONObject("data");
@@ -221,7 +214,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     ProcessSPData.putIntoSP(this, user);
                     ProcessSPData.putIntoSP(this, "isAdmin", false);
                     Constant.IS_ADMIN = false;
-//                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                     startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
                     LoginActivity.this.finish();
                 }
