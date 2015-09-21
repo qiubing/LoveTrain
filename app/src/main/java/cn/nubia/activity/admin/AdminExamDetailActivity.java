@@ -130,7 +130,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.manager_exam_deletebtn:
-                AlertDialog.Builder builder = new AlertDialog.Builder(AdminExamDetailActivity.this)
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AdminExamDetailActivity.this)
                         //设置对话框标题
                         .setTitle("确认要删除《\"+mExamItem.getName()+ \"》这门考试吗?")
                         //设置图标
