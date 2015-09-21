@@ -146,6 +146,7 @@
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize"
             android:focusable="false"
+            android:focusableInTouchMode="false"
             />
     </LinearLayout>
 
@@ -178,6 +179,7 @@
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize"
             android:focusable="false"
+            android:focusableInTouchMode="false"
             />
     </LinearLayout>
 
@@ -210,6 +212,7 @@
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize"
             android:focusable="false"
+            android:focusableInTouchMode="false"
             />
     </LinearLayout>
 
