@@ -5,17 +5,27 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
-import cn.nubia.util.DialogUtil;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * Created by LK on 2015/9/9.
@@ -68,6 +78,9 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private ExamItem mExamItem;
     private ExamItem mExamItemExamEdit;
     private TextView mManagerTitle;
+    private static final String URL = Constant.BASE_URL + "/exam/delete.do";
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
 
 
     private GestureDetector gestureDetector;
@@ -84,6 +97,10 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         initViewData();
     }
 
@@ -113,19 +130,26 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.manager_exam_deletebtn:
-                new AlertDialog.Builder(AdminExamDetailActivity.this).setTitle("确认要删除《"+mExamItem.getName()+ "》这门考试吗?")
-                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DialogUtil.showToast(AdminExamDetailActivity.this, "你删除了《"+mExamItem.getName()+"》考试!");
-                            }
-                        })
-                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AdminExamDetailActivity.this)
+                        //设置对话框标题
+                        .setTitle("确认要删除《\"+mExamItem.getName()+ \"》这门考试吗?")
+                        //设置图标
+                        .setIcon(R.drawable.icon_class_selector);
+                        //.setMessage("请选择将要进行的操作");
+                builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteData();
+                    }
+                });
+                builder.setNegativeButton("返回", new DialogInterface.OnClickListener() {
 
-                            }
-                        }).show();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.create().show();
                 break;
             case R.id.manager_exam_editbtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminEditExamActivity.class);
@@ -177,6 +201,47 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 "\n考试时间: " + mExamItemExamEdit.getStartTime() + "-" + mExamItemExamEdit.getEndTime() +
                 "\n" + R.string.activity_manager_add_exam_credit + ": " + mExamItemExamEdit.getExamCredits());
     }
+
+
+    void deleteData(){
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("record_modify_time_course", "1435125456111");
+
+        requestParams.add("exam_index", mExamItemExamEdit.getIndex() + "");
+
+        AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
+    }
+
+    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.i("huhu", "addExam" + "onSuccess");
+            try {
+                int code = response.getInt("code");
+                boolean isOk = response.getBoolean("data");
+                //JSONArray jsonArray = response.getJSONArray("data");
+                Log.i("huhu", "addExam" + code + "," +isOk);
+                if( code == 0 && isOk) {
+                    Toast.makeText(AdminExamDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                e.printStackTrace();
+            }
+            //mExamAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+        }
+    };
 
     public void back(View view) {
         // TODO Auto-generated method stub
