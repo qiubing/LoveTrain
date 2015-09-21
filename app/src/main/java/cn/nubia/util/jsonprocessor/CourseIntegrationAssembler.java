@@ -15,10 +15,9 @@ import cn.nubia.entity.CourseIntegrationItem;
  * @Date: 2015/9/15 11:10
  */
 public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseIntegrationItem> {
-    private static final String TAG = "CourseIntegrationAssembler";
     @Override
     public List<CourseIntegrationItem> assemble(JSONArray jsonArray) {
-        List<CourseIntegrationItem> mIntegartionList = new ArrayList<CourseIntegrationItem>();
+        List<CourseIntegrationItem> mIntegartionList = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
             try {
                 JSONObject obj = jsonArray.getJSONObject(i);

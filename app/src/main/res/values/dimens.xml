@@ -84,16 +84,20 @@
     <dimen name="register_terms_margin_top">10.0dip</dimen>
     <dimen name="register_read_and_agree_margin_left">0.0dip</dimen>
     <dimen name="register_terms_margin_left">7.0dip</dimen>
-    <dimen name="text_size_20">20dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
 
     <dimen name="manager_score_hight">16dp</dimen>
     <dimen name="manager_score_image_hight">32dp</dimen>
     <dimen name="manager_rate_layout_hight">60dp</dimen>
     <dimen name="manager_rate_textSize">20sp</dimen>
+    <dimen name="manager_rate_textSmalSize">15sp</dimen>
     <dimen name="manager_title_textSize">22sp</dimen>
     <dimen name="manager_rate_paddingTop">10dp</dimen>
     <dimen name="manager_title_high">50dp</dimen>
 
+
+    <dimen name="action_bar_arrow_margin_left">9dp</dimen>
+    <dimen name="action_bar_arrow_margin_right">10dp</dimen>
 
     <!-- xhdpi -->
     <dimen name="dp512n">-170.7dp</dimen>

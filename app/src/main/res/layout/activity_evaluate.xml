@@ -12,6 +12,23 @@
         android:layout_alignParentTop="true"
         layout="@layout/include_back_title_item_layout" />
 
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_below="@+id/sub_title"
+        layout="@layout/layout_loading_failed"
+        />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_below="@+id/sub_title"
+        layout="@layout/layout_network_unusable" />
 
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout"
@@ -35,11 +52,11 @@
 
     </cn.nubia.component.RefreshLayout>
 
-    <cn.nubia.component.ErrorHintView
+   <!-- <cn.nubia.component.ErrorHintView
         android:id="@+id/evaluate_hintView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-
+-->
 </RelativeLayout>
 

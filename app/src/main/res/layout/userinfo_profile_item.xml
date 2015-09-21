@@ -34,8 +34,7 @@
             android:src="@mipmap/noavatar_small"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/my_nick"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/icon1"
@@ -43,24 +42,28 @@
             android:layout_marginLeft="15.0dp"
             android:layout_toRightOf="@id/icon1"
             android:gravity="center_vertical"
-            android:text="用户名:\n"
-            android:singleLine="true"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/textSize20"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/my_nick"
-            android:layout_alignTop="@id/my_nick"
-            android:layout_alignBottom="@id/my_nick"
-            android:textSize="@dimen/textSize20"
-            android:textColor="@color/blue"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:layout_marginLeft="10dp"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/my_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="用户名:"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/title_activity_manager_score_input"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/textSize20" />
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

@@ -19,10 +19,10 @@ import cn.nubia.entity.CheckRecordItem;
 public class CheckRecordAssembler implements IAssemblerGenerics<CheckRecordItem> {
     @Override
     public List<CheckRecordItem> assemble(JSONArray jsonArray) {
-        List<CheckRecordItem> itemList = new ArrayList<CheckRecordItem>();
+        List<CheckRecordItem> itemList = new ArrayList<>();
 
         for(int i =0;i<jsonArray.length();i++){
-            JSONObject jsonObject = null;
+            JSONObject jsonObject ;
             try {
                 jsonObject = jsonArray.getJSONObject(i);
                 itemList.add(makeCheckRecord(jsonObject));

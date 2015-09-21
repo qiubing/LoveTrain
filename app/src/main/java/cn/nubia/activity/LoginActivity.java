@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,7 +22,6 @@ import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.activity.admin.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.component.CustomProgressDialog;
-import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
@@ -45,8 +45,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Spinner mIsManagerSpinner;
     CustomProgressDialog dialog;
 
-    private DbUtil mybUtil;
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -69,6 +67,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mSexLayout = (LinearLayout) findViewById(R.id.layout_sex);
         mIsManagerSpinner = (Spinner) findViewById(R.id.ismanager);
         mIsMangerLayout = (LinearLayout) findViewById(R.id.layout_ismanager);
+        mIsManagerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String select = mIsManagerSpinner.getSelectedItem().toString();
+                if(select.equals("是")){
+                    mUserIdET.setText("0016002652");
+                    mPasswordET.setText("123456");
+                }else {
+                    mUserIdET.setText("0016003347");
+                    mPasswordET.setText("111111");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mLoginButton.setOnClickListener(this);
         mRegistButton.setOnClickListener(this);
@@ -88,7 +104,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
                         dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
-                        adminRegist();
+                        regist();
                     }
                 }
                 break;
@@ -163,7 +179,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void handleLogin(JSONObject response) {
-//        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+          startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
         try {
 //            response = TestData.getLoginResult();//模拟数据
             String code = response.getString("code");
@@ -344,16 +360,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void onProcess(String s) {
 //        dialog.show();
-//        mLoginButton.setEnabled(false);
-//        mRegistButton.setEnabled(false);
-//        mLoginButton.setText(s);
+        mLoginButton.setEnabled(false);
+        mRegistButton.setEnabled(false);
+        mLoginButton.setText(s);
     }
 
     private void afterProcess(String s) {
 //        dialog.dismiss();
-//        mLoginButton.setEnabled(true);
-//        mRegistButton.setEnabled(true);
-//        mLoginButton.setText(s);
+        mLoginButton.setEnabled(true);
+        mRegistButton.setEnabled(true);
+        mLoginButton.setText(s);
     }
 
     //对用户名和密码进行校验

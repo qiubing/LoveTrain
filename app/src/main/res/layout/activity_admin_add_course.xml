@@ -82,6 +82,43 @@
 
         </TableRow>
 
+        <TableRow android:paddingTop="20sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="课程类型"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/add_course_courseType_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
+
+        <TableRow android:paddingTop="20sp">
+
+            <TextView
+                android:id="@+id/add_course_CoursePoints_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/coursePoints"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/add_course_CoursePoints_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
+
 
         <TableRow android:paddingTop="20sp">
 
@@ -101,42 +138,25 @@
 
         </TableRow>
 
-        <TableRow android:paddingTop="20sp">
+        <!--<TableRow android:paddingTop="20sp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/whetherHighLevelCourse"
-                android:textColor="#666666"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="@string/whetherHighLevelCourse"-->
+                <!--android:textColor="#666666"-->
+                <!--android:textSize="20sp" />-->
 
-            <CheckBox
-                android:id="@+id/add_course_whetherHighLevelCourse_checkBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/add_course_whetherHighLevelCourse_checkBox"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:checked="true" />-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
-        <TableRow android:paddingTop="20sp">
 
-            <TextView
-                android:id="@+id/add_course_highLevelCoursePoints_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/highLevelCoursePoints"
-                android:textColor="#666666"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/add_course_highLevelCoursePoints_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
-
-        </TableRow>
 
     </TableLayout>
 

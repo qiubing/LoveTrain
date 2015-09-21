@@ -37,7 +37,7 @@
                 <TextView
                     android:id="@+id/queryscore"
                     android:text="成绩查询"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -54,7 +54,7 @@
                 <TextView
                     android:id="@+id/querycredit"
                     android:text="积分查询"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -71,7 +71,7 @@
                 <TextView
                     android:id="@+id/awardcredit"
                     android:text="积分奖励"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -88,7 +88,7 @@
                 <TextView
                     android:id="@+id/ratemanage"
                     android:text="评级管理"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -105,7 +105,7 @@
                 <TextView
                     android:id="@+id/usermanage"
                     android:text="用户管理"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -122,7 +122,7 @@
                 <TextView
                     android:id="@+id/accountmanage"
                     android:text="修改密码"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -132,7 +132,7 @@
                 <TextView
                     android:id="@+id/about_us"
                     android:text="关于我们"
-                    style="@style/textview_style" />
+                    style="@style/text_view_style" />
             </LinearLayout>
 
             <Button

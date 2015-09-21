@@ -60,7 +60,7 @@
             <!--android:textSize="15sp" />-->
         <TextView
             android:id="@+id/admin_exam_detail_course_name_textView"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="@string/courseName"
             android:gravity="bottom"
             android:textSize="25sp"/>
@@ -68,7 +68,7 @@
             android:id="@+id/admin_exam_detail_course_realName_textView"
             android:layout_below="@id/admin_exam_detail_course_name_textView"
             android:gravity="top"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="XXXXXXXX"
             android:textSize="20sp"/>
 
@@ -113,7 +113,7 @@
             <!--android:text="XXXXXXXX"-->
             <!--android:textSize="15sp" />-->
         <TextView
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="@string/examDesc"
             android:gravity="bottom"
             android:textSize="25sp"/>
@@ -121,7 +121,7 @@
             android:id="@+id/admin_exam_detail_realExamDesc_textView"
             android:layout_below="@id/admin_exam_detail_course_name_textView"
             android:gravity="top"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="XXXXXXXX"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -147,7 +147,7 @@
             <!--android:text="XXXXXXXX"-->
             <!--android:textSize="15sp" />-->
         <TextView
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="@string/examInfo"
             android:gravity="bottom"
             android:textSize="25sp"/>
@@ -155,7 +155,7 @@
             android:id="@+id/exam_detail_realExamInfo_textView"
             android:layout_below="@id/admin_exam_detail_course_name_textView"
             android:gravity="top"
-            style="@style/textview_style"
+            style="@style/text_view_style"
             android:text="XXXXXXXX"
             android:textSize="20sp"/>
     </LinearLayout>
