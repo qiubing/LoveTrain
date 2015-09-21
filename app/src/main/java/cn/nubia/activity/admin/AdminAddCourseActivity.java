@@ -196,7 +196,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 //JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("huhu", "addExam" + code + "," + "," +isOk);
 //                if(result && code == 0 && isOk) {
-                if( code == 0 && isOk) {
+                if(code == 0 && isOk) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
