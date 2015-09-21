@@ -122,9 +122,5 @@ public class AdminMainActivity extends ActivityGroup {
         return super.dispatchKeyEvent(event);
     }
 
-    public void search(View view) {
-        //startActivity(new Intent(this, SearchActivity.class));
-        Toast.makeText(this, "管理员不需要签到", Toast.LENGTH_LONG).show();
-    }
 }
 
