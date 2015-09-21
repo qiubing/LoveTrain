@@ -26,6 +26,7 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 public class AdminEditExamActivity extends Activity  implements  View.OnClickListener{
 
@@ -85,9 +86,9 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamTitle.setText(mExamItemExamEdit.getName());
         mExamInfo.setText(mExamItemExamEdit.getDescription());
         mExamAddress.setText(mExamItemExamEdit.getLocale());
-        mExamStartDate.setText(toTimeDate(mExamItemExamEdit.getStartTime()));
-        mExamStartTime.setText(toTime(mExamItemExamEdit.getStartTime()));
-        mExamEndTime.setText(toTime(mExamItemExamEdit.getEndTime()));
+        mExamStartDate.setText(TimeFormatConversion.toTimeDate(mExamItemExamEdit.getStartTime()));
+        mExamStartTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getStartTime()));
+        mExamEndTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getEndTime()));
         mExamCredit.setText(mExamItemExamEdit.getExamCredits() + "");
 
         //initSpinner();
@@ -114,8 +115,8 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         requestParams.add("exam_description",  mExamInfo.getText().toString());
         requestParams.add("locale",  mExamAddress.getText().toString());
 
-        requestParams.put("start_time", toTimeInMillis(year, month, day, hourStart, minuteStart));
-        requestParams.put("end_time", toTimeInMillis(year, month, day, hourEnd, minuteEnd));
+        requestParams.put("start_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart));
+        requestParams.put("end_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd));
         requestParams.put("exam_credits", mExamCredit.getText().toString());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
@@ -149,25 +150,6 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
         }
     };
-
-    String toTimeDate(long time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
-        return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" +
-                calendar.get(Calendar.DAY_OF_MONTH);
-    }
-
-    String toTime(long time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
-        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
-    }
-
-    long toTimeInMillis(int year, int month, int day, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, hour, minute);
-        return calendar.getTimeInMillis();
-    }
 
     @Override
     public void onClick(View v) {

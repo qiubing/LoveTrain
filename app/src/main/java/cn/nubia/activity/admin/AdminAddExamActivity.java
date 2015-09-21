@@ -27,6 +27,7 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 public class AdminAddExamActivity extends Activity implements  View.OnClickListener{
 
@@ -95,8 +96,8 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         requestParams.add("exam_name", mExamTitle.getText().toString());
         requestParams.add("exam_description", mExamInfo.getText().toString());
         requestParams.add("locale", mExamAddress.getText().toString());
-        requestParams.put("start_time", toTimeInMillis(year, month, day, hourStart, minuteStart));
-        requestParams.put("end_time", toTimeInMillis(year, month, day, hourEnd, minuteEnd));
+        requestParams.put("start_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart));
+        requestParams.put("end_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd));
         requestParams.put("exam_credits", mExamCredit.getText().toString());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
@@ -225,12 +226,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                 break;
 
         }
-    }
-
-    long toTimeInMillis(int year, int month, int day, int hour, int minute) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day, hour, minute);
-        return calendar.getTimeInMillis();
     }
 
     public void back(View view) {
