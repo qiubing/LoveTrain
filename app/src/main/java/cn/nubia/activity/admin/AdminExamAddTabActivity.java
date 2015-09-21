@@ -123,13 +123,15 @@ public class AdminExamAddTabActivity extends Activity {
     MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("test","onSuccess");
+            Log.e("test", "onSuccess");
+
             try {
                 if(response.getInt("code") != 0){
-                    Log.e("test","onSuccess1");
+                    Log.e("test", "onfailed" + response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }else
+                    Log.e("test", "onSuccess1");
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 boolean result = response.getBoolean("result");
                 JSONArray jsonArray = response.getJSONArray("data");
@@ -234,7 +236,7 @@ private class AsyncLoadJsonTask extends AsyncTask<JSONArray, Void, List<ExamItem
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             Intent intent = new Intent(AdminExamAddTabActivity.this, AdminExamDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("ExamInfo",mExamList.get(arg2));
+            bundle.putSerializable("ExamInfo", mExamList.get(arg2));
             intent.putExtras(bundle);
             startActivity(intent);
         }

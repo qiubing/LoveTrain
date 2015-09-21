@@ -54,8 +54,8 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         mChangeAccoutn = (Button) findViewById(R.id.change_account);
         mAwardCreditTV = (TextView) findViewById(R.id.awardcredit);
 
-        myUserName = (TextView) findViewById(R.id.my_nick);
-        myUserName.setText("用户名：\n" + Constant.user.getUserName());
+        myUserName = (TextView) findViewById(R.id.user_name);
+        myUserName.setText( Constant.user.getUserName());
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
         mCircleImageView.setOnClickListener(this);
 

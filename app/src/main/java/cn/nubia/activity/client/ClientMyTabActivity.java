@@ -55,8 +55,8 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     }
 
     private void initViews(){
-        myUserName = (TextView) findViewById(R.id.my_nick);
-        myUserName.setText("用户名：\n"+ Constant.user.getUserName());
+        myUserName = (TextView) findViewById(R.id.user_name);
+        myUserName.setText(Constant.user.getUserName());
 
         mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
         //mUser_name = (TextView) findViewById(R.id.user_name);
