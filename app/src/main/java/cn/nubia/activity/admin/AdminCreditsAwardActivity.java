@@ -135,7 +135,6 @@ public class AdminCreditsAwardActivity extends Activity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("jiangyu",mNextPressReady?"mNextPressReady true":"mNextPressReady false" );
                 if(mNextPressReady) {
                     if (checkData()) {
                         creditsAwardMsg = new CreditsAwardMsg();
