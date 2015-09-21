@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -30,6 +32,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
+    private TextView mTitleText;
 
     //    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
@@ -54,12 +57,20 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private static final String addCourseURL = Constant.BASE_URL + "course/add_course.do";
 
+
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_course);
 
         courseItem=new CourseItem();
+        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        mTitleText.setText("新增课程");
+
 
         addCourseCourseNameEditText = (EditText) findViewById(R.id.add_course_courseName_editText);
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
@@ -69,9 +80,14 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
         addCourseButton = (Button) findViewById(R.id.add_course_button);
-        addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
+        //addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
+
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
 
         /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
@@ -81,7 +97,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
 
         addCourseButton.setOnClickListener(this);
-        addCourseBackImage.setOnClickListener(this);
+       // addCourseBackImage.setOnClickListener(this);
 
 
     }
@@ -89,12 +105,12 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_add_course_backImage:
+           /* case R.id.admin_add_course_backImage:
                 Toast.makeText(AdminAddCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
                 Intent intentBackImage = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
-                break;
+                break;*/
             case R.id.add_course_button:
 
 //                Dialog addCourseDialog = new AlertDialog.Builder(AdminAddCourseActivity.this)
@@ -209,6 +225,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 }
 
             } catch (Exception e) {
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
@@ -217,7 +234,15 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void back(View view) {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+
 }

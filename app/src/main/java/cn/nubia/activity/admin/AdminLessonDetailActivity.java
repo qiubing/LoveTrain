@@ -260,10 +260,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
                     intent.putExtras(bundle);
-                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex()+"," + lessonItem.getTeacherID());
+                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex() + "," + lessonItem.getTeacherID());
+                    Log.i("huhu", "lession_index_ID" + lessonItem);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
-                    intent.putExtra("lessonIndex",0);
+                    intent.putExtra("lessonIndex", 0);
                 }
                 startActivity(intent);
                 break;
