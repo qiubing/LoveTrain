@@ -3,7 +3,6 @@ package cn.nubia.entity;
 import android.os.Environment;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +34,7 @@ public class Constant {
     public static String tokenKep = "sfdgfjh";
     public static boolean IS_ADMIN = false;
 
-    /**
-     * 必要的四个参数
-     * @return
-     */
+
     public static Map<String, String> getRequestParams() {
         Map<String, String> map = new HashMap<>();
         map.put("device_id", devideID);
@@ -48,7 +44,7 @@ public class Constant {
         return map;
     }
 
-    public static Long getRequestTime() {
+    private static Long getRequestTime() {
         return (systemTime + System.currentTimeMillis() - loginTime);
     }
 
@@ -59,10 +55,6 @@ public class Constant {
     /**
      * 记录用户ID
      */
-
-
-    //时间格式化
-    public final static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     /**
      * 下载文件保存的本地路径

@@ -1,4 +1,4 @@
-package cn.nubia.activity.admin;
+package cn.nubia.util;
 
 import android.content.Context;
 

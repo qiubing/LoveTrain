@@ -26,11 +26,12 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.CreditCourse;
+import cn.nubia.model.CreditCourse;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 
+@SuppressWarnings("deprecation")
 public class AdminCreditCourseActivity extends Activity {
 
     private List<CreditCourse> list;
@@ -66,8 +67,6 @@ public class AdminCreditCourseActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-//        if (null == response)
-//            response = TestData.getCourseUserDetailData();
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");

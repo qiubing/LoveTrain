@@ -27,18 +27,18 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.User;
+import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.TestData;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreUserActivity extends Activity {
 
     private List<User> list;
     private TextView mNoRecord;
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -71,9 +71,7 @@ public class AdminScoreUserActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
-        //TODO
-        if (response == null)
-            response = TestData.getCourseUserData();
+
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");

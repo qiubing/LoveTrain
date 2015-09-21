@@ -27,7 +27,7 @@ public class GuideActivity extends Activity {
 
 
 	private ViewPager mViewPager;
-	private List<View> mViewList = new ArrayList<View>();
+	private final List<View> mViewList = new ArrayList<View>();
 	private ImageView startImg;
 	// 底部小点图片
 	private ImageView[] dots;
@@ -96,7 +96,7 @@ public class GuideActivity extends Activity {
 	}
 
 
-	PagerAdapter pagerAdapter = new PagerAdapter() {
+	final PagerAdapter pagerAdapter = new PagerAdapter() {
 
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {

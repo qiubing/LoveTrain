@@ -1,14 +1,14 @@
-package cn.nubia.model.admin;
+package cn.nubia.model;
 
 /**
  * Created by LK on 2015/9/16.
  */
-public class ExamUser {
+public class CreditUser {
     private String user_id;
     private String user_name;
-    private double exam_score;
+    private int user_total_credits;
 
-    public ExamUser() {
+    public CreditUser() {
     }
 
     public String getUser_id() {
@@ -27,11 +27,11 @@ public class ExamUser {
         this.user_name = user_name;
     }
 
-    public double getExam_score() {
-        return exam_score;
+    public int getUser_total_credits() {
+        return user_total_credits;
     }
 
-    public void setExam_score(double exam_score) {
-        this.exam_score = exam_score;
+    public void setUser_total_credits(int user_total_credits) {
+        this.user_total_credits = user_total_credits;
     }
 }
