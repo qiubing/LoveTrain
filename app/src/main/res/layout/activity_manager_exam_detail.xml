@@ -14,6 +14,24 @@
         android:layout_alignParentTop="true"
         layout="@layout/include_back_title_item_layout" />
 
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_loading_failed"
+        android:layout_below="@+id/sub_title"
+        />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_network_unusable"
+        android:layout_below="@+id/sub_title"/>
+
     <RelativeLayout
         android:id="@+id/layout02"
         android:layout_width="match_parent"
@@ -21,7 +39,8 @@
         android:layout_below="@+id/sub_title"
         android:orientation="vertical"
         android:padding="15dp"
-        android:paddingTop="15sp">
+        android:paddingTop="15sp"
+        >
 
         <TextView
             android:id="@+id/course_name_title"

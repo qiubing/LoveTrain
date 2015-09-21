@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
     public void updateData(List<LessonJudgementMsg> newData) {
         mList.clear();
         mList.addAll(newData);
+        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
         notifyDataSetChanged();
     }
 
@@ -199,7 +201,7 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
             img.setImageResource(R.mipmap.start5);
         } else {
             img.setImageResource(R.mipmap.start5);
-            img.setImageAlpha(5);
+            //img.setImageAlpha(5);
         }
     }
 }
