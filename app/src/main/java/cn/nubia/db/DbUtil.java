@@ -35,7 +35,7 @@ public class DbUtil {
         return s_Db;
     }
 
-    public static void closeDb() {
+    public void closeDb() {
         if (s_Db == null)
             return;
         if (s_Db.db != null)

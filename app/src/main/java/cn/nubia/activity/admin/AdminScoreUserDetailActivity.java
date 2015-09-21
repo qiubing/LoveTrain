@@ -36,6 +36,7 @@ public class AdminScoreUserDetailActivity extends Activity {
     private List<Exam> list;
     private TextView mManagerTitle;
     private ImageView mGoBack;
+    private TextView mNoRecord;
 
     private void init() {
         list = new ArrayList<>();
@@ -86,10 +87,17 @@ public class AdminScoreUserDetailActivity extends Activity {
                 item.put("score", list.get(i).getExam_score());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.manager_score_user_detail_listview);
+            if(list.size()==0){
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_user_item_detail,
                     new String[]{"coursename", "address", "score"},
                     new int[]{R.id.score_user_detail_coursename, R.id.score_user_detail_address, R.id.score_user_detail_score});
-            ListView listView = (ListView) findViewById(R.id.manager_score_user_detail_listview);
             listView.setAdapter(simpleAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,7 +127,7 @@ public class AdminScoreUserDetailActivity extends Activity {
                 finish();
             }
         });
-
+        mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
     }
 
