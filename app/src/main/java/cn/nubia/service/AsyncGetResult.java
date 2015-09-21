@@ -6,7 +6,7 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.util.List;
+import java.util.Map;
 
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
@@ -16,7 +16,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 public class AsyncGetResult implements Runnable {
     private EntityFactoryGenerics mFactoryGenerics;
     private JSONObject mJSONObject;
-    private List<?> mResultList;
+    private Map<String,?> mResponse;
     private Handler mResultHandler;
 
     public void setEntityFactory(EntityFactoryGenerics entityFactoryGenerics){
@@ -31,8 +31,8 @@ public class AsyncGetResult implements Runnable {
         mJSONObject = object;
     }
 
-    public List<?> getResultList(){
-        return mResultList;
+    public Map<String,?> getResultList(){
+        return mResponse;
     }
 
     @Override
@@ -40,10 +40,12 @@ public class AsyncGetResult implements Runnable {
         Log.e("jiangyu", "result Thread begin");
         if((mJSONObject!=null)&&(mFactoryGenerics!=null)){
             mFactoryGenerics.setJSON(mJSONObject);
-            mResultList = mFactoryGenerics.get();
+            mResponse = mFactoryGenerics.getResponse();
             mResultHandler.sendMessage(new Message());
-            mResultHandler = null;
-            Log.e("jiangyu", "result Thread success end");
+            Log.e("jiangyu", "result get Thread called nomal handle");
+        }else{
+            mResultHandler.sendMessage(new Message());
+            Log.e("jiangyu", "result get Thread called undisconnected handle");
         }
     }
 }

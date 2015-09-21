@@ -36,16 +36,22 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
     public LessonJudgementMsg makeLessonJudge(JSONObject jsonObject) throws JSONException {
         LessonJudgementMsg item = new LessonJudgementMsg();
 
-        item.setContentApplicability((float) jsonObject.getDouble("ContentApplicability"));
-        item.setContentRationality((float) jsonObject.getDouble("ContentRationality"));
-        item.setDiscussion((float) jsonObject.getDouble("Discussion"));
-        item.setTimeRationality((float) jsonObject.getDouble("TimeRationality"));
-        item.setContentUnderstanding((float) jsonObject.getDouble("ContentUnderstanding"));
-        item.setExpressionAbility((float) jsonObject.getDouble("ExpressionAbility"));
-        item.setCommunication((float) jsonObject.getDouble("Communication"));
-        item.setOrganization((float) jsonObject.getDouble("Organization"));
-        item.setComprehensiveEvaluation(jsonObject.getString("ComprehensiveEvaluation"));
-        item.setSuggestion(jsonObject.getString("Suggestion"));
+        item.setLessonIndex(jsonObject.getInt("lesson_index"));
+        item.setUserID(jsonObject.getString("user_id"));
+        item.setUserName(jsonObject.getString("user_name"));
+
+        item.setContentApplicability((float) jsonObject.getDouble("content_applicability"));
+        item.setContentRationality((float) jsonObject.getDouble("content_rationality"));
+        item.setDiscussion((float) jsonObject.getDouble("discussion"));
+        item.setTimeRationality((float) jsonObject.getDouble("time_rationality"));
+        item.setContentUnderstanding((float) jsonObject.getDouble("content_understanding"));
+        item.setExpressionAbility((float) jsonObject.getDouble("expression_ability"));
+        item.setCommunication((float) jsonObject.getDouble("communication"));
+        item.setOrganization((float) jsonObject.getDouble("organization"));
+        item.setComprehensiveEvaluation(jsonObject.getString("comprehensive_evaluation"));
+        item.setSuggestion(jsonObject.getString("suggestion"));
+
+        item.setRecordModifyTime(jsonObject.getLong("record_modify_time"));
 
         return item;
     }

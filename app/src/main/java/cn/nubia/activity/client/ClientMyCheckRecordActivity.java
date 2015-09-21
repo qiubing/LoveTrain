@@ -54,7 +54,7 @@ public class ClientMyCheckRecordActivity extends Activity {
         mListView = (ListView) findViewById(R.id.check_detail);
         //请求参数
         HashMap<String,String> param = new HashMap<String,String>();
-        param.put("user_id", Constant.USER_ID);
+        param.put("user_id", Constant.user.getUserID());
         RequestParams request = Utils.toParams(param);
         String url = Constant.BASE_URL + "user/find_check_record.do";
         AsyncHttpHelper.post(url, request, mCheckRecordHandler);

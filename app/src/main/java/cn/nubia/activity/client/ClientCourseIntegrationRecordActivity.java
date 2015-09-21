@@ -53,7 +53,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
         //请求参数
         HashMap<String,String> params = new HashMap<String,String>();
-        params.put("user_id",Constant.USER_ID);
+        params.put("user_id",Constant.user.getUserID());
         RequestParams request = Utils.toParams(params);
         String url = Constant.BASE_URL + "credit/find_lesson_credits.do";
         AsyncHttpHelper.post(url,request,mClientCourseIntegrationHandler);

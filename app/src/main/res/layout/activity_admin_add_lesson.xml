@@ -52,6 +52,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:text="所属课程"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/add_lesson_CourseName_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true"
+                android:gravity="center_horizontal"
+                android:text="Java"
+                android:textSize="25sp"
+                android:padding="@dimen/dp10"/>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="@string/lessonName"
                 android:textColor="#666666"
                 android:textSize="20sp" />
@@ -60,6 +82,7 @@
                 android:id="@+id/add_lesson_lessonName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -78,6 +101,7 @@
                 android:id="@+id/add_lesson_teacherName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -96,6 +120,7 @@
                 android:id="@+id/add_lesson_lessonDesc_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -114,6 +139,7 @@
                 android:id="@+id/add_lesson_lessonLocation_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -132,6 +158,26 @@
                 android:id="@+id/add_lesson_lessonStartTime_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="结束时间"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/add_lesson_lessonEndTime_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -150,6 +196,7 @@
                 android:id="@+id/add_lesson_teacherGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -168,6 +215,7 @@
                 android:id="@+id/add_lesson_studentGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>

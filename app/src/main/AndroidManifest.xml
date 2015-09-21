@@ -70,7 +70,7 @@
             android:name=".admin.AdminCourseAddTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.AdminExamAddTabActivity"
+            android:name=".ExamAddTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".admin.AdminShareCheckTabActivity"

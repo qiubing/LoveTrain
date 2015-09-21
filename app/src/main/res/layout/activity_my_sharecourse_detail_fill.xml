@@ -12,40 +12,31 @@
         android:background="@color/titlebar_bg">
 
         <ImageView
-            android:id="@+id/back_image"
-            android:layout_width="@dimen/text_size_20"
-            android:layout_height="@dimen/text_size_20"
+            android:id="@+id/manager_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_buttonsize"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9.0dip"
-            android:layout_marginRight="10.0dip"
-            android:background="@null"
-            android:contentDescription="@string/app_name"
-            android:onClick="back"
-            android:src="@drawable/back_button_xml" />
+            android:src="@mipmap/ic_back" />
+
         <TextView
-            android:id="@+id/approved_share_course_title"
-            android:layout_width="match_parent"
+            android:id="@+id/manager_head_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_marginLeft="85.0dip"
-            android:layout_marginRight="85.0dip"
             android:singleLine="true"
+            android:text="@string/activity_my_sharecourse_detail_display_title_textview"
             android:textColor="@color/grayslate"
-            android:textSize="@dimen/text_size_20"
-            android:text="课程信息"/>
+            android:textSize="@dimen/itemname_textsize" />
 
         <Button
             android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
             android:textColor="@color/blue"
             android:gravity="center"
-            android:textSize="@dimen/textSize18"
+            android:textSize="@dimen/itemcontent_textsize"
             android:text="确定" />
 
     </RelativeLayout>
@@ -70,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_coursename_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_coursename_filltextView"
@@ -83,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_courselevel_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <Spinner
                     android:id="@+id/my_sharecourse_detail_fill_courselevel_fillspinner"
@@ -97,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_courselocale_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_courselocale_filltextview"
@@ -110,12 +101,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_coursedate_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_coursedate_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:textSize="@dimen/itemcontent_textsize"
                     android:background="@drawable/editview_selector"/>
             </TableRow>
 
@@ -125,12 +116,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_coursestarttime_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_coursestarttime_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:textSize="@dimen/itemcontent_textsize"
                     android:background="@drawable/editview_selector"/>
             </TableRow>
 
@@ -140,12 +131,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_courseendtime_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <TextView
                     android:id="@+id/my_sharecourse_detail_fill_courseendtime_filltextview"
                     android:clickable="true"
-                    android:textSize="@dimen/jiangyu_itemcontent_textsize"
+                    android:textSize="@dimen/itemcontent_textsize"
                     android:background="@drawable/editview_selector"/>
             </TableRow>
 
@@ -156,12 +147,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity_my_sharecourse_detail_fill_coursedescription_textView"
-                    android:textSize="@dimen/jiangyu_itemname_textsize"/>
+                    android:textSize="@dimen/itemname_textsize"/>
 
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_coursedescription_filltextview"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/jiangyu_itemcontent_bigtextview_height"
+                    android:layout_height="@dimen/itemcontent_bigtextview_height"
                     style="@style/edit_view_input_style"
                     android:layout_below="@id/my_sharecourse_detail_fill_coursedescription_textview"
                     android:layout_margin="5dp"

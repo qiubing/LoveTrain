@@ -144,7 +144,7 @@
                 style="@style/itemcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/jiangyu_item_normallverticalmargin" />
+                android:layout_marginBottom="@dimen/item_normallverticalmargin" />
         </LinearLayout>
 
     </ScrollView>

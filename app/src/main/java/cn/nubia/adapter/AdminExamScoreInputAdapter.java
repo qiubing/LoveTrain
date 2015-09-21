@@ -14,6 +14,7 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamScoreMsg;
+import cn.nubia.service.CommunicateService;
 
 /**
  * Created by JiangYu on 2015/9/19.
@@ -89,6 +90,7 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
                 String input = s.toString().trim();
                 try {
                     mExamScoreList.get(position).setExamScore(Float.parseFloat(input));
+                    mExamScoreList.get(position).setOperateType(CommunicateService.OperateType.INSERT);
                 } catch (Exception e) {
                     e.printStackTrace();
                     mExamScoreList.get(position).setExamScore(-1);

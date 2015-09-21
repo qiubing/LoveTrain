@@ -1,8 +1,5 @@
 package cn.nubia.activity.client;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.nubia.activity.R;
-import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.ShareCourseLevelModel;
+import cn.nubia.entity.ShareCourseMsg;
 
 /**
  * Created by JiangYu on 2015/9/2.
@@ -34,9 +34,9 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
+
         holdView();
         setViewLogic();
-
     }
 
     @Override
@@ -82,6 +82,12 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
             }
         });
 
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientMyShareCourseDetailDisplayActivity.this.finish();
+            }
+        });
     }
 
     private void initViewData() {
@@ -105,7 +111,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     /**
      * 返回箭头绑定事件，即退出该页面
      *
-     * @param view
+     * param view
      */
     public void back(View view) {
         this.finish();

@@ -8,31 +8,20 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.AdminExamScoreInputAdapter;
-import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.ExamMsg;
 import cn.nubia.entity.ExamScoreMsg;
@@ -42,20 +31,16 @@ import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
 
 public class AdminExamInputScoreActivity extends Activity {
-    private ExamItem mExamItem;
+
     private List<ExamScoreMsg> mExamScoreList;
     private int mResultNum = 0;
-    private boolean mNextPress;
+    private boolean mNextPressReady;
 
     private ListView mExamScoreListView;
-    private AdminExamScoreInputAdapter mExamScoreAdapter;
     private Button button;
 
-    private TextView mManagerTitle;
-    private ImageView mGoBack;
-
     private CommunicateService.CommunicateBinder mBinder;
-    private ServiceConnection mConn = new ServiceConnection() {
+    private final ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBinder = (CommunicateService.CommunicateBinder)service;
@@ -68,8 +53,8 @@ public class AdminExamInputScoreActivity extends Activity {
     };
 
     public class Inter implements ActivityInter {
-        public void alter(List<?> list,String URL){
-            AdminExamInputScoreActivity.this.showOperateResult(list,URL);
+        public void handleResponse(Map<String,?> response,String responseURL){
+            AdminExamInputScoreActivity.this.handleResponse(response,responseURL);;
         }
     }
 
@@ -77,18 +62,9 @@ public class AdminExamInputScoreActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_input_score);
-        connectService();
+
         //公共部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.title_activity_manager_score_input);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                disconectService();
-                finish();
-            }
-        });
+        ((TextView) findViewById(R.id.manager_head_title)).setText(R.string.title_activity_manager_score_input);
 
         holdView();
         setViewLogic();
@@ -98,12 +74,16 @@ public class AdminExamInputScoreActivity extends Activity {
     @Override
     public void onStart(){
         super.onStart();
-        mNextPress = true;
+        connectService();
+        mNextPressReady = true;
+
         Intent intent =getIntent();
-        mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
+        ExamItem examItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
+
         final ExamMsg examMsg = new ExamMsg();
-        examMsg.setExamIndex(mExamItem.getIndex());
+        examMsg.setExamIndex(examItem.getIndex());
         examMsg.setOperateType(CommunicateService.OperateType.QUERY);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -112,6 +92,12 @@ public class AdminExamInputScoreActivity extends Activity {
             }
         }).start();
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     private void holdView(){
@@ -123,14 +109,21 @@ public class AdminExamInputScoreActivity extends Activity {
     }
 
     private void setViewLogic(){
+        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( mNextPress ) {
+                if(mNextPressReady) {
                     if (checkData()) {
                         scoreUpload();
+                        mNextPressReady = false;
                     }
-                    mNextPress = false;
                 }
             }
         });
@@ -168,28 +161,52 @@ public class AdminExamInputScoreActivity extends Activity {
         }).start();
     }
 
-    private void showOperateResult(List<?> list,String tagetURL){
-        if(list==null){
+    private void handleResponse(Map<String,?> response,String responseURL){
+        if(response==null){
+            mNextPressReady = true;
             DialogUtil.showDialog(
-                    AdminExamInputScoreActivity.this,"操作失败!",false);
+                    AdminExamInputScoreActivity.this, "操作失败!", true);
         }else{
-            if(tagetURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
-//                mExamScoreList = (List<ExamScoreMsg>) list;
-                mExamScoreList = new ArrayList<ExamScoreMsg>();
-                for(int i =0;i<10;i++){
-                    ExamScoreMsg msg = new ExamScoreMsg();
-                    msg.setUserID(String.valueOf(i));
-                    msg.setUserName("name"+String.valueOf(i));
-                    mExamScoreList.add(msg);
-                }
-                mExamScoreAdapter = new AdminExamScoreInputAdapter(this,mExamScoreList);
-                mExamScoreListView.setAdapter(mExamScoreAdapter);
-            }else if(tagetURL.equals(URLMap.URL_ADD_EXAMSCORE)){
-                mResultNum++;
-                if(mResultNum == mExamScoreList.size()) {
+            if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
+                mNextPressReady = true;
+                String operateResult = (String)response.get("operateResult");
+                if(operateResult.equals("success")) {
+//                    mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
+
+                    mExamScoreList = new ArrayList<ExamScoreMsg>();
+                    for(int i =0;i<5;i++){
+                        ExamScoreMsg msg = new ExamScoreMsg();
+                        msg.setUserID(String.valueOf(i));
+                        msg.setUserName("name" + String.valueOf(i));
+                        mExamScoreList.add(msg);
+                    }
+
+                    AdminExamScoreInputAdapter mExamScoreAdapter =
+                            new AdminExamScoreInputAdapter(this,mExamScoreList);
+                    mExamScoreListView.setAdapter(mExamScoreAdapter);
+                }else if(operateResult.equals("failure")) {
+                    String message = (String) response.get("message");
                     DialogUtil.showDialog(
-                            AdminExamInputScoreActivity.this, "操作成功!", false);
-                    mNextPress = true;
+                            AdminExamInputScoreActivity.this, "获取考试报名名单失败：\n" +
+                                    message, true);
+                }
+            }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
+                mResultNum++;
+                String operateResult = (String)response.get("operateResult");
+
+                if(operateResult.equals("success")) {
+                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩添加成功：\n"
+                            ,Toast.LENGTH_SHORT);
+                  }else if(operateResult.equals("failure")) {
+                    String message = (String) response.get("message");
+                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩添加失败：\n" +
+                            message, Toast.LENGTH_SHORT);
+                }
+
+                if(mResultNum == mExamScoreList.size()) {
+                    mNextPressReady = true;
+                    DialogUtil.showDialog(
+                            AdminExamInputScoreActivity.this, "操作完成!", true);
                 }
             }
         }

@@ -21,15 +21,14 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
+import cn.nubia.db.DbUtil;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
-import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.
@@ -45,8 +44,6 @@ public class AdminCourseAddTabActivity extends Activity {
     private List<CourseItem> mCourseItemList;
 
     private String url = Constant.BASE_URL + "course/get_courses_lessons.do";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +122,8 @@ public class AdminCourseAddTabActivity extends Activity {
         getClassParam.put("course_record_modify_time", "1245545456456");
         getClassParam.put("lesson_index", "1");
         getClassParam.put("lesson_record_modify_time", "1245545456456");
-        RequestParams requestParams = Utils.toParams(getClassParam);
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+
         Log.e("requestParams", requestParams.toString());
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
@@ -135,10 +133,9 @@ public class AdminCourseAddTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("TEST statusCode", "" + statusCode);
-                Log.e("TEST code",""+response.getInt("code"));
+                Log.e("HeXiaoServer",""+response.toString());
                 if(response.getInt("code") != 0){
-                    Log.e("TEST code2",""+response.getInt("code"));
+
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }
@@ -200,6 +197,9 @@ public class AdminCourseAddTabActivity extends Activity {
         protected void onPostExecute(List<CourseItem> courseList) {
             if(courseList != null){
                 mCourseItemList.addAll(courseList);
+            }
+            for(int i=0;i<mCourseItemList.size();i++) {
+                Log.e("HeXiaoType", mCourseItemList.get(i).getType());
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
