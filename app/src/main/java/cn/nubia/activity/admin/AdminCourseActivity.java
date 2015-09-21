@@ -32,21 +32,18 @@ import cn.nubia.activity.R;
  * Created by 胡立 on 2015/9/6.
  */
 public class AdminCourseActivity extends ActivityGroup {
-    private List<View> listViews;
     private LocalActivityManager manager;
-    private TabHost tabHost;
-    private ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
-        pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
+        ViewPager pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
 
 
         // 定放一个放view的list，用于存放viewPager用到的view
-        listViews = new ArrayList<View>();
+        List<View> listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
@@ -54,7 +51,7 @@ public class AdminCourseActivity extends ActivityGroup {
         Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
         listViews.add(getView("A", i3));
 
-        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        TabHost tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(

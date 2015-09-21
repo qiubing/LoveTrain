@@ -17,30 +17,24 @@ import cn.nubia.adapter.SignInExamPersonInfoAdapter;
  */
 public class AdminSignInExamPersonInfoActivity extends Activity implements View.OnClickListener{
 
-    private ImageView backImageView;
-
-    private ListView listView;
-
     ArrayList<String> listData;
-
-    private SignInExamPersonInfoAdapter mSignInExamPersonInfoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_signin_exam_person_info);
 
-        backImageView=(ImageView)findViewById(R.id.admin_signIn_info_back);
+        ImageView backImageView = (ImageView) findViewById(R.id.admin_signIn_info_back);
         backImageView.setOnClickListener(this);
 
         /**获取模拟数据**/
         listData=getData();
 
         /**要填充数据的ListView**/
-        listView=(ListView)findViewById(R.id.admin_signIn_info_listView);
+        ListView listView = (ListView) findViewById(R.id.admin_signIn_info_listView);
 
         /**这里传this参数是否正确?正确**/
-        mSignInExamPersonInfoAdapter=new SignInExamPersonInfoAdapter(listData,this);
+        SignInExamPersonInfoAdapter mSignInExamPersonInfoAdapter = new SignInExamPersonInfoAdapter(listData, this);
         /**设置填充ListView的Adapter**/
         listView.setAdapter(mSignInExamPersonInfoAdapter);
 

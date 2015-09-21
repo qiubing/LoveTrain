@@ -3,9 +3,9 @@ package cn.nubia.entity;
 import java.io.Serializable;
 
 /**
- * @Description: 技术分享课程，包含讲师姓名和工号
- * @Author: qiubing
- * @Date: 2015/9/15 19:01
+ * Description: 技术分享课程，包含讲师姓名和工号
+ * Author: qiubing
+ * Date: 2015/9/15 19:01
  */
 public class TechnologyShareCourseItem implements Serializable{
     private int mCourseIndex;

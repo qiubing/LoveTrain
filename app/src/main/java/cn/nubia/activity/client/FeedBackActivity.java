@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/11 15:58
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/11 15:58
  */
 public class FeedBackActivity extends Activity {
     private EditText mContent;
@@ -35,6 +37,9 @@ public class FeedBackActivity extends Activity {
     }
 
     private void initViews(){
+        RelativeLayout linear = (RelativeLayout) findViewById(R.id.feedback_title);
+        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
+        text.setText("意见反馈");
         mContent = (EditText) findViewById(R.id.feedback_content);
         mEmail = (EditText) findViewById(R.id.feedback_email);
         mSubmit = (Button) findViewById(R.id.btn_submit);

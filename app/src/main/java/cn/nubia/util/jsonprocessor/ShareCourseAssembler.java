@@ -10,9 +10,9 @@ import java.util.List;
 import cn.nubia.entity.ShareCourseMsg;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 17:03
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 17:03
  */
 public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseMsg> {
     @Override
@@ -30,7 +30,7 @@ public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseMsg> 
         }
         return mCourseList;
     }
-    public ShareCourseMsg makeShareCourse(JSONObject jsonObject) throws JSONException {
+    private ShareCourseMsg makeShareCourse(JSONObject jsonObject) throws JSONException {
         ShareCourseMsg course = new ShareCourseMsg();
         course.setCourseName(jsonObject.getString("course_name"));
         course.setCourseIndex(jsonObject.getInt("course_index"));

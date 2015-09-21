@@ -7,10 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-import java.util.TreeMap;
-
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamItem;
 

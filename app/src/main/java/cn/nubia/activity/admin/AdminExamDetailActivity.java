@@ -75,9 +75,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private TextView mCourseName;
     private TextView mExamIntroduction;
     private TextView mExamInfo;
-    private ExamItem mExamItem;
     private ExamItem mExamItemExamEdit;
-    private TextView mManagerTitle;
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
@@ -90,7 +88,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_detail);
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
+        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
 
         holdView();
@@ -123,7 +121,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();
-                mExamItem = new ExamItem();
+                ExamItem mExamItem = new ExamItem();
                 mExamItem.setIndex(1);
                 bundle.putSerializable("ExamInfo", mExamItem);
                 intent.putExtras(bundle);

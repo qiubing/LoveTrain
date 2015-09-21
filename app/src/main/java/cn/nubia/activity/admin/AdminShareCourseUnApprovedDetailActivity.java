@@ -24,9 +24,9 @@ import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/10 14:43
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/10 14:43
  */
 public class AdminShareCourseUnApprovedDetailActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "UnApproved";
@@ -48,11 +48,6 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         initViews();
         initEvents();
         logicProcess();
-
-        Intent intent = getIntent();
-        intent.putExtra("result", 12233);
-        AdminShareCourseUnApprovedDetailActivity.this.setResult(2, intent);
-        finish();
     }
 
     private void initViews() {
@@ -99,44 +94,27 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
             case R.id.btn_pass:
                 //TODO:审核通过
                 //准备请求参数，传递给服务器
-                RequestParams params = new RequestParams();
-                //Log.e(TAG,"" + Constant.USER_ID);
+                RequestParams params = new RequestParams(Constant.getRequestParams());
                 params.put("course_index", mUnApprovedCourseItem.getmCourseIndex());
-                params.put("device_id","87654321");
-                params.put("request_time", "1444444444444");
-                params.put("apk_version", "1.0");
-                params.put("token_key", "123456789");
-
                 String url = Constant.BASE_URL + "share/apply_to_going.do";
                 AsyncHttpHelper.post(url, params, mApprovedHandler);
                 break;
             case R.id.btn_reject:
                 //TODO:否决
                 //准备请求参数，传递给服务器
-                RequestParams params2 = new RequestParams();
-                params2.put("course_index",mUnApprovedCourseItem.getmCourseIndex());
-                params2.put("device_id","87654321");
-                params2.put("request_time","1444444444444");
-                params2.put("apk_version","1.0");
-                params2.put("token_key", "123456789");
-
+                RequestParams params2 = new RequestParams(Constant.getRequestParams());
+                params2.put("course_index", mUnApprovedCourseItem.getmCourseIndex());
                 String url2 = Constant.BASE_URL + "share/apply_to_bad.do";
                 AsyncHttpHelper.post(url2, params2, mRejectHandler);
                 break;
         }
     }
 
-    MyJsonHttpResponseHandler mApprovedHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mApprovedHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             Log.e(TAG, "onSuccess: " + response.toString());
             if (response.getBoolean("data")){
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("result", mUnApprovedCourseItem);
-                Intent intent = getIntent();
-                intent.putExtras(bundle);
-                AdminShareCourseUnApprovedDetailActivity.this.setResult(1, intent);
-
                 Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
                         "审核通过",Toast.LENGTH_LONG).show();
                 AdminShareCourseUnApprovedDetailActivity.this.finish();
@@ -152,7 +130,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     };
 
-    MyJsonHttpResponseHandler mRejectHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mRejectHandler = new MyJsonHttpResponseHandler(){
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
@@ -173,13 +151,10 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     };
 
-
-
-
     /**
      * 返回箭头绑定事件，即退出该页面
      *
-     * @param view
+     * param view
      */
     public void back(View view) {
         this.finish();

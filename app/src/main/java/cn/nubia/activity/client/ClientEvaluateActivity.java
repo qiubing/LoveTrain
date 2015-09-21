@@ -40,7 +40,6 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 public class ClientEvaluateActivity  extends Activity {
 
     private ExpandableListView mExpandableListView;
-    private TextView barTxt;
     private static final String URL = Constant.BASE_URL + "/my/find_lesson_judge.do";
     private List<LessonJudgementMsg> mList = new ArrayList<>();
     EvaluateAdapter mEvaluateAdapter;
@@ -81,7 +80,7 @@ public class ClientEvaluateActivity  extends Activity {
 
         //mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
-        barTxt = (TextView) findViewById(R.id.sub_page_title);
+        TextView barTxt = (TextView) findViewById(R.id.sub_page_title);
         barTxt.setText("我的课程评价");
 
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();

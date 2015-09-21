@@ -12,13 +12,13 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.ExamResultItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 14:53
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 14:53
  */
 public class ClientExamScoreAdapter extends BaseAdapter{
-    private List<ExamResultItem> mResultList;
-    private Context mContext;
+    private final List<ExamResultItem> mResultList;
+    private final Context mContext;
     public ClientExamScoreAdapter(List<ExamResultItem> resultList,Context context){
         this.mResultList = resultList;
         this.mContext = context;

@@ -375,11 +375,11 @@ public class PromptDialog extends Dialog {
             btnLeft = (TextView) mView.findViewById(R.id.button_left);
             btnCenter = (TextView) mView.findViewById(R.id.button_center);
             btnRight = (TextView) mView.findViewById(R.id.button_right);
-            btnDivider1 = (View) mView.findViewById(R.id.btn_divider1);
-            btnDivider2 = (View) mView.findViewById(R.id.btn_divider2);
-            msgBtnDivider = (View) mView.findViewById(R.id.msg_btn_divider);
+            btnDivider1 = mView.findViewById(R.id.btn_divider1);
+            btnDivider2 = mView.findViewById(R.id.btn_divider2);
+            msgBtnDivider = mView.findViewById(R.id.msg_btn_divider);
             btnView = (LinearLayout) mView.findViewById(R.id.btn_view);
-            title_msg_divider2 = (View) mView
+            title_msg_divider2 = mView
                     .findViewById(R.id.title_msg_divider2);
             if ((title != null) || (icon != null)) {
                 mTitle.setVisibility(View.VISIBLE);

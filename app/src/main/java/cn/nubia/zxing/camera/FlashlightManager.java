@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java</a>.
  * Thanks to Ryan Alford for pointing out the availability of this class.
  */
-public final class FlashlightManager {
+final class FlashlightManager {
 
     private static final String TAG = FlashlightManager.class.getSimpleName();
 

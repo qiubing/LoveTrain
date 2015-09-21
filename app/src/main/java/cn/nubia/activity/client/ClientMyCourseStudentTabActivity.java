@@ -44,7 +44,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
     /**用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "share/add_share_course.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +126,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
         Log.e("requestParams", requestParams.toString());
+        String classUrl = Constant.BASE_URL + "share/add_share_course.do";
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 

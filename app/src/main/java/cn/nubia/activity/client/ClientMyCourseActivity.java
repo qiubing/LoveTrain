@@ -24,7 +24,6 @@ import cn.nubia.activity.R;
  */
 @SuppressWarnings("deprecation")
 public class ClientMyCourseActivity extends ActivityGroup {
-    private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
     private ViewPager pager;
@@ -36,7 +35,7 @@ public class ClientMyCourseActivity extends ActivityGroup {
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
-        listViews = new ArrayList<View>();
+        List<View> listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 

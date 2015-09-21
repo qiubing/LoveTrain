@@ -81,6 +81,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
+        connectService();
 
         holdView();
         setViewLogic();
@@ -391,4 +392,15 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             }
         }
     }
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     *
+     * param view
+     */
+    public void back(View view) {
+        disconectService();
+        this.finish();
+    }
+
 }
