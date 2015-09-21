@@ -136,7 +136,7 @@
     <string name="courseDeleteBtn">删除课程</string>
 
     <!--管理员增加课程Activity-->
-    <string name="highLevelCoursePoints">高级课程积分</string>
+    <string name="coursePoints">课程积分</string>
     <string name="addCourseForSure">确认新增</string>
 
     <!--管理员修改课程Activity-->

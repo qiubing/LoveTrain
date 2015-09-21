@@ -30,10 +30,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
 
     private CourseItem courseItem;
-//    private TextView mCourseLevel;
-//    private TextView mTeacher;
-//    private TextView mCourseType;
-//    private TextView mWhetherExam;
+    private LessonItem lessonItem;
+
 
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
         this.mGroupList = mCourseList;
@@ -85,13 +83,17 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         childViewHolder.mLessonDetailTextView.setText(
                 mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()
         );
+
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
+
+
+
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
                 Toast.makeText(mContext, "XXXXXXXXXXXXX", Toast.LENGTH_LONG).show();
