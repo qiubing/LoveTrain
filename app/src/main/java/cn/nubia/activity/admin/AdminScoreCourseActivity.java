@@ -27,7 +27,7 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.Course;
+import cn.nubia.model.Course;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -38,7 +38,6 @@ public class AdminScoreCourseActivity extends Activity {
     private TextView mNoRecord;
 
     private void init() {
-        //TODO
         list = new ArrayList<>();
         String url = Constant.BASE_URL + "user/find_course.do";
 

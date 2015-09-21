@@ -21,6 +21,7 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreActivity extends ActivityGroup {
 
     List<View> mListViews;

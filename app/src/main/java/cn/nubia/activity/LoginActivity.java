@@ -19,9 +19,8 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import cn.nubia.activity.admin.AdminMainActivity;
-import cn.nubia.activity.admin.ProcessSPData;
+import cn.nubia.util.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
-import cn.nubia.component.CustomProgressDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.UserInfo;
 import cn.nubia.util.AsyncHttpHelper;
@@ -43,8 +42,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private TextView mTitleTV;
     private Spinner mSexSpinner;
     private Spinner mIsManagerSpinner;
-    CustomProgressDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +85,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+//        CustomProgressDialog dialog;
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
                     if (validateLogin()) {
-                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
+//                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
                     }
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
-                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
+//                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
                         regist();
                     }
                 }
@@ -238,7 +236,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         params.put("user_id", userID);
         params.put("user_name", userName);
-//        params.put("password", Md5Encryption.getMD5(pwd));
         params.put("password", (pwd));
         if (sex.equals("男")) {
             params.put("gender", "1");
@@ -311,7 +308,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String url = Constant.BASE_URL + "ucent/admin_register.do";
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
 
-            @Override
+            @ Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 afterProcess("注册");
                 try {
@@ -338,7 +335,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             }
 
-            @Override
+            @ Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 afterProcess("登录");
                 DialogUtil.showToast(LoginActivity.this, "连接服务器发生异常！");
@@ -362,7 +359,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateLogin() {
+    private boolean validateLogin() {
         String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");
@@ -377,7 +374,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateRegist() {
+    private boolean validateRegist() {
         String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");

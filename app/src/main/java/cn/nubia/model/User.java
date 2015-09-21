@@ -1,4 +1,4 @@
-package cn.nubia.model.admin;
+package cn.nubia.model;
 
 import com.google.gson.annotations.SerializedName;
 

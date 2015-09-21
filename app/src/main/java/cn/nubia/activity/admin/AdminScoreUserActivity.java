@@ -27,11 +27,12 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.User;
+import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreUserActivity extends Activity {
 
     private List<User> list;

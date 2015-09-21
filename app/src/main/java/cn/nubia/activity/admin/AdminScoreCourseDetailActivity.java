@@ -26,11 +26,12 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.model.admin.ExamUser;
+import cn.nubia.model.ExamUser;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
 import cn.nubia.util.HandleResponse;
 
+@SuppressWarnings("deprecation")
 public class AdminScoreCourseDetailActivity extends Activity {
 
 

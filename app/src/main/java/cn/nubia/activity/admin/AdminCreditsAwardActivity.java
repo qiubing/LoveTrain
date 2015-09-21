@@ -37,7 +37,6 @@ public class AdminCreditsAwardActivity extends Activity {
     private EditText mAwardCredits;
     private EditText mAwardCause;
 
-    private TextView mManagerTitle;
     private ImageView mGoBack;
 
     private CommunicateService.CommunicateBinder mBinder;
@@ -64,6 +63,8 @@ public class AdminCreditsAwardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_credits_award);
         connectService();
+
+        TextView mManagerTitle;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_manager_award_title);

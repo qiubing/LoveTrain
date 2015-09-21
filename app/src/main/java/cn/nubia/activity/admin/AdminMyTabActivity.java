@@ -19,11 +19,13 @@ import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.Logger;
+import cn.nubia.util.ProcessSPData;
 import cn.nubia.util.Utils;
 
 /**
  * 管理员-我的-主界面
  */
+@SuppressWarnings("deprecation")
 public class AdminMyTabActivity extends Activity implements View.OnClickListener {
     private static final int GET_PHOTO_CODE_ADMIN = 1010;
 
