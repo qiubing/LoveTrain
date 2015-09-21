@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +36,7 @@ import cn.nubia.util.TestData;
 public class AdminScoreUserActivity extends Activity {
 
     private List<User> list;
+    private TextView mNoRecord;
 
     MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
@@ -86,10 +88,18 @@ public class AdminScoreUserActivity extends Activity {
                 item.put("id", list.get(i).getUserID());
                 listItems.add(item);
             }
+            ListView listView = (ListView) findViewById(R.id.score_user_list);
+            if (list.size() == 0) {
+                mNoRecord.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                return;
+            }
+            mNoRecord.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_user_item,
                     new String[]{"name", "id"},
                     new int[]{R.id.score_user_name, R.id.score_user_id});
-            ListView listView = (ListView) findViewById(R.id.score_user_list);
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -103,7 +113,7 @@ public class AdminScoreUserActivity extends Activity {
                 }
             });
         } else {
-            HandleResponse.excute(AdminScoreUserActivity.this, code,response.getString("message"));
+            HandleResponse.excute(AdminScoreUserActivity.this, code, response.getString("message"));
         }
     }
 
@@ -112,7 +122,7 @@ public class AdminScoreUserActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_score_user);
-
+        mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
 
     }
