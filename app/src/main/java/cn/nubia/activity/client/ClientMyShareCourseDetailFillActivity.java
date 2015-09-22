@@ -19,7 +19,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -52,6 +51,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private EditText mCourseDescription;
     private Button mConfirmButton;
     private Spinner mShareTypeSpinner;
+    private CourseLevelSpinnerAdapter mShareTypeAdpter;
     private ScrollView mContentScrollView;
 
     private boolean mNextPressReady;
@@ -180,8 +180,8 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         /**设置显示分享课程级别的下拉列表框*/
         mShareTypeSpinner = (Spinner) findViewById(R.id
                 .my_sharecourse_detail_fill_courselevel_fillspinner);
-        SpinnerAdapter spinnerAdapter = new CourseLevelSpinnerAdapter(this);
-        mShareTypeSpinner.setAdapter(spinnerAdapter);
+        mShareTypeAdpter = new CourseLevelSpinnerAdapter(this);
+        mShareTypeSpinner.setAdapter(mShareTypeAdpter);
         mLessonLocation = (EditText) findViewById(R.id
                 .my_sharecourse_detail_fill_courselocale_filltextview);
         mCourseDate =(TextView) findViewById(R.id
@@ -277,6 +277,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                             shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
                             shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
                             shareCourse.setUserName(mShareCourseMsg.getUserName());
+                            Log.e("jiangyu", shareCourse.toParams().toString());
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
                         }
                         mNextPressReady =false;
@@ -297,7 +298,11 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
 
             mCourseName.setText(mShareCourseMsg.getCourseName());
-            mShareTypeSpinner.setSelection(mShareCourseMsg.getCourseLevel());
+            int position = mShareTypeAdpter.getPositionOfTarget((short) mShareCourseMsg.getCourseLevel());
+            if(position!=-1) {
+                Log.e("jiangyu",String.valueOf(position));
+                mShareTypeSpinner.setSelection(position);
+            }
             mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
             Date startTime = new Date();
             startTime.setTime(mShareCourseMsg.getStartTime());

@@ -64,7 +64,7 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
         return item;
     }
 
-    private  LessonItem makeLesson(JSONObject jsonObject) throws JSONException {
+    private LessonItem makeLesson(JSONObject jsonObject) throws JSONException {
         LessonItem item = new LessonItem();
 
         item.setType(jsonObject.getString("type")) ;

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.nubia.activity.R;
 
@@ -18,9 +18,9 @@ import cn.nubia.activity.R;
 public class SignInExamPersonInfoAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mList;
+    private List<Map.Entry<String,String>> mList;
 
-    public SignInExamPersonInfoAdapter(List<String> list, Context ctx) {
+    public SignInExamPersonInfoAdapter(List<Map.Entry<String,String>> list, Context ctx) {
         mContext = ctx;
         mList = list;
     }
@@ -45,22 +45,21 @@ public class SignInExamPersonInfoAdapter extends BaseAdapter {
         ViewHolder mViewHolder;
         if (convertView == null) {
             mViewHolder = new ViewHolder();
-            convertView = View.inflate(mContext, R.layout.activity_admin_person_info_item, null);
-            mViewHolder.mImage = (ImageView) convertView.findViewById(R.id.admin_personInfo_headViewImage);
-            mViewHolder.mNameStudentNo = (TextView) convertView.findViewById(R.id.admin_personInfo_contentTextView);
+            convertView = View.inflate(mContext, R.layout.score_course_item, null);
+            mViewHolder.mNameTextView = (TextView) convertView.findViewById(R.id.score_course_coursename);
+            mViewHolder.mIdTextView = (TextView) convertView.findViewById(R.id.score_course_address);
             convertView.setTag(mViewHolder);
-
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        mViewHolder.mNameStudentNo.setText(mList.get(position));
-        mViewHolder.mImage.setImageResource(R.mipmap.ic_launcher);
+        mViewHolder.mNameTextView.setText(mList.get(position).getKey());
+        mViewHolder.mIdTextView.setText(mList.get(position).getValue());
         return convertView;
     }
 
     static class ViewHolder {
-        TextView mNameStudentNo;
-        ImageView mImage;
+        TextView mNameTextView;
+        TextView mIdTextView;
     }
 }

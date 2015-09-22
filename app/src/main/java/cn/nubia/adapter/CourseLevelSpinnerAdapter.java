@@ -35,6 +35,12 @@ public class CourseLevelSpinnerAdapter extends BaseAdapter {
        }
     }
 
+    public int getPositionOfTarget(short targetLevelSign){
+        ShareCourseLevel targetLevel = new ShareCourseLevel(
+                ShareCourseLevelModel.SHARE_COURSE_MODEL.get(targetLevelSign),targetLevelSign);
+        return mList.contains(targetLevel)?mList.lastIndexOf(targetLevel):-1;
+    }
+
     @Override
     public int getCount() {
         return mList.size();
