@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +24,9 @@ import org.json.JSONObject;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -33,30 +38,40 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     private CourseItem mCourseItem;
     private Bundle bundle;
 
-    private AdminCourseDetailActivity adminCourseDetailActivity;
+    private Button signUpAdminBtn;
+    private Button alterCourseBtn;
+    private Button lessonAddBtn;
+    Button courseDeleteBtn;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private GestureDetector gestureDetector;
+    private TextView courseRealNameTextview;
+    private TextView courseRealDescTextview;
+    private TextView courseRealTypeTextView;
+    String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_course_detail);
-        adminCourseDetailActivity = this;
         bundle=new Bundle();
-         TextView courseRealNameTextview;
-         TextView courseRealDescTextview;
-         TextView courseRealTypeTextView;
 
-         Button signUpAdminBtn;
-         Button alterCourseBtn;
-         Button lessonAddBtn;
-         Button courseDeleteBtn;
-         ImageView adminCourseDetailBackImage;
-
-        adminCourseDetailBackImage = (ImageView) findViewById(R.id.admin_course_detail_backImage);
-        /*four button*/
         signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
         alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
         lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
         courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
+        courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
+        courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
+        courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
+        signUpAdminBtn.setOnClickListener(this);
+        alterCourseBtn.setOnClickListener(this);
+        lessonAddBtn.setOnClickListener(this);
+        courseDeleteBtn.setOnClickListener(this);
+
+        loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         if(Constant.IS_ADMIN==false){
             signUpAdminBtn.setVisibility(View.GONE);
@@ -65,36 +80,49 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
             courseDeleteBtn.setVisibility(View.GONE);
         }
 
-        courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
-        courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
-        courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
-
-
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        mTitleText.setText(mCourseItem.getName() + "课程");
+
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());
             courseRealDescTextview.setText(mCourseItem.getDescription());
-            courseRealTypeTextView.setText(mCourseItem.getType());
+            courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
+                    mCourseItem.hasExam() + "\n课程积分：" + mCourseItem.getCourseCredits());
         }
 
-        bundle.putSerializable("CourseItem",mCourseItem);
+        bundle.putSerializable("CourseItem", mCourseItem);
 
-        //set the listening event;
-        adminCourseDetailBackImage.setOnClickListener(this);
-        signUpAdminBtn.setOnClickListener(this);
-        alterCourseBtn.setOnClickListener(this);
-        lessonAddBtn.setOnClickListener(this);
-        courseDeleteBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_course_detail_backImage:
-                finish();
-                break;
             case R.id.signUpAdminBtn:
                 Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);
                 intentSignInManage.putExtras(bundle);
@@ -102,7 +130,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.alterCourseBtn:
                 Intent intentAlterCourse = new Intent(AdminCourseDetailActivity.this, AdminAlterCourseActivity.class);
-                bundle.putSerializable("CourseItem",mCourseItem);
+                bundle.putSerializable("CourseItem", mCourseItem);
                 intentAlterCourse.putExtras(bundle);
                 startActivity(intentAlterCourse);
                 break;
@@ -114,58 +142,64 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
                 startActivity(intentAddLesson);
                 break;
             case R.id.courseDeleteBtn:
-                Dialog alterCourseDialog = new AlertDialog.Builder(adminCourseDetailActivity)
+                final AlertDialog.Builder builderDelete = new AlertDialog.Builder(AdminCourseDetailActivity.this)
+                        //设置对话框标题
                         .setTitle("删除课程")
-                        .setMessage("确定删除？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                /**这里执行删除课程操作*/
-                                deleteCourse();
-                                Intent intentDeleteCourse = new Intent(AdminCourseDetailActivity.this, AdminMainActivity.class);
-                                startActivity(intentDeleteCourse);
-                                Toast.makeText(AdminCourseDetailActivity.this, "删除成功 ", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(AdminCourseDetailActivity.this, "取消", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .create();
-                alterCourseDialog.show();
+                                //设置图标
+                        .setIcon(R.drawable.abc_ic_menu_selectall_mtrl_alpha)
+                        .setMessage("确认要删除《" + mCourseItem.getName() + "》这门课时吗?");
+                builderDelete.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteData();
+                        finish();
+                    }
+                });
+                builderDelete.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builderDelete.create().show();
                 break;
         }
     }
 
-    private void deleteCourse() {
+    private void deleteData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("record_modify_time_course", "1435125456111");
 
-        String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
-        requestParams.add("course_index", mCourseItem.getIndex()+"");
-        Log.i("hexiao1", "参数" + requestParams.toString());
+        requestParams.put("course_index", mCourseItem.getIndex());
+
         AsyncHttpHelper.post(deleteCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("hexiao1", response.toString());
+            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
-
-                if (code == 0 && isOk) {
-                    Log.i("hexiao1", "delete sucess");
-//                    Intent intent=new Intent(AdminCourseDetailActivity.this,AdminMainActivity.class);
-//                    startActivity(intent);
+                //JSONArray jsonArray = response.getJSONArray("data");
+                Log.i("huhu", "addExam" + code + "," + isOk);
+                if( code == 0 && isOk) {
                     Toast.makeText(AdminCourseDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(AdminCourseDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {
-                Toast.makeText(AdminCourseDetailActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
         }
@@ -173,11 +207,11 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.i("hexiao1", "delete failure");
-//            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            Toast.makeText(AdminCourseDetailActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
         }
     };
 
-
+    public void back(View view) {
+        this.finish();
+    }
 }

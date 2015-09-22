@@ -71,7 +71,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 //    private List<String> mList;
 
     private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
-    private String deleteUrl = Constant.BASE_URL + "/course/del_lesson.do";
+    private String deleteUrl = Constant.BASE_URL + "course/del_lesson.do";
 
     private GestureDetector gestureDetector;
     @Override
@@ -106,7 +106,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
 
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText(lessonItem.getName() + "课时");
+        sub_page_title.setText("课时管理");
 
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();

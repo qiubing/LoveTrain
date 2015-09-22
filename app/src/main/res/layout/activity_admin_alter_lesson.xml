@@ -159,7 +159,8 @@
                 android:id="@+id/alter_lesson_lessonLocation_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                />
 
         </TableRow>
 
@@ -177,7 +178,9 @@
                 android:id="@+id/alter_lesson_lessonStartDate_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
         </TableRow>
 
@@ -213,7 +216,9 @@
                 android:id="@+id/alter_lesson_lessonEndTime_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
         </TableRow>
 

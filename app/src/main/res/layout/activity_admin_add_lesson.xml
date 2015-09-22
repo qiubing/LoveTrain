@@ -7,37 +7,28 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
 
-        <ImageView
-            android:id="@+id/admin_add_course_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="10dp"
-            android:src="@mipmap/ic_back" />
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_loading_failed"
+        />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingBottom="3dp"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/addLesson"
-                android:textSize="36sp" />
-
-        </LinearLayout>
-    </RelativeLayout>
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_network_unusable" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -150,16 +141,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="@string/lessonStartTime"
+                android:text="上课日期"
                 android:textColor="#666666"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/add_lesson_lessonStartTime_editText"
+                android:id="@+id/add_lesson_start_data_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:selectAllOnFocus="true" />
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
         </TableRow>
 
@@ -169,7 +161,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="结束时间"
+                android:text="@string/lessonStartTime"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/add_lesson_lessonStartTime_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="下课时间"
                 android:textColor="#666666"
                 android:textSize="20sp" />
 
@@ -178,7 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:selectAllOnFocus="true" />
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
         </TableRow>
 

@@ -82,8 +82,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         lessonTeancherPoint = (EditText) findViewById(R.id.alter_lesson_teacherGetPoints_editText);
         lessonStudentPoint = (EditText) findViewById(R.id.alter_lesson_studentGetPoints_editText);
 
-        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
-        mTitleText.setText("修改课时");
+
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
@@ -97,6 +96,9 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         /**获取并放入LessonItem*/
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
+
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        mTitleText.setText("修改课时");
 
         if (lessonItem != null) {
             lessonName.setText(lessonItem.getName());
@@ -228,7 +230,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 }
                 upData();
                 break;
-            case R.id.activity_manager_add_exam_time_data:
+            case R.id.alter_lesson_lessonStartDate_editText:
+
                 // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
                 new DatePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
@@ -247,7 +250,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                         , c.get(Calendar.DAY_OF_MONTH)).show();
                 break;
 
-            case R.id.activity_manager_add_exam_time_start:
+            case R.id.alter_lesson_lessonStartTime_editText:
                 // 创建一个TimePickerDialog实例，并把它显示出来
                 new TimePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
@@ -265,7 +268,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                         //true表示采用24小时制
                         , true).show();
                 break;
-            case R.id.activity_manager_add_exam_time_end:
+            case R.id.alter_lesson_lessonEndTime_editText:
                 new TimePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
                         new TimePickerDialog.OnTimeSetListener() {
