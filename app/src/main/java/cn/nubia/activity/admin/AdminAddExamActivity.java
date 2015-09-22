@@ -112,7 +112,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
 //        requestParams.add("request_time","1445545456456");
 //        requestParams.add("apk_version","1");
 //        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-//        requestParams.add("record_modify_time_course", "1435125456111");
+        requestParams.add("record_modify_time_course", "1435125456111");
 
 
         requestParams.add("course_index", null);
