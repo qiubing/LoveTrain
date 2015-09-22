@@ -204,12 +204,13 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 builderDelete.create().show();
                 break;
             case R.id.lesson_detail_signIn_textView:
-                Intent intentSignInInfo = new Intent(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
+                Log.e("LK", "Activity" + String.valueOf(Thread.currentThread().getId()));
+                Intent intentSignInInfo = new Intent();
+                intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
                 signUpBundle.putSerializable("LessonItem", lessonItem);
                 intentSignInInfo.putExtras(signUpBundle);
                 startActivity(intentSignInInfo);
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
-
                 break;
 
             case R.id.backupButton:
