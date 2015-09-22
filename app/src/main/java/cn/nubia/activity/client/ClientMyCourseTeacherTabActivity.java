@@ -15,8 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -31,7 +29,7 @@ import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
-import cn.nubia.util.Utils;
+
 
 /**
  * Created by 胡立 on 2015/9/7.
@@ -73,7 +71,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseTeacherTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent());
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent(),Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
@@ -233,9 +231,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private  void getTeacherList(List<CourseItem> mList) {
         ArrayList<CourseItem> resultList = new ArrayList<>();
         if (mList.size() != 0) {
-            Iterator<CourseItem> it = mList.iterator();
-            while (it.hasNext()) {
-                CourseItem courseItem = it.next();
+            for(CourseItem courseItem : mList){
                 List<LessonItem> lessonList = courseItem.getLessonList();
                 for (int i = 0; i < lessonList.size(); i++) {
                     LessonItem lessonItem = lessonList.get(i);
