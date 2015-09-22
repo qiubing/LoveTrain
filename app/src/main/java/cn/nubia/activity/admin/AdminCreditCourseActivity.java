@@ -90,16 +90,16 @@ public class AdminCreditCourseActivity extends Activity {
             }
             mNoRecord.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
-            SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.credit_total_item,
-                    new String[]{"name", "id", "credit"},
-                    new int[]{R.id.credit_total_username, R.id.credit_total_id, R.id.credit_totalcredit});
+            SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.credit_course_item,
+                    new String[]{"name", "credit"},
+                    new int[]{R.id.credit_total_username,  R.id.credit_totalcredit});
 
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    DialogUtil.showDialog(AdminCreditCourseActivity.this, list.get(position).getCourse_name() + "("
-                            + "" + ")的总积分为：" + list.get(position).getCourse_total_credits());
+                    DialogUtil.showDialog(AdminCreditCourseActivity.this, "《"+list.get(position).getCourse_name()
+                            + "》的总积分为：" + list.get(position).getCourse_total_credits());
                 }
             });
         } else {
