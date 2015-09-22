@@ -27,10 +27,9 @@ import cn.nubia.entity.ExamScoreMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
-import cn.nubia.util.DialogUtil;
 
 public class AdminExamInputScoreActivity extends Activity {
-
+    private ExamItem mExamItem;
     private List<ExamScoreMsg> mExamScoreList;
     private int mResultNum = 0;
     private boolean mNextPressReady;
@@ -77,10 +76,10 @@ public class AdminExamInputScoreActivity extends Activity {
         mNextPressReady = true;
 
         Intent intent =getIntent();
-        ExamItem examItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
+        mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
 
         final ExamMsg examMsg = new ExamMsg();
-        examMsg.setExamIndex(examItem.getIndex());
+        examMsg.setExamIndex(mExamItem.getIndex());
         examMsg.setOperateType(CommunicateService.OperateType.QUERY);
 
         new Thread(new Runnable() {
@@ -130,11 +129,21 @@ public class AdminExamInputScoreActivity extends Activity {
 
     private boolean checkData(){
         Boolean checkResult = true;
-        for (ExamScoreMsg msg : mExamScoreList) {
-            if (msg.getExamScore() == -1) {
-                DialogUtil.showToast(AdminExamInputScoreActivity.this, "输入的分数含非数字，请检查后重新输入！");
-                checkResult = false;
-                break;
+        if(mExamScoreList == null||mExamScoreList.size()==0) {
+            Toast.makeText(
+                    AdminExamInputScoreActivity.this,
+                    "考试名单为空！",Toast.LENGTH_SHORT).show();
+            checkResult = false;
+        }else{
+            for (ExamScoreMsg msg : mExamScoreList) {
+                if (msg.getExamScore() == -1) {
+                    Toast.makeText(
+                            AdminExamInputScoreActivity.this,
+                            "输入的分数含非数字，请检查后重新输入！",Toast.LENGTH_SHORT).show();
+                    checkResult = false;
+                    break;
+                } else
+                    msg.setExamIndex(mExamItem.getIndex());
             }
         }
         return checkResult;
@@ -155,59 +164,54 @@ public class AdminExamInputScoreActivity extends Activity {
             @Override
             public void run() {
                 while(mBinder==null){}
-                mBinder.loopCommunicate(mExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
+                mBinder.communicate(mExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
             }
         }).start();
     }
 
     private void handleResponse(Map<String,?> response,String responseURL){
-        if(response==null){
+        if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
             mNextPressReady = true;
-            DialogMaker.make(
-                    AdminExamInputScoreActivity.this, "操作失败!", true).show();
-        }else{
-            if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
-                mNextPressReady = true;
-                String operateResult = (String)response.get("operateResult");
-                if(operateResult.equals("success")) {
+            if(response==null){
+                DialogMaker.make(AdminExamInputScoreActivity.this,
+                        AdminExamInputScoreActivity.this, "连接服务器失败!", true);
+            }else {
+                String operateResult = (String) response.get("operateResult");
+                if (operateResult.equals("success")) {
                     mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
 
-//                    mExamScoreList = new ArrayList<ExamScoreMsg>();
-//                    for(int i =0;i<5;i++){
-//                        ExamScoreMsg msg = new ExamScoreMsg();
-//                        msg.setUserID(String.valueOf(i));
-//                        msg.setUserName("name" + String.valueOf(i));
-//                        mExamScoreList.add(msg);
-//                    }
-                    if(mExamScoreList!=null){
+                    if (mExamScoreList != null) {
                         AdminExamScoreInputAdapter mExamScoreAdapter =
-                                new AdminExamScoreInputAdapter(this,mExamScoreList);
+                                new AdminExamScoreInputAdapter(this, mExamScoreList);
                         mExamScoreListView.setAdapter(mExamScoreAdapter);
                     }
+                } else if (operateResult.equals("failure")) {
+                    String message = (String) response.get("message");
+                    DialogMaker.make(AdminExamInputScoreActivity.this,
+                            AdminExamInputScoreActivity.this, "获取考试报名名单失败：\n" +
+                                    message, true);
+                }
+            }
+        }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
+            mResultNum++;
+            if(response==null){
+                Toast.makeText(
+                         AdminExamInputScoreActivity.this, "一个成绩录入未响应!", Toast.LENGTH_SHORT).show();
+            }else{
+                String operateResult = (String)response.get("operateResult");
+                if(operateResult.equals("success")) {
+                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩录入成功！"
+                            ,Toast.LENGTH_SHORT).show();
                 }else if(operateResult.equals("failure")) {
                     String message = (String) response.get("message");
-                    DialogMaker.make(
-                            AdminExamInputScoreActivity.this, "获取考试报名名单失败：\n" +
-                                    message, true).show();
+                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩录入失败：\n" +
+                            message, Toast.LENGTH_SHORT).show();
                 }
-            }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
-                mResultNum++;
-                String operateResult = (String)response.get("operateResult");
-
-                if(operateResult.equals("success")) {
-                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩添加成功：\n"
-                            ,Toast.LENGTH_SHORT);
-                  }else if(operateResult.equals("failure")) {
-                    String message = (String) response.get("message");
-                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩添加失败：\n" +
-                            message, Toast.LENGTH_SHORT);
-                }
-
-                if(mResultNum == mExamScoreList.size()) {
-                    mNextPressReady = true;
-                    DialogMaker.make(
-                           AdminExamInputScoreActivity.this, "操作完成!", true).show();
-                }
+            }
+            if(mResultNum == mExamScoreList.size()) {
+                mNextPressReady = true;
+                 DialogMaker.make(AdminExamInputScoreActivity.this,
+                         AdminExamInputScoreActivity.this, "考试成绩录入完成!", true);
             }
         }
     }

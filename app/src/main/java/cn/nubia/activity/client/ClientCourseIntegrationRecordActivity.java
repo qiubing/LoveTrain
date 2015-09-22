@@ -55,7 +55,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         AsyncHttpHelper.post(url, params, mClientCourseIntegrationHandler);
     }
 
-    private MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

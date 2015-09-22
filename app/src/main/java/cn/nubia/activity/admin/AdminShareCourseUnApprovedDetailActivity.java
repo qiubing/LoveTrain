@@ -115,7 +115,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     }
 
-    private MyJsonHttpResponseHandler mApprovedHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler mApprovedHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             Log.e(TAG, "onSuccess: " + response.toString());
@@ -135,7 +135,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     };
 
-    private MyJsonHttpResponseHandler mRejectHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler mRejectHandler = new MyJsonHttpResponseHandler(){
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {

@@ -110,6 +110,7 @@
     <string name="activity_manager_exam_editbtn">修改考试</string>
     <string name="activity_manager_exam_name">考试名称</string>
     <string name="activity_manager_exam_deletebtn">删除考试</string>
+    <string name="activity_manager_exam_enrollbtn">报名考试</string>
     、<string name="activity_manager_exam_introduction">考试简介</string>
     <string name="activity_manager_exam_info">考试信息</string>
     <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>

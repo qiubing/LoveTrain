@@ -20,11 +20,7 @@ public class ExamEnrollAssembler implements IAssemblerGenerics<ExamScoreMsg> {
             List<ExamScoreMsg> itemList = new ArrayList<ExamScoreMsg>();
             for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
-                String objectType = jsonObject.getString("type");
-                switch (objectType) {
-                    case "exam_enroll":
-                        itemList.add(makeExamScoreMsg(jsonObject.getJSONObject("detail")));
-                }
+                itemList.add(makeExamScoreMsg(jsonObject.getJSONObject("detail")));
             }
             return itemList;
         } catch (JSONException e) {
