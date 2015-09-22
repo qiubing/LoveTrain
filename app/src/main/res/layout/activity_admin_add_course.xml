@@ -149,6 +149,26 @@
         <TableRow android:paddingTop="20sp">
 
             <TextView
+                android:id="@+id/add_course_highLevelCoursePoints_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="高级课程报名扣除积分"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/add_course_highLevelCoursePoints_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true"
+                android:inputType="number"/>
+
+        </TableRow>
+
+        <TableRow android:paddingTop="20sp">
+
+            <TextView
                 android:id="@+id/add_course_CoursePoints_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

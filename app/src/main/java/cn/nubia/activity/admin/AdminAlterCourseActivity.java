@@ -212,6 +212,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
          * 技术分享，type为2；
          * 高级课程，type为3；*/
         String typeStr=courseTypeSpinner.getSelectedItem().toString();
+        requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
 
         String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
         requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
