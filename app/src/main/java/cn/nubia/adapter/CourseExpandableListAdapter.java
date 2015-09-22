@@ -92,10 +92,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                         " ~ " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getEndTime())
         );
 
-        /**是否为管理员
-         * 如果为管理员，则隐藏评价按钮
+        /**是否为管理员或者老师
+         * 如果为管理员或者老师，则隐藏评价按钮
          * */
-        if (Constant.IS_ADMIN){
+        if (Constant.IS_ADMIN || isTeacher(groupPosition)){
             TextView evaluate = (TextView) convertView.findViewById(R.id.evaluateBtn);
             evaluate.setVisibility(View.GONE);
         }
