@@ -95,7 +95,7 @@ public class GuideActivity extends Activity {
 	}
 
 
-	final PagerAdapter pagerAdapter = new PagerAdapter() {
+	private final PagerAdapter pagerAdapter = new PagerAdapter() {
 
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {

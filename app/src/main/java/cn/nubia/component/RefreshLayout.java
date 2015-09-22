@@ -140,7 +140,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         private boolean isLoading = false;
         // 均匀旋转动画
         private RotateAnimation refreshingAnimation;
-        View loadingView;
+        private View loadingView;
         /**
          * param context
          */
@@ -361,12 +361,12 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
     }
 
-    public void hiddenListViewHeader() {
+    private void hiddenListViewHeader() {
         showNetworkFailedHeader(false);
         showLoadingFailedHeader(false);
     }
 
-        public void showNetworkFailedHeader(boolean loading) {
+    private  void showNetworkFailedHeader(boolean loading) {
             if(mListView == null)
                 return;
             if (loading) {
@@ -378,7 +378,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
             }
         }
 
-        public void showNetworkFailedFooter(boolean loading) {
+    private  void showNetworkFailedFooter(boolean loading) {
             if (loading && mListView.getAdapter().getCount()>10) {
                 mListView.removeFooterView(mLoadingFailedView);
                 if(mListView.getFooterViewsCount() == 0)
@@ -386,9 +386,9 @@ public class RefreshLayout extends SwipeRefreshLayout implements
             } else {
                 mListView.removeFooterView(mNetworkUnusableView);
             }
-        } 
+        }
 
-        public void showLoadingFailedHeader(boolean loading) {
+    private  void showLoadingFailedHeader(boolean loading) {
             if(mListView == null)
                 return;
             if (loading) {
@@ -400,7 +400,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
             }
         }
 
-        public void showLoadingFailedFooter(boolean loading) {
+    private  void showLoadingFailedFooter(boolean loading) {
             if (loading  && mListView.getAdapter().getCount() > 10) {
                 mListView.removeFooterView(mNetworkUnusableView);
                 if(mListView.getFooterViewsCount() == 0)

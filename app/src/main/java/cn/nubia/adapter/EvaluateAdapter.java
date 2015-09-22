@@ -1,7 +1,6 @@
 package cn.nubia.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -23,12 +22,9 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
 
     private List<LessonJudgementMsg> mList = new ArrayList<>();;
     private Context mContext;
-    public LayoutInflater inflater;
 
     public EvaluateAdapter(Context context){
         this.mContext = context;
-        inflater = LayoutInflater.from(mContext);
-
     }
 
     public void updateData(List<LessonJudgementMsg> newData) {

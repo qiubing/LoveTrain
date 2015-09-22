@@ -45,40 +45,38 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
-    private ImageView backImageView;
-    private Button alterLessonBtn;
-    private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
-    private TextView mGenerateQRCode;
-    private Button mEvaluateTextView;
     private String status = "teacher";
-    private TextView sub_page_title;
 
-    private TextView lessonNameTextView;
-    private TextView lessDescTextView;
-    private TextView lessonInfoTextView;
-    private TextView signInPopulationTextView;
 
     /**从前一个页面传过来的LessonItem对象*/
     private LessonItem lessonItem;
-    private Bundle bundle;
+
     private Bundle signUpBundle;
-    private SignUpData mSignUpData;
 
     /**保存签到人员信息*/
 //    private List<String> mList;
 
-    private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
+
 
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
-        bundle=new Bundle();
         signUpBundle=new Bundle();
 
         /**获取控件**/
+        ImageView backImageView;
+        Button alterLessonBtn;
+        Button deleteLessonBtn;
+        TextView mGenerateQRCode;
+        Button mEvaluateTextView;
+        TextView sub_page_title;
+
+        TextView lessonNameTextView;
+        TextView lessDescTextView;
+        TextView lessonInfoTextView;
         backImageView = (ImageView) findViewById(R.id.backButton);
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
@@ -91,14 +89,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
         lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
         lessonInfoTextView=(TextView)findViewById(R.id.lesson_detail_lessonInfo_textView);
-        signInPopulationTextView=(TextView)findViewById(R.id.lesson_detail_signIn_textView);
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         /**此处的lessonItem会不会是null*/
         lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
         Log.e("HEXIAOAAAA",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
-        Log.e("HEXIAOAAAA",lessonItem.getLessonName()+"+LessonIndex+InOnCreate");
 
         if(lessonItem!=null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
@@ -263,7 +259,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
 
             case R.id.evaluateTextView:
-                Intent intent = null;
+                Intent intent ;
                 if(status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
@@ -291,12 +287,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         requestParams.add("lesson_index", lessonItem.getIndex()+"");
         Log.e("hexiao", lessonItem.getIndex() + "+loadData");
+        String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
         AsyncHttpHelper.post(signUpUrl, requestParams, jsonHttpResponseHandler);
     }
 
     /**请求课程数据服务器数据的Handler*/
-    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("hexiao", response.toString());
@@ -307,7 +305,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 if(response.getInt("code")==0 && response.getString("data")!=null) {
                     Log.e("hexiao","signUpInfoSuccess");
                     JSONArray jsonArray = response.getJSONArray("data");
-                    mSignUpData=new SignUpData(jsonArray);
+                    SignUpData mSignUpData=new SignUpData(jsonArray);
                     signUpPopulationTextView.setText("签到"+mSignUpData.getSize()+"人");
                     signUpBundle.putSerializable("SignUpData", mSignUpData);
                 }
@@ -317,6 +315,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("hexiao","signUpInfoFailure");
@@ -327,7 +326,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         private final static long serialVersionUID = 1234567890L;
         private List<String> mList;
         private int mSize;
-        public SignUpData(){}
         public SignUpData(JSONArray jsonArray){
             this.mList=new ArrayList<>();
             for(int i=0;i<jsonArray.length();i++){

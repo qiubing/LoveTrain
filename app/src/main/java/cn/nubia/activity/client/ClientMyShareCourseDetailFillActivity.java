@@ -118,13 +118,14 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         DialogInterface.OnClickListener confirmButtonListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String starttime = new StringBuilder()
-                        .append(datePicker.getYear())
-                        .append("-")
-                        .append(datePicker.getMonth() + 1)
-                        .append("-")
-                        .append(datePicker.getDayOfMonth())
-                        .toString();
+//                String starttime = new StringBuilder()
+//                        .append(datePicker.getYear())
+//                        .append("-")
+//                        .append(datePicker.getMonth() + 1)
+//                        .append("-")
+//                        .append(datePicker.getDayOfMonth())
+//                        .toString();
+                String starttime = String.valueOf(datePicker.getYear())+"-"+String.valueOf(datePicker.getMonth() + 1)+"-"+String.valueOf(datePicker.getDayOfMonth());
                 /**将被选择的时间显示到文本框中去*/
                 mCourseDate.setText(starttime);
             }
@@ -152,11 +153,12 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         DialogInterface.OnClickListener confirmButtonListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String time = new StringBuilder()
-                        .append(timePicker.getCurrentHour())
-                        .append(":")
-                        .append(timePicker.getCurrentMinute())
-                        .toString();
+//                String time = new StringBuilder()
+//                        .append(timePicker.getCurrentHour())
+//                        .append(":")
+//                        .append(timePicker.getCurrentMinute())
+//                        .toString();
+                String time = String.valueOf(timePicker.getCurrentHour())+":"+String.valueOf(timePicker.getCurrentMinute());
                 switch (type){
                     case STARTTIME:
                         mCourseStarttime.setText(time);

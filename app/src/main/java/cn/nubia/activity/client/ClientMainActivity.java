@@ -35,6 +35,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  * 直接用tabHost.setOnTabChangedListener监听器不好么，为何要用四个单选按钮
  * Created by 胡立 on 2015/9/6.
  */
+@SuppressWarnings("deprecation")
 public class ClientMainActivity extends ActivityGroup {
     private static final String TAG = "ClientMainActivity";
     private TabHost mTabHost;
@@ -57,13 +58,13 @@ public class ClientMainActivity extends ActivityGroup {
         initEvents();
     }
 
-    protected void initBeforeData() {
+    private void initBeforeData() {
         addTabIntent();
         mTabHost.setCurrentTab(0);
         mRadioGroup=(RadioGroup) findViewById(R.id.main_client_group);
     }
 
-    protected void initEvents() {
+    private void initEvents() {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -157,7 +158,7 @@ public class ClientMainActivity extends ActivityGroup {
         }
     }
 
-    MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             Log.e(TAG, "onSuccess: " + response.toString());

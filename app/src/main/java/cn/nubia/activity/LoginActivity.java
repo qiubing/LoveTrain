@@ -85,19 +85,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-//        CustomProgressDialog dialog;
         String text;
         switch (v.getId()) {
             case R.id.login_btn:
                 text = mLoginButton.getText().toString();
                 if (text.equals("登录")) {
                     if (validateLogin()) {
-//                        dialog = new CustomProgressDialog(this, "登录中...", R.anim.loading);
                         login();
                     }
                 } else if (text.equals("注册")) {
                     if (validateRegist()) {
-//                        dialog = new CustomProgressDialog(this, "注册中...", R.anim.loading);
                         regist();
                     }
                 }
@@ -132,13 +129,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
-
-//        params.put("device_id", Constant.devideID);
-//        params.put("request_time", System.currentTimeMillis());
-//        params.put("apk_version", Constant.apkVersion);
-//        params.put("token_key", Constant.tokenKep);
-
-//        Constant.user.setUserID(userID);
+        
         Constant.user.setUserID(userID);
         String url;
         if (isManager.equals("是")) {
@@ -365,7 +356,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateLogin() {
+    private boolean validateLogin() {
         String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");
@@ -380,7 +371,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    public boolean validateRegist() {
+    private boolean validateRegist() {
         String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");
