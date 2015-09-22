@@ -34,7 +34,8 @@ public class PswModifyMsg extends Paramable{
     protected RequestParams toUpdateParams(RequestParams params) {
         params.add("old_password", mOldPsw);
         params.add("new_password", mNewPsw);
-        params.add("user_id", "0016003317");
+        params.add("user_id",Constant.user.getUserID());
+
         return params;
     }
 

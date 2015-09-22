@@ -12,13 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevelModel;
 import cn.nubia.entity.ShareCourseMsg;
+import cn.nubia.entity.TechnologyShareCourseItem;
+import cn.nubia.service.CommunicateService;
 
 /**
  * Created by JiangYu on 2015/9/2.
  */
 public class ClientMyShareCourseDetailDisplayActivity extends Activity {
+
     private TextView mCourseName;
     private TextView mCourseLevel;
     private TextView mCourseDate;
@@ -44,7 +48,16 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         super.onStart();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
+
+        String mSourse = bundle.getString("source");
+        if(mSourse.equals("adminupdate")) {
+            mShareCourseMsg = new ShareCourseMsg(
+                    (TechnologyShareCourseItem) bundle.getSerializable("shareCourse"));
+        }else if(mSourse.equals("myupdate")) {
+            mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
+            mShareCourseMsg.setUserId(Constant.user.getUserID());
+            mShareCourseMsg.setUserName(Constant.user.getUserName());
+        }
 
         initViewData();
     }
@@ -106,14 +119,5 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
                 new SimpleDateFormat("HH:mm").format(endTime));
         mCourseLocale.setText(mShareCourseMsg.getLocale());
         mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
-    }
-
-    /**
-     * 返回箭头绑定事件，即退出该页面
-     *
-     * param view
-     */
-    public void back(View view) {
-        this.finish();
     }
 }

@@ -37,7 +37,7 @@
             android:textColor="@color/blue"
             android:gravity="center"
             android:textSize="@dimen/itemcontent_textsize"
-            android:text="确定" />
+            android:text="@string/confirm_button" />
 
     </RelativeLayout>
 

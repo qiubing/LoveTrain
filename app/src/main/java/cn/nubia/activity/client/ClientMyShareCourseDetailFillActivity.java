@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,13 +31,12 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
-import cn.nubia.entity.Constant;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
-import cn.nubia.util.DialogUtil;
 
 /**
  * Created by JiangYu on 2015/9/1.
@@ -81,7 +81,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
-        connectService();
 
         holdView();
         setViewLogic();
@@ -275,7 +274,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                         } else if (mOperateURL.equals(URLMap.URL_UPD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
                             shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
-                            shareCourse.setUserName(Constant.user.getUserName());
+                            shareCourse.setUserName(mShareCourseMsg.getUserName());
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
                         }
                         mNextPressReady =false;
@@ -288,6 +287,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private void initViewData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+
         String type = bundle.getString("type");
 
         if(type.equals("update")){
@@ -366,41 +366,30 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogUtil.showDialog(
-                    ClientMyShareCourseDetailFillActivity.this,"操作失败!",false);
+            DialogMaker.make(
+                   ClientMyShareCourseDetailFillActivity.this, "操作失败!", false).show();
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true);
+                    DialogMaker.make(
+                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true).show();
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true);
+                    DialogMaker.make(
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true).show();
                 }
             }else if (operateResult.equals("failure")) {
                 String message = (String) response.get("message");
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogUtil.showDialog(
+                    DialogMaker.make(
                             ClientMyShareCourseDetailFillActivity.this, "申请提交失败：\n" +
-                                    message, false);
+                                    message, false).show();
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogUtil.showDialog(
-                            ClientMyShareCourseDetailFillActivity.this, "课程修改失败：\n"+
-                            message, false);
+                    DialogMaker.make(
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改失败：\n" +
+                                    message, false).show();
                 }
             }
         }
     }
-
-    /**
-     * 返回箭头绑定事件，即退出该页面
-     *
-     * param view
-     */
-    public void back(View view) {
-        disconectService();
-        this.finish();
-    }
-
 }
