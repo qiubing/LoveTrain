@@ -112,16 +112,17 @@ public class AdminCourseAddTabActivity extends Activity {
         mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Bundle bundle=new Bundle();
-                LessonItem lessonItem=mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
+                Bundle bundle = new Bundle();
+                LessonItem lessonItem = mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
                 /**为什么可以传值过去，但是这里显示的值都是null呢*/
 
 //                Log.e("HEXIAOAAAA",mCourseItemList.size() + "mCourseItemListsize");
 //                Log.e("HEXIAOAAAA",lessonItem.getDescription()+"+CourseAdd");
-                Log.e("HEXIAOAAAA",lessonItem.getIndex() + "+lessonIndex");
+                Log.e("HEXIAOAAAA", lessonItem.getIndex() + "+lessonIndex");
 //                Log.e("HEXIAOAAAA", lessonItem.getName() + "+CourseAdd");
 
                 bundle.putSerializable("LessonItem", lessonItem);
+                //bundle.putString("status", "student");
                 Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);

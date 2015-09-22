@@ -53,7 +53,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:layout_weight="1"
-            android:text="签到XXX人"
+            android:text="查看签到学员"
             android:textSize="25sp"
             android:layout_alignTop="@+id/course_name_title"
            />

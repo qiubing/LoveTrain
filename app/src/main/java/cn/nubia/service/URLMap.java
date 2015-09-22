@@ -29,7 +29,6 @@ public class URLMap {
     public final static String URL_UPD_SHARE = BASE_URL+"share/edit_going_course.do";
     public final static String URL_UPD_PSW = BASE_URL+"user/modify.do";
     public final static String URL_AWARD_CREDITS = BASE_URL+"credit/give_credits.do";
-    public final static String URL_JUDGE_LESSON = BASE_URL+"my/add_lesson_judge.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
     public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
@@ -47,9 +46,6 @@ public class URLMap {
 
         URL_MAPPING.put(ClientMyShareCourseDetailFillActivity.Inter.class,URL_UPD_SHARE);
         HANDLER_MAPPING.put(URL_UPD_SHARE,NormalHttpHandler.class);
-
-        URL_MAPPING.put(ClientMyCourseJudgeDetailFillActivity.Inter.class,URL_JUDGE_LESSON);
-        HANDLER_MAPPING.put(URL_JUDGE_LESSON,NormalHttpHandler.class);
 
         URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_QUE_EXAMENROLLLIST);
         HANDLER_MAPPING.put(URL_QUE_EXAMENROLLLIST,NormalHttpHandler.class);

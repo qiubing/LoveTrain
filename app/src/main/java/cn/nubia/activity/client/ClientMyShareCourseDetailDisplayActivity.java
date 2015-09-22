@@ -16,7 +16,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevelModel;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
-import cn.nubia.service.CommunicateService;
 
 /**
  * Created by JiangYu on 2015/9/2.
