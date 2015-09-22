@@ -208,11 +208,11 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
 
-                Bundle bundle=new Bundle();
+                /*Bundle bundle=new Bundle();
                 bundle.putSerializable("CourseItem", courseItem);
                 Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminCourseDetailActivity.class);
                 intentAddForSure.putExtras(bundle);
-                startActivity(intentAddForSure);
+                startActivity(intentAddForSure);*/
                 break;
         }
     }

@@ -104,11 +104,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();
-        String statusTemp = intent.getStringExtra("status");
-        Log.e("huhu", lessonItem + statusTemp + "lessonItem");
-
-        if(statusTemp != null) {
-            status = statusTemp;
+        if(myID != null && myID.equals(teacherID)) {
+            status = "teacher";
         }
 
         if(Constant.IS_ADMIN == true || status.equals("teacher")){
@@ -261,7 +258,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
             case R.id.evaluateTextView:
                 Intent intent ;
-                if(status.equals("teacher")) {
+                if(Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
