@@ -6,10 +6,11 @@
     <TextView
         android:id="@+id/admin_personInfo_nameTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46sp"
         android:layout_alignParentLeft="true"
+        android:gravity="center"
         android:text="张三"
-        android:textSize="36sp"/>
+        android:textSize="24sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:paddingLeft="8dp"
             android:layout_alignParentRight="true"
             android:text="否决"
-            android:textSize="36sp"
+            android:textSize="22sp"
             />
         <Button
             android:id="@+id/admin_signIn_manage_agreeButton"
@@ -34,8 +35,19 @@
             android:layout_toStartOf="@id/admin_signIn_manage_disagreeButton"
             android:layout_toLeftOf="@+id/admin_signIn_manage_disagreeButton"
             android:text="同意"
-            android:textSize="36sp"
+            android:textSize="22sp"
             />
+        <TextView
+            android:id="@+id/sign_up_success"
+            android:layout_width="wrap_content"
+            android:layout_height="46sp"
+            android:text="报名成功"
+            android:textColor="@color/blue"
+            android:textSize="24sp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </RelativeLayout>

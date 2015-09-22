@@ -97,12 +97,14 @@ public class AdminSharePassTabActivity extends Activity {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e(TAG,"onSuccess:" +  response.toString());
             try {
-                JSONArray jsonArray = response.getJSONArray("data");
-                AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
-                asyncParseJsonTask.execute(jsonArray);
-                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
+                    Log.e(TAG, "onSuccess:" + response.toString());
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
+                    asyncParseJsonTask.execute(jsonArray);
+                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -111,7 +113,7 @@ public class AdminSharePassTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e(TAG,"onFailure" +  throwable.toString());
+            Toast.makeText(AdminSharePassTabActivity.this, "请求失败", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -137,8 +139,8 @@ public class AdminSharePassTabActivity extends Activity {
         @Override
         protected void onPostExecute(List<TechnologyShareCourseItem> technologyShareCourseItems) {
             super.onPostExecute(technologyShareCourseItems);
+            mCourseList.clear();
             if (technologyShareCourseItems != null && technologyShareCourseItems.size() != 0) {
-                mCourseList.clear();
                 mCourseList.addAll(technologyShareCourseItems);
             }
             mCourseAdapter.notifyDataSetChanged();
@@ -157,7 +159,7 @@ public class AdminSharePassTabActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(AdminSharePassTabActivity.this, ClientMyShareCourseDetailDisplayActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("source","adminupdate");
+            bundle.putString("source", "adminupdate");
             bundle.putSerializable("shareCourse", mCourseList.get(position));
             intent.putExtras(bundle);
             startActivity(intent);

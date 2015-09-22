@@ -21,6 +21,9 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.nubia.activity.R;
 import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
@@ -140,17 +143,13 @@ public class ClientMainActivity extends ActivityGroup {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
             int lesson_index = Integer.parseInt(scanResult);
-            Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",lesson_index: " + lesson_index);
+            //int lesson_index = 77;
             if (!Constant.user.getUserID().equals("")&& lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
-                RequestParams params = new RequestParams();
+                Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",lesson_index: " + lesson_index);
+                RequestParams params = new RequestParams(Constant.getRequestParams());
                 params.put("user_id",Constant.user.getUserID());
-                params.put("lesson_index",29);
-                //params.put("lesson_index",lesson_index);
-                params.put("device_id","87654321");
-                params.put("request_time","1444444444444");
-                params.put("apk_version","1.0");
-                params.put("token_key","123456789");
+                params.put("lesson_index",lesson_index);
                 //网络链接
                 String url = Constant.BASE_URL + "user/user_check.do";
                 AsyncHttpHelper.post(url, params, mCheckHandler);
@@ -162,19 +161,25 @@ public class ClientMainActivity extends ActivityGroup {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             Log.e(TAG, "onSuccess: " + response.toString());
-            /*long check_time = response.getLong("check_time");
-            int check_credits = response.getInt("check_credits");
-            Date date = new Date();
-            date.setTime(check_time);
-            String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
-            Toast.makeText(ClientMainActivity.this,
-                    "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();*/
+            if (response != null && response.getInt("code") == 0){
+                JSONObject obj = response.getJSONObject("data");
+                if (obj != null){
+                    long check_time = obj.getLong("check_time");
+                    int check_credits = obj.getInt("check_credits");
+                    Log.e(TAG,"current_time: " + check_time + ",check_credits: " + check_credits);
+                    Date date = new Date();
+                    date.setTime(check_time);
+                    String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+                    Toast.makeText(ClientMainActivity.this,
+                            "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();
+                }
+            }
+
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG,"onFailure: " + errorResponse.toString());
-            //Toast.makeText(ClientMainActivity.this,"扫描二维码失败，请稍后重试",Toast.LENGTH_LONG).show();
+            Toast.makeText(ClientMainActivity.this,"扫描二维码失败，请稍后重试",Toast.LENGTH_LONG).show();
         }
     };
 }

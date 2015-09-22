@@ -109,10 +109,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      * 上传文件到服务器
      */
     private void uploadFile(Bitmap bitmap) {
-        // bitmap 转换 String
-        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ///bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
-        ///byte[] b = stream.toByteArray();
         try {
             String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
             File file = new File(path);
@@ -121,7 +117,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 Log.e("UpdateIconActivity","file: " + file.toString() +", user_id: " + Constant.user.getUserID());
                 String url = Constant.BASE_URL + "user/icon_set.do";
                 RequestParams params = new RequestParams(Constant.getRequestParams());
-                params.put("icon_type", "multipart/form-data");
+                params.put("icon_type","jpg");
                 params.put("icon", file);
                 params.put("user_id", Constant.user.getUserID());
                 AsyncHttpHelper.post(url, params, mUpdateIconHandler);
@@ -130,7 +126,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
             e.printStackTrace();
         }
     }
-
 
     private MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
 
@@ -149,7 +144,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("UpdateIconActivity", "onFailure:" + throwable.toString());
             showShortToast("长传头像失败");
         }
     };
@@ -159,8 +153,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      * 处理头像的内部类
      */
     public class PopupWindows extends PopupWindow {
-
-        @SuppressWarnings("deprecation")
         public PopupWindows(Context mContext, View parent) {
             View view = View
                     .inflate(mContext, R.layout.item_popupwindows, null);
@@ -248,7 +240,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      * 回调函数处理
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // getActivity();
         // 结果码不等于取消时候
         if (resultCode != FragmentActivity.RESULT_CANCELED) {
 
