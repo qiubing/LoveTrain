@@ -64,7 +64,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseStudentTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent());
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent(),Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/

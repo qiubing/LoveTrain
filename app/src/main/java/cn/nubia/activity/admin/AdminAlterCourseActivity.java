@@ -52,7 +52,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
 
     private CourseItem mCourseItem;
 
-    private Bundle bundle;
+
     private GestureDetector gestureDetector;
 
     //复选框
@@ -68,7 +68,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_alter_course);
-        bundle=new Bundle();
+
         alterCourseCourseNameEditText = (EditText) findViewById(R.id.alter_course_courseName_editText);
         alterCourseCourseDescEditText = (EditText) findViewById(R.id.alter_course_courseDesc_editText);
 
@@ -90,8 +90,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-//        alterCourseButton = (Button) findViewById(R.id.alter_course_button);
-//        alterCourseBackImage = (ImageView) findViewById(R.id.admin_alter_course_backImage);
+
 
         Button alterCourseButton= (Button) findViewById(R.id.alter_course_button);
 
@@ -110,7 +109,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                 courseTypeSpinner.setSelection(0);
             else
                 courseTypeSpinner.setSelection(1);
-//            courseTypeSpinner.setSelection(courseTypeStr.equals("1")?0:(courseTypeStr.equals("2")?0:1));
+
             courseTypeSpinner.setSelection(courseTypeStr.equals("course") ? 0 : 1);
 
             alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits() + "");
@@ -197,28 +196,17 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 upData();
-                                Intent intentAlterForSure = new Intent(AdminAlterCourseActivity.this, AdminMainActivity.class);
-                                startActivity(intentAlterForSure);
-                                Toast.makeText(AdminAlterCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
                                 finish();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intentAlterCancel = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-                                startActivity(intentAlterCancel);
+                                finish();
                             }
                         })
                         .create();
                 alterCourseDialog.show();
-//                upData();
-//                Bundle alterBundle=new Bundle();
-//                alterBundle.putSerializable("CourseItem", mCourseItem);
-//                Intent intentAddForSure = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-//                intentAddForSure.putExtras(alterBundle);
-//                startActivity(intentAddForSure);
-//                finish();
                 break;
         }
 
