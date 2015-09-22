@@ -55,7 +55,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
-    private static final String URL = Constant.BASE_URL + "/course/edit_lesson.do";
+    private static final String URL = Constant.BASE_URL + "course/edit_lesson.do";
 
     private int year;
     private int month;
@@ -160,14 +160,13 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
+            Log.i("huhu", "alterLesson" + response.toString());
             try {
                 int code = response.getInt("code");
-                boolean result = response.getBoolean("result");
+                //boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
-                Log.i("huhu", "addExam" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
+                Log.i("huhu", "alterLesson" + code +  "," +isOk);
                 if(code == 0 && isOk) {
                     Toast.makeText(AdminAlterLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }

@@ -87,8 +87,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
         mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
         mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
-        sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText("课时管理");
+
         /**获取相关的TextView*/
         lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
         lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
@@ -98,10 +97,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
-        /**此处的lessonItem会不会是null*/
         lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+
+        sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+        sub_page_title.setText(lessonItem.getName() + "课时");
+
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();
         if(myID != null && myID.equals(teacherID)) {

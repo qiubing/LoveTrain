@@ -89,13 +89,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_detail);
-        //公用部分
-        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
-        mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
-
         holdView();
-//        setViewLogic();
-
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
         Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
@@ -104,6 +98,9 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         enroll = (Button) findViewById(R.id.manager_exam_enroll);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
+        mManagerTitle.setText(mExamItemExamEdit.getName() + "考试");
         initViewData();
     }
 
