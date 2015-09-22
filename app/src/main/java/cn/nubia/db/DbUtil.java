@@ -160,6 +160,7 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
+        Log.e("UpdateClassListHelper","LESSON_INDEX"+lessonItem.getIndex());
         newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
@@ -265,7 +266,7 @@ public class DbUtil {
     private  List<LessonItem> getLessonList(int CourseIndex) {
         ArrayList<LessonItem> lessonList = new ArrayList<>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null, LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
-                null, LessonItem.LESSON_INDEX + " DESC");
+                null, LessonItem.LESSON_INDEX + " ASC");
         if(cursor == null || cursor.isClosed()){
             return null;
         }
@@ -273,6 +274,7 @@ public class DbUtil {
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
             LessonItem lessonItem = new LessonItem();
             lessonItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(LessonItem.JUDGE_SCORE)));
+            lessonItem.setIndex(cursor.getInt(cursor.getColumnIndex(LessonItem.LESSON_INDEX)));
             lessonItem.setCheckCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_CREDITS)));
             lessonItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
             lessonItem.setStartTime(cursor.getLong(cursor.getColumnIndex(LessonItem.START_TIME)));

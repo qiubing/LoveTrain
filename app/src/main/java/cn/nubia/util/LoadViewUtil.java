@@ -23,7 +23,7 @@ public class LoadViewUtil {
 
     private Context mCtx;
     private boolean mNetworkFailedFlag = true;
-    private int mLoadingFailedFlag = Constant.LOADING_FAILED;
+    private int mLoadingFailedFlag = Constant.LOADING_SUCCESS;
 
     public LoadViewUtil(Context ctx,ListView listView,Handler handler){
         this.mCtx = ctx;

@@ -174,6 +174,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
             case R.id.admin_lesson_detail_deleteLessonButton:
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了删除课时", Toast.LENGTH_LONG).show();
+
                 Intent intentDeleteLesson = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
                 startActivity(intentDeleteLesson);
                 break;

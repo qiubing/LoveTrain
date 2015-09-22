@@ -22,12 +22,8 @@ import cn.nubia.entity.CourseItem;
  * Created by hexiao on 2015/9/1.
  */
 public class AdminCourseDetailActivity extends Activity implements View.OnClickListener {
-
-
-
     private CourseItem mCourseItem;
     private Bundle bundle;
-
 
     private AdminCourseDetailActivity adminCourseDetailActivity;
 
