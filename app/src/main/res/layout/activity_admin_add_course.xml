@@ -7,14 +7,14 @@
     android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical">
 
-    <!--<include-->
-        <!--android:id="@+id/sub_title"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="50dip"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--layout="@layout/include_back_title_item_layout" />-->
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -44,7 +44,7 @@
                 android:textSize="36sp" />
 
         </LinearLayout>
-    </RelativeLayout>-->
+    </RelativeLayout>&ndash;&gt;-->
 
     <include
         android:layout_marginTop="10dp"
@@ -161,7 +161,8 @@
                 android:id="@+id/add_course_CoursePoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:inputType="number"/>
 
         </TableRow>
 

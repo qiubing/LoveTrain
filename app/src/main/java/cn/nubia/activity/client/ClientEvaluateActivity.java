@@ -125,7 +125,6 @@ public class ClientEvaluateActivity  extends Activity {
         requestParams.add("lession_index", stringArray[0]);
         requestParams.add("user_id", stringArray[1]);
 
-
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 

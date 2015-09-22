@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +18,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.nubia.activity.R;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.CreditsAwardMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
-import cn.nubia.util.DialogUtil;
 
 /**
  * Created by JiangYu on 2015/9/6.
@@ -36,8 +35,6 @@ public class AdminCreditsAwardActivity extends Activity {
     private EditText mAwardedName;
     private EditText mAwardCredits;
     private EditText mAwardCause;
-
-
 
     private CommunicateService.CommunicateBinder mBinder;
     private final ServiceConnection mConn = new ServiceConnection() {
@@ -62,10 +59,6 @@ public class AdminCreditsAwardActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_credits_award);
-        connectService();
-        //公用部分
-        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.activity_manager_award_title);
 
         //公用部分
         ((TextView) findViewById(R.id.manager_head_title))
@@ -166,20 +159,19 @@ public class AdminCreditsAwardActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogUtil.showDialog(
-                    AdminCreditsAwardActivity.this,"操作失败!",false);
+            DialogMaker.make(AdminCreditsAwardActivity.this,"操作失败!",false).show();
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogUtil.showDialog(
+                DialogMaker.make(
                         AdminCreditsAwardActivity.this,
-                        "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励成功!", true);
+                        "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励成功!", true).show();
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogUtil.showDialog(
+                DialogMaker.make(
                         AdminCreditsAwardActivity.this,
                         "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励失败：\n" +
-                                message, false);
+                                message, false).show();
             }
         }
     }

@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -18,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.nubia.activity.R;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.PswModifyMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
@@ -32,10 +32,6 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private Button mConfirmButton;
 
     private boolean mNextPressReady;
-
-    private ImageView mGoBack;
-    private TextView mManagerTitle;
-
 
     private CommunicateService.CommunicateBinder mBinder;
     private final ServiceConnection mConn = new ServiceConnection() {
@@ -60,19 +56,10 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accountmana_pswmodify);
-        connectService();
 
         //公用部分
-        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
-        ImageView mGoBack = (ImageView) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                disconectService();
-                finish();
-            }
-        });
+        ((TextView) findViewById(R.id.manager_head_title))
+                .setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
 
         holdView();
         setViewLogic();
@@ -167,18 +154,18 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogUtil.showDialog(
-                    ClientMyAccountmanaPswmodifyActivity.this,"操作失败!",false);
+            DialogMaker.make(
+                   ClientMyAccountmanaPswmodifyActivity.this, "操作失败!", false).show();
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogUtil.showDialog(
-                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", false);
+                DialogMaker.make(
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", true).show();
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogUtil.showDialog(
-                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败：\n"+
-                                message , false);
+                DialogMaker.make(
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败：\n" +
+                                message, false).show();
             }
         }
     }

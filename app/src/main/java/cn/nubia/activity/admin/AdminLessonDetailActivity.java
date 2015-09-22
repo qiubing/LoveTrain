@@ -91,9 +91,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
+        /**此处的lessonItem会不会是null*/
         lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
-        Log.e("hexiao",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
-
+        Log.e("HEXIAOAAAA",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
+        Log.e("HEXIAOAAAA",lessonItem.getLessonName()+"+LessonIndex+InOnCreate");
 
         if(lessonItem!=null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
@@ -257,10 +258,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
                     intent.putExtras(bundle);
-                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex()+"," + lessonItem.getTeacherID());
+                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex() + "," + lessonItem.getTeacherID());
+                    Log.i("huhu", "lession_index_ID" + lessonItem);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
-                    intent.putExtra("lessonIndex",0);
+                    intent.putExtra("lessonIndex", 0);
                 }
                 startActivity(intent);
                 break;

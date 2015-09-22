@@ -11,17 +11,16 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.AdminExamScoreInputAdapter;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.ExamMsg;
 import cn.nubia.entity.ExamScoreMsg;
@@ -164,31 +163,32 @@ public class AdminExamInputScoreActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         if(response==null){
             mNextPressReady = true;
-            DialogUtil.showDialog(
-                    AdminExamInputScoreActivity.this, "操作失败!", true);
+            DialogMaker.make(
+                    AdminExamInputScoreActivity.this, "操作失败!", true).show();
         }else{
             if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
                 mNextPressReady = true;
                 String operateResult = (String)response.get("operateResult");
                 if(operateResult.equals("success")) {
-//                    mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
+                    mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
 
-                    mExamScoreList = new ArrayList<ExamScoreMsg>();
-                    for(int i =0;i<5;i++){
-                        ExamScoreMsg msg = new ExamScoreMsg();
-                        msg.setUserID(String.valueOf(i));
-                        msg.setUserName("name" + String.valueOf(i));
-                        mExamScoreList.add(msg);
+//                    mExamScoreList = new ArrayList<ExamScoreMsg>();
+//                    for(int i =0;i<5;i++){
+//                        ExamScoreMsg msg = new ExamScoreMsg();
+//                        msg.setUserID(String.valueOf(i));
+//                        msg.setUserName("name" + String.valueOf(i));
+//                        mExamScoreList.add(msg);
+//                    }
+                    if(mExamScoreList!=null){
+                        AdminExamScoreInputAdapter mExamScoreAdapter =
+                                new AdminExamScoreInputAdapter(this,mExamScoreList);
+                        mExamScoreListView.setAdapter(mExamScoreAdapter);
                     }
-
-                    AdminExamScoreInputAdapter mExamScoreAdapter =
-                            new AdminExamScoreInputAdapter(this,mExamScoreList);
-                    mExamScoreListView.setAdapter(mExamScoreAdapter);
                 }else if(operateResult.equals("failure")) {
                     String message = (String) response.get("message");
-                    DialogUtil.showDialog(
+                    DialogMaker.make(
                             AdminExamInputScoreActivity.this, "获取考试报名名单失败：\n" +
-                                    message, true);
+                                    message, true).show();
                 }
             }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
                 mResultNum++;
@@ -205,8 +205,8 @@ public class AdminExamInputScoreActivity extends Activity {
 
                 if(mResultNum == mExamScoreList.size()) {
                     mNextPressReady = true;
-                    DialogUtil.showDialog(
-                            AdminExamInputScoreActivity.this, "操作完成!", true);
+                    DialogMaker.make(
+                           AdminExamInputScoreActivity.this, "操作完成!", true).show();
                 }
             }
         }

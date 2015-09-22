@@ -129,42 +129,10 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                     return;
                 }
 
-//                Dialog addLessonDialog = new AlertDialog.Builder(AdminAddLessonActivity.this)
-//                        .setTitle("添加课时")
-//                        .setMessage("确定添加？")
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                String lessonNameStr = lessonName.getText().toString();
-//                                String teacherNameStr = teacherName.getText().toString();
-//                                String lessonDescStr = lessonDesc.getText().toString();
-//                                String lessonLocationStr = lessonLocation.getText().toString();
-//                                String lessonStartTimeStr = lessonStartTime.getText().toString();
-//                                String teacherGetPointsStr = teacherGetPoints.getText().toString();
-//                                String studentGetPointsStr = studentGetPoints.getText().toString();
-//
-//                                //加入到课时数据库中，返回是否加入成功的状态值
-//                                //....
-//                                Intent intentAddLesson = new Intent(AdminAddLessonActivity.this, AdminMainActivity.class);
-//                                Toast.makeText(AdminAddLessonActivity.this, "添加成功，从添加课时跳转到所有课程", Toast.LENGTH_LONG).show();
-//                                startActivity(intentAddLesson);
-//                                //这里执行修改课程操作
-//                                finish();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent intentAddCancel = new Intent(AdminAddLessonActivity.this, AdminCourseDetailActivity.class);
-//                                startActivity(intentAddCancel);
-//                                finish();
-//                            }
-//                        })
-//                        .create();
-//                addLessonDialog.show();
                 upData();
                 Bundle bundle=new Bundle();
+                /**此处这个mLessonItem的课时ID一直为0，并没有赋值
+                 * */
                 bundle.putSerializable("LessonItem", mLessonItem);
                 Intent intentAddForSure = new Intent(AdminAddLessonActivity.this, AdminLessonDetailActivity.class);
                 intentAddForSure.putExtras(bundle);

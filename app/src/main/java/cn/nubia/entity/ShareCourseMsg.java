@@ -125,7 +125,6 @@ public class ShareCourseMsg extends Paramable{
         params.add("end_time", String.valueOf(mEndTime));
         params.add("user_name",mUserName);
 
-
         return params;
     }
     @Override

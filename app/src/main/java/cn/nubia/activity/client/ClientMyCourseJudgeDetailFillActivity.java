@@ -19,11 +19,11 @@ import android.widget.Toast;
 import java.util.Map;
 
 import cn.nubia.activity.R;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
-import cn.nubia.util.DialogUtil;
 
 /**
  * Created by JiangYu on 2015/9/6.
@@ -36,6 +36,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
+
 
     private CommunicateService.CommunicateBinder mBinder;
     private final ServiceConnection mConn = new ServiceConnection() {
@@ -62,10 +63,9 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         setContentView(R.layout.activity_mycourse_judge_detail_fill);
 
         //公用部分
-        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
-        mManagerTitle.setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
+        ((TextView) findViewById(R.id.manager_head_title))
+                .setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
 
-        connectService();
         holdView();
         setViewLogic();
     }
@@ -117,7 +117,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
 
                         judgement.setOperateType(CommunicateService.OperateType.INSERT);
                         mBinder.communicate(judgement, new Inter(), URLMap.URL_JUDGE_LESSON);
-                       mNextPressReady = false;
+                        mNextPressReady = false;
                     }
                 }
             }
@@ -148,6 +148,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                 return false;
             }
         });
+
         mSuggestionEditText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -161,6 +162,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
 
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
+
         (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,18 +196,18 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogUtil.showDialog(
-                    ClientMyCourseJudgeDetailFillActivity.this,"操作失败!",false);
+            DialogMaker.make(
+                   ClientMyCourseJudgeDetailFillActivity.this, "操作失败!", false).show();
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogUtil.showDialog(
-                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
+                DialogMaker.make(
+                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true).show();
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogUtil.showDialog(
-                        ClientMyCourseJudgeDetailFillActivity.this,"课程评价失败：\n"+
-                                message,false);
+                DialogMaker.make(
+                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价失败：\n" +
+                                message, false).show();
             }
         }
     }

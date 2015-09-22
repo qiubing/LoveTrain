@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -20,7 +24,9 @@ import org.json.JSONObject;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -31,12 +37,16 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
+    private TextView mTitleText;
 
-    //    private EditText addCourseCourseTypeEditText;
+//    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
 
     private EditText addCourseCoursePointsEditText;
 
+    private Button addCourseButton;
+    //private ImageView addCourseBackImage;
+    private GestureDetector gestureDetector;
 
 
     //复选框
@@ -54,12 +64,32 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private static final String addCourseURL = Constant.BASE_URL + "course/add_course.do";
 
+
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_course);
 
         courseItem=new CourseItem();
+        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        mTitleText.setText("新增课程");
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+
 
         addCourseCourseNameEditText = (EditText) findViewById(R.id.add_course_courseName_editText);
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
@@ -73,6 +103,11 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
 
         /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
 //        if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
@@ -81,20 +116,27 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
 
         addCourseButton.setOnClickListener(this);
-        addCourseBackImage.setOnClickListener(this);
+       // addCourseBackImage.setOnClickListener(this);
 
 
     }
 
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_add_course_backImage:
+           /* case R.id.admin_add_course_backImage:
                 Toast.makeText(AdminAddCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
                 Intent intentBackImage = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 startActivity(intentBackImage);
                 finish();
-                break;
+                break;*/
             case R.id.add_course_button:
 
 //                Dialog addCourseDialog = new AlertDialog.Builder(AdminAddCourseActivity.this)
@@ -158,7 +200,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         }
     }
 
-    private void upData(){
+   private void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -178,7 +223,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
-
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
@@ -209,6 +253,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 }
 
             } catch (Exception e) {
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
@@ -217,7 +262,15 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void back(View view) {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+
 }

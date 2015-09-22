@@ -129,7 +129,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String pwd = mPasswordET.getText().toString();
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
-
+        
         Constant.user.setUserID(userID);
         String url;
         if (isManager.equals("是")) {
