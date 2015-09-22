@@ -65,6 +65,7 @@ public class ClientMyCheckRecordActivity extends Activity {
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "user/find_check_record.do";
+        Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",url: " + url);
         AsyncHttpHelper.post(url, params, mCheckRecordHandler);
     }
 

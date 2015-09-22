@@ -60,10 +60,10 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
+                Log.e(TAG, "onSuccess: " + response.toString());
                 if (response != null && response.getInt("code") == 0) {
                     EntityFactoryGenerics factoryGenerics =
                             new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, response);
-                    Log.e(TAG, "onSuccess: " + response.toString());
                     List<CourseIntegrationItem> mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
                     ClientCourseIntegrationAdapter mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
                     mListView.setAdapter(mAdapter);
