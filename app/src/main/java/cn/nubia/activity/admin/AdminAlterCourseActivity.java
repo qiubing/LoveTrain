@@ -17,14 +17,12 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 /**
  * Created by hexiao on 2015/9/7.
@@ -86,7 +84,11 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             alterCourseCourseDescEditText.setText(mCourseItem.getDescription());
 
             String courseTypeStr=mCourseItem.getType();
-            courseTypeSpinner.setSelection(courseTypeStr.equals("1")?0:(courseTypeStr.equals("2")?1:2));
+            if(courseTypeStr.equals("1"))
+                courseTypeSpinner.setSelection(0);
+            else
+                courseTypeSpinner.setSelection(1);
+//            courseTypeSpinner.setSelection(courseTypeStr.equals("1")?0:(courseTypeStr.equals("2")?0:1));
 
             alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits()+"");
             alterCourseWhetherExamCheckBox.setChecked(mCourseItem.hasExam());
@@ -119,7 +121,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_alter_course_backImage:
-                Toast.makeText(AdminAlterCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
+//                Toast.makeText(AdminAlterCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
                 Intent intentBackImage = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
                 bundle.putSerializable("CourseItem",mCourseItem);
                 intentBackImage.putExtras(bundle);
@@ -238,17 +240,17 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                 Log.i("xx", "addCourseinside" + "onSuccess");
 //                if(result && code == 0 && isOk) {
                 if( code == 0 && isOk) {
-                    Toast.makeText(AdminAlterCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAlterCourseActivity.this, "修改课程成功！", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
-                Toast.makeText(AdminAlterCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAlterCourseActivity.this, "修改课程失败！ ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Toast.makeText(AdminAlterCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminAlterCourseActivity.this, "连接服务器异常！ ", Toast.LENGTH_SHORT).show();
         }
     };
 }

@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="XXXXXXXX"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -114,38 +114,75 @@
         android:padding="15dp"
         android:paddingTop="40sp">
 
+        <!--<Button-->
+            <!--android:id="@+id/signUpAdminBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:text="@string/signUpAdminBtn"-->
+            <!--android:textSize="30dp" />-->
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
         <Button
             android:id="@+id/signUpAdminBtn"
+            style="@style/CustomBigLoginButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="@string/signUpAdminBtn"
-            android:textSize="30dp" />
+            android:textSize="@dimen/textSize20"
+            android:layout_weight="1"
+            android:text="@string/signUpAdminBtn" />
 
+        <!--<Button-->
+            <!--android:id="@+id/alterCourseBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="@string/alterCourseBtn"-->
+            <!--android:textSize="30dp" />-->
         <Button
+            android:layout_weight="1"
             android:id="@+id/alterCourseBtn"
+            style="@style/CustomBigLoginButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/alterCourseBtn"
-            android:textSize="30dp" />
-
+            android:textSize="@dimen/textSize20"
+            android:text="@string/alterCourseBtn" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
         <Button
             android:id="@+id/lessonAddBtn"
+            style="@style/CustomBigLoginButton"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/lessonAddBtn"
-            android:textSize="30dp" />
-
+            android:textSize="@dimen/textSize20"
+            android:text="@string/lessonAddBtn" />
         <Button
             android:id="@+id/courseDeleteBtn"
+            style="@style/CustomBigLoginButton"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/courseDeleteBtn"
-            android:textSize="30dp" />
+            android:textSize="@dimen/textSize20"
+            android:text="@string/courseDeleteBtn" />
+        </LinearLayout>
+        <!--<Button-->
+            <!--android:id="@+id/lessonAddBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:text="@string/lessonAddBtn"-->
+            <!--android:textSize="30dp" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/courseDeleteBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="@string/courseDeleteBtn"-->
+            <!--android:textSize="30dp" />-->
 
     </RelativeLayout>
 </LinearLayout>
