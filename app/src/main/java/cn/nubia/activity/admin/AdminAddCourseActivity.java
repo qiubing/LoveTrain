@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,14 +36,12 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
-    private TextView mTitleText;
 
 //    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
 
     private EditText addCourseCoursePointsEditText;
 
-    private Button addCourseButton;
     //private ImageView addCourseBackImage;
     private GestureDetector gestureDetector;
 
@@ -75,7 +72,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         setContentView(R.layout.activity_admin_add_course);
 
         courseItem=new CourseItem();
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增课程");
         //创建手势管理单例对象
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
@@ -99,7 +96,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
         Button addCourseButton = (Button) findViewById(R.id.add_course_button);
-        ImageView addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
@@ -269,7 +265,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     };
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 
