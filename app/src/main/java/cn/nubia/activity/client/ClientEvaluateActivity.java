@@ -41,7 +41,7 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 public class ClientEvaluateActivity  extends Activity {
 
     private ExpandableListView mExpandableListView;
-    private static final String URL = Constant.BASE_URL + "/my/find_lesson_judge.do";
+    private static final String URL = Constant.BASE_URL + "my/find_lesson_judge.do";
     private List<LessonJudgementMsg> mList = new ArrayList<>();
     private EvaluateAdapter mEvaluateAdapter;
     private GestureDetector gestureDetector;
@@ -77,9 +77,6 @@ public class ClientEvaluateActivity  extends Activity {
 
 
         lession_index_ID = getIntent().getExtras().getString("lession_index_ID");
-        Log.i("huhu", "get lession_index_ID" + lession_index_ID);
-
-        //mErrorHintView = (ErrorHintView) findViewById(R.id.evaluate_hintView);
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
         TextView barTxt = (TextView) findViewById(R.id.sub_page_title);
         barTxt.setText("我的课程评价");
@@ -125,6 +122,7 @@ public class ClientEvaluateActivity  extends Activity {
         String stringArray []  = lession_index_ID.split(",");
         requestParams.add("lession_index", stringArray[0]);
         requestParams.add("user_id", stringArray[1]);
+        Log.i("huhu", ",,,," + requestParams.toString());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
@@ -132,7 +130,6 @@ public class ClientEvaluateActivity  extends Activity {
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
-            Log.i("huhu", "addExam" + "EvaluateonSuccess");
             try {
                 int code = response.getInt("code");
                // boolean result = response.getBoolean("result");
@@ -152,7 +149,6 @@ public class ClientEvaluateActivity  extends Activity {
                                 mList.clear();
                                 mList.addAll(list);
                                 handler.sendEmptyMessage(0);
-                                Log.i("huhu", "Evaluate list" + list);
                             }
                         }
                     }.start();
@@ -164,7 +160,7 @@ public class ClientEvaluateActivity  extends Activity {
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
-                Log.i("huhu", "VIEW_LOADFAILURE");
+                Log.i("huhu", "VIEW_LOADFAILURE111");
             }
         }
 
