@@ -123,24 +123,19 @@ public class ExamAddTabActivity extends Activity {
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("test", "onSuccess");
             try {
                 if(response.getInt("code") != 0){
-                    Log.e("test", "onfailed" + response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }else{
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 }
                 JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", jsonArray.toString());
-                Log.e("test","onSuccess2");
                 if(jsonArray!=null && jsonArray.length() > 0){
                     AsyncLoadJsonTask asyncLoadJsonTask  = new AsyncLoadJsonTask();
                     asyncLoadJsonTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("test","onSuccess3");
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 e.printStackTrace();
             }
@@ -149,7 +144,6 @@ public class ExamAddTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("test","onFailure");
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
@@ -164,7 +158,6 @@ private class AsyncLoadJsonTask extends AsyncTask<JSONArray, Void, List<ExamItem
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.e("test",""+examItemList.size());
         return examItemList;
     }
 
@@ -174,7 +167,6 @@ private class AsyncLoadJsonTask extends AsyncTask<JSONArray, Void, List<ExamItem
             mExamList.clear();
             mExamList.addAll(examItemList) ;
         }
-        Log.e("test",""+mExamList.size());
         mExamAdapter.notifyDataSetChanged();
     }
 }
