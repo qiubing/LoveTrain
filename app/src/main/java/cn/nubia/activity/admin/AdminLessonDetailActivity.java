@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,13 +46,12 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
-    private ImageView backImageView;
     private Button alterLessonBtn;
     private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
     private TextView mGenerateQRCode;
     private Button mEvaluateTextView;
-    private String status = "teacher";
+    private String status = "student";
     private TextView sub_page_title;
 
     private TextView lessonNameTextView;
@@ -64,11 +64,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private Bundle bundle;
     private Bundle signUpBundle;
     private SignUpData mSignUpData;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
 
     /**保存签到人员信息*/
 //    private List<String> mList;
 
     private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
+    private String deleteUrl = Constant.BASE_URL + "/course/del_lesson.do";
 
     private GestureDetector gestureDetector;
     @Override
@@ -90,6 +93,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
         lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
         lessonInfoTextView=(TextView)findViewById(R.id.lesson_detail_lessonInfo_textView);
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
@@ -131,8 +138,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                             "\n学员签到可得积分：" + lessonItem.getCheckCredits() +
                             "\n课程评价分数：" + lessonItem.getJudgeScore()
             );
-            /**签到人数怎么获得？*/
-//            signInPopulationTextView.setText(lessonItem.getIndex());
         }
     }
 
@@ -151,7 +156,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 finish();
             }
         });
-
         loadData();
     }
 
@@ -165,17 +169,34 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_lesson_detail_alterLessonButton:
-                Intent intentAlterLesson = new Intent(AdminLessonDetailActivity.this, AdminAlterLessonActivity.class);
+                Intent intentAlterLesson = new Intent(AdminLessonDetailActivity.this,
+                        AdminAlterLessonActivity.class);
                 Bundle alterBundle=new Bundle();
                 alterBundle.putSerializable("LessonItem", lessonItem);
                 intentAlterLesson.putExtras(alterBundle);
                 startActivity(intentAlterLesson);
-                finish();
                 break;
             case R.id.admin_lesson_detail_deleteLessonButton:
-                Toast.makeText(AdminLessonDetailActivity.this, "你点击了删除课时", Toast.LENGTH_LONG).show();
-                Intent intentDeleteLesson = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
-                startActivity(intentDeleteLesson);
+                final AlertDialog.Builder builderDelete = new AlertDialog.Builder(AdminLessonDetailActivity.this)
+                        //设置对话框标题
+                        .setTitle("删除课时")
+                                //设置图标
+                        .setIcon(R.drawable.abc_ic_menu_selectall_mtrl_alpha)
+                        .setMessage("确认要删除《" + lessonItem.getName()+ "》这门课时吗?");
+                builderDelete.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteData();
+                    }
+                });
+                builderDelete.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builderDelete.create().show();
                 break;
             case R.id.lesson_detail_signIn_textView:
                 Intent intentSignInInfo = new Intent(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
@@ -326,6 +347,52 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             return mSize;
         }
     }
+
+    private void deleteData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("device_id", "MXJSDLJFJFSFS");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("record_modify_time_course", "1435125456111");
+
+        requestParams.put("lesson_index", lessonItem.getIndex());
+
+        AsyncHttpHelper.post(deleteUrl, requestParams, myJsonHttpResponseHandler);
+    }
+
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.i("huhu", "addExam" + "onSuccess");
+            try {
+                int code = response.getInt("code");
+                boolean isOk = response.getBoolean("data");
+                //JSONArray jsonArray = response.getJSONArray("data");
+                Log.i("huhu", "addExam" + code + "," + isOk);
+                if( code == 0 && isOk) {
+                    Toast.makeText(AdminLessonDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(AdminLessonDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+        }
+    };
+
+
 
     public void back(View view) {
         // TODO Auto-generated method stub

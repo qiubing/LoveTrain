@@ -17,9 +17,25 @@
     <include
         android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="50dip"
         android:layout_alignParentTop="true"
         layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        layout="@layout/layout_loading_failed"
+        android:layout_below="@+id/sub_title"
+        />
+
+    <include
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        layout="@layout/layout_network_unusable"
+        android:layout_below="@+id/sub_title"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout_lessonName"
