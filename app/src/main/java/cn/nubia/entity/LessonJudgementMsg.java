@@ -145,8 +145,8 @@ public class LessonJudgementMsg extends Paramable{
         params.add("organization", String.valueOf(mOrganization));
         params.add("comprehensive_evaluation", mComprehensiveEvaluation);
         params.add("suggestion", mSuggestion);
+        params.add("user_id",Constant.user.getUserID());
 
-        params.add("user_id", "0016003317");
         return params;
     }
 

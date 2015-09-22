@@ -133,12 +133,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String isManager = mIsManagerSpinner.getSelectedItem().toString();
         RequestParams params = new RequestParams(Constant.getRequestParams());
 
-//        Constant.USER_ID = userID;
 //        params.put("device_id", Constant.devideID);
 //        params.put("request_time", System.currentTimeMillis());
 //        params.put("apk_version", Constant.apkVersion);
 //        params.put("token_key", Constant.tokenKep);
 
+//        Constant.user.setUserID(userID);
         Constant.user.setUserID(userID);
         String url;
         if (isManager.equals("是")) {
@@ -365,7 +365,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    private boolean validateLogin() {
+    public boolean validateLogin() {
         String username = mUserIdET.getText().toString().trim();
         if (username.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");
@@ -380,7 +380,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     //对用户名和密码进行校验
-    private boolean validateRegist() {
+    public boolean validateRegist() {
         String userID = mUserIdET.getText().toString().trim();
         if (userID.equals("")) {
             DialogUtil.showToast(this, "用户ID不能为空");

@@ -38,7 +38,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private EditText addCourseCourseDescEditText;
     private TextView mTitleText;
 
-    //    private EditText addCourseCourseTypeEditText;
+//    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
 
     private EditText addCourseCoursePointsEditText;
@@ -222,7 +222,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
-
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }

@@ -12,12 +12,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
-import cn.nubia.activity.admin.AdminLessonDetailActivity;
+
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
@@ -31,8 +31,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     private List<CourseItem> mGroupList;
     private Context mContext;
 
-    private CourseItem courseItem;
-    private LessonItem lessonItem;
+    private CourseItem courseItem=new CourseItem();
+    private LessonItem lessonItem=new LessonItem();
 
 
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
@@ -87,21 +87,25 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         );
 
         final Bundle bundle = new Bundle();
-        bundle.putSerializable("LessonItem", mGroupList.get(mGroupID).getLessonList().get(mChildID));
+        /**这里传过去的lessonItem中没有任何数据*/
+        lessonItem=mGroupList.get(mGroupID).getLessonList().get(mChildID);
+//        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListViewAA");
+//        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getLessonName() + "+ExpandableListViewAA");
+        bundle.putSerializable("LessonItem", lessonItem);
 
         Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
 
-        /**设置课时点击事件*/
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-                Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex()+"+ExpandableListView");
-                Toast.makeText(mContext, "XXXXXXXXXXXXX", Toast.LENGTH_LONG).show();
-            }
-        });
+//        /**设置课时点击事件*/
+//        convertView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+//                intent.putExtras(bundle);
+//                mContext.startActivity(intent);
+//                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
+//                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getLessonName() + "+ExpandableListView");
+//            }
+//        });
         return convertView;
     }
 
@@ -173,7 +177,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             /**如果是管理员*/
             else{
                 /**如果不是分享课程,则隐去“享”，同时课程级别“部”也要隐去*/
-                if(!Objects.equals(mGroupList.get(groupPosition).getType(), "2")){
+                if(!mGroupList.get(groupPosition).getType().equals("2")){
                     groupViewHolder.mCourseType.setVisibility(View.GONE);
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 }
