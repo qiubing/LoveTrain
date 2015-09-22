@@ -42,11 +42,11 @@ public class AdminScoreUserDetailActivity extends Activity {
         String url = Constant.BASE_URL + "user/find_score_student.do";
 
         String userID = getIntent().getStringExtra("userid");
-        RequestParams params = new RequestParams();
-        params.put("device_id", Constant.devideID);
-        params.put("request_time", System.currentTimeMillis());
-        params.put("apk_version", Constant.apkVersion);
-        params.put("token_key", Constant.tokenKep);
+        RequestParams params = new RequestParams(Constant.getRequestParams());
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("token_key", Constant.tokenKep);
         params.put("user_id",userID);
 
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {

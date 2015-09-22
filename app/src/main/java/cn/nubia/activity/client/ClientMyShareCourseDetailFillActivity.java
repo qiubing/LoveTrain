@@ -259,7 +259,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                             Date endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
                                     mCourseDate.getText().toString().trim() +
                                     " "+
-                                    mCourseStarttime.getText().toString().trim());
+                                    mCourseEndtime.getText().toString().trim());
                             shareCourse.setStartTime(startTime.getTime());
                             shareCourse.setEndTime(endTime.getTime());
                         } catch (ParseException e) {

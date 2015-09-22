@@ -139,11 +139,11 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         }
     }
     private void upData(){
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+//        requestParams.add("device_id", "MXJSDLJFJFSFS");
+//        requestParams.add("request_time","1445545456456");
+//        requestParams.add("apk_version","1");
+//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
 
         requestParams.add("course_index", mCourseItem.getIndex()+"");
         requestParams.add("lesson_name", lessonName.getText().toString());
