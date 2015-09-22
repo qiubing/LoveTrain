@@ -89,8 +89,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_course_detail_backImage:
-                Intent intentBackImage = new Intent(AdminCourseDetailActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);
+                finish();
                 break;
             case R.id.signUpAdminBtn:
                 Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);

@@ -107,6 +107,7 @@
             android:id="@+id/lesson_detail_lessonInfo_textView"
             style="@style/text_view_style"
             android:layout_below="@id/exam_info_title"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:text="XXXXXXXX"
             android:textSize="20sp" />
