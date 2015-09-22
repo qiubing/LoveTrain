@@ -22,7 +22,7 @@ public class EntityFactoryGenerics {
         mJsonObject = jsonObject;
     }
 
-    public EntityFactoryGenerics(ItemType type){
+    private EntityFactoryGenerics(ItemType type){
         mType = type;
         switch (mType){
             case COURSE:

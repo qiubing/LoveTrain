@@ -33,7 +33,7 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
         }
     }
 
-    public LessonJudgementMsg makeLessonJudge(JSONObject jsonObject) throws JSONException {
+    private LessonJudgementMsg makeLessonJudge(JSONObject jsonObject) throws JSONException {
         LessonJudgementMsg item = new LessonJudgementMsg();
 
         item.setLessonIndex(jsonObject.getInt("lesson_index"));

@@ -26,6 +26,7 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 /**
  * Created by hexiao on 2015/9/9.
  */
+@SuppressWarnings("deprecation")
 public class AdminAddCourseActivity extends Activity implements View.OnClickListener {
 
     private EditText addCourseCourseNameEditText;
@@ -36,8 +37,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCoursePointsEditText;
 
-    private Button addCourseButton;
-    private ImageView addCourseBackImage;
+
 
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
@@ -68,8 +68,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
-        addCourseButton = (Button) findViewById(R.id.add_course_button);
-        addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
+        Button addCourseButton = (Button) findViewById(R.id.add_course_button);
+        ImageView addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
@@ -158,7 +158,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         }
     }
 
-    void upData(){
+    private void upData(){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -183,7 +183,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");

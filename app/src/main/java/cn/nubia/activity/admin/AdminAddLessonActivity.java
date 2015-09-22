@@ -26,9 +26,10 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 /**
  * Created by hexiao on 2015/9/7.
  */
+@SuppressWarnings("deprecation")
 public class AdminAddLessonActivity extends Activity implements View.OnClickListener {
 
-    private TextView courseName;
+
     private EditText lessonName;
     private EditText teacherName;
     private EditText lessonDesc;
@@ -37,8 +38,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private EditText lessonEndTime;
     private EditText teacherGetPoints;
     private EditText studentGetPoints;
-    private Button addLessonSureBtn;
-    private ImageView addLessonImageView;
 
     private CourseItem mCourseItem=new CourseItem();
     private LessonItem mLessonItem=new LessonItem();
@@ -50,6 +49,9 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_lesson);
 
+        Button addLessonSureBtn;
+        ImageView addLessonImageView;
+        TextView courseName;
         courseName=(TextView)findViewById(R.id.add_lesson_CourseName_TextView);
         lessonName = (EditText) findViewById(R.id.add_lesson_lessonName_editText);
         teacherName = (EditText) findViewById(R.id.add_lesson_teacherName_editText);
@@ -170,7 +172,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                 break;
         }
     }
-    void upData(){
+    private void upData(){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -190,7 +192,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         AsyncHttpHelper.post(addLessonURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");

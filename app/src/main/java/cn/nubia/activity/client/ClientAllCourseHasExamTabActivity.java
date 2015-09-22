@@ -63,12 +63,12 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
     }
 
 
-    public void initView() {
+    private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
     }
 
-    protected void initEvents() {
+    private  void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(ClientAllCourseHasExamTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
@@ -141,7 +141,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
     /**
      * 请求课程数据服务器数据的Handler
      */
-    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -237,7 +237,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
 
 
     /**只保留自己是讲师的课程显示*/
-    public void getExamList(List<CourseItem> mList){
+    private  void getExamList(List<CourseItem> mList){
         ArrayList<CourseItem> resultList=new ArrayList<>();
         if(mList.size()!=0){
             Iterator<CourseItem> it=mList.iterator();

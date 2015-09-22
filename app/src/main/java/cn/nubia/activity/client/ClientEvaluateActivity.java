@@ -37,12 +37,13 @@ import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 /**
  * Created by 胡立 on 2015/9/14.
  */
+@SuppressWarnings("deprecation")
 public class ClientEvaluateActivity  extends Activity {
 
     private ExpandableListView mExpandableListView;
     private static final String URL = Constant.BASE_URL + "/my/find_lesson_judge.do";
     private List<LessonJudgementMsg> mList = new ArrayList<>();
-    EvaluateAdapter mEvaluateAdapter;
+    private EvaluateAdapter mEvaluateAdapter;
     private GestureDetector gestureDetector;
 
     private RefreshLayout mRefreshLayout;
@@ -105,7 +106,7 @@ public class ClientEvaluateActivity  extends Activity {
         return  gestureDetector.onTouchEvent(event);
     }
 
-    protected void initBeforeData() {
+    private  void initBeforeData() {
         mEvaluateAdapter = new  EvaluateAdapter(ClientEvaluateActivity.this);
         mExpandableListView.setGroupIndicator(null);
         mExpandableListView.setAdapter(mEvaluateAdapter);
@@ -128,7 +129,7 @@ public class ClientEvaluateActivity  extends Activity {
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
             Log.i("huhu", "addExam" + "EvaluateonSuccess");
@@ -175,7 +176,7 @@ public class ClientEvaluateActivity  extends Activity {
         }
     };
 
-    protected void initEvents() {
+    private  void initEvents() {
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

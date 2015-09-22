@@ -31,10 +31,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     private List<CourseItem> mGroupList;
     private Context mContext;
 
-    private CourseItem courseItem;
-    private LessonItem lessonItem;
-
-
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
         this.mGroupList = mCourseList;
         this.mContext = mCtx;
@@ -249,7 +245,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**判断是否是讲师*/
-    public boolean isTeacher(int groupPosition){
+    private  boolean isTeacher(int groupPosition){
         ArrayList<LessonItem> mLessonList=(ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
         if(mLessonList == null)
             return false;

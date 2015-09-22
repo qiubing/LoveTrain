@@ -51,11 +51,11 @@ public class AdminAllExamActivity extends Activity{
         initEvents();
     }
 
-    public void initView(){
+    private  void initView(){
         mAllExamListView = (ListView) findViewById(R.id.admin_all_exam_list);
     }
 
-    protected void initEvents() {
+    private  void initEvents() {
         mExamList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, hand);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
@@ -108,7 +108,7 @@ public class AdminAllExamActivity extends Activity{
         });
     }
 
-    void loadData(String updateTime){
+    private void loadData(String updateTime){
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id","MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -119,7 +119,7 @@ public class AdminAllExamActivity extends Activity{
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("exam onSuccess", statusCode + "statusCode");
@@ -134,7 +134,7 @@ public class AdminAllExamActivity extends Activity{
         }
     };
 
-    Handler hand = new Handler() {
+    private Handler hand = new Handler() {
         public void handleMessage(Message msg) {
             /*For DEBUG*/
             if(msg.what == 1)

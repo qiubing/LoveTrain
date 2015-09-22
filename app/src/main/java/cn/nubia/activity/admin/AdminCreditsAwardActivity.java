@@ -37,7 +37,7 @@ public class AdminCreditsAwardActivity extends Activity {
     private EditText mAwardCredits;
     private EditText mAwardCause;
 
-    private ImageView mGoBack;
+
 
     private CommunicateService.CommunicateBinder mBinder;
     private final ServiceConnection mConn = new ServiceConnection() {
@@ -66,7 +66,6 @@ public class AdminCreditsAwardActivity extends Activity {
         //公用部分
         TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_manager_award_title);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
 
         //公用部分
         ((TextView) findViewById(R.id.manager_head_title))

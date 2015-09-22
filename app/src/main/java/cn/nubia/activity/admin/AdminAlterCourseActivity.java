@@ -26,6 +26,7 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 /**
  * Created by hexiao on 2015/9/7.
  */
+@SuppressWarnings("deprecation")
 public class AdminAlterCourseActivity extends Activity implements View.OnClickListener {
 
     private EditText alterCourseCourseNameEditText;
@@ -35,22 +36,20 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     private EditText alterCourseCoursePointsEditText;
 
 
-    private Button alterCourseButton;
-    private ImageView alterCourseBackImage;
+
 
     private CourseItem mCourseItem;
 
-    Bundle bundle;
+    private Bundle bundle;
 
     //复选框
     private CheckBox alterCourseWhetherExamCheckBox;
 //    private CheckBox alterCourseWhetherHighLevelCourseCheckBox;
 
     //保存是否是高级课程
-    private boolean whetherExam;
-    private boolean whetherHighLevelCourse;
+//    private boolean whetherExam;
+//    private boolean whetherHighLevelCourse;
     /**修改课程URL*/
-    private String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         alterCourseCoursePointsEditText = (EditText) findViewById(R.id.alter_course_coursePoints_editText);
 
 
-
+        Button alterCourseButton;
+        ImageView alterCourseBackImage;
 
         alterCourseButton = (Button) findViewById(R.id.alter_course_button);
         alterCourseBackImage = (ImageView) findViewById(R.id.admin_alter_course_backImage);
@@ -83,7 +83,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             alterCourseCourseDescEditText.setText(mCourseItem.getDescription());
 
             String courseTypeStr=mCourseItem.getType();
-            courseTypeSpinner.setSelection(courseTypeStr=="1"?0:(courseTypeStr=="2"?1:2));
+            courseTypeSpinner.setSelection(courseTypeStr.equals("1")?0:(courseTypeStr.equals("2")?1:2));
 
             alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits()+"");
             alterCourseWhetherExamCheckBox.setChecked(mCourseItem.hasExam());
@@ -198,7 +198,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         }
 
     }
-    void upData(){
+    private void upData(){
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.add("course_index", mCourseItem.getIndex()+"");
@@ -209,7 +209,9 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
          * 技术分享，type为2；
          * 高级课程，type为3；*/
         String typeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(typeStr=="course"?1:(typeStr=="share"?2:3))+"");
+
+        String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
+        requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
 
         requestParams.add("has_exam", alterCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", alterCourseCoursePointsEditText.getText().toString());
@@ -217,7 +219,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         AsyncHttpHelper.post(alterCourseUrl, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");

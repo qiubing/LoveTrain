@@ -23,6 +23,7 @@ import cn.nubia.db.DbUtil;
  * ViewPager为动态分页，且该类也很古老了
  * Created by 胡立加 on 2015/9/6.
  */
+@SuppressWarnings("deprecation")
 public class AdminMainActivity extends ActivityGroup {
 
     private TabHost mTabHost;
@@ -44,7 +45,7 @@ public class AdminMainActivity extends ActivityGroup {
         initEvents();
     }
 
-    protected void initBeforeData() {
+    private  void initBeforeData() {
         addTabIntent();
         mTabHost.setCurrentTab(0);
         mRadioGroup=(RadioGroup) findViewById(R.id.main_admin_group);
@@ -54,7 +55,7 @@ public class AdminMainActivity extends ActivityGroup {
 
 
 
-    protected void initEvents() {
+    private  void initEvents() {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -96,7 +97,7 @@ public class AdminMainActivity extends ActivityGroup {
     /**
      * 判断两次返回时间间隔,小于两秒则退出程序
      */
-    private boolean exit() {
+    private void exit() {
         if (System.currentTimeMillis() - mExitTime > INTERVAL) {
             Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
@@ -107,7 +108,6 @@ public class AdminMainActivity extends ActivityGroup {
             finishAffinity();
 
         }
-        return true;
     }
 
     @Override

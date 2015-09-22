@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,8 +36,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
-
-    private ImageView mGoBack;
 
     private CommunicateService.CommunicateBinder mBinder;
     private final ServiceConnection mConn = new ServiceConnection() {
@@ -67,7 +64,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         //公用部分
         TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
 
         connectService();
         holdView();
