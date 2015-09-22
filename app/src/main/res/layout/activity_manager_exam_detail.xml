@@ -119,6 +119,14 @@
             android:text="XXXXXXXX"
             android:textSize="20sp" />
 
+        <Button
+            android:visibility="gone"
+            android:layout_below="@+id/exam_info"
+            android:id="@+id/manager_exam_enroll"
+            style="@style/CustomBigLoginButton"
+            android:layout_weight="1"
+            android:text="@string/activity_manager_exam_deletebtn" />
+
     </RelativeLayout>
 
     <LinearLayout

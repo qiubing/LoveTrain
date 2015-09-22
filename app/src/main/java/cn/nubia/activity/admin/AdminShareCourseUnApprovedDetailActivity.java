@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
@@ -60,6 +61,10 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         mCourseDescription = (TextView) findViewById(R.id.unapproved_share_course_description);
         mPassButton = (Button) findViewById(R.id.btn_pass);
         mRejectButton = (Button) findViewById(R.id.btn_reject);
+
+        RelativeLayout linear = (RelativeLayout) findViewById(R.id.admin_unapproved_share_title);
+        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
+        text.setText("课程信息");
     }
 
     private void initEvents() {
@@ -126,7 +131,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG, "onFailure: " + errorResponse.toString());
+            Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,"请求失败",Toast.LENGTH_LONG).show();
         }
     };
 
@@ -147,7 +152,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG, "onFailure: " + errorResponse.toString());
+            Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,"请求失败",Toast.LENGTH_LONG).show();
         }
     };
 

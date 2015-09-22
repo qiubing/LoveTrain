@@ -7,10 +7,15 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.List;
+
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientCourseIntegrationAdapter;
 import cn.nubia.entity.Constant;
@@ -36,7 +41,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         initEvents();
     }
 
-    private void initEvents(){
+    private void initEvents() {
         RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_course_integration_title);
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
         mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
@@ -45,55 +50,25 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
         //请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
-        params.put("user_id",Constant.user.getUserID());
+        params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "credit/find_lesson_credits.do";
-        AsyncHttpHelper.post(url,params,mClientCourseIntegrationHandler);
+        AsyncHttpHelper.post(url, params, mClientCourseIntegrationHandler);
     }
 
-    private MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e(TAG, "onSuccess: " + response.toString());
-            EntityFactoryGenerics factoryGenerics =
-                    new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, response);
-            int code = factoryGenerics.getCode();
-            //成功返回
-            if (code == 0){
-                List<CourseIntegrationItem> mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
-                ClientCourseIntegrationAdapter mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
-                mListView.setAdapter(mAdapter);
-                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
-                mScoreText.setVisibility(View.VISIBLE);
-                mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e(TAG, "onFailure:" + throwable.toString());
-        }
-    };
-    /*AsyncHttpResponseHandler mClientCourseIntegrationHandler = new AsyncHttpResponseHandler() {
-        @Override
-        public void onSuccess(int i, Header[] headers, byte[] bytes) {
-            Log.e(TAG,"onSuccess");
-            String jsonStr = "{\"code\":0,\"result\":\"success\",\"message\":[],\"field_errors\":{},\"errors\":[]," +
-                    "\"data\":[{\"lesson_name\":\"Java基础一\",\"lesson_index\":\"1\",\"check_credits\":\"30\",\"cause\":\"正常\",\"acquire_time\":1302122566546}," +
-                    "{\"lesson_name\":\"Android讲义一\",\"lesson_index\":\"2\",\"check_credits\":\"40\",\"cause\":\"分享\",\"acquire_time\":1302122566546}," +
-                    "{\"lesson_name\":\"概要需求分析\",\"lesson_index\":\"3\",\"check_credits\":\"50\",\"cause\":\"高级\",\"acquire_time\":1302122566546}]}";
             try {
-                JSONObject result = new JSONObject(jsonStr);
-                EntityFactoryGenerics factoryGenerics =
-                        new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, result);
-                int code = factoryGenerics.getCode();
-                //成功返回
-                if (code == 0){
-                    mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
-                    mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList,ClientCourseIntegrationRecordActivity.this);
+                if (response != null && response.getInt("code") == 0) {
+                    EntityFactoryGenerics factoryGenerics =
+                            new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, response);
+                    Log.e(TAG, "onSuccess: " + response.toString());
+                    List<CourseIntegrationItem> mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
+                    ClientCourseIntegrationAdapter mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
                     mListView.setAdapter(mAdapter);
                     Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                    mScoreText.setVisibility(View.VISIBLE);
                     mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
                 }
             } catch (JSONException e) {
@@ -102,14 +77,15 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         }
 
         @Override
-        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-            Log.e(TAG, "onFailure");
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e(TAG, TAG + ":onFailure");
         }
-    };*/
+    };
 
-    private int getTotalScore(List<CourseIntegrationItem> list){
+    private int getTotalScore(List<CourseIntegrationItem> list) {
         int total = 0;
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             total += list.get(i).getmCheckCredits();
         }
         return total;
@@ -119,7 +95,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
      * 返回箭头绑定事件，即退出该页面
      * param view
      */
-    public void back(View view){
+    public void back(View view) {
         this.finish();
     }
 }

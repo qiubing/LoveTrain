@@ -16,44 +16,35 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.SignUpManageAdapter;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.SignUpItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 /**
  * Created by hexiao on 2015/9/11.
  */
 public class AdminSignUpManageActivity extends Activity {
-
-    private ArrayList<String> listData;
+    private static final String TAG = "SignUpManage";
+    ArrayList<SignUpItem> mSignUpList;
+    private CourseItem mCourseItem;
+    private ListView mListView;
+    private SignUpManageAdapter mSignUpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_signin_manage);
-        Context ctx = this;
-
-        Intent intent = getIntent();
-        CourseItem mCourseItem = (CourseItem) intent.getSerializableExtra("CourseItem");
-
-        /***构造请求参数*/
-
-        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.add("course_index",mCourseItem.getIndex() + "");
-
-        Log.e("requestParams", requestParams.toString());
-        String signUpInfoUrl = Constant.BASE_URL + "enroll/list_enroll_users.do";
-        AsyncHttpHelper.post(signUpInfoUrl, requestParams, jsonHttpResponseHandler);
+        initEvents();
+        loadData();
+    }
 
 
+    private void initEvents(){
         ImageView backImageView = (ImageView) findViewById(R.id.admin_signIn_manage_back);
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,61 +54,73 @@ public class AdminSignUpManageActivity extends Activity {
                 finish();
             }
         });
-//        listData = getData();
-        listData=new ArrayList<>();
-        ListView listView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
-        SignUpManageAdapter signUpManageAdapter = new SignUpManageAdapter(listData, ctx);
-        listView.setAdapter(signUpManageAdapter);
 
+        mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
+        /*mSignUpList = getData();
+        mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
+        mListView.setAdapter(mSignUpAdapter);*/
+
+    }
+
+    private void loadData(){
+        Intent intent = getIntent();
+        mCourseItem = (CourseItem) intent.getSerializableExtra("CourseItem");
+        /***构造请求参数*/
+        RequestParams params = new RequestParams(Constant.getRequestParams());
+        params.put("course_index", mCourseItem.getIndex());
+        Log.e(TAG, "params: " + params.toString());
+        String signUpInfoUrl = Constant.BASE_URL + "enroll/list_enroll_users.do";
+        AsyncHttpHelper.post(signUpInfoUrl, params, jsonHttpResponseHandler);
     }
 
     /**请求课程数据服务器数据的Handler*/
     MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
-        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                if(response.getInt("code") != 0){
-                    Log.e("TEST code2",""+response.getInt("code"));
-                    Toast.makeText(AdminSignUpManageActivity.this, "请求出错", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(response.getInt("code")==0 && response.getString("data")!=null) {
-                    Toast.makeText(AdminSignUpManageActivity.this, "请求成功", Toast.LENGTH_LONG).show();
-                    /**JsonArray，不用异步请求*/
+                Log.e(TAG,"onSuccess: " + response.toString());
+                if(response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null){
                     JSONArray jsonArray = response.getJSONArray("data");
-                    Log.e("SignUp","this is request"+jsonArray.length());
-                    for(int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        listData.add(jsonObject.getString("user_name")+jsonObject.getString("user_id"));
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        mSignUpList.add(makeUpSignUpItem(obj));
                     }
-
+                    mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
+                    mListView.setAdapter(mSignUpAdapter);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json",e.toString());
                 e.printStackTrace();
-                Toast.makeText(AdminSignUpManageActivity.this, "请求异常", Toast.LENGTH_LONG).show();
             }
         }
 
         @Override
-        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", ""+statusCode);
+            Log.e(TAG,"onFailure: " );
             Toast.makeText(AdminSignUpManageActivity.this, "请求异常", Toast.LENGTH_LONG).show();
         }
     };
 
+    private SignUpItem makeUpSignUpItem(JSONObject object) throws JSONException {
+        SignUpItem item = new SignUpItem();
+        item.setCourseID(mCourseItem.getIndex());
+        item.setUserName(object.getString("user_name"));
+        item.setUserID(object.getString("user_id"));
+        item.setIsEnroll(object.getBoolean("is_enroll"));
+        return item;
+    }
 
-//    //初始化数据
-//    private ArrayList<String> getData() {
-//        ArrayList<String> listData = new ArrayList<>();
-//        for (int i = 0; i < 30; i++) {
-//            listData.add("张" + i);
-//        }
-//        return listData;
-//    }
 
+    private ArrayList<SignUpItem> getData(){
+        ArrayList<SignUpItem> listData=new ArrayList<>();
+        for(int i = 0;i < 30;i++){
+            SignUpItem item = new SignUpItem();
+            item.setUserName("张" + i);
+            item.setUserID("001600330" + i);
+            item.setCourseID(2);
+            item.setIsEnroll(false);
+            listData.add(item);
+        }
+        return listData;
+    }
 
 }

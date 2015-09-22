@@ -45,7 +45,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
 
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
-    private static final String URL = Constant.BASE_URL + "/exam/add.do";
+    private static final String URL = Constant.BASE_URL + "/exam/edit.do";
     private ExamItem mExamItemExamEdit;
     private GestureDetector gestureDetector;
 
@@ -63,6 +63,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         setContentView(R.layout.activity_manager_add_exam);
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
+        Log.i("huhu", "exzm" + mExamItemExamEdit.getIndex() + "," + mExamItemExamEdit.getCourseIndex());
 
 
         mExamTitle = (EditText) findViewById(R.id.activity_manager_add_exam_one);

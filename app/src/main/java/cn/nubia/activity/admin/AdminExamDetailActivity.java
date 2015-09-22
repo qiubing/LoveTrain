@@ -80,6 +80,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private Button enroll;
 
 
     private GestureDetector gestureDetector;
@@ -97,8 +98,10 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
+        Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        enroll = (Button) findViewById(R.id.manager_exam_enroll);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
         initViewData();
@@ -172,6 +175,13 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
         mExamInfo = (TextView) findViewById(R.id.exam_info);
         mCourseName = (TextView) findViewById(R.id.course_name);
+
+        if(!Constant.IS_ADMIN){//普通用户
+            mExamMenber.setVisibility(View.GONE);
+            mInputScore .setVisibility(View.GONE);
+            mDeleteExam.setVisibility(View.GONE);
+            mEditExam.setVisibility(View.GONE);
+        }
     }
 
     private void setViewLogic(){
@@ -217,7 +227,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 "考试地点：" + mExamItemExamEdit.getLocale() +
                 "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
                 "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
-                "\n考试积分" + mExamItemExamEdit.getExamCredits());
+                "\n考试积分：" + mExamItemExamEdit.getExamCredits());
     }
 
 

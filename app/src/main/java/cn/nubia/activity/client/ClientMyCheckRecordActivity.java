@@ -7,11 +7,16 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientCheckRecordAdapter;
 import cn.nubia.entity.CheckRecordItem;
@@ -47,39 +52,42 @@ public class ClientMyCheckRecordActivity extends Activity {
         mListView = (ListView) findViewById(R.id.check_detail);
         //请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
-        params.put("user_id",Constant.user.getUserID());
+        params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "user/find_check_record.do";
         AsyncHttpHelper.post(url, params, mCheckRecordHandler);
     }
 
-    private final MyJsonHttpResponseHandler mCheckRecordHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler mCheckRecordHandler = new MyJsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e(TAG, "onSuccess:" + response.toString());
-            EntityFactoryGenerics factoryGenerics =
-                    new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.CHECKRECORD, response);
-            int code = factoryGenerics.getCode();
-            if (code == 0) {
-                mCheckList = (List<CheckRecordItem>) factoryGenerics.get();
-                ClientCheckRecordAdapter mCheckAdapter = new ClientCheckRecordAdapter(mCheckList, ClientMyCheckRecordActivity.this);
-                mListView = (ListView) findViewById(R.id.check_detail);
-                mListView.setAdapter(mCheckAdapter);
-                Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+            try {
+                if (response != null && response.getInt("code") == 0) {
+                    EntityFactoryGenerics factoryGenerics =
+                            new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.CHECKRECORD, response);
+                    Log.e(TAG, "onSuccess:" + response.toString());
+                    mCheckList = (List<CheckRecordItem>) factoryGenerics.get();
+                    ClientCheckRecordAdapter mCheckAdapter = new ClientCheckRecordAdapter(mCheckList, ClientMyCheckRecordActivity.this);
+                    mListView = (ListView) findViewById(R.id.check_detail);
+                    mListView.setAdapter(mCheckAdapter);
+                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e(TAG, "onFailure:" + throwable.toString());
+            Log.e(TAG, TAG + ":onFailure");
         }
     };
 
 
     /**
      * 返回箭头绑定事件，即退出该页面
-     *
+     * <p/>
      * param view
      */
     public void back(View view) {

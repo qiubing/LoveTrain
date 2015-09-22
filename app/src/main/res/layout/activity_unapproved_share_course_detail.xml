@@ -1,46 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/soft_comment_title_content_windows">
 
-    <RelativeLayout
-        android:id="@+id/title_icon"
-        android:layout_width="match_parent"
-        android:layout_height="48.0dip"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/back_image"
-            android:layout_width="@dimen/text_size_20"
-            android:layout_height="@dimen/text_size_20"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9.0dip"
-            android:layout_marginRight="10.0dip"
-            android:background="@null"
-            android:contentDescription="@string/app_name"
-            android:onClick="back"
-            android:src="@drawable/back_button_xml" />
-        <TextView
-            android:id="@+id/unapproved_share_course_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_marginLeft="85.0dip"
-            android:layout_marginRight="85.0dip"
-            android:singleLine="true"
-            android:textColor="@color/grayslate"
-            android:textSize="@dimen/text_size_20"
-            android:text="课程信息"/>
-
-    </RelativeLayout>
+    <include
+        android:id="@+id/admin_unapproved_share_title"
+        layout="@layout/include_back_title_item_layout"
+        />
 
     <ScrollView
         android:id="@+id/scroll_list_approved"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_icon">
+        android:layout_below="@id/admin_unapproved_share_title">
 
         <LinearLayout
             style="@style/contentrealm"
@@ -145,7 +118,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="4dp"
-                    android:background="@color/btn_pressed_color_light"
+                    android:background="@color/button_gray_pressed"
                     android:textColor="@color/blue"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -157,7 +130,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@color/btn_pressed_color_light"
+                    android:background="@color/button_gray_pressed"
                     android:textColor="@color/blue"
                     android:layout_weight="1"
                     android:gravity="center"
