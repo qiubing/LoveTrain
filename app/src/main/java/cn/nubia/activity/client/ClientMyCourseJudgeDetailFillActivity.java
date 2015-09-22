@@ -20,6 +20,7 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
@@ -113,10 +114,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
                                 mComprehensiveEvaluationEditText.getText().toString().trim());
                         judgement.setSuggestion(
                                 mSuggestionEditText.getText().toString().trim());
-                        judgement.setLessonIndex(mLessonIndex);
 
+                        judgement.setLessonIndex(mLessonIndex);
+                        judgement.setUserID(Constant.user.getUserID());
                         judgement.setOperateType(CommunicateService.OperateType.INSERT);
-                        mBinder.communicate(judgement, new Inter(), URLMap.URL_JUDGE_LESSON);
+                        mBinder.communicate(judgement, new Inter(), URLMap.URL_ADD_JUDGEMENT);
                         mNextPressReady = false;
                     }
                 }
