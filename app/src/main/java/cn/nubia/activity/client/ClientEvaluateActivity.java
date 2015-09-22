@@ -114,11 +114,12 @@ public class ClientEvaluateActivity  extends Activity {
         loadData();
     }
     private void loadData(){
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+//        requestParams.add("device_id", "MXJSDLJFJFSFS");
+//        requestParams.add("request_time","1445545456456");
+//        requestParams.add("apk_version","1");
+//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+
         requestParams.add("record_modify_time_course", "1435125456111");
 
         String stringArray []  = lession_index_ID.split(",");

@@ -224,12 +224,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String pwd = mPasswordET.getText().toString();
         String sex = mSexSpinner.getSelectedItem().toString();
 
-        RequestParams params = new RequestParams();
+        RequestParams params = new RequestParams(Constant.getRequestParams());
 
-        params.put("device_id", Constant.devideID);
-        params.put("request_time", System.currentTimeMillis());
-        params.put("apk_version", Constant.apkVersion);
-        params.put("sign", "");
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("sign", "");
 
         params.put("user_id", userID);
         params.put("user_name", userName);

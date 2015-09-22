@@ -44,11 +44,11 @@ public class AdminScoreCourseDetailActivity extends Activity {
         String url = Constant.BASE_URL + "user/find_score_course.do";
 
         int courseindex = getIntent().getIntExtra("courseindex",0);
-        RequestParams params = new RequestParams();
-        params.put("device_id", Constant.devideID);
-        params.put("request_time", System.currentTimeMillis());
-        params.put("apk_version", Constant.apkVersion);
-        params.put("token_key", Constant.tokenKep);
+        RequestParams params = new RequestParams(Constant.getRequestParams());
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("token_key", Constant.tokenKep);
         params.put("course_index", courseindex);
 
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {

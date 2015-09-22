@@ -204,12 +204,13 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 builderDelete.create().show();
                 break;
             case R.id.lesson_detail_signIn_textView:
-                Intent intentSignInInfo = new Intent(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
+                Log.e("LK", "Activity" + String.valueOf(Thread.currentThread().getId()));
+                Intent intentSignInInfo = new Intent();
+                intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
                 signUpBundle.putSerializable("LessonItem", lessonItem);
                 intentSignInInfo.putExtras(signUpBundle);
                 startActivity(intentSignInInfo);
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
-
                 break;
 
             case R.id.backupButton:
@@ -284,11 +285,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     }
 
     private void loadData() {
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+//        requestParams.add("device_id", "MXJSDLJFJFSFS");
+//        requestParams.add("request_time","1445545456456");
+//        requestParams.add("apk_version","1");
+//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
 
         requestParams.add("lesson_index", lessonItem.getIndex()+"");
         Log.e("hexiao", lessonItem.getIndex() + "+loadData");
@@ -358,11 +359,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+//        requestParams.add("device_id", "MXJSDLJFJFSFS");
+//        requestParams.add("request_time","1445545456456");
+//        requestParams.add("apk_version","1");
+//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
 
         requestParams.put("lesson_index", lessonItem.getIndex());
