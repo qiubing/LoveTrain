@@ -1,10 +1,12 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.loopj.android.http.RequestParams;
@@ -25,6 +27,7 @@ import cn.nubia.db.DbUtil;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -105,6 +108,30 @@ public class AdminCourseAddTabActivity extends Activity {
                 }, 1500);
             }
         });
+
+        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Bundle bundle=new Bundle();
+                LessonItem lessonItem=mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
+                /**为什么可以传值过去，但是这里显示的值都是null呢*/
+
+//                Log.e("HEXIAOAAAA",mCourseItemList.size() + "mCourseItemListsize");
+//                Log.e("HEXIAOAAAA",lessonItem.getDescription()+"+CourseAdd");
+                Log.e("HEXIAOAAAA",lessonItem.getIndex() + "+lessonIndex");
+//                Log.e("HEXIAOAAAA", lessonItem.getName() + "+CourseAdd");
+
+                bundle.putSerializable("LessonItem", lessonItem);
+                Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+
+
+
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();

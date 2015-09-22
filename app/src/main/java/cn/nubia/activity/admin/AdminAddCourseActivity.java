@@ -174,7 +174,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
          * 技术分享share，type为2；
          * 高级课程senior，type为3；*/
         String courseTypeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(courseTypeStr=="course"?1:(courseTypeStr=="share"?2:3))+"");
+        requestParams.add("type",(courseTypeStr.equals("course")?1:(courseTypeStr.equals("share")?2:3))+"");
 
         requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());

@@ -94,9 +94,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
+        /**此处的lessonItem会不会是null*/
         lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
-        Log.e("hexiao",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
-
+        Log.e("HEXIAOAAAA",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
+        Log.e("HEXIAOAAAA",lessonItem.getLessonName()+"+LessonIndex+InOnCreate");
 
         if(lessonItem!=null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
