@@ -123,7 +123,6 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         holdView();
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
-        Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
 
@@ -132,6 +131,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
         TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(mExamItemExamEdit.getName() + "考试");
+        mExamMenber.setText(mExamItemExamEdit.getErollUsers()+"人报考");
         initViewData();
     }
 
@@ -198,6 +198,13 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 Bundle bundleExamEdit = new Bundle();
                 bundleExamEdit.putSerializable("ExamInfo", mExamItemExamEdit);
                 intent.putExtras(bundleExamEdit);
+                startActivity(intent);
+                break;
+            case R.id.manager_exam_menber:
+                intent = new Intent(AdminExamDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
+                Bundle examMenberBundle = new Bundle();
+                examMenberBundle.putSerializable("ExamIndex", mExamItemExamEdit);
+                intent.putExtras(examMenberBundle);
                 startActivity(intent);
                 break;
             default:

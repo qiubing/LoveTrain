@@ -1,7 +1,6 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,10 +9,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,16 +22,16 @@ import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.ExamItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
- * Created by hexiao on 2015/9/8.
+ * Created by WJ on 2015/9/22.
  */
-public class AdminSignInExamPersonInfoActivity extends Activity implements View.OnClickListener{
-    private ExamItem mExamItem;
-    private final static String URL = Constant.BASE_URL +"exam/exam_people_list.do";
+public class AdminSignInLessonPersonInfoActivity extends Activity implements View.OnClickListener{
+    private LessonItem mLessonItem;
+    private final static String URL = Constant.BASE_URL +"exam/check_list.do";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +44,11 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
 
     private void initView(){
         TextView barTxt = (TextView) findViewById(R.id.manager_head_title);
-        barTxt.setText("报名考试人数");
+        barTxt.setText("签到人数");
     }
 
     private void initEvent(){
-        mExamItem = (ExamItem) getIntent().getSerializableExtra("ExamIndex");
+        mLessonItem = (LessonItem) getIntent().getSerializableExtra("LessonItem");
     }
 
     @Override
@@ -61,13 +62,14 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
 
     private void loadData(){
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.put("exam_index", mExamItem.getIndex());
+        requestParams.put("lesson_index", mLessonItem.getIndex());
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("test qiandao",response.toString());
             try {
                 if(response.getInt("code") != 0){
                     return;
@@ -81,11 +83,15 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
                     Map<String, Object> listItem = new HashMap<>();
                     listItem.put("user_name",jsonObject.getString("user_name"));
                     listItem.put("user_id",jsonObject.getString("user_id"));
+                    listItem.put("check_time",jsonObject.getString("check_time"));
                     listItems.add(listItem);
                 }
 
-                SimpleAdapter simpleAdapter = new SimpleAdapter(AdminSignInExamPersonInfoActivity.this,listItems,R.layout.layout_sign_item,
-                        new String[]{"user_name","user_id"},new int[]{R.id.user_name,R.id.user_id});
+                SimpleAdapter simpleAdapter = new SimpleAdapter(AdminSignInLessonPersonInfoActivity.this,
+                        listItems,R.layout.score_course_item_detail,
+                        new String[]{"user_name","user_id","check_time"},
+                        new int[]{R.id.score_course_detail_name,R.id.score_course_detail_id,R.id.score_course_detail_score});
+
                 ListView listView = (ListView) findViewById(R.id.manager_score_user_detail_listview);
                 listView.setAdapter(simpleAdapter);
                 if(listItems.size()>0){
@@ -101,7 +107,7 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("test","onFailure");
+            Log.e("test", "onFailure");
         }
     };
 }

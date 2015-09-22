@@ -280,7 +280,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         if(mLessonList == null)
             return false;
         for(int i=0;i<mLessonList.size();i++){
-            if(mLessonList.get(i).getTeacherID()!=null&&mID.equals(mLessonList.get(i).getTeacherID())){
+            if(mLessonList.get(i).getTeacherID()!=null&&Constant.user.getUserID().equals(mLessonList.get(i).getTeacherID())){
                 /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
                 if(i==mLessonList.size()-1){
                     return false;

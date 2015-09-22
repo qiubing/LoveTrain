@@ -104,8 +104,9 @@
         <activity android:name=".admin.AdminAlterCourseActivity"/>
         <activity android:name=".admin.AdminCourseDetailActivity"/>
         <activity android:name=".admin.AdminLessonDetailActivity"/>
-        <activity android:name=".admin.AdminAlterLessonActivity"></activity>
-        <activity android:name=".admin.AdminSignInExamPersonInfoActivity"></activity>
+        <activity android:name=".admin.AdminAlterLessonActivity"/>
+        <activity android:name=".admin.AdminSignInExamPersonInfoActivity"/>
+        <activity android:name=".admin.AdminSignInLessonPersonInfoActivity"/>
         <activity android:name=".admin.AdminShareCourseApprovedDetailActivity"/>
         <activity android:name=".admin.AdminShareCourseApprovedModifyActivity"/>
         <activity android:name=".admin.AdminShareCourseUnApprovedDetailActivity"/>

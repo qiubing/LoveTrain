@@ -1,6 +1,7 @@
 package cn.nubia.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -32,7 +33,7 @@ public class SignInExamPersonInfoAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mList.get(position);
     }
 
     @Override
@@ -52,7 +53,8 @@ public class SignInExamPersonInfoAdapter extends BaseAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-
+        Log.e("wj getKey",mList.get(position).getKey());
+        Log.e("wj getValue",mList.get(position).getValue());
         mViewHolder.mNameTextView.setText(mList.get(position).getKey());
         mViewHolder.mIdTextView.setText(mList.get(position).getValue());
         return convertView;

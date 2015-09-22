@@ -20,14 +20,7 @@ import com.google.zxing.WriterException;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientEvaluateActivity;
 import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
@@ -61,16 +54,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
     /**从前一个页面传过来的LessonItem对象*/
     private LessonItem lessonItem;
-    private Bundle bundle;
     private Bundle signUpBundle;
-    private SignUpData mSignUpData;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
 
-    /**保存签到人员信息*/
-//    private List<String> mList;
-
-    private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
     private String deleteUrl = Constant.BASE_URL + "course/del_lesson.do";
 
     private GestureDetector gestureDetector;
@@ -78,9 +65,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
-        bundle = new Bundle();
         signUpBundle = new Bundle();
-
         /**获取控件**/
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
@@ -100,12 +85,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
-        /**此处的lessonItem会不会是null*/
-        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
-
         lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
 
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+        sub_page_title.setText(lessonItem.getName() + "课时");
         sub_page_title.setText("课时管理");
 
         String teacherID = lessonItem.getTeacherID();
@@ -161,7 +144,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 finish();
             }
         });
-        loadData();
+//        loadData();
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -206,7 +189,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             case R.id.lesson_detail_signIn_textView:
                 Log.e("LK", "Activity" + String.valueOf(Thread.currentThread().getId()));
                 Intent intentSignInInfo = new Intent();
-                intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
+                intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInLessonPersonInfoActivity.class);
                 signUpBundle.putSerializable("LessonItem", lessonItem);
                 intentSignInInfo.putExtras(signUpBundle);
                 startActivity(intentSignInInfo);
@@ -271,87 +254,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex()+"," + lessonItem.getTeacherID());
                     intent.putExtras(bundle);
-                    Log.i("huhu", "lession_index_ID" + lessonItem.getIndex() + "," + lessonItem.getTeacherID());
-                    Log.i("huhu", "lession_index_ID" + lessonItem);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                     intent.putExtra("lessonIndex", 0);
                 }
                 startActivity(intent);
                 break;
-
-        }
-
-    }
-
-    private void loadData() {
-        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-//        requestParams.add("device_id", "MXJSDLJFJFSFS");
-//        requestParams.add("request_time","1445545456456");
-//        requestParams.add("apk_version","1");
-//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-
-        requestParams.add("lesson_index", lessonItem.getIndex()+"");
-        Log.e("hexiao", lessonItem.getIndex() + "+loadData");
-        String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
-        AsyncHttpHelper.post(signUpUrl, requestParams, jsonHttpResponseHandler);
-    }
-
-    /**请求课程数据服务器数据的Handler*/
-    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
-        @Override
-        @SuppressWarnings("deprecation")
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            try {
-                Log.e("hexiao", response.toString());
-                if(response.getInt("code") != 0){
-                    Log.e("hexiao", "responseCode!=0");
-                    return;
-                }
-                if(response.getInt("code")==0 && response.getString("data")!=null) {
-                    Log.e("hexiao","signUpInfoSuccess");
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    SignUpData mSignUpData=new SignUpData(jsonArray);
-                    signUpPopulationTextView.setText("签到"+mSignUpData.getSize()+"人");
-                    signUpBundle.putSerializable("SignUpData", mSignUpData);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("hexiao","signUpInfoFailure");
-        }
-    };
-
-    class SignUpData implements Serializable {
-        private final static long serialVersionUID = 1234567890L;
-        private List<String> mList;
-        private int mSize;
-        public SignUpData(JSONArray jsonArray){
-            this.mList=new ArrayList<>();
-            for(int i=0;i<jsonArray.length();i++){
-                try {
-                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                    mList.add(jsonObject.getString("user_name")+","+jsonObject.getString("user_id")+","+jsonObject.getString("check_time"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            mSize=mList.size();
-        }
-        public List<String> getList(){
-            return mList;
-        }
-        public void setList(List<String> list){
-            mList.addAll(list);
-        }
-        public int getSize(){
-            return mSize;
         }
     }
 
