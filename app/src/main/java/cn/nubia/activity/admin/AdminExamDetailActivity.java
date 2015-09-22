@@ -173,6 +173,13 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
         mExamInfo = (TextView) findViewById(R.id.exam_info);
         mCourseName = (TextView) findViewById(R.id.course_name);
+
+        if(!Constant.IS_ADMIN){//普通用户
+            mExamMenber.setVisibility(View.GONE);
+            mInputScore .setVisibility(View.GONE);
+            mDeleteExam.setVisibility(View.GONE);
+            mEditExam.setVisibility(View.GONE);
+        }
     }
 
     private void setViewLogic(){

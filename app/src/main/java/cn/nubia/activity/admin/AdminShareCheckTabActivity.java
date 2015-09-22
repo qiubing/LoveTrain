@@ -85,9 +85,9 @@ public class AdminShareCheckTabActivity extends Activity {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e(TAG,"onSuccess: " + response.toString());
             try {
-                if (response != null && response.getJSONArray("data") != null) {
+                if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
+                    Log.e(TAG,"onSuccess: " + response.toString());
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
@@ -105,7 +105,7 @@ public class AdminShareCheckTabActivity extends Activity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG, "onFailure: " + errorResponse.toString());
+            Toast.makeText(AdminShareCheckTabActivity.this,"请求失败",Toast.LENGTH_LONG).show();
         }
     };
 
@@ -129,8 +129,8 @@ public class AdminShareCheckTabActivity extends Activity {
         @Override
         protected void onPostExecute(List<TechnologyShareCourseItem> technologyShareCourseItems) {
             super.onPostExecute(technologyShareCourseItems);
-            if(technologyShareCourseItems != null && technologyShareCourseItems.size()!=0){
-                mCourseList.clear();
+            mCourseList.clear();
+            if(technologyShareCourseItems != null && technologyShareCourseItems.size()!= 0){
                 mCourseList.addAll(technologyShareCourseItems);
             }
             mCourseAdapter.notifyDataSetChanged();
@@ -182,7 +182,6 @@ public class AdminShareCheckTabActivity extends Activity {
 
     @Override
     protected void onResume() {
-        Log.e("ShareCheck","onResume");
         super.onResume();
         loadData();
     }
