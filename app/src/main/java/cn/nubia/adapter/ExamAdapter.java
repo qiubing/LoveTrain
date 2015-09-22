@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
  * Created by WJ on 2015/9/7.
@@ -55,14 +56,15 @@ public class ExamAdapter extends BaseAdapter{
         viewHold.mTitle.setText(mExamList.get(position).getName());
 
         StringBuilder strb = new StringBuilder();
-        strb.append(mExamList.get(position).getIndex());
-
+//        strb.append(mExamList.get(position).getIndex());
+        strb.append("考试地点：");
         strb.append(mExamList.get(position).getLocale());
+        strb.append("      考试时间：");
+        strb.append(TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime()));
         strb.append("  ");
-        strb.append(mExamList.get(position).getStartTime());
-        strb.append("到");
-        strb.append(mExamList.get(position).getEndTime());
-        Log.e("test",strb.toString());
+        strb.append(TimeFormatConversion.toTime(mExamList.get(position).getStartTime()));
+        strb.append(" ~ ");
+        strb.append(TimeFormatConversion.toTime(mExamList.get(position).getEndTime()));
         viewHold.mExamInfo.setText(strb.toString());
         return convertView;
     }

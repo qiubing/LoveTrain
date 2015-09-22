@@ -97,6 +97,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
+        Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
@@ -217,7 +218,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 "考试地点：" + mExamItemExamEdit.getLocale() +
                 "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
                 "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
-                "\n考试积分" + mExamItemExamEdit.getExamCredits());
+                "\n考试积分：" + mExamItemExamEdit.getExamCredits());
     }
 
 
