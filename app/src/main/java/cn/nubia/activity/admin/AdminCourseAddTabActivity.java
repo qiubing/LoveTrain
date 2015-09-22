@@ -67,7 +67,7 @@ public class AdminCourseAddTabActivity extends Activity {
         mLoadViewUtil = new LoadViewUtil(AdminCourseAddTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent());
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
