@@ -45,7 +45,6 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
-    private ImageView backImageView;
     private Button alterLessonBtn;
     private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
@@ -57,7 +56,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private TextView lessonNameTextView;
     private TextView lessDescTextView;
     private TextView lessonInfoTextView;
-    private TextView signInPopulationTextView;
 
     /**从前一个页面传过来的LessonItem对象*/
     private LessonItem lessonItem;
@@ -75,11 +73,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lesson_detail);
-        bundle=new Bundle();
-        signUpBundle=new Bundle();
+        bundle = new Bundle();
+        signUpBundle = new Bundle();
 
         /**获取控件**/
-        backImageView = (ImageView) findViewById(R.id.backButton);
         alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
         signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
@@ -91,56 +88,50 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         lessonNameTextView=(TextView)findViewById(R.id.lesson_detail_realName_textView);
         lessDescTextView=(TextView)findViewById(R.id.lesson_detail_realDesc_textView);
         lessonInfoTextView=(TextView)findViewById(R.id.lesson_detail_lessonInfo_textView);
-        signInPopulationTextView=(TextView)findViewById(R.id.lesson_detail_signIn_textView);
 
         /**获取启动该Activity的Intent*/
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         /**此处的lessonItem会不会是null*/
-        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
-        Log.e("HEXIAOAAAA",lessonItem.getIndex()+"+LessonIndex+InOnCreate");
-        Log.e("HEXIAOAAAA",lessonItem.getLessonName()+"+LessonIndex+InOnCreate");
+        lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+        String statusTemp = intent.getStringExtra("status");
+        Log.e("huhu", lessonItem + statusTemp + "lessonItem");
 
-        if(lessonItem!=null) {
+        if(statusTemp != null) {
+            status = statusTemp;
+        }
+
+        if(Constant.IS_ADMIN == true || status.equals("teacher")){
+            mGenerateQRCode.setVisibility(View.VISIBLE);
+            alterLessonBtn.setOnClickListener(this);
+            deleteLessonBtn.setOnClickListener(this);
+            signUpPopulationTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
+            mEvaluateTextView.setOnClickListener(this);
+        }
+
+        else{
+            alterLessonBtn.setVisibility(View.GONE);
+            deleteLessonBtn.setVisibility(View.GONE);
+            signUpPopulationTextView.setVisibility(View.GONE);
+            mEvaluateTextView.setVisibility(View.GONE);
+            //mGenerateQRCode.setVisibility(View.GONE);
+        }
+
+        if(lessonItem != null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
             lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
-            lessonInfoTextView.setText("讲师：" + lessonItem.getTeacherName()+
-                    "\n上课地址：" + lessonItem.getLocation()+
-                    "\n上课时间：" + TimeFormatConversion.toDateTime(lessonItem.getStartTime()) +
+            lessonInfoTextView.setText("讲师：" + lessonItem.getTeacherName() +
+                            "\n上课地址：" + lessonItem.getLocation() +
+                            "\n上课时间：" + TimeFormatConversion.toDateTime(lessonItem.getStartTime()) +
 
-                    "\n下课时间：" + TimeFormatConversion.toDateTime(lessonItem.getEndTime()) +
-                    "\n讲师上课、学员签到可得积分：" + lessonItem.getTeacherCredits()+ "、" + lessonItem.getCheckCredits()+
-                    "\n课程评价分数：" + lessonItem.getJudgeScore()
-                    );
+                            "\n下课时间：" + TimeFormatConversion.toDateTime(lessonItem.getEndTime()) +
+                            "\n讲师上课可得积分：" + lessonItem.getTeacherCredits() +
+                            "\n学员签到可得积分：" + lessonItem.getCheckCredits() +
+                            "\n课程评价分数：" + lessonItem.getJudgeScore()
+            );
             /**签到人数怎么获得？*/
 //            signInPopulationTextView.setText(lessonItem.getIndex());
         }
-        Log.e("hexiao","beforeLoadData");
-        loadData();
-        Log.e("hexiao", "afterLoadData");
-        /**设置监听事件**/
-        mGenerateQRCode.setVisibility(View.VISIBLE);
-        backImageView.setOnClickListener(this);
-        alterLessonBtn.setOnClickListener(this);
-        deleteLessonBtn.setOnClickListener(this);
-        signUpPopulationTextView.setOnClickListener(this);
-        mGenerateQRCode.setOnClickListener(this);
-        mEvaluateTextView.setOnClickListener(this);
-
-
-        /**非管理员隐去修改课时和删除课时按钮**/
-        if(Constant.IS_ADMIN==false){
-            alterLessonBtn.setVisibility(View.GONE);
-            deleteLessonBtn.setVisibility(View.GONE);
-            mGenerateQRCode.setVisibility(View.GONE);
-        }
-        /**只有管理员界面才可以查看签到人数的详细信息和生成二维码*/
-        else{
-            signUpPopulationTextView.setOnClickListener(this);
-            mGenerateQRCode.setOnClickListener(this);
-        }
-
-
-
     }
 
     @Override
@@ -158,6 +149,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 finish();
             }
         });
+
+        loadData();
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -165,31 +158,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     public boolean onTouchEvent(MotionEvent event) {
         return  gestureDetector.onTouchEvent(event);
     }
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Intent intent = getIntent();
-        if(intent.getStringExtra("status") != null) {
-            status = intent.getStringExtra("status");
-        }
-    }
-    @Override
-    protected void onRestart(){
-        super.onRestart();
-        Intent intent = getIntent();
-        if(intent.getStringExtra("status") != null) {
-            status = intent.getStringExtra("status");
-        }
-    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.backButton:
-                //huhu
-                /*Intent intentBackImage = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);*/
-                finish();
-                break;
             case R.id.admin_lesson_detail_alterLessonButton:
                 Intent intentAlterLesson = new Intent(AdminLessonDetailActivity.this, AdminAlterLessonActivity.class);
                 Bundle alterBundle=new Bundle();
@@ -349,6 +321,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         public int getSize(){
             return mSize;
         }
+    }
+
+    public void back(View view) {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 }
