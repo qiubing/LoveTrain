@@ -21,15 +21,7 @@ public abstract class Paramable implements Serializable {
     }
 
     public RequestParams toParams(){
-        RequestParams params = new RequestParams();
-//        params.add("device_id","87654321");
-//        params.add("request_time", "1444444444444");
-//        params.add("apk_version", "1.0");
-//        params.add("token_key", "123456789");
-        params.put("device_id", "MXJSDLJFJFSFS");
-        params.put("request_time", "1445545456456");
-        params.put("apk_version", "1");
-        params.put("sign", "");
+        RequestParams params = new RequestParams(Constant.getRequestParams());
 
         switch (mType){
             case INSERT:

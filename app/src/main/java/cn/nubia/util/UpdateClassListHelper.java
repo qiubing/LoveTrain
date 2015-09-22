@@ -110,7 +110,7 @@ public class UpdateClassListHelper {
     public static void updateAllExamData(JSONArray jsonArray,List<ExamItem> examList) throws JSONException {
         int len = jsonArray.length();
         Log.e("tst2","ARRAY len"+len);
-        ExamItem item = null;
+        ExamItem item ;
         for(int i = 0;i < len; i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String operate = jsonObject.getString("operate");

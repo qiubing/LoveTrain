@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by WJ on 2015/9/15.
  */
+@SuppressWarnings("deprecation")
 public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler {
 
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {

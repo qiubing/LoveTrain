@@ -23,15 +23,7 @@ import cn.nubia.entity.CourseItem;
  */
 public class AdminCourseDetailActivity extends Activity implements View.OnClickListener {
 
-    private TextView courseRealNameTextview;
-    private TextView courseRealDescTextview;
-    private TextView courseRealTypeTextView;
 
-    private Button signUpAdminBtn;
-    private Button alterCourseBtn;
-    private Button lessonAddBtn;
-    private Button courseDeleteBtn;
-    private ImageView adminCourseDetailBackImage;
 
     private CourseItem mCourseItem;
     private Bundle bundle;
@@ -45,6 +37,15 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         setContentView(R.layout.activity_admin_course_detail);
         adminCourseDetailActivity = this;
         bundle=new Bundle();
+         TextView courseRealNameTextview;
+         TextView courseRealDescTextview;
+         TextView courseRealTypeTextView;
+
+         Button signUpAdminBtn;
+         Button alterCourseBtn;
+         Button lessonAddBtn;
+         Button courseDeleteBtn;
+         ImageView adminCourseDetailBackImage;
 
         adminCourseDetailBackImage = (ImageView) findViewById(R.id.admin_course_detail_backImage);
         /*four button*/
@@ -88,8 +89,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_course_detail_backImage:
-                Intent intentBackImage = new Intent(AdminCourseDetailActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);
+                finish();
                 break;
             case R.id.signUpAdminBtn:
                 Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);

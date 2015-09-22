@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,22 +32,23 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 /**
  * Created by hexiao on 2015/9/9.
  */
+@SuppressWarnings("deprecation")
 public class AdminAddCourseActivity extends Activity implements View.OnClickListener {
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
     private TextView addCourseHighLevelCouse;
     private EditText addCourseHighLevelCourseDeletePoints;
-    private TextView mTitleText;
+
 
 //    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
 
     private EditText addCourseCoursePointsEditText;
 
-    private Button addCourseButton;
     //private ImageView addCourseBackImage;
     private GestureDetector gestureDetector;
+
 
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
@@ -76,7 +76,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         setContentView(R.layout.activity_admin_add_course);
 
         courseItem=new CourseItem();
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增课程");
         //创建手势管理单例对象
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
@@ -102,7 +102,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseHighLevelCourseDeletePoints = (EditText) findViewById(R.id.add_course_highLevelCoursePoints_editText);
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
-        addCourseButton = (Button) findViewById(R.id.add_course_button);
+        Button addCourseButton = (Button) findViewById(R.id.add_course_button);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
@@ -207,6 +207,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setCourseCredits(Integer.parseInt(addCourseCoursePointsEditText.getText().toString()));
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
+
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("CourseItem", courseItem);
                 Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminCourseDetailActivity.class);
@@ -216,7 +217,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         }
     }
 
-    void upData(){
+   private void upData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
@@ -247,7 +248,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");
@@ -285,7 +286,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         }
     };
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 }

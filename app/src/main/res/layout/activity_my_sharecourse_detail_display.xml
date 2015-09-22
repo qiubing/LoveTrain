@@ -12,14 +12,14 @@
     android:layout_height="wrap_content"
     android:background="@color/titlebar_bg">
 
-    <ImageView
-        android:id="@+id/manager_goback"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/small_buttonsize"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/ic_back" />
+        <ImageView
+            android:id="@+id/manager_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_buttonsize"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_back" />
 
-    <TextView
+        <TextView
             android:id="@+id/manager_head_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

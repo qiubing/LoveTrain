@@ -28,17 +28,9 @@ public class PromptDialog extends Dialog {
 
     private Context context;
 
-    public static final int VIEW_STYLE_NORMAL = 0x00000001;
-    public static final int VIEW_STYLE_TITLEBAR = 0x00000002;
-    public static final int VIEW_STYLE_TITLEBAR_SKYBLUE = 0x00000003;
-    public static final int BUTTON_COUNT_ZERO = 0x00000000;
-    public static final int BUTTON_COUNT_ONE = 0x00000001;
-    public static final int BUTTON_COUNT_TWO = 0x00000002;
-    public static final int BUTTON_COUNT_THREE = 0x00000003;
-
-    public static final int BUTTON_1 = 0x00000001;
-    public static final int BUTTON_2 = 0x00000002;
-    public static final int BUTTON_3 = 0x00000003;
+    private static final int BUTTON_1 = 0x00000001;
+    private static final int BUTTON_2 = 0x00000002;
+    private static final int BUTTON_3 = 0x00000003;
 
     protected PromptDialog(Context context, int theme) {
         super(context, theme);
@@ -333,20 +325,20 @@ public class PromptDialog extends Dialog {
             }
             this.titleColor = Color.WHITE;
             this.titlebarGravity = Gravity.LEFT;
-            View mView = null;
-            LinearLayout mTitleBar = null;
-            TextView mTitle = null;
-            TextView mMessage = null;
-            TextView mMessage2 = null;
-            TextView btnLeft = null;
-            TextView btnCenter = null;
-            TextView btnRight = null;
-            LinearLayout addView = null;
-            LinearLayout addView2 = null;
-            LinearLayout btnView = null;
-            View btnDivider1 = null;
-            View btnDivider2 = null;
-            View msgBtnDivider = null;
+            View mView ;
+            LinearLayout mTitleBar ;
+            TextView mTitle ;
+            TextView mMessage ;
+            TextView mMessage2 ;
+            TextView btnLeft ;
+            TextView btnCenter ;
+            TextView btnRight ;
+            LinearLayout addView ;
+            LinearLayout addView2 ;
+            LinearLayout btnView ;
+            View btnDivider1 ;
+            View btnDivider2 ;
+            View msgBtnDivider ;
             View title_msg_divider2;
             mView = LayoutInflater.from(context).inflate(
                     R.layout.fynn_prompt_dialog_titlebar_skyblue, null);
@@ -594,9 +586,9 @@ public class PromptDialog extends Dialog {
             return dialog;
         }
 
-        public PromptDialog show() {
+        public void show() {
             create().show();
-            return dialog;
+            //return dialog;
         }
     }
 

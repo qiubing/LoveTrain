@@ -17,7 +17,7 @@ import cn.nubia.adapter.SignInExamPersonInfoAdapter;
  */
 public class AdminSignInExamPersonInfoActivity extends Activity implements View.OnClickListener{
 
-    ArrayList<String> listData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
         backImageView.setOnClickListener(this);
 
         /**获取模拟数据**/
-        listData=getData();
+        ArrayList<String> listData=getData();
 
         /**要填充数据的ListView**/
         ListView listView = (ListView) findViewById(R.id.admin_signIn_info_listView);

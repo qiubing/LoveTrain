@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -26,7 +24,6 @@ import cn.nubia.activity.R;
 import cn.nubia.adapter.SignUpManageAdapter;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.SignUpItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
@@ -36,12 +33,7 @@ import cn.nubia.util.Utils;
  */
 public class AdminSignUpManageActivity extends Activity {
 
-    ArrayList<String> listData;
-    ArrayList<SignUpItem> signUpList;
-
-    private TextView name;
-    private Button agreeButton;
-    private Button disagreeButton;
+    private ArrayList<String> listData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +74,7 @@ public class AdminSignUpManageActivity extends Activity {
     /**请求课程数据服务器数据的Handler*/
     MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 if(response.getInt("code") != 0){
@@ -108,6 +101,7 @@ public class AdminSignUpManageActivity extends Activity {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("TEST onFailure", ""+statusCode);

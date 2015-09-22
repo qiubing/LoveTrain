@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,13 +26,15 @@ import java.util.Calendar;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 public class AdminEditExamActivity extends Activity  implements  View.OnClickListener{
 
-    private Button mAddButton;
+
     private EditText mExamInfo;
     private EditText mExamTitle;
     private EditText mExamAddress;
@@ -38,11 +42,12 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
     private EditText mExamStartTime;
     private EditText mExamEndTime;
     private EditText mExamCredit;
-    private TextView mTitleText;
+
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
     private ExamItem mExamItemExamEdit;
+    private GestureDetector gestureDetector;
 
     private int year;
     private int month;
@@ -66,10 +71,10 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamStartTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_start);
         mExamEndTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_end);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+        Button mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
         mExamStartDate = (EditText) findViewById(R.id.activity_manager_add_exam_time_data);
 
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("修改考试");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
@@ -81,6 +86,18 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamStartDate.setOnClickListener(this);
         mExamStartTime.setOnClickListener(this);
         mExamEndTime.setOnClickListener(this);
+
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
 
 
         mExamTitle.setText(mExamItemExamEdit.getName());
@@ -101,7 +118,16 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         });
     }
 
-    void upData(){
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
+    private void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -122,8 +148,9 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "addExam" + "onSuccess");
             try {
@@ -145,6 +172,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);

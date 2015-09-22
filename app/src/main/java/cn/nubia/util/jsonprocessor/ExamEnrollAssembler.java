@@ -33,7 +33,7 @@ public class ExamEnrollAssembler implements IAssemblerGenerics<ExamScoreMsg> {
         }
     }
 
-    public ExamScoreMsg makeExamScoreMsg(JSONObject jsonObject) throws JSONException {
+    private ExamScoreMsg makeExamScoreMsg(JSONObject jsonObject) throws JSONException {
         ExamScoreMsg item = new ExamScoreMsg();
 
         item.setUserName(jsonObject.getString("user_name"));

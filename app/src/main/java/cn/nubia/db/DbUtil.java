@@ -62,7 +62,7 @@ public class DbUtil {
     /**
      * for Debug NO USE
      */
-    public long insertCourseItemTest(String courseIndex) {
+    private long insertCourseItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX, courseIndex);
         newValues.put(CourseItem.NAME, "Java基础");
@@ -77,7 +77,7 @@ public class DbUtil {
     /**
      * for Debug NO USE
      */
-    public long insertLessonItemTest(String courseIndex) {
+    private  long insertLessonItemTest(String courseIndex) {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, courseIndex);
         newValues.put(LessonItem.NAME, "Java基础一");
@@ -97,7 +97,7 @@ public class DbUtil {
             insertOrUpdateCourseItem(item);
     }
 
-    public long insertOrUpdateCourseItem(CourseItem courseItem) {
+    private  long insertOrUpdateCourseItem(CourseItem courseItem) {
         Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, new String[]{CourseItem.COURSE_INDEX}, CourseItem.COURSE_INDEX + "= ?",
                 new String[]{String.valueOf(courseItem.getIndex())}, null, null, null);
         int count = cursor.getCount();
@@ -254,7 +254,7 @@ public class DbUtil {
         return courseList;
     }
 
-    public List<LessonItem> getLessonList(int CourseIndex) {
+    private  List<LessonItem> getLessonList(int CourseIndex) {
         ArrayList<LessonItem> lessonList = new ArrayList<>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null, LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
                 null, LessonItem.LESSON_INDEX + " DESC");

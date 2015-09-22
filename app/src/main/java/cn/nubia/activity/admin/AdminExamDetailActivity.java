@@ -92,6 +92,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
 
         holdView();
+//        setViewLogic();
 
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
@@ -103,8 +104,8 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         setViewLogic();
     }
 
@@ -133,7 +134,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                         .setTitle("删除考试")
                         //设置图标
                         .setIcon(R.drawable.abc_ic_menu_selectall_mtrl_alpha)
-                        .setMessage("确认要删除《\"+mExamItem.getName()+ \"》这门考试吗?");
+                        .setMessage("确认要删除《" + mExamItemExamEdit.getName()+ "》这门考试吗?");
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -202,6 +203,9 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
 
     private void deleteData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -225,6 +229,8 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
                 Log.i("huhu", "addExam" + code + "," +isOk);
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminExamDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(AdminExamDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {

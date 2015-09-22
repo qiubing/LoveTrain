@@ -24,17 +24,17 @@ import cn.nubia.activity.R;
 @SuppressWarnings("deprecation")
 public class AdminScoreActivity extends ActivityGroup {
 
-    List<View> mListViews;
-    Context mContext = null;
-    LocalActivityManager mManager = null;
-    TabHost mTabHost = null;
+
+    private LocalActivityManager mManager = null;
+    private TabHost mTabHost = null;
     private ViewPager mViewPager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score);
-        mContext = AdminScoreActivity.this;
+
+        Context mContext = AdminScoreActivity.this;
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
         ImageView mGoBack;
@@ -51,7 +51,7 @@ public class AdminScoreActivity extends ActivityGroup {
         });
 
         // 定放一个放view的list，用于存放viewPager用到的view
-        mListViews = new ArrayList<>();
+        List<View> mListViews = new ArrayList<>();
         mManager = this.getLocalActivityManager();
         mManager.dispatchCreate(savedInstanceState);
 
