@@ -50,11 +50,11 @@ public class ErrorHintView extends RelativeLayout {
                 LayoutParams.MATCH_PARENT);
     }
 
-    public void show() {
+    private void show() {
         setVisibility(View.VISIBLE);
     }
 
-    public void close() {
+    private void close() {
         setVisibility(View.GONE);
     }
 
@@ -83,7 +83,7 @@ public class ErrorHintView extends RelativeLayout {
         mErrorHandler.operate(new LoadFailure());
     }
 
-    View loadFailure;
+    private View loadFailure;
 
     /**
      * 加载失败
@@ -121,7 +121,7 @@ public class ErrorHintView extends RelativeLayout {
         mErrorHandler.operate(new NetWorkError());
     }
 
-    View netError;
+    private View netError;
 
     /**
      * 无网络
@@ -158,7 +158,7 @@ public class ErrorHintView extends RelativeLayout {
         mErrorHandler.operate(new NoDataError());
     }
 
-    View noData;
+    private View noData;
 
     /**
      * 无数据
@@ -180,7 +180,7 @@ public class ErrorHintView extends RelativeLayout {
 
     }
 
-    View loadingdata;
+    private View loadingdata;
 
     /**
      *
@@ -215,7 +215,7 @@ public class ErrorHintView extends RelativeLayout {
     /**
      * 显示动画loading
      */
-    public void showLoading(final ImageView iv) {
+    private void showLoading(final ImageView iv) {
         animationDrawable = (AnimationDrawable) iv.getBackground();
         animationDrawable.start();
     }

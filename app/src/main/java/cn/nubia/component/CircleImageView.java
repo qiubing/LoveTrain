@@ -76,14 +76,13 @@ public class CircleImageView extends ImageView {
         super.setScaleType(SCALE_TYPE);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0);
         this.mBorderWidth = a.getDimensionPixelSize(0, 0);
-        this.mBorderColor = a.getColor(1, -16777216);
+        this.mBorderColor = a.getResources().getColor(R.color.grey);
         a.recycle();
         this.mReady = true;
         if(this.mSetupPending) {
             this.setup();
             this.mSetupPending = false;
         }
-
     }
 
     public ScaleType getScaleType() {

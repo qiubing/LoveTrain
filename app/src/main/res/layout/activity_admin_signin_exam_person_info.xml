@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
+            android:onClick="back"
             android:src="@mipmap/ic_back" />
 
             <TextView

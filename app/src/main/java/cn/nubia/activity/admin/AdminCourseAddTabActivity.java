@@ -160,13 +160,11 @@ public class AdminCourseAddTabActivity extends Activity {
     /**请求课程数据服务器数据的Handler*/
     private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
-        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("HeXiao",""+response.toString());
                 Log.e("HeXiaoServer",""+response.toString());
                 if(response.getInt("code") != 0){
-
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }
@@ -203,7 +201,6 @@ public class AdminCourseAddTabActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("courseItemList",courseItemList.size()+"");
             return courseItemList;
         }
 
