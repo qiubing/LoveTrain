@@ -193,8 +193,8 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>> {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
-            DbUtil dbUtil = DbUtil.getInstance(ClientMyCourseStudentTabActivity.this);
-            return dbUtil.getCourseList(SqliteHelper.TB_NAME_MY_CLASS_STU);
+            return DbUtil.getInstance(ClientMyCourseStudentTabActivity.this)
+                    .getCourseList(SqliteHelper.TB_NAME_MY_CLASS_STU);
         }
 
         @Override

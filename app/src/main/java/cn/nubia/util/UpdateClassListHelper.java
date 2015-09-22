@@ -60,6 +60,7 @@ public class UpdateClassListHelper {
         lessonItem.setDescription(jsonObjectDetail.getString("lesson_description"));
         lessonItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
         lessonItem.setTeacherID(jsonObjectDetail.getString("user_id"));
+        lessonItem.setCheckUsers(jsonObjectDetail.getInt("check_users"));
         lessonItem.setTeacherName(jsonObjectDetail.getString("teacher_name"));
         lessonItem.setJudgeScore(jsonObjectDetail.getDouble("judge_score"));
         lessonItem.setStartTime(jsonObjectDetail.getLong("start_time"));
@@ -99,8 +100,8 @@ public class UpdateClassListHelper {
         examItem.setStartTime(jsonObjectDetail.getLong("start_time"));
         examItem.setEndTime(jsonObjectDetail.getLong("end_time"));
         examItem.setExamCredits(jsonObjectDetail.getInt("exam_credits"));
-//        examItem.setName(jsonObjectDetail.getString("course_name"));
-        examItem.setName("test");
+        examItem.setName(jsonObjectDetail.getString("exam_name"));
+        examItem.setErollUsers(jsonObjectDetail.getInt("users"));
         examItem.setDescription(jsonObjectDetail.getString("exam_description"));
         return examItem;
     }

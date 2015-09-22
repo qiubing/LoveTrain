@@ -21,10 +21,10 @@ public class DbUtil {
     private static final String DB_NAME = "/loveTrain.db3";
     private static final int DB_VERSION = 1;
     private static DbUtil s_Db;
-    private final SQLiteDatabase db;
-    private final SqliteHelper dbHelper;
+    private static  SQLiteDatabase db;
+    private static SqliteHelper dbHelper;
 
-    private DbUtil(Context context) {
+    private  DbUtil(Context context) {
         dbHelper = new SqliteHelper(context, context.getFilesDir().toString() + DB_NAME, null, DB_VERSION);
         db = dbHelper.getWritableDatabase();
     }
@@ -38,10 +38,10 @@ public class DbUtil {
     public void closeDb() {
         if (s_Db == null)
             return;
-        if (s_Db.db != null)
-            s_Db.db.close();
-        if (s_Db.dbHelper != null)
-            s_Db.dbHelper.close();
+        if (db != null)
+            db.close();
+        if (dbHelper != null)
+            dbHelper.close();
     }
 
     /**
@@ -119,6 +119,7 @@ public class DbUtil {
         newValues.put(CourseItem.HAS_EXAM, courseItem.hasExam()); //1 有考试  0 无考试
         newValues.put(CourseItem.DESCRIPTION, courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
+
         newValues.put(CourseItem.CREDITS, courseItem.getCourseCredits());
         newValues.put(CourseItem.SHARE_TYPE, courseItem.getShareType());
         newValues.put(CourseItem.LESSONES_COUNT, courseItem.getLessones());
@@ -163,6 +164,7 @@ public class DbUtil {
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
         newValues.put(LessonItem.TEACHER_ID, lessonItem.getTeacherID());
+        newValues.put(LessonItem.CHECK_USERS, lessonItem.getCheckUsers());
         newValues.put(LessonItem.TEACHER_NAME, lessonItem.getTeacherName());
         newValues.put(LessonItem.TEACHER_CREDITS, lessonItem.getTeacherCredits());
         newValues.put(LessonItem.LOCALE, lessonItem.getLocation());
@@ -181,6 +183,7 @@ public class DbUtil {
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
         newValues.put(LessonItem.TEACHER_ID, lessonItem.getTeacherID());
+        newValues.put(LessonItem.CHECK_USERS, lessonItem.getCheckUsers());
         newValues.put(LessonItem.TEACHER_NAME, lessonItem.getTeacherName());
         newValues.put(LessonItem.TEACHER_CREDITS, lessonItem.getTeacherCredits());
         newValues.put(LessonItem.LOCALE, lessonItem.getLocation());
@@ -203,6 +206,7 @@ public class DbUtil {
         newValues.put(ExamItem.NAME, examItem.getName());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
+        newValues.put(ExamItem.ENROLL_USERS, examItem.getErollUsers());
         newValues.put(ExamItem.DESCRIPTION, examItem.getDescription());
         newValues.put(ExamItem.START_TIME, examItem.getStartTime());
         newValues.put(ExamItem.END_TIME, examItem.getEndTime());
@@ -216,6 +220,7 @@ public class DbUtil {
         newValues.put(ExamItem.NAME, examItem.getName());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
+        newValues.put(ExamItem.ENROLL_USERS, examItem.getErollUsers());
         newValues.put(ExamItem.DESCRIPTION, examItem.getDescription());
         newValues.put(ExamItem.START_TIME, examItem.getStartTime());
         newValues.put(ExamItem.END_TIME, examItem.getEndTime());
@@ -231,6 +236,9 @@ public class DbUtil {
         ArrayList<CourseItem> courseList = new ArrayList<CourseItem>();
         Cursor cursor = db.query(tableName, null, null, null, null,
                 null, CourseItem.COURSE_INDEX + " DESC");
+        if(cursor == null || cursor.isClosed()){
+            return null;
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
             CourseItem courseItem = new CourseItem();
@@ -258,6 +266,9 @@ public class DbUtil {
         ArrayList<LessonItem> lessonList = new ArrayList<>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_LESSON, null, LessonItem.COURSE_INDEX + "=" + CourseIndex, null, null,
                 null, LessonItem.LESSON_INDEX + " DESC");
+        if(cursor == null || cursor.isClosed()){
+            return null;
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
             LessonItem lessonItem = new LessonItem();
@@ -283,6 +294,9 @@ public class DbUtil {
         ArrayList<ExamItem> examItemList = new ArrayList<ExamItem>();
         Cursor cursor = db.query(SqliteHelper.TB_NAME_EXAM, null, null, null, null,
                 null, ExamItem.EXAM_INDEX + " DESC");
+        if(cursor == null || cursor.isClosed()){
+            return null;
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
             ExamItem examItem = new ExamItem();

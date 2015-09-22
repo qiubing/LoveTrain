@@ -70,6 +70,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "teacher_id varchar(20)," +                  //讲师ID
             "teacher_name varchar(20)," +                //讲师姓名
             "description varchar(500)," +               //简介
+            "check_users Integer," +                      //签到人数
             "start_time Integer," +                      //开始时间
             "end_time Integer," +                        //结束时间
             "locale varchar(50)," +                      //上课地点
@@ -81,6 +82,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     final static String CREATE_EXAM_TABLE = "CREATE TABLE IF NOT EXISTS "+ TB_NAME_EXAM +
             "(class_index Integer," +                    //课程索引
             "exam_index Integer," +                    //考试索引
+            "users Integer," +                //报名人数
             "name varchar(50)," +                    //考试名称
             "description varchar(500)," +                    //课时索引
             "start_time Integer," +                      //开始时间
