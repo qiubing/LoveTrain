@@ -56,7 +56,7 @@
     <LinearLayout
         android:id="@+id/firstLinearLayout"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -89,7 +89,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -119,7 +119,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -152,7 +152,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -185,7 +185,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -218,7 +218,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/manager_rate_paddingTop">
 
@@ -280,20 +280,24 @@
 
 
     <LinearLayout
+        android:paddingTop="@dimen/manager_rate_paddingTop"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/manager_rate_layout_hight"
-        android:layout_marginTop="@dimen/manager_score_hight"
-        android:paddingTop="@dimen/padding">
+        android:layout_height="wrap_content">
 
+        <!--<Button-->
+            <!--android:id="@+id/activity_manager_add_exam_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/activity_manager_add_exam_add"-->
+            <!--android:textSize="@dimen/manager_title_textSize"-->
+            <!--android:background="@color/common_green"-->
+            <!--android:layout_marginLeft="@dimen/login_edit_text_inner_padding"-->
+            <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"/>-->
         <Button
             android:id="@+id/activity_manager_add_exam_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/activity_manager_add_exam_add"
-            android:textSize="@dimen/manager_title_textSize"
-            android:background="@color/common_green"
-            android:layout_marginLeft="@dimen/login_edit_text_inner_padding"
-            android:layout_marginRight="@dimen/login_edit_text_margin_right"/>
+            style="@style/CustomBigLoginButton"
+            android:textSize="@dimen/textSize20"
+            android:text="@string/activity_manager_add_exam_add" />
     </LinearLayout>
 </LinearLayout>

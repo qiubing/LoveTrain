@@ -66,8 +66,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
 
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
-
-        courseName.setText(mCourseItem.getName()+"");
+        if(mCourseItem!=null)
+            courseName.setText(mCourseItem.getName()+"");
 
         //添加课时按钮的事件
         addLessonSureBtn.setOnClickListener(this);

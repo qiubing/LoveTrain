@@ -37,7 +37,7 @@
         android:stretchColumns="1"
         android:padding="15dp">
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
 
         </TableRow>
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
 
         </TableRow>
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
@@ -110,7 +110,7 @@
 
         </TableRow>
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <TextView
                 android:id="@+id/add_course_highLevelCoursePoints_textView"
@@ -130,7 +130,7 @@
 
         </TableRow>
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <TextView
                 android:id="@+id/add_course_CoursePoints_textView"
@@ -151,7 +151,7 @@
         </TableRow>
 
 
-        <TableRow android:paddingTop="20sp">
+        <TableRow android:paddingTop="5sp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -191,12 +191,17 @@
 
     </TableLayout>
 
-    <Button android:id="@+id/add_course_button"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="@string/addCourseForSure"
-        android:textSize="20sp"
-        android:background="@color/common_green"
-        />
+    <!--<Button android:id="@+id/add_course_button"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:text="@string/addCourseForSure"-->
+        <!--android:textSize="20sp"-->
+        <!--android:background="@color/common_green"-->
+        <!--/>-->
+    <Button
+        android:id="@+id/add_course_button"
+        style="@style/CustomBigLoginButton"
+        android:textSize="@dimen/textSize20"
+        android:text="@string/addCourseForSure" />
 
 </LinearLayout>
