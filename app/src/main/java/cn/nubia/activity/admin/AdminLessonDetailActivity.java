@@ -102,6 +102,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Intent intent = getIntent();
         /**此处的lessonItem会不会是null*/
         lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+        String teacherID = lessonItem.getTeacherID();
+        String myID = Constant.user.getUserID();
         String statusTemp = intent.getStringExtra("status");
         Log.e("huhu", lessonItem + statusTemp + "lessonItem");
 

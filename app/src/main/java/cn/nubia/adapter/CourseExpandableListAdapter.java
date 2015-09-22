@@ -21,6 +21,7 @@ import cn.nubia.activity.admin.AdminCourseDetailActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
  * Created by hexiao on 2015/9/9.
@@ -79,8 +80,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         //设置课时名称
         childViewHolder.mLessonNameTextView.setText(mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
         //设置课时信息
-        childViewHolder.mLessonDetailTextView.setText(
-                mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()
+        childViewHolder.mLessonDetailTextView.setText("上课地点：" +
+                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "\n上课时间：" +
+                        TimeFormatConversion.toTimeDate(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
+                        "  " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
+                        " ~ " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getEndTime())
         );
 
         final Bundle bundle = new Bundle();

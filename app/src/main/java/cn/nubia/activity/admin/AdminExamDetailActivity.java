@@ -80,6 +80,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private Button enroll;
 
 
     private GestureDetector gestureDetector;
@@ -100,6 +101,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        enroll = (Button) findViewById(R.id.manager_exam_enroll);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
         initViewData();
