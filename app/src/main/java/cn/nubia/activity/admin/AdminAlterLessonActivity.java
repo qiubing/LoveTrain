@@ -163,7 +163,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 //boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 //JSONArray jsonArray = response.getJSONArray("data");
-//                Log.i("huhu", "addExam" + code + "," + result + "," + isOk);
+                //Log.i("huhu", "addExam" + code + "," + result + "," + isOk);
                 if (code == 0 && isOk) {
                     Toast.makeText(AdminAlterLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }

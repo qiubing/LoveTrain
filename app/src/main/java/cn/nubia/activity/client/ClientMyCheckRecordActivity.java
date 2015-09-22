@@ -3,6 +3,8 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -21,7 +23,12 @@ import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientCheckRecordAdapter;
 import cn.nubia.entity.CheckRecordItem;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.ExamEnrollMsg;
+import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
@@ -37,11 +44,15 @@ public class ClientMyCheckRecordActivity extends Activity {
     private List<CheckRecordItem> mCheckList;//签到记录表
     private ListView mListView;
 
+    private GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_checked_record);
+        setGesture();
         initEvents();
+
     }
 
     private void initEvents() {
@@ -93,4 +104,27 @@ public class ClientMyCheckRecordActivity extends Activity {
     public void back(View view) {
         this.finish();
     }
+
+    /**
+     *设置手势函数
+     */
+    private void setGesture(){
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
+
 }
