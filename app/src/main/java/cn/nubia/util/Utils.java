@@ -42,6 +42,8 @@ public class Utils {
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             Log.e("qiubing",listItem==null?"kong":"feikong");
+            if(null==listItem)
+                continue;
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
