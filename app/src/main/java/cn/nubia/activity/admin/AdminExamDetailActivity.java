@@ -216,7 +216,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mExamInfo.setText(
                 "考试地点：" + mExamItemExamEdit.getLocale() +
                 "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
-                "\n结束时间：" + TimeFormatConversion.toTimeDate(mExamItemExamEdit.getEndTime()) +
+                "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
                 "\n考试积分" + mExamItemExamEdit.getExamCredits());
     }
 
