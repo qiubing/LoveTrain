@@ -26,6 +26,7 @@ import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
  * Created by LK on 2015/9/9.
@@ -117,7 +118,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Intent intent = null;
+        Intent intent;
         switch (v.getId()) {
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
@@ -179,6 +180,22 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         mEditExam.setOnClickListener(this);
         mExamMenber.setOnClickListener(this);
 
+//        if(Constant.IS_ADMIN == true || status.equals("teacher")){
+        if(Constant.IS_ADMIN == true){
+            mInputScore.setOnClickListener(this);
+            mDeleteExam.setOnClickListener(this);
+            mEditExam.setOnClickListener(this);
+            mExamMenber.setOnClickListener(this);
+        }
+
+        else{
+            mInputScore.setVisibility(View.GONE);
+            mDeleteExam.setVisibility(View.GONE);
+            mEditExam.setVisibility(View.GONE);
+            mExamMenber.setVisibility(View.GONE);
+            //mGenerateQRCode.setVisibility(View.GONE);
+        }
+
         //创建手势管理单例对象
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
         //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
@@ -196,9 +213,11 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private void initViewData() {
         mCourseName.setText(mExamItemExamEdit.getName());
         mExamIntroduction.setText(mExamItemExamEdit.getDescription());
-        mExamInfo.setText(R.string.activity_manager_add_exam_address + ": " + mExamItemExamEdit.getLocale() +
-                "\n考试时间: " + mExamItemExamEdit.getStartTime() + "-" + mExamItemExamEdit.getEndTime() +
-                "\n" + R.string.activity_manager_add_exam_credit + ": " + mExamItemExamEdit.getExamCredits());
+        mExamInfo.setText(
+                "考试地点：" + mExamItemExamEdit.getLocale() +
+                "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
+                "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
+                "\n考试积分" + mExamItemExamEdit.getExamCredits());
     }
 
 
