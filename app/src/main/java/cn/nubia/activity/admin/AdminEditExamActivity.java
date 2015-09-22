@@ -108,14 +108,6 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamEndTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getEndTime()));
         mExamCredit.setText(mExamItemExamEdit.getExamCredits() + "");
 
-        //initSpinner();
-
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upData();
-            }
-        });
     }
 
     //将Activity上的触碰事件交给GestureDetector处理

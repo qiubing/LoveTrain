@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
+    android:background="@color/soft_comment_title_content_windows"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -37,7 +37,30 @@
                 android:textSize="36sp" />
 
         </LinearLayout>
-    </RelativeLayout>
+    </RelativeLayout>-->
+
+    <include
+        android:id="@+id/sub_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_loading_failed"
+        />
+
+    <include
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        layout="@layout/layout_network_unusable" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -146,12 +169,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:text="上课日期"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/alter_lesson_lessonStartDate_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="@string/lessonStartTime"
                 android:textColor="#666666"
                 android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/alter_lesson_lessonStartTime_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="true" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="下课时间"
+                android:textColor="#666666"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/alter_lesson_lessonEndTime_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true" />
@@ -172,7 +231,8 @@
                 android:id="@+id/alter_lesson_teacherGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:inputType="number"/>
 
         </TableRow>
 
@@ -190,7 +250,8 @@
                 android:id="@+id/alter_lesson_studentGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:inputType="number"/>
 
         </TableRow>
 
@@ -203,6 +264,7 @@
         android:layout_gravity="bottom"
         android:text="@string/alterLessonForSure"
         android:textSize="20sp"
+        android:background="@color/common_green"
         />
 
 </LinearLayout>
