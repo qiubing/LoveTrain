@@ -1,8 +1,7 @@
 package cn.nubia.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,10 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
+
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
+import cn.nubia.activity.admin.AdminLessonDetailActivity;
+
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
@@ -31,8 +33,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private List<CourseItem> mGroupList;
     private Context mContext;
-
-
 
 
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
@@ -65,6 +65,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final int mGroupID=groupPosition;
+        final int mChildID=childPosition;
         final ChildViewHolder childViewHolder;
         if (convertView == null) {
             childViewHolder = new ChildViewHolder();
@@ -84,7 +86,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() +
                         mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime());*/
         childViewHolder.mLessonDetailTextView.setText("上课地点：" +
-                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "\n上课时间：" +
+                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation()+"" + "\n上课时间：" +
                         TimeFormatConversion.toTimeDate(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         "  " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         " ~ " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getEndTime())
@@ -101,23 +103,24 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         final Bundle bundle = new Bundle();
         /**这里传过去的lessonItem中没有任何数据*/
         LessonItem lessonItem=mGroupList.get(groupPosition).getLessonList().get(childPosition);
+//        lessonItem=mGroupList.get(mGroupID).getLessonList().get(mChildID);
 //        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListViewAA");
 //        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getLessonName() + "+ExpandableListViewAA");
         bundle.putSerializable("LessonItem", lessonItem);
 
-        Log.e("hexiao", mGroupList.get(groupPosition).getLessonList().get(childPosition).getIndex() + "+ExpandableListView");
+        Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
 
-//        /**设置课时点击事件*/
-//        convertView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
-//                intent.putExtras(bundle);
-//                mContext.startActivity(intent);
-//                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
-//                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getLessonName() + "+ExpandableListView");
-//            }
-//        });
+        /**设置课时点击事件*/
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
+
+            }
+        });
         return convertView;
     }
 
@@ -169,6 +172,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
              * 如果不是管理员，学员只能看到“考”的标记
              * 讲师还可以看到“讲”的标记
              * 还有其他需要隐去的标记*/
+            groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
             if (Constant.IS_ADMIN==false) {
                 /**隐去添加课时标记*/
                 groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
@@ -238,25 +242,24 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 /**怎么getparent()？**/
-               new AlertDialog.Builder(mContext)
-                        .setTitle("报名考试")
-                        .setMessage("确定报名《"+mGroupList.get(groupID).getName()+"》考试？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(Constant.IS_ADMIN){
-                                    Toast.makeText(mContext, "您是管理员，无需报名考试!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                Toast.makeText(mContext, "报名《"+mGroupList.get(groupID).getName()+ "》考试成功", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).create().show();
-//                Toast.makeText(mContext, "报名考试成功", Toast.LENGTH_LONG).show();
+//                Dialog signUpExamDialog = new AlertDialog.Builder(mContext)
+//                        .setTitle("报名考试")
+//                        .setMessage("确定报名考试？")
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                //这里执行报名操作
+//                                Toast.makeText(mContext, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
+//                            }
+//                        })
+//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(mContext, "取消", Toast.LENGTH_LONG).show();
+//                            }
+//                        }).create();
+//                signUpExamDialog.show();
+                Toast.makeText(mContext, "报名考试成功", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -271,7 +274,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         if(mLessonList == null)
             return false;
         for(int i=0;i<mLessonList.size();i++){
-            if(Constant.user.getUserID().equals(mLessonList.get(i).getTeacherID())){
+            if(mLessonList.get(i).getTeacherID()!=null&&Constant.user.getUserID().equals(mLessonList.get(i).getTeacherID())){
                 /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
                 if(i==mLessonList.size()-1){
                     return false;
@@ -298,6 +301,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     public class ChildViewHolder {
         TextView mLessonNameTextView;
+
         TextView mLessonDetailTextView;
     }
 

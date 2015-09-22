@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -29,7 +28,6 @@ import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
-import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.
@@ -62,6 +60,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
 
     private  void initEvents() {
         mCourseItemList = new ArrayList<>();
+
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseStudentTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
@@ -70,6 +69,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
         mExpandableListView.setGroupIndicator(null);
+
 
         /**设置下拉刷新监听器*/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -106,6 +106,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
                 }, 1500);
             }
         });
+
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
@@ -119,27 +120,28 @@ public class ClientMyCourseStudentTabActivity extends Activity {
      */
     private void loadData() {
         /**请求课程数据*/
-        HashMap<String,String> getClassParam = new HashMap<>();
-        getClassParam.put("user_iD", "0016003315");
-        getClassParam.put("course_index", "1");
-        getClassParam.put("course_record_modify_time", "1245545456456");
-        getClassParam.put("lesson_index", "1");
-        getClassParam.put("lesson_record_modify_time", "1245545456456");
-        RequestParams requestParams = Utils.toParams(getClassParam);
-        Log.e("requestParams", requestParams.toString());
-        String classUrl = Constant.BASE_URL + "share/add_share_course.do";
-        AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+
+        requestParams.add("user_id", Constant.user.getUserID());
+        requestParams.add("course_index", "1");
+        requestParams.add("course_record_modify_time", "1245545456456");
+        requestParams.add("lesson_index", "1");
+        requestParams.add("lesson_record_modify_time", "1245545456456");
+
+        Log.e("XXXX", "parameter"+requestParams.toString());
+        String url = Constant.BASE_URL + "course/get_relation_courses.do";
+        AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
 
     /**请求课程数据服务器数据的Handler*/
     private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+            Log.e("XXXX","response"+response.toString());
             try {
-                Log.e("TEST statusCode", "" + statusCode);
-                Log.e("TEST code",""+response.toString());
+                Log.e("XXXX","responseDataLength"+response.getJSONArray("data").length());
                 if(response.getInt("code") != 0){
-                    Log.e("TEST code2",""+response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }else
@@ -147,11 +149,12 @@ public class ClientMyCourseStudentTabActivity extends Activity {
 
                 if(response.getString("data") != null) {
                     JSONArray jsonArray = response.getJSONArray("data");
+                    Log.e("XXXX","jsonArray"+jsonArray.toString());
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json",e.toString());
+                Log.e("XXXX","JsonExecption"+e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
@@ -160,7 +163,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", ""+statusCode);
+            Log.e("jsonArray", ""+statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };

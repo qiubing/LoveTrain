@@ -129,16 +129,15 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
      */
     private void loadData() {
         /**请求课程数据*/
-        HashMap<String, String> getClassParam = new HashMap<>();
-        getClassParam.put("user_iD", Constant.user.getUserID());
-        getClassParam.put("course_index", "1");
-        getClassParam.put("course_record_modify_time", "1245545456456");
-        getClassParam.put("lesson_index", "1");
-        getClassParam.put("lesson_record_modify_time", "1245545456456");
-        RequestParams requestParams = Utils.toParams(getClassParam);
-        Log.e("requestParams", requestParams.toString());
-        String classUrl = Constant.BASE_URL + "get_courses_lessons2.do";
-        AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+        requestParams.add("user_id", Constant.user.getUserID());
+        requestParams.add("course_index", "1");
+        requestParams.add("course_record_modify_time", "1245545456456");
+        requestParams.add("lesson_index", "1");
+        requestParams.add("lesson_record_modify_time", "1245545456456");
+        Log.e("hexiao", "parameter"+requestParams.toString());
+        String url = Constant.BASE_URL + "course/get_relation_courses.do";
+        AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
 
     /**
@@ -147,11 +146,10 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("hexiao","response"+response.toString());
             try {
-                Log.e("TEST statusCode", "" + statusCode);
-                Log.e("TEST code", "" + response.getInt("code"));
+                Log.e("hexiao","responseDataLength"+response.getJSONArray("data").length());
                 if (response.getInt("code") != 0) {
-                    Log.e("TEST code2", "" + response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }else
@@ -163,7 +161,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json", e.toString());
+                Log.e("hexiao", e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }

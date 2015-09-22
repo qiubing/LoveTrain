@@ -58,8 +58,6 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.admin_signIn_info_back:
-                Intent intentBackImage = new Intent(AdminSignInExamPersonInfoActivity.this,AdminLessonDetailActivity.class);
-                startActivity(intentBackImage);
                 finish();
                 break;
         }

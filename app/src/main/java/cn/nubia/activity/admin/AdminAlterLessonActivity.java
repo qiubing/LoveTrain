@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -36,7 +37,7 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 /**
  * Created by hexiao on 2015/9/8.
  */
-public class AdminAlterLessonActivity extends Activity implements View.OnClickListener{
+public class AdminAlterLessonActivity extends Activity implements View.OnClickListener {
 
     private LessonItem lessonItem;
     private Bundle bundle;
@@ -64,7 +65,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private int hourEnd;
     private int minuteEnd;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +72,10 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         bundle = new Bundle();
 
         lessonOk = (Button) findViewById(R.id.admin_alter_lesson_alterForeSureButton);
-        lessonName=(EditText)findViewById(R.id.alter_lesson_lessonName_editText);
-        teacherName=(EditText)findViewById(R.id.alter_lesson_teacherName_editText);
-        lessonDesc=(EditText)findViewById(R.id.alter_lesson_lessonDesc_editText);
-        lessonLocation=(EditText)findViewById(R.id.alter_lesson_lessonLocation_editText);
+        lessonName = (EditText) findViewById(R.id.alter_lesson_lessonName_editText);
+        teacherName = (EditText) findViewById(R.id.alter_lesson_teacherName_editText);
+        lessonDesc = (EditText) findViewById(R.id.alter_lesson_lessonDesc_editText);
+        lessonLocation = (EditText) findViewById(R.id.alter_lesson_lessonLocation_editText);
         lessonDate = (EditText) findViewById(R.id.alter_lesson_lessonStartDate_editText);
         lessonStartTime = (EditText) findViewById(R.id.alter_lesson_lessonStartTime_editText);
         lessonEndTime = (EditText) findViewById(R.id.alter_lesson_lessonEndTime_editText);
@@ -84,8 +84,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("修改课时");
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
-        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
@@ -96,11 +96,9 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
         /**获取并放入LessonItem*/
         Intent intent = getIntent();
-        lessonItem=(LessonItem) intent.getSerializableExtra("LessonItem");
+        lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
 
-
-
-        if(lessonItem!=null) {
+        if (lessonItem != null) {
             lessonName.setText(lessonItem.getName());
             teacherName.setText(lessonItem.getTeacherName());
             lessonDesc.setText(lessonItem.getDescription());
@@ -127,25 +125,26 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        return  gestureDetector.onTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
     }
 
-    private void upData(){
+    private void upData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        requestParams.add("request_time", "1445545456456");
+
+        requestParams.add("apk_version", "1");
+        requestParams.add("token_key", "wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
 
         requestParams.put("lesson_index", lessonItem.getIndex());
         requestParams.add("lesson_name", lessonName.getText().toString());
-        requestParams.add("teacher",  teacherName.getText().toString());
-        requestParams.add("course_description",  lessonDesc.getText().toString());
-        requestParams.add("locale",  lessonLocation.getText().toString());
+        requestParams.add("teacher", teacherName.getText().toString());
+        requestParams.add("course_description", lessonDesc.getText().toString());
+        requestParams.add("locale", lessonLocation.getText().toString());
 
         requestParams.put("start_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart));
         requestParams.put("end_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd));
@@ -155,7 +154,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -166,8 +165,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 boolean isOk = response.getBoolean("data");
                 Log.i("huhu", "addExam" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
-                if(code == 0 && isOk) {
+                Log.i("huhu", "addExam" + code + "," + result + "," + isOk);
+                if (code == 0 && isOk) {
                     Toast.makeText(AdminAlterLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }
 
@@ -189,9 +188,13 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.admin_alter_lesson_backImage:
+//                Toast.makeText(AdminAlterLessonActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
+//                finish();
         Calendar c = Calendar.getInstance();
         switch (v.getId()) {
-            case  R.id.admin_alter_lesson_alterForeSureButton:
+            case R.id.admin_alter_lesson_alterForeSureButton:
                 if (lessonName.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAlterLessonActivity.this, "课时名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -231,7 +234,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 }
                 upData();
                 break;
-            case R.id.activity_manager_add_exam_time_data :
+            case R.id.activity_manager_add_exam_time_data:
                 // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
                 new DatePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
@@ -250,7 +253,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                         , c.get(Calendar.DAY_OF_MONTH)).show();
                 break;
 
-            case R.id.activity_manager_add_exam_time_start :
+            case R.id.activity_manager_add_exam_time_start:
                 // 创建一个TimePickerDialog实例，并把它显示出来
                 new TimePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
@@ -268,7 +271,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                         //true表示采用24小时制
                         , true).show();
                 break;
-            case R.id.activity_manager_add_exam_time_end :
+            case R.id.activity_manager_add_exam_time_end:
                 new TimePickerDialog(AdminAlterLessonActivity.this,
                         // 绑定监听器
                         new TimePickerDialog.OnTimeSetListener() {
@@ -290,8 +293,11 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     }
 
 
+
+
     public void back(View view) {
         // TODO Auto-generated method stub
         this.finish();
     }
 }
+

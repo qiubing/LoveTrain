@@ -49,8 +49,7 @@ public class AdminSignUpManageActivity extends Activity {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentBackImage = new Intent(AdminSignUpManageActivity.this, AdminCourseDetailActivity.class);
-                startActivity(intentBackImage);
+
                 finish();
             }
         });

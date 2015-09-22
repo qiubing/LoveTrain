@@ -1,15 +1,23 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.RequestParams;
@@ -17,12 +25,13 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+
 
 /**
  * Created by hexiao on 2015/9/7.
@@ -32,24 +41,27 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
 
     private EditText alterCourseCourseNameEditText;
     private EditText alterCourseCourseDescEditText;
-//    private EditText alterCourseCourseTypeEditText;
+
+    /**高级课程所需*/
+    private TextView alterCourseHighLevelCourse;
+    private EditText alterCourseHighLevelCourseDeletePoints;
+
+
     private Spinner courseTypeSpinner;
     private EditText alterCourseCoursePointsEditText;
-
-
-
 
     private CourseItem mCourseItem;
 
     private Bundle bundle;
+    private GestureDetector gestureDetector;
 
     //复选框
     private CheckBox alterCourseWhetherExamCheckBox;
-//    private CheckBox alterCourseWhetherHighLevelCourseCheckBox;
 
-    //保存是否是高级课程
-//    private boolean whetherExam;
-//    private boolean whetherHighLevelCourse;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+
+
     /**修改课程URL*/
 
     @Override
@@ -59,22 +71,32 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         bundle=new Bundle();
         alterCourseCourseNameEditText = (EditText) findViewById(R.id.alter_course_courseName_editText);
         alterCourseCourseDescEditText = (EditText) findViewById(R.id.alter_course_courseDesc_editText);
-//        alterCourseCourseTypeEditText = (EditText) findViewById(R.id.alter_course_courseType_editText);
+
 
         courseTypeSpinner=(Spinner)findViewById(R.id.alter_course_courseType);
 
-
+        alterCourseHighLevelCourse=(TextView)findViewById(R.id.alter_course_highLevelCoursePoints_textView);
+        alterCourseHighLevelCourseDeletePoints=(EditText)findViewById(R.id.alter_course_highLevelCoursePoints_editText);
         alterCourseCoursePointsEditText = (EditText) findViewById(R.id.alter_course_coursePoints_editText);
 
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
 
-        Button alterCourseButton;
-        ImageView alterCourseBackImage;
+        /**出错处理*/
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        alterCourseButton = (Button) findViewById(R.id.alter_course_button);
-        alterCourseBackImage = (ImageView) findViewById(R.id.admin_alter_course_backImage);
+//        alterCourseButton = (Button) findViewById(R.id.alter_course_button);
+//        alterCourseBackImage = (ImageView) findViewById(R.id.admin_alter_course_backImage);
+
+        Button alterCourseButton= (Button) findViewById(R.id.alter_course_button);
 
         alterCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.alter_course_whetherExam_checkBox);
-//        alterCourseWhetherHighLevelCourseCheckBox = (CheckBox) findViewById(R.id.alter_course_whetherHighLevelCourse_checkBox);
+
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
@@ -89,30 +111,50 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             else
                 courseTypeSpinner.setSelection(1);
 //            courseTypeSpinner.setSelection(courseTypeStr.equals("1")?0:(courseTypeStr.equals("2")?0:1));
+            courseTypeSpinner.setSelection(courseTypeStr.equals("course") ? 0 : 1);
 
-            alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits()+"");
+            alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits() + "");
             alterCourseWhetherExamCheckBox.setChecked(mCourseItem.hasExam());
-//            alterCourseWhetherHighLevelCourseCheckBox.setChecked(mCourseItem.getType()=="3");
+
+            if(courseTypeSpinner.getSelectedItem().toString().equals("senior")&&alterCourseHighLevelCourseDeletePoints.getVisibility()==View.VISIBLE) {
+                alterCourseHighLevelCourseDeletePoints.setText(mCourseItem.getEnrollCredits()+"");
+            }
         }
+        courseTypeSpinner.setEnabled(false);
+
+        /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
+        courseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
+                    alterCourseHighLevelCourse.setVisibility(View.GONE);
+                    alterCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
+                }
+                else{
+                    alterCourseHighLevelCourse.setVisibility(View.VISIBLE);
+                    alterCourseHighLevelCourseDeletePoints.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+
+
         /**监听事件*/
         alterCourseButton.setOnClickListener(this);
-        alterCourseBackImage.setOnClickListener(this);
+
     }
 
-//    /**构造请求参数*/
-//    private void upLoadData() {
-//        /**请求课程数据*/
-//        HashMap<String,String> getClassParam = new HashMap<>();
-//        getClassParam.put("course_index", "1");
-//        getClassParam.put("course_record_modify_time", "1245545456456");
-//        getClassParam.put("lesson_index", "1");
-//        getClassParam.put("lesson_record_modify_time", "1245545456456");
-//        RequestParams requestParams = Utils.toParams(getClassParam);
-//        Log.e("requestParams", requestParams.toString());
-////        AsyncHttpHelper.post(alterCourseUrl, requestParams, jsonHttpResponseHandler);
-//    }
 
-
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
 
 
 
@@ -120,14 +162,6 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.admin_alter_course_backImage:
-//                Toast.makeText(AdminAlterCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
-                Intent intentBackImage = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-                bundle.putSerializable("CourseItem",mCourseItem);
-                intentBackImage.putExtras(bundle);
-                startActivity(intentBackImage);
-                finish();
-                break;
             case R.id.alter_course_button:
                 if(alterCourseCourseNameEditText.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAlterCourseActivity.this, "课程名称不可为空", Toast.LENGTH_SHORT).show();
@@ -145,91 +179,79 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                     Toast.makeText(AdminAlterCourseActivity.this, "课程积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(alterCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE&&alterCourseHighLevelCourseDeletePoints.getText().toString().trim().equals("")) {
+                    Toast.makeText(AdminAlterCourseActivity.this, "高级课程所减积分", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mCourseItem.setName(alterCourseCourseNameEditText.getText().toString());
                 mCourseItem.setDescription(alterCourseCourseDescEditText.getText().toString());
-
-//                mCourseItem.setType(alterCourseCourseTypeEditText.getText().toString());
                 mCourseItem.setType(courseTypeSpinner.getSelectedItem().toString());
-
                 mCourseItem.setCourseCredits(Integer.parseInt(alterCourseCoursePointsEditText.getText().toString()));
                 mCourseItem.setHasExam(alterCourseWhetherExamCheckBox.isChecked());
-//                Dialog alterCourseDialog = new AlertDialog.Builder(AdminAlterCourseActivity.this)
-//                        .setTitle("修改课程")
-//                        .setMessage("确定修改？")
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                String courseName = alterCourseCourseNameEditText.getText().toString();
-//                                String courseDesc = alterCourseCourseDescEditText.getText().toString();
-//                                whetherExam = alterCourseWhetherExamCheckBox.isChecked();
-////                                whetherHighLevelCourse = alterCourseWhetherHighLevelCourseCheckBox.isChecked();
-//
-//                                mCourseItem.setName(courseName);
-//                                mCourseItem.setDescription(courseDesc);
-//                                mCourseItem.setHasExam(whetherExam);
-//                                if(whetherHighLevelCourse) {
-//                                    mCourseItem.setType("3");
-//                                }
-//
-//                                /**加入到课程数据库中，返回是否加入成功的状态值*/
-//                                /**如何更新课程？？？*/
-//
-//                                Intent intentAlterForSure = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-//                                bundle.putSerializable("CourseItem",mCourseItem);
-//                                intentAlterForSure.putExtras(bundle);
-//                                startActivity(intentAlterForSure);
-//                                //这里执行修改课程操作
-//                                Toast.makeText(AdminAlterCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
-//                                finish();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent intentAlterCancel = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-//                                startActivity(intentAlterCancel);
-//                            }
-//                        })
-//                        .create();
-//                alterCourseDialog.show();
-                upData();
-                Bundle alterBundle=new Bundle();
-                alterBundle.putSerializable("CourseItem", mCourseItem);
-                Intent intentAddForSure = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
-                intentAddForSure.putExtras(alterBundle);
-                startActivity(intentAddForSure);
+
+                Dialog alterCourseDialog = new AlertDialog.Builder(AdminAlterCourseActivity.this)
+                        .setTitle("修改课程")
+                        .setMessage("确定修改？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                upData();
+                                Intent intentAlterForSure = new Intent(AdminAlterCourseActivity.this, AdminMainActivity.class);
+                                startActivity(intentAlterForSure);
+                                Toast.makeText(AdminAlterCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intentAlterCancel = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
+                                startActivity(intentAlterCancel);
+                            }
+                        })
+                        .create();
+                alterCourseDialog.show();
+//                upData();
+//                Bundle alterBundle=new Bundle();
+//                alterBundle.putSerializable("CourseItem", mCourseItem);
+//                Intent intentAddForSure = new Intent(AdminAlterCourseActivity.this, AdminCourseDetailActivity.class);
+//                intentAddForSure.putExtras(alterBundle);
+//                startActivity(intentAddForSure);
+//                finish();
                 break;
         }
 
     }
     private void upData(){
+        String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-
         requestParams.add("course_index", mCourseItem.getIndex()+"");
         requestParams.add("course_name", alterCourseCourseNameEditText.getText().toString());
         requestParams.add("course_description", alterCourseCourseDescEditText.getText().toString());
-
         /**普通课程，type为1；
-         * 技术分享，type为2；
+         * 不可以修改为技术分享，type为2；
          * 高级课程，type为3；*/
-        String typeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
-
-        String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
-        requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
-
-        requestParams.add("has_exam", alterCourseWhetherExamCheckBox.isChecked()?"1":"0");
+        requestParams.add("has_exam", alterCourseWhetherExamCheckBox.isChecked()?"true":"false");
+        requestParams.add("type",(courseTypeSpinner.getSelectedItem().toString().equals("course")?1:3)+"");
         requestParams.add("course_credits", alterCourseCoursePointsEditText.getText().toString());
 
+        /**如果是高级课程，则该参数为里面的值为edittext中的值，否则为空字符*/
+        if(alterCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE){
+            requestParams.add("enroll_credits", alterCourseHighLevelCourseDeletePoints.getText().toString());
+        }
+        else
+            requestParams.add("enroll_credits", "0");
+        Log.i("alterCourse", requestParams.toString());
         AsyncHttpHelper.post(alterCourseUrl, requestParams, myJsonHttpResponseHandler);
     }
+
 
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");
-            Log.i("xx", response.toString());
+            Log.i("alterCourse", response.toString());
             try {
                 Log.i("xx", "code");
                 int code = response.getInt("code");
@@ -253,4 +275,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             Toast.makeText(AdminAlterCourseActivity.this, "连接服务器异常！ ", Toast.LENGTH_SHORT).show();
         }
     };
+    public void back(View view) {
+        this.finish();
+    }
 }

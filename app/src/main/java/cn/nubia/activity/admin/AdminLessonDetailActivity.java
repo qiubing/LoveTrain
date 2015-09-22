@@ -73,6 +73,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
     private String deleteUrl = Constant.BASE_URL + "/course/del_lesson.do";
 
+
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
         /**此处的lessonItem会不会是null*/
-        lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+        lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();
         if(myID != null && myID.equals(teacherID)) {
@@ -203,6 +205,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 intentSignInInfo.putExtras(signUpBundle);
                 startActivity(intentSignInInfo);
                 Toast.makeText(AdminLessonDetailActivity.this, "你点击了查看签到人员信息", Toast.LENGTH_LONG).show();
+
                 break;
 
             case R.id.backupButton:

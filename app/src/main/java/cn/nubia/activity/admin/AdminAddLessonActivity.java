@@ -79,8 +79,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.admin_add_course_back:
-                Intent intentBackImage = new Intent(AdminAddLessonActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);
                 finish();
                 break;
             case R.id.add_lesson_addLessonForSureButton:

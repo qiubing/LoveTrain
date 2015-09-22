@@ -67,7 +67,7 @@ public class AdminCourseAddTabActivity extends Activity {
         mLoadViewUtil = new LoadViewUtil(AdminCourseAddTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent());
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this);
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
@@ -130,9 +130,6 @@ public class AdminCourseAddTabActivity extends Activity {
             }
         });
 
-
-
-
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
@@ -145,12 +142,11 @@ public class AdminCourseAddTabActivity extends Activity {
      */
     private void loadData() {
         /**请求课程数据*/
-        HashMap<String,String> getClassParam = new HashMap<>();
-        getClassParam.put("course_index", "1");
-        getClassParam.put("course_record_modify_time", "1245545456456");
-        getClassParam.put("lesson_index", "1");
-        getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+        requestParams.add("course_index", "1");
+        requestParams.add("course_record_modify_time", "1245545456456");
+        requestParams.add("lesson_index", "1");
+        requestParams.add("lesson_record_modify_time", "1245545456456");
 
         Log.e("requestParams", requestParams.toString());
         String url = Constant.BASE_URL + "course/get_courses_lessons.do";

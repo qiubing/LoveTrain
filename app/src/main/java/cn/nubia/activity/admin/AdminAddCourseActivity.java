@@ -40,13 +40,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private TextView addCourseHighLevelCouse;
     private EditText addCourseHighLevelCourseDeletePoints;
 
-
-//    private EditText addCourseCourseTypeEditText;
     private Spinner courseTypeSpinner;
 
     private EditText addCourseCoursePointsEditText;
 
-    //private ImageView addCourseBackImage;
     private GestureDetector gestureDetector;
 
 
@@ -54,14 +51,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private CheckBox addCourseWhetherExamCheckBox;
 
     private CourseItem courseItem;
-//    private CheckBox addCourseWhetherHighLevelCourseCheckBox;
 
-//    private TextView highLevelTextView;
-//    private EditText highLevelCoursePoints;
-
-    //保存是否是高级课程
-//    private boolean whetherExam;
-//    private boolean whetherHighLevelCourse;
 
     private static final String addCourseURL = Constant.BASE_URL + "/course/add_course.do";
 
@@ -75,7 +65,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_course);
 
-        courseItem=new CourseItem();
+        courseItem = new CourseItem();
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增课程");
         //创建手势管理单例对象
@@ -96,7 +86,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
 
 
-        courseTypeSpinner=(Spinner)findViewById(R.id.add_course_courseType);
+        courseTypeSpinner = (Spinner) findViewById(R.id.add_course_courseType);
 
         addCourseHighLevelCouse = (TextView) findViewById(R.id.add_course_highLevelCoursePoints_textView);
         addCourseHighLevelCourseDeletePoints = (EditText) findViewById(R.id.add_course_highLevelCoursePoints_editText);
@@ -106,32 +96,32 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
-        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+
+        loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
 
         /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
-        if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
-            addCourseHighLevelCouse.setVisibility(View.GONE);
-            addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
-        }
-
+//        if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
+//            addCourseHighLevelCouse.setVisibility(View.GONE);
+//            addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
+//        }
 
 
         courseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
+                if (!courseTypeSpinner.getSelectedItem().toString().equals("senior")) {
                     addCourseHighLevelCouse.setVisibility(View.GONE);
                     addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     addCourseHighLevelCouse.setVisibility(View.VISIBLE);
                     addCourseHighLevelCourseDeletePoints.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -143,7 +133,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return  gestureDetector.onTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
     }
 
     @Override
@@ -179,26 +169,27 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 //                            }
 //                        }).create();
 //                addCourseDialog.show();
-                if(addCourseCourseNameEditText.getText().toString().trim().equals("")) {
+                if (addCourseCourseNameEditText.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(addCourseCourseDescEditText.getText().toString().trim().equals("")) {
+                if (addCourseCourseDescEditText.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程简介不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(courseTypeSpinner.getSelectedItem().toString().trim().equals("")) {
+                if (courseTypeSpinner.getSelectedItem().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程类型不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(addCourseCoursePointsEditText.getText().toString().trim().equals("")) {
+                if (addCourseCoursePointsEditText.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(addCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE&&addCourseHighLevelCourseDeletePoints.getText().toString().trim().equals("")) {
-                    Toast.makeText(AdminAddCourseActivity.this, "课程积分不可为空", Toast.LENGTH_SHORT).show();
+                if (addCourseHighLevelCourseDeletePoints.getVisibility() != View.GONE && addCourseHighLevelCourseDeletePoints.getText().toString().trim().equals("")) {
+                    Toast.makeText(AdminAddCourseActivity.this, "高级课程所减积分", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 courseItem.setName(addCourseCourseNameEditText.getText().toString());
                 courseItem.setDescription(addCourseCourseDescEditText.getText().toString());
 
@@ -208,16 +199,17 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
 
-                /*Bundle bundle=new Bundle();
-                bundle.putSerializable("CourseItem", courseItem);
-                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminCourseDetailActivity.class);
-                intentAddForSure.putExtras(bundle);
-                startActivity(intentAddForSure);*/
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("CourseItem", courseItem);
+                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
+                finish();
+//                intentAddForSure.putExtras(bundle);
+                startActivity(intentAddForSure);
                 break;
         }
     }
 
-   private void upData(){
+    private void upData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
@@ -229,26 +221,24 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         requestParams.add("course_name", addCourseCourseNameEditText.getText().toString());
         requestParams.add("course_description", addCourseCourseDescEditText.getText().toString());
-        String courseTypeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(courseTypeStr.equals("course")?1:3)+"");
-        requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"true":"false");
+        String courseTypeStr = courseTypeSpinner.getSelectedItem().toString();
+        requestParams.add("type", (courseTypeStr.equals("course") ? 1 : 3) + "");
+        requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked() ? "true" : "false");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
 
         /**如果是高级课程，则该参数为里面的值为edittext中的值，否则为空字符*/
-        if(addCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE){
+        if (addCourseHighLevelCourseDeletePoints.getVisibility() != View.GONE) {
             requestParams.add("enroll_credits", addCourseHighLevelCourseDeletePoints.getText().toString());
         }
-        else
-            requestParams.add("enroll_credits", "0");
-
-
+//        else
+//            requestParams.add("enroll_credits", "0");
 
         Log.i("xx", "参数" + requestParams.toString());
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("xx", "addCourse" + "onSuccess");
@@ -256,13 +246,13 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
             try {
                 Log.i("xx", "code");
                 int code = response.getInt("code");
-                Log.i("xx", "aftercode"+code);
+                Log.i("xx", "aftercode" + code);
                 boolean isOk = response.getBoolean("data");
-                Log.i("xx", "afterdata"+isOk);
+                Log.i("xx", "afterdata" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("xx", "addCourseinside" + "onSuccess");
 //                if(result && code == 0 && isOk) {
-                if( code == 0 && isOk) {
+                if (code == 0 && isOk) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
@@ -285,6 +275,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
             Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
         }
     };
+
     public void back(View view) {
         this.finish();
     }
