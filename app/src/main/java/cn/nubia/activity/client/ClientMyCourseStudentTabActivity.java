@@ -205,5 +205,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
+
     }
 }
