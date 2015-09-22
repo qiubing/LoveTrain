@@ -81,7 +81,7 @@ public class AdminScoreCourseActivity extends Activity {
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> item = new HashMap<>();
                 item.put("coursename", list.get(i).getCourse_name());
-                item.put("address", list.get(i).getCourse_name());
+//                item.put("address", list.get(i).getCourse_name());
                 listItems.add(item);
             }
             ListView listView = (ListView) findViewById(R.id.score_course_list);
@@ -93,9 +93,12 @@ public class AdminScoreCourseActivity extends Activity {
             mNoRecord.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
 
+//            SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_course_item,
+//                    new String[]{"coursename", "address"},
+//                    new int[]{R.id.score_course_coursename, R.id.score_course_address});
             SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.score_course_item,
-                    new String[]{"coursename", "address"},
-                    new int[]{R.id.score_course_coursename, R.id.score_course_address});
+                    new String[]{"coursename"},
+                    new int[]{R.id.score_course_coursename});
             listView.setAdapter(simpleAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
