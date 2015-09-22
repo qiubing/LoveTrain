@@ -22,7 +22,8 @@ public class ExamResultAssembler implements IAssemblerGenerics<ExamResultItem> {
         for (int i = 0; i < jsonArray.length(); i++){
             try {
                 JSONObject obj = jsonArray.getJSONObject(i);
-                mResultList.add(makeExamResult(obj));
+                JSONObject detail = obj.getJSONObject("detail");
+                mResultList.add(makeExamResult(detail));
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
@@ -34,7 +35,7 @@ public class ExamResultAssembler implements IAssemblerGenerics<ExamResultItem> {
     private ExamResultItem makeExamResult(JSONObject jsonObject) throws JSONException {
         ExamResultItem result = new ExamResultItem();
         result.setmLessonName(jsonObject.getString("lesson_name"));
-        result.setmExamScore(jsonObject.getDouble("exam_score"));
+        result.setmExamScore(jsonObject.getDouble("lesson_score"));
         result.setmLessonIndex(jsonObject.getInt("lesson_index"));
         return result;
     }
