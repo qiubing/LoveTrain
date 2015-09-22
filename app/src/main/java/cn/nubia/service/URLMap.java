@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.nubia.activity.admin.AdminCreditsAwardActivity;
+import cn.nubia.activity.admin.AdminExamDetailActivity;
 import cn.nubia.activity.admin.AdminExamInputScoreActivity;
 import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
 import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
@@ -30,9 +31,12 @@ public class URLMap {
     public final static String URL_UPD_PSW = BASE_URL+"user/modify.do";
     public final static String URL_AWARD_CREDITS = BASE_URL+"credit/give_credits.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
+    public final static String URL_ADD_NORMALEXAMENROLL = BASE_URL+"exam/exam_join.do";
+    public final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
     public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
     public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
+
 
     static {
         URL_MAPPING.put(AdminCreditsAwardActivity.Inter.class,URL_AWARD_CREDITS);
@@ -50,6 +54,12 @@ public class URLMap {
         URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_QUE_EXAMENROLLLIST);
         HANDLER_MAPPING.put(URL_QUE_EXAMENROLLLIST,NormalHttpHandler.class);
         ASSEMBLER_MAPPING.put(URL_QUE_EXAMENROLLLIST,ExamEnrollAssembler.class);
+
+        URL_MAPPING.put(AdminExamDetailActivity.Inter.class,URL_ADD_NORMALEXAMENROLL);
+        HANDLER_MAPPING.put(URL_ADD_NORMALEXAMENROLL,NormalHttpHandler.class);
+
+        URL_MAPPING.put(AdminExamDetailActivity.Inter.class,URL_ADD_SPECIALEXAMENROLL);
+        HANDLER_MAPPING.put(URL_ADD_SPECIALEXAMENROLL,NormalHttpHandler.class);
 
         URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_ADD_EXAMSCORE);
         HANDLER_MAPPING.put(URL_ADD_EXAMSCORE,NormalHttpHandler.class);

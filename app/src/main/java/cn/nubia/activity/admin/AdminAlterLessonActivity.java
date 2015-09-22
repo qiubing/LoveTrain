@@ -55,7 +55,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
-    private static final String URL = Constant.BASE_URL + "/course/edit_lesson.do";
+    private static final String URL = Constant.BASE_URL + "course/edit_lesson.do";
 
     private int year;
     private int month;
@@ -134,10 +134,9 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time", "1445545456456");
-
-        requestParams.add("apk_version", "1");
-        requestParams.add("token_key", "wersdfffthnjimhtrfedsaw");
+        requestParams.add("request_time","1445545456456");
+        requestParams.add("apk_version","1");
+        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
 
         requestParams.put("lesson_index", lessonItem.getIndex());
@@ -158,12 +157,11 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
+            Log.i("huhu", "alterLesson" + response.toString());
             try {
                 int code = response.getInt("code");
-                boolean result = response.getBoolean("result");
+                //boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
-                Log.i("huhu", "addExam" + isOk);
                 //JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("huhu", "addExam" + code + "," + result + "," + isOk);
                 if (code == 0 && isOk) {
@@ -188,10 +186,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.admin_alter_lesson_backImage:
-//                Toast.makeText(AdminAlterLessonActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
-//                finish();
         Calendar c = Calendar.getInstance();
         switch (v.getId()) {
             case R.id.admin_alter_lesson_alterForeSureButton:

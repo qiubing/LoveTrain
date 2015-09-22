@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +30,7 @@ import java.util.Map;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.component.DialogMaker;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.service.ActivityInter;
@@ -118,14 +118,12 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         DialogInterface.OnClickListener confirmButtonListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-//                String starttime = new StringBuilder()
-//                        .append(datePicker.getYear())
-//                        .append("-")
-//                        .append(datePicker.getMonth() + 1)
-//                        .append("-")
-//                        .append(datePicker.getDayOfMonth())
-//                        .toString();
-                String starttime = String.valueOf(datePicker.getYear())+"-"+String.valueOf(datePicker.getMonth() + 1)+"-"+String.valueOf(datePicker.getDayOfMonth());
+                String starttime = String.valueOf(
+                        datePicker.getYear())+
+                        "-"+
+                        String.valueOf(datePicker.getMonth() + 1)+
+                        "-"+
+                        String.valueOf(datePicker.getDayOfMonth());
                 /**将被选择的时间显示到文本框中去*/
                 mCourseDate.setText(starttime);
             }
@@ -153,12 +151,10 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         DialogInterface.OnClickListener confirmButtonListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-//                String time = new StringBuilder()
-//                        .append(timePicker.getCurrentHour())
-//                        .append(":")
-//                        .append(timePicker.getCurrentMinute())
-//                        .toString();
-                String time = String.valueOf(timePicker.getCurrentHour())+":"+String.valueOf(timePicker.getCurrentMinute());
+                String time = String.valueOf(
+                        timePicker.getCurrentHour())+
+                        ":"+
+                        String.valueOf(timePicker.getCurrentMinute());
                 switch (type){
                     case STARTTIME:
                         mCourseStarttime.setText(time);
@@ -249,21 +245,21 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
                 if(mNextPressReady) {
                     if (checkData()) {
                         ShareCourseMsg shareCourse = new ShareCourseMsg();
-                        shareCourse.setCourseName(mCourseName.getText().toString());
-                        shareCourse.setCourseDescription(mCourseDescription.getText().toString());
+                        shareCourse.setCourseName(mCourseName.getText().toString().trim());
+                        shareCourse.setCourseDescription(mCourseDescription.getText().toString().trim());
                         shareCourse.setCourseLevel(((ShareCourseLevel) mShareTypeSpinner.getSelectedItem())
                                 .getmCourseLevelSign());
 
-                        shareCourse.setLocale(mLessonLocation.getText().toString());
+                        shareCourse.setLocale(mLessonLocation.getText().toString().trim());
                         try {
                             Date startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                    mCourseDate.getText().toString()
-                                            + " "
-                                            + mCourseStarttime.getText());
+                                    mCourseDate.getText().toString().trim() +
+                                    " " +
+                                    mCourseStarttime.getText().toString().trim());
                             Date endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                                    mCourseDate.getText().toString()
-                                            + " "
-                                            + mCourseStarttime.getText());
+                                    mCourseDate.getText().toString().trim() +
+                                    " "+
+                                    mCourseStarttime.getText().toString().trim());
                             shareCourse.setStartTime(startTime.getTime());
                             shareCourse.setEndTime(endTime.getTime());
                         } catch (ParseException e) {
@@ -272,12 +268,12 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
 
                         if (mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
+                            shareCourse.setUserId(Constant.user.getUserID());
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
                         } else if (mOperateURL.equals(URLMap.URL_UPD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
                             shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
                             shareCourse.setUserName(mShareCourseMsg.getUserName());
-                            Log.e("jiangyu", shareCourse.toParams().toString());
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
                         }
                         mNextPressReady =false;
@@ -300,7 +296,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             mCourseName.setText(mShareCourseMsg.getCourseName());
             int position = mShareTypeAdpter.getPositionOfTarget((short) mShareCourseMsg.getCourseLevel());
             if(position!=-1) {
-                Log.e("jiangyu",String.valueOf(position));
                 mShareTypeSpinner.setSelection(position);
             }
             mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
@@ -332,15 +327,15 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
             Toast.makeText(this,"分享级别不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mLessonLocation.getText().toString().equals("")){
+        if(mLessonLocation.getText().toString().trim().equals("")){
             Toast.makeText(this,"上课地点不能为空",Toast.LENGTH_SHORT).show();
             return false;
         }
         try {
             new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                    mCourseDate.getText().toString()
-                    + " "
-                    + mCourseStarttime.getText());
+                    mCourseDate.getText().toString().trim()+
+                    " "+
+                    mCourseStarttime.getText().toString().trim());
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -349,9 +344,9 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         }
         try{
             new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(
-                    mCourseDate.getText().toString()
-                    + " "
-                    + mCourseEndtime.getText());
+                    mCourseDate.getText().toString().trim()+
+                    " "+
+                    mCourseEndtime.getText().toString().trim());
         }catch (ParseException e){
             e.printStackTrace();
             Toast.makeText(this,"日期或下课时间设置不正确",Toast.LENGTH_SHORT).show();
@@ -373,28 +368,28 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogMaker.make(
-                   ClientMyShareCourseDetailFillActivity.this, "操作失败!", false).show();
+            DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                   ClientMyShareCourseDetailFillActivity.this, "操作失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogMaker.make(
-                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true).show();
+                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                            ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true);
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogMaker.make(
-                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true).show();
+                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                            ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true);
                 }
             }else if (operateResult.equals("failure")) {
                 String message = (String) response.get("message");
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogMaker.make(
+                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "申请提交失败：\n" +
-                                    message, false).show();
+                                    message, false);
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogMaker.make(
+                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "课程修改失败：\n" +
-                                    message, false).show();
+                                    message, false);
                 }
             }
         }

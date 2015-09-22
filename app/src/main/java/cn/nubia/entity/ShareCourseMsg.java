@@ -110,7 +110,7 @@ public class ShareCourseMsg extends Paramable{
         params.add("locale", mLocale);
         params.add("start_time", String.valueOf(mStartTime));
         params.add("end_time", String.valueOf(mEndTime));
-        params.add("user_id",Constant.user.getUserID());
+        params.add("user_id",mUserId);
 
         return params;
     }

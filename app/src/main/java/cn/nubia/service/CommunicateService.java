@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
@@ -31,8 +30,8 @@ public class CommunicateService extends Service {
             CommunicateService.this.communicate(paramable, inter, URL);
         }
 
-        public void loopCommunicate (List<? extends Paramable> paramList,ActivityInter inter,String URL){
-            CommunicateService.this.loopCommunicate(paramList, inter, URL);
+        public void communicate (List<? extends Paramable> paramList,ActivityInter inter,String URL){
+            CommunicateService.this.communicate(paramList, inter, URL);
         }
     }
 
@@ -49,14 +48,12 @@ public class CommunicateService extends Service {
     }
 
     private void communicate(final Paramable paramable,final ActivityInter inter,final String tagetURL) {
-        Log.e("jiangyu", "service communicate function start");
         try {
             Class<? extends HttpHandler> HttpHandlerClass = URLMap.HANDLER_MAPPING.get(tagetURL);
             final HttpHandler httpHandler = HttpHandlerClass.newInstance();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("jiangyu", "communicate thread begin");
                     if (httpHandler != null) {
                         final AsyncGetResult asyncGetResult = new AsyncGetResult();
                         asyncGetResult.setEntityFactory(new EntityFactoryGenerics(URLMap.ASSEMBLER_MAPPING.get(tagetURL)));
@@ -68,11 +65,9 @@ public class CommunicateService extends Service {
                             }
                         });
                         RequestParams params = paramable.toParams();
-                        Log.e("jiangyu", params.toString());
 
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         client.get(tagetURL, params, httpHandler);
-                        Log.e("jiangyu", "communicate thread end");
                     }
                 }
             }).start();
@@ -81,12 +76,9 @@ public class CommunicateService extends Service {
         } catch (IllegalAccessException e1) {
             e1.printStackTrace();
         }
-
-        Log.e("jiangyu", "service communicate function end");
     }
 
-    private void loopCommunicate(final List<? extends Paramable> paramList,final ActivityInter inter,final String tagetURL) {
-        Log.e("jiangyu", "service loopCommunicate function start");
+    private void communicate(final List<? extends Paramable> paramList,final ActivityInter inter,final String tagetURL) {
         try {
 
             Class<? extends HttpHandler> HttpHandlerClass = URLMap.HANDLER_MAPPING.get(tagetURL);
@@ -94,9 +86,7 @@ public class CommunicateService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("jiangyu", "loopCommunicate thread begin");
                     if (httpHandler != null) {
-
                         final List<Boolean> lastMissionFinishedContain = new ArrayList<Boolean>();
                         lastMissionFinishedContain.add(true);
 
@@ -111,7 +101,6 @@ public class CommunicateService extends Service {
 
                                     Map<String,?> mResponse = asyncGetResult.getResultList();
                                     inter.handleResponse(mResponse, tagetURL);
-                                    Log.e("jiangyu", "loopCommunicate handled, lastMissionFinished = "+lastMissionFinishedContain.get(0));
                                     lastMissionFinishedContain.notifyAll();
                                 }
                             }
@@ -121,27 +110,23 @@ public class CommunicateService extends Service {
                         int loopIndex = 0;
                         while(loopIndex<paramList.size()){
                             synchronized (lastMissionFinishedContain) {
-                                while(!lastMissionFinishedContain.get(0)){
+                                while (!lastMissionFinishedContain.get(0)) {
                                     try {
                                         lastMissionFinishedContain.wait();
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
                                 }
-
-                                Paramable currentParamable = paramList.get(loopIndex);
-                                RequestParams params = currentParamable.toParams();
-                                Log.e("jiangyu", params.toString());
-                                client.get(tagetURL, params, httpHandler);
-
                                 lastMissionFinishedContain.remove(0);
                                 lastMissionFinishedContain.add(false);
-                                Log.e("jiangyu", "loopCommunicate sended, lastMissionFinished = "+lastMissionFinishedContain.get(0));
-                                loopIndex++;
                             }
 
+                            Paramable currentParamable = paramList.get(loopIndex);
+                            RequestParams params = currentParamable.toParams();
+                            client.get(tagetURL, params, httpHandler);
+
+                            loopIndex++;
                         }
-                        Log.e("jiangyu", "loopCommunicate thread begin");
                     }
                 }
             }).start();
@@ -150,7 +135,5 @@ public class CommunicateService extends Service {
         } catch (IllegalAccessException e1) {
             e1.printStackTrace();
         }
-
-        Log.e("jiangyu", "service loopCommunicate function end");
     }
 }

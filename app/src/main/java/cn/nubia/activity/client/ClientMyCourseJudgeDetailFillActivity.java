@@ -198,18 +198,18 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogMaker.make(
-                   ClientMyCourseJudgeDetailFillActivity.this, "操作失败!", false).show();
+            DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
+                   ClientMyCourseJudgeDetailFillActivity.this, "操作失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(
-                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true).show();
+                DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
+                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(
+                DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
                         ClientMyCourseJudgeDetailFillActivity.this, "课程评价失败：\n" +
-                                message, false).show();
+                                message, false);
             }
         }
     }

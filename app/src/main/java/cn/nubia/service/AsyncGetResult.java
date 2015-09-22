@@ -2,7 +2,6 @@ package cn.nubia.service;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -37,15 +36,12 @@ public class AsyncGetResult implements Runnable {
 
     @Override
     public void run() {
-        Log.e("jiangyu", "result Thread begin");
         if((mJSONObject!=null)&&(mFactoryGenerics!=null)){
             mFactoryGenerics.setJSON(mJSONObject);
             mResponse = mFactoryGenerics.getResponse();
             mResultHandler.sendMessage(new Message());
-            Log.e("jiangyu", "result get Thread called nomal handle");
         }else{
             mResultHandler.sendMessage(new Message());
-            Log.e("jiangyu", "result get Thread called undisconnected handle");
         }
     }
 }

@@ -73,7 +73,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
     private String deleteUrl = Constant.BASE_URL + "/course/del_lesson.do";
 
-
     private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +102,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Intent intent = getIntent();
         /**此处的lessonItem会不会是null*/
         lessonItem=(LessonItem)intent.getSerializableExtra("LessonItem");
+
+        lessonItem = (LessonItem)intent.getSerializableExtra("LessonItem");
+
+        sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+        sub_page_title.setText(lessonItem.getName() + "课时");
 
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();

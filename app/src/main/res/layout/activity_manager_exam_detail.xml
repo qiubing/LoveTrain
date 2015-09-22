@@ -125,7 +125,7 @@
             android:id="@+id/manager_exam_enroll"
             style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="@string/activity_manager_exam_deletebtn" />
+            android:text="@string/activity_manager_exam_enrollbtn" />
 
     </RelativeLayout>
 

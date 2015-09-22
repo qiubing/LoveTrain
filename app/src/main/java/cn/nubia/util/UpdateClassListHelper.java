@@ -64,8 +64,9 @@ public class UpdateClassListHelper {
         lessonItem.setCheckUsers(jsonObjectDetail.getInt("check_users"));
         lessonItem.setTeacherName(jsonObjectDetail.getString("teacher_name"));
         lessonItem.setJudgeScore(jsonObjectDetail.getDouble("judge_score"));
+        lessonItem.setLocation(jsonObjectDetail.getString("locale"));
         lessonItem.setStartTime(jsonObjectDetail.getLong("start_time"));
-        lessonItem.setEndTime(jsonObjectDetail.getLong("start_time"));
+        lessonItem.setEndTime(jsonObjectDetail.getLong("end_time"));
         lessonItem.setTeacherCredits(jsonObjectDetail.getInt("teacher_credits"));
         lessonItem.setCheckCredits(jsonObjectDetail.getInt("check_credits"));
         lessonItem.setRecordModifyTime(jsonObjectDetail.getLong("lesson_record_modify_time"));
