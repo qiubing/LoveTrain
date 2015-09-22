@@ -113,7 +113,7 @@ public class AsyncHttpHelper {
      * param paramMap
      * param res
      */
-    public static void post(String urlString, Map paramMap,
+    public static void post(String urlString, Map<String,String> paramMap,
                             AsyncHttpResponseHandler res) {
         RequestParams params = new RequestParams(paramMap);
         client.post(urlString, params, res);

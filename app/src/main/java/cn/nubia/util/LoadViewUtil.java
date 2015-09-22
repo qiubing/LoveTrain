@@ -27,8 +27,8 @@ public class LoadViewUtil {
 
     public LoadViewUtil(Context ctx,ListView listView,Handler handler){
         this.mCtx = ctx;
-        ListView mListView = listView;
-        Handler mHandler = handler;
+     /*   ListView mListView = listView;
+        Handler mHandler = handler;*/
     }
 
     public void setNetworkFailedViewVisible(boolean visible){

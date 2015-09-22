@@ -279,12 +279,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          * 判断是否到了最底部
          */
         private boolean isBottom() {
-
-                if (mListView != null && mListView.getAdapter() != null && mListView.getAdapter().getCount()>10) {
-                        return mListView.getLastVisiblePosition() == (mListView
-                                .getAdapter().getCount() - 1);
-                }
-                return false;
+            return mListView != null
+                    && mListView.getAdapter() != null
+                    && mListView.getAdapter().getCount()>10
+                    && mListView.getLastVisiblePosition() == (mListView.getAdapter().getCount() - 1);
         }
 
         /**

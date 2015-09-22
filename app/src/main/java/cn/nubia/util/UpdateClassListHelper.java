@@ -117,7 +117,7 @@ public class UpdateClassListHelper {
             String operate = jsonObject.getString("operate");
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
             item = makeExam(operate,jsonObjectDetail);
-            updateExamItem(operate,item,examList);
+            updateExamItem(operate, item, examList);
         }
     }
 
@@ -125,7 +125,7 @@ public class UpdateClassListHelper {
      * 根据类型更新数据
      * @param classType 课程类型
      * */
-    public static void updateDataByClassType(String classType,Item item, List<CourseItem> list,String tableName){
+    private static void updateDataByClassType(String classType,Item item, List<CourseItem> list,String tableName){
         switch (classType){
             case "course":
             case "share":
@@ -252,13 +252,13 @@ public class UpdateClassListHelper {
     /**
      * 根据课程索引查找，降序排列
      * */
-    public static int binarySearch(List<? extends Item> list,int index){
+    private static int binarySearch(List<? extends Item> list,int index){
         Item item = new CourseItem();
         item.setIndex(index);
         return binarySearch(list, item, false);
     }
 
-    public static int binarySearch(List<? extends Item> list,Item item, final boolean isAsc){
+    private static int binarySearch(List<? extends Item> list,Item item, final boolean isAsc){
         //二分查找课程该Item对应的记录，
         return Collections.binarySearch(list, item, new Comparator<Item>() {
             @Override

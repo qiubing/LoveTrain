@@ -98,7 +98,7 @@ public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler {
                                 } else if(responseObj instanceof String) {
                                     MyJsonHttpResponseHandler.this.onFailure(statusCode, headers, (String)responseObj, throwable);
                                 } else {
-                                    MyJsonHttpResponseHandler.this.onFailure(statusCode, headers, (new JSONException("Unexpected response type " + responseObj.getClass().getName())), (JSONObject)((JSONObject)null));
+                                    MyJsonHttpResponseHandler.this.onFailure(statusCode, headers, (new JSONException("Unexpected response type " + responseObj.getClass().getName())), ((JSONObject)null));
                                 }
 
                             }

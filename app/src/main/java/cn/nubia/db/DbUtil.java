@@ -44,53 +44,6 @@ public class DbUtil {
             dbHelper.close();
     }
 
-    /**
-     * for Debug
-     */
-    public void insertDataTest() {
-        //插入10个课程
-        for (int i = 0; i < 10; i++) {
-            insertCourseItemTest(String.valueOf(i));
-            //每个课程4个课时
-            Log.e(TAG, "INSERT  data+");
-            for (int j = 0; j < 4; j++) {
-                insertLessonItemTest(String.valueOf(i));
-            }
-        }
-    }
-
-    /**
-     * for Debug NO USE
-     */
-    private long insertCourseItemTest(String courseIndex) {
-        ContentValues newValues = new ContentValues();
-        newValues.put(CourseItem.COURSE_INDEX, courseIndex);
-        newValues.put(CourseItem.NAME, "Java基础");
-        newValues.put(CourseItem.HAS_EXAM, "0"); //1 有考试  0 无考试
-        newValues.put(CourseItem.DESCRIPTION, "JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好，JAVA基础要学好");
-        newValues.put(CourseItem.CREDITS, "20");
-        newValues.put(CourseItem.SHARE_TYPE, "2");
-        newValues.put(CourseItem.TYPE, "0");
-        return db.insert(SqliteHelper.TB_NAME_CLASS, null, newValues);
-    }
-
-    /**
-     * for Debug NO USE
-     */
-    private  long insertLessonItemTest(String courseIndex) {
-        ContentValues newValues = new ContentValues();
-        newValues.put(LessonItem.COURSE_INDEX, courseIndex);
-        newValues.put(LessonItem.NAME, "Java基础一");
-        newValues.put(LessonItem.JUDGE_SCORE, "90.5"); //1 有考试  0 无考试
-        newValues.put(LessonItem.CHECK_CREDITS, "10");
-        newValues.put(LessonItem.TEACHER_CREDITS, "30");
-        newValues.put(LessonItem.TEACHER_NAME, "张三");
-        newValues.put(LessonItem.LOCALE, "C-2");
-        newValues.put(LessonItem.DESCRIPTION, "第一课");
-        newValues.put(LessonItem.START_TIME, "7月8号9点10分");
-        newValues.put(LessonItem.END_TIME, "7月8号10点10分");
-        return db.insert(SqliteHelper.TB_NAME_LESSON, null, newValues);
-    }
 
     public void updateCourseList(List<CourseItem> courseItemList) {
         for (CourseItem item : courseItemList)
