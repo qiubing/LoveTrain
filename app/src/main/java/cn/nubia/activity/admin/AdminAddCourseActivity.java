@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,7 +24,9 @@ import org.json.JSONObject;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -40,7 +44,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     private EditText addCourseCoursePointsEditText;
 
     private Button addCourseButton;
-    private ImageView addCourseBackImage;
+    //private ImageView addCourseBackImage;
+    private GestureDetector gestureDetector;
 
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
@@ -70,6 +75,18 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         courseItem=new CourseItem();
         mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增课程");
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
 
 
         addCourseCourseNameEditText = (EditText) findViewById(R.id.add_course_courseName_editText);
@@ -101,6 +118,13 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
 
     }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -175,6 +199,9 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     }
 
     void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
