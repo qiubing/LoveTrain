@@ -86,7 +86,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             alterCourseCourseDescEditText.setText(mCourseItem.getDescription());
 
             String courseTypeStr=mCourseItem.getType();
-            courseTypeSpinner.setSelection(courseTypeStr=="1"?0:(courseTypeStr=="2"?1:2));
+            courseTypeSpinner.setSelection(courseTypeStr.equals("course")?0:1);
 
             alterCourseCoursePointsEditText.setText(mCourseItem.getCourseCredits()+"");
             alterCourseWhetherExamCheckBox.setChecked(mCourseItem.hasExam());
@@ -212,7 +212,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
          * 技术分享，type为2；
          * 高级课程，type为3；*/
         String typeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(typeStr=="course"?1:(typeStr=="share"?2:3))+"");
+        requestParams.add("type",(typeStr.equals("course")?1:(typeStr.equals("share")?2:3))+"");
 
         requestParams.add("has_exam", alterCourseWhetherExamCheckBox.isChecked()?"1":"0");
         requestParams.add("course_credits", alterCourseCoursePointsEditText.getText().toString());

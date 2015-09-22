@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,6 +37,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
     private EditText addCourseCourseNameEditText;
     private EditText addCourseCourseDescEditText;
+    private TextView addCourseHighLevelCouse;
+    private EditText addCourseHighLevelCourseDeletePoints;
     private TextView mTitleText;
 
 //    private EditText addCourseCourseTypeEditText;
@@ -60,7 +63,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 //    private boolean whetherExam;
 //    private boolean whetherHighLevelCourse;
 
-    private static final String addCourseURL = Constant.BASE_URL + "course/add_course.do";
+    private static final String addCourseURL = Constant.BASE_URL + "/course/add_course.do";
 
 
     private RelativeLayout loadingFailedRelativeLayout;
@@ -91,13 +94,15 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
         addCourseCourseNameEditText = (EditText) findViewById(R.id.add_course_courseName_editText);
         addCourseCourseDescEditText = (EditText) findViewById(R.id.add_course_courseDesc_editText);
-//        addCourseCourseTypeEditText = (EditText) findViewById(R.id.add_course_courseType_editText);
+
+
         courseTypeSpinner=(Spinner)findViewById(R.id.add_course_courseType);
 
+        addCourseHighLevelCouse = (TextView) findViewById(R.id.add_course_highLevelCoursePoints_textView);
+        addCourseHighLevelCourseDeletePoints = (EditText) findViewById(R.id.add_course_highLevelCoursePoints_editText);
         addCourseCoursePointsEditText = (EditText) findViewById(R.id.add_course_CoursePoints_editText);
 
         addCourseButton = (Button) findViewById(R.id.add_course_button);
-        //addCourseBackImage = (ImageView) findViewById(R.id.admin_add_course_backImage);
 
         addCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.add_course_whetherExam_checkBox);
 
@@ -108,14 +113,30 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
 
 
         /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
-//        if(!addCourseWhetherHighLevelCourseCheckBox.isChecked()){
-//            highLevelCoursePoints.setVisibility(View.GONE);
-//        }
+        if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
+            addCourseHighLevelCouse.setVisibility(View.GONE);
+            addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
+        }
 
 
+
+        courseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
+                    addCourseHighLevelCouse.setVisibility(View.GONE);
+                    addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
+                }
+                else{
+                    addCourseHighLevelCouse.setVisibility(View.VISIBLE);
+                    addCourseHighLevelCourseDeletePoints.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         addCourseButton.setOnClickListener(this);
-       // addCourseBackImage.setOnClickListener(this);
-
 
     }
 
@@ -125,16 +146,9 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         return  gestureDetector.onTouchEvent(event);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-           /* case R.id.admin_add_course_backImage:
-                Toast.makeText(AdminAddCourseActivity.this, "你点击了返回", Toast.LENGTH_LONG).show();
-                Intent intentBackImage = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
-                startActivity(intentBackImage);
-                finish();
-                break;*/
             case R.id.add_course_button:
 
 //                Dialog addCourseDialog = new AlertDialog.Builder(AdminAddCourseActivity.this)
@@ -181,6 +195,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     Toast.makeText(AdminAddCourseActivity.this, "课程积分不可为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(addCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE&&addCourseHighLevelCourseDeletePoints.getText().toString().trim().equals("")) {
+                    Toast.makeText(AdminAddCourseActivity.this, "课程积分不可为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 courseItem.setName(addCourseCourseNameEditText.getText().toString());
                 courseItem.setDescription(addCourseCourseDescEditText.getText().toString());
 
@@ -202,25 +220,29 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-
-
-        // requestParams.add("course_index", "");
-        requestParams.add("course_name", addCourseCourseNameEditText.getText().toString());
-        requestParams.add("course_description", addCourseCourseDescEditText.getText().toString());
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         /**普通课程course，type为1；
-         * 技术分享share，type为2；
+         * 添加课程不能为技术分享share，type为2；
          * 高级课程senior，type为3；*/
-        String courseTypeStr=courseTypeSpinner.getSelectedItem().toString();
-        requestParams.add("type",(courseTypeStr.equals("course")?1:(courseTypeStr.equals("share")?2:3))+"");
 
-        requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"1":"0");
+        requestParams.add("course_name", addCourseCourseNameEditText.getText().toString());
+        requestParams.add("course_description", addCourseCourseDescEditText.getText().toString());
+        String courseTypeStr=courseTypeSpinner.getSelectedItem().toString();
+        requestParams.add("type",(courseTypeStr.equals("course")?1:3)+"");
+        requestParams.add("has_exam", addCourseWhetherExamCheckBox.isChecked()?"true":"false");
         requestParams.add("course_credits", addCourseCoursePointsEditText.getText().toString());
+
+        /**如果是高级课程，则该参数为里面的值为edittext中的值，否则为空字符*/
+        if(addCourseHighLevelCourseDeletePoints.getVisibility()!=View.GONE){
+            requestParams.add("enroll_credits", addCourseHighLevelCourseDeletePoints.getText().toString());
+        }
+        else
+            requestParams.add("enroll_credits", "0");
+
+
+
+        Log.i("xx", "参数" + requestParams.toString());
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
@@ -243,9 +265,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
-
                     courseTypeSpinner.setSelection(0);
-
                     addCourseCoursePointsEditText.setText("");
                     addCourseWhetherExamCheckBox.setChecked(false);
                 }
@@ -264,11 +284,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
             Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
         }
     };
-
     public void back(View view) {
         // TODO Auto-generated method stub
         this.finish();
     }
-
-
 }

@@ -53,9 +53,10 @@ public class AdminSignUpManageActivity extends Activity {
         CourseItem mCourseItem = (CourseItem) intent.getSerializableExtra("CourseItem");
 
         /***构造请求参数*/
-        HashMap<String,String> getClassParam = new HashMap<>();
-        getClassParam.put("course_index", mCourseItem.getIndex() + "");
-        RequestParams requestParams = Utils.toParams(getClassParam);
+
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+        requestParams.add("course_index",mCourseItem.getIndex() + "");
+
         Log.e("requestParams", requestParams.toString());
         String signUpInfoUrl = Constant.BASE_URL + "enroll/list_enroll_users.do";
         AsyncHttpHelper.post(signUpInfoUrl, requestParams, jsonHttpResponseHandler);
@@ -83,8 +84,6 @@ public class AdminSignUpManageActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("TEST statusCode", "" + statusCode);
-                Log.e("TEST code",""+response.getInt("code"));
                 if(response.getInt("code") != 0){
                     Log.e("TEST code2",""+response.getInt("code"));
                     Toast.makeText(AdminSignUpManageActivity.this, "请求出错", Toast.LENGTH_LONG).show();
