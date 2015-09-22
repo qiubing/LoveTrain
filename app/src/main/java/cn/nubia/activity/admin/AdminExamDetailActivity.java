@@ -296,11 +296,12 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+//        requestParams.add("device_id", "MXJSDLJFJFSFS");
+//        requestParams.add("request_time","1445545456456");
+//        requestParams.add("apk_version","1");
+//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
+
         requestParams.add("record_modify_time_course", "1435125456111");
 
         requestParams.put("exam_index", mExamItemExamEdit.getIndex());

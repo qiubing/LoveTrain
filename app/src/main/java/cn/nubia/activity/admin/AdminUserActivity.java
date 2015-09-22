@@ -42,11 +42,11 @@ public class AdminUserActivity extends Activity {
         list = new ArrayList<>();
         String url = Constant.BASE_URL + "user/manage.do";
 
-        RequestParams params = new RequestParams();
-        params.put("device_id", Constant.devideID);
-        params.put("request_time", System.currentTimeMillis());
-        params.put("apk_version", Constant.apkVersion);
-        params.put("token_key", Constant.tokenKep);
+        RequestParams params = new RequestParams(Constant.getRequestParams());
+//        params.put("device_id", Constant.devideID);
+//        params.put("request_time", System.currentTimeMillis());
+//        params.put("apk_version", Constant.apkVersion);
+//        params.put("token_key", Constant.tokenKep);
 
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override
