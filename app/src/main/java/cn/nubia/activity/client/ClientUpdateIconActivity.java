@@ -127,7 +127,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         }
     }
 
-    private MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {

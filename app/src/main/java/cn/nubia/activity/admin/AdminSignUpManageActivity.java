@@ -74,7 +74,7 @@ public class AdminSignUpManageActivity extends Activity {
     }
 
     /**请求课程数据服务器数据的Handler*/
-    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
