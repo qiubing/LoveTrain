@@ -37,6 +37,7 @@ import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 import cn.nubia.zxing.encoding.EncodingHandler;
 
 /**
@@ -101,7 +102,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         if(lessonItem!=null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
             lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
-            lessonInfoTextView.setText(lessonItem.getTeacherName()+lessonItem.getLocation()+lessonItem.getStartTime());
+            lessonInfoTextView.setText("讲师：" + lessonItem.getTeacherName()+
+                    "\n上课地址：" + lessonItem.getLocation()+
+                    "\n上课时间：" + TimeFormatConversion.toDateTime(lessonItem.getStartTime()) +
+
+                    "\n下课时间：" + TimeFormatConversion.toDateTime(lessonItem.getEndTime()) +
+                    "\n讲师上课、学员签到可得积分：" + lessonItem.getTeacherCredits()+ "、" + lessonItem.getCheckCredits()+
+                    "\n课程评价分数：" + lessonItem.getJudgeScore()
+                    );
             /**签到人数怎么获得？*/
 //            signInPopulationTextView.setText(lessonItem.getIndex());
         }

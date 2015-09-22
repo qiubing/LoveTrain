@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,7 +26,9 @@ import java.util.Calendar;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
@@ -43,6 +47,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
     private ExamItem mExamItemExamEdit;
+    private GestureDetector gestureDetector;
 
     private int year;
     private int month;
@@ -82,6 +87,18 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamStartTime.setOnClickListener(this);
         mExamEndTime.setOnClickListener(this);
 
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+
 
         mExamTitle.setText(mExamItemExamEdit.getName());
         mExamInfo.setText(mExamItemExamEdit.getDescription());
@@ -101,7 +118,16 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         });
     }
 
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
     void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");

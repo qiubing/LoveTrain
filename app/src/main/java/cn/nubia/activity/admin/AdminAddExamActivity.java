@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,7 +27,9 @@ import java.util.Calendar;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
@@ -52,6 +56,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     private int minuteStart;
     private int hourEnd;
     private int minuteEnd;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +85,30 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         mExamEndTime.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
 
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+
     }
 
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
 
     private void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
         RequestParams requestParams = new RequestParams();
         requestParams.add("device_id", "MXJSDLJFJFSFS");
         requestParams.add("request_time","1445545456456");
@@ -122,6 +147,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                     mExamStartTime.setText("");
                     mExamEndTime.setText("");
                     mExamCredit.setText("");
+                    mExamStartDate.setText("");
                 }
 
             } catch (Exception e) {
