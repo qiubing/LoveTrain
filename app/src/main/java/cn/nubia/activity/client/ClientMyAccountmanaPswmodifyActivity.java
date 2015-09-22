@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.PswModifyMsg;
 import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
@@ -108,6 +109,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                             PswModifyMsg pswModifyMsg = new PswModifyMsg();
                             pswModifyMsg.setOldPsw(oldPsw);
                             pswModifyMsg.setNewPsw(newPsw);
+                            pswModifyMsg.setUserID(Constant.user.getUserID());
                             pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
                             mBinder.communicate(
                                     pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
@@ -154,18 +156,18 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogMaker.make(
-                   ClientMyAccountmanaPswmodifyActivity.this, "操作失败!", false).show();
+            DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
+                   ClientMyAccountmanaPswmodifyActivity.this, "操作失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(
-                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", true).show();
+                DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
+                        ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(
+                DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
                         ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败：\n" +
-                                message, false).show();
+                                message, false);
             }
         }
     }

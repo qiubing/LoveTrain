@@ -2,9 +2,13 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -19,10 +23,17 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import cn.nubia.activity.R;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.ExamEnrollMsg;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.service.ActivityInter;
+import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -80,10 +91,30 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
-    private Button enroll;
+    private Button mEnroll;
+    private boolean mNextPressReady;
 
 
     private GestureDetector gestureDetector;
+
+    private CommunicateService.CommunicateBinder mBinder;
+    private final ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mBinder = (CommunicateService.CommunicateBinder)service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBinder = null;
+        }
+    };
+
+    public class Inter implements ActivityInter {
+        public void handleResponse(Map<String,?> response,String responseURL){
+            AdminExamDetailActivity.this.handleResponse(response,responseURL);;
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +126,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         Log.i("huhu", "examdetiel" + mExamItemExamEdit.getCourseIndex());
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
-        enroll = (Button) findViewById(R.id.manager_exam_enroll);
+
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
@@ -108,6 +139,19 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     protected void onResume() {
         super.onResume();
         setViewLogic();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        connectService();
+        mNextPressReady = true;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -123,9 +167,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();
-                ExamItem mExamItem = new ExamItem();
-                mExamItem.setIndex(1);
-                bundle.putSerializable("ExamInfo", mExamItem);
+                bundle.putSerializable("ExamInfo", mExamItemExamEdit);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -164,7 +206,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     }
 
     private void holdView(){
-
+        mEnroll = (Button) findViewById(R.id.manager_exam_enroll);
         mInputScore = (Button) findViewById(R.id.manager_exam_inputscorebtn);
         mDeleteExam = (Button) findViewById(R.id.manager_exam_deletebtn);
         mEditExam = (Button) findViewById(R.id.manager_exam_editbtn);
@@ -178,6 +220,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             mInputScore .setVisibility(View.GONE);
             mDeleteExam.setVisibility(View.GONE);
             mEditExam.setVisibility(View.GONE);
+            mEnroll.setVisibility(View.VISIBLE);
         }
     }
 
@@ -213,6 +256,27 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             @Override
             public void finishActivity() {
                 finish();
+            }
+        });
+
+        mEnroll.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(mNextPressReady) {
+                    ExamEnrollMsg examEnrollMsg = new ExamEnrollMsg();
+                    examEnrollMsg.setUserID(Constant.user.getUserID());
+                    examEnrollMsg.setExamIndex(mExamItemExamEdit.getIndex());
+                    examEnrollMsg.setOperateType(CommunicateService.OperateType.INSERT);
+//                    if(null==mExamItemExamEdit.getCourseIndex()){
+                        mBinder.communicate(
+                                examEnrollMsg, new Inter(), URLMap.URL_ADD_NORMALEXAMENROLL);
+//                    }else{
+//                        mBinder.communicate(
+//                                examEnrollMsg, new Inter(), URLMap.URL_ADD_SPECIALEXAMENROLL);
+//                    }
+                    mNextPressReady = false;
+
+                }
             }
         });
     }
@@ -275,6 +339,37 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     public void back(View view) {
         // TODO Auto-generated method stub
         this.finish();
+    }
+
+    private void connectService(){
+        Intent intent = new Intent(
+                AdminExamDetailActivity.this, CommunicateService.class);
+        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
+    }
+
+    private void disconectService(){
+        unbindService(mConn);
+    }
+
+    private void handleResponse(Map<String,?> response,String responseURL){
+        mNextPressReady = true;
+        if(response==null){
+            DialogMaker.make(AdminExamDetailActivity.this,
+                    AdminExamDetailActivity.this, "操作失败!", false);
+        }else{
+            String operateResult = (String)response.get("operateResult");
+            if(operateResult.equals("success")) {
+                DialogMaker.make(AdminExamDetailActivity.this,
+                        AdminExamDetailActivity.this,
+                        "考试报名成功!", true);
+            }else if(operateResult.equals("failure")) {
+                String message = (String) response.get("message");
+                DialogMaker.make(AdminExamDetailActivity.this,
+                        AdminExamDetailActivity.this,
+                        "考试报名失败：\n" +
+                                message, false);
+            }
+        }
     }
 
 }

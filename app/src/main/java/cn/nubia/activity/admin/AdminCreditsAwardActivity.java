@@ -159,19 +159,20 @@ public class AdminCreditsAwardActivity extends Activity {
     private void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogMaker.make(AdminCreditsAwardActivity.this,"操作失败!",false).show();
+            DialogMaker.make(AdminCreditsAwardActivity.this,
+                    AdminCreditsAwardActivity.this,"操作失败!",false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(
+                DialogMaker.make(AdminCreditsAwardActivity.this,
                         AdminCreditsAwardActivity.this,
-                        "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励成功!", true).show();
+                        "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(
+                DialogMaker.make(AdminCreditsAwardActivity.this,
                         AdminCreditsAwardActivity.this,
                         "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励失败：\n" +
-                                message, false).show();
+                                message, false);
             }
         }
     }

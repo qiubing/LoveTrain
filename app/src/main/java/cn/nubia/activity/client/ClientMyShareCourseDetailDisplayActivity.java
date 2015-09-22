@@ -3,7 +3,6 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -106,7 +105,6 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         mCourseName.setText(mShareCourseMsg.getCourseName());
         mCourseLevel.setText(
                 ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mShareCourseMsg.getCourseLevel()));
-        Log.e("level", mShareCourseMsg.getCourseLevel() + " ");
         Date startTime = new Date();
         startTime.setTime(mShareCourseMsg.getStartTime());
         Date endTime = new Date();
