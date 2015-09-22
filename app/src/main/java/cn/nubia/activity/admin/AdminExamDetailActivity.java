@@ -75,9 +75,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
     private TextView mCourseName;
     private TextView mExamIntroduction;
     private TextView mExamInfo;
-    private ExamItem mExamItem;
     private ExamItem mExamItemExamEdit;
-    private TextView mManagerTitle;
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
@@ -90,7 +88,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_exam_detail);
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
+        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(R.string.activity_manager_exam_detail_title);
 
         holdView();
@@ -123,7 +121,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             case R.id.manager_exam_inputscorebtn:
                 intent = new Intent(AdminExamDetailActivity.this, AdminExamInputScoreActivity.class);
                 Bundle bundle = new Bundle();
-                mExamItem = new ExamItem();
+                ExamItem mExamItem = new ExamItem();
                 mExamItem.setIndex(1);
                 bundle.putSerializable("ExamInfo", mExamItem);
                 intent.putExtras(bundle);
@@ -132,10 +130,10 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
             case R.id.manager_exam_deletebtn:
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AdminExamDetailActivity.this)
                         //设置对话框标题
-                        .setTitle("确认要删除《\"+mExamItem.getName()+ \"》这门考试吗?")
+                        .setTitle("删除考试")
                         //设置图标
-                        .setIcon(R.drawable.icon_class_selector);
-                        //.setMessage("请选择将要进行的操作");
+                        .setIcon(R.drawable.abc_ic_menu_selectall_mtrl_alpha)
+                        .setMessage("确认要删除《\"+mExamItem.getName()+ \"》这门考试吗?");
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -211,7 +209,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
         requestParams.add("record_modify_time_course", "1435125456111");
 
-        requestParams.add("exam_index", mExamItemExamEdit.getIndex() + "");
+        requestParams.put("exam_index", mExamItemExamEdit.getIndex());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }

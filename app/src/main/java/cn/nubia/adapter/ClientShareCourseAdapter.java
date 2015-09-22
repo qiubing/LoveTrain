@@ -14,13 +14,13 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.ShareCourseMsg;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 15:53
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 15:53
  */
 public class ClientShareCourseAdapter extends BaseAdapter {
-    private List<ShareCourseMsg> mCourseList;
-    private Context mContext;
+    private final List<ShareCourseMsg> mCourseList;
+    private final Context mContext;
 
     public ClientShareCourseAdapter(List<ShareCourseMsg> courseList,Context context){
         this.mContext = context;

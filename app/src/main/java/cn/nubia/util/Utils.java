@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,8 @@ import java.util.HashMap;
 import cn.nubia.entity.Constant;
 
 /**
- * @Author: qiubing
- * @Date: 2015/9/6 9:07
+ * Author: qiubing
+ * Date: 2015/9/6 9:07
  */
 public class Utils {
     /**
@@ -40,6 +41,7 @@ public class Utils {
         int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
+            Log.e("qiubing",listItem==null?"kong":"feikong");
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
@@ -101,8 +103,8 @@ public class Utils {
 
     /**
      * 从内存卡中读取文件
-     * @param path 文件路径
-     * @return
+     * param path 文件路径
+     * return
      */
     public static Bitmap getPictureFromSD(String path){
         try{
@@ -144,8 +146,8 @@ public class Utils {
 
     /**
      * 封装Map参数到HTTP请求参数中
-     * @param param
-     * @return
+     * param param
+     * return
      */
     public static RequestParams toParams(HashMap<String,String> param){
         param.put("device_id", "87654321");

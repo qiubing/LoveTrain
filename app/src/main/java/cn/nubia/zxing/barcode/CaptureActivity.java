@@ -31,10 +31,10 @@ import cn.nubia.zxing.decoding.InactivityTimer;
 import cn.nubia.zxing.view.ViewfinderView;
 
 /**
- * @ClassName: CaptureActivity
- * @Description: Initial the camera
- * @Author: qiubing
- * @Date: 2015/9/8 15:05
+ * ClassName: CaptureActivity
+ * Description: Initial the camera
+ * Author: qiubing
+ * Date: 2015/9/8 15:05
  */
 public class CaptureActivity extends Activity implements Callback {
 
@@ -116,16 +116,13 @@ public class CaptureActivity extends Activity implements Callback {
     /**
      * Handler scan result
      *
-     * @param result
-     * @param barcode
+     * param result
+     * param barcode
      */
     public void handleDecode(Result result, Bitmap barcode) {
         inactivityTimer.onActivity();
         playBeepSoundAndVibrate();
         String resultString = result.getText();
-        //TODO:send the scan result and person Id to the server
-        //sendCheckResultToServer(resultString);
-
         if (resultString.equals("")) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         } else {
@@ -230,13 +227,5 @@ public class CaptureActivity extends Activity implements Callback {
             mediaPlayer.seekTo(0);
         }
     };
-
-    /**
-     * 发送签到记录到服务器，签到记录以用户ID+课程ID的形式组合
-     * @param result 扫描获取的课程信息
-     */
-    public void sendCheckResultToServer(String result){
-
-    }
 
 }

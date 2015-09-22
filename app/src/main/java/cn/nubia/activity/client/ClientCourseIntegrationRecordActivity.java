@@ -1,6 +1,5 @@
 package cn.nubia.activity.client;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,15 +7,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientCourseIntegrationAdapter;
 import cn.nubia.entity.Constant;
@@ -27,14 +21,12 @@ import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
- * @Author: qiubing
- * @Date: 2015/9/2 9:32
+ * Author: qiubing
+ * Date: 2015/9/2 9:32
  */
 public class ClientCourseIntegrationRecordActivity extends Activity {
     private static final String TAG = "CourseIntegrationRecord";
     private TextView mScoreText;
-    private ClientCourseIntegrationAdapter mAdapter;
-    private List<CourseIntegrationItem> mIntegrationList;
     private ListView mListView;
 
     @Override
@@ -52,27 +44,27 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         mListView = (ListView) findViewById(R.id.course_integration_detail);
 
         //请求参数
-        HashMap<String,String> params = new HashMap<String,String>();
+        RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id",Constant.user.getUserID());
-        RequestParams request = Utils.toParams(params);
         String url = Constant.BASE_URL + "credit/find_lesson_credits.do";
-        AsyncHttpHelper.post(url,request,mClientCourseIntegrationHandler);
+        AsyncHttpHelper.post(url,params,mClientCourseIntegrationHandler);
     }
 
-    MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler(){
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("onSuccess", response.toString());
+            Log.e(TAG, "onSuccess: " + response.toString());
             EntityFactoryGenerics factoryGenerics =
                     new EntityFactoryGenerics(EntityFactoryGenerics.ItemType.COURSEINTEGRATION, response);
             int code = factoryGenerics.getCode();
             //成功返回
             if (code == 0){
-                mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
-                mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList,ClientCourseIntegrationRecordActivity.this);
+                List<CourseIntegrationItem> mIntegrationList = (List<CourseIntegrationItem>) factoryGenerics.get();
+                ClientCourseIntegrationAdapter mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
                 mListView.setAdapter(mAdapter);
                 Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+                mScoreText.setVisibility(View.VISIBLE);
                 mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
             }
         }
@@ -80,7 +72,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("onFailure", throwable.toString());
+            Log.e(TAG, "onFailure:" + throwable.toString());
         }
     };
     /*AsyncHttpResponseHandler mClientCourseIntegrationHandler = new AsyncHttpResponseHandler() {
@@ -125,7 +117,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
     /**
      * 返回箭头绑定事件，即退出该页面
-     * @param view
+     * param view
      */
     public void back(View view){
         this.finish();

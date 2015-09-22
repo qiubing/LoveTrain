@@ -52,7 +52,6 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
      * 用来存储courseItem的List
      */
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
 
 
     @Override
@@ -135,6 +134,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
         Log.e("requestParams", requestParams.toString());
+        String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddLessonActivity;
@@ -172,7 +173,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             /**如果是管理员*/
             else{
                 /**如果不是分享课程,则隐去“享”，同时课程级别“部”也要隐去*/
-                if(mGroupList.get(groupPosition).getType()!="2"){
+                if(!Objects.equals(mGroupList.get(groupPosition).getType(), "2")){
                     groupViewHolder.mCourseType.setVisibility(View.GONE);
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 }

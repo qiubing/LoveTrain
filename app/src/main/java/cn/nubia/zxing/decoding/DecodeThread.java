@@ -27,11 +27,11 @@ import java.util.concurrent.CountDownLatch;
 import cn.nubia.zxing.barcode.CaptureActivity;
 
 /**
- * @Description: This thread does all the heavy lifting of decoding the images.
- * @Author: qiubing
- * @Date: 2015/9/8 14:40
+ * Description: This thread does all the heavy lifting of decoding the images.
+ * Author: qiubing
+ * Date: 2015/9/8 14:40
  */
-public final class DecodeThread extends Thread {
+final class DecodeThread extends Thread {
 
     public static final String BARCODE_BITMAP = "barcode_bitmap";
     private final CaptureActivity activity;

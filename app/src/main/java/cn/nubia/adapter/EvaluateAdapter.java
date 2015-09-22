@@ -173,8 +173,8 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
     /**
      * 评分星级
      *
-     * @param img
-     * @param score
+     * param img
+     * param score
      */
     private void setPraiseRate(ImageView img, float score) {
         if (score == 0) {

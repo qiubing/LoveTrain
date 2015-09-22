@@ -252,7 +252,7 @@ public final class CameraManager {
    * Like {@link #getFramingRect} but coordinates are in terms of the preview frame,
    * not UI / screen.
    */
-  public Rect getFramingRectInPreview() {
+  private Rect getFramingRectInPreview() {
     if (framingRectInPreview == null) {
       Rect rect = new Rect(getFramingRect());
       Point cameraResolution = configManager.getCameraResolution();

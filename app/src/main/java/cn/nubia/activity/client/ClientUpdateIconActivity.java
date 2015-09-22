@@ -39,9 +39,9 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 
 /**
- * @Description: 更新图像的类
- * @Author: qiubing
- * @Date: 2015/9/6 20:23
+ * Description: 更新图像的类
+ * Author: qiubing
+ * Date: 2015/9/6 20:23
  */
 public class ClientUpdateIconActivity extends BaseActivity implements OnClickListener {
     private static final String TAG = "UpdateIconActivity";
@@ -55,7 +55,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int RESULT_REQUEST_CODE = 2;
     private static final int RETURN_PHOTO_CODE = 3;
-    public static Uri photoUri;// 照相之后的数据
+    private static Uri photoUri;// 照相之后的数据
 
 
     @Override
@@ -108,7 +108,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     /**
      * 上传文件到服务器
      */
-    public void uploadFile(Bitmap bitmap) {
+    private void uploadFile(Bitmap bitmap) {
         // bitmap 转换 String
         //ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ///bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
@@ -116,17 +116,13 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         try {
             String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
             File file = new File(path);
-            Log.v("file",file.toString());
             if (file.exists() && file.length() > 0) {
                 //上传地址以及请求参数
+                Log.e("UpdateIconActivity","file: " + file.toString() +", user_id: " + Constant.user.getUserID());
                 String url = Constant.BASE_URL + "user/icon_set.do";
-                RequestParams params = new RequestParams();
-                params.put("device_id","87654321");
-                params.put("request_time","1444444444444");
-                params.put("apk_version","1.0");
-                params.put("token_key","123456789");
-                params.put("user_icon_type", "multipart/form-data");
-                params.put("user_icon", file);
+                RequestParams params = new RequestParams(Constant.getRequestParams());
+                params.put("icon_type", "multipart/form-data");
+                params.put("icon", file);
                 params.put("user_id", Constant.user.getUserID());
                 AsyncHttpHelper.post(url, params, mUpdateIconHandler);
             }
@@ -136,12 +132,12 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     }
 
 
-    MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
+    private MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             super.onSuccess(statusCode, headers, response);
-            Log.e("onSuccess", response.toString());
+            Log.e("UpdateIconActivity", "onSuccess" + response.toString());
             if (response.getString("code").equals("0") && response.getInt("data") == 0) {
                 showShortToast("长传头像成功");
             } else {
@@ -153,9 +149,8 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("onFailure", throwable.toString());
-            //showShortToast("长传头像失败");
-            //ClientUpdateIconActivity.this.finish();
+            Log.e("UpdateIconActivity", "onFailure:" + throwable.toString());
+            showShortToast("长传头像失败");
         }
     };
 
@@ -209,9 +204,9 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     /**
      * 系统相机拍照
      *
-     * @return
+     * return
      */
-    public void takePhoto() {
+    private void takePhoto() {
         // 执行拍照前，应该先判断SD卡是否存在
         String SDState = Environment.getExternalStorageState();
         if (!SDState.equals(Environment.MEDIA_MOUNTED)) {
@@ -242,7 +237,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     /**
      * 从相册取照片
      */
-    public void getPhoto() {
+    private void getPhoto() {
         Intent intentFromGallery = new Intent();
         intentFromGallery.setType("image/*"); // 设置文件类型
         intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
@@ -285,7 +280,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     /**
      * 保存裁剪之后的图片数据
      *
-     * @param
+     * param
      */
     @SuppressWarnings("deprecation")
     private void getImageToView(Intent data) throws IOException {
@@ -311,9 +306,9 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     /**
      * 裁剪图片方法实现
      *
-     * @param uri
+     * param uri
      */
-    public void startPhotoZoom(Uri uri) {
+    private void startPhotoZoom(Uri uri) {
         Log.e("startPhotoZoom", "startPhotoZoom");
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");

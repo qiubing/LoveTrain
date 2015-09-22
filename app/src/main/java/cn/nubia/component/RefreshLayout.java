@@ -142,7 +142,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         private RotateAnimation refreshingAnimation;
         View loadingView;
         /**
-         * @param context
+         * param context
          */
         public RefreshLayout(Context context) {
                 this(context, null);
@@ -269,7 +269,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         /**
          * 是否可以加载更多, 条件是到了最底部, listview不在加载中, 且为上拉操作.
          *
-         * @return
+         * return
          */
         private boolean canLoad() {
                 return isBottom() && !isLoading && isPullUp();
@@ -290,7 +290,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         /**
          * 是否是上拉操作
          *
-         * @return
+         * return
          */
         private boolean isPullUp() {
                 return (mYDown - mLastY) >= mTouchSlop;
@@ -309,7 +309,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
         /**
-         * @param loading
+         * param loading
          */
         public void setLoading(boolean loading) {
                 isLoading = loading;
@@ -411,7 +411,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
         /**
-         * @param loadListener
+         * param loadListener
          */
         public void setOnLoadListener(OnLoadListener loadListener) {
                 mOnLoadListener = loadListener;

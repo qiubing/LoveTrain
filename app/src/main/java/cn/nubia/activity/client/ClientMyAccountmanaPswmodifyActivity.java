@@ -60,9 +60,19 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accountmana_pswmodify);
+        connectService();
 
         //公用部分
-        ((TextView) findViewById(R.id.manager_head_title)).setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
+        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
+        ImageView mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                disconectService();
+                finish();
+            }
+        });
 
         holdView();
         setViewLogic();

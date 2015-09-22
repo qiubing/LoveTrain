@@ -33,7 +33,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
 import cn.nubia.zxing.camera.CameraManager;
 import cn.nubia.zxing.camera.PlanarYUVLuminanceSource;
 
-public final class DecodeHandler extends Handler {
+final class DecodeHandler extends Handler {
 
     private static final String TAG = DecodeHandler.class.getSimpleName();
 

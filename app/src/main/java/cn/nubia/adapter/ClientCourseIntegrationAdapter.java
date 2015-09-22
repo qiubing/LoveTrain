@@ -12,13 +12,13 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.CourseIntegrationItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 10:24
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 10:24
  */
 public class ClientCourseIntegrationAdapter extends BaseAdapter {
-    private List<CourseIntegrationItem> mIntegrationList;//积分记录表
-    private Context mContext;
+    private final List<CourseIntegrationItem> mIntegrationList;//积分记录表
+    private final Context mContext;
 
     public ClientCourseIntegrationAdapter(List<CourseIntegrationItem> integrationList,Context context){
         this.mIntegrationList = integrationList;

@@ -63,8 +63,10 @@ public class AdminCreditsAwardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_credits_award);
         connectService();
-
-        TextView mManagerTitle;
+        //公用部分
+        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle.setText(R.string.activity_manager_award_title);
+        mGoBack = (ImageView) findViewById(R.id.manager_goback);
 
         //公用部分
         ((TextView) findViewById(R.id.manager_head_title))

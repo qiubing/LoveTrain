@@ -185,7 +185,7 @@ public class ErrorHintView extends RelativeLayout {
     /**
      *
      *
-     * @author
+     * author
      */
     class LoadingData implements IStrategy {
 

@@ -20,7 +20,7 @@ package cn.nubia.zxing.decoding;
  * This class provides the constants to use when sending an Intent to Barcode Scanner.
  * These strings are effectively API and cannot be changed.
  */
-public final class Intents {
+final class Intents {
     private Intents() {
     }
 
@@ -100,7 +100,7 @@ public final class Intents {
         }
     }
 
-    public static final class Encode {
+    private static final class Encode {
         /**
          * Send this intent to encode a piece of data as a QR code and display it full screen, so
          * that another person can scan the barcode from your screen.
@@ -131,7 +131,7 @@ public final class Intents {
         }
     }
 
-    public static final class SearchBookContents {
+    private static final class SearchBookContents {
         /**
          * Use Google Book Search to search the contents of the book provided.
          */
@@ -151,7 +151,7 @@ public final class Intents {
         }
     }
 
-    public static final class WifiConnect {
+    private static final class WifiConnect {
         /**
          * Internal intent used to trigger connection to a wi-fi network.
          */
@@ -177,7 +177,7 @@ public final class Intents {
     }
 
 
-    public static final class Share {
+    private static final class Share {
         /**
          * Give the user a choice of items to encode as a barcode, then render it as a QR Code and
          * display onscreen for a friend to scan with their phone.

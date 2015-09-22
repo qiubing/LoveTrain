@@ -25,8 +25,8 @@ public class AsyncHttpHelper {
     /**
      * get 用一个完整url获取一个string对象
      *
-     * @param urlString
-     * @param res
+     * param urlString
+     * param res
      */
     public static void get(String urlString, AsyncHttpResponseHandler res) {
         client.get(urlString, res);
@@ -35,9 +35,9 @@ public class AsyncHttpHelper {
     /**
      * get url里面带参数
      *
-     * @param urlString
-     * @param params
-     * @param res
+     * param urlString
+     * param params
+     * param res
      */
     public static void get(String urlString, RequestParams params,
                            AsyncHttpResponseHandler res) {
@@ -47,8 +47,8 @@ public class AsyncHttpHelper {
     /**
      * get 不带参数，获取json对象或者数组
      *
-     * @param urlString
-     * @param res
+     * param urlString
+     * param res
      */
     public static void get(String urlString, JsonHttpResponseHandler res) {
         Log.e("get",urlString);
@@ -58,9 +58,9 @@ public class AsyncHttpHelper {
     /**
      * get 带参数，获取json对象或者数组
      *
-     * @param urlString
-     * @param params
-     * @param res
+     * param urlString
+     * param params
+     * param res
      */
     public static void get(String urlString, RequestParams params,
                            JsonHttpResponseHandler res) {
@@ -70,8 +70,8 @@ public class AsyncHttpHelper {
     /**
      * get 下载数据使用，会返回byte数据
      *
-     * @param uString
-     * @param bHandler
+     * param uString
+     * param bHandler
      */
     public static void get(String uString, BinaryHttpResponseHandler bHandler) {
         client.get(uString, bHandler);
@@ -85,9 +85,9 @@ public class AsyncHttpHelper {
     /**
      * post 带参数，获取json对象或者数组
      *
-     * @param url
-     * @param params
-     * @param res
+     * param url
+     * param params
+     * param res
      */
     public static void post(String url, RequestParams params,
                             JsonHttpResponseHandler res) {
@@ -97,9 +97,9 @@ public class AsyncHttpHelper {
     /**
      * post url里面带参数
      *
-     * @param urlString
-     * @param params
-     * @param res
+     * param urlString
+     * param params
+     * param res
      */
     public static void post(String urlString, RequestParams params,
                             AsyncHttpResponseHandler res) {
@@ -109,9 +109,9 @@ public class AsyncHttpHelper {
     /**
      * post url里面带参数
      *
-     * @param urlString
-     * @param paramMap
-     * @param res
+     * param urlString
+     * param paramMap
+     * param res
      */
     public static void post(String urlString, Map paramMap,
                             AsyncHttpResponseHandler res) {

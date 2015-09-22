@@ -44,8 +44,6 @@ public class ClientAllCourseTabActivity extends Activity {
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
 
-    private String classUrl = Constant.BASE_URL + "course/get_courses_lessons.do";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +152,7 @@ public class ClientAllCourseTabActivity extends Activity {
         getClassParam.put("lesson_index", "1");
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
+        String classUrl = Constant.BASE_URL + "course/get_courses_lessons.do";
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 

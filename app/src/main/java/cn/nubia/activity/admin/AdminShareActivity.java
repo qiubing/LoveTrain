@@ -1,13 +1,11 @@
 package cn.nubia.activity.admin;
 
-import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +22,8 @@ import cn.nubia.activity.R;
 /**
  * Created by 胡立 on 2015/9/6.
  */
-@SuppressWarnings("deprecation")
+
 public class AdminShareActivity extends ActivityGroup {
-    private List<View> listViews;
     private LocalActivityManager manager;
     private TabHost tabHost;
     private ViewPager pager;
@@ -38,7 +35,7 @@ public class AdminShareActivity extends ActivityGroup {
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view
-        listViews = new ArrayList<View>();
+        List<View> listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
@@ -107,7 +104,7 @@ public class AdminShareActivity extends ActivityGroup {
 
     private class MyPageAdapter extends PagerAdapter {
 
-        private List<View> list;
+        private final List<View> list;
 
         private MyPageAdapter(List<View> list) {
             this.list = list;
@@ -133,30 +130,6 @@ public class AdminShareActivity extends ActivityGroup {
         public boolean isViewFromObject(View arg0, Object arg1) {
             return arg0 == arg1;
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("xxxxx","uuuuuuuu");
-        // 获取当前活动的Activity实例
-        Activity subActivity = getLocalActivityManager().getCurrentActivity();
-        //判断是否实现返回值接口
-        if (subActivity instanceof OnTabActivityResultListener) {
-            //获取返回值接口实例
-            OnTabActivityResultListener listener = (OnTabActivityResultListener) subActivity;
-            //转发请求到子Activity
-            listener.onTabActivityResult(requestCode, resultCode, data);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    /**
-     * 解决子Activity无法接收Activity回调的问题
-     * @author Administrator
-     *
-     */
-    public interface OnTabActivityResultListener {
-        public void onTabActivityResult(int requestCode, int resultCode, Intent data);
     }
 
 }

@@ -10,9 +10,9 @@ import java.util.List;
 import cn.nubia.entity.ExamResultItem;
 
 /**
- * @Description:
- * @Author: qiubing
- * @Date: 2015/9/15 14:43
+ * Description:
+ * Author: qiubing
+ * Date: 2015/9/15 14:43
  */
 public class ExamResultAssembler implements IAssemblerGenerics<ExamResultItem> {
 
@@ -31,7 +31,7 @@ public class ExamResultAssembler implements IAssemblerGenerics<ExamResultItem> {
         return mResultList;
     }
 
-    public ExamResultItem makeExamResult(JSONObject jsonObject) throws JSONException {
+    private ExamResultItem makeExamResult(JSONObject jsonObject) throws JSONException {
         ExamResultItem result = new ExamResultItem();
         result.setmLessonName(jsonObject.getString("lesson_name"));
         result.setmExamScore(jsonObject.getDouble("exam_score"));
