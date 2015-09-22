@@ -45,6 +45,7 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
+    private ImageView backImageView;
     private Button alterLessonBtn;
     private Button deleteLessonBtn;
     private TextView signUpPopulationTextView;
@@ -56,6 +57,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private TextView lessonNameTextView;
     private TextView lessDescTextView;
     private TextView lessonInfoTextView;
+    private TextView signInPopulationTextView;
 
     /**从前一个页面传过来的LessonItem对象*/
     private LessonItem lessonItem;
@@ -235,7 +237,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
 
             case R.id.evaluateTextView:
-                Intent intent = null;
+                Intent intent ;
                 if(status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
@@ -263,12 +265,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
         requestParams.add("lesson_index", lessonItem.getIndex()+"");
         Log.e("hexiao", lessonItem.getIndex() + "+loadData");
+        String signUpUrl = Constant.BASE_URL + "exam/check_list.do";
         AsyncHttpHelper.post(signUpUrl, requestParams, jsonHttpResponseHandler);
     }
 
     /**请求课程数据服务器数据的Handler*/
-    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("hexiao", response.toString());
@@ -279,7 +283,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 if(response.getInt("code")==0 && response.getString("data")!=null) {
                     Log.e("hexiao","signUpInfoSuccess");
                     JSONArray jsonArray = response.getJSONArray("data");
-                    mSignUpData=new SignUpData(jsonArray);
+                    SignUpData mSignUpData=new SignUpData(jsonArray);
                     signUpPopulationTextView.setText("签到"+mSignUpData.getSize()+"人");
                     signUpBundle.putSerializable("SignUpData", mSignUpData);
                 }
@@ -289,6 +293,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("hexiao","signUpInfoFailure");
@@ -299,7 +304,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         private final static long serialVersionUID = 1234567890L;
         private List<String> mList;
         private int mSize;
-        public SignUpData(){}
         public SignUpData(JSONArray jsonArray){
             this.mList=new ArrayList<>();
             for(int i=0;i<jsonArray.length();i++){

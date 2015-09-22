@@ -20,13 +20,12 @@ import java.util.List;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
-
+@SuppressWarnings("deprecation")
 public class AdminCreditActivity extends ActivityGroup {
 
-    List<View> mListViews;
-    Context mContext = null;
-    LocalActivityManager mManager = null;
-    TabHost mTabHost = null;
+
+    private LocalActivityManager mManager = null;
+    private TabHost mTabHost = null;
     private ViewPager mViewPage = null;
 
 
@@ -46,7 +45,8 @@ public class AdminCreditActivity extends ActivityGroup {
             }
         });
 
-        mContext = AdminCreditActivity.this;
+        List<View> mListViews;
+        Context mContext = AdminCreditActivity.this;
         mViewPage = (ViewPager) findViewById(R.id.viewpager);
 
         // 定放一个放view的list，用于存放viewPager用到的view

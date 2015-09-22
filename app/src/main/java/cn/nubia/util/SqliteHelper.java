@@ -9,10 +9,9 @@ import android.util.Log;
  * Created by WJ on 2015/9/6.
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-    final static String TAG = "SqliteHelper";
-    final static String TB_NAME_CLASS = "CLASS_INFO";
-    final static String TB_NAME_LESSON = "LESSON_INFO";
-    final static String TB_NAME_SIGNUP = "SIGNUP_INFO";
+    private final static String TAG = "SqliteHelper";
+    private final static String TB_NAME_CLASS = "CLASS_INFO";
+    private final static String TB_NAME_LESSON = "LESSON_INFO";
 
     final String CREATE_USERINFO_TABLE = "CREATE TABLE IF NOT EXISTS USER_INFO " +
             "(_id integer primary key autoincrement," +
@@ -25,7 +24,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "user_total_credits Integer," +
             "user_icon blob)";
 
-    final String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS CLASS_INFO " +
+    private final String CREATE_CLASS_TABLE = "CREATE TABLE IF NOT EXISTS CLASS_INFO " +
             "(class_index Integer," +                    //课程索引
             "name varchar(50)," +                 //课程名称
             "description varchar(500)," +         //课程描述
@@ -37,7 +36,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "course_credits Integer," +                  //课程能获得的积分
             "course_record_modify_time Integer)";        //课程修改时间
 
-    final String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS LESSON_INFO " +
+    private final String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS LESSON_INFO " +
             "(class_index Integer," +                    //课程索引
             "lesson_index Integer," +                    //课时索引
             "name varchar(50)," +                 //课时名称

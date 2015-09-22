@@ -12,6 +12,8 @@ public class ExamItem extends Item implements Serializable {
     public final static String END_TIME = "end_time";
     public final static String LOCALE = "locale";
     public final static String EXAM_CREDITS = "exam_credits";
+    public final static String ENROLL_USERS = "users";
+
 
     private int mCourseIndex;
     private long mStartTime;
@@ -19,6 +21,17 @@ public class ExamItem extends Item implements Serializable {
     private String mLocale;
     private int mExamCredits;
     private long mRecordModifyTime;
+    private int mErollUsers;  //报名人数
+
+    public int getErollUsers() {
+        return mErollUsers;
+    }
+
+    public void setErollUsers(int erollUsers) {
+        this.mErollUsers = erollUsers;
+    }
+
+
 
     public long getRecordModifyTime() {
         return mRecordModifyTime;

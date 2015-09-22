@@ -53,12 +53,12 @@ public class ExamAddTabActivity extends Activity {
         initEvents();
     }
 
-    public void initView(){
+    private void initView(){
         mAllExamListView = (ListView) findViewById(R.id.admin_all_exam_list);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
     }
 
-    protected void initEvents() {
+    private void initEvents() {
         mExamList = new ArrayList<>();
 
         mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, null);
@@ -109,7 +109,7 @@ public class ExamAddTabActivity extends Activity {
         loadData();
     }
 
-    void loadData(){
+    private void loadData(){
         int index = 0;
         if (mExamList.size()!=0){
             index = mExamList.get(0).getIndex();
@@ -120,19 +120,18 @@ public class ExamAddTabActivity extends Activity {
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("test", "onSuccess");
-
             try {
                 if(response.getInt("code") != 0){
                     Log.e("test", "onfailed" + response.getInt("code"));
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
-                }else
-                    Log.e("test", "onSuccess1");
+                }else{
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
+                }
                 JSONArray jsonArray = response.getJSONArray("data");
                 Log.i("huhu", jsonArray.toString());
                 Log.e("test","onSuccess2");

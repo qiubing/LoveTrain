@@ -12,25 +12,33 @@ public class LessonItem extends Item implements Serializable {
     public final static String TEACHER_ID = "teacher_id";
     public final static String TEACHER_NAME = "teacher_name";
     public final static String START_TIME = "start_time";
+    public final static String CHECK_USERS = "check_users";
     public final static String END_TIME = "end_time";
     public final static String LOCALE = "locale";
     public final static String CHECK_CREDITS = "check_credits";
     public final static String TEACHER_CREDITS = "teacher_credits";
     public final static String RECORD_MODIFY_TIME = "lesson_record_modify_time";
 
-//    private int mLessonIndex;
-    private String mLessonName;
     private int mCourseIndex;
     private String mTeacherID;
     private String mTeacherName;
-//    private String mLessonTheme;
     private long mStartTime;
     private long mEndTime;
     private String mLocale;
+    private int mCheckUsers;  // 签到人数
     private int mCheckCredits;  // 签到积分
     private int mTeacherCredits;//讲师上课积分
     private double mJudgeScore;//该课程讲师评价综合得分
     private long mRecordModifyTime;
+
+
+    public int getCheckUsers() {
+        return mCheckUsers;
+    }
+
+    public void setCheckUsers(int mCheckUsers) {
+        this.mCheckUsers = mCheckUsers;
+    }
 
     public long getRecordModifyTime() {
         return mRecordModifyTime;
@@ -48,22 +56,6 @@ public class LessonItem extends Item implements Serializable {
         this.mTeacherName = mTeacherName;
     }
 
-//    public int getLessonIndex() {
-//        return mLessonIndex;
-////    }
-//
-//    public void setLessonIndex(int mLessonIndex) {
-//        this.mLessonIndex = mLessonIndex;
-//    }
-//
-    public String getLessonName() {
-        return mLessonName;
-    }
-//
-//    public void setLessonName(String mLessonName) {
-//        this.mLessonName = mLessonName;
-//    }
-
     public int getCourseIndex() {
         return mCourseIndex;
     }
@@ -79,14 +71,6 @@ public class LessonItem extends Item implements Serializable {
     public void setTeacherID(String mUserID) {
         this.mTeacherID = mUserID;
     }
-//
-//    public String getLessonTheme() {
-//        return mLessonTheme;
-//    }
-//
-//    public void setLessonTheme(String mLessonTheme) {
-//        this.mLessonTheme = mLessonTheme;
-//    }
 
     public long getStartTime() {
         return mStartTime;

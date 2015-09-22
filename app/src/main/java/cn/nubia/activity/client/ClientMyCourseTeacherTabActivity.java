@@ -52,7 +52,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
      * 用来存储courseItem的List
      */
     private List<CourseItem> mCourseItemList;
-    private String classUrl = Constant.BASE_URL + "get_courses_lessons2.do";
 
 
     @Override
@@ -64,12 +63,12 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     }
 
 
-    public void initView() {
+    private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
     }
 
-    protected void initEvents() {
+    private  void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseTeacherTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
@@ -138,13 +137,14 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
         Log.e("requestParams", requestParams.toString());
+        String classUrl = Constant.BASE_URL + "get_courses_lessons2.do";
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 
     /**
      * 请求课程数据服务器数据的Handler
      */
-    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -232,7 +232,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     /**
      * 只保留自己是讲师的课程显示
      */
-    public void getTeacherList(List<CourseItem> mList) {
+    private  void getTeacherList(List<CourseItem> mList) {
         ArrayList<CourseItem> resultList = new ArrayList<>();
         if (mList.size() != 0) {
             Iterator<CourseItem> it = mList.iterator();
@@ -241,7 +241,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                 List<LessonItem> lessonList = courseItem.getLessonList();
                 for (int i = 0; i < lessonList.size(); i++) {
                     LessonItem lessonItem = lessonList.get(i);
-                    if (lessonItem.getTeacherID() == Constant.user.getUserID()) {
+                    if (lessonItem.getTeacherID() .equals( Constant.user.getUserID())) {
                         resultList.add(courseItem);
                         break;
                     }

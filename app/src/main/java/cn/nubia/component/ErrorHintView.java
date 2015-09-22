@@ -17,8 +17,8 @@ import cn.nubia.interfaces.IStrategy;
  */
 public class ErrorHintView extends RelativeLayout {
 
-    RelativeLayout mContainer;
-    LayoutParams layoutParams;
+    private RelativeLayout mContainer;
+    private LayoutParams layoutParams;
 
     /**
      * 动画

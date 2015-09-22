@@ -34,7 +34,7 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 public class AdminEditExamActivity extends Activity  implements  View.OnClickListener{
 
-    private Button mAddButton;
+
     private EditText mExamInfo;
     private EditText mExamTitle;
     private EditText mExamAddress;
@@ -42,7 +42,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
     private EditText mExamStartTime;
     private EditText mExamEndTime;
     private EditText mExamCredit;
-    private TextView mTitleText;
+
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
@@ -71,10 +71,10 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         mExamStartTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_start);
         mExamEndTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_end);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+        Button mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
         mExamStartDate = (EditText) findViewById(R.id.activity_manager_add_exam_time_data);
 
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("修改考试");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
@@ -124,7 +124,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         return  gestureDetector.onTouchEvent(event);
     }
 
-    void upData(){
+    private void upData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
@@ -148,8 +148,9 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "addExam" + "onSuccess");
             try {
@@ -171,6 +172,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);

@@ -13,7 +13,7 @@ import java.util.Random;
  * 获取设备ID,软件版本号
  */
 public class IDFactory {
-    protected static final String DEVIDE_ID = "DEVIDE_ID";
+    private static final String DEVIDE_ID = "DEVIDE_ID";
     private Context context;
 
     public IDFactory(Context context) {

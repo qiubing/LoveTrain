@@ -10,7 +10,6 @@
 
     <string-array name="courseType">
         <item>course</item>
-        <item>share</item>
         <item>senior</item>
     </string-array>
 

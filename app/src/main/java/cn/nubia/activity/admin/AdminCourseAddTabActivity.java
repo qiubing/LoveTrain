@@ -36,6 +36,7 @@ import cn.nubia.util.UpdateClassListHelper;
 /**
  * Created by 胡立 on 2015/9/7.
  */
+
 public class AdminCourseAddTabActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
@@ -46,7 +47,6 @@ public class AdminCourseAddTabActivity extends Activity {
 
     private List<CourseItem> mCourseItemList;
 
-    private String url = Constant.BASE_URL + "course/get_courses_lessons.do";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +57,12 @@ public class AdminCourseAddTabActivity extends Activity {
     }
 
 
-    public void initView() {
+    private  void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
     }
 
-    protected void initEvents() {
+    private  void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(AdminCourseAddTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
@@ -153,12 +153,14 @@ public class AdminCourseAddTabActivity extends Activity {
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         Log.e("requestParams", requestParams.toString());
+        String url = Constant.BASE_URL + "course/get_courses_lessons.do";
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
 
     /**请求课程数据服务器数据的Handler*/
-    MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
+        @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("HeXiao",""+response.toString());
@@ -182,6 +184,7 @@ public class AdminCourseAddTabActivity extends Activity {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("TEST onFailure", ""+statusCode);

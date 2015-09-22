@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -33,6 +32,7 @@ import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
+@SuppressWarnings("deprecation")
 public class AdminAddExamActivity extends Activity implements  View.OnClickListener{
 
 
@@ -43,8 +43,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     private EditText mExamStartTime;
     private EditText mExamEndTime;
     private EditText mExamCredit;
-    private Button mAddButton;
-    private TextView mTitleText;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
@@ -70,10 +68,11 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         mExamStartTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_start);
         mExamEndTime = (EditText) findViewById(R.id.activity_manager_add_exam_time_end);
         mExamCredit = (EditText) findViewById(R.id.activity_manager_add_exam_credit);
-        mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
+
+        Button mAddButton = (Button) findViewById(R.id.activity_manager_add_exam_button);
         mExamStartDate = (EditText) findViewById(R.id.activity_manager_add_exam_time_data);
 
-        mTitleText = (TextView) findViewById(R.id.sub_page_title);
+        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增考试");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
@@ -128,7 +127,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "addExam" + "onSuccess");
