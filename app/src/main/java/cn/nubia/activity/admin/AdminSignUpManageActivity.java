@@ -1,7 +1,6 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +32,6 @@ public class AdminSignUpManageActivity extends Activity {
     ArrayList<SignUpItem> mSignUpList;
     private CourseItem mCourseItem;
     private ListView mListView;
-    private SignUpManageAdapter mSignUpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +53,6 @@ public class AdminSignUpManageActivity extends Activity {
         });
 
         mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
-        /*mSignUpList = getData();
-        mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
-        mListView.setAdapter(mSignUpAdapter);*/
 
     }
 
@@ -84,7 +79,7 @@ public class AdminSignUpManageActivity extends Activity {
                         JSONObject obj = jsonArray.getJSONObject(i);
                         mSignUpList.add(makeUpSignUpItem(obj));
                     }
-                    mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
+                    SignUpManageAdapter mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
                     mListView.setAdapter(mSignUpAdapter);
                 }
             } catch (JSONException e) {

@@ -66,15 +66,13 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private int minuteEnd;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
-    private Button addLessonSureBtn;
-    private TextView courseName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_lesson);
 
-        courseName=(TextView)findViewById(R.id.add_lesson_CourseName_TextView);
+        TextView courseName=(TextView)findViewById(R.id.add_lesson_CourseName_TextView);
         lessonName = (EditText) findViewById(R.id.add_lesson_lessonName_editText);
         teacherName = (EditText) findViewById(R.id.add_lesson_teacherName_editText);
         lessonDesc = (EditText) findViewById(R.id.add_lesson_lessonDesc_editText);
@@ -83,7 +81,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         lessonEndTime = (EditText) findViewById(R.id.add_lesson_lessonEndTime_editText);
         teacherGetPoints = (EditText) findViewById(R.id.add_lesson_teacherGetPoints_editText);
         studentGetPoints = (EditText) findViewById(R.id.add_lesson_studentGetPoints_editText);
-        addLessonSureBtn = (Button) findViewById(R.id.add_lesson_addLessonForSureButton);
+        Button addLessonSureBtn = (Button) findViewById(R.id.add_lesson_addLessonForSureButton);
         lessonDate = (EditText)findViewById(R.id.add_lesson_start_data_editText);
 
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
