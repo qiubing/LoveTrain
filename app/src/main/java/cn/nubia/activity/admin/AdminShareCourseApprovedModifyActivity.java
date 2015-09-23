@@ -33,51 +33,51 @@ import cn.nubia.entity.TechnologyShareCourseItem;
  * Date: 2015/9/10 10:41
  */
 public class AdminShareCourseApprovedModifyActivity extends Activity {
-    private enum OperateType {INSERT, UPDATE}
-    private enum TimeType {STARTTIME, ENDTIME}
+     private enum OperateType {INSERT, UPDATE}
+     private enum TimeType {STARTTIME, ENDTIME}
 
-    private EditText mCourseName;
-    private EditText mLessonLocation;
-    private TextView mCourseDate;
-    private TextView mCourseStarttime;
-    private TextView mCourseEndtime;
-    private EditText mCourseDescription;
-    private Button mConfirmButton;
-    private Spinner mShareTypeSpinner;
-    private ScrollView mContentScrollView;
+     private EditText mCourseName;
+     private EditText mLessonLocation;
+     private TextView mCourseDate;
+     private TextView mCourseStarttime;
+     private TextView mCourseEndtime;
+     private EditText mCourseDescription;
+     private Button mConfirmButton;
+     private Spinner mShareTypeSpinner;
+     private ScrollView mContentScrollView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_approved_share_course_modified);
-        initViews();
-        initEvents();
-        initViewLogic();
-    }
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+     super.onCreate(savedInstanceState);
+     setContentView(R.layout.activity_admin_approved_share_course_modified);
+     initViews();
+     initEvents();
+     initViewLogic();
+     }
 
-    private void initViews() {
-        mCourseName = (EditText) findViewById(R.id
-                .approved_share_course_modified_name);
-        /**设置显示分享课程级别的下拉列表框*/
-        mShareTypeSpinner = (Spinner) findViewById(R.id
-                .approved_share_course_modified_level);
-        SpinnerAdapter spinnerAdapter = new CourseLevelSpinnerAdapter(this);
-        mShareTypeSpinner.setAdapter(spinnerAdapter);
-        mLessonLocation = (EditText) findViewById(R.id
-                .approved_share_course_modified_locale);
-        mCourseDate = (TextView) findViewById(R.id
-                .approved_share_course_modified_date);
-        mCourseStarttime = (TextView) findViewById(R.id
-                .approved_share_course_modified_start_time);
-        mCourseEndtime = (TextView) findViewById(R.id
-                .approved_share_course_modified_end_time);
-        mCourseDescription = ((EditText) findViewById(R.id
-                .approved_share_course_modified_edit_text));
-        mConfirmButton = (Button) findViewById(R.id
-                .btn_modify_share_course);
-        mContentScrollView = (ScrollView) findViewById(R.id
-                .approved_share_course_modified_scrollview);
-    }
+     private void initViews() {
+     mCourseName = (EditText) findViewById(R.id
+     .approved_share_course_modified_name);
+     /**设置显示分享课程级别的下拉列表框*/
+    mShareTypeSpinner = (Spinner) findViewById(R.id
+                                                       .approved_share_course_modified_level);
+    SpinnerAdapter spinnerAdapter = new CourseLevelSpinnerAdapter(this);
+    mShareTypeSpinner.setAdapter(spinnerAdapter);
+    mLessonLocation = (EditText) findViewById(R.id
+                                                      .approved_share_course_modified_locale);
+    mCourseDate = (TextView) findViewById(R.id
+                                                  .approved_share_course_modified_date);
+    mCourseStarttime = (TextView) findViewById(R.id
+                                                       .approved_share_course_modified_start_time);
+    mCourseEndtime = (TextView) findViewById(R.id
+                                                     .approved_share_course_modified_end_time);
+    mCourseDescription = ((EditText) findViewById(R.id
+                                                          .approved_share_course_modified_edit_text));
+    mConfirmButton = (Button) findViewById(R.id
+                                                   .btn_modify_share_course);
+    mContentScrollView = (ScrollView) findViewById(R.id
+                                                           .approved_share_course_modified_scrollview);
+}
 
     private void initEvents() {
 

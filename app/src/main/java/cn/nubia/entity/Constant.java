@@ -74,5 +74,10 @@ public class Constant {
      */
     public static final String PORTRAIT = "LOVE_TRAIN_PORTAIT.jpg";
 
+    /**
+     * 服务器图片地址前缀
+     */
+    public static final String PICTURE_PREFIX = "http://love-train-dev.nubia.cn/res/";
+
 
 }

@@ -4,6 +4,7 @@ package cn.nubia.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -198,7 +199,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     user.setGender(json.getBoolean("gender"));
                     user.setUserName(json.getString("user_name"));
                     user.setUserIconURL(json.getString("icon_url"));
-                    user.setUserTotalCredits(json.getInt("userTotalCredits"));
+                    user.setUserTotalCredits(json.getInt("user_total_credits"));
                     user.setLastLoginTime(System.currentTimeMillis());
                     Constant.user = user;
 
