@@ -58,8 +58,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     //复选框
     private CheckBox alterCourseWhetherExamCheckBox;
 
-    private RelativeLayout loadingFailedRelativeLayout;
-    private RelativeLayout networkUnusableRelativeLayout;
+//    private RelativeLayout loadingFailedRelativeLayout;
+//    private RelativeLayout networkUnusableRelativeLayout;
 
 
     /**修改课程URL*/
@@ -85,8 +85,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         gestureDetector = new GestureDetector(this, gestureDetectorManager);
 
         /**出错处理*/
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
-        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        RelativeLayout loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
