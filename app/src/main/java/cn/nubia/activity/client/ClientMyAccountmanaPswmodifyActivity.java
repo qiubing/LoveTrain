@@ -1,12 +1,6 @@
 package cn.nubia.activity.client;
 
-import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +10,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.PswModifyMsg;
-import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 import cn.nubia.util.DialogUtil;
@@ -28,30 +22,12 @@ import cn.nubia.util.DialogUtil;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class ClientMyAccountmanaPswmodifyActivity extends Activity {
+public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
 
     private boolean mNextPressReady;
 
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            ClientMyAccountmanaPswmodifyActivity.this.handleResponse(response,responseURL);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,16 +107,6 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
                 R.id.my_accountmana_pswmodify_newpswedittext);
     }
 
-    private void connectService() {
-        Intent intent = new Intent(
-                ClientMyAccountmanaPswmodifyActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
     private void setViewLogic() {
         (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +119,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends Activity {
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 
-    private void handleResponse(Map<String,?> response,String responseURL){
+    protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
             DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,

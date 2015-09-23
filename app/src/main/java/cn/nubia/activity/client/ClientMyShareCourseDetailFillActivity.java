@@ -1,14 +1,9 @@
 package cn.nubia.activity.client;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,20 +22,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.entity.ShareCourseMsg;
-import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 
 /**
  * Created by JiangYu on 2015/9/1.
  */
-public class ClientMyShareCourseDetailFillActivity extends Activity {
+public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivity{
     private enum TimeType {STARTTIME,ENDTIME}
 
     private EditText mCourseName;
@@ -57,25 +52,6 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
     private boolean mNextPressReady;
     private String mOperateURL;
     private ShareCourseMsg mShareCourseMsg;
-
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder)service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            ClientMyShareCourseDetailFillActivity.this.handleResponse(response,responseURL);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -355,17 +331,7 @@ public class ClientMyShareCourseDetailFillActivity extends Activity {
         return true;
     }
 
-    private void connectService(){
-        Intent intent = new Intent(
-                ClientMyShareCourseDetailFillActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
-    private void handleResponse(Map<String,?> response,String responseURL){
+    protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
             DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,

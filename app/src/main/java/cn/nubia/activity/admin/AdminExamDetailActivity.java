@@ -1,14 +1,9 @@
 package cn.nubia.activity.admin;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -25,13 +20,13 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamEnrollMsg;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
-import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
@@ -79,7 +74,7 @@ GestureDetector.OnGestureListener就是一个监听器，负责对用户手势�
         });
 *
 * */
-public class AdminExamDetailActivity extends Activity implements View.OnClickListener{
+public class AdminExamDetailActivity extends BaseCommunicateActivity implements View.OnClickListener{
     private Button mInputScore;
     private Button mDeleteExam;
     private Button mEditExam;
@@ -96,25 +91,6 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
 
 
     private GestureDetector gestureDetector;
-
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder)service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            AdminExamDetailActivity.this.handleResponse(response,responseURL);;
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -349,17 +325,7 @@ public class AdminExamDetailActivity extends Activity implements View.OnClickLis
         this.finish();
     }
 
-    private void connectService(){
-        Intent intent = new Intent(
-                AdminExamDetailActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
-    private void handleResponse(Map<String,?> response,String responseURL){
+    protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
             DialogMaker.make(AdminExamDetailActivity.this,

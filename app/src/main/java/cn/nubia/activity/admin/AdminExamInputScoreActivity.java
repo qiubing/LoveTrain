@@ -1,13 +1,8 @@
 package cn.nubia.activity.admin;
 
-import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +13,17 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Map;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.AdminExamScoreInputAdapter;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.ExamMsg;
 import cn.nubia.entity.ExamScoreMsg;
-import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 
-public class AdminExamInputScoreActivity extends Activity {
+public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     private ExamItem mExamItem;
     private List<ExamScoreMsg> mExamScoreList;
     private int mResultNum = 0;
@@ -36,25 +31,6 @@ public class AdminExamInputScoreActivity extends Activity {
 
     private ListView mExamScoreListView;
     private Button button;
-
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder)service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            AdminExamInputScoreActivity.this.handleResponse(response,responseURL);;
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -149,16 +125,6 @@ public class AdminExamInputScoreActivity extends Activity {
         return checkResult;
     }
 
-    private void connectService(){
-        Intent intent = new Intent(
-                AdminExamInputScoreActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
     private void scoreUpload(){
         new Thread(new Runnable() {
             @Override
@@ -169,7 +135,7 @@ public class AdminExamInputScoreActivity extends Activity {
         }).start();
     }
 
-    private void handleResponse(Map<String,?> response,String responseURL){
+    protected void handleResponse(Map<String,?> response,String responseURL){
         if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
             mNextPressReady = true;
             if(response==null){

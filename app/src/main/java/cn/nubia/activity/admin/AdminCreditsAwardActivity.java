@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.CreditsAwardMsg;
@@ -27,7 +28,7 @@ import cn.nubia.service.URLMap;
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class AdminCreditsAwardActivity extends Activity {
+public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
     private CreditsAwardMsg creditsAwardMsg;
     private boolean mNextPressReady;
 
@@ -35,25 +36,6 @@ public class AdminCreditsAwardActivity extends Activity {
     private EditText mAwardedName;
     private EditText mAwardCredits;
     private EditText mAwardCause;
-
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder)service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            AdminCreditsAwardActivity.this.handleResponse(response,responseURL);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,17 +128,7 @@ public class AdminCreditsAwardActivity extends Activity {
         };
     }
 
-    private void connectService(){
-        Intent intent = new Intent(
-                AdminCreditsAwardActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
-    private void handleResponse(Map<String,?> response,String responseURL){
+    protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
             DialogMaker.make(AdminCreditsAwardActivity.this,
