@@ -93,7 +93,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mNextPressReady) {
+                if (mNextPressReady) {
                     if (checkData()) {
                         scoreUpload();
                         mNextPressReady = false;
@@ -135,6 +135,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         }).start();
     }
 
+    @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
             mNextPressReady = true;

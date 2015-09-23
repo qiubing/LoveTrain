@@ -119,6 +119,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
 
+    @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){

@@ -331,6 +331,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         return true;
     }
 
+    @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){

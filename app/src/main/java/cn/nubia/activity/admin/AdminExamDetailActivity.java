@@ -107,7 +107,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
 
         TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(mExamItemExamEdit.getName() + "考试");
-        mExamMenber.setText(mExamItemExamEdit.getErollUsers()+"人报考");
+        mExamMenber.setText(mExamItemExamEdit.getErollUsers() + "人报考");
         initViewData();
     }
 
@@ -242,17 +242,17 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
             }
         });
 
-        mEnroll.setOnClickListener(new View.OnClickListener(){
+        mEnroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mNextPressReady) {
+                if (mNextPressReady) {
                     ExamEnrollMsg examEnrollMsg = new ExamEnrollMsg();
                     examEnrollMsg.setUserID(Constant.user.getUserID());
                     examEnrollMsg.setExamIndex(mExamItemExamEdit.getIndex());
                     examEnrollMsg.setOperateType(CommunicateService.OperateType.INSERT);
 //                    if(null==mExamItemExamEdit.getCourseIndex()){
-                        mBinder.communicate(
-                                examEnrollMsg, new Inter(), URLMap.URL_ADD_NORMALEXAMENROLL);
+                    mBinder.communicate(
+                            examEnrollMsg, new Inter(), URLMap.URL_ADD_NORMALEXAMENROLL);
 //                    }else{
 //                        mBinder.communicate(
 //                                examEnrollMsg, new Inter(), URLMap.URL_ADD_SPECIALEXAMENROLL);
@@ -269,9 +269,9 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         mExamIntroduction.setText(mExamItemExamEdit.getDescription());
         mExamInfo.setText(
                 "考试地点：" + mExamItemExamEdit.getLocale() +
-                "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
-                "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
-                "\n考试积分：" + mExamItemExamEdit.getExamCredits());
+                        "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
+                        "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
+                        "\n考试积分：" + mExamItemExamEdit.getExamCredits());
     }
 
 
@@ -325,6 +325,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         this.finish();
     }
 
+    @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
