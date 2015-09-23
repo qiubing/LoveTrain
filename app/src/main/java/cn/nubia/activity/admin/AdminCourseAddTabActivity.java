@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -57,17 +56,17 @@ public class AdminCourseAddTabActivity extends Activity {
     }
 
 
-    private  void initView() {
+    private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.admin_all_course_refreshLayout);
     }
 
-    private  void initEvents() {
+    private void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(AdminCourseAddTabActivity.this, mExpandableListView, null);
         mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this,Constant.user.getUserID());
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this, Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
@@ -114,15 +113,8 @@ public class AdminCourseAddTabActivity extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Bundle bundle = new Bundle();
                 LessonItem lessonItem = mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
-                /**为什么可以传值过去，但是这里显示的值都是null呢*/
-
-//                Log.e("HEXIAOAAAA",mCourseItemList.size() + "mCourseItemListsize");
-//                Log.e("HEXIAOAAAA",lessonItem.getDescription()+"+CourseAdd");
-                Log.e("HEXIAOAAAA", lessonItem.getIndex() + "+lessonIndex");
-//                Log.e("HEXIAOAAAA", lessonItem.getName() + "+CourseAdd");
 
                 bundle.putSerializable("LessonItem", lessonItem);
-                //bundle.putString("status", "student");
                 Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -153,25 +145,27 @@ public class AdminCourseAddTabActivity extends Activity {
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
 
-    /**请求课程数据服务器数据的Handler*/
-    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    /**
+     * 请求课程数据服务器数据的Handler
+     */
+    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("HeXiao",""+response.toString());
-                Log.e("HeXiaoServer",""+response.toString());
-                if(response.getInt("code") != 0){
+                Log.e("HeXiao", "" + response.toString());
+                Log.e("HeXiaoServer", "" + response.toString());
+                if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }
-                if(response.getInt("code")==0 && response.getString("data")!=null) {
+                if (response.getInt("code") == 0 && response.getString("data") != null) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json",e.toString());
+                Log.e("TEST statusCode json", e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
@@ -181,14 +175,17 @@ public class AdminCourseAddTabActivity extends Activity {
         @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", ""+statusCode);
+            Log.e("TEST onFailure", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
 
-    /**异步加载数据*/
+    /**
+     * 异步加载数据
+     */
     private class AsyncLoadHttpTask extends AsyncTask<JSONArray, Void, List<CourseItem>> {
         List<CourseItem> courseItemList;
+
         @Override
         protected List<CourseItem> doInBackground(JSONArray... params) {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
@@ -201,17 +198,19 @@ public class AdminCourseAddTabActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(List<CourseItem> courseList){
-            if(courseList != null){
+        protected void onPostExecute(List<CourseItem> courseList) {
+            if (courseList != null) {
                 mCourseItemList.clear();
-                mCourseItemList.addAll(courseList) ;
+                mCourseItemList.addAll(courseList);
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }
 
-    /**加载数据库数据*/
-    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>>  {
+    /**
+     * 加载数据库数据
+     */
+    private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>> {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
             DbUtil dbUtil = DbUtil.getInstance(AdminCourseAddTabActivity.this);
@@ -220,13 +219,13 @@ public class AdminCourseAddTabActivity extends Activity {
 
         @Override
         protected void onPostExecute(List<CourseItem> courseList) {
-            if(courseList != null){
+            if (courseList != null) {
                 mCourseItemList.addAll(courseList);
             }
-            for(int i=0;i<mCourseItemList.size();i++) {
+            for (int i = 0; i < mCourseItemList.size(); i++) {
                 Log.e("HeXiao", mCourseItemList.get(i).getType());
             }
-            for(int i=0;i<mCourseItemList.size();i++) {
+            for (int i = 0; i < mCourseItemList.size(); i++) {
                 Log.e("HeXiaoType", mCourseItemList.get(i).getType());
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();

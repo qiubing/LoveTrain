@@ -131,7 +131,7 @@ public class SignUpManageAdapter extends BaseAdapter {
         private TextView result;
     }
 
-    MyJsonHttpResponseHandler mSignUpHandler = new MyJsonHttpResponseHandler(){
+    private MyJsonHttpResponseHandler mSignUpHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
             Log.e(TAG, "onSuccess: " + response.toString());

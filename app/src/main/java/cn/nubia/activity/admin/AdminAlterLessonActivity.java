@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -150,7 +149,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -168,7 +167,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
-            //mExamAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -282,8 +280,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
         }
     }
-
-
 
 
     public void back(View view) {

@@ -198,7 +198,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bitmap qrCodeBitmap = null;
                     try {
                         //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-                        //Bitmap qrCodeBitmap = EncodingHandler.createQRCode(contentString, 350);
                         qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
                     } catch (WriterException e) {
                         e.printStackTrace();
@@ -261,7 +260,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         AsyncHttpHelper.post(deleteUrl, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

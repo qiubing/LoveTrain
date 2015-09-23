@@ -27,7 +27,7 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
  */
 public class AdminSignUpManageActivity extends Activity {
     private static final String TAG = "SignUpManage";
-    ArrayList<SignUpItem> mSignUpList;
+    private ArrayList<SignUpItem> mSignUpList=new ArrayList<>();
     private CourseItem mCourseItem;
     private ListView mListView;
 
@@ -39,7 +39,6 @@ public class AdminSignUpManageActivity extends Activity {
         loadData();
     }
 
-
     private void initEvents(){
         ImageView backImageView = (ImageView) findViewById(R.id.admin_signIn_manage_back);
         backImageView.setOnClickListener(new View.OnClickListener() {
@@ -49,9 +48,7 @@ public class AdminSignUpManageActivity extends Activity {
                 finish();
             }
         });
-
         mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
-
     }
 
     private void loadData(){
@@ -66,7 +63,7 @@ public class AdminSignUpManageActivity extends Activity {
     }
 
     /**请求课程数据服务器数据的Handler*/
-    final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -101,18 +98,5 @@ public class AdminSignUpManageActivity extends Activity {
         return item;
     }
 
-
-    private ArrayList<SignUpItem> getData(){
-        ArrayList<SignUpItem> listData=new ArrayList<>();
-        for(int i = 0;i < 30;i++){
-            SignUpItem item = new SignUpItem();
-            item.setUserName("张" + i);
-            item.setUserID("001600330" + i);
-            item.setCourseID(2);
-            item.setIsEnroll(false);
-            listData.add(item);
-        }
-        return listData;
-    }
 
 }

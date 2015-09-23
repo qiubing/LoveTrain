@@ -108,7 +108,7 @@ public class ClientMyCourseActivity extends ActivityGroup {
 
     private class MyPageAdapter extends PagerAdapter {
 
-        private List<View> list;
+        private final List<View> list;
 
         private MyPageAdapter(List<View> list) {
             this.list = list;

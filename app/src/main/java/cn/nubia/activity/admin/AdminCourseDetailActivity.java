@@ -36,11 +36,10 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     private CourseItem mCourseItem;
     private Bundle bundle;
 
-    Button courseDeleteBtn;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
-    String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         Button signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
         Button alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
         Button lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
-        courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
+        Button courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
         TextView courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
         TextView courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
         TextView courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
@@ -163,27 +162,20 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-        requestParams.add("record_modify_time_course", "1435125456111");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.put("course_index", mCourseItem.getIndex());
-
+        String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
         AsyncHttpHelper.post(deleteCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
-                //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + "," + isOk);
+
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminCourseDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }else {

@@ -18,8 +18,8 @@ import cn.nubia.activity.R;
  */
 public class SignInExamPersonInfoAdapter extends BaseAdapter {
 
-    private Context mContext;
-    private List<Map.Entry<String,String>> mList;
+    private final Context mContext;
+    private final List<Map.Entry<String,String>> mList;
 
     public SignInExamPersonInfoAdapter(List<Map.Entry<String,String>> list, Context ctx) {
         mContext = ctx;

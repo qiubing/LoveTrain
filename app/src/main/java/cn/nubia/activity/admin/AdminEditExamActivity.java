@@ -142,18 +142,14 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
                 boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
-                Log.i("huhu", "addExam" + isOk);
-                //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
                 if(code == 0 && isOk) {
                     Toast.makeText(AdminEditExamActivity .this, "success", Toast.LENGTH_SHORT).show();
                 }
@@ -162,7 +158,6 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
-            //mExamAdapter.notifyDataSetChanged();
         }
 
         @Override

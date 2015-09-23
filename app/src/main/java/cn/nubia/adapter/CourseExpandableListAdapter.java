@@ -31,12 +31,12 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
  */
 public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private List<CourseItem> mGroupList;
-    private Context mContext;
+    private final List<CourseItem> mGroupList;
+    private final Context mContext;
     /**
      * 当前登录用户的ID
      */
-    private String mID;
+    private final String mID;
 
     public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx, String id) {
         this.mGroupList = mCourseList;
