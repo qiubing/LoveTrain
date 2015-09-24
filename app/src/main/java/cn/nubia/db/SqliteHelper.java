@@ -111,14 +111,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate");
     }
 
+    void onDropDatabase(SQLiteDatabase db){
+        db.execSQL("DELETE FROM " + TB_NAME_CLASS);
+        db.execSQL("DELETE FROM " + TB_NAME_LESSON);
+        db.execSQL("DELETE FROM " + TB_NAME_EXAM);
+        db.execSQL("DELETE FROM " + TB_NAME_MY_CLASS_STU);
+        db.execSQL("DELETE FROM" + TB_NAME_MY_CLASS_TEACHER);
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_CLASS);
-        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_LESSON);
-        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_EXAM);
-        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_MY_CLASS_STU);
-        db.execSQL("DROP TABLE IF EXISTS" + TB_NAME_MY_CLASS_TEACHER);
+        onDropDatabase(db);
         onCreate(db);
-        Log.d(TAG, "onUpgrade");
     }
 }

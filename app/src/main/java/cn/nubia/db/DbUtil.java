@@ -44,6 +44,9 @@ public class DbUtil {
             dbHelper.close();
     }
 
+    public void dropDatabase(){
+        dbHelper.onDropDatabase(db);
+    }
 
     public void updateCourseList(List<CourseItem> courseItemList) {
         for (CourseItem item : courseItemList)
@@ -115,7 +118,6 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
-        Log.e("UpdateClassListHelper", "LESSON_INDEX" + lessonItem.getIndex());
         newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.OPERATOR, lessonItem.getOperator());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());

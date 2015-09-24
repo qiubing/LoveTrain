@@ -49,7 +49,6 @@ public class UpdateClassListHelper {
             }
             UpdateClassListHelper.updateDataByClassType(type, item, courseList,tableName);
         }
-//        binarySort(courseList);
     }
 
     private static LessonItem makeLesson(String type,String operater,JSONObject jsonObjectDetail) throws JSONException {
@@ -60,7 +59,12 @@ public class UpdateClassListHelper {
         lessonItem.setName(jsonObjectDetail.getString("lesson_name"));
         lessonItem.setDescription(jsonObjectDetail.getString("lesson_description"));
         lessonItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
-        lessonItem.setTeacherID(jsonObjectDetail.getString("user_id"));
+        if(!jsonObjectDetail.isNull("user_id")){
+            lessonItem.setTeacherID(jsonObjectDetail.getString("user_id"));
+        }else {
+            /**服务器可能返回一个空值**/
+            lessonItem.setTeacherID("-1");
+        }
         lessonItem.setCheckUsers(jsonObjectDetail.getInt("check_users"));
         lessonItem.setTeacherName(jsonObjectDetail.getString("teacher_name"));
         lessonItem.setJudgeScore(jsonObjectDetail.getDouble("judge_score"));
@@ -98,9 +102,17 @@ public class UpdateClassListHelper {
         examItem.setOperator(operater);
 //        examItem.setCourseIndex(jsonObjectDetail.getInt("course_index"));
         examItem.setIndex(jsonObjectDetail.getInt("exam_index"));
-        examItem.setLocale(jsonObjectDetail.getString("locale"));
-        examItem.setStartTime(jsonObjectDetail.getLong("start_time"));
-        examItem.setEndTime(jsonObjectDetail.getLong("end_time"));
+        if(!jsonObjectDetail.isNull("start_time")){
+            examItem.setStartTime(jsonObjectDetail.getLong("start_time"));
+        }
+        if(!jsonObjectDetail.isNull("end_time")){
+            examItem.setEndTime(jsonObjectDetail.getLong("end_time"));
+        }
+        if(!jsonObjectDetail.isNull("locale")){
+            examItem.setLocale(jsonObjectDetail.getString("locale"));
+        }else{
+            examItem.setLocale("");
+        }
         examItem.setExamCredits(jsonObjectDetail.getInt("exam_credits"));
         examItem.setName(jsonObjectDetail.getString("exam_name"));
         examItem.setErollUsers(jsonObjectDetail.getInt("users"));
@@ -220,6 +232,7 @@ public class UpdateClassListHelper {
     }
 
     private static void updateExamItem(String operate,ExamItem item, List<ExamItem> list){
+        Log.e("wj ExamItem",item.getName()+item.getIndex());
         int listIndex = binarySearch(list, item, false);
         switch (operate){
             case "insert":
@@ -229,6 +242,8 @@ public class UpdateClassListHelper {
                     return;
                 }else {
                     //如果不存在，返回负值
+                    Log.e("wj",item.getName()+item.getIndex());
+
                     list.add(-(listIndex + 1), item);
                     DbUtil.getInstance(null).insertExamItem(item);
                 }
