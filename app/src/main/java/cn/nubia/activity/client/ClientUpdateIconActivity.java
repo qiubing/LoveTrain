@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
 
@@ -85,6 +87,9 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     }
 
     private void findViews() {
+        RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_check_title);
+        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
+        text.setText("头像设置");
         mCircleImageView = (CircleImageView) findViewById(R.id.image_view);
         mEditButton = (Button) findViewById(R.id.btn_edit_head_portrait);
         mUpLoadButton = (Button) findViewById(R.id.btn_upload);

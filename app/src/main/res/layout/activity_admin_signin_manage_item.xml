@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/item_bg">
     <TextView
         android:id="@+id/admin_personInfo_nameTextView"
         android:layout_width="wrap_content"
@@ -10,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:gravity="center"
         android:text="张三"
-        android:textSize="24sp"/>
+        android:textSize="22sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,31 +20,32 @@
         android:layout_alignParentRight="true">
 
         <Button
+            android:id="@+id/admin_signIn_manage_agreeButton"
+            android:layout_width="wrap_content"
+            style="@style/CustomBigLoginButton"
+            android:layout_alignParentRight="true"
+            android:text="同意"
+            android:textSize="20sp"
+            />
+
+        <Button
             android:id="@+id/admin_signIn_manage_disagreeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:layout_alignParentRight="true"
             android:text="否决"
-            android:textSize="22sp"
+            android:textSize="20sp"
+            android:visibility="gone"
             />
-        <Button
-            android:id="@+id/admin_signIn_manage_agreeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:layout_toStartOf="@id/admin_signIn_manage_disagreeButton"
-            android:layout_toLeftOf="@+id/admin_signIn_manage_disagreeButton"
-            android:text="同意"
-            android:textSize="22sp"
-            />
+
         <TextView
             android:id="@+id/sign_up_success"
             android:layout_width="wrap_content"
             android:layout_height="46sp"
             android:text="报名成功"
             android:textColor="@color/blue"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:gravity="center_vertical"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"

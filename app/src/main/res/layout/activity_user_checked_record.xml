@@ -2,26 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/soft_comment_title_content_windows">
+    android:background="@color/soft_comment_title_content_windows"
+    android:orientation="vertical">
+
     <include
         android:id="@+id/user_check_title"
-        layout="@layout/include_back_title_item_layout"
-        />
+        layout="@layout/include_back_title_item_layout" />
 
-    <ScrollView
+    <include
+        android:id="@+id/loading_failed_mycheck"
+        layout="@layout/layout_loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_marginTop="10dp" />
+
+    <include
+        android:id="@+id/network_unusable_mycheck"
+        layout="@layout/layout_network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop" />
+
+    <cn.nubia.component.RefreshLayout
+        android:id="@+id/evaluate_refreshLayout_mycheck"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ListView
-                android:id="@+id/check_detail"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/check_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+            </LinearLayout>
+        </ScrollView>
+    </cn.nubia.component.RefreshLayout>
 
 </LinearLayout>

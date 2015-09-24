@@ -50,7 +50,6 @@ public class ClientCheckRecordAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.activity_user_check_record_detail_item,null);
             viewHold.mLessonName = (TextView) convertView.findViewById(R.id.check_course_title);
             viewHold.mDate = (TextView) convertView.findViewById(R.id.check_record_date);
-            viewHold.mTime = (TextView) convertView.findViewById(R.id.check_record_time);
             convertView.setTag(viewHold);
         }else {
             viewHold = (ViewHolder)convertView.getTag();
@@ -58,21 +57,15 @@ public class ClientCheckRecordAdapter extends BaseAdapter {
         CheckRecordItem checkItem = mCheckList.get(position);
         viewHold.mLessonName.setText(checkItem.getmLessonName());
         //格式化时间
-        //long l = System.currentTimeMillis();
-        //Log.v("current time","" + l);
         Date date = new Date();
         date.setTime(checkItem.getmCheckTime());
-//            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(checkItem.getmCheckTime());
-        viewHold.mDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
-        viewHold.mTime.setText(new SimpleDateFormat("HH:mm").format(date));
-
-        //Log.v("bing",checkItem.toString());
+        viewHold.mDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(date) + " " +
+                (new SimpleDateFormat("HH:mm").format(date)));
         return convertView;
     }
 
     public final class ViewHolder{
         TextView mLessonName;
         TextView mDate;
-        TextView mTime;
     }
 }

@@ -12,7 +12,6 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import cn.nubia.activity.R;
-import cn.nubia.db.DbUtil;
 
 /**管理员主界面：Tab分页导航
  * activity_main_admin(修改对比版)：布局为TabHost框架，布局最下面为4个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget

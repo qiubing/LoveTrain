@@ -3,40 +3,34 @@
     android:id="@+id/linear_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="8"
-    android:background="@drawable/item_bg"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/share_course_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Java基础一"
-        android:textSize="@dimen/check_course_title_font_size" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:background="@drawable/item_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="0.1dp" >
+
+        <TextView
+            android:id="@+id/share_course_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:text="Java 基础一" />
 
         <TextView
             android:id="@+id/share_course_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:text="2015年8月21日"
-            android:textSize="@dimen/check_record_date_font_size" />
+            android:layout_weight="4"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:text="2015-09-22 13:59" />
 
-        <TextView
-            android:id="@+id/share_course_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:text="16:35:34"
-            android:textSize="@dimen/check_record_date_font_size" />
     </LinearLayout>
+
 </LinearLayout>

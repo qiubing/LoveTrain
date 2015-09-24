@@ -2,36 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/item_bg">
-    <TextView
-        android:id="@+id/check_course_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:textSize="@dimen/check_course_title_font_size"/>
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/item_bg"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
-        <TextView
-            android:id="@+id/check_record_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/check_record_date_font_size"
-            />
+        android:paddingBottom="0.1dp" >
 
         <TextView
-            android:id="@+id/check_record_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/check_course_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/check_record_date_font_size"
-            />
+            android:layout_weight="3"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:text="Java 基础一" />
+
+        <TextView
+            android:id="@+id/check_record_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:text="2015-09-22 13:59" />
+
     </LinearLayout>
+
 </LinearLayout>
