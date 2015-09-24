@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminAddLessonActivity;
 
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
@@ -79,7 +78,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = View.inflate(mContext, R.layout.lesson_info_item, null);
             childViewHolder.mLessonNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             childViewHolder.mLessonDetailTextView = (TextView) convertView.findViewById(R.id.item_layout_content);
-
+            childViewHolder.mLessonIcon = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -87,6 +86,17 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
         /**设置课时名称*/
         childViewHolder.mLessonNameTextView.setText(mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
+        switch (mGroupList.get(groupPosition).getType()) {
+            case "course":
+                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_course);
+                break;
+            case "share":
+                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_share);
+                break;
+            case "senior":
+                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_gao);
+                break;
+        }
         /**设置课时信息*/
         childViewHolder.mLessonDetailTextView.setText("上课地点：" +
                         mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "" + "\n上课时间：" +
@@ -158,6 +168,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
             groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
+            groupViewHolder.mCourseIconIV = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             /**four tags**/
             groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_share_level);
             groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_person);
@@ -178,13 +189,16 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
              * */
             /**二者共同的部分**/
             /**1.处理a,b*/
+            groupViewHolder.mCourseType.setVisibility(View.GONE);
             switch (mGroupList.get(groupPosition).getType()) {
                 case "course":
-                    groupViewHolder.mCourseType.setText("普");
+//                    groupViewHolder.mCourseType.setText("普");
+                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_course);
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                     break;
                 case "share":
-                    groupViewHolder.mCourseType.setText("享");
+//                    groupViewHolder.mCourseType.setText("享");
+                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_share);
                     switch (mGroupList.get(groupPosition).getShareType()) {
                         case 1:
                             groupViewHolder.mCourseLevel.setText("部");
@@ -198,7 +212,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                     }
                     break;
                 case "senior":
-                    groupViewHolder.mCourseType.setText("高");
+//                    groupViewHolder.mCourseType.setText("高");
+                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_gao);
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                     break;
             }
@@ -319,6 +334,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     public class ChildViewHolder {
         TextView mLessonNameTextView;
         TextView mLessonDetailTextView;
+        ImageView mLessonIcon;
     }
 
     static class GroupViewHolder {
@@ -327,6 +343,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         ImageView mExpendedIV;
         ImageView mCourseDetailTextView;
         TextView mSignUpExamTextView;
+        ImageView mCourseIconIV;
         /**
          * four tags*
          */

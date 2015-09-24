@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/icon_lesson1" />
+        android:src="@mipmap/icon_lesson_course" />
 
     <TextView
         android:id="@+id/item_layout_title"

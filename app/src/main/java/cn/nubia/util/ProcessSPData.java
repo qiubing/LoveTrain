@@ -49,7 +49,7 @@ public class ProcessSPData {
 
     public static void clearSP(Context ctx) {
         SpUtil.removeSetting(ctx, "userName");
-        SpUtil.removeSetting(ctx, "userID");
+        //SpUtil.removeSetting(ctx, "userID");
         SpUtil.removeSetting(ctx, "gender");
         SpUtil.removeSetting(ctx, "lastLoginTime");
         SpUtil.removeSetting(ctx, "isLogin");
