@@ -1,5 +1,6 @@
 package cn.nubia.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import android.content.Intent;
@@ -114,6 +115,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
+                intent.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
                 mContext.startActivity(intent);
                 Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
 
@@ -239,6 +241,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CourseItem", mGroupList.get(groupID));
                 intentCourseDetail.putExtras(bundle);
+                intentCourseDetail.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
                 mContext.startActivity(intentCourseDetail);
             }
         });

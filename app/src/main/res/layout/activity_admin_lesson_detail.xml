@@ -35,13 +35,13 @@
         android:layout_width="fill_parent"
         android:layout_height="30dip"
         layout="@layout/layout_network_unusable"
-        android:layout_below="@+id/sub_title"/>
+        android:layout_below="@+id/loading_failed"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout_lessonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sub_title"
+        android:layout_below="@+id/network_unusable"
         android:orientation="vertical"
         android:padding="15dp"
         android:paddingTop="15sp">
