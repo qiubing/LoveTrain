@@ -61,7 +61,7 @@ public class SplashActivity extends Activity {
                     Boolean isLogin = ProcessSPData.getBoolenFromSP(SplashActivity.this, "isLogin");
                     if (isLogin) {
                         Constant.user = ProcessSPData.getUserFromSP(SplashActivity.this);
-                       // Log.e("wj",Constant.user.getUserID());
+//                        Log.e("wj",Constant.user.getUserID());
 
                         Constant.tokenKep = ProcessSPData.getStringFromSP(SplashActivity.this, "tokenKey");
                         Boolean isAdmin = ProcessSPData.getBoolenFromSP(SplashActivity.this, "isAdmin");
