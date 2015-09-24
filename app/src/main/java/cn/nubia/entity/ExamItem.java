@@ -31,8 +31,6 @@ public class ExamItem extends Item implements Serializable {
         this.mErollUsers = erollUsers;
     }
 
-
-
     public long getRecordModifyTime() {
         return mRecordModifyTime;
     }

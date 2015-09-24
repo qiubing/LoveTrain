@@ -69,6 +69,7 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
         newValues.put(CourseItem.NAME, courseItem.getName());
+        newValues.put(CourseItem.OPERATOR, courseItem.getOperator());
         newValues.put(CourseItem.HAS_EXAM, courseItem.hasExam()); //1 有考试  0 无考试
         newValues.put(CourseItem.DESCRIPTION, courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
@@ -86,6 +87,7 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
         newValues.put(CourseItem.NAME, courseItem.getName());
+        newValues.put(CourseItem.OPERATOR, courseItem.getOperator());
         newValues.put(CourseItem.HAS_EXAM, courseItem.hasExam()); //1 有考试  0 无考试
         newValues.put(CourseItem.DESCRIPTION, courseItem.getDescription());
 //        newValues.put(CourseItem.JUDGE_SCORE, courseItem.getJudgeScore());
@@ -113,8 +115,9 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
-        Log.e("UpdateClassListHelper","LESSON_INDEX"+lessonItem.getIndex());
+        Log.e("UpdateClassListHelper", "LESSON_INDEX" + lessonItem.getIndex());
         newValues.put(LessonItem.NAME, lessonItem.getName());
+        newValues.put(LessonItem.OPERATOR, lessonItem.getOperator());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
         newValues.put(LessonItem.TEACHER_ID, lessonItem.getTeacherID());
@@ -133,6 +136,7 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
+        newValues.put(LessonItem.OPERATOR, lessonItem.getOperator());
         newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.JUDGE_SCORE, lessonItem.getJudgeScore());
         newValues.put(LessonItem.CHECK_CREDITS, lessonItem.getCheckCredits());
@@ -158,6 +162,7 @@ public class DbUtil {
         newValues.put(ExamItem.COURSE_INDEX, examItem.getCourseIndex());
         newValues.put(ExamItem.EXAM_INDEX, examItem.getIndex());
         newValues.put(ExamItem.NAME, examItem.getName());
+        newValues.put(ExamItem.OPERATOR, examItem.getOperator());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
         newValues.put(ExamItem.ENROLL_USERS, examItem.getErollUsers());
@@ -171,6 +176,7 @@ public class DbUtil {
         ContentValues newValues = new ContentValues();
         newValues.put(ExamItem.COURSE_INDEX, examItem.getCourseIndex());
         newValues.put(ExamItem.EXAM_INDEX, examItem.getIndex());
+        newValues.put(ExamItem.OPERATOR, examItem.getOperator());
         newValues.put(ExamItem.NAME, examItem.getName());
         newValues.put(ExamItem.EXAM_CREDITS, examItem.getExamCredits());
         newValues.put(ExamItem.LOCALE, examItem.getLocale());
@@ -198,6 +204,7 @@ public class DbUtil {
             CourseItem courseItem = new CourseItem();
             courseItem.setIndex(cursor.getInt(cursor.getColumnIndex(CourseItem.COURSE_INDEX)));
             courseItem.setName(cursor.getString(cursor.getColumnIndex(CourseItem.NAME)));
+            courseItem.setOperator(cursor.getString(cursor.getColumnIndex(CourseItem.OPERATOR)));
             courseItem.setHasExam(cursor.getShort(cursor.getColumnIndex(CourseItem.HAS_EXAM)) != 0);
             courseItem.setCourseStatus(cursor.getShort(cursor.getColumnIndex(CourseItem.STATUS)));
             courseItem.setDescription(cursor.getString(cursor.getColumnIndex(CourseItem.DESCRIPTION)));
@@ -228,6 +235,7 @@ public class DbUtil {
             LessonItem lessonItem = new LessonItem();
             lessonItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(LessonItem.JUDGE_SCORE)));
             lessonItem.setIndex(cursor.getInt(cursor.getColumnIndex(LessonItem.LESSON_INDEX)));
+            lessonItem.setOperator(cursor.getString(cursor.getColumnIndex(LessonItem.OPERATOR)));
             lessonItem.setCheckCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_CREDITS)));
             lessonItem.setCheckUsers(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_USERS)));
             lessonItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
@@ -261,6 +269,7 @@ public class DbUtil {
             examItem.setName(cursor.getString(cursor.getColumnIndex(ExamItem.NAME)));
             examItem.setErollUsers(cursor.getInt(cursor.getColumnIndex(ExamItem.ENROLL_USERS)));
             examItem.setDescription(cursor.getString(cursor.getColumnIndex(ExamItem.DESCRIPTION)));
+            examItem.setOperator(cursor.getString(cursor.getColumnIndex(ExamItem.OPERATOR)));
             examItem.setExamCredits(cursor.getInt(cursor.getColumnIndex(ExamItem.EXAM_CREDITS)));
             examItem.setLocale(cursor.getString(cursor.getColumnIndex(ExamItem.LOCALE)));
             examItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
