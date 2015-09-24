@@ -275,16 +275,17 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
 
             case R.id.evaluateTextView:
-                Intent intent;
-                if(status.equals("student")) {
-                    intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
-                    intent.putExtra("lessonIndex", lessonItem.getIndex());
-                } else {
+                Intent intent ;
+                if(Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex() + "," + lessonItem.getTeacherID());
                     intent.putExtras(bundle);
+                } else {
+                    intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                    intent.putExtra("lessonIndex", lessonItem.getIndex());
                 }
+
                 /*if (Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();

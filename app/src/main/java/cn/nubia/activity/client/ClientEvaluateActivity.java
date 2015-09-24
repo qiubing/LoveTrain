@@ -120,7 +120,7 @@ public class ClientEvaluateActivity  extends Activity {
         requestParams.add("record_modify_time_course", "1435125456111");
 
         String stringArray []  = lession_index_ID.split(",");
-        requestParams.add("lession_index", stringArray[0]);
+        requestParams.add("lesson_index", stringArray[0]);
         requestParams.add("user_id", stringArray[1]);
         Log.i("huhu", ",,,," + requestParams.toString());
 
