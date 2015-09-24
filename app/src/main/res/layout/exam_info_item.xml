@@ -20,7 +20,7 @@
         android:layout_below="@id/view"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/icon_exam" />
+        android:src="@mipmap/icon_exam_red" />
 
     <TextView
         android:id="@+id/item_layout_title"
