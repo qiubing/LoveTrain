@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -151,11 +152,12 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
             groupViewHolder = new GroupViewHolder();
 
-            groupViewHolder.mAddLessonTextView = (TextView) convertView.findViewById(R.id.admin_all_course_addLessonTextView);
-            groupViewHolder.mCourseDetailTextView = (TextView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
+//            groupViewHolder.mAddLessonTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_addLessonTextView);
+//            groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
+            groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
-
+            groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             /**four tags**/
             groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_share_level);
             groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_person);
@@ -209,9 +211,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 groupViewHolder.mWhetherExam.setVisibility(View.GONE);
             }
             /**如果不是管理员，看不到添加课时TextView*/
-            if (Constant.IS_ADMIN == false) {
-                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
-            }
+//            if (Constant.IS_ADMIN == false) {
+//                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
+//            }
             /**如果是管理员，看不到报名考试TextView*/
             if (Constant.IS_ADMIN == true) {
                 groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
@@ -222,17 +224,23 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
 
+
+        if(isExpanded)
+            groupViewHolder.mExpendedIV.setImageResource(R.mipmap.new_go_down);
+        else
+            groupViewHolder.mExpendedIV.setImageResource(R.mipmap.new_go);
+
         /**为 "添加课时" 的textView添加监听事件**/
-        groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentAddLesson = new Intent(mContext, AdminAddLessonActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("CourseItem", mGroupList.get(groupID));
-                intentAddLesson.putExtras(bundle);
-                mContext.startActivity(intentAddLesson);
-            }
-        });
+//        groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intentAddLesson = new Intent(mContext, AdminAddLessonActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("CourseItem", mGroupList.get(groupID));
+//                intentAddLesson.putExtras(bundle);
+//                mContext.startActivity(intentAddLesson);
+//            }
+//        });
 
         /**为 "课程详细" 的textView添加监听事件**/
         groupViewHolder.mCourseDetailTextView.setOnClickListener(new View.OnClickListener() {
@@ -260,6 +268,22 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         groupViewHolder.mCourseNameTextView.setText(mGroupList.get(groupPosition).getName());
 
         return convertView;
+    }
+
+    @Override
+    public void onGroupCollapsed(int groupPosition) {
+        super.onGroupCollapsed(groupPosition);
+//        Log.e("LK", "***********");
+//        ImageView imageView = (ImageView) view.findViewById(R.id.admin_all_course_courseDetailTextView);
+//        imageView.setImageResource(R.mipmap.new_go);
+    }
+
+    @Override
+    public void onGroupExpanded(int groupPosition) {
+        super.onGroupExpanded(groupPosition);
+//        ImageView imageView = (ImageView) view.findViewById(R.id.admin_all_course_courseDetailTextView);
+//        imageView.setImageResource(R.mipmap.new_go_down);
+//        Log.e("LK", "***********###########");
     }
 
     /**
@@ -299,8 +323,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     static class GroupViewHolder {
         TextView mCourseNameTextView;
-        TextView mAddLessonTextView;
-        TextView mCourseDetailTextView;
+//        ImageView mAddLessonTextView;
+        ImageView mExpendedIV;
+        ImageView mCourseDetailTextView;
         TextView mSignUpExamTextView;
         /**
          * four tags*

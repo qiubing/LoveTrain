@@ -58,7 +58,7 @@ public class ExamAdapter extends BaseAdapter{
 //        strb.append(mExamList.get(position).getIndex());
         strb.append("考试地点：");
         strb.append(mExamList.get(position).getLocale());
-        strb.append("      考试时间：");
+        strb.append("\n考试时间：");
         strb.append(TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime()));
         strb.append("  ");
         strb.append(TimeFormatConversion.toTime(mExamList.get(position).getStartTime()));
