@@ -230,7 +230,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
             Log.e(TAG,"onFailure: ");
-            Toast.makeText(ClientMyTabActivity.this,"图片加载失败",Toast.LENGTH_LONG).show();
+            Toast.makeText(ClientMyTabActivity.this,"图片加载失败，请先上传头像或者重试",Toast.LENGTH_LONG).show();
         }
     };
 }

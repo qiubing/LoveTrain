@@ -227,6 +227,8 @@ public class AdminCourseAddTabActivity extends Activity {
             }
             for (int i = 0; i < mCourseItemList.size(); i++) {
                 Log.e("HeXiao", mCourseItemList.get(i).getType());
+                String type = mCourseItemList.get(i).getType().equals("senior")? "高级课程" : "普通课程";
+                Log.e("qiubing","course type: " + type + ",couse index: " + mCourseItemList.get(i).getIndex());
             }
             for (int i = 0; i < mCourseItemList.size(); i++) {
                 Log.e("HeXiaoType", mCourseItemList.get(i).getType());

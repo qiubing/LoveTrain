@@ -5,38 +5,10 @@
     android:background="@color/soft_comment_title_content_windows"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/title_icon"
-        android:layout_width="match_parent"
-        android:layout_height="48.0dip" >
-
-        <ImageView
-            android:id="@+id/back_image"
-            android:layout_width="@dimen/text_size_20"
-            android:layout_height="@dimen/text_size_20"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="9.0dip"
-            android:layout_marginRight="10.0dip"
-            android:background="@null"
-            android:contentDescription="@string/app_name"
-            android:onClick="back"
-            android:src="@drawable/back_button_xml" />
-
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="85.0dip"
-            android:layout_marginRight="85.0dip"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="头像设置"
-            android:textColor="@color/grayslate"
-            android:textSize="@dimen/text_size_20" />
-    </RelativeLayout>
-
+    <include
+        android:id="@+id/user_check_title"
+        layout="@layout/include_back_title_item_layout" />
+    
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

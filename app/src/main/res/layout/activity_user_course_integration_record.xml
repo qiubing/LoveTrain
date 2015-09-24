@@ -6,37 +6,61 @@
 
     <include
         android:id="@+id/user_course_integration_title"
+        layout="@layout/include_back_title_item_layout"
         android:layout_width="match_parent"
         android:layout_height="48.0dip"
-        layout="@layout/include_back_title_item_layout"
-        android:layout_alignParentTop="true"
-        />
+        android:layout_alignParentTop="true" />
 
-    <ScrollView
-        android:id="@+id/scroll_list"
+    <include
+        android:id="@+id/loading_failed_integration"
+        layout="@layout/layout_loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/user_course_integration_title"/>
+
+    <include
+        android:id="@+id/network_unusable_integration"
+        layout="@layout/layout_network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip"
+        android:layout_marginTop="10dp"
+        android:paddingTop="@dimen/manager_rate_paddingTop"
+        android:layout_below="@id/user_course_integration_title"/>
+
+    <cn.nubia.component.RefreshLayout
+        android:id="@+id/evaluate_refreshLayout_integration"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/user_course_integration_title">
-        <LinearLayout
+
+        <ScrollView
+            android:id="@+id/scroll_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ListView
-                android:id="@+id/course_integration_detail"
+            android:layout_below="@id/user_course_integration_title">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/course_integration_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+            </LinearLayout>
+        </ScrollView>
+    </cn.nubia.component.RefreshLayout>
 
     <TextView
         android:id="@+id/show_total_course_integration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/my_tab_background"
+        android:gravity="center"
         android:paddingBottom="11dp"
         android:paddingTop="11dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

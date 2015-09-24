@@ -79,13 +79,13 @@ public class SignUpManageAdapter extends BaseAdapter {
             public void onClick(View v) {
                 RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
 
-                /**同意按钮是在位置1*/
-                Button agreeBtn = (Button) relativeLayout.getChildAt(1);
-                agreeBtn.setBackgroundColor(mContext.getResources().getColor(R.color.green));
-                agreeBtn.setEnabled(true);
+                /**同意按钮是在位置0*/
+                Button agreeBtn = (Button) relativeLayout.getChildAt(0);
+                agreeBtn.setBackgroundColor(mContext.getResources().getColor(R.color.grey));
+                agreeBtn.setEnabled(false);
 
-                /**否决按钮是在位置0*/
-                Button disagreeBtn = (Button) relativeLayout.getChildAt(0);
+                /**否决按钮是在位置1*/
+                Button disagreeBtn = (Button) relativeLayout.getChildAt(1);
                 disagreeBtn.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 disagreeBtn.setEnabled(false);
 
@@ -96,16 +96,39 @@ public class SignUpManageAdapter extends BaseAdapter {
                 params.put("course_index", item.getCourseID());
                 params.put("is_enroll", true);
                 String url = Constant.BASE_URL + "enroll/check_enroll_course.do";
-                AsyncHttpHelper.post(url, params, mSignUpHandler);
+                AsyncHttpHelper.post(url, params, new MyJsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+                        Log.e(TAG, "onSuccess: " + response.toString());
+                        if (response != null && response.getInt("code") == 0){
+                            if (response.getBoolean("data")){
+                                viewHold.result.setVisibility(View.VISIBLE);
+                                viewHold.agreeButton.setVisibility(View.GONE);
+                                Toast.makeText(mContext, "审核完成" , Toast.LENGTH_LONG).show();
+                            }
+                        }else{
+                            //报名失败，隐藏图标
+                            Log.e(TAG,"报名失败");
+                            Toast.makeText(mContext, "积分不够或者其他原因，报名失败!" , Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.e(TAG, "onFailure:");
+                        Toast.makeText(mContext,"网络请求失败，请稍后重试!",Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
+
 
         viewHold.disagreeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
-                Button agreeBtn = (Button) relativeLayout.getChildAt(1);
-                Button disagreeBtn = (Button) relativeLayout.getChildAt(0);
+                Button agreeBtn = (Button) relativeLayout.getChildAt(0);
+                Button disagreeBtn = (Button) relativeLayout.getChildAt(1);
                 disagreeBtn.setBackgroundColor(mContext.getResources().getColor(R.color.red));
                 agreeBtn.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 agreeBtn.setEnabled(false);
@@ -118,7 +141,25 @@ public class SignUpManageAdapter extends BaseAdapter {
                 params.put("course_index", item.getCourseID());
                 params.put("is_enroll", false);
                 String url = Constant.BASE_URL + "enroll/check_enroll_course.do";
-                AsyncHttpHelper.post(url, params, mSignUpHandler);
+                AsyncHttpHelper.post(url, params, new MyJsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+                        Log.e(TAG, "onSuccess: " + response.toString());
+                        if (response != null && response.getInt("code") == 0){
+                            if (response.getBoolean("data")){
+                                Toast.makeText(mContext, "否决完成" , Toast.LENGTH_LONG).show();
+                            }
+                        }else{
+                            //报名失败，隐藏图标
+                            Toast.makeText(mContext, "否决失败" , Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Toast.makeText(mContext,"网络请求失败，请稍后重试!",Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
         return convertView;
@@ -130,24 +171,4 @@ public class SignUpManageAdapter extends BaseAdapter {
         private Button disagreeButton;
         private TextView result;
     }
-
-    private MyJsonHttpResponseHandler mSignUpHandler = new MyJsonHttpResponseHandler(){
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
-            Log.e(TAG, "onSuccess: " + response.toString());
-            if (response != null && response.getInt("code") == 0){
-                if (response.getBoolean("data")){
-                    Toast.makeText(mContext, "审核完成" , Toast.LENGTH_LONG).show();
-                }else {
-                    Toast.makeText(mContext, "审核失败" , Toast.LENGTH_LONG).show();
-                }
-            }
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e(TAG, "onFailure:");
-        }
-    };
 }

@@ -13,18 +13,13 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import cn.nubia.activity.R;
-import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -142,7 +137,6 @@ public class ClientMainActivity extends ActivityGroup {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
             int lesson_index = Integer.parseInt(scanResult);
-            //int lesson_index = 77;
             if (!Constant.user.getUserID().equals("")&& lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
                 RequestParams params = new RequestParams(Constant.getRequestParams());
