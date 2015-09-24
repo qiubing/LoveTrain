@@ -48,6 +48,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
+    private String startActivity = "";
 
 
     @Override
@@ -66,29 +67,53 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         TextView courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
         TextView courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
         TextView courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
-        signUpAdminBtn.setOnClickListener(this);
-        alterCourseBtn.setOnClickListener(this);
-        lessonAddBtn.setOnClickListener(this);
-        courseDeleteBtn.setOnClickListener(this);
+
 
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        if(Constant.IS_ADMIN==false){
+       /* if(Constant.IS_ADMIN==false){
             signUpAdminBtn.setVisibility(View.GONE);
             alterCourseBtn.setVisibility(View.GONE);
             lessonAddBtn.setVisibility(View.GONE);
             courseDeleteBtn.setVisibility(View.GONE);
             mEnrollSeniorCourse.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
-        mTitleText.setText(mCourseItem.getName() + "课程");
+        mTitleText.setText(mCourseItem.getName() + "课程管理");
+        startActivity = intent.getStringExtra("startActivity");
+        Log.i("huhu", "AdminCourceDetail: " + startActivity);
+
+        switch (startActivity) {
+            case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
+                signUpAdminBtn.setOnClickListener(this);
+                alterCourseBtn.setOnClickListener(this);
+                lessonAddBtn.setOnClickListener(this);
+                courseDeleteBtn.setOnClickListener(this);
+                break;
+            case "cn.nubia.activity.client.ClientAllCourseActivity":
+                signUpAdminBtn.setVisibility(View.GONE);
+                alterCourseBtn.setVisibility(View.GONE);
+                lessonAddBtn.setVisibility(View.GONE);
+                courseDeleteBtn.setVisibility(View.GONE);
+                mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+                mEnrollSeniorCourse.setOnClickListener(this);
+                break;
+            case "cn.nubia.activity.client.ClientMyCourseActivity":
+                signUpAdminBtn.setVisibility(View.GONE);
+                alterCourseBtn.setVisibility(View.GONE);
+                lessonAddBtn.setVisibility(View.GONE);
+                courseDeleteBtn.setVisibility(View.GONE);
+                break;
+            default:
+                Log.i("huhu", "AdminLessonDetail  startActivity异常了");
+        }
 
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());
@@ -98,7 +123,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         }
 
         bundle.putSerializable("CourseItem", mCourseItem);
-
 
     }
 

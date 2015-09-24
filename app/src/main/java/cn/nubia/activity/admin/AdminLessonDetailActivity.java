@@ -40,7 +40,8 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
-    private String status = "student";
+    private String startActivity = "";
+    private String  status = "";
     /**
      * 从前一个页面传过来的LessonItem对象
      */
@@ -77,16 +78,56 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
-
+        startActivity = intent.getStringExtra("startActivity");
+        Log.i("huhu", "AdminLessonDetail" + startActivity);
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText(lessonItem.getName() + "课时");
-        sub_page_title.setText("课时管理");
+        sub_page_title.setText(lessonItem.getName() + "课时管理");
 
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();
-        if (myID != null && myID.equals(teacherID)) {
+        if (myID.equals(teacherID)) {
             status = "teacher";
+        } else {
+            status = "student";
         }
+
+        switch (startActivity) {
+            case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
+                mGenerateQRCode.setVisibility(View.VISIBLE);
+                alterLessonBtn.setOnClickListener(this);
+                deleteLessonBtn.setOnClickListener(this);
+                signUpPopulationTextView.setOnClickListener(this);
+                mGenerateQRCode.setOnClickListener(this);
+                mEvaluateTextView.setOnClickListener(this);
+                break;
+            case "cn.nubia.activity.client.ClientAllCourseActivity":
+                alterLessonBtn.setVisibility(View.GONE);
+                deleteLessonBtn.setVisibility(View.GONE);
+                signUpPopulationTextView.setVisibility(View.GONE);
+                mEvaluateTextView.setVisibility(View.GONE);
+                break;
+            case "cn.nubia.activity.client.ClientMyCourseActivity":
+                if(status.equals("teacher")) {
+                    mGenerateQRCode.setVisibility(View.VISIBLE);
+//                alterLessonBtn.setOnClickListener(this);
+//                deleteLessonBtn.setOnClickListener(this);
+                    signUpPopulationTextView.setOnClickListener(this);
+                    mGenerateQRCode.setOnClickListener(this);
+                    mEvaluateTextView.setOnClickListener(this);
+                    alterLessonBtn.setVisibility(View.GONE);
+                    deleteLessonBtn.setVisibility(View.GONE);
+                } else if(status.equals("student")){
+                    mEvaluateTextView.setText("进行评价");
+                    mEvaluateTextView.setOnClickListener(this);
+                    alterLessonBtn.setVisibility(View.GONE);
+                    deleteLessonBtn.setVisibility(View.GONE);
+                    signUpPopulationTextView.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                Log.i("huhu", "AdminLessonDetail  startActivity异常了");
+        }
+       /*
 
         if (Constant.IS_ADMIN == true || status.equals("teacher")) {
             mGenerateQRCode.setVisibility(View.VISIBLE);
@@ -100,7 +141,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             deleteLessonBtn.setVisibility(View.GONE);
             signUpPopulationTextView.setVisibility(View.GONE);
             mEvaluateTextView.setVisibility(View.GONE);
-        }
+        }*/
 
         if (lessonItem != null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
@@ -235,7 +276,16 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
             case R.id.evaluateTextView:
                 Intent intent;
-                if (Constant.IS_ADMIN == true || status.equals("teacher")) {
+                if(status.equals("student")) {
+                    intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                    intent.putExtra("lessonIndex", 0);
+                } else {
+                    intent = new Intent(this, ClientEvaluateActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lession_index_ID", lessonItem.getIndex() + "," + lessonItem.getTeacherID());
+                    intent.putExtras(bundle);
+                }
+                /*if (Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("lession_index_ID", lessonItem.getIndex() + "," + lessonItem.getTeacherID());
@@ -243,7 +293,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                     intent.putExtra("lessonIndex", 0);
-                }
+                }*/
                 startActivity(intent);
                 break;
         }
