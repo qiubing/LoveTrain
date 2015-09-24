@@ -179,7 +179,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 ProcessSPData.putIntoSP(this, "tokenKey", Constant.tokenKep);
                 ProcessSPData.putIntoSP(this, "isLogin", true);
 
-                DialogUtil.showToast(LoginActivity.this, "登录成功");
                 if (mIsManagerSpinner.getSelectedItem().toString().equals("是")) {
                     user.setUserID(json.getString("admin_id"));
                     user.setUserName(json.getString("admin_name"));
@@ -193,6 +192,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     ProcessSPData.putIntoSP(this, "isAdmin", true);
                     Constant.IS_ADMIN = true;
                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                    DialogUtil.showToast(LoginActivity.this, "登录成功");
                     LoginActivity.this.finish();
                 } else {
                     user.setUserID(json.getString("user_id"));
@@ -207,6 +207,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     ProcessSPData.putIntoSP(this, "isAdmin", false);
                     Constant.IS_ADMIN = false;
                     startActivity(new Intent(LoginActivity.this, ClientMainActivity.class));
+                    DialogUtil.showToast(LoginActivity.this, "登录成功");
                     LoginActivity.this.finish();
                 }
             } else {
@@ -226,11 +227,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String sex = mSexSpinner.getSelectedItem().toString();
 
         RequestParams params = new RequestParams(Constant.getRequestParams());
-
-//        params.put("device_id", Constant.devideID);
-//        params.put("request_time", System.currentTimeMillis());
-//        params.put("apk_version", Constant.apkVersion);
-//        params.put("sign", "");
 
         params.put("user_id", userID);
         params.put("user_name", userName);

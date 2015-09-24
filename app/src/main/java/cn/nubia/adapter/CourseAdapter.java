@@ -68,7 +68,7 @@ public class CourseAdapter extends BaseAdapter {
         endTime.setTime(course.getmEndTime());
         StringBuilder sb = new StringBuilder();
         sb.append(course.getmLocation());
-        sb.append(", ");
+        sb.append("\n");
         sb.append(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
         sb.append(" ");
         sb.append(new SimpleDateFormat("HH:mm").format(startTime));

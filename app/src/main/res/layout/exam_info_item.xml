@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/adapter_item_outside_layout_padding_style"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:id="@+id/item_inside_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="62dp"
+    android:background="@drawable/item_layout_border"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
-    <RelativeLayout
-        android:id="@+id/item_inside_layout"
-        style="@style/adapter_item_inside_layout_padding_style"
+    <View
+        android:id="@+id/view"
         android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"></View>
+
+    <ImageView
+        android:id="@+id/item_layout_imageview"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/view"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_exam" />
+
+    <TextView
+        android:id="@+id/item_layout_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/view"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="java基础一"
+        android:textSize="@dimen/textSize22" />
+
+    <TextView
+        android:id="@+id/item_layout_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_layout_border" >
-
-        <ImageView
-            android:id="@+id/item_layout_imageview"
-            style="@style/item_smart_icon_imageview_style"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/item_layout_title"
-            style="@style/item_layout_title"
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="8dp"
-            android:text="java基础一"
-            />
-
-        <TextView
-            android:id="@+id/item_layout_content"
-            style="@style/item_layout_content"
-            android:layout_toRightOf="@id/item_layout_imageview"
-            android:layout_below="@+id/item_layout_title"
-            android:gravity="center"
-            android:text="C-6室，8月24号 9:00~测试测试测试测试测试11:00，张三" />
-    </RelativeLayout>
-
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/item_layout_title"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/item_layout_imageview"
+        android:gravity="left"
+        android:text="C-6室，\n8月24号 9:00~测试测试测试测试测试11:00，张三"
+        android:textColor="#ff9f9f9f"
+        android:textSize="12sp" />
 </RelativeLayout>
