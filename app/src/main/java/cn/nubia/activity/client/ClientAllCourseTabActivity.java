@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.widget.ExpandableListView;
 
 import com.loopj.android.http.RequestParams;
@@ -22,6 +23,7 @@ import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
@@ -152,7 +154,7 @@ public class ClientAllCourseTabActivity extends Activity {
         getClassParam.put("lesson_index", "1");
         getClassParam.put("lesson_record_modify_time", "1245545456456");
         RequestParams requestParams = Utils.toParams(getClassParam);
-        String classUrl = Constant.BASE_URL + "course/get_courses_lessons.do";
+        String classUrl = Constant.BASE_URL + "course/get_courses_lessons2.do";
         AsyncHttpHelper.post(classUrl, requestParams, jsonHttpResponseHandler);
     }
 
@@ -165,6 +167,15 @@ public class ClientAllCourseTabActivity extends Activity {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_CLASS);
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            Log.e("0924AllCourse",courseItemList.size()+"");
+            for(CourseItem courseItem : courseItemList){
+                Log.e("0924AllCourse","CourseName:"+courseItem.getName());
+                for(LessonItem lessonItem : courseItem.getLessonList()){
+                    if(lessonItem.getTeacherID().equals(Constant.user.getUserID())) {
+                        Log.e("0924AllCourse", "___________________________"+lessonItem.getName());
+                    }
+                }
             }
             return courseItemList;
         }

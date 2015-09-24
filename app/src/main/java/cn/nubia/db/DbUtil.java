@@ -229,6 +229,7 @@ public class DbUtil {
             lessonItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(LessonItem.JUDGE_SCORE)));
             lessonItem.setIndex(cursor.getInt(cursor.getColumnIndex(LessonItem.LESSON_INDEX)));
             lessonItem.setCheckCredits(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_CREDITS)));
+            lessonItem.setCheckUsers(cursor.getInt(cursor.getColumnIndex(LessonItem.CHECK_USERS)));
             lessonItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
             lessonItem.setStartTime(cursor.getLong(cursor.getColumnIndex(LessonItem.START_TIME)));
             lessonItem.setName(cursor.getString(cursor.getColumnIndex(LessonItem.NAME)));
@@ -258,6 +259,7 @@ public class DbUtil {
             examItem.setIndex(cursor.getInt(cursor.getColumnIndex(ExamItem.EXAM_INDEX)));
             examItem.setCourseIndex(cursor.getInt(cursor.getColumnIndex(ExamItem.COURSE_INDEX)));
             examItem.setName(cursor.getString(cursor.getColumnIndex(ExamItem.NAME)));
+            examItem.setErollUsers(cursor.getInt(cursor.getColumnIndex(ExamItem.ENROLL_USERS)));
             examItem.setDescription(cursor.getString(cursor.getColumnIndex(ExamItem.DESCRIPTION)));
             examItem.setExamCredits(cursor.getInt(cursor.getColumnIndex(ExamItem.EXAM_CREDITS)));
             examItem.setLocale(cursor.getString(cursor.getColumnIndex(ExamItem.LOCALE)));

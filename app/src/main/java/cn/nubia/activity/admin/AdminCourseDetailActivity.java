@@ -1,6 +1,5 @@
 package cn.nubia.activity.admin;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +18,17 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.util.Map;
+
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
+import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.SeniorEnrollMsg;
 import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.service.CommunicateService;
+import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -31,14 +37,18 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
  * 管理员课程详细界面
  * Created by hexiao on 2015/9/1.
  */
-public class AdminCourseDetailActivity extends Activity implements View.OnClickListener {
+public class AdminCourseDetailActivity extends BaseCommunicateActivity implements View.OnClickListener {
 
     private CourseItem mCourseItem;
     private Bundle bundle;
 
+    private boolean mNextPressReady;
+    private Button mEnrollSeniorCourse;
+
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
+    private String startActivity = "";
 
 
     @Override
@@ -47,6 +57,9 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         setContentView(R.layout.activity_admin_course_detail);
         bundle=new Bundle();
 
+        holdView();
+        setViewLogic();
+
         Button signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
         Button alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
         Button lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
@@ -54,28 +67,55 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         TextView courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
         TextView courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
         TextView courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
-        signUpAdminBtn.setOnClickListener(this);
-        alterCourseBtn.setOnClickListener(this);
-        lessonAddBtn.setOnClickListener(this);
-        courseDeleteBtn.setOnClickListener(this);
+
 
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        if(Constant.IS_ADMIN==false){
+       /* if(Constant.IS_ADMIN==false){
             signUpAdminBtn.setVisibility(View.GONE);
             alterCourseBtn.setVisibility(View.GONE);
             lessonAddBtn.setVisibility(View.GONE);
             courseDeleteBtn.setVisibility(View.GONE);
-        }
+            mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+        }*/
+
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
-        mTitleText.setText(mCourseItem.getName() + "课程");
+        mTitleText.setText(mCourseItem.getName() + "课程管理");
+        startActivity = intent.getStringExtra("startActivity");
+        Log.i("huhu", "AdminCourceDetail: " + startActivity);
+
+        switch (startActivity) {
+            case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
+                signUpAdminBtn.setOnClickListener(this);
+                alterCourseBtn.setOnClickListener(this);
+                lessonAddBtn.setOnClickListener(this);
+                courseDeleteBtn.setOnClickListener(this);
+                break;
+            case "cn.nubia.activity.client.ClientAllCourseActivity":
+                signUpAdminBtn.setVisibility(View.GONE);
+                alterCourseBtn.setVisibility(View.GONE);
+                lessonAddBtn.setVisibility(View.GONE);
+                courseDeleteBtn.setVisibility(View.GONE);
+                if(mCourseItem.getType().equals("senior"))
+                    mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+//                mEnrollSeniorCourse.setOnClickListener(this);
+                break;
+            case "cn.nubia.activity.client.ClientMyCourseActivity":
+                signUpAdminBtn.setVisibility(View.GONE);
+                alterCourseBtn.setVisibility(View.GONE);
+                lessonAddBtn.setVisibility(View.GONE);
+                courseDeleteBtn.setVisibility(View.GONE);
+                break;
+            default:
+                Log.i("huhu", "AdminLessonDetail  startActivity异常了");
+        }
 
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());
@@ -86,7 +126,19 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 
         bundle.putSerializable("CourseItem", mCourseItem);
 
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        connectService();
+        mNextPressReady = true;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        disconectService();
     }
 
     @Override
@@ -197,5 +249,44 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
 
     public void back(View view) {
         this.finish();
+    }
+
+    private void holdView(){
+        mEnrollSeniorCourse = (Button) findViewById(R.id.senior_course_enrollbtn);
+    }
+
+    private void setViewLogic(){
+        mEnrollSeniorCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SeniorEnrollMsg msg = new SeniorEnrollMsg();
+                msg.setUserID(Constant.user.getUserID());
+                msg.setCourseIndex(mCourseItem.getIndex());
+                msg.setOperateType(CommunicateService.OperateType.INSERT);
+                mBinder.communicate(msg,new Inter(),URLMap.URL_ADD_SENIORCOURSEENROLL);
+                mNextPressReady = false;
+            }
+        });
+
+    }
+
+    @Override
+    protected void handleResponse(Map<String,?> response,String responseURL){
+        mNextPressReady = true;
+        if(response==null){
+            DialogMaker.make(AdminCourseDetailActivity.this,
+                    AdminCourseDetailActivity.this, "操作失败!", false);
+        }else{
+            String operateResult = (String)response.get("operateResult");
+            if(operateResult.equals("success")) {
+                    DialogMaker.make(AdminCourseDetailActivity.this,
+                            AdminCourseDetailActivity.this, "报名申请成功，请等待管理员审核!", true);
+            }else if (operateResult.equals("failure")) {
+                String message = (String) response.get("message");
+                DialogMaker.make(AdminCourseDetailActivity.this,
+                        AdminCourseDetailActivity.this, "报名申请成功：\n" +
+                                message, false);
+            }
+        }
     }
 }

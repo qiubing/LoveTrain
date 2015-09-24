@@ -116,6 +116,16 @@
             android:id="@+id/layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/senior_course_enrollbtn"
+            style="@style/CustomBigLoginButton"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/textSize20"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:text="@string/enrollseniorcoursebtn" />
+
         <Button
             android:id="@+id/signUpAdminBtn"
             style="@style/CustomBigLoginButton"

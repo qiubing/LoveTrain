@@ -36,6 +36,7 @@ public class URLMap {
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
     public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
     public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
+    public final static String URL_ADD_SENIORCOURSEENROLL = BASE_URL+"enroll/user_enroll_course.do";
 
 
     static {
@@ -66,6 +67,9 @@ public class URLMap {
 
         URL_MAPPING.put(ClientMyCourseJudgeDetailFillActivity.Inter.class,URL_ADD_JUDGEMENT);
         HANDLER_MAPPING.put(URL_ADD_JUDGEMENT,NormalHttpHandler.class);
+
+        URL_MAPPING.put(ClientMyCourseJudgeDetailFillActivity.Inter.class,URL_ADD_SENIORCOURSEENROLL);
+        HANDLER_MAPPING.put(URL_ADD_SENIORCOURSEENROLL,NormalHttpHandler.class);
 
 //        URL_MAPPING.put(AdminExamInputScoreActivity.Inter.class,URL_QUE_JUDGEMENT);
         HANDLER_MAPPING.put(URL_QUE_JUDGEMENT,NormalHttpHandler.class);

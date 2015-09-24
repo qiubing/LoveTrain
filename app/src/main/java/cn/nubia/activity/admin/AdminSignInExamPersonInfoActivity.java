@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
     }
 
     private void initView(){
+        ImageView backImageView = (ImageView) findViewById(R.id.manager_goback);
+        backImageView.setOnClickListener(this);
         TextView barTxt = (TextView) findViewById(R.id.manager_head_title);
         barTxt.setText("报名考试人数");
     }
@@ -52,7 +55,7 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.admin_signIn_info_back:
+            case R.id.manager_goback:
                 finish();
                 break;
         }
@@ -67,6 +70,8 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
     private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.e("wj","signExamPerson"+response.toString());
+
             try {
                 if(response.getInt("code") != 0){
                     return;
@@ -103,4 +108,8 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
             Log.e("test","onFailure");
         }
     };
+
+    public void back(View view){
+        this.finish();
+    }
 }

@@ -128,13 +128,14 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private void loadData() {
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.add("user_id", Constant.user.getUserID());
         requestParams.add("course_index", "1");
         requestParams.add("course_record_modify_time", "1245545456456");
         requestParams.add("lesson_index", "1");
         requestParams.add("lesson_record_modify_time", "1245545456456");
         Log.e("hexiao", "parameter"+requestParams.toString());
-        String url = Constant.BASE_URL + "course/get_relation_courses.do";
+
+        /**拉取所有课程的数据，然后从中选取自己为教师的课程显示*/
+        String url = Constant.BASE_URL + "course/get_courses_lessons2.do";
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
 
@@ -232,10 +233,8 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         ArrayList<CourseItem> resultList = new ArrayList<>();
         if (mList.size() != 0) {
             for(CourseItem courseItem : mList){
-                List<LessonItem> lessonList = courseItem.getLessonList();
-                for (int i = 0; i < lessonList.size(); i++) {
-                    LessonItem lessonItem = lessonList.get(i);
-                    if (lessonItem.getTeacherID() .equals( Constant.user.getUserID())) {
+                for(LessonItem lessonItem : courseItem.getLessonList()){
+                    if(lessonItem.getTeacherID() .equals( Constant.user.getUserID())){
                         resultList.add(courseItem);
                         break;
                     }
@@ -244,5 +243,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         }
         mList.clear();
         mList.addAll(resultList);
+        Log.e("0924MyCourseTeacher", mList.size()+"");
     }
 }
