@@ -65,4 +65,33 @@ public class ExamScoreMsg extends Paramable {
     protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            //目标为空引用，并不指向对象
+            return false;
+        }else if(this == obj) {
+            //引用同一个对象
+            return true;
+        }else if(getClass() != obj.getClass() ) {
+            //目标与本对象不属于同一个类型
+            return false;
+        }else{
+            ExamScoreMsg other = (ExamScoreMsg)obj;
+            if(other.mExamIndex !=this.mExamIndex) {
+                return false;
+            }else if (!other.mUserID.equals(this.mUserID)) {
+                return false;
+            }else if(!other.mUserName.equals(this.mUserName)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int  hashCode() {
+       return 0;
+    }
 }

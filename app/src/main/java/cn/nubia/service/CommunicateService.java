@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
@@ -67,6 +68,7 @@ public class CommunicateService extends Service {
                         RequestParams params = paramable.toParams();
 
                         httpHandler.setAsyncGetResult(asyncGetResult);
+                        Log.e("jiangyu", params.toString());
                         client.get(tagetURL, params, httpHandler);
                     }
                 }
@@ -123,6 +125,7 @@ public class CommunicateService extends Service {
 
                             Paramable currentParamable = paramList.get(loopIndex);
                             RequestParams params = currentParamable.toParams();
+                            Log.e("jiangyu",params.toString());
                             client.get(tagetURL, params, httpHandler);
 
                             loopIndex++;

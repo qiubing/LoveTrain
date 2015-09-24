@@ -17,15 +17,19 @@ public class NormalHttpHandler extends HttpHandler {
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-        Log.e("jiangyu","onsuccess "+response.toString());
-        mAsynGetResult.setJSON(response);
+        if(response!=null) {
+            Log.e("jiangyu", "onsuccess " + response.toString());
+            mAsynGetResult.setJSON(response);
+        }
         new Thread(mAsynGetResult).start();
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers,Throwable throwable,
                           JSONObject errorResponse) {
-        Log.e("jiangyu","onfailure "+errorResponse.toString());
+        if(errorResponse!=null) {
+            Log.e("jiangyu", "onfailure " + errorResponse.toString());
+        }
         new Thread(mAsynGetResult).start();
     }
 }

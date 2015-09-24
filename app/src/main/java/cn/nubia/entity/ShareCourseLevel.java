@@ -46,5 +46,5 @@ public class ShareCourseLevel {
                 return false;
         }
         return true;
-}
+    }
 }

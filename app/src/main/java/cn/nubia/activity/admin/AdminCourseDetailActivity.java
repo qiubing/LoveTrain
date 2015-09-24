@@ -18,6 +18,7 @@ import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.nubia.activity.BaseCommunicateActivity;
@@ -25,6 +26,7 @@ import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.SeniorEnrollMsg;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.service.CommunicateService;
@@ -259,12 +261,25 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         mEnrollSeniorCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SeniorEnrollMsg msg = new SeniorEnrollMsg();
-                msg.setUserID(Constant.user.getUserID());
-                msg.setCourseIndex(mCourseItem.getIndex());
-                msg.setOperateType(CommunicateService.OperateType.INSERT);
-                mBinder.communicate(msg,new Inter(),URLMap.URL_ADD_SENIORCOURSEENROLL);
-                mNextPressReady = false;
+                boolean isTeacher = false;
+                List<LessonItem> lessonList = mCourseItem.getLessonList();
+                for(LessonItem item:lessonList){
+                    if(item.getTeacherID().equals(Constant.user.getUserID())) {
+                        isTeacher = true;
+                        break;
+                    }
+                }
+                if(isTeacher){
+                    DialogMaker.make(AdminCourseDetailActivity.this,
+                            AdminCourseDetailActivity.this,"不能报名自己的课程!",true);
+                }else {
+                    SeniorEnrollMsg msg = new SeniorEnrollMsg();
+                    msg.setUserID(Constant.user.getUserID());
+                    msg.setCourseIndex(mCourseItem.getIndex());
+                    msg.setOperateType(CommunicateService.OperateType.INSERT);
+                    mBinder.communicate(msg, new Inter(), URLMap.URL_ADD_SENIORCOURSEENROLL);
+                    mNextPressReady = false;
+                }
             }
         });
 
