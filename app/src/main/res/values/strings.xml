@@ -134,6 +134,7 @@
     <string name="returnBack">Back</string>
     <string name="courseName">课程名称</string>
     <string name="courseDesc">课程简介</string>
+    <string name="enrollseniorcoursebtn">报名课程</string>
     <string name="signUpAdminBtn">报名管理</string>
     <string name="alterCourseBtn">修改课程</string>
     <string name="lessonAddBtn">添加课时</string>
