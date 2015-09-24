@@ -109,7 +109,7 @@ public class ClientMainActivity extends ActivityGroup {
         } else {
             /*android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);*/
-            DbUtil.getInstance(this).closeDb();
+//            DbUtil.getInstance(this).closeDb();
             finishAffinity();
         }
     }

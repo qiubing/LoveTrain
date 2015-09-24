@@ -147,7 +147,7 @@ public class ExamAddTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("wj onFailure", "ExamAddTab" + errorResponse.toString());
+            Log.e("wj onFailure", "ExamAddTab" + throwable.toString());
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
