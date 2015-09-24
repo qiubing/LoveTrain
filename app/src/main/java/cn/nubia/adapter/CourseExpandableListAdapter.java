@@ -165,12 +165,12 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
             /**
              * 四个标记的意思是：
-             * a.部、科、团：课程级别，只有分享课程才有的标记
-             * b.普、享、高：是否是分享课程，和“部”是同时出现的
+             * a.普、享、高：是否是分享课程，和“部”是同时出现的
+             * b.部、科、团：课程级别，只有分享课程才有的标记
              * c.讲：是否是讲师，因此只有讲师才会出现这个标记
              * d.考：表明该课程是否有考试
              * 显示规则：
-             * 1.管理员和普通用户可以看到a,b,c,d四种标志，因为管理员可也能是讲师；
+             * 1.管理员可以看到a,b,d三种标志，普通用户可以看到a,b,c,d四种标志。管理员看不到“讲”，如果管理员是讲师，也是在其普通账户中才看得到。
              * 2.普通用户看不到添加课时标记，管理员看不到报名考试。即使管理员想报名考试，应该是在他对应的普通用户账号里面看得到。
              * 3.根据课程的相应信息来隐藏；
              * */
@@ -200,19 +200,19 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                     break;
             }
-            /**2.处理c:如果不是讲师看不到“讲”*/
-            if (!isTeacher(groupPosition)) {
+            /**2.处理c:如果不是讲师看不到“讲”，如果是管理员则一律隐去“讲”*/
+            if (!isTeacher(groupPosition)||Constant.IS_ADMIN) {
                 groupViewHolder.mTeacher.setVisibility(View.GONE);
             }
             /**3.处理d:如果hasExam属性为false表示没有考试，则将该标记也隐去，同时肯定就不用报名考试了*/
             if (mGroupList.get(groupPosition).hasExam() == false) {
                 groupViewHolder.mWhetherExam.setVisibility(View.GONE);
             }
-            /**如果不是管理员，看不到添加课时标记*/
+            /**如果不是管理员，看不到添加课时TextView*/
             if (Constant.IS_ADMIN == false) {
                 groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
             }
-            /**如果不是管理员，看不到添加课时标记*/
+            /**如果是管理员，看不到报名考试TextView*/
             if (Constant.IS_ADMIN == true) {
                 groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
             }
@@ -221,7 +221,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-
 
         /**为 "添加课时" 的textView添加监听事件**/
         groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
@@ -295,7 +294,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     public class ChildViewHolder {
         TextView mLessonNameTextView;
-
         TextView mLessonDetailTextView;
     }
 
