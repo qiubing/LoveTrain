@@ -278,7 +278,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Intent intent;
                 if(status.equals("student")) {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
-                    intent.putExtra("lessonIndex", 0);
+                    intent.putExtra("lessonIndex", lessonItem.getIndex());
                 } else {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
