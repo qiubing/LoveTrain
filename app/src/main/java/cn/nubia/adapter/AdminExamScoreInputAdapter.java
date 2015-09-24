@@ -3,13 +3,16 @@ package cn.nubia.adapter;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -22,6 +25,7 @@ import cn.nubia.service.CommunicateService;
 public class AdminExamScoreInputAdapter extends BaseAdapter{
     private List<ExamScoreMsg> mExamScoreList;
     private Context mContext;
+    private List<ExamScoreMsg> mModifiedExamScoreList;
 
     class ViewHolder {
         TextView usernameTV;
@@ -33,10 +37,15 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
         super();
         mContext = context;
         mExamScoreList = examScoreList;
+        mModifiedExamScoreList = new ArrayList<ExamScoreMsg>();
     }
 
     public List<ExamScoreMsg> getExamScoreList(){
         return mExamScoreList;
+    }
+
+    public List<ExamScoreMsg> getModifiedExamScoreList(){
+        return mModifiedExamScoreList;
     }
 
     @Override
@@ -73,27 +82,52 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
 
         holder.usernameTV.setText(mExamScoreList.get(position).getUserName());
         holder.idTV.setText(mExamScoreList.get(position).getUserID());
+        holder.scoreET.setText(String.valueOf(mExamScoreList.get(position).getExamScore()));
 
         holder.scoreET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (holder.scoreET.getText().toString().contains(".")) {
+                    if (holder.scoreET.getText().toString().indexOf(".", holder.scoreET.getText().toString().indexOf(".") + 1) > 0) {
+                        Toast.makeText(mContext, "已经输入\".\"不能重复输入", Toast.LENGTH_SHORT);
+                        holder.scoreET.setText(holder.scoreET.getText().toString().substring(0, holder.scoreET.getText().toString().length() - 1));
+                        holder.scoreET.setSelection(holder.scoreET.getText().toString().length());
+                    }
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String input = s.toString().trim();
+//                String input = s.toString().trim();
+                String input = holder.scoreET.getText().toString().trim();
+                ExamScoreMsg modifiedMsg = mExamScoreList.get(position);
+                if (mModifiedExamScoreList.contains(modifiedMsg)) {
+                    mModifiedExamScoreList.remove(modifiedMsg);
+                    Log.e("jiangyu", "nomal remove " + mModifiedExamScoreList.toString());
+                }
+
+                ExamScoreMsg newMsg = new ExamScoreMsg();
+                newMsg.setExamIndex(modifiedMsg.getExamIndex());
+                newMsg.setUserID(modifiedMsg.getUserID());
+                newMsg.setUserName(modifiedMsg.getUserName());
+                newMsg.setOperateType(CommunicateService.OperateType.INSERT);
+
                 try {
-                    mExamScoreList.get(position).setExamScore(Float.parseFloat(input));
-                    mExamScoreList.get(position).setOperateType(CommunicateService.OperateType.INSERT);
-                } catch (Exception e) {
+                    float newScore = Float.valueOf(input);
+                    if (newScore != modifiedMsg.getExamScore()) {
+                        newMsg.setExamScore(newScore);
+                        mModifiedExamScoreList.add(newMsg);
+                        Log.e("jiangyu", "nomal add " + mModifiedExamScoreList.toString());
+                    }
+                } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    mExamScoreList.get(position).setExamScore(-1);
+                    newMsg.setExamScore(-1);
+                    mModifiedExamScoreList.add(newMsg);
+                    Log.e("jiangyu", "error add " + mModifiedExamScoreList.toString());
                 }
             }
         });

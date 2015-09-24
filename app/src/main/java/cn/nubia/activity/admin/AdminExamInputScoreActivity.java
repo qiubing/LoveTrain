@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
@@ -26,10 +28,12 @@ import cn.nubia.service.URLMap;
 public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     private ExamItem mExamItem;
     private List<ExamScoreMsg> mExamScoreList;
+    private  List<ExamScoreMsg> mModifiedExamScoreList;
     private int mResultNum = 0;
     private boolean mNextPressReady;
 
     private ListView mExamScoreListView;
+    private AdminExamScoreInputAdapter mExamScoreAdapter;
     private Button button;
 
     @Override
@@ -94,6 +98,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             @Override
             public void onClick(View v) {
                 if (mNextPressReady) {
+                    mModifiedExamScoreList = mExamScoreAdapter.getModifiedExamScoreList();
                     if (checkData()) {
                         scoreUpload();
                         mNextPressReady = false;
@@ -105,21 +110,22 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
 
     private boolean checkData(){
         Boolean checkResult = true;
-        if(mExamScoreList == null||mExamScoreList.size()==0) {
+        if(mModifiedExamScoreList == null||mModifiedExamScoreList.size()==0) {
             Toast.makeText(
                     AdminExamInputScoreActivity.this,
-                    "考试名单为空！",Toast.LENGTH_SHORT).show();
+                    "成绩录入名单为空！",Toast.LENGTH_SHORT).show();
             checkResult = false;
         }else{
-            for (ExamScoreMsg msg : mExamScoreList) {
+            for (ExamScoreMsg msg : mModifiedExamScoreList) {
                 if (msg.getExamScore() == -1) {
                     Toast.makeText(
                             AdminExamInputScoreActivity.this,
-                            "输入的分数含非数字，请检查后重新输入！",Toast.LENGTH_SHORT).show();
+                            "输入的成绩含有非法数字，请检查后重新输入！",Toast.LENGTH_SHORT).show();
                     checkResult = false;
                     break;
-                } else
-                    msg.setExamIndex(mExamItem.getIndex());
+                }
+//                else
+//                    msg.setExamIndex(mExamItem.getIndex());
             }
         }
         return checkResult;
@@ -129,8 +135,8 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(mBinder==null){}
-                mBinder.communicate(mExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
+                mBinder.communicate(mModifiedExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
+                Log.e("jiangyu", mModifiedExamScoreList.toString());
             }
         }).start();
     }
@@ -148,7 +154,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                     mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
 
                     if (mExamScoreList != null) {
-                        AdminExamScoreInputAdapter mExamScoreAdapter =
+                        mExamScoreAdapter =
                                 new AdminExamScoreInputAdapter(this, mExamScoreList);
                         mExamScoreListView.setAdapter(mExamScoreAdapter);
                     }
@@ -175,7 +181,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                             message, Toast.LENGTH_SHORT).show();
                 }
             }
-            if(mResultNum == mExamScoreList.size()) {
+            if(mResultNum == mModifiedExamScoreList.size()) {
                 mNextPressReady = true;
                  DialogMaker.make(AdminExamInputScoreActivity.this,
                          AdminExamInputScoreActivity.this, "考试成绩录入完成!", true);

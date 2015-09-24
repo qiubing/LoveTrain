@@ -34,6 +34,8 @@ public class ExamEnrollAssembler implements IAssemblerGenerics<ExamScoreMsg> {
 
         item.setUserName(jsonObject.getString("user_name"));
         item.setUserID(jsonObject.getString("user_id"));
+        item.setExamScore((float) jsonObject.getDouble("exam_score"));
+        item.setExamIndex(jsonObject.getInt("exam_index"));
 
         return item;
     }
