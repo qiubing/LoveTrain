@@ -67,15 +67,16 @@ public class CourseAdapter extends BaseAdapter {
         Date endTime = new Date();
         endTime.setTime(course.getmEndTime());
         StringBuilder sb = new StringBuilder();
+        sb.append("上课地点：");
         sb.append(course.getmLocation());
-        sb.append("\n");
+        sb.append("    分享者：");
+        sb.append(course.getmUserName());
+        sb.append("\n上课时间：");
         sb.append(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
         sb.append(" ");
         sb.append(new SimpleDateFormat("HH:mm").format(startTime));
         sb.append("~");
         sb.append(new SimpleDateFormat("HH:mm").format(endTime));
-        sb.append(", ");
-        sb.append(course.getmUserName());
         viewHold.mCourseInfo.setText(sb.toString());
 
         Log.v("course", sb.toString());
