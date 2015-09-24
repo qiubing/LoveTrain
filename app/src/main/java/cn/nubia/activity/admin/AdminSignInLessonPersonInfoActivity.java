@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -43,6 +44,9 @@ public class AdminSignInLessonPersonInfoActivity extends Activity implements Vie
     }
 
     private void initView(){
+        ImageView backImageView = (ImageView) findViewById(R.id.manager_goback);
+        backImageView.setOnClickListener(this);
+
         TextView barTxt = (TextView) findViewById(R.id.manager_head_title);
         barTxt.setText("签到人数");
     }
@@ -54,7 +58,7 @@ public class AdminSignInLessonPersonInfoActivity extends Activity implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.admin_signIn_info_back:
+            case R.id.manager_goback:
                 finish();
                 break;
         }
@@ -69,7 +73,6 @@ public class AdminSignInLessonPersonInfoActivity extends Activity implements Vie
     private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("test qiandao",response.toString());
             try {
                 if(response.getInt("code") != 0){
                     return;
@@ -110,4 +113,8 @@ public class AdminSignInLessonPersonInfoActivity extends Activity implements Vie
             Log.e("test", "onFailure");
         }
     };
+
+    public void back(View view){
+        this.finish();
+    }
 }
