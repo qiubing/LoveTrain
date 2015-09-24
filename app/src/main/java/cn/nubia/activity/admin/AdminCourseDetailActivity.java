@@ -82,6 +82,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             mEnrollSeniorCourse.setVisibility(View.VISIBLE);
         }*/
 
+
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
@@ -102,8 +103,9 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 alterCourseBtn.setVisibility(View.GONE);
                 lessonAddBtn.setVisibility(View.GONE);
                 courseDeleteBtn.setVisibility(View.GONE);
-                mEnrollSeniorCourse.setVisibility(View.VISIBLE);
-                mEnrollSeniorCourse.setOnClickListener(this);
+                if(mCourseItem.getType().equals("senior"))
+                    mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+//                mEnrollSeniorCourse.setOnClickListener(this);
                 break;
             case "cn.nubia.activity.client.ClientMyCourseActivity":
                 signUpAdminBtn.setVisibility(View.GONE);
