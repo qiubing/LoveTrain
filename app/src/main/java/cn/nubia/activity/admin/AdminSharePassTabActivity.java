@@ -103,7 +103,7 @@ public class AdminSharePassTabActivity extends Activity {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
-                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+//                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

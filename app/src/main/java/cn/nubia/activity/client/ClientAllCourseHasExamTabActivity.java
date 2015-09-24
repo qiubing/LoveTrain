@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -240,9 +239,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
     private  void getExamList(List<CourseItem> mList){
         ArrayList<CourseItem> resultList=new ArrayList<>();
         if(mList.size()!=0){
-            Iterator<CourseItem> it=mList.iterator();
-            while(it.hasNext()){
-                CourseItem courseItem=it.next();
+            for(CourseItem courseItem : mList){
                 if(courseItem.hasExam()) {
                     resultList.add(courseItem);
                 }

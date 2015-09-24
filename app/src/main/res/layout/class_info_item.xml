@@ -76,6 +76,14 @@
             android:layout_alignLeft="@id/class_signUpExamTextView">
 
             <TextView
+                android:id="@+id/flag_share"
+                style="@style/item_flag_attention_style"
+                android:background="@color/orange"
+                android:layout_marginRight="8dp"
+                android:text="享"
+                />
+
+            <TextView
                 android:id="@+id/flag_share_level"
                 style="@style/item_flag_attention_style"
                 android:background="@color/red"
@@ -88,13 +96,6 @@
                 android:background="@color/green"
                 android:layout_marginRight="8dp"
                 android:text="讲"
-                />
-            <TextView
-                android:id="@+id/flag_share"
-                style="@style/item_flag_attention_style"
-                android:background="@color/orange"
-                android:layout_marginRight="8dp"
-                android:text="享"
                 />
             <TextView
                 android:id="@+id/flag_exam"

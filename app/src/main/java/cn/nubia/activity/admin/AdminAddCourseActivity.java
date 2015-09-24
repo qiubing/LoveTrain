@@ -103,13 +103,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
 
-        /**如果没有选中高级课程，则隐藏填高级课程积分的TextView*/
-//        if(!courseTypeSpinner.getSelectedItem().toString().equals("senior")){
-//            addCourseHighLevelCouse.setVisibility(View.GONE);
-//            addCourseHighLevelCourseDeletePoints.setVisibility(View.GONE);
-//        }
-
-
         courseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -140,35 +133,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_course_button:
-
-//                Dialog addCourseDialog = new AlertDialog.Builder(AdminAddCourseActivity.this)
-//                        .setTitle("新增课程")
-//                        .setMessage("确定增加？")
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                String courseName = addCourseCourseNameEditText.getText().toString();
-//                                String courseDesc = addCourseCourseDescEditText.getText().toString();
-//                                whetherExam = addCourseWhetherExamCheckBox.isChecked();
-//                                whetherHighLevelCourse = addCourseWhetherHighLevelCourseCheckBox.isChecked();
-//                                //加入到课程数据库中，返回是否加入成功的状态值
-//                                //....
-//                                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
-//                                startActivity(intentAddForSure);
-//                                //这里执行添加课程操作
-//                                Toast.makeText(AdminAddCourseActivity.this, "你点击了确认修改", Toast.LENGTH_LONG).show();
-//                                finish();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent intentAddCancel = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
-//                                startActivity(intentAddCancel);
-//                            }
-//                        }).create();
-//                addCourseDialog.show();
                 if (addCourseCourseNameEditText.getText().toString().trim().equals("")) {
                     Toast.makeText(AdminAddCourseActivity.this, "课程名称不可为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -199,11 +163,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
 
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("CourseItem", courseItem);
                 Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 finish();
-//                intentAddForSure.putExtras(bundle);
                 startActivity(intentAddForSure);
                 break;
         }
@@ -230,28 +191,18 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         if (addCourseHighLevelCourseDeletePoints.getVisibility() != View.GONE) {
             requestParams.add("enroll_credits", addCourseHighLevelCourseDeletePoints.getText().toString());
         }
-//        else
-//            requestParams.add("enroll_credits", "0");
 
         Log.i("xx", "参数" + requestParams.toString());
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("xx", "addCourse" + "onSuccess");
-            Log.i("xx", response.toString());
             try {
-                Log.i("xx", "code");
                 int code = response.getInt("code");
-                Log.i("xx", "aftercode" + code);
                 boolean isOk = response.getBoolean("data");
-                Log.i("xx", "afterdata" + isOk);
-                //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("xx", "addCourseinside" + "onSuccess");
-//                if(result && code == 0 && isOk) {
                 if (code == 0 && isOk) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");

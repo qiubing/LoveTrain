@@ -34,7 +34,7 @@ public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseInte
         CourseIntegrationItem integration = new CourseIntegrationItem();
         integration.setmLessonName(jsonObject.getString("lesson_name"));
         integration.setmAcquireTime(jsonObject.getLong("achieve_time"));
-        integration.setmCheckCredits(jsonObject.getInt("check_credits"));
+        integration.setmCheckCredits(jsonObject.getInt("credits"));
         integration.setmCause(jsonObject.getString("cause"));
         integration.setmLessonIndex(jsonObject.getInt("lesson_index"));
         return integration;

@@ -8,7 +8,6 @@ package cn.nubia.activity.client;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -146,7 +145,6 @@ public class ClientMainActivity extends ActivityGroup {
             //int lesson_index = 77;
             if (!Constant.user.getUserID().equals("")&& lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
-                Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",lesson_index: " + lesson_index);
                 RequestParams params = new RequestParams(Constant.getRequestParams());
                 params.put("user_id",Constant.user.getUserID());
                 params.put("lesson_index",lesson_index);
@@ -157,16 +155,14 @@ public class ClientMainActivity extends ActivityGroup {
         }
     }
 
-    private MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
-            Log.e(TAG, "onSuccess: " + response.toString());
             if (response != null && response.getInt("code") == 0){
                 JSONObject obj = response.getJSONObject("data");
                 if (obj != null){
                     long check_time = obj.getLong("check_time");
                     int check_credits = obj.getInt("check_credits");
-                    Log.e(TAG,"current_time: " + check_time + ",check_credits: " + check_credits);
                     Date date = new Date();
                     date.setTime(check_time);
                     String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);

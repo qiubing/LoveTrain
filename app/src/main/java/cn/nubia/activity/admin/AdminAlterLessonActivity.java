@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
@@ -40,7 +39,6 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 public class AdminAlterLessonActivity extends Activity implements View.OnClickListener {
 
     private LessonItem lessonItem;
-    private Bundle bundle;
 
     private EditText lessonName;
     private EditText teacherName;
@@ -51,7 +49,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private EditText lessonEndTime;
     private EditText lessonTeancherPoint;
     private EditText lessonStudentPoint;
-    private Button lessonOk;
+
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
@@ -69,9 +67,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_alter_lesson);
-        bundle = new Bundle();
 
-        lessonOk = (Button) findViewById(R.id.admin_alter_lesson_alterForeSureButton);
+        Button lessonOk = (Button) findViewById(R.id.admin_alter_lesson_alterForeSureButton);
         lessonName = (EditText) findViewById(R.id.alter_lesson_lessonName_editText);
         teacherName = (EditText) findViewById(R.id.alter_lesson_teacherName_editText);
         lessonDesc = (EditText) findViewById(R.id.alter_lesson_lessonDesc_editText);
@@ -135,10 +132,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-//        requestParams.add("device_id", "MXJSDLJFJFSFS");
-//        requestParams.add("request_time","1445545456456");
-//        requestParams.add("apk_version","1");
-//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
 
         requestParams.add("record_modify_time_course", "1435125456111");
 
@@ -156,17 +149,16 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "alterLesson" + response.toString());
             try {
                 int code = response.getInt("code");
-                //boolean result = response.getBoolean("result");
+
                 boolean isOk = response.getBoolean("data");
-                //JSONArray jsonArray = response.getJSONArray("data");
-                //Log.i("huhu", "addExam" + code + "," + result + "," + isOk);
+
                 if (code == 0 && isOk) {
                     Toast.makeText(AdminAlterLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }
@@ -175,7 +167,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
-            //mExamAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -289,8 +280,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
         }
     }
-
-
 
 
     public void back(View view) {

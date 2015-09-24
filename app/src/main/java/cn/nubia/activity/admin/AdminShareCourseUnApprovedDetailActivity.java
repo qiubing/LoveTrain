@@ -122,6 +122,7 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
             if (response.getBoolean("data")){
                 Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
                         "审核通过",Toast.LENGTH_LONG).show();
+                mPassButton.setEnabled(false);
                 AdminShareCourseUnApprovedDetailActivity.this.finish();
             }else {
                 Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,

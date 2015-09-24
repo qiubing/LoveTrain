@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high18"
+        android:text="testa"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize16" />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/high16"
+        android:layout_below="@+id/score_user_name"
+        android:text="ak"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/textSize14" />
+</LinearLayout>

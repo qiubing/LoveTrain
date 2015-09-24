@@ -20,7 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
-
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -100,7 +99,12 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 break;
             case R.id.btn_upload:
                 //TODO:上传图像到服务器
-                uploadFile(mPhoto);
+                if (mPhoto != null){
+                    uploadFile(mPhoto);
+                }else{
+                    Toast.makeText(this,"头像不能为空",Toast.LENGTH_LONG).show();
+                }
+
                 break;
         }
     }
@@ -110,7 +114,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      */
     private void uploadFile(Bitmap bitmap) {
         try {
-            String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
+            String path = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
             File file = new File(path);
             if (file.exists() && file.length() > 0) {
                 //上传地址以及请求参数
@@ -144,7 +148,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            showShortToast("长传头像失败");
+            showShortToast("长传头像失败,请稍后重试");
         }
     };
 
@@ -279,9 +283,10 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         if (extras != null) {
             mPhoto = extras.getParcelable("data");
             //保存文件到SD卡中
-            Utils.saveFile(mPhoto, Constant.PORTRAIT);
+            Utils.saveFile(mPhoto, Constant.user.getUserID() + Constant.PORTRAIT);
             Drawable drawable = new BitmapDrawable(mPhoto);
             mCircleImageView.setImageDrawable(drawable);
+
             // 上传头像到服务器上去
             //String imageStrData = "";
             // bitmap 转换 String

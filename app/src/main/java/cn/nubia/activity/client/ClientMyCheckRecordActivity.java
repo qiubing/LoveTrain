@@ -9,24 +9,17 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.ClientCheckRecordAdapter;
 import cn.nubia.entity.CheckRecordItem;
 import cn.nubia.entity.Constant;
-import cn.nubia.entity.ExamEnrollMsg;
 import cn.nubia.interfaces.IOnGestureListener;
-import cn.nubia.service.CommunicateService;
-import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -65,6 +58,7 @@ public class ClientMyCheckRecordActivity extends Activity {
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "user/find_check_record.do";
+        Log.e(TAG,"user_id: " + Constant.user.getUserID() + ",url: " + url);
         AsyncHttpHelper.post(url, params, mCheckRecordHandler);
     }
 

@@ -2,7 +2,6 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,17 +36,10 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
     private CourseItem mCourseItem;
     private Bundle bundle;
 
-    private Button signUpAdminBtn;
-    private Button alterCourseBtn;
-    private Button lessonAddBtn;
-    Button courseDeleteBtn;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
-    private TextView courseRealNameTextview;
-    private TextView courseRealDescTextview;
-    private TextView courseRealTypeTextView;
-    String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +47,13 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         setContentView(R.layout.activity_admin_course_detail);
         bundle=new Bundle();
 
-        signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
-        alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
-        lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
-        courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
-        courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
-        courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
-        courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
+        Button signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
+        Button alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
+        Button lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
+        Button courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
+        TextView courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
+        TextView courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
+        TextView courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
         signUpAdminBtn.setOnClickListener(this);
         alterCourseBtn.setOnClickListener(this);
         lessonAddBtn.setOnClickListener(this);
@@ -171,27 +162,20 @@ public class AdminCourseDetailActivity extends Activity implements View.OnClickL
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-        RequestParams requestParams = new RequestParams();
-        requestParams.add("device_id", "MXJSDLJFJFSFS");
-        requestParams.add("request_time","1445545456456");
-        requestParams.add("apk_version","1");
-        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-        requestParams.add("record_modify_time_course", "1435125456111");
+        RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.put("course_index", mCourseItem.getIndex());
-
+        String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
         AsyncHttpHelper.post(deleteCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
-                //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + "," + isOk);
+
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminCourseDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }else {

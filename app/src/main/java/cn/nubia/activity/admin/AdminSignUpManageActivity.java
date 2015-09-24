@@ -1,7 +1,6 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +27,9 @@ import cn.nubia.util.MyJsonHttpResponseHandler;
  */
 public class AdminSignUpManageActivity extends Activity {
     private static final String TAG = "SignUpManage";
-    ArrayList<SignUpItem> mSignUpList;
+    private ArrayList<SignUpItem> mSignUpList=new ArrayList<>();
     private CourseItem mCourseItem;
     private ListView mListView;
-    private SignUpManageAdapter mSignUpAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +38,6 @@ public class AdminSignUpManageActivity extends Activity {
         initEvents();
         loadData();
     }
-
 
     private void initEvents(){
         ImageView backImageView = (ImageView) findViewById(R.id.admin_signIn_manage_back);
@@ -53,12 +48,7 @@ public class AdminSignUpManageActivity extends Activity {
                 finish();
             }
         });
-
         mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
-        /*mSignUpList = getData();
-        mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
-        mListView.setAdapter(mSignUpAdapter);*/
-
     }
 
     private void loadData(){
@@ -73,7 +63,7 @@ public class AdminSignUpManageActivity extends Activity {
     }
 
     /**请求课程数据服务器数据的Handler*/
-    final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
@@ -84,7 +74,7 @@ public class AdminSignUpManageActivity extends Activity {
                         JSONObject obj = jsonArray.getJSONObject(i);
                         mSignUpList.add(makeUpSignUpItem(obj));
                     }
-                    mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
+                    SignUpManageAdapter mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
                     mListView.setAdapter(mSignUpAdapter);
                 }
             } catch (JSONException e) {
@@ -108,18 +98,5 @@ public class AdminSignUpManageActivity extends Activity {
         return item;
     }
 
-
-    private ArrayList<SignUpItem> getData(){
-        ArrayList<SignUpItem> listData=new ArrayList<>();
-        for(int i = 0;i < 30;i++){
-            SignUpItem item = new SignUpItem();
-            item.setUserName("张" + i);
-            item.setUserID("001600330" + i);
-            item.setCourseID(2);
-            item.setIsEnroll(false);
-            listData.add(item);
-        }
-        return listData;
-    }
 
 }

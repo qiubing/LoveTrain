@@ -1,12 +1,7 @@
 package cn.nubia.activity.client;
 
-import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,18 +13,18 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.LessonJudgementMsg;
-import cn.nubia.service.ActivityInter;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 
 /**
  * Created by JiangYu on 2015/9/6.
  */
-public class ClientMyCourseJudgeDetailFillActivity extends Activity{
+public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivity{
     private int mLessonIndex;
     private Boolean mNextPressReady;
 
@@ -37,26 +32,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
-
-
-    private CommunicateService.CommunicateBinder mBinder;
-    private final ServiceConnection mConn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinder = (CommunicateService.CommunicateBinder)service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBinder = null;
-        }
-    };
-
-    public class Inter implements ActivityInter {
-        public void handleResponse(Map<String,?> response,String responseURL){
-            ClientMyCourseJudgeDetailFillActivity.this.handleResponse(response,responseURL);
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -185,17 +160,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends Activity{
         return true;
     }
 
-    private void connectService(){
-        Intent intent = new Intent(
-                ClientMyCourseJudgeDetailFillActivity.this, CommunicateService.class);
-        bindService(intent, mConn, Service.BIND_AUTO_CREATE);
-    }
-
-    private void disconectService(){
-        unbindService(mConn);
-    }
-
-    private void handleResponse(Map<String,?> response,String responseURL){
+    @Override
+    protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
             DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,

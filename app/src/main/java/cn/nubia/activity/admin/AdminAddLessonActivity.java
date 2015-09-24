@@ -5,14 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,7 +26,6 @@ import java.util.Calendar;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
@@ -52,8 +49,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private EditText studentGetPoints;
 
     private CourseItem mCourseItem=new CourseItem();
-    private LessonItem mLessonItem=new LessonItem();
-
     private GestureDetector gestureDetector;
 
     private static final String addLessonURL = Constant.BASE_URL + "course/add_lesson.do";
@@ -66,15 +61,13 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private int minuteEnd;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
-    private Button addLessonSureBtn;
-    private TextView courseName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_lesson);
 
-        courseName=(TextView)findViewById(R.id.add_lesson_CourseName_TextView);
+        TextView courseName=(TextView)findViewById(R.id.add_lesson_CourseName_TextView);
         lessonName = (EditText) findViewById(R.id.add_lesson_lessonName_editText);
         teacherName = (EditText) findViewById(R.id.add_lesson_teacherName_editText);
         lessonDesc = (EditText) findViewById(R.id.add_lesson_lessonDesc_editText);
@@ -83,7 +76,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         lessonEndTime = (EditText) findViewById(R.id.add_lesson_lessonEndTime_editText);
         teacherGetPoints = (EditText) findViewById(R.id.add_lesson_teacherGetPoints_editText);
         studentGetPoints = (EditText) findViewById(R.id.add_lesson_studentGetPoints_editText);
-        addLessonSureBtn = (Button) findViewById(R.id.add_lesson_addLessonForSureButton);
+        Button addLessonSureBtn = (Button) findViewById(R.id.add_lesson_addLessonForSureButton);
         lessonDate = (EditText)findViewById(R.id.add_lesson_start_data_editText);
 
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
@@ -163,13 +156,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                     return;
                 }
                 upData();
-                /*Bundle bundle=new Bundle();
-                *//**此处这个mLessonItem的课时ID一直为0，并没有赋值
-                 * *//*
-                bundle.putSerializable("LessonItem", mLessonItem);
-                Intent intentAddForSure = new Intent(AdminAddLessonActivity.this, AdminLessonDetailActivity.class);
-                intentAddForSure.putExtras(bundle);
-                startActivity(intentAddForSure);*/
                 break;
             case R.id.add_lesson_start_data_editText:
 
@@ -231,10 +217,6 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     }
     private void upData(){
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-//        requestParams.add("device_id", "MXJSDLJFJFSFS");
-//        requestParams.add("request_time","1445545456456");
-//        requestParams.add("apk_version","1");
-//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
 
         requestParams.put("course_index", mCourseItem.getIndex());
         requestParams.add("lesson_name", lessonName.getText().toString());
@@ -249,7 +231,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         AsyncHttpHelper.post(addLessonURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

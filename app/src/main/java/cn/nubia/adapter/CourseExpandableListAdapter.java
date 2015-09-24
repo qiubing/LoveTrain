@@ -31,19 +31,17 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
  */
 public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private List<CourseItem> mGroupList;
-    private Context mContext;
-    private String mID;
+    private final List<CourseItem> mGroupList;
+    private final Context mContext;
+    /**
+     * 当前登录用户的ID
+     */
+    private final String mID;
 
-
-    public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx) {
+    public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx, String id) {
         this.mGroupList = mCourseList;
         this.mContext = mCtx;
-    }
-    public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx,String id) {
-        this.mGroupList = mCourseList;
-        this.mContext = mCtx;
-        mID=id;
+        mID = id;
     }
 
 
@@ -63,7 +61,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int groupPosition) {
         /**空指针异常**/
-        if(mGroupList.get(groupPosition).getLessonList() != null)
+        if (mGroupList.get(groupPosition).getLessonList() != null)
             return mGroupList.get(groupPosition).getLessonList().size();
         else
             return 0;
@@ -71,8 +69,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final int mGroupID=groupPosition;
-        final int mChildID=childPosition;
+        final int mGroupID = groupPosition;
+        final int mChildID = childPosition;
         final ChildViewHolder childViewHolder;
         if (convertView == null) {
             childViewHolder = new ChildViewHolder();
@@ -85,14 +83,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
 
-        //设置课时名称
+        /**设置课时名称*/
         childViewHolder.mLessonNameTextView.setText(mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
-        //设置课时信息
-        /*childViewHolder.mLessonDetailTextView.setText(
-                mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() +
-                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime());*/
+        /**设置课时信息*/
         childViewHolder.mLessonDetailTextView.setText("上课地点：" +
-                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation()+"" + "\n上课时间：" +
+                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "" + "\n上课时间：" +
                         TimeFormatConversion.toTimeDate(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         "  " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         " ~ " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getEndTime())
@@ -101,17 +96,14 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**是否为管理员或者老师
          * 如果为管理员或者老师，则隐藏评价按钮
          * */
-        if (Constant.IS_ADMIN || isTeacher(groupPosition)){
+        if (Constant.IS_ADMIN || isTeacher(groupPosition)) {
             TextView evaluate = (TextView) convertView.findViewById(R.id.evaluateBtn);
             evaluate.setVisibility(View.GONE);
         }
 
         final Bundle bundle = new Bundle();
         /**这里传过去的lessonItem中没有任何数据*/
-        LessonItem lessonItem=mGroupList.get(groupPosition).getLessonList().get(childPosition);
-//        lessonItem=mGroupList.get(mGroupID).getLessonList().get(mChildID);
-//        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListViewAA");
-//        Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getLessonName() + "+ExpandableListViewAA");
+        LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
 
         Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
@@ -151,7 +143,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final GroupViewHolder groupViewHolder;
-        final int groupID=groupPosition;
+        final int groupID = groupPosition;
         if (convertView == null) {
             /**不能用LayoutInflater，要使用inflate**/
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
@@ -171,45 +163,53 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
             /**
              * 四个标记的意思是：
-             * a.部：课程级别，只有分享课程才有的标记
-             * b.讲：是否是讲师，因此只有讲师才会出现这个标记
-             * c.享：是否是分享课程，和“部”是同时出现的
+             * a.部、科、团：课程级别，只有分享课程才有的标记
+             * b.普、享、高：是否是分享课程，和“部”是同时出现的
+             * c.讲：是否是讲师，因此只有讲师才会出现这个标记
              * d.考：表明该课程是否有考试
-             * 如果不是管理员，学员只能看到“考”的标记
-             * 讲师还可以看到“讲”的标记
-             * 还有其他需要隐去的标记*/
-            groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
-            if (Constant.IS_ADMIN==false) {
-                /**隐去添加课时标记*/
-                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
-
-                /** 普通用户看不到“部”“享”不可见**/
-                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
-                groupViewHolder.mCourseType.setVisibility(View.GONE);
-                /**如果hasExam属性为0表示没有考试，则将该标记也隐去，同时肯定就不用报名考试了*/
-                if(mGroupList.get(groupPosition).hasExam()==false) {
-                    groupViewHolder.mWhetherExam.setVisibility(View.GONE);
-                    groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
-                }
-                /** 如果不是讲师看不到“讲”**/
-                if(!isTeacher(groupPosition)) {
-                    groupViewHolder.mTeacher.setVisibility(View.GONE);
-                }
-            }
-            /**如果是管理员*/
-            else{
-                /**如果不是分享课程,则隐去“享”，同时课程级别“部”也要隐去*/
-                if(!mGroupList.get(groupPosition).getType().equals("2")){
-                    groupViewHolder.mCourseType.setVisibility(View.GONE);
+             * 显示规则：
+             * 1.管理员和普通用户可以看到a,b,c,d四种标志，因为管理员可也能是讲师，也可以报名参加考试；
+             * 2.普通用户看不到添加课时标记
+             * 3.根据课程的相应信息来隐藏；
+             * */
+            /**二者共同的部分**/
+            /**1.处理a,b*/
+            switch (mGroupList.get(groupPosition).getType()){
+                case "course":
+                    groupViewHolder.mCourseType.setText("普");
                     groupViewHolder.mCourseLevel.setVisibility(View.GONE);
-                }
-                /**如果没有考试,则隐去“考”，同时隐藏报名考试标记*/
-                if(mGroupList.get(groupPosition).hasExam()==false) {
-                    groupViewHolder.mWhetherExam.setVisibility(View.GONE);
-                    groupViewHolder.mSignUpExamTextView.setVisibility(View.GONE);
-                }
-                /**管理员不应该在管理员界面看到“讲”，即使它是讲师，也应该在普通账号里面看到*/
+                    break;
+                case "share":
+                    groupViewHolder.mCourseType.setText("享");
+                    switch (mGroupList.get(groupPosition).getShareType()){
+                        case 1:
+                            groupViewHolder.mCourseLevel.setText("部");
+                            break;
+                        case 2:
+                            groupViewHolder.mCourseLevel.setText("科");
+                            break;
+                        case 3:
+                            groupViewHolder.mCourseLevel.setText("团");
+                            break;
+                    }
+                    break;
+                case "senior":
+                    groupViewHolder.mCourseType.setText("高");
+                    groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                    break;
+            }
+            /**2.处理c:如果不是讲师看不到“讲”*/
+            if (!isTeacher(groupPosition)) {
                 groupViewHolder.mTeacher.setVisibility(View.GONE);
+            }
+            /**3.处理d:如果hasExam属性为false表示没有考试，则将该标记也隐去，同时肯定就不用报名考试了*/
+            if (mGroupList.get(groupPosition).hasExam() == false) {
+                groupViewHolder.mWhetherExam.setVisibility(View.GONE);
+                groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
+            }
+            /**如果不是管理员，看不到添加课时标记*/
+            if (Constant.IS_ADMIN == false) {
+                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
             }
 
             convertView.setTag(groupViewHolder);
@@ -223,8 +223,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intentAddLesson = new Intent(mContext, AdminAddLessonActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("CourseItem",mGroupList.get(groupID));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CourseItem", mGroupList.get(groupID));
                 intentAddLesson.putExtras(bundle);
                 mContext.startActivity(intentAddLesson);
             }
@@ -248,23 +248,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 /**怎么getparent()？**/
-//                Dialog signUpExamDialog = new AlertDialog.Builder(mContext)
-//                        .setTitle("报名考试")
-//                        .setMessage("确定报名考试？")
-//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                //这里执行报名操作
-//                                Toast.makeText(mContext, "报名XXX的考试成功", Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(mContext, "取消", Toast.LENGTH_LONG).show();
-//                            }
-//                        }).create();
-//                signUpExamDialog.show();
                 Toast.makeText(mContext, "报名考试成功", Toast.LENGTH_LONG).show();
             }
         });
@@ -274,19 +257,20 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    /**判断是否是讲师*/
-    private boolean isTeacher(int groupPosition){
-        ArrayList<LessonItem> mLessonList=(ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
-        if(mLessonList == null)
+    /**
+     * 判断是否是讲师
+     */
+    private boolean isTeacher(int groupPosition) {
+        ArrayList<LessonItem> mLessonList = (ArrayList<LessonItem>) mGroupList.get(groupPosition).getLessonList();
+        if (mLessonList == null)
             return false;
-        for(int i=0;i<mLessonList.size();i++){
-            if(mLessonList.get(i).getTeacherID()!=null&&mID.equals(mLessonList.get(i).getTeacherID())){
+        for (int i = 0; i < mLessonList.size(); i++) {
+            if (mLessonList.get(i).getTeacherID() != null && mID.equals(mLessonList.get(i).getTeacherID())) {
                 /**如果i找到最后一个LessonItem还不是讲师，说明当前登录者不是该课程下任何课程的讲师*/
-                if(i==mLessonList.size()-1){
+                if (i == mLessonList.size() - 1) {
                     return false;
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -316,7 +300,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView mAddLessonTextView;
         TextView mCourseDetailTextView;
         TextView mSignUpExamTextView;
-        /**four tags**/
+        /**
+         * four tags*
+         */
         TextView mCourseLevel;
         TextView mTeacher;
         TextView mCourseType;
