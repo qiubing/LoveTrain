@@ -9,6 +9,7 @@ public abstract class Item implements Serializable{
     public static String TYPE = "type";
     public static String NAME = "name";
     public static String DESCRIPTION = "description";
+    public static String OPERATOR = "operator";
 
     private int mIndex;
     private String mOperator;
