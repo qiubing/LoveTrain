@@ -162,81 +162,101 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
             groupViewHolder = new GroupViewHolder();
 
-//            groupViewHolder.mAddLessonTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_addLessonTextView);
-//            groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
+
             groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
             groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             groupViewHolder.mCourseIconIV = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             /**four tags**/
-            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_share_level);
-            groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_person);
-            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_share);
-            groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_exam);
-
-
-            /**
-             * 四个标记的意思是：
-             * a.普、享、高：是否是分享课程，和“部”是同时出现的
-             * b.部、科、团：课程级别，只有分享课程才有的标记
-             * c.讲：是否是讲师，因此只有讲师才会出现这个标记
-             * d.考：表明该课程是否有考试
-             * 显示规则：
-             * 1.管理员可以看到a,b,d三种标志，普通用户可以看到a,b,c,d四种标志。管理员看不到“讲”，如果管理员是讲师，也是在其普通账户中才看得到。
-             * 2.普通用户看不到添加课时标记，管理员看不到报名考试。即使管理员想报名考试，应该是在他对应的普通用户账号里面看得到。
-             * 3.根据课程的相应信息来隐藏；
-             * */
-            /**二者共同的部分**/
-            /**1.处理a,b*/
-            groupViewHolder.mCourseType.setVisibility(View.GONE);
-            switch (mGroupList.get(groupPosition).getType()) {
-                case "course":
-//                    groupViewHolder.mCourseType.setText("普");
-                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_course);
-                    groupViewHolder.mCourseLevel.setVisibility(View.GONE);
-                    break;
-                case "share":
-//                    groupViewHolder.mCourseType.setText("享");
-                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_share);
-                    switch (mGroupList.get(groupPosition).getShareType()) {
-                        case 1:
-                            groupViewHolder.mCourseLevel.setText("部");
-                            break;
-                        case 2:
-                            groupViewHolder.mCourseLevel.setText("科");
-                            break;
-                        case 3:
-                            groupViewHolder.mCourseLevel.setText("团");
-                            break;
-                    }
-                    break;
-                case "senior":
-//                    groupViewHolder.mCourseType.setText("高");
-                    groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_gao);
-                    groupViewHolder.mCourseLevel.setVisibility(View.GONE);
-                    break;
-            }
-            /**2.处理c:如果不是讲师看不到“讲”，如果是管理员则一律隐去“讲”*/
-            if (!isTeacher(groupPosition)||Constant.IS_ADMIN) {
-                groupViewHolder.mTeacher.setVisibility(View.GONE);
-            }
-            /**3.处理d:如果hasExam属性为false表示没有考试，则将该标记也隐去，同时肯定就不用报名考试了*/
-            if (mGroupList.get(groupPosition).hasExam() == false) {
-                groupViewHolder.mWhetherExam.setVisibility(View.GONE);
-            }
-            /**如果不是管理员，看不到添加课时TextView*/
-//            if (Constant.IS_ADMIN == false) {
-//                groupViewHolder.mAddLessonTextView.setVisibility(View.GONE);
-//            }
-            /**如果是管理员，看不到报名考试TextView*/
-            if (Constant.IS_ADMIN == true) {
-                groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
-            }
+            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_courseType);
+            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
+            groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_isTeacher);
+            groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_wetherExam);
 
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
+        }
+
+
+        /**
+         * 四个标记的意思是：
+         * a.普、享、高：是否是分享课程，和“部”是同时出现的
+         * b.部、科、团：课程级别，只有分享课程才有的标记
+         * c.讲：是否是讲师，因此只有讲师才会出现这个标记
+         * d.考：表明该课程是否有考试
+         * 显示规则：
+         * 1.管理员可以看到a,b,d三种标志，普通用户可以看到a,b,c,d四种标志。管理员看不到“讲”，如果管理员是讲师，也是在其普通账户中才看得到。
+         * 2.普通用户看不到添加课时标记，管理员看不到报名考试。即使管理员想报名考试，应该是在他对应的普通用户账号里面看得到。
+         * 3.根据课程的相应信息来隐藏；
+         * */
+
+        /**课程类别和分享级别：不管是管理员还是普通用户，显示规则是一样的*/
+        Log.e("0925hexiao","Name:"+mGroupList.get(groupPosition).getName() +","+"CourseType:"+mGroupList.get(groupPosition).getType() +
+                ","+"ShareType:"+mGroupList.get(groupPosition).getShareType() +","+"HasExam:"+mGroupList.get(groupPosition).hasExam() +","+"IsTeacher:"+isTeacher(groupPosition));
+
+        groupViewHolder.mCourseType.setVisibility(View.GONE);
+        switch (mGroupList.get(groupPosition).getType()) {
+            case "course":
+                groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_course);
+                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                break;
+            case "share":
+                groupViewHolder.mCourseLevel.setVisibility(View.VISIBLE);
+
+                groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_share);
+                switch (mGroupList.get(groupPosition).getShareType()) {
+                    case 0:
+                        groupViewHolder.mCourseLevel.setText("部");
+                        break;
+                    case 1:
+                        groupViewHolder.mCourseLevel.setText("科");
+                        break;
+                    case 2:
+                        groupViewHolder.mCourseLevel.setText("团");
+                        break;
+                    default:
+                        Log.e("courseExp+shareType", mGroupList.get(groupPosition).getShareType() + "");
+                        groupViewHolder.mCourseLevel.setText("???");
+                        break;
+                }
+                break;
+            case "senior":
+                groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_gao);
+                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                break;
+            default:
+                Log.e("courseExp+type", mGroupList.get(groupPosition).getType() + "");
+                groupViewHolder.mCourseType.setText("???");
+                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+                break;
+        }
+
+        /**不管管理员还是普通用户，隐去“报名考试”标记*/
+        groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
+        /**不管是管理员还是普通用户，设置“考”标记的规则是一样的*/
+        /**判断是否有考试*/
+        if(mGroupList.get(groupPosition).hasExam() == false){
+            /**如果没有考试，则隐去“考”*/
+            groupViewHolder.mWhetherExam.setVisibility(View.GONE);
+        }
+        else
+            groupViewHolder.mWhetherExam.setVisibility(View.VISIBLE);
+
+        /**如果是管理员*/
+        if(Constant.IS_ADMIN){
+            /**管理员不用看到“讲”，隐去“讲”*/
+            groupViewHolder.mTeacher.setVisibility(View.GONE);
+        }
+        /**如果不是管理员*/
+        else {
+            /**隐藏添加课时b标记*/
+            /**判断是否是讲师*/
+            if(!isTeacher(groupPosition)){
+                /**不是讲师则隐去“讲”*/
+                groupViewHolder.mTeacher.setVisibility(View.GONE);
+            }
         }
 
 
@@ -339,7 +359,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     static class GroupViewHolder {
         TextView mCourseNameTextView;
-//        ImageView mAddLessonTextView;
         ImageView mExpendedIV;
         ImageView mCourseDetailTextView;
         TextView mSignUpExamTextView;

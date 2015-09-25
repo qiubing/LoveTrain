@@ -128,6 +128,7 @@ public class ClientAllCourseTabActivity extends Activity {
                 }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 JSONArray jsonArray = response.getJSONArray("data");
+                Log.e("0925Get",jsonArray.toString()+"");
                 if(jsonArray!=null) {
                     AsyncLoadHttpTask loadHttpTask = new AsyncLoadHttpTask();
                     loadHttpTask.execute(jsonArray);
@@ -168,12 +169,12 @@ public class ClientAllCourseTabActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("0924AllCourse",courseItemList.size()+"");
+            Log.e("0925AllCourse",courseItemList.size()+"");
             for(CourseItem courseItem : courseItemList){
-                Log.e("0924AllCourse","CourseName:"+courseItem.getName());
+                Log.e("0925AllCourse","CourseName:"+courseItem.getName());
                 for(LessonItem lessonItem : courseItem.getLessonList()){
                     if(lessonItem.getTeacherID().equals(Constant.user.getUserID())) {
-                        Log.e("0924AllCourse", "___________________________"+lessonItem.getName());
+                        Log.e("0925AllCourse", "___________________________"+lessonItem.getName());
                     }
                 }
             }

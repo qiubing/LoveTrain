@@ -49,13 +49,18 @@ public class DbUtil {
     }
 
     public void updateCourseList(List<CourseItem> courseItemList) {
-        for (CourseItem item : courseItemList)
+        for (CourseItem item : courseItemList){
+            Log.e("wj getOperator",item.getOperator());
             insertOrUpdateCourseItem(item);
+        }
     }
 
     private  long insertOrUpdateCourseItem(CourseItem courseItem) {
         Cursor cursor = db.query(SqliteHelper.TB_NAME_CLASS, new String[]{CourseItem.COURSE_INDEX}, CourseItem.COURSE_INDEX + "= ?",
                 new String[]{String.valueOf(courseItem.getIndex())}, null, null, null);
+        if(cursor == null || cursor.isClosed()){
+            return -1;
+        }
         int count = cursor.getCount();
         cursor.close();
         Log.e(TAG, String.valueOf(courseItem));

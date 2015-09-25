@@ -105,6 +105,7 @@
                 android:id="@+id/alter_lesson_lessonName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -123,6 +124,7 @@
                 android:id="@+id/alter_lesson_teacherName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -141,6 +143,7 @@
                 android:id="@+id/alter_lesson_lessonDesc_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -159,6 +162,7 @@
                 android:id="@+id/alter_lesson_lessonLocation_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true"
                 />
 
@@ -180,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
                 android:focusable="false"
+                android:gravity="center_horizontal"
                 android:focusableInTouchMode="false"/>
 
         </TableRow>
@@ -198,6 +203,7 @@
                 android:id="@+id/alter_lesson_lessonStartTime_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -218,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
                 android:focusable="false"
+                android:gravity="center_horizontal"
                 android:focusableInTouchMode="false"/>
 
         </TableRow>
