@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class AdminMainActivity extends ActivityGroup {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
+//        ProgressBar loading_iv = (ProgressBar)findViewById(R.id.loading_iv);
+//        loading_iv.setVisibility(View.VISIBLE);
         initBeforeData();
         initEvents();
     }
