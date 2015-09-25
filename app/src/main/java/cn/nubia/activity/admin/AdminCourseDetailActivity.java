@@ -253,24 +253,27 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         mEnrollSeniorCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean isTeacher = false;
-                List<LessonItem> lessonList = mCourseItem.getLessonList();
-                for(LessonItem item:lessonList){
-                    if(item.getTeacherID().equals(Constant.user.getUserID())) {
-                        isTeacher = true;
-                        break;
+                if(mNextPressReady) {
+                    boolean isTeacher = false;
+                    List<LessonItem> lessonList = mCourseItem.getLessonList();
+                    for (LessonItem item : lessonList) {
+                        if (item.getTeacherID().equals(Constant.user.getUserID())) {
+                            isTeacher = true;
+                            break;
+                        }
                     }
-                }
-                if(isTeacher){
-                    DialogMaker.make(AdminCourseDetailActivity.this,
-                            AdminCourseDetailActivity.this,"不能报名自己的课程!",true);
-                }else {
-                    SeniorEnrollMsg msg = new SeniorEnrollMsg();
-                    msg.setUserID(Constant.user.getUserID());
-                    msg.setCourseIndex(mCourseItem.getIndex());
-                    msg.setOperateType(CommunicateService.OperateType.INSERT);
-                    mBinder.communicate(msg, new Inter(), URLMap.URL_ADD_SENIORCOURSEENROLL);
-                    mNextPressReady = false;
+                    if (isTeacher) {
+                        DialogMaker.make(AdminCourseDetailActivity.this,
+                                AdminCourseDetailActivity.this, "不能报名自己的课程!", true);
+                    } else {
+                        SeniorEnrollMsg msg = new SeniorEnrollMsg();
+                        msg.setUserID(Constant.user.getUserID());
+                        msg.setCourseIndex(mCourseItem.getIndex());
+                        msg.setOperateType(CommunicateService.OperateType.INSERT);
+                        mEnrollSeniorCourse.setText("报名中...");
+                        mBinder.communicate(msg, new Inter(), URLMap.URL_ADD_SENIORCOURSEENROLL);
+                        mNextPressReady = false;
+                    }
                 }
             }
         });
@@ -280,9 +283,10 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
+        mEnrollSeniorCourse.setText(R.string.enrollseniorcoursebtn);
         if(response==null){
             DialogMaker.make(AdminCourseDetailActivity.this,
-                    AdminCourseDetailActivity.this, "操作失败!", false);
+                    AdminCourseDetailActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
@@ -291,7 +295,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             }else if (operateResult.equals("failure")) {
                 String message = (String) response.get("message");
                 DialogMaker.make(AdminCourseDetailActivity.this,
-                        AdminCourseDetailActivity.this, "报名申请成功：\n" +
+                        AdminCourseDetailActivity.this, "报名申请失败：\n" +
                                 message, false);
             }
         }

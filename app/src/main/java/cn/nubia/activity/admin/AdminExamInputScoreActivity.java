@@ -3,7 +3,6 @@ package cn.nubia.activity.admin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -99,6 +98,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                     mModifiedExamScoreList = mExamScoreAdapter.getModifiedExamScoreList();
                     if (checkData()) {
                         scoreUpload();
+                        button.setText("成绩录入中...");
                         mNextPressReady = false;
                     }
                 }
@@ -134,7 +134,6 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             @Override
             public void run() {
                 mBinder.communicate(mModifiedExamScoreList, new Inter(), URLMap.URL_ADD_EXAMSCORE);
-                Log.e("jiangyu", mModifiedExamScoreList.toString());
             }
         }).start();
     }
@@ -167,7 +166,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             mResultNum++;
             if(response==null){
                 Toast.makeText(
-                         AdminExamInputScoreActivity.this, "一个成绩录入未响应!", Toast.LENGTH_SHORT).show();
+                         AdminExamInputScoreActivity.this, "未能连接服务器，一个成绩录入失败!", Toast.LENGTH_SHORT).show();
             }else{
                 String operateResult = (String)response.get("operateResult");
                 if(operateResult.equals("success")) {
@@ -181,8 +180,9 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             }
             if(mResultNum == mModifiedExamScoreList.size()) {
                 mNextPressReady = true;
-                 DialogMaker.make(AdminExamInputScoreActivity.this,
-                         AdminExamInputScoreActivity.this, "考试成绩录入完成!", true);
+                button.setText(R.string.title_activity_manager_score_input_button);
+                DialogMaker.make(AdminExamInputScoreActivity.this,
+                         AdminExamInputScoreActivity.this, "录入操作完成!", true);
             }
         }
     }

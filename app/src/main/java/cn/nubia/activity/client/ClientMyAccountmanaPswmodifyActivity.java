@@ -87,8 +87,8 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
                             pswModifyMsg.setNewPsw(newPsw);
                             pswModifyMsg.setUserID(Constant.user.getUserID());
                             pswModifyMsg.setOperateType(CommunicateService.OperateType.UPDATE);
-                            mBinder.communicate(
-                                    pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
+                            mConfirmButton.setText("正在修改...");
+                            mBinder.communicate(pswModifyMsg, new Inter(), URLMap.URL_UPD_PSW);
                             mNextPressReady = false;
                         }
                     } else {
@@ -122,9 +122,10 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
+        mConfirmButton.setText(R.string.alterCourseForSure);
         if(response==null){
             DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
-                   ClientMyAccountmanaPswmodifyActivity.this, "操作失败!", false);
+                   ClientMyAccountmanaPswmodifyActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
