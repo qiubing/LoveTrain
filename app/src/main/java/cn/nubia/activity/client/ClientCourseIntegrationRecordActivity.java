@@ -24,7 +24,7 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseIntegrationItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
+
 
 /**
  * Author: qiubing
@@ -33,7 +33,6 @@ import cn.nubia.util.Utils;
 public class ClientCourseIntegrationRecordActivity extends Activity {
     private static final String TAG = "CourseIntegrationRecord";
     private TextView mScoreText;
-    private ListView mListView;
     private  List<CourseIntegrationItem> mIntegrationList;
     private ClientCourseIntegrationAdapter mAdapter;
 
@@ -62,7 +61,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         mIntegrationList = new ArrayList<>();
-        mListView = (ListView) findViewById(R.id.course_integration_detail);
+        ListView mListView = (ListView) findViewById(R.id.course_integration_detail);
         mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
         mListView.setAdapter(mAdapter);
 
@@ -150,7 +149,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
                 mIntegrationList.addAll(courseIntegrationItems);
             }
             mAdapter.notifyDataSetChanged();
-            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
+            //Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
             mScoreText.setVisibility(View.VISIBLE);
             mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
         }

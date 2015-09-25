@@ -28,7 +28,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 
 /**
@@ -38,7 +37,6 @@ import cn.nubia.util.Utils;
 public class ClientShareCourseActivity extends Activity {
     private static final String TAG = "ShareCourse";
     private List<ShareCourseMsg> mCourseList;
-    private ListView mListView;
     private ClientShareCourseAdapter mAdapter;
 
     private RefreshLayout mRefreshLayout;
@@ -59,7 +57,7 @@ public class ClientShareCourseActivity extends Activity {
         text.setText("我的课程分享");
 
         mCourseList = new ArrayList<>();
-        mListView = (ListView) findViewById(R.id.share_course_detail);
+        ListView mListView = (ListView) findViewById(R.id.share_course_detail);
         mAdapter = new ClientShareCourseAdapter(mCourseList, ClientShareCourseActivity.this);
         mListView.setAdapter(mAdapter);
 
@@ -162,7 +160,7 @@ public class ClientShareCourseActivity extends Activity {
                 mCourseList.addAll(shareCourseItems);
             }
             mAdapter.notifyDataSetChanged();
-            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
+            //Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 

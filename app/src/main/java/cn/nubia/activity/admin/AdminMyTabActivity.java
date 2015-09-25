@@ -3,13 +3,21 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.apache.http.Header;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
@@ -18,7 +26,9 @@ import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
 import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
+import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.Logger;
+import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.ProcessSPData;
 import cn.nubia.util.Utils;
 
@@ -88,15 +98,45 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
     protected void onResume() {
         super.onResume();
         //头像图片存储路径
-        String path = Constant.LOCAL_PATH + Constant.PORTRAIT;
+        String path = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
         Logger.Log(this, path);
         Bitmap bitmap = Utils.getPictureFromSD(path);
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(bitmap);
             mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
             mCircleImageView.setImageDrawable(drawable);
+        }else{//从服务器中加载
+            String remotePath = Constant.PICTURE_PREFIX +
+                    Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
+            Log.e("AdminMyTabActivity", "remotePath: " + remotePath);
+            //从服务器加载图片，传递url地址过去
+            AsyncHttpHelper.get(remotePath, mPictureHandler);
         }
     }
+
+    MyJsonHttpResponseHandler mPictureHandler = new MyJsonHttpResponseHandler(){
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+            Log.e("AdminMyTabActivity","onSuccess: 加载成功");
+            InputStream input = new ByteArrayInputStream(bytes);
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            Drawable drawable = new BitmapDrawable(bitmap);
+            mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+            mCircleImageView.setImageDrawable(drawable);
+            //同时将图片保存到本地，用来下次加载
+            try {
+                Utils.saveFile(bitmap,Constant.user.getUserID() + Constant.PORTRAIT);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+            Log.e("AdminMyTabActivity","onFailure: 加载失败");
+        }
+    };
+
 
     @Override
     public void onClick(View v) {

@@ -257,6 +257,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
 //                        mBinder.communicate(
 //                                examEnrollMsg, new Inter(), URLMap.URL_ADD_SPECIALEXAMENROLL);
 //                    }
+                    mEnroll.setText("报名中...");
                     mNextPressReady = false;
 
                 }
@@ -328,9 +329,10 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
+        mEnroll.setText(R.string.activity_manager_exam_enrollbtn);
         if(response==null){
             DialogMaker.make(AdminExamDetailActivity.this,
-                    AdminExamDetailActivity.this, "操作失败!", false);
+                    AdminExamDetailActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {

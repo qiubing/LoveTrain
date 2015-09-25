@@ -16,17 +16,17 @@
         layout="@layout/layout_loading_failed"
         android:layout_width="fill_parent"
         android:layout_height="38dip"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/user_course_integration_title"/>
+        android:layout_below="@id/user_course_integration_title"
+        android:layout_marginTop="10dp" />
 
     <include
         android:id="@+id/network_unusable_integration"
         layout="@layout/layout_network_unusable"
         android:layout_width="fill_parent"
         android:layout_height="38dip"
+        android:layout_below="@id/user_course_integration_title"
         android:layout_marginTop="10dp"
-        android:paddingTop="@dimen/manager_rate_paddingTop"
-        android:layout_below="@id/user_course_integration_title"/>
+        android:paddingTop="@dimen/manager_rate_paddingTop" />
 
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout_integration"
@@ -34,23 +34,17 @@
         android:layout_height="match_parent"
         android:layout_below="@id/user_course_integration_title">
 
-        <ScrollView
-            android:id="@+id/scroll_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/user_course_integration_title">
+            android:layout_below="@id/user_course_integration_title"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/course_integration_detail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/course_integration_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ListView>
-            </LinearLayout>
-        </ScrollView>
+                android:layout_height="wrap_content"></ListView>
+        </LinearLayout>
     </cn.nubia.component.RefreshLayout>
 
     <TextView

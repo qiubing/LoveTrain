@@ -9,7 +9,7 @@
         android:id="@+id/title_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/titlebar_bg">
+        android:background="@color/soft_comment_title_content_windows">
 
         <ImageView
             android:id="@+id/manager_goback"
@@ -32,11 +32,9 @@
         <Button
             android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/blue"
-            android:gravity="center"
-            android:textSize="@dimen/itemcontent_textsize"
+            style="@style/CustomBigLoginButton"
+            android:textSize="20sp"
             android:text="@string/confirm_button" />
 
     </RelativeLayout>
@@ -139,7 +137,6 @@
                     android:textSize="@dimen/itemcontent_textsize"
                     android:background="@drawable/editview_selector"/>
             </TableRow>
-
             <RelativeLayout
                 style="@style/itemtitle">
                 <TextView
@@ -152,13 +149,18 @@
                 <EditText
                     android:id="@+id/my_sharecourse_detail_fill_coursedescription_filltextview"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/itemcontent_bigtextview_height"
+                    android:layout_height="100dp"
                     style="@style/edit_view_input_style"
                     android:layout_below="@id/my_sharecourse_detail_fill_coursedescription_textview"
                     android:layout_margin="5dp"
                     android:gravity="top"
                     android:isScrollContainer="true"/>
             </RelativeLayout>
+            <Button
+                android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
+                style="@style/CustomBigLoginButton"
+                android:text="@string/confirm_button" />
         </TableLayout>
+
     </ScrollView>
 </LinearLayout>

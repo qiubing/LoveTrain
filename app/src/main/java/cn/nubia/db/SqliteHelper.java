@@ -9,7 +9,6 @@ import android.util.Log;
  * Created by WJ on 2015/9/6.
  */
 public class SqliteHelper extends SQLiteOpenHelper {
-    final private String TAG = "SqliteHelper";
     final public static String TB_NAME_CLASS = "ALL_CLASS_INFO";
     final public static String TB_NAME_LESSON = "ALL_LESSON_INFO";
     final public static String TB_NAME_EXAM = "ALL_EXAM_INFO";
@@ -108,6 +107,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_EXAM_TABLE);
         db.execSQL(CREATE_MYCLASS_STU_TABLE);
         db.execSQL(CREATE_MYCLASS_TEACHER_TABLE);
+        String TAG = "SqliteHelper";
         Log.d(TAG, "onCreate");
     }
 

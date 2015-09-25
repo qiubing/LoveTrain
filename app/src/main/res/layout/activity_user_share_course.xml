@@ -28,13 +28,6 @@
         android:id="@+id/evaluate_refreshLayout_sharecourse"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ScrollView
-            android:id="@+id/scroll_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/user_share_course_title">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,6 +38,5 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></ListView>
             </LinearLayout>
-        </ScrollView>
     </cn.nubia.component.RefreshLayout>
 </LinearLayout>

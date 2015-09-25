@@ -213,7 +213,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
     MyJsonHttpResponseHandler mPictureHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-            Log.e(TAG,"onSuccess: ");
+            Log.e(TAG,"onSuccess: 加载成功");
             InputStream input = new ByteArrayInputStream(bytes);
             Bitmap bitmap = BitmapFactory.decodeStream(input);
             Drawable drawable = new BitmapDrawable(bitmap);
@@ -229,8 +229,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
-            Log.e(TAG,"onFailure: ");
-            Toast.makeText(ClientMyTabActivity.this,"图片加载失败，请先上传头像或者重试",Toast.LENGTH_LONG).show();
+            Log.e(TAG,"onFailure: 加载失败");
         }
     };
 }

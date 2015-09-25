@@ -4,45 +4,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_bg"
-        android:orientation="horizontal"
-        android:paddingBottom="0.1dp" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_inside_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/item_layout_border"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:background="@color/white"></View>
 
         <TextView
             android:id="@+id/course_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/view"
+            android:layout_centerVertical="true"
             android:gravity="center"
-            android:paddingBottom="11dp"
-            android:paddingTop="11dp"
-            android:text="Java 基础一" />
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:text="java基础一"
+            android:textSize="@dimen/textSize18" />
 
-        <TextView
-            android:id="@+id/course_cause"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:paddingBottom="11dp"
-            android:paddingTop="11dp"
-            android:textColor="@color/blue"
-            android:text="签到成功" />
 
         <TextView
             android:id="@+id/course_score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_marginRight="0.2dp"
-            android:layout_weight="5"
+            android:layout_weight="3"
             android:gravity="center"
-            android:paddingBottom="11dp"
-            android:paddingTop="11dp"
+            android:paddingRight="15dp"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/textSize18"
             android:singleLine="true"
-            android:text="+10" />
-    </LinearLayout>
+            android:text="80" />
+        <!--@drawable/item_bg-->
+        <TextView
+            android:id="@+id/course_cause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:layout_toLeftOf="@id/course_score"
+            android:paddingBottom="11dp"
+            android:layout_marginRight="8dp"
+            android:paddingTop="11dp"
+            android:textColor="@color/blue"
+            android:text="签到成功" />
+    </RelativeLayout>
 
 </LinearLayout>

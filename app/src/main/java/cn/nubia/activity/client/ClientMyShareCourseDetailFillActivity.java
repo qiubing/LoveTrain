@@ -245,11 +245,13 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
                         if (mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
                             shareCourse.setUserId(Constant.user.getUserID());
+                            mConfirmButton.setText("申请中...");
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_ADD_SHARE);
                         } else if (mOperateURL.equals(URLMap.URL_UPD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.UPDATE);
                             shareCourse.setCourseIndex(mShareCourseMsg.getCourseIndex());
                             shareCourse.setUserName(mShareCourseMsg.getUserName());
+                            mConfirmButton.setText("修改中...");
                             mBinder.communicate(shareCourse, new Inter(), URLMap.URL_UPD_SHARE);
                         }
                         mNextPressReady =false;
@@ -334,9 +336,11 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
+        mConfirmButton.setText(R.string.confirm_button);
+
         if(response==null){
             DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
-                   ClientMyShareCourseDetailFillActivity.this, "操作失败!", false);
+                   ClientMyShareCourseDetailFillActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {

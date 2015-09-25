@@ -93,6 +93,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                         judgement.setLessonIndex(mLessonIndex);
                         judgement.setUserID(Constant.user.getUserID());
                         judgement.setOperateType(CommunicateService.OperateType.INSERT);
+                        mConfirmButton.setText("评价提交中...");
                         mBinder.communicate(judgement, new Inter(), URLMap.URL_ADD_JUDGEMENT);
                         mNextPressReady = false;
                     }
@@ -163,9 +164,10 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
+        mConfirmButton.setText(R.string.confirm_button);
         if(response==null){
             DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
-                   ClientMyCourseJudgeDetailFillActivity.this, "操作失败!", false);
+                   ClientMyCourseJudgeDetailFillActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
