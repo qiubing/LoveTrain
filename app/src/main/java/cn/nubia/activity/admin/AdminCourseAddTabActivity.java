@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.loopj.android.http.RequestParams;
 
@@ -55,7 +57,6 @@ public class AdminCourseAddTabActivity extends Activity {
         initView();
         initEvents();
     }
-
 
     private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
@@ -123,11 +124,18 @@ public class AdminCourseAddTabActivity extends Activity {
             }
         });
 
+        /*ImageView loading_iv = (ImageView)findViewById(R.id.loading_iv);
+        loading_iv.setVisibility(View.VISIBLE);
+        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
+        animationDrawable.start();*/
+        ProgressBar loading_iv = (ProgressBar)getParent().getParent().findViewById(R.id.loading_iv);
+        loading_iv.setVisibility(View.VISIBLE);
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
         /****从网络中获取数据**/
         loadData();
+        loading_iv.setVisibility(View.GONE);
     }
 
     /**
