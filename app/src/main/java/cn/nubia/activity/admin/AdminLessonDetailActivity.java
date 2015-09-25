@@ -233,8 +233,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 //获取要生成课程的ID索引
                 Toast.makeText(this, "二维码生成中", Toast.LENGTH_SHORT).show();
                 //二维码的名称
-                String contentString = lessonItem.getTeacherName() + "-" + lessonItem.getName() + "-" +
-                        String.valueOf(lessonItem.getIndex());
+                String contentString = String.valueOf(lessonItem.getIndex());
                 if (!contentString.equals("")) {
                     //获取需要插入的头像logo
                     Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.PORTRAIT);
@@ -245,7 +244,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }
-                    final String barCodeName = contentString + ".jpg";
+                    final String barCodeName = lessonItem.getTeacherName() + "-" + lessonItem.getName()
+                            + "-" + String.valueOf(lessonItem.getIndex()) + ".jpg";
                     final Bitmap bitmap = qrCodeBitmap;
                     ImageView image = new ImageView(this);
                     image.setMaxHeight(350);
