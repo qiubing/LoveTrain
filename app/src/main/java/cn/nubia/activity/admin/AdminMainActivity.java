@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -40,8 +41,12 @@ public class AdminMainActivity extends ActivityGroup {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
-//        ProgressBar loading_iv = (ProgressBar)findViewById(R.id.loading_iv);
-//        loading_iv.setVisibility(View.VISIBLE);
+        /*ImageView loading_iv = (ImageView)findViewById(R.id.loading_iv);
+        loading_iv.setVisibility(View.VISIBLE);
+        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
+        animationDrawable.start();
+        ProgressBar loading_iv = (ProgressBar) findViewById(R.id.loading_iv);
+        loading_iv.setVisibility(View.VISIBLE);*/
         initBeforeData();
         initEvents();
     }
