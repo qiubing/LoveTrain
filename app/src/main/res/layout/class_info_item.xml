@@ -80,28 +80,28 @@
             android:gravity="center"
             android:layout_height="30dp">
         <TextView
-            android:id="@+id/flag_share"
+            android:id="@+id/flag_courseType"
             style="@style/item_flag_attention_style"
             android:layout_marginRight="5dp"
             android:background="@color/orange"
             android:text="享" />
 
         <TextView
-            android:id="@+id/flag_share_level"
+            android:id="@+id/flag_shareLevel"
             style="@style/item_flag_attention_style"
             android:layout_marginRight="5dp"
             android:background="@color/red"
             android:text="部" />
 
         <TextView
-            android:id="@+id/flag_person"
+            android:id="@+id/flag_isTeacher"
             style="@style/item_flag_attention_style"
             android:layout_marginRight="5dp"
             android:background="@color/green"
             android:text="讲" />
 
         <TextView
-            android:id="@+id/flag_exam"
+            android:id="@+id/flag_wetherExam"
             style="@style/item_flag_attention_style"
             android:background="@color/lightblue"
             android:text="考" />

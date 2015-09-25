@@ -33,6 +33,7 @@ public class UpdateClassListHelper {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
             String operater = jsonObject.getString("operate");
+            Log.e("wj operater",operater);
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
             switch (type){
                 case "course":
