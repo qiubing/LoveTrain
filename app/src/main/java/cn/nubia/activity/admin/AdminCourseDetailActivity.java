@@ -50,7 +50,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
-    private String startActivity = "";
 
 
     @Override
@@ -76,13 +75,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
-       /* if(Constant.IS_ADMIN==false){
-            signUpAdminBtn.setVisibility(View.GONE);
-            alterCourseBtn.setVisibility(View.GONE);
-            lessonAddBtn.setVisibility(View.GONE);
-            courseDeleteBtn.setVisibility(View.GONE);
-            mEnrollSeniorCourse.setVisibility(View.VISIBLE);
-        }*/
 
 
         /**获取启动该Activity的Intent*/
@@ -90,7 +82,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText(mCourseItem.getName() + "课程管理");
-        startActivity = intent.getStringExtra("startActivity");
+        String startActivity = intent.getStringExtra("startActivity");
         Log.i("huhu", "AdminCourceDetail: " + startActivity);
 
         switch (startActivity) {
