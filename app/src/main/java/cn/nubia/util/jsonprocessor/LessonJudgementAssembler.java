@@ -20,11 +20,7 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
             List<LessonJudgementMsg> itemList = new ArrayList<LessonJudgementMsg>();
             for(int arrayIndex=0;arrayIndex<jsonArray.length();arrayIndex++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(arrayIndex);
-                String objectType = jsonObject.getString("type");
-                switch (objectType) {
-                    case "judgement":
-                        itemList.add(makeLessonJudge(jsonObject.getJSONObject("detail")));
-                }
+                itemList.add(makeLessonJudge(jsonObject.getJSONObject("detail")));
             }
             return itemList;
         } catch (JSONException e) {
