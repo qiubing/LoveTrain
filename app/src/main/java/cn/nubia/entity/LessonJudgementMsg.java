@@ -143,7 +143,7 @@ public class LessonJudgementMsg extends Paramable{
         params.add("expression_ability", String.valueOf(mExpressionAbility));
         params.add("communication", String.valueOf(mCommunication));
         params.add("organization", String.valueOf(mOrganization));
-        params.add("comprehensive_evaluation", mComprehensiveEvaluation);
+        params.add("comprehensive_evalution", mComprehensiveEvaluation);
         params.add("suggestion", mSuggestion);
         params.add("user_id",mUserID);
 

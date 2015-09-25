@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 
 import com.loopj.android.http.RequestParams;
 
@@ -155,7 +153,6 @@ public class AdminCourseAddTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("HeXiao", "" + response.toString());
                 Log.e("HeXiaoServer", "" + response.toString());
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);

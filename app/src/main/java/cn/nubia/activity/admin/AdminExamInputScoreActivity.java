@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.AdminExamScoreInputAdapter;
@@ -26,8 +24,8 @@ import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 
 public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
-    private ExamItem mExamItem;
-    private List<ExamScoreMsg> mExamScoreList;
+//    private ExamItem mExamItem;
+//    private List<ExamScoreMsg> mExamScoreList;
     private  List<ExamScoreMsg> mModifiedExamScoreList;
     private int mResultNum = 0;
     private boolean mNextPressReady;
@@ -56,7 +54,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         mNextPressReady = true;
 
         Intent intent =getIntent();
-        mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
+        ExamItem mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
 
         final ExamMsg examMsg = new ExamMsg();
         examMsg.setExamIndex(mExamItem.getIndex());
@@ -151,7 +149,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             }else {
                 String operateResult = (String) response.get("operateResult");
                 if (operateResult.equals("success")) {
-                    mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
+                    List<ExamScoreMsg> mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
 
                     if (mExamScoreList != null) {
                         mExamScoreAdapter =

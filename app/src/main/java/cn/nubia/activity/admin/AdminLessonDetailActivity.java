@@ -40,7 +40,6 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  */
 public class AdminLessonDetailActivity extends Activity implements View.OnClickListener {
 
-    private String startActivity = "";
     private String  status = "";
     /**
      * 从前一个页面传过来的LessonItem对象
@@ -78,7 +77,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
-        startActivity = intent.getStringExtra("startActivity");
+        String startActivity = intent.getStringExtra("startActivity");
         Log.i("huhu", "AdminLessonDetail" + startActivity);
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText(lessonItem.getName() + "课时管理");

@@ -51,6 +51,7 @@
                 android:id="@+id/add_course_courseName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -69,6 +70,7 @@
                 android:id="@+id/add_course_courseDesc_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true" />
 
         </TableRow>
@@ -126,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:gravity="center_horizontal"
                 android:inputType="number"/>
 
         </TableRow>
@@ -146,6 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:gravity="center_horizontal"
                 android:inputType="number"/>
 
         </TableRow>
