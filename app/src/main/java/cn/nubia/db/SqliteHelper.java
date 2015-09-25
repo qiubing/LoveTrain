@@ -112,7 +112,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     void onDropDatabase(SQLiteDatabase db){
-        Log.e("wj","onDropDatabase called!");
         db.execSQL("DELETE FROM  " + TB_NAME_CLASS);
         db.execSQL("DELETE FROM  " + TB_NAME_LESSON);
         db.execSQL("DELETE FROM  " + TB_NAME_EXAM);
