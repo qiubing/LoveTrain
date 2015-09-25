@@ -6,10 +6,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.RequestParams;
 
@@ -136,6 +139,11 @@ public class AdminCourseAddTabActivity extends Activity {
      * 从网络加载数据
      */
     private void loadData() {
+
+//        ImageView loading_iv = (ImageView) getParent().getParent().findViewById(R.id.loading_iv);
+//        loading_iv.setVisibility(View.VISIBLE);
+        Log.i("huhu", getLocalClassName() + this + this.toString()+
+                getParent().getLocalClassName() + getParent().getParent().getLocalClassName() );
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.add("course_index", "1");
