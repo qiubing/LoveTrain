@@ -6,6 +6,7 @@ import java.util.Calendar;
  * Created by 胡立 on 2015/9/21.
  */
 public class TimeFormatConversion {
+
     public static String toTimeDate(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
