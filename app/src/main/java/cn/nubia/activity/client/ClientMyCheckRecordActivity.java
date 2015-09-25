@@ -103,11 +103,9 @@ public class ClientMyCheckRecordActivity extends Activity {
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
                 } else {
-                    Log.e(TAG, "VIEW_LOADFAILURE");
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
-                Log.e(TAG, "VIEW_LOADFAILURE");
                 e.printStackTrace();
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
             }
@@ -116,7 +114,6 @@ public class ClientMyCheckRecordActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Toast.makeText(ClientMyCheckRecordActivity.this, "请求失败", Toast.LENGTH_LONG).show();
-            Log.e(TAG, TAG + ":onFailure");
         }
     };
 

@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/course_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
@@ -23,21 +23,21 @@
 
         <TextView
             android:id="@+id/course_cause"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:gravity="center"
             android:paddingBottom="11dp"
             android:paddingTop="11dp"
             android:textColor="@color/blue"
-            android:text="签到" />
+            android:text="签到成功" />
 
         <TextView
             android:id="@+id/course_score"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="0.2dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:gravity="center"
             android:paddingBottom="11dp"
             android:paddingTop="11dp"
