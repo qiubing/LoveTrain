@@ -83,6 +83,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
 
     @Override
     public void back(View view) {
+
         this.finish();
     }
 
@@ -310,7 +311,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
      * param uri
      */
     private void startPhotoZoom(Uri uri) {
-        Log.e("startPhotoZoom", "startPhotoZoom");
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         // 设置裁剪

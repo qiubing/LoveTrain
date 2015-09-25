@@ -21,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import cn.nubia.activity.R;
@@ -98,7 +100,6 @@ public class AdminSharePassTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
-                    Log.e(TAG, "onSuccess:" + response.toString());
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
@@ -130,8 +131,8 @@ public class AdminSharePassTabActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
+            Collections.reverse(courseList);
             return courseList;
         }
 

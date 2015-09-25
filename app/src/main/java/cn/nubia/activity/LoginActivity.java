@@ -146,6 +146,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String lastLoginID = ProcessSPData.getStringFromSP(this, "userID");
         if (!(lastLoginID != null && lastLoginID.equals(userID))) {
             DbUtil.getInstance(LoginActivity.this).dropDatabase();
+            Constant.initRequestParams();
         }
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override

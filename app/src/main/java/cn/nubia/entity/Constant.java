@@ -23,6 +23,22 @@ public class Constant {
     public static final boolean SHOW_HEADER = true;
     public static final boolean SHOW_FOOTER = false;
 
+    public static long sLastCourseRecordModifyTime;     //记录最近修改时间用于增量更新
+    public static long slastLessonRecordModifyTime;
+    public static long slastExamRecordModifyTime;
+    public static int sLastLessonIndex;
+    public static int sLastCourseIndex;
+    public static int sLastExamIndex;
+
+    public static void initRequestParams(){
+        sLastCourseRecordModifyTime = 0;
+        slastLessonRecordModifyTime = 0;
+        slastExamRecordModifyTime = 0;
+        sLastLessonIndex = 0;
+        sLastCourseIndex = 0;
+        sLastExamIndex = 0;
+    }
+
     public static final String IS_FIRST_RUN = "isFirstRun";
     /**
      * 设备id

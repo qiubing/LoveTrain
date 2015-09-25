@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import cn.nubia.db.DbUtil;
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.Item;
@@ -33,7 +34,6 @@ public class UpdateClassListHelper {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
             String operater = jsonObject.getString("operate");
-            Log.e("wj operater",operater);
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
             switch (type){
                 case "course":
@@ -43,7 +43,6 @@ public class UpdateClassListHelper {
                     break;
                 case "lesson":
                     item = makeLesson(type,operater,jsonObjectDetail);
-                    Log.e("test",""+item.getIndex());
                     break;
                 default:
                     break;
@@ -131,6 +130,13 @@ public class UpdateClassListHelper {
             String operate = jsonObject.getString("operate");
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
             item = makeExam(operate,jsonObjectDetail);
+
+            /***更新记录最新索引和时间***/
+            Constant.sLastExamIndex = item.getIndex() > Constant.sLastExamIndex
+                    ?Constant.sLastExamIndex:Constant.sLastExamIndex;
+            Constant.slastExamRecordModifyTime = item.getRecordModifyTime() > Constant.slastExamRecordModifyTime
+                    ?item.getRecordModifyTime():Constant.slastExamRecordModifyTime;
+
             updateExamItem(operate, item, examList);
         }
     }
@@ -145,6 +151,10 @@ public class UpdateClassListHelper {
             case "share":
             case "senior":
                 if (item instanceof CourseItem){
+                    Constant.sLastCourseRecordModifyTime = ((CourseItem) item).getRecordModifyTime() >  Constant.sLastCourseRecordModifyTime
+                            ?((CourseItem) item).getRecordModifyTime() : Constant.sLastCourseRecordModifyTime;
+                    Constant.sLastCourseIndex = item.getIndex() > Constant.sLastCourseIndex ? item.getIndex():Constant.sLastCourseIndex;
+
                     updateCourseItem(item.getOperator(), (CourseItem) item, list, tableName);
                 }
                 break;
@@ -152,6 +162,10 @@ public class UpdateClassListHelper {
                 if (item instanceof LessonItem){
                     int index = binarySearch(list, ((LessonItem) item).getCourseIndex());
                     if (index >= 0) {
+                        Constant.slastLessonRecordModifyTime = ((LessonItem) item).getRecordModifyTime() > Constant.slastLessonRecordModifyTime
+                                ?((LessonItem) item).getRecordModifyTime():Constant.slastLessonRecordModifyTime;
+                        Constant.sLastLessonIndex = item.getIndex() > Constant.sLastLessonIndex?item.getIndex():Constant.sLastLessonIndex;
+
                         CourseItem courseItem = list.get(index);
                         updateLessonItem(item.getOperator(), (LessonItem) item, courseItem.getLessonList());
                     }
@@ -191,8 +205,6 @@ public class UpdateClassListHelper {
                 }
                 break;
             case "delete":
-                Log.e("wj","delete Courseitem"+item.getName()+item.getIndex());
-
                 if (listIndex >= 0){
                     list.remove(listIndex);
                     DbUtil.getInstance(null).deleteCourseItem(item, tableName);
@@ -244,8 +256,6 @@ public class UpdateClassListHelper {
                     return;
                 }else {
                     //如果不存在，返回负值
-                    Log.e("wj",item.getName()+item.getIndex());
-
                     list.add(-(listIndex + 1), item);
                     DbUtil.getInstance(null).insertExamItem(item);
                 }

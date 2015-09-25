@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.LessonItem;
@@ -45,6 +46,7 @@ public class DbUtil {
     }
 
     public void dropDatabase(){
+        Log.e("wj","dropDatabase");
         dbHelper.onDropDatabase(db);
     }
 
@@ -109,7 +111,7 @@ public class DbUtil {
     }
 
     public int deleteCourseItem(CourseItem lessonItem, String tableName) {
-        Log.e("wj","deleteCourseItem");
+        Log.e("wj", "deleteCourseItem");
         //删除课时表
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
@@ -222,10 +224,26 @@ public class DbUtil {
             courseItem.setShareType(cursor.getShort(cursor.getColumnIndex(CourseItem.SHARE_TYPE)));
             courseItem.setType(cursor.getString(cursor.getColumnIndex(CourseItem.TYPE)));
             List<LessonItem> lessonItemList = getLessonList(courseItem.getIndex());
+
+            /**更新课时索引 升序排列**/
+            if(lessonItemList.size()>0){
+                LessonItem lastLessonItem = lessonItemList.get(lessonItemList.size()-1);
+                Constant.sLastLessonIndex = lastLessonItem.getIndex() > Constant.sLastLessonIndex
+                        ?lastLessonItem.getIndex():Constant.sLastLessonIndex;
+            }
+            /**更新课程修改时间**/
+            Constant.sLastCourseRecordModifyTime = courseItem.getRecordModifyTime() > Constant.sLastCourseRecordModifyTime
+                    ?courseItem.getRecordModifyTime():Constant.sLastCourseRecordModifyTime;
+
             courseItem.setLessonList(lessonItemList);
             courseList.add(courseItem);
             cursor.moveToNext();
         }
+        /**更新课程索引 降序排列**/
+        if(courseList.size() > 0){
+            Constant.sLastCourseIndex = courseList.get(0).getIndex();
+        }
+
         cursor.close();
         return courseList;
     }
@@ -254,6 +272,11 @@ public class DbUtil {
             lessonItem.setTeacherName(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_NAME)));
             lessonItem.setDescription(cursor.getString(cursor.getColumnIndex(LessonItem.DESCRIPTION)));
             lessonItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(LessonItem.RECORD_MODIFY_TIME)));
+
+            /**更新课时修改时间和索引**/
+            Constant.slastLessonRecordModifyTime = lessonItem.getRecordModifyTime() > Constant.slastLessonRecordModifyTime
+                    ?lessonItem.getRecordModifyTime():Constant.slastLessonRecordModifyTime;
+
             lessonList.add(lessonItem);
             cursor.moveToNext();
         }
@@ -281,10 +304,31 @@ public class DbUtil {
             examItem.setLocale(cursor.getString(cursor.getColumnIndex(ExamItem.LOCALE)));
             examItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
             examItem.setStartTime(cursor.getLong(cursor.getColumnIndex(LessonItem.START_TIME)));
+            /**更新考试记录最近时间**/
+            Constant.slastExamRecordModifyTime = examItem.getRecordModifyTime() > Constant.slastExamRecordModifyTime
+                    ?examItem.getRecordModifyTime() : Constant.slastExamRecordModifyTime;
+
             examItemList.add(examItem);
             cursor.moveToNext();
         }
         cursor.close();
+
+        /**更新课程索引 降序排列**/
+        if(examItemList.size() > 0){
+            Constant.sLastExamIndex = examItemList.get(0).getIndex();
+        }
         return examItemList;
+    }
+
+
+    public long getParamFromDB(String tableName,String columnStr,boolean isDESC) {
+        String sortType = isDESC?"DESC":"ASC";
+        Cursor cursor = db.query(tableName, new String[]{columnStr}, null, null, null,
+                null, columnStr + "  " + sortType);
+        if(cursor == null || cursor.isClosed()){
+            return -1;
+        }
+        cursor.moveToFirst();
+        return cursor.getLong(cursor.getColumnIndex(columnStr));
     }
 }

@@ -115,7 +115,6 @@ public class AdminCourseAddTabActivity extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Bundle bundle = new Bundle();
                 LessonItem lessonItem = mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
-
                 bundle.putSerializable("LessonItem", lessonItem);
                 Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
@@ -144,12 +143,10 @@ public class AdminCourseAddTabActivity extends Activity {
     private void loadData() {
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.add("course_index", "1");
-        requestParams.add("course_record_modify_time", "1245545456456");
-        requestParams.add("lesson_index", "1");
-        requestParams.add("lesson_record_modify_time", "1245545456456");
-
-        Log.e("requestParams", requestParams.toString());
+        requestParams.put("course_index", Constant.sLastCourseIndex);
+        requestParams.put("course_record_modify_time", Constant.sLastCourseRecordModifyTime);
+        requestParams.put("lesson_index", Constant.sLastLessonIndex);
+        requestParams.put("lesson_record_modify_time", Constant.slastLessonRecordModifyTime);
         String url = Constant.BASE_URL + "course/get_courses_lessons.do";
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
@@ -161,7 +158,6 @@ public class AdminCourseAddTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("HeXiaoServer", "" + response.toString());
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
@@ -173,7 +169,6 @@ public class AdminCourseAddTabActivity extends Activity {
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("TEST statusCode json", e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
             }
@@ -183,7 +178,6 @@ public class AdminCourseAddTabActivity extends Activity {
         @SuppressWarnings("deprecation")
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
@@ -221,8 +215,8 @@ public class AdminCourseAddTabActivity extends Activity {
     private class AsyncLoadDBTask extends AsyncTask<Void, Void, List<CourseItem>> {
         @Override
         protected List<CourseItem> doInBackground(Void... params) {
-            DbUtil dbUtil = DbUtil.getInstance(AdminCourseAddTabActivity.this);
-            return dbUtil.getCourseList(SqliteHelper.TB_NAME_CLASS);
+            return DbUtil.getInstance(AdminCourseAddTabActivity.this)
+                    .getCourseList(SqliteHelper.TB_NAME_CLASS);
         }
 
         @Override
@@ -230,13 +224,9 @@ public class AdminCourseAddTabActivity extends Activity {
             if (courseList != null) {
                 mCourseItemList.addAll(courseList);
             }
-            for (int i = 0; i < mCourseItemList.size(); i++) {
-                Log.e("HeXiao", mCourseItemList.get(i).getType());
+            int listLength = mCourseItemList.size();
+            for (int i = 0; i < listLength; i++) {
                 String type = mCourseItemList.get(i).getType().equals("senior")? "高级课程" : "普通课程";
-                Log.e("qiubing","course type: " + type + ",couse index: " + mCourseItemList.get(i).getIndex());
-            }
-            for (int i = 0; i < mCourseItemList.size(); i++) {
-                Log.e("HeXiaoType", mCourseItemList.get(i).getType());
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
