@@ -124,7 +124,6 @@ public class ExamAddTabActivity extends Activity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("wj onSuccess","ExamAddTab"+response.toString());
                 if(response.getInt("code") != 0){
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
@@ -139,15 +138,12 @@ public class ExamAddTabActivity extends Activity {
             } catch (JSONException e) {
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 e.printStackTrace();
-
-                Log.e("wj JSONException", "ExamAddTab" + response.toString());
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("wj onFailure", "ExamAddTab" + throwable.toString());
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };

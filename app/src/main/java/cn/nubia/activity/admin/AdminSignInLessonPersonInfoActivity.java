@@ -26,6 +26,7 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
  * Created by WJ on 2015/9/22.
@@ -85,8 +86,11 @@ public class AdminSignInLessonPersonInfoActivity extends Activity implements Vie
                     JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("detail");
                     Map<String, Object> listItem = new HashMap<>();
                     listItem.put("user_name",jsonObject.getString("user_name"));
-                    listItem.put("user_id",jsonObject.getString("user_id"));
-                    listItem.put("check_time",jsonObject.getString("check_time"));
+                    listItem.put("user_id", jsonObject.getString("user_id"));
+                    if(!jsonObject.isNull("check_time")){
+                        listItem.put("check_time",TimeFormatConversion.
+                                toDateTime(Long.valueOf(jsonObject.getString("check_time"))));
+                    }
                     listItems.add(listItem);
                 }
 
