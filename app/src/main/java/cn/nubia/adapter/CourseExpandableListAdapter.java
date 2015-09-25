@@ -162,8 +162,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
             groupViewHolder = new GroupViewHolder();
 
-//            groupViewHolder.mAddLessonTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_addLessonTextView);
-//            groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
+
             groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
@@ -174,7 +173,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
             groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_isTeacher);
             groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_wetherExam);
-
 
             convertView.setTag(groupViewHolder);
         } else {
@@ -361,7 +359,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     static class GroupViewHolder {
         TextView mCourseNameTextView;
-//        ImageView mAddLessonTextView;
         ImageView mExpendedIV;
         ImageView mCourseDetailTextView;
         TextView mSignUpExamTextView;
