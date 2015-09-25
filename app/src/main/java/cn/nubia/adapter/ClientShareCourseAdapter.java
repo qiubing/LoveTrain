@@ -58,7 +58,7 @@ public class ClientShareCourseAdapter extends BaseAdapter {
         viewHold.mLessonName.setText(mCourseList.get(position).getCourseName());
         Date date = new Date();
         date.setTime(mCourseList.get(position).getStartTime());
-        viewHold.mDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(date) + " " +
+        viewHold.mDate.setText("分享地点:"+mCourseList.get(position).getLocale()+"\n分享时间:"+new SimpleDateFormat("yyyy-MM-dd").format(date) + " " +
                 (new SimpleDateFormat("HH:mm").format(date)));
         //viewHold.mTime.setText(new SimpleDateFormat("HH:mm").format(date));
         return convertView;

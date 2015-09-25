@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_inside_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/item_layout_border"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_bg"
-        android:orientation="horizontal"
-        android:paddingBottom="0.1dp" >
+    <View
+        android:id="@+id/view"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"></View>
 
-        <TextView
-            android:id="@+id/exam_course_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingBottom="11dp"
-            android:paddingTop="11dp"
-            android:text="Java 基础一" />
+    <ImageView
+        android:id="@+id/item_layout_imageview"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/view"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_exam" />
 
-        <TextView
-            android:id="@+id/exam_score_one"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="0.2dp"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:paddingBottom="11dp"
-            android:paddingTop="11dp"
-            android:singleLine="true"
-            android:text="80" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/exam_course_title"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="java基础一"
+        android:textSize="@dimen/textSize22" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/exam_score_one"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="0.2dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:paddingRight="15dp"
+        android:layout_alignParentRight="true"
+        android:textSize="@dimen/textSize22"
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp"
+        android:singleLine="true"
+        android:text="80" />
+
+</RelativeLayout>
