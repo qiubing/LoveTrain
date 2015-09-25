@@ -104,13 +104,13 @@ public class DbUtil {
     }
 
     public int deleteCourseItem(CourseItem lessonItem, String tableName) {
+        Log.e("wj","deleteCourseItem");
         //删除课时表
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
 
         Log.e(TAG, "已删除课时表行数：" + rows);
         return db.delete(tableName, CourseItem.COURSE_INDEX + "=?",
-
                 new String[]{String.valueOf(lessonItem.getIndex())});
     }
 

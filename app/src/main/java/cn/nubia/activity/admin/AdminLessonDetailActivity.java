@@ -82,6 +82,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Log.i("huhu", "AdminLessonDetail" + startActivity);
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText(lessonItem.getName() + "课时管理");
+        signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
 
         String teacherID = lessonItem.getTeacherID();
         String myID = Constant.user.getUserID();

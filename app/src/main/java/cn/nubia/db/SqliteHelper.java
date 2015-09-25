@@ -112,11 +112,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     void onDropDatabase(SQLiteDatabase db){
-        db.execSQL("DELETE FROM " + TB_NAME_CLASS);
-        db.execSQL("DELETE FROM " + TB_NAME_LESSON);
-        db.execSQL("DELETE FROM " + TB_NAME_EXAM);
-        db.execSQL("DELETE FROM " + TB_NAME_MY_CLASS_STU);
-        db.execSQL("DELETE FROM" + TB_NAME_MY_CLASS_TEACHER);
+        Log.e("wj","onDropDatabase called!");
+        db.execSQL("DELETE FROM  " + TB_NAME_CLASS);
+        db.execSQL("DELETE FROM  " + TB_NAME_LESSON);
+        db.execSQL("DELETE FROM  " + TB_NAME_EXAM);
+        db.execSQL("DELETE FROM  " + TB_NAME_MY_CLASS_STU);
+        db.execSQL("DELETE FROM  " + TB_NAME_MY_CLASS_TEACHER);
     }
 
     @Override

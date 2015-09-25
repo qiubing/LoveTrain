@@ -168,6 +168,8 @@ public class UpdateClassListHelper {
      * @param item  课程内容
      * */
     private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list,String tableName){
+        Log.e("wj","updateCourseItem"+item.getName()+item.getOperator());
+
         int listIndex = binarySearch(list, item, false);
         switch (operate){
             case "insert":
@@ -190,6 +192,8 @@ public class UpdateClassListHelper {
                 }
                 break;
             case "delete":
+                Log.e("wj","delete Courseitem"+item.getName()+item.getIndex());
+
                 if (listIndex >= 0){
                     list.remove(listIndex);
                     DbUtil.getInstance(null).deleteCourseItem(item, tableName);
@@ -201,6 +205,8 @@ public class UpdateClassListHelper {
     }
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
+        Log.e("wj","updateLessonItem"+item.getName()+item.getOperator());
+
         int listIndex = binarySearch(list, item, true);
         switch (operate){
             case "insert":
@@ -232,7 +238,6 @@ public class UpdateClassListHelper {
     }
 
     private static void updateExamItem(String operate,ExamItem item, List<ExamItem> list){
-        Log.e("wj ExamItem",item.getName()+item.getIndex());
         int listIndex = binarySearch(list, item, false);
         switch (operate){
             case "insert":
