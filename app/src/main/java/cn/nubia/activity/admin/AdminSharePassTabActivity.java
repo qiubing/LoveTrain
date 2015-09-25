@@ -31,7 +31,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 /**
  * Created by 胡立 on 2015/9/7.

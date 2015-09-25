@@ -33,11 +33,9 @@
         <Button
             android:id="@+id/my_sharecourse_detail_display_modifybutton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/blue"
-            android:gravity="center"
-            android:textSize="@dimen/itemcontent_textsize"
+            style="@style/CustomBigLoginButton"
+            android:textSize="20sp"
             android:text="@string/modify_button" />
 
     </RelativeLayout>

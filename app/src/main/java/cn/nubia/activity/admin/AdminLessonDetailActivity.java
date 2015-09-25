@@ -235,11 +235,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 String contentString = String.valueOf(lessonItem.getIndex());
                 if (!contentString.equals("")) {
                     //获取需要插入的头像logo
-                    Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.PORTRAIT);
+                    //Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT);
                     Bitmap qrCodeBitmap = null;
                     try {
                         //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-                        qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
+                        //qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
+                        qrCodeBitmap = EncodingHandler.createQRCode(contentString,350);
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }

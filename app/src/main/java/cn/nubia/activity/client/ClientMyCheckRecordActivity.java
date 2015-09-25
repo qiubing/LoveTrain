@@ -32,7 +32,7 @@ import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
+
 
 /**
  * ClassName:
@@ -43,7 +43,6 @@ import cn.nubia.util.Utils;
 public class ClientMyCheckRecordActivity extends Activity {
     private static final String TAG = "MyCheckRecord";
     private List<CheckRecordItem> mCheckList;//签到记录表
-    private ListView mListView;
     private ClientCheckRecordAdapter mAdapter;
 
     private RefreshLayout mRefreshLayout;
@@ -65,16 +64,16 @@ public class ClientMyCheckRecordActivity extends Activity {
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
         text.setText("我的签到记录");
 
+        mCheckList = new ArrayList<>();
+        ListView mListView = (ListView) findViewById(R.id.check_detail);
+        mAdapter = new ClientCheckRecordAdapter(mCheckList, ClientMyCheckRecordActivity.this);
+        mListView.setAdapter(mAdapter);
+
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_mycheck);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_mycheck);
         RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_mycheck);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
-
-        mCheckList = new ArrayList<>();
-        mListView = (ListView) findViewById(R.id.check_detail);
-        mAdapter = new ClientCheckRecordAdapter(mCheckList, ClientMyCheckRecordActivity.this);
-        mListView.setAdapter(mAdapter);
 
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -152,7 +151,7 @@ public class ClientMyCheckRecordActivity extends Activity {
                 mCheckList.addAll(checkRecordItems);
             }
             mAdapter.notifyDataSetChanged();
-            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
+//            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 

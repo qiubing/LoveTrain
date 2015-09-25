@@ -23,16 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.client.ClientMyCheckRecordActivity;
 import cn.nubia.adapter.SignUpManageAdapter;
 import cn.nubia.component.RefreshLayout;
-import cn.nubia.entity.CheckRecordItem;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.SignUpItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 /**
  * Created by hexiao on 2015/9/11.
@@ -41,7 +38,6 @@ public class AdminSignUpManageActivity extends Activity {
     private static final String TAG = "SignUpManage";
     private ArrayList<SignUpItem> mSignUpList;
     private CourseItem mCourseItem;
-    private ListView mListView;
     private SignUpManageAdapter mSignUpAdapter;
 
     private RefreshLayout mRefreshLayout;
@@ -67,7 +63,7 @@ public class AdminSignUpManageActivity extends Activity {
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         mSignUpList = new ArrayList<>();
-        mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
+        ListView mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
         mSignUpAdapter = new SignUpManageAdapter(mSignUpList, AdminSignUpManageActivity.this);
         mListView.setAdapter(mSignUpAdapter);
 
@@ -148,7 +144,7 @@ public class AdminSignUpManageActivity extends Activity {
                 mSignUpList.addAll(signUpItems);
             }
             mSignUpAdapter.notifyDataSetChanged();
-            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
+            //Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 

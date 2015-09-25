@@ -5,13 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+
 import com.loopj.android.http.RequestParams;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -32,7 +28,7 @@ public class Utils {
      *
      * @param listView 需要设置的listView
      */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
+    /*public static void setListViewHeightBasedOnChildren(ListView listView) {
         if (listView == null) return;
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -50,7 +46,7 @@ public class Utils {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-    }
+    }*/
 
     /**
      * 保存文件到SD卡中
@@ -117,8 +113,7 @@ public class Utils {
                 File mFile = new File(path);
                 //文件是否存在
                 if (mFile.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
-                    return bitmap;
+                    return BitmapFactory.decodeFile(path);
                 }
             }
         } catch (Exception e) {

@@ -24,7 +24,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamResultItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.util.Utils;
 
 /**
  * Author: qiubing
@@ -33,7 +32,6 @@ import cn.nubia.util.Utils;
 
 public class ClientExamScoreActivity extends Activity {
     private static final String TAG = "ExamScore";
-    private ListView mListView;
     private List<ExamResultItem> mResultList;
     private ClientExamScoreAdapter mAdapter;
 
@@ -60,7 +58,7 @@ public class ClientExamScoreActivity extends Activity {
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         mResultList = new ArrayList<>();
-        mListView = (ListView) findViewById(R.id.exam_score_detail);
+        ListView mListView = (ListView) findViewById(R.id.exam_score_detail);
         mAdapter = new ClientExamScoreAdapter(mResultList, ClientExamScoreActivity.this);
         mListView.setAdapter(mAdapter);
 
@@ -138,7 +136,7 @@ public class ClientExamScoreActivity extends Activity {
                 mResultList.addAll(examResultItems);
             }
             mAdapter.notifyDataSetChanged();
-            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
+//            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 

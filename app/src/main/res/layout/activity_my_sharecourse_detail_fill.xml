@@ -28,6 +28,15 @@
             android:text="@string/activity_my_sharecourse_detail_display_title_textview"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/itemname_textsize" />
+
+        <Button
+            android:id="@+id/my_sharecourse_detail_fill_confirmbutton"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            style="@style/CustomBigLoginButton"
+            android:textSize="20sp"
+            android:text="@string/confirm_button" />
+
     </RelativeLayout>
 
     <ScrollView

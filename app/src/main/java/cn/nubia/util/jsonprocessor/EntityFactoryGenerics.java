@@ -38,15 +38,19 @@ public class EntityFactoryGenerics {
                 mAssembler = new UserInfoAssembler();
                 break;
             case CHECKRECORD:
+                //TODO:已经废弃不用了
                 mAssembler = new CheckRecordAssembler();
                 break;
             case COURSEINTEGRATION:
+                //TODO:已经废弃不用了
                 mAssembler = new CourseIntegrationAssembler();
                 break;
             case EXAMRESULT:
+                //TODO:已经废弃不用了
                 mAssembler = new ExamResultAssembler();
                 break;
             case SHARECOURSE:
+                //TODO:已经废弃不用了
                 mAssembler = new ShareCourseAssembler();
                 break;
         }

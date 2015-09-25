@@ -114,26 +114,20 @@
                 <Button
                     android:id="@+id/btn_pass"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="4dp"
-                    android:background="@color/button_gray_pressed"
-                    android:textColor="@color/blue"
+                    style="@style/CustomBigLoginButton"
+                    android:textSize="20sp"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="审核通过" />
                 <Button
                     android:id="@+id/btn_reject"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@color/button_gray_pressed"
-                    android:textColor="@color/blue"
+                    style="@style/CustomBigLoginButton"
+                    android:textSize="20sp"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="否决" />
             </LinearLayout>
         </LinearLayout>

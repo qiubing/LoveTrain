@@ -50,7 +50,6 @@ public class ClientShareCourseAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.activity_user_share_course_detail_item,null);
             viewHold.mLessonName = (TextView) convertView.findViewById(R.id.share_course_title);
             viewHold.mDate = (TextView) convertView.findViewById(R.id.share_course_date);
-            //viewHold.mTime = (TextView) convertView.findViewById(R.id.share_course_time);
             convertView.setTag(viewHold);
         }else {
             viewHold = (ViewHolder) convertView.getTag();
@@ -60,13 +59,11 @@ public class ClientShareCourseAdapter extends BaseAdapter {
         date.setTime(mCourseList.get(position).getStartTime());
         viewHold.mDate.setText("分享地点:"+mCourseList.get(position).getLocale()+"\n分享时间:"+new SimpleDateFormat("yyyy-MM-dd").format(date) + " " +
                 (new SimpleDateFormat("HH:mm").format(date)));
-        //viewHold.mTime.setText(new SimpleDateFormat("HH:mm").format(date));
         return convertView;
     }
 
     public final class ViewHolder{
         TextView mLessonName;
         TextView mDate;
-        //TextView mTime;
     }
 }
