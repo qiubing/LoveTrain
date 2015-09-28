@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/loading_iv"
-        android:layout_width="@dimen/dp87"
-        android:layout_height="@dimen/dp87"
+        android:layout_width="@dimen/dp75"
+        android:layout_height="@dimen/dp75"
         android:layout_toLeftOf="@+id/tv_title"
         android:layout_centerVertical="true"
         android:layout_marginRight="7dp"

@@ -2,14 +2,21 @@ package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -18,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
+
 
 /**管理员课程界面：Tab分页导航
  * admin_course_viewpager：布局为TabHost框架，最上面为TabWidget，废弃了FrameLayout，下面为ViewPager(代替FrameLayout，
@@ -33,26 +42,37 @@ import cn.nubia.activity.R;
  */
 public class AdminCourseActivity extends ActivityGroup {
     private LocalActivityManager manager;
-    private TabHost tabHost;
+    private ImageView loadingShow;
+    public class MyBroadCast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingShow.getDrawable();
+            if(intent.getStringExtra(Constant.COURCE).equals("visible")) {
+                loadingShow.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.COURCE).equals("gone")){
+                animationDrawable.stop();
+                loadingShow.setVisibility(View.GONE);
+            }
 
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
         ViewPager pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
+        //registerReceiver(new MyBroadCast(), intentFilter);
 
-
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.COURCE));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
-
-        Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
-        listViews.add(getView("A", i3));
-
-        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        TabHost tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
@@ -60,7 +80,11 @@ public class AdminCourseActivity extends ActivityGroup {
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("新增课程");
+        loadingShow = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
 
+        Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
+        listViews.add(getView("AA", i3));
+        Log.i("huhu", manager.getActivity("AA").toString());
 
         final Intent intent = new Intent(AdminCourseActivity.this, AdminAddCourseActivity.class);
         tvTab3.setOnClickListener(new OnClickListener() {
@@ -74,38 +98,6 @@ public class AdminCourseActivity extends ActivityGroup {
         tabHost.addTab(tabHost.newTabSpec("A").setIndicator(tabIndicator3)
                 .setContent(intent));
         pager.setAdapter(new MyPageAdapter(listViews));
-       /* pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // 当viewPager发生改变时，同时改变tabhost上面的currentTab
-                tabHost.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-            }
-        });
-
-        // 点击tabhost中的tab时，要切换下面的viewPager
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-
-                if ("A".equals(tabId)) {
-                    pager.setCurrentItem(0);
-                }
-                if ("B".equals(tabId)) {
-                    pager.setCurrentItem(1);
-                }
-                if ("C".equals(tabId)) {
-                    pager.setCurrentItem(2);
-                }
-            }
-        });*/
 
     }
 

@@ -1,19 +1,14 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
-import android.app.ActivityGroup;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TabHost;
 
 import com.loopj.android.http.RequestParams;
 
@@ -25,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -42,7 +38,7 @@ import cn.nubia.util.UpdateClassListHelper;
  * Created by 胡立 on 2015/9/7.
  */
 
-public class AdminCourseAddTabActivity extends ActivityGroup {
+public class AdminCourseAddTabActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
@@ -61,6 +57,12 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
         initView();
         initEvents();
     }
+
+    @Override
+    protected void onResume() {
+        Log.i("huhu", "onResume()");
+    }
+
 
     private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
@@ -127,14 +129,11 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
             }
         });
 
-        /*ImageView loading_iv = (ImageView)findViewById(R.id.loading_iv);
-        loading_iv.setVisibility(View.VISIBLE);
-        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
-        animationDrawable.start();*/
-        /****先从数据库中加载数据**/
+
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
         /****从网络中获取数据**/
+        loadShow();
         loadData();
     }
 
@@ -142,23 +141,6 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
      * 从网络加载数据
      */
     private void loadData() {
-       /* ImageView loading_iv = (ImageView)getParent().findViewById(R.id.loading_iv);
-        loading_iv.setVisibility(View.VISIBLE);
-        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
-        animationDrawable.start();*/
-        TabHost tabHost = (TabHost) getParent().findViewById(R.id.admin_course_tabhost);
-        tabHost.setup(this.getLocalActivityManager());
-        Log.i("huhu", getParent().getLocalClassName() + "\n"+tabHost.getTabWidget().getChildAt(0) +
-                tabHost.getTabWidget().getChildTabViewAt(0) + tabHost.getTabWidget().getChildCount() + tabHost.getTabWidget() +
-                + tabHost.getTabWidget().getTabCount() + "\n" +tabHost.getCurrentTabTag() + tabHost.getCurrentTabView());
-
-//        TabHost tabHost1 = ((AdminCourseActivity)getParent()).tabHost;
-        /*TabHost tabHost1 = AdminCourseActivity.tabHost;
-        tabHost1.setup(this.getLocalActivityManager());
-        Log.i("huhu", ""+tabHost1.getTabWidget().getChildAt(0) +
-                tabHost1.getTabWidget().getChildTabViewAt(0) + tabHost1.getTabWidget().getChildCount() +
-                tabHost1.getChildCount() + tabHost1.getChildAt(0));*/
-
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.put("course_index", Constant.sLastCourseIndex);
@@ -175,11 +157,13 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
     private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
             try {
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }
+                cancelLoadShow();
                 if (response.getInt("code") == 0 && response.getString("data") != null) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
@@ -189,6 +173,7 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
             } catch (JSONException e) {
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                cancelLoadShow();
             }
         }
 
@@ -197,6 +182,7 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
+            cancelLoadShow();
         }
     };
 
@@ -248,6 +234,20 @@ public class AdminCourseAddTabActivity extends ActivityGroup {
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.COURCE);
+        intent.putExtra(Constant.COURCE, "visible");
+        LocalBroadcastManager.getInstance(AdminCourseAddTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.COURCE);
+        intent.putExtra(Constant.COURCE, "gone");
+        LocalBroadcastManager.getInstance(AdminCourseAddTabActivity.this).sendBroadcast(intent);
     }
 
 }

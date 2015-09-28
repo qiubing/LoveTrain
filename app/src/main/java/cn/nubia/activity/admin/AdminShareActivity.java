@@ -2,22 +2,31 @@ package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 
 /**
  * Created by 胡立 on 2015/9/6.
@@ -27,6 +36,37 @@ public class AdminShareActivity extends ActivityGroup {
     private LocalActivityManager manager;
     private TabHost tabHost;
     private ViewPager pager;
+    private ImageView loadingWaite;
+    private ImageView loadingOk;
+    public class MyBroadCast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawableWaite = (AnimationDrawable)loadingWaite.getDrawable();
+            AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
+            switch (intent.getStringExtra(Constant.SHARE)) {
+                case "visibleWaite":
+                    loadingWaite.setVisibility(View.VISIBLE);
+                    animationDrawableWaite.start();
+                    break;
+                case "goneWaite":
+                    animationDrawableWaite.stop();
+                    loadingWaite.setVisibility(View.GONE);
+                    break;
+                case "visibleOk":
+                    loadingOk.setVisibility(View.VISIBLE);
+                    animationDrawableOk.start();
+                    break;
+                case "goneOk":
+                    animationDrawableOk.stop();
+                    loadingOk.setVisibility(View.GONE);
+                    break;
+                default:
+                    Toast.makeText(AdminShareActivity.this, "广播异常了", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +74,19 @@ public class AdminShareActivity extends ActivityGroup {
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.SHARE_WAITE));
+        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.SHARE_OK));
+
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
         manager = this.getLocalActivityManager();
         manager.dispatchCreate(savedInstanceState);
 
         Intent i2 = new Intent(AdminShareActivity.this, AdminShareCheckTabActivity.class);
-        listViews.add(getView("A", i2));
+        listViews.add(getView("AA", i2));
         Intent i3 = new Intent(AdminShareActivity.this, AdminSharePassTabActivity.class);
-        listViews.add(getView("B", i3));
+        listViews.add(getView("BA", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(AdminShareActivity.this.getLocalActivityManager());
@@ -52,12 +96,14 @@ public class AdminShareActivity extends ActivityGroup {
                 this).inflate(R.layout.layout_tab, null);
         TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
         tvTab2.setText("待审核");
+        loadingWaite = (ImageView)tabIndicator2.findViewById(R.id.loading_iv);
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
                 this).inflate(R.layout.layout_tab, null);
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("已批准");
+        loadingOk = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
 
         Intent intent = new Intent(AdminShareActivity.this, EmptyActivity.class);
 

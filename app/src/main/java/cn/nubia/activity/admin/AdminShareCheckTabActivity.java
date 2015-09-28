@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +13,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -139,6 +145,10 @@ public class AdminShareCheckTabActivity extends Activity {
      * 加载全部数据
      */
     private void loadData(){
+        Intent intent = new Intent();
+        intent.setAction(Constant.EXAM);
+        intent.putExtra(Constant.EXAM, "visible");
+        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
         //获取请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
         String SHARE_CHECK_URL = Constant.BASE_URL + "share/list_apply_course.do";
