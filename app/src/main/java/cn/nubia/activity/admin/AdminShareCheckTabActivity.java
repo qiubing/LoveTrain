@@ -50,6 +50,7 @@ public class AdminShareCheckTabActivity extends Activity {
         setContentView(R.layout.activity_admin_unapproved_share_course);
         initViews();
         initEvents();
+        loadShow();
         loadData();
     }
 
@@ -96,20 +97,24 @@ public class AdminShareCheckTabActivity extends Activity {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
+                    cancelLoadShow();
                 }else {
                     Log.e(TAG,"VIEW_LOADFAILURE");
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                    cancelLoadShow();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e(TAG, "VIEW_LOADFAILURE");
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                cancelLoadShow();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Toast.makeText(AdminShareCheckTabActivity.this,"请求失败",Toast.LENGTH_LONG).show();
+            cancelLoadShow();
         }
     };
 
@@ -145,10 +150,6 @@ public class AdminShareCheckTabActivity extends Activity {
      * 加载全部数据
      */
     private void loadData(){
-        Intent intent = new Intent();
-        intent.setAction(Constant.EXAM);
-        intent.putExtra(Constant.EXAM, "visible");
-        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
         //获取请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
         String SHARE_CHECK_URL = Constant.BASE_URL + "share/list_apply_course.do";
@@ -194,4 +195,17 @@ public class AdminShareCheckTabActivity extends Activity {
         loadData();
     }
 
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_WAITE);
+        intent.putExtra(Constant.SHARE, "visibleWaite");
+        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_WAITE);
+        intent.putExtra(Constant.SHARE, "goneWaite");
+        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
+    }
 }

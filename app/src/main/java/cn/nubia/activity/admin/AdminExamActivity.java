@@ -33,7 +33,8 @@ import cn.nubia.entity.Constant;
 public class AdminExamActivity extends ActivityGroup {
     private LocalActivityManager manager;
     private ImageView loadingShow;
-    public class MyBroadCast extends BroadcastReceiver {
+    private MyBroadCast myBroadCast;
+    private class MyBroadCast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             AnimationDrawable animationDrawable = (AnimationDrawable)loadingShow.getDrawable();
@@ -53,8 +54,9 @@ public class AdminExamActivity extends ActivityGroup {
         setContentView(R.layout.activity_admin_client_tab);
         ViewPager pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
 
+        myBroadCast = new MyBroadCast();
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.EXAM));
+        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.EXAM));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
@@ -178,5 +180,10 @@ public class AdminExamActivity extends ActivityGroup {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myBroadCast);
+    }
 }
 

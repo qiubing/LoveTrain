@@ -38,7 +38,9 @@ public class AdminShareActivity extends ActivityGroup {
     private ViewPager pager;
     private ImageView loadingWaite;
     private ImageView loadingOk;
-    public class MyBroadCast extends BroadcastReceiver {
+    private MyBroadCast myBroadCast;
+    private boolean isFirst = true;
+    private class MyBroadCast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             AnimationDrawable animationDrawableWaite = (AnimationDrawable)loadingWaite.getDrawable();
@@ -52,10 +54,10 @@ public class AdminShareActivity extends ActivityGroup {
                     animationDrawableWaite.stop();
                     loadingWaite.setVisibility(View.GONE);
                     break;
-                case "visibleOk":
+                /*case "visibleOk":
                     loadingOk.setVisibility(View.VISIBLE);
                     animationDrawableOk.start();
-                    break;
+                    break;*/
                 case "goneOk":
                     animationDrawableOk.stop();
                     loadingOk.setVisibility(View.GONE);
@@ -73,10 +75,10 @@ public class AdminShareActivity extends ActivityGroup {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
-
+        myBroadCast = new MyBroadCast();
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.SHARE_WAITE));
-        localBroadcastManager.registerReceiver(new MyBroadCast(), new IntentFilter(Constant.SHARE_OK));
+        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_WAITE));
+        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_OK));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
@@ -117,6 +119,12 @@ public class AdminShareActivity extends ActivityGroup {
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
                 tabHost.setCurrentTab(position);
+                if(isFirst == true && position == 1) {
+                    isFirst = false;
+                    AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
+                    loadingOk.setVisibility(View.VISIBLE);
+                    animationDrawableOk.start();
+                }
             }
 
             @Override
@@ -138,6 +146,12 @@ public class AdminShareActivity extends ActivityGroup {
                 }
                 if ("B".equals(tabId)) {
                     pager.setCurrentItem(1);
+                    if(isFirst == true ) {
+                        isFirst = false;
+                        AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
+                        loadingOk.setVisibility(View.VISIBLE);
+                        animationDrawableOk.start();
+                    }
                 }
             }
         });
@@ -178,4 +192,9 @@ public class AdminShareActivity extends ActivityGroup {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myBroadCast);
+    }
 }
