@@ -1,15 +1,19 @@
 package cn.nubia.activity.admin;
 
 import android.app.Activity;
+import android.app.ActivityGroup;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TabHost;
 
 import com.loopj.android.http.RequestParams;
 
@@ -38,7 +42,7 @@ import cn.nubia.util.UpdateClassListHelper;
  * Created by 胡立 on 2015/9/7.
  */
 
-public class AdminCourseAddTabActivity extends Activity {
+public class AdminCourseAddTabActivity extends ActivityGroup {
 
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
@@ -127,20 +131,34 @@ public class AdminCourseAddTabActivity extends Activity {
         loading_iv.setVisibility(View.VISIBLE);
         AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
         animationDrawable.start();*/
-        ProgressBar loading_iv = (ProgressBar)getParent().getParent().findViewById(R.id.loading_iv);
-        loading_iv.setVisibility(View.VISIBLE);
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
         /****从网络中获取数据**/
         loadData();
-        loading_iv.setVisibility(View.GONE);
     }
 
     /**
      * 从网络加载数据
      */
     private void loadData() {
+       /* ImageView loading_iv = (ImageView)getParent().findViewById(R.id.loading_iv);
+        loading_iv.setVisibility(View.VISIBLE);
+        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
+        animationDrawable.start();*/
+        TabHost tabHost = (TabHost) getParent().findViewById(R.id.admin_course_tabhost);
+        tabHost.setup(this.getLocalActivityManager());
+        Log.i("huhu", getParent().getLocalClassName() + "\n"+tabHost.getTabWidget().getChildAt(0) +
+                tabHost.getTabWidget().getChildTabViewAt(0) + tabHost.getTabWidget().getChildCount() + tabHost.getTabWidget() +
+                + tabHost.getTabWidget().getTabCount() + "\n" +tabHost.getCurrentTabTag() + tabHost.getCurrentTabView());
+
+//        TabHost tabHost1 = ((AdminCourseActivity)getParent()).tabHost;
+        /*TabHost tabHost1 = AdminCourseActivity.tabHost;
+        tabHost1.setup(this.getLocalActivityManager());
+        Log.i("huhu", ""+tabHost1.getTabWidget().getChildAt(0) +
+                tabHost1.getTabWidget().getChildTabViewAt(0) + tabHost1.getTabWidget().getChildCount() +
+                tabHost1.getChildCount() + tabHost1.getChildAt(0));*/
+
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.put("course_index", Constant.sLastCourseIndex);

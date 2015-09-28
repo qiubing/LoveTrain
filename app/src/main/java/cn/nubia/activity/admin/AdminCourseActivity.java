@@ -33,6 +33,7 @@ import cn.nubia.activity.R;
  */
 public class AdminCourseActivity extends ActivityGroup {
     private LocalActivityManager manager;
+    private TabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class AdminCourseActivity extends ActivityGroup {
         Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
         listViews.add(getView("A", i3));
 
-        TabHost tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(this.getLocalActivityManager());
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(

@@ -24,7 +24,7 @@
         android:textColor="@color/grayslate"
         android:textSize="20.0sp" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/loading_iv"
         android:layout_marginLeft="7dp"
         android:layout_width="@dimen/dp100"
@@ -33,7 +33,7 @@
         android:layout_centerVertical="true"
         style="@android:style/Widget.Holo.Light.ProgressBar.Large"
         android:visibility="gone"/>
-
+-->
     <!--<ImageView
         android:id="@+id/loading_iv"
         android:layout_width="@dimen/dp100"
