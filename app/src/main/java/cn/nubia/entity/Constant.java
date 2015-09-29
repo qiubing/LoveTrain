@@ -101,5 +101,8 @@ public class Constant {
      */
     public static final String PICTURE_PREFIX = "http://love-train-dev.nubia.cn/res/";
 
-
+    /**
+     * APP下载地址
+     */
+    public static final String APP_DOWNLOAD_URL = "http://www.pgyer.com/lovetrain";
 }
