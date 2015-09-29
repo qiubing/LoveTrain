@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,14 +119,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -329,17 +321,17 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         mNextPressReady = true;
         mEnroll.setText(R.string.activity_manager_exam_enrollbtn);
         if(response==null){
-            DialogMaker.make(AdminExamDetailActivity.this,
+            DialogMaker.finishCurrentDialog(AdminExamDetailActivity.this,
                     AdminExamDetailActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(AdminExamDetailActivity.this,
+                DialogMaker.finishCurrentDialog(AdminExamDetailActivity.this,
                         AdminExamDetailActivity.this,
                         "考试报名成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(AdminExamDetailActivity.this,
+                DialogMaker.finishCurrentDialog(AdminExamDetailActivity.this,
                         AdminExamDetailActivity.this,
                         "考试报名失败：\n" +
                                 message, false);

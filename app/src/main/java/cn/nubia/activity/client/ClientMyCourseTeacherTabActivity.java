@@ -1,8 +1,10 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ExpandableListView;
@@ -18,16 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.AdminShareCheckTabActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
+import cn.nubia.db.DbUtil;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
-import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 
 
@@ -118,6 +121,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
         /****然后从网络中获取数据**/
+        loadShow();
         loadData();
     }
 
@@ -154,6 +158,8 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                 }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
 
+                cancelLoadShow();
+
                 if (response.getString("data") != null) {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
@@ -163,6 +169,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                 Log.e("hexiao", e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                cancelLoadShow();
             }
         }
 
@@ -171,6 +178,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("TEST onFailure", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
+            cancelLoadShow();
         }
     };
 
@@ -244,5 +252,19 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         mList.clear();
         mList.addAll(resultList);
         Log.e("0924MyCourseTeacher", mList.size()+"");
+    }
+
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.MYCOURCE_TEACHER);
+        intent.putExtra(Constant.MYCOURCE_TEACHER, "visible");
+        LocalBroadcastManager.getInstance(ClientMyCourseTeacherTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.MYCOURCE_TEACHER);
+        intent.putExtra(Constant.MYCOURCE_TEACHER, "gone");
+        LocalBroadcastManager.getInstance(ClientMyCourseTeacherTabActivity.this).sendBroadcast(intent);
     }
 }

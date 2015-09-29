@@ -24,6 +24,7 @@ import java.util.Map;
 
 import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.AdminSharePassTabActivity;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
@@ -65,16 +66,9 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
 
         initViewData();
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     /**
@@ -339,26 +333,35 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         mConfirmButton.setText(R.string.confirm_button);
 
         if(response==null){
-            DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
-                   ClientMyShareCourseDetailFillActivity.this, "连接服务器失败!", false);
+            DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
+                    ClientMyShareCourseDetailFillActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                    DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "申请提交成功!", true);
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                    DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "课程修改成功!", true);
+//                    Intent intent = null;
+//                    if(Constant.IS_ADMIN)
+//                        intent = new Intent(ClientMyShareCourseDetailFillActivity.this,
+//                                AdminSharePassTabActivity.class );
+//                    else
+//                        intent = new Intent(ClientMyShareCourseDetailFillActivity.this,
+//                                ClientShareCourseActivity.class );
+//                    DialogMaker.jumpToTargetDialog(ClientMyShareCourseDetailFillActivity.this,
+//                            ClientMyShareCourseDetailFillActivity.this,intent, "申请提交成功!", true);
                 }
             }else if (operateResult.equals("failure")) {
                 String message = (String) response.get("message");
                 if (responseURL.equals(URLMap.URL_ADD_SHARE)) {
-                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                    DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "申请提交失败：\n" +
                                     message, false);
                 } else if (responseURL.equals(URLMap.URL_UPD_SHARE)) {
-                    DialogMaker.make(ClientMyShareCourseDetailFillActivity.this,
+                    DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
                             ClientMyShareCourseDetailFillActivity.this, "课程修改失败：\n" +
                                     message, false);
                 }

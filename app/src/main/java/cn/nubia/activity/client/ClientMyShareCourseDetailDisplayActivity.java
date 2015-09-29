@@ -3,6 +3,8 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +17,9 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevelModel;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
  * Created by JiangYu on 2015/9/2.
@@ -22,20 +27,26 @@ import cn.nubia.entity.TechnologyShareCourseItem;
 public class ClientMyShareCourseDetailDisplayActivity extends Activity {
 
     private TextView mCourseName;
-    private TextView mCourseLevel;
-    private TextView mCourseDate;
-    private TextView mCourseStartTime;
-    private TextView mCourseEndTime;
-    private TextView mCourseLocale;
     private TextView mCourseDescription;
+    private TextView mCourseDetail;
     private Button mCourseModifyButton;
     private ShareCourseMsg mShareCourseMsg;
 
+    protected GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
+    protected GestureDetector gestureDetector ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
+
+        gestureDetector = new GestureDetector(this, mGestureDetectorManager);
+        mGestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
 
         holdView();
         setViewLogic();
@@ -60,21 +71,19 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         initViewData();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        return  gestureDetector.onTouchEvent(event);
+    }
+
     private void holdView() {
         mCourseName = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursename_displaytextView);
-        mCourseLevel = (TextView) findViewById(R.id
-                .my_sharecourse_detail_display_courselevel_displaytextView);
-        mCourseDate = (TextView) findViewById(R.id
-                .my_sharecourse_detail_display_coursedate_displaytextView);
-        mCourseStartTime = (TextView) findViewById(R.id
-                .my_sharecourse_detail_display_coursestarttime_displaytextView);
-        mCourseEndTime = (TextView) findViewById(R.id
-                .my_sharecourse_detail_display_courseendtime_displaytextView);
-        mCourseLocale = (TextView) findViewById(R.id
-                .my_sharecourse_detail_display_courselocale_displaytextView);
         mCourseDescription = (TextView) findViewById(R.id
                 .my_sharecourse_detail_display_coursedescription_displaytextView);
+        mCourseDetail = (TextView) findViewById(R.id
+                .my_sharecourse_detail_display_coursedetail_displaytextView);
         mCourseModifyButton = (Button) findViewById(R.id
                 .my_sharecourse_detail_display_modifybutton);
     }
@@ -90,6 +99,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
                 bundle.putSerializable("shareCourse", mShareCourseMsg);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                ClientMyShareCourseDetailDisplayActivity.this.finish();
             }
         });
 
@@ -102,19 +112,18 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     }
 
     private void initViewData() {
-        mCourseName.setText(mShareCourseMsg.getCourseName());
-        mCourseLevel.setText(
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mShareCourseMsg.getCourseLevel()));
+
         Date startTime = new Date();
         startTime.setTime(mShareCourseMsg.getStartTime());
         Date endTime = new Date();
         endTime.setTime(mShareCourseMsg.getEndTime());
-        mCourseDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
-        mCourseStartTime.setText(
-                new SimpleDateFormat("HH:mm").format(startTime));
-        mCourseEndTime.setText(
-                new SimpleDateFormat("HH:mm").format(endTime));
-        mCourseLocale.setText(mShareCourseMsg.getLocale());
+        mCourseName.setText(mShareCourseMsg.getCourseName());
         mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
+        mCourseDetail.setText(
+                "分享级别：" + ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mShareCourseMsg.getCourseLevel()) +
+                        "\n上课日期：" + new SimpleDateFormat("yyyy-MM-dd").format(startTime) +
+                        "\n开始时间：" + new SimpleDateFormat("HH:mm").format(startTime) +
+                        "\n结束时间：" + new SimpleDateFormat("HH:mm").format(endTime) +
+                        "\n上课地点：" + mShareCourseMsg.getLocale());
     }
 }

@@ -31,8 +31,11 @@ public class Constant {
     public static int sLastExamIndex;
     public static final String COURCE = "CN.NUBIA.COURCE";
     public static final String EXAM = "CN.NUBIA.EXAM";
-    public static final String SHARE_WAITE = "CN.NUBIA.SHARE_WAITE";
-    public static final String SHARE_OK = "CN.NUBIA.SHARE_OK";
+    public static final String SHARE_WAITE = "CN.NUBIA.SHARE.WAITE";
+    public static final String SHARE_OK = "CN.NUBIA.SHARE.OK";
+    public static final String MYCOURCE_TEACHER = "CN.NUBIA.MYCOURCE.TEACHER";
+    public static final String MYCOURCE_STUDENT = "CN.NUBIA.MYCOURCE.STUDENT";
+    public static final String ALLCOURCE = "CN.NUBIA.ALLCOURCE";
 
     public static void initRequestParams(){
         sLastCourseRecordModifyTime = 0;

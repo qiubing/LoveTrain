@@ -133,14 +133,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     @Override
@@ -271,7 +264,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                         }
                     }
                     if (isTeacher) {
-                        DialogMaker.make(AdminCourseDetailActivity.this,
+                        DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
                                 AdminCourseDetailActivity.this, "不能报名自己的课程!", true);
                     } else {
                         SeniorEnrollMsg msg = new SeniorEnrollMsg();
@@ -293,16 +286,16 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         mNextPressReady = true;
         mEnrollSeniorCourse.setText(R.string.enrollseniorcoursebtn);
         if(response==null){
-            DialogMaker.make(AdminCourseDetailActivity.this,
+            DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
                     AdminCourseDetailActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                    DialogMaker.make(AdminCourseDetailActivity.this,
+                    DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
                             AdminCourseDetailActivity.this, "报名申请成功，请等待管理员审核!", true);
             }else if (operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(AdminCourseDetailActivity.this,
+                DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
                         AdminCourseDetailActivity.this, "报名申请失败：\n" +
                                 message, false);
             }

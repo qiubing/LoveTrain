@@ -1,8 +1,10 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ExpandableListView;
@@ -111,6 +113,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
         /****然后从网络中获取数据**/
+        loadShow();
         loadData();
     }
 
@@ -147,6 +150,8 @@ public class ClientMyCourseStudentTabActivity extends Activity {
                 }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
 
+                cancelLoadShow();
+
                 if(response.getString("data") != null) {
                     JSONArray jsonArray = response.getJSONArray("data");
                     Log.e("XXXX","jsonArray"+jsonArray.toString());
@@ -157,6 +162,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
                 Log.e("XXXX","JsonExecption"+e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                cancelLoadShow();
             }
         }
 
@@ -165,6 +171,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             Log.e("jsonArray", ""+statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
+            cancelLoadShow();
         }
     };
 
@@ -209,5 +216,19 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.MYCOURCE_STUDENT);
+        intent.putExtra(Constant.MYCOURCE_STUDENT, "visible");
+        LocalBroadcastManager.getInstance(ClientMyCourseStudentTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.MYCOURCE_STUDENT);
+        intent.putExtra(Constant.MYCOURCE_STUDENT, "gone");
+        LocalBroadcastManager.getInstance(ClientMyCourseStudentTabActivity.this).sendBroadcast(intent);
     }
 }
