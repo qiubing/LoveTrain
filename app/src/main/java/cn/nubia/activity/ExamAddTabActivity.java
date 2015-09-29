@@ -148,6 +148,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
                 }
             } catch (JSONException e) {
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
+                cancelLoadShow();
                 e.printStackTrace();
             }
         }
@@ -157,6 +158,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
             Log.e("wj","onFailure"+statusCode+throwable.toString());
             super.onFailure(statusCode, headers, throwable, errorResponse);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
+            cancelLoadShow();
         }
     };
 
