@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -84,6 +85,13 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         addLessonSureBtn.setOnClickListener(this);
         lessonDate.setOnClickListener(this);
@@ -217,6 +225,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         }
     }
     private void upData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.put("course_index", mCourseItem.getIndex());
@@ -240,7 +250,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                 int code = response.getInt("code");
 //                int isOk = response.getInt("data");
                 if( code == 0) {
-                    Toast.makeText(AdminAddLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddLessonActivity.this, "添加课时成功", Toast.LENGTH_SHORT).show();
                     lessonDate.setText("");
                     lessonName.setText("");
                     teacherName.setText("");
@@ -255,7 +265,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
             } catch (Exception e) {
                 Log.e("9291",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(AdminAddLessonActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAddLessonActivity.this, "添加课时失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -264,7 +274,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            Toast.makeText(AdminAddLessonActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminAddLessonActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

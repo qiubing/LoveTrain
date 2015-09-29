@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -78,6 +79,13 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         mExamStartDate.setOnClickListener(this);
         mExamStartTime.setOnClickListener(this);
@@ -143,9 +151,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("ExamItem",mExamItem);
                     intent.putExtras(bundle);
-                    AdminAddExamActivity.this.setResult(2,intent);
-
-                    Toast.makeText(AdminAddExamActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    AdminAddExamActivity.this.setResult(2, intent);
                     mExamTitle.setText("");
                     mExamInfo.setText("");
                     mExamAddress.setText("");
@@ -153,10 +159,12 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                     mExamEndTime.setText("");
                     mExamCredit.setText("");
                     mExamStartDate.setText("");
+                    Toast.makeText(AdminAddExamActivity.this, "添加考试成功", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminAddExamActivity.this, "添加考试失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
             //mExamAdapter.notifyDataSetChanged();
@@ -166,6 +174,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminAddExamActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

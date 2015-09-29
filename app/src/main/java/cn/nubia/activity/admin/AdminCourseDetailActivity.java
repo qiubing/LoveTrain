@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -75,13 +76,21 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
 
 
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
-        mTitleText.setText(mCourseItem.getName() + "课程管理");
+        mTitleText.setText(mCourseItem.getName());
         String startActivity = intent.getStringExtra("startActivity");
         Log.i("huhu", "AdminCourceDetail: " + startActivity);
 
@@ -190,7 +199,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteData();
-                        finish();
                     }
                 });
                 builderDelete.setNegativeButton("返回", new DialogInterface.OnClickListener() {
@@ -224,13 +232,15 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 boolean isOk = response.getBoolean("data");
 
                 if( code == 0 && isOk) {
-                    Toast.makeText(AdminCourseDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminCourseDetailActivity.this, "删除课程成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else {
-                    Toast.makeText(AdminCourseDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminCourseDetailActivity.this, "删除课程失败", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminCourseDetailActivity.this, "删除课程失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -239,6 +249,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminCourseDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

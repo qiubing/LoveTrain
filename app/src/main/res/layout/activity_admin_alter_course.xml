@@ -45,19 +45,16 @@
         android:layout_alignParentTop="true"
         layout="@layout/include_back_title_item_layout" />
     <include
-        android:layout_marginTop="10dp"
         android:id="@+id/loading_failed"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
+        android:layout_height="43dip"
         layout="@layout/layout_loading_failed"
         />
 
     <include
-        android:layout_marginTop="10dp"
-        android:paddingTop="@dimen/manager_rate_paddingTop"
         android:id="@+id/network_unusable"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
+        android:layout_height="43dip"
         layout="@layout/layout_network_unusable" />
 
     <TableLayout

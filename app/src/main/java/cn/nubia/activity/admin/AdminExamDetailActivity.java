@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -103,9 +104,16 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
 
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
-        mManagerTitle.setText(mExamItemExamEdit.getName() + "考试");
+        mManagerTitle.setText(mExamItemExamEdit.getName());
         mExamMenber.setText(mExamItemExamEdit.getErollUsers() + "人报考");
         initViewData();
     }
@@ -262,7 +270,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         mExamIntroduction.setText(mExamItemExamEdit.getDescription());
         mExamInfo.setText(
                 "考试地点：" + mExamItemExamEdit.getLocale() +
-                        "\n考试时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
+                        "\n开始时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
                         "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
                         "\n考试积分：" + mExamItemExamEdit.getExamCredits());
     }
@@ -286,9 +294,10 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if( code == 0 && isOk) {
-                    Toast.makeText(AdminExamDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminExamDetailActivity.this, "删除考试成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else {
-                    Toast.makeText(AdminExamDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminExamDetailActivity.this, "删除考试失败", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -301,6 +310,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
                 AdminExamDetailActivity.this.finish();
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminExamDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }

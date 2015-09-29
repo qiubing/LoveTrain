@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -102,6 +103,14 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
 
         courseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -163,10 +172,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
 
-                Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
+                /*Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
                 finish();
                 startActivity(intentAddForSure);
-                break;
+                break;*/
         }
     }
 
@@ -205,19 +214,19 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                 int code = response.getInt("code");
 //                boolean isOk = response.getBoolean("data");
                 if (code == 0) {
-                    Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
                     courseTypeSpinner.setSelection(0);
                     addCourseCoursePointsEditText.setText("");
                     addCourseWhetherExamCheckBox.setChecked(false);
+                    Toast.makeText(AdminAddCourseActivity.this, "添加课程成功", Toast.LENGTH_SHORT).show();
                 }
                 Log.e("9300",response.toString());
 
             } catch (Exception e) {
                 Log.e("9301",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(AdminAddCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAddCourseActivity.this, "添加课程失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -226,7 +235,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            Toast.makeText(AdminAddCourseActivity.this, "on failure ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminAddCourseActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

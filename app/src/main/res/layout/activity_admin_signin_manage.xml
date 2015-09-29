@@ -13,16 +13,14 @@
         android:id="@+id/loading_failed_signin"
         layout="@layout/layout_loading_failed"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:layout_marginTop="10dp" />
+        android:layout_height="43dip"
+        />
 
     <include
         android:id="@+id/network_unusable_signin"
         layout="@layout/layout_network_unusable"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:layout_marginTop="10dp"
-        android:paddingTop="@dimen/manager_rate_paddingTop" />
+        android:layout_height="43dip" />
 
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout_signin"

@@ -3,7 +3,9 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -81,6 +83,13 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
         mAddButton.setText("确认修改");
 
         mAddButton.setOnClickListener(this);
@@ -161,11 +170,13 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
                 boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 if(code == 0 && isOk) {
-                    Toast.makeText(AdminEditExamActivity .this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminEditExamActivity.this, "修改考试成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminEditExamActivity.this, "修改考试失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -175,6 +186,7 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminEditExamActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

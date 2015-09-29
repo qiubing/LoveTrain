@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -73,6 +74,13 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
@@ -80,7 +88,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         String startActivity = intent.getStringExtra("startActivity");
         Log.i("huhu", "AdminLessonDetail" + startActivity);
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText(lessonItem.getName() + "课时管理");
+        sub_page_title.setText(lessonItem.getName());
         signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
 
         String teacherID = lessonItem.getTeacherID();
@@ -152,8 +160,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
                             "\n下课时间：" + TimeFormatConversion.toDateTime(lessonItem.getEndTime()) +
                             "\n讲师上课可得积分：" + lessonItem.getTeacherCredits() +
-                            "\n学员签到可得积分：" + lessonItem.getCheckCredits() +
-                            "\n课程评价分数：" + lessonItem.getJudgeScore()
+                            "\n学员签到可得积分：" + lessonItem.getCheckCredits()
             );
         }
     }
@@ -319,16 +326,15 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if (code == 0 && isOk) {
-                    Intent intent = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
                     finish();
-                    startActivity(intent);
-                    Toast.makeText(AdminLessonDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminLessonDetailActivity.this, "删除课时成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AdminLessonDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminLessonDetailActivity.this, "删除课时失败", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminLessonDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }

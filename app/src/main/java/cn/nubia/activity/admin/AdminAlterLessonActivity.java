@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -84,6 +85,13 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         lessonOk.setOnClickListener(this);
         lessonDate.setOnClickListener(this);
@@ -169,11 +177,13 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
                 boolean isOk = response.getBoolean("data");
 
                 if (code == 0 && isOk) {
-                    Toast.makeText(AdminAlterLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAlterLessonActivity.this, "修改课时成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminAlterLessonActivity.this, "修改课时失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -183,6 +193,7 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminAlterLessonActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
         }
     };
 

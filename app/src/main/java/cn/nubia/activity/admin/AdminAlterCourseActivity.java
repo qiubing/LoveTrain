@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
@@ -58,6 +60,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
 
     //复选框
     private CheckBox alterCourseWhetherExamCheckBox;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
 
     /**
      * 修改课程URL
@@ -82,12 +86,26 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
         //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
         gestureDetector = new GestureDetector(this, gestureDetectorManager);
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
 
         /**出错处理*/
-        RelativeLayout loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
 
         Button alterCourseButton = (Button) findViewById(R.id.alter_course_button);
@@ -189,7 +207,6 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 upData();
-                                finish();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -206,6 +223,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     }
 
     private void upData() {
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.add("course_index", mCourseItem.getIndex() + "");
@@ -235,10 +254,12 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if (code == 0 && isOk) {
-                    Toast.makeText(AdminAlterCourseActivity.this, "修改课程成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAlterCourseActivity.this, "修改课程成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             } catch (Exception e) {
-                Toast.makeText(AdminAlterCourseActivity.this, "修改课程失败！ ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAlterCourseActivity.this, "修改课程失败", Toast.LENGTH_SHORT).show();
+                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             }
         }
@@ -246,7 +267,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Toast.makeText(AdminAlterCourseActivity.this, "连接服务器异常！ ", Toast.LENGTH_SHORT).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminAlterCourseActivity.this, "网络没有连接，请连接网络 ", Toast.LENGTH_SHORT).show();
         }
     };
 
