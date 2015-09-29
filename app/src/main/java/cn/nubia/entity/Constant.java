@@ -29,6 +29,12 @@ public class Constant {
     public static int sLastLessonIndex;
     public static int sLastCourseIndex;
     public static int sLastExamIndex;
+    public static final String COURCE = "CN.NUBIA.COURCE";
+    public static final String EXAM = "CN.NUBIA.EXAM";
+    public static final String SHARE = "CN.NUBIA.SHARE";
+    public static final String SHARE_WAITE = "CN.NUBIA.SHARE_WAITE";
+    public static final String SHARE_OK = "CN.NUBIA.SHARE_OK";
+//    public static final String SHARE_LOAD_SHOW = "CN.NUBIA.SHARE_LOAD_SHOW";
 
     public static void initRequestParams(){
         sLastCourseRecordModifyTime = 0;
@@ -95,5 +101,8 @@ public class Constant {
      */
     public static final String PICTURE_PREFIX = "http://love-train-dev.nubia.cn/res/";
 
-
+    /**
+     * APP下载地址
+     */
+    public static final String APP_DOWNLOAD_URL = "http://www.pgyer.com/lovetrain";
 }

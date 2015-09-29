@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,7 @@ public class AdminSharePassTabActivity extends Activity {
         setContentView(R.layout.activity_admin_approved_share_course);
         initViews();
         initEvents();
+        loadShow();
         loadData();
     }
 
@@ -103,17 +105,19 @@ public class AdminSharePassTabActivity extends Activity {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
+                    cancelLoadShow();
 //                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                cancelLoadShow();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Toast.makeText(AdminSharePassTabActivity.this, "请求失败", Toast.LENGTH_LONG).show();
+            cancelLoadShow();
         }
     };
 
@@ -164,5 +168,20 @@ public class AdminSharePassTabActivity extends Activity {
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_WAITE);
+        intent.putExtra(Constant.SHARE, "visibleOk");
+        LocalBroadcastManager.getInstance(AdminSharePassTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_OK);
+        intent.putExtra(Constant.SHARE, "goneOk");
+        LocalBroadcastManager.getInstance(AdminSharePassTabActivity.this).sendBroadcast(intent);
+        Log.i("huhu", "已通过广播发出");
     }
 }

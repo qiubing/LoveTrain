@@ -3,14 +3,20 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -23,18 +29,39 @@ import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.OnTabActivityResultListener;
+import cn.nubia.entity.Constant;
 
 /**
  * Created by 胡立 on 2015/9/6.
  */
 public class AdminExamActivity extends ActivityGroup{
     private LocalActivityManager manager;
-    TabHost tabHost;
+    private TabHost tabHost;
+    private ImageView loadingShow;
+    private MyBroadCast myBroadCast;
+    private class MyBroadCast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingShow.getDrawable();
+            if(intent.getStringExtra(Constant.EXAM).equals("visible")) {
+                loadingShow.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.EXAM).equals("gone")){
+                animationDrawable.stop();
+                loadingShow.setVisibility(View.GONE);
+            }
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
         ViewPager pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
+
+        myBroadCast = new MyBroadCast();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.EXAM));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
@@ -69,6 +96,7 @@ public class AdminExamActivity extends ActivityGroup{
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("新增考试");
+        loadingShow = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
 
         Intent intent = new Intent(AdminExamActivity.this, EmptyActivity.class);
         tvTab3.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +185,11 @@ public class AdminExamActivity extends ActivityGroup{
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("wj","getLocalClassName resultCode"+manager.getActivity("AT").getLocalClassName()+ resultCode);

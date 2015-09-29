@@ -283,7 +283,6 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
 
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 }

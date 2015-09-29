@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -22,15 +23,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.activity.admin.AdminCourseAddTabActivity;
 import cn.nubia.activity.admin.AdminExamDetailActivity;
 import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.RefreshLayout;
+import cn.nubia.db.DbUtil;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.Item;
 import cn.nubia.interfaces.OnTabActivityResultListener;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
@@ -109,6 +111,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
         AsyncLoadDBTask dbTask = new AsyncLoadDBTask();
         dbTask.execute();
 
+        loadShow();
         loadData();
     }
 
@@ -136,14 +139,15 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
                 }else{
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 }
+
                 JSONArray jsonArray = response.getJSONArray("data");
+                cancelLoadShow();
                 if(jsonArray!=null && jsonArray.length() > 0){
                     AsyncLoadJsonTask asyncLoadJsonTask  = new AsyncLoadJsonTask();
                     asyncLoadJsonTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
-                mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.LOADING_FAILED, true);
                 e.printStackTrace();
             }
         }
@@ -152,7 +156,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Log.e("wj","onFailure"+statusCode+throwable.toString());
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,Constant.NETWORK_UNUSABLE, true);
+            mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
         }
     };
 
@@ -227,5 +231,18 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
                 break;
         }
         mExamAdapter.notifyDataSetChanged();
+    }
+
+   private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.EXAM);
+        intent.putExtra(Constant.EXAM, "visible");
+        LocalBroadcastManager.getInstance(ExamAddTabActivity.this).sendBroadcast(intent);
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.EXAM);
+        intent.putExtra(Constant.EXAM, "gone");
+        LocalBroadcastManager.getInstance(ExamAddTabActivity.this).sendBroadcast(intent);
     }
 }

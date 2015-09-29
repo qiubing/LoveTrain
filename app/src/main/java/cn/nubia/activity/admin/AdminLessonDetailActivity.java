@@ -338,7 +338,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     };
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 

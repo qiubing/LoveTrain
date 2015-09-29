@@ -260,7 +260,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     }
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 }

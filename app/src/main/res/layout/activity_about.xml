@@ -56,12 +56,13 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:id="@+id/backimage_1"
+                android:id="@+id/qr_download"
                 android:contentDescription="@string/two_dimension"
-                android:layout_width="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:src="@mipmap/ma" />
+                android:layout_width="wrap_content"
+                android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 

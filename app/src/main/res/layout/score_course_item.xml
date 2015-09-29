@@ -36,5 +36,5 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/view_height"
-        android:layout_below="@+id/score_course_address" />
+        android:layout_below="@id/score_course_coursename" />
 </RelativeLayout>

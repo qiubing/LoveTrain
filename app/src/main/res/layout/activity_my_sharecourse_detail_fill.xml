@@ -39,6 +39,12 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange" />
+
     <ScrollView
         android:id="@+id/my_sharecourse_detail_fill_contentscrollview"
         android:layout_width="match_parent"

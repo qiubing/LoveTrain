@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +13,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -44,6 +50,7 @@ public class AdminShareCheckTabActivity extends Activity {
         setContentView(R.layout.activity_admin_unapproved_share_course);
         initViews();
         initEvents();
+        loadShow();
         loadData();
     }
 
@@ -90,20 +97,24 @@ public class AdminShareCheckTabActivity extends Activity {
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
+                    cancelLoadShow();
                 }else {
                     Log.e(TAG,"VIEW_LOADFAILURE");
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                    cancelLoadShow();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e(TAG, "VIEW_LOADFAILURE");
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                cancelLoadShow();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Toast.makeText(AdminShareCheckTabActivity.this,"请求失败",Toast.LENGTH_LONG).show();
+            cancelLoadShow();
         }
     };
 
@@ -184,4 +195,17 @@ public class AdminShareCheckTabActivity extends Activity {
         loadData();
     }
 
+    private void loadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_WAITE);
+        intent.putExtra(Constant.SHARE, "visibleWaite");
+        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
+
+    }
+    private void cancelLoadShow() {
+        Intent intent = new Intent();
+        intent.setAction(Constant.SHARE_WAITE);
+        intent.putExtra(Constant.SHARE, "goneWaite");
+        LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
+    }
 }
