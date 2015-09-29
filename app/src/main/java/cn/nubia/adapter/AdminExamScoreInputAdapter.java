@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,13 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
         holder.usernameTV.setText(mExamScoreList.get(position).getUserName());
         holder.idTV.setText(mExamScoreList.get(position).getUserID());
         holder.scoreET.setText(String.valueOf(mExamScoreList.get(position).getExamScore()));
+
+        boolean isInital = new BigDecimal(mExamScoreList.get(position).getExamScore()).compareTo(new BigDecimal("0.0"))==0;
+        if(isInital){
+            holder.scoreET.setFocusableInTouchMode(true);
+        }else{
+            holder.scoreET.setFocusableInTouchMode(false);
+        }
 
         holder.scoreET.addTextChangedListener(new TextWatcher() {
             @Override

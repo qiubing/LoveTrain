@@ -93,6 +93,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                         scoreUpload();
                         button.setText("成绩录入中...");
                         mNextPressReady = false;
+                        AdminExamInputScoreActivity.this.finish();
                     }
                 }
             }
@@ -175,7 +176,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                 mNextPressReady = true;
                 button.setText(R.string.title_activity_manager_score_input_button);
                 DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
-                        AdminExamInputScoreActivity.this, "录入操作完成!", true);
+                        AdminExamInputScoreActivity.this, "录入操作结束!", true);
             }
         }
     }
