@@ -198,14 +198,14 @@ public class AdminShareCheckTabActivity extends Activity {
     private void loadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.SHARE_WAITE);
-        intent.putExtra(Constant.SHARE, "visibleWaite");
+        intent.putExtra(Constant.SHARE_WAITE, "visible");
         LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
 
     }
     private void cancelLoadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.SHARE_WAITE);
-        intent.putExtra(Constant.SHARE, "goneWaite");
+        intent.putExtra(Constant.SHARE_WAITE, "gone");
         LocalBroadcastManager.getInstance(AdminShareCheckTabActivity.this).sendBroadcast(intent);
     }
 }
