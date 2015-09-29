@@ -12,6 +12,7 @@
     android:layout_height="wrap_content"
     android:background="@color/titlebar_bg">
 
+
         <ImageView
             android:id="@+id/manager_goback"
             android:layout_width="wrap_content"
@@ -29,113 +30,79 @@
             android:text="@string/activity_my_sharecourse_detail_display_title_textview"
             android:textColor="@color/grayslate"
             android:textSize="@dimen/itemname_textsize" />
-
-        <Button
-            android:id="@+id/my_sharecourse_detail_display_modifybutton"
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            style="@style/CustomBigLoginButton"
-            android:textSize="20sp"
-            android:text="@string/modify_button" />
-
     </RelativeLayout>
 
-    <ScrollView
-        style="@style/contentrealm"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="vertical"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-        <LinearLayout
-            style="@style/contentrealm"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_coursename_textView" />
+            android:text="@string/activity_my_sharecourse_detail_display_coursename_textView"
+            android:textSize="@dimen/itemname_textsize" />
 
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_coursename_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/my_sharecourse_detail_display_coursename_displaytextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/itemcontent_textsize" />
+    </LinearLayout>
 
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_courselevel_textView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_courselevel_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_my_sharecourse_detail_display_coursedescription_textView"
+            android:textSize="@dimen/itemname_textsize" />
 
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_courselocale_textView" />
+        <TextView
+            android:id="@+id/my_sharecourse_detail_display_coursedescription_displaytextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXXXXXX"
+            android:textSize="@dimen/itemcontent_textsize" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_courselocale_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_coursedate_textView" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_my_sharecourse_detail_display_title_textview"
+            android:textSize="@dimen/itemname_textsize" />
 
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_coursedate_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/my_sharecourse_detail_display_coursedetail_displaytextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXXXXXX"
+            android:textSize="@dimen/itemcontent_textsize" />
+    </LinearLayout>
 
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_coursestarttime_textView" />
+    <Button
+        android:id="@+id/my_sharecourse_detail_display_modifybutton"
+        style="@style/CustomBigLoginButton"
+        android:text="@string/modify_button" />
 
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_coursestarttime_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_courseendtime_textView" />
-
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_courseendtime_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                style="@style/itemtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_my_sharecourse_detail_display_coursedescription_textView" />
-
-            <TextView
-                android:id="@+id/my_sharecourse_detail_display_coursedescription_displaytextView"
-                style="@style/itemcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/item_normallverticalmargin" />
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

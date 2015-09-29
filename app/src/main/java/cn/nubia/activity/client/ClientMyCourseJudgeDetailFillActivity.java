@@ -49,17 +49,10 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
 
         Intent intent = getIntent();
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     private View.OnClickListener makeConfirmOnClickListener(){
@@ -166,16 +159,16 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         mNextPressReady = true;
         mConfirmButton.setText(R.string.confirm_button);
         if(response==null){
-            DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
-                   ClientMyCourseJudgeDetailFillActivity.this, "连接服务器失败!", false);
+            DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
+                    ClientMyCourseJudgeDetailFillActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
+                DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
                         ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(ClientMyCourseJudgeDetailFillActivity.this,
+                DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
                         ClientMyCourseJudgeDetailFillActivity.this, "课程评价失败：\n" +
                                 message, false);
             }

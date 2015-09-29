@@ -49,7 +49,6 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
 
         Intent intent =getIntent();
@@ -67,12 +66,6 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             }
         }).start();
 
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     private void holdView(){
@@ -143,7 +136,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         if(responseURL.equals(URLMap.URL_QUE_EXAMENROLLLIST)){
             mNextPressReady = true;
             if(response==null){
-                DialogMaker.make(AdminExamInputScoreActivity.this,
+                DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
                         AdminExamInputScoreActivity.this, "连接服务器失败!", true);
             }else {
                 String operateResult = (String) response.get("operateResult");
@@ -157,7 +150,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                     }
                 } else if (operateResult.equals("failure")) {
                     String message = (String) response.get("message");
-                    DialogMaker.make(AdminExamInputScoreActivity.this,
+                    DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
                             AdminExamInputScoreActivity.this, "获取考试报名名单失败：\n" +
                                     message, true);
                 }
@@ -181,8 +174,8 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             if(mResultNum == mModifiedExamScoreList.size()) {
                 mNextPressReady = true;
                 button.setText(R.string.title_activity_manager_score_input_button);
-                DialogMaker.make(AdminExamInputScoreActivity.this,
-                         AdminExamInputScoreActivity.this, "录入操作完成!", true);
+                DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
+                        AdminExamInputScoreActivity.this, "录入操作完成!", true);
             }
         }
     }
