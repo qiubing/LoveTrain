@@ -107,6 +107,15 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
             lessonEndTime.setText(TimeFormatConversion.toTime(lessonItem.getEndTime()));
             lessonTeancherPoint.setText(lessonItem.getTeacherCredits() + "");
             lessonStudentPoint.setText(lessonItem.getCheckCredits() + "");
+            int [] startTimeArray = TimeFormatConversion.toDateTimeInArray(lessonItem.getStartTime());
+            int [] endTimeArray = TimeFormatConversion.toDateTimeInArray(lessonItem.getEndTime());
+            year = startTimeArray[0];
+            month = startTimeArray[1];
+            day = startTimeArray[2];
+            hourStart = startTimeArray[3];
+            minuteStart = startTimeArray[4];
+            hourEnd = endTimeArray[3];
+            minuteEnd = endTimeArray[4];
         }
 
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();

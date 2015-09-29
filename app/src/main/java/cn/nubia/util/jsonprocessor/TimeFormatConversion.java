@@ -33,4 +33,16 @@ public class TimeFormatConversion {
         calendar.set(year, month, day, hour, minute);
         return calendar.getTimeInMillis();
     }
+
+    public static int [] toDateTimeInArray(long time) {
+        int [] array = new int[5];
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        array[0] = calendar.get(Calendar.YEAR);
+        array[1] = calendar.get(Calendar.MONTH);
+        array[2] = calendar.get(Calendar.DAY_OF_MONTH);
+        array[3] = calendar.get(Calendar.HOUR_OF_DAY);
+        array[4] = calendar.get(Calendar.MINUTE);
+        return array;
+    }
 }

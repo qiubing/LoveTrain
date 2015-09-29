@@ -100,14 +100,24 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
             }
         });
 
-
-        mExamTitle.setText(mExamItemExamEdit.getName());
-        mExamInfo.setText(mExamItemExamEdit.getDescription());
-        mExamAddress.setText(mExamItemExamEdit.getLocale());
-        mExamStartDate.setText(TimeFormatConversion.toTimeDate(mExamItemExamEdit.getStartTime()));
-        mExamStartTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getStartTime()));
-        mExamEndTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getEndTime()));
-        mExamCredit.setText(mExamItemExamEdit.getExamCredits() + "");
+        if(mExamItemExamEdit != null) {
+            mExamTitle.setText(mExamItemExamEdit.getName());
+            mExamInfo.setText(mExamItemExamEdit.getDescription());
+            mExamAddress.setText(mExamItemExamEdit.getLocale());
+            mExamStartDate.setText(TimeFormatConversion.toTimeDate(mExamItemExamEdit.getStartTime()));
+            mExamStartTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getStartTime()));
+            mExamEndTime.setText(TimeFormatConversion.toTime(mExamItemExamEdit.getEndTime()));
+            mExamCredit.setText(mExamItemExamEdit.getExamCredits() + "");
+            int [] startTimeArray = TimeFormatConversion.toDateTimeInArray(mExamItemExamEdit.getStartTime());
+            int [] endTimeArray = TimeFormatConversion.toDateTimeInArray(mExamItemExamEdit.getEndTime());
+            year = startTimeArray[0];
+            month = startTimeArray[1];
+            day = startTimeArray[2];
+            hourStart = startTimeArray[3];
+            minuteStart = startTimeArray[4];
+            hourEnd = endTimeArray[3];
+            minuteEnd = endTimeArray[4];
+        }
 
     }
 
