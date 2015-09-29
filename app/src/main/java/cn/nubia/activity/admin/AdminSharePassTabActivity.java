@@ -51,6 +51,7 @@ public class AdminSharePassTabActivity extends Activity {
         setContentView(R.layout.activity_admin_approved_share_course);
         initViews();
         initEvents();
+        loadShow();
         loadData();
     }
 
@@ -169,13 +170,13 @@ public class AdminSharePassTabActivity extends Activity {
         }
     }
 
-    /*private void loadShow() {
+    private void loadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.SHARE_WAITE);
         intent.putExtra(Constant.SHARE, "visibleOk");
         LocalBroadcastManager.getInstance(AdminSharePassTabActivity.this).sendBroadcast(intent);
 
-    }*/
+    }
     private void cancelLoadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.SHARE_OK);

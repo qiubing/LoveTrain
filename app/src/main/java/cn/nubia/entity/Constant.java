@@ -34,6 +34,7 @@ public class Constant {
     public static final String SHARE = "CN.NUBIA.SHARE";
     public static final String SHARE_WAITE = "CN.NUBIA.SHARE_WAITE";
     public static final String SHARE_OK = "CN.NUBIA.SHARE_OK";
+//    public static final String SHARE_LOAD_SHOW = "CN.NUBIA.SHARE_LOAD_SHOW";
 
     public static void initRequestParams(){
         sLastCourseRecordModifyTime = 0;

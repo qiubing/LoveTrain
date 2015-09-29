@@ -39,9 +39,10 @@ public class AdminShareActivity extends ActivityGroup {
     private ImageView loadingWaite;
     private ImageView loadingOk;
     private MyBroadCast myBroadCast;
-    private boolean isFirst = true;
-    AnimationDrawable animationDrawableWaite;
-    AnimationDrawable animationDrawableOk;
+//    private boolean isFirst = true;
+    private AnimationDrawable animationDrawableWaite;
+    private AnimationDrawable animationDrawableOk;
+    private LocalBroadcastManager localBroadcastManager;
     private class MyBroadCast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -55,10 +56,10 @@ public class AdminShareActivity extends ActivityGroup {
                     animationDrawableWaite.stop();
                     loadingWaite.setVisibility(View.GONE);
                     break;
-                /*case "visibleOk":
+                case "visibleOk":
                     loadingOk.setVisibility(View.VISIBLE);
                     animationDrawableOk.start();
-                    break;*/
+                    break;
                 case "goneOk":
                     animationDrawableOk.stop();
                     loadingOk.setVisibility(View.GONE);
@@ -76,8 +77,8 @@ public class AdminShareActivity extends ActivityGroup {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
         myBroadCast = new MyBroadCast();
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(this);
         localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_WAITE));
         localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_OK));
 
@@ -122,11 +123,12 @@ public class AdminShareActivity extends ActivityGroup {
             public void onPageSelected(int position) {
                 // 当viewPager发生改变时，同时改变tabhost上面的currentTab
                 tabHost.setCurrentTab(position);
-                if(isFirst == true && position == 1) {
+                /*if(isFirst == true && position == 1) {
                     isFirst = false;
                     loadingOk.setVisibility(View.VISIBLE);
                     animationDrawableOk.start();
-                }
+                    localBroadcastManager.sendBroadcast(new Intent(Constant.SHARE_LOAD_SHOW));
+                }*/
             }
 
             @Override
@@ -148,11 +150,12 @@ public class AdminShareActivity extends ActivityGroup {
                 }
                 if ("B".equals(tabId)) {
                     pager.setCurrentItem(1);
-                    if(isFirst == true ) {
+                    /*if(isFirst == true ) {
                         isFirst = false;
                         loadingOk.setVisibility(View.VISIBLE);
                         animationDrawableOk.start();
-                    }
+                        localBroadcastManager.sendBroadcast(new Intent(Constant.SHARE_LOAD_SHOW));
+                    }*/
                 }
             }
         });
@@ -196,6 +199,6 @@ public class AdminShareActivity extends ActivityGroup {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
+        localBroadcastManager.unregisterReceiver(myBroadCast);
     }
 }
