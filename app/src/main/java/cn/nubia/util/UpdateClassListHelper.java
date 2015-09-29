@@ -199,7 +199,9 @@ public class UpdateClassListHelper {
                 break;
             case "update":
                 if (listIndex >= 0){
-                     list.set(listIndex, item);
+                    List<LessonItem> lessonItemList = list.get(listIndex).getLessonList();
+                    item.setLessonList(lessonItemList);
+                    list.set(listIndex, item);
                     /***插入数据库中字段**/
                     DbUtil.getInstance(null).updateCourseItem(item, tableName);
                 }
