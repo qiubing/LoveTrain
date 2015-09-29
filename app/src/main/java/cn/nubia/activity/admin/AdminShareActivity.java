@@ -37,40 +37,40 @@ public class AdminShareActivity extends ActivityGroup {
     private TabHost tabHost;
     private ViewPager pager;
     private ImageView loadingWaite;
-    private ImageView loadingOk;
-    private MyBroadCast myBroadCast;
-//    private boolean isFirst = true;
-    private AnimationDrawable animationDrawableWaite;
-    private AnimationDrawable animationDrawableOk;
+    private ImageView loadingPass;
+    private MyBroadCastWaite myBroadCastWaite;
+    private MyBroadCastPass myBroadCastPass;
     private LocalBroadcastManager localBroadcastManager;
-    private class MyBroadCast extends BroadcastReceiver {
+    private class MyBroadCastWaite extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("huhu", intent.getStringExtra(Constant.SHARE));
-            switch (intent.getStringExtra(Constant.SHARE)) {
-                case "visibleWaite":
-                    loadingWaite.setVisibility(View.VISIBLE);
-                    animationDrawableWaite.start();
-                    break;
-                case "goneWaite":
-                    animationDrawableWaite.stop();
-                    loadingWaite.setVisibility(View.GONE);
-                    break;
-                case "visibleOk":
-                    loadingOk.setVisibility(View.VISIBLE);
-                    animationDrawableOk.start();
-                    break;
-                case "goneOk":
-                    animationDrawableOk.stop();
-                    loadingOk.setVisibility(View.GONE);
-                    break;
-                default:
-                    Toast.makeText(AdminShareActivity.this, "广播异常了", Toast.LENGTH_SHORT).show();
-
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingWaite.getDrawable();
+            if(intent.getStringExtra(Constant.SHARE_WAITE).equals("visible")) {
+                loadingWaite.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.SHARE_WAITE).equals("gone")){
+                animationDrawable.stop();
+                loadingWaite.setVisibility(View.GONE);
             }
 
         }
     }
+
+    private class MyBroadCastPass extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingPass.getDrawable();
+            if(intent.getStringExtra(Constant.SHARE_OK).equals("visible")) {
+                loadingPass.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.SHARE_OK).equals("gone")){
+                animationDrawable.stop();
+                loadingPass.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +78,10 @@ public class AdminShareActivity extends ActivityGroup {
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        myBroadCast = new MyBroadCast();
-        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_WAITE));
-        localBroadcastManager.registerReceiver(myBroadCast, new IntentFilter(Constant.SHARE_OK));
+        myBroadCastWaite = new MyBroadCastWaite();
+        myBroadCastPass = new MyBroadCastPass();
+        localBroadcastManager.registerReceiver(myBroadCastWaite, new IntentFilter(Constant.SHARE_WAITE));
+        localBroadcastManager.registerReceiver(myBroadCastPass, new IntentFilter(Constant.SHARE_OK));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
@@ -107,9 +108,8 @@ public class AdminShareActivity extends ActivityGroup {
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("已批准");
-        loadingOk = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
-        animationDrawableWaite = (AnimationDrawable)loadingWaite.getDrawable();
-        animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
+        loadingPass = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
+
 
         Intent intent = new Intent(AdminShareActivity.this, EmptyActivity.class);
 
@@ -199,6 +199,7 @@ public class AdminShareActivity extends ActivityGroup {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        localBroadcastManager.unregisterReceiver(myBroadCast);
+        localBroadcastManager.unregisterReceiver(myBroadCastWaite);
+        localBroadcastManager.unregisterReceiver(myBroadCastPass);
     }
 }

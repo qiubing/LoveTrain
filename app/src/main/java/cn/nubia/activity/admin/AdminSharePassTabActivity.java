@@ -172,16 +172,15 @@ public class AdminSharePassTabActivity extends Activity {
 
     private void loadShow() {
         Intent intent = new Intent();
-        intent.setAction(Constant.SHARE_WAITE);
-        intent.putExtra(Constant.SHARE, "visibleOk");
+        intent.setAction(Constant.SHARE_OK);
+        intent.putExtra(Constant.SHARE_OK, "visible");
         LocalBroadcastManager.getInstance(AdminSharePassTabActivity.this).sendBroadcast(intent);
 
     }
     private void cancelLoadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.SHARE_OK);
-        intent.putExtra(Constant.SHARE, "goneOk");
+        intent.putExtra(Constant.SHARE_OK, "gone");
         LocalBroadcastManager.getInstance(AdminSharePassTabActivity.this).sendBroadcast(intent);
-        Log.i("huhu", "已通过广播发出");
     }
 }
