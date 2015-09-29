@@ -83,6 +83,7 @@
             android:paddingTop="0dp"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
+            android:gravity="center_horizontal"
             android:textSize="@dimen/manager_rate_textSmalSize" />
     </LinearLayout>
 
@@ -112,6 +113,7 @@
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
+            android:gravity="center_horizontal"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize" />
@@ -146,6 +148,7 @@
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize"
             android:focusable="false"
+            android:gravity="center_horizontal"
             android:focusableInTouchMode="false"
             />
     </LinearLayout>
@@ -173,6 +176,7 @@
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
             android:padding="@dimen/padding"
+            android:gravity="center_horizontal"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
             android:textColor="@color/edit_text"
@@ -206,6 +210,7 @@
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
             android:padding="@dimen/padding"
+            android:gravity="center_horizontal"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
             android:textColor="@color/edit_text"
@@ -239,6 +244,7 @@
             android:layout_marginRight="@dimen/login_edit_text_margin_right"
             android:background="@drawable/editview_selector"
             android:padding="@dimen/padding"
+            android:gravity="center_horizontal"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="true"
             android:textColor="@color/edit_text"
@@ -273,6 +279,7 @@
             android:padding="@dimen/padding"
             android:paddingLeft="@dimen/login_edit_text_inner_padding"
             android:singleLine="false"
+            android:gravity="center_horizontal"
             android:textColor="@color/edit_text"
             android:textColorHint="@color/edit_text_hint"
             android:textSize="@dimen/manager_rate_textSmalSize" />

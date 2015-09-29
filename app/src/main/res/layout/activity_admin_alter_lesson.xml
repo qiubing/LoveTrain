@@ -243,6 +243,7 @@
                 android:id="@+id/alter_lesson_teacherGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true"
                 android:inputType="number"/>
 
@@ -262,6 +263,7 @@
                 android:id="@+id/alter_lesson_studentGetPoints_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:selectAllOnFocus="true"
                 android:inputType="number"/>
 
