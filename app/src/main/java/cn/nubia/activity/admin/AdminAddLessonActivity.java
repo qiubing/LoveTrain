@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -235,9 +236,10 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
+                Log.e("929",response.toString());
                 int code = response.getInt("code");
-                boolean isOk = response.getBoolean("data");
-                if( code == 0 && isOk) {
+//                int isOk = response.getInt("data");
+                if( code == 0) {
                     Toast.makeText(AdminAddLessonActivity.this, "success", Toast.LENGTH_SHORT).show();
                     lessonDate.setText("");
                     lessonName.setText("");
@@ -248,8 +250,10 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                     lessonEndTime.setText("");
                     teacherGetPoints.setText("");
                     studentGetPoints.setText("");
+                    Log.e("9290", response.toString());
                 }
             } catch (Exception e) {
+                Log.e("9291",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddLessonActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();

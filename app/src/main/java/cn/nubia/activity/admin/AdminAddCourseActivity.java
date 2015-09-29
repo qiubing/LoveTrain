@@ -201,9 +201,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
+                Log.e("930",response.toString());
                 int code = response.getInt("code");
-                boolean isOk = response.getBoolean("data");
-                if (code == 0 && isOk) {
+//                boolean isOk = response.getBoolean("data");
+                if (code == 0) {
                     Toast.makeText(AdminAddCourseActivity.this, "success", Toast.LENGTH_SHORT).show();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
@@ -211,8 +212,10 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     addCourseCoursePointsEditText.setText("");
                     addCourseWhetherExamCheckBox.setChecked(false);
                 }
+                Log.e("9300",response.toString());
 
             } catch (Exception e) {
+                Log.e("9301",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddCourseActivity.this, "in success exception ", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
