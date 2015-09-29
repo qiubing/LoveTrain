@@ -192,9 +192,9 @@ public class AdminExamActivity extends ActivityGroup{
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("wj","getLocalClassName resultCode"+manager.getActivity("AT").getLocalClassName()+ resultCode);
+        Log.e("wj", "getLocalClassName resultCode" + manager.getActivity("AT").getLocalClassName() + resultCode);
         Activity activity = manager.getActivity("AT");
-        if(activity != null && activity instanceof ExamAddTabActivity){
+        if(activity != null && data != null && activity instanceof ExamAddTabActivity){
             OnTabActivityResultListener listener = (OnTabActivityResultListener) activity;
             Bundle bundle = data.getExtras();
             ExamItem examItem = (ExamItem) bundle.get("ExamItem");
