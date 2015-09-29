@@ -377,7 +377,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         }
 
     private  void showNetworkFailedFooter(boolean loading) {
-            if (loading && mListView.getAdapter().getCount()>10) {
+            if (loading && mListView != null && mListView.getAdapter().getCount()>10) {
                 mListView.removeFooterView(mLoadingFailedView);
                 if(mListView.getFooterViewsCount() == 0)
                     mListView.addFooterView(mNetworkUnusableView);

@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
@@ -33,7 +35,6 @@ import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 @SuppressWarnings("deprecation")
 public class AdminAddExamActivity extends Activity implements  View.OnClickListener{
-
 
     private EditText mExamInfo;
     private EditText mExamTitle;
@@ -45,7 +46,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private static final String URL = Constant.BASE_URL + "/exam/add.do";
-
+    private ExamItem mExamItem;
     private int year;
     private int month;
     private int day;
@@ -59,7 +60,7 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_add_exam);
-
+        mExamItem = new ExamItem();
 
         mExamTitle = (EditText) findViewById(R.id.activity_manager_add_exam_one);
         mExamInfo = (EditText) findViewById(R.id.activity_manager_add_exam_info);
@@ -112,11 +113,19 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
 
         requestParams.add("course_index", null);
         requestParams.add("exam_name", mExamTitle.getText().toString());
+        mExamItem.setName(mExamTitle.getText().toString());
         requestParams.add("exam_description", mExamInfo.getText().toString());
+        mExamItem.setDescription(mExamInfo.getText().toString());
         requestParams.add("locale", mExamAddress.getText().toString());
+        mExamItem.setLocale(mExamInfo.getText().toString());
         requestParams.put("start_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart));
+        long startTime = TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart);
+        mExamItem.setStartTime(startTime);
         requestParams.put("end_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd));
+        long endTime = TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd);
+        mExamItem.setEndTime(endTime);
         requestParams.put("exam_credits", mExamCredit.getText().toString());
+        mExamItem.setExamCredits(20);
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
@@ -124,15 +133,18 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
-                Log.i("huhu", "addExam" + code);
                 boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + ","+result + "," +isOk);
                 if(code == 0 && isOk) {
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("ExamItem",mExamItem);
+                    intent.putExtras(bundle);
+                    AdminAddExamActivity.this.setResult(2,intent);
+
                     Toast.makeText(AdminAddExamActivity.this, "success", Toast.LENGTH_SHORT).show();
                     mExamTitle.setText("");
                     mExamInfo.setText("");

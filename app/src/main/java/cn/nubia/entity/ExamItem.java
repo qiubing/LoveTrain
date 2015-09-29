@@ -80,4 +80,20 @@ public class ExamItem extends Item implements Serializable {
         this.mExamCredits = mExamCredits;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if (o != null && o.getClass() == ExamItem.class){
+            ExamItem examItem = (ExamItem) o;
+            if(this.getIndex() == examItem.getIndex())
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
