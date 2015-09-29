@@ -1,5 +1,6 @@
 package cn.nubia.activity.admin;
 
+import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.BroadcastReceiver;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +27,16 @@ import java.util.List;
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
+import cn.nubia.entity.ExamItem;
+import cn.nubia.interfaces.OnTabActivityResultListener;
 import cn.nubia.entity.Constant;
 
 /**
  * Created by 胡立 on 2015/9/6.
  */
-public class AdminExamActivity extends ActivityGroup {
+public class AdminExamActivity extends ActivityGroup{
     private LocalActivityManager manager;
+    private TabHost tabHost;
     private ImageView loadingShow;
     private MyBroadCast myBroadCast;
     private class MyBroadCast extends BroadcastReceiver {
@@ -69,9 +74,9 @@ public class AdminExamActivity extends ActivityGroup {
 		Intent i2 = new Intent(context, Game2Activity.class);
 		listViews.add(getView("B", i2));*/
         Intent i3 = new Intent(AdminExamActivity.this, ExamAddTabActivity.class);
-        listViews.add(getView("C", i3));
+        listViews.add(getView("AT", i3));
 
-        TabHost tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(AdminExamActivity.this.getLocalActivityManager());
 
         // 这儿主要是自定义一下tabhost中的tab的样式
@@ -98,7 +103,7 @@ public class AdminExamActivity extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminExamActivity.this, AdminAddExamActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         // 注意这儿Intent中的activity不能是自身
@@ -184,6 +189,25 @@ public class AdminExamActivity extends ActivityGroup {
     protected void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("wj","getLocalClassName resultCode"+manager.getActivity("AT").getLocalClassName()+ resultCode);
+        Activity activity = manager.getActivity("AT");
+        if(activity != null && activity instanceof ExamAddTabActivity){
+            OnTabActivityResultListener listener = (OnTabActivityResultListener) activity;
+            Bundle bundle = data.getExtras();
+            ExamItem examItem = (ExamItem) bundle.get("ExamItem");
+            switch (resultCode){
+                case 1:
+                case 2:
+                    listener.onTabActivityResult(requestCode,resultCode,examItem);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }
 

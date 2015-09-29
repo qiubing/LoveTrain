@@ -281,13 +281,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-//        requestParams.add("device_id", "MXJSDLJFJFSFS");
-//        requestParams.add("request_time","1445545456456");
-//        requestParams.add("apk_version","1");
-//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-
         requestParams.add("record_modify_time_course", "1435125456111");
-
         requestParams.put("exam_index", mExamItemExamEdit.getIndex());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
@@ -296,18 +290,23 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.i("huhu", "addExam" + "onSuccess");
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
-                //JSONArray jsonArray = response.getJSONArray("data");
-                Log.i("huhu", "addExam" + code + "," +isOk);
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminExamDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(AdminExamDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();
                 }
 
+
+                Intent intent = getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ExamItem",mExamItemExamEdit);
+                intent.putExtras(bundle);
+                AdminExamDetailActivity.this.setResult(1,intent);
+
+                AdminExamDetailActivity.this.finish();
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
@@ -322,7 +321,6 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     };
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 
