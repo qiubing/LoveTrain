@@ -139,6 +139,6 @@ public class AdminCourseActivity extends ActivityGroup {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myBroadCast);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
     }
 }

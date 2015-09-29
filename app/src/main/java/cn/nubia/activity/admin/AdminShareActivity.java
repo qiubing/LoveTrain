@@ -40,11 +40,12 @@ public class AdminShareActivity extends ActivityGroup {
     private ImageView loadingOk;
     private MyBroadCast myBroadCast;
     private boolean isFirst = true;
+    AnimationDrawable animationDrawableWaite;
+    AnimationDrawable animationDrawableOk;
     private class MyBroadCast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            AnimationDrawable animationDrawableWaite = (AnimationDrawable)loadingWaite.getDrawable();
-            AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
+            Log.i("huhu", intent.getStringExtra(Constant.SHARE));
             switch (intent.getStringExtra(Constant.SHARE)) {
                 case "visibleWaite":
                     loadingWaite.setVisibility(View.VISIBLE);
@@ -86,9 +87,9 @@ public class AdminShareActivity extends ActivityGroup {
         manager.dispatchCreate(savedInstanceState);
 
         Intent i2 = new Intent(AdminShareActivity.this, AdminShareCheckTabActivity.class);
-        listViews.add(getView("AA", i2));
+        listViews.add(getView("A", i2));
         Intent i3 = new Intent(AdminShareActivity.this, AdminSharePassTabActivity.class);
-        listViews.add(getView("BA", i3));
+        listViews.add(getView("B", i3));
 
         tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(AdminShareActivity.this.getLocalActivityManager());
@@ -106,6 +107,8 @@ public class AdminShareActivity extends ActivityGroup {
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("已批准");
         loadingOk = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
+        animationDrawableWaite = (AnimationDrawable)loadingWaite.getDrawable();
+        animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
 
         Intent intent = new Intent(AdminShareActivity.this, EmptyActivity.class);
 
@@ -121,7 +124,6 @@ public class AdminShareActivity extends ActivityGroup {
                 tabHost.setCurrentTab(position);
                 if(isFirst == true && position == 1) {
                     isFirst = false;
-                    AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
                     loadingOk.setVisibility(View.VISIBLE);
                     animationDrawableOk.start();
                 }
@@ -148,7 +150,6 @@ public class AdminShareActivity extends ActivityGroup {
                     pager.setCurrentItem(1);
                     if(isFirst == true ) {
                         isFirst = false;
-                        AnimationDrawable animationDrawableOk = (AnimationDrawable)loadingOk.getDrawable();
                         loadingOk.setVisibility(View.VISIBLE);
                         animationDrawableOk.start();
                     }
@@ -195,6 +196,6 @@ public class AdminShareActivity extends ActivityGroup {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myBroadCast);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
     }
 }
