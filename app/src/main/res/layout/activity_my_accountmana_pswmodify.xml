@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/soft_comment_title_content_windows">
 
-        <include
+    <include
         android:id="@+id/manager_score_user_detail_head"
         layout="@layout/manager_head"
         android:layout_width="fill_parent"

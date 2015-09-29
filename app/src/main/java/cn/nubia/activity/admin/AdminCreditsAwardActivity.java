@@ -46,14 +46,7 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     private void holdView() {
@@ -125,17 +118,17 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         if(response==null){
-            DialogMaker.make(AdminCreditsAwardActivity.this,
-                    AdminCreditsAwardActivity.this,"操作失败!",false);
+            DialogMaker.finishCurrentDialog(AdminCreditsAwardActivity.this,
+                    AdminCreditsAwardActivity.this, "操作失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(AdminCreditsAwardActivity.this,
+                DialogMaker.finishCurrentDialog(AdminCreditsAwardActivity.this,
                         AdminCreditsAwardActivity.this,
                         "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(AdminCreditsAwardActivity.this,
+                DialogMaker.finishCurrentDialog(AdminCreditsAwardActivity.this,
                         AdminCreditsAwardActivity.this,
                         "对 " + creditsAwardMsg.getAwardedName() + " 的积分奖励失败：\n" +
                                 message, false);

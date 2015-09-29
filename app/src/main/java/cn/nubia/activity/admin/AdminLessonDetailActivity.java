@@ -319,6 +319,9 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if (code == 0 && isOk) {
+                    Intent intent = new Intent(AdminLessonDetailActivity.this, AdminMainActivity.class);
+                    finish();
+                    startActivity(intent);
                     Toast.makeText(AdminLessonDetailActivity.this, "success", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AdminLessonDetailActivity.this, "该课程不存在", Toast.LENGTH_SHORT).show();

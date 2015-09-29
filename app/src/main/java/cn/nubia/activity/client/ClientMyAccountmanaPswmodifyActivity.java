@@ -45,14 +45,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
     @Override
     public void onStart(){
         super.onStart();
-        connectService();
         mNextPressReady = true;
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        disconectService();
     }
 
     private boolean matchNewPsw() {
@@ -124,16 +117,16 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
         mNextPressReady = true;
         mConfirmButton.setText(R.string.alterCourseForSure);
         if(response==null){
-            DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
-                   ClientMyAccountmanaPswmodifyActivity.this, "连接服务器失败!", false);
+            DialogMaker.finishCurrentDialog(ClientMyAccountmanaPswmodifyActivity.this,
+                    ClientMyAccountmanaPswmodifyActivity.this, "连接服务器失败!", false);
         }else{
             String operateResult = (String)response.get("operateResult");
             if(operateResult.equals("success")) {
-                DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
+                DialogMaker.finishCurrentDialog(ClientMyAccountmanaPswmodifyActivity.this,
                         ClientMyAccountmanaPswmodifyActivity.this, "密码修改成功!", true);
             }else if(operateResult.equals("failure")) {
                 String message = (String) response.get("message");
-                DialogMaker.make(ClientMyAccountmanaPswmodifyActivity.this,
+                DialogMaker.finishCurrentDialog(ClientMyAccountmanaPswmodifyActivity.this,
                         ClientMyAccountmanaPswmodifyActivity.this, "密码修改失败：\n" +
                                 message, false);
             }
