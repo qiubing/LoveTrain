@@ -247,4 +247,5 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
         intent.putExtra(Constant.EXAM, "gone");
         LocalBroadcastManager.getInstance(ExamAddTabActivity.this).sendBroadcast(intent);
     }
+
 }

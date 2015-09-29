@@ -2,13 +2,19 @@ package cn.nubia.activity.client;
 
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -18,6 +24,7 @@ import java.util.List;
 
 import cn.nubia.activity.EmptyActivity;
 import cn.nubia.activity.R;
+import cn.nubia.entity.Constant;
 
 /**
  * Created by 胡立 on 2015/9/7.
@@ -27,12 +34,52 @@ public class ClientMyCourseActivity extends ActivityGroup {
     private LocalActivityManager manager;
     private TabHost tabHost;
     private ViewPager pager;
+    private ImageView loadingTeacher;
+    private ImageView loadingStudent;
+    private MyBroadCastTeacher myBroadCastTeacher;
+    private MyBroadCastStudent myBroadCastStudent;
+    private LocalBroadcastManager localBroadcastManager;
+    private class MyBroadCastTeacher extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingTeacher.getDrawable();
+            if(intent.getStringExtra(Constant.MYCOURCE_TEACHER).equals("visible")) {
+                loadingTeacher.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.MYCOURCE_TEACHER).equals("gone")){
+                animationDrawable.stop();
+                loadingTeacher.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+    private class MyBroadCastStudent extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AnimationDrawable animationDrawable = (AnimationDrawable)loadingStudent.getDrawable();
+            if(intent.getStringExtra(Constant.MYCOURCE_STUDENT).equals("visible")) {
+                loadingStudent.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            } else if(intent.getStringExtra(Constant.MYCOURCE_STUDENT).equals("gone")){
+                animationDrawable.stop();
+                loadingStudent.setVisibility(View.GONE);
+            }
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_client_tab);
         pager = (ViewPager) findViewById(R.id.admin_course_viewpager);
+
+        localBroadcastManager = LocalBroadcastManager.getInstance(this);
+        myBroadCastTeacher = new MyBroadCastTeacher();
+        myBroadCastStudent = new MyBroadCastStudent();
+        localBroadcastManager.registerReceiver(myBroadCastTeacher, new IntentFilter(Constant.MYCOURCE_TEACHER));
+        localBroadcastManager.registerReceiver(myBroadCastStudent, new IntentFilter(Constant.MYCOURCE_STUDENT));
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> listViews = new ArrayList<View>();
@@ -52,6 +99,7 @@ public class ClientMyCourseActivity extends ActivityGroup {
                 this).inflate(R.layout.layout_tab, null);
         TextView tvTab2 = (TextView) tabIndicator2.findViewById(R.id.tv_title);
         tvTab2.setText("我是学员");
+        loadingStudent = (ImageView)tabIndicator2.findViewById(R.id.loading_iv);
 
 
         RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(
@@ -59,6 +107,7 @@ public class ClientMyCourseActivity extends ActivityGroup {
 
         TextView tvTab3 = (TextView) tabIndicator3.findViewById(R.id.tv_title);
         tvTab3.setText("我是讲师");
+        loadingTeacher = (ImageView)tabIndicator3.findViewById(R.id.loading_iv);
 
         Intent intent = new Intent(this, EmptyActivity.class);
 
@@ -134,5 +183,12 @@ public class ClientMyCourseActivity extends ActivityGroup {
         public boolean isViewFromObject(View arg0, Object arg1) {
             return arg0 == arg1;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        localBroadcastManager.unregisterReceiver(myBroadCastTeacher);
+        localBroadcastManager.unregisterReceiver(myBroadCastStudent);
     }
 }
