@@ -259,7 +259,6 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
     }
 
     public void back(View view) {
-        // TODO Auto-generated method stub
         this.finish();
     }
 }

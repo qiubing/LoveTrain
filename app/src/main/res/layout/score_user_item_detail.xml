@@ -18,7 +18,7 @@
         android:id="@+id/score_user_detail_address"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/high16"
-        android:layout_below="@+id/score_user_detail_coursename"
+        android:layout_below="@id/score_user_detail_coursename"
         android:text="ak1"
         android:textColor="@color/text_color"
         android:textSize="@dimen/textSize14" />
@@ -37,5 +37,5 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/view_height"
-        android:layout_below="@+id/score_course_address" />
+        android:layout_below="@id/score_user_detail_address" />
 </RelativeLayout>
