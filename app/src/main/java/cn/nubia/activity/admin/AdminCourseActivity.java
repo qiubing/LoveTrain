@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +92,9 @@ public class AdminCourseActivity extends ActivityGroup {
         tvTab3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("huhu", "新增课程");
                 startActivity(intent);
-//                Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
+                //Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
             }
         });
         //此处貌似必须有setContent(intent)
