@@ -7,30 +7,29 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -42,7 +41,7 @@ public class AdminShareCheckTabActivity extends Activity {
     private CourseAdapter mCourseAdapter;
     private List<TechnologyShareCourseItem> mCourseList;
     private RefreshLayout mRefreshLayout;
-    private RelativeLayout loadingFailedRelativeLayout;
+    private LoadViewUtil mLoadViewUtil;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +56,12 @@ public class AdminShareCheckTabActivity extends Activity {
     private void initViews(){
         mListView = (ListView) findViewById(R.id.admin_all_unapproved_share_course);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_share);
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_share);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_share);
-        loadingFailedRelativeLayout.setVisibility(View.GONE);
-        networkUnusableRelativeLayout.setVisibility(View.GONE);
-
     }
 
     private void initEvents(){
         mCourseList = new ArrayList<>();
+        mLoadViewUtil = new LoadViewUtil(this, mListView, null);
+        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mListView.setOnItemClickListener(new CourseListOnItemClickListener());
 
         mCourseAdapter = new CourseAdapter(mCourseList, AdminShareCheckTabActivity.this);
@@ -75,12 +71,32 @@ public class AdminShareCheckTabActivity extends Activity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(AdminShareCheckTabActivity.this, "刷新", Toast.LENGTH_SHORT).show();
+                mLoadViewUtil.showShortToast("刷新");
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         loadData();
                         mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
+                    }
+                }, 1500);
+            }
+        });
+
+        // 加载监听器
+        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                mLoadViewUtil.showShortToast("加载更多");
+                mRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //加载历史数据
+                        loadData();
+                        mRefreshLayout.setLoading(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -94,26 +110,27 @@ public class AdminShareCheckTabActivity extends Activity {
             try {
                 if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
                     Log.e(TAG,"onSuccess: " + response.toString());
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
                     cancelLoadShow();
                 }else {
-                    Log.e(TAG,"VIEW_LOADFAILURE");
-                    loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                    Log.e(TAG, "VIEW_LOADFAILURE");
                     cancelLoadShow();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 Log.e(TAG, "VIEW_LOADFAILURE");
-                loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(AdminShareCheckTabActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
                 cancelLoadShow();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Toast.makeText(AdminShareCheckTabActivity.this,"请求失败",Toast.LENGTH_LONG).show();
+            mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
         }
     };
@@ -188,6 +205,8 @@ public class AdminShareCheckTabActivity extends Activity {
             startActivity(intent);
         }
     }
+
+
 
     @Override
     protected void onResume() {

@@ -33,6 +33,7 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -44,6 +45,7 @@ public class AdminSharePassTabActivity extends Activity {
     private CourseAdapter mCourseAdapter;
     private List<TechnologyShareCourseItem> mCourseList;
     private RefreshLayout mRefreshLayout;
+    private LoadViewUtil mLoadViewUtil;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,15 +60,14 @@ public class AdminSharePassTabActivity extends Activity {
     private void initViews() {
         mListView = (ListView) findViewById(R.id.admin_all_approved_share_course);
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_pass);
-        RelativeLayout loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed_pass);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_pass);
-        loadingFailedRelativeLayout.setVisibility(View.GONE);
-        networkUnusableRelativeLayout.setVisibility(View.GONE);
     }
 
     private void initEvents() {
         mCourseList = new ArrayList<>();
+        mLoadViewUtil = new LoadViewUtil(this, mListView, null);
+        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mListView.setOnItemClickListener(new CourseListOnItemClickListener());
+
         mCourseAdapter = new CourseAdapter(mCourseList, AdminSharePassTabActivity.this);
         mListView.setAdapter(mCourseAdapter);
 
@@ -74,13 +75,33 @@ public class AdminSharePassTabActivity extends Activity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(AdminSharePassTabActivity.this, "刷新", Toast.LENGTH_SHORT).show();
+                mLoadViewUtil.showShortToast("刷新");
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
 
                         loadData();
                         mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
+                    }
+                }, 1500);
+            }
+        });
+
+        // 加载监听器
+        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                mLoadViewUtil.showShortToast("加载更多");
+                mRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //加载历史数据
+                        loadData();
+                        mRefreshLayout.setLoading(false);
+                        mRefreshLayout.showLoadFailedView(Constant.SHOW_FOOTER,
+                                mLoadViewUtil.getLoadingFailedFlag(), mLoadViewUtil.getNetworkFailedFlag());
                     }
                 }, 1500);
             }
@@ -102,13 +123,14 @@ public class AdminSharePassTabActivity extends Activity {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
+                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
                     AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
                     asyncParseJsonTask.execute(jsonArray);
                     cancelLoadShow();
-//                    Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
                 }
             } catch (JSONException e) {
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 e.printStackTrace();
                 cancelLoadShow();
             }
@@ -117,6 +139,7 @@ public class AdminSharePassTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
+            mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
         }
     };

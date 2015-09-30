@@ -8,22 +8,6 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include
-        android:layout_marginTop="10dp"
-        android:id="@+id/loading_failed_pass"
-        android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        layout="@layout/layout_loading_failed"
-        />
-
-    <include
-        android:layout_marginTop="10dp"
-        android:paddingTop="@dimen/manager_rate_paddingTop"
-        android:id="@+id/network_unusable_pass"
-        android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        layout="@layout/layout_network_unusable" />
-
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout_pass"
         android:layout_width="match_parent"
@@ -42,4 +26,10 @@
             android:scrollbars="none"/>
 
     </cn.nubia.component.RefreshLayout>
+
+    <cn.nubia.component.ErrorHintView
+        android:id="@+id/hintView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -78,7 +78,6 @@
             <EditText
                 android:id="@+id/activity_manager_awarded_credit"
                 style="@style/edit_text_style"
-                android:hint="20"
                 android:numeric="integer"/>
 
             <!--<EditText-->

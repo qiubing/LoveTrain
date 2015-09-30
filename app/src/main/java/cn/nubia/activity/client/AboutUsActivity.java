@@ -3,6 +3,8 @@ package cn.nubia.activity.client;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,6 +14,8 @@ import com.google.zxing.WriterException;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.Utils;
 import cn.nubia.zxing.encoding.EncodingHandler;
 
@@ -21,6 +25,8 @@ import cn.nubia.zxing.encoding.EncodingHandler;
  * Date: 2015/9/11 15:32
  */
 public class AboutUsActivity extends Activity {
+    private GestureDetector gestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,30 @@ public class AboutUsActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
     }
 
     public void back(View view) {

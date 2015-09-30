@@ -126,12 +126,15 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             Log.e("931",mCourseItem.getCourseCredits()+"");
             if(mCourseItem.getType().equals("senior")){
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
-                        mCourseItem.hasExam() + "\n课程积分：" + mCourseItem.getCourseCredits()+"\n" +
-                        "需扣积分："+mCourseItem.getEnrollCredits());
+                        mCourseItem.hasExam()
+//                        + "\n课程积分：" + mCourseItem.getCourseCredits()
+                        + "\n" + "需扣积分："+mCourseItem.getEnrollCredits());
             }
             else {
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
-                        mCourseItem.hasExam() + "\n课程积分：" + mCourseItem.getCourseCredits());
+                        mCourseItem.hasExam()
+//                        + "\n课程积分：" + mCourseItem.getCourseCredits()
+                );
             }
         }
 

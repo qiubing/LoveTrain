@@ -1,10 +1,14 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,7 +26,9 @@ import cn.nubia.adapter.ClientExamScoreAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamResultItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
@@ -37,6 +43,9 @@ public class ClientExamScoreActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +62,17 @@ public class ClientExamScoreActivity extends Activity {
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_exam);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_exam);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_exam);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_exam);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         mResultList = new ArrayList<>();
         ListView mListView = (ListView) findViewById(R.id.exam_score_detail);
@@ -74,6 +91,13 @@ public class ClientExamScoreActivity extends Activity {
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 1500);
+            }
+        });
+
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
             }
         });
     }
@@ -99,11 +123,13 @@ public class ClientExamScoreActivity extends Activity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Toast.makeText(ClientExamScoreActivity.this, "请求失败", Toast.LENGTH_LONG).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
         }
     };
 
     private void loadData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         //请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
@@ -136,7 +162,6 @@ public class ClientExamScoreActivity extends Activity {
                 mResultList.addAll(examResultItems);
             }
             mAdapter.notifyDataSetChanged();
-//            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 
@@ -147,6 +172,30 @@ public class ClientExamScoreActivity extends Activity {
         result.setmLessonIndex(jsonObject.getInt("lesson_index"));
         return result;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
+
 
 
     /**
