@@ -74,7 +74,10 @@ public class UpdateClassListHelper {
         lessonItem.setTeacherCredits(jsonObjectDetail.getInt("teacher_credits"));
         lessonItem.setCheckCredits(jsonObjectDetail.getInt("check_credits"));
         lessonItem.setRecordModifyTime(jsonObjectDetail.getLong("lesson_record_modify_time"));
-        lessonItem.setIsJudged(jsonObjectDetail.getBoolean("is_judged"));
+        if(!jsonObjectDetail.isNull("is_judged")){
+            lessonItem.setIsJudged(jsonObjectDetail.getBoolean("is_judged"));
+        }
+
         return lessonItem;
     }
 
@@ -86,7 +89,7 @@ public class UpdateClassListHelper {
         courseItem.setOperator(operater);
 
         courseItem.setCourseCredits(jsonObjectDetail.getInt("course_credits"));
-        Log.e("xiaoHeHe",jsonObjectDetail.getString("course_name")+"-----"+courseItem.getCourseCredits() + "");
+        Log.e("xiaoHeHe", jsonObjectDetail.getString("course_name") + "-----" + courseItem.getCourseCredits() + "");
 
         courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
         courseItem.setName(jsonObjectDetail.getString("course_name"));
