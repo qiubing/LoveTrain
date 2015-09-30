@@ -1,6 +1,7 @@
 package cn.nubia.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -150,6 +151,7 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
             holder.scoreET.setFocusableInTouchMode(true);
         }else{
             holder.scoreET.setFocusableInTouchMode(false);
+            holder.scoreET.setBackgroundColor(Color.GRAY);
         }
 
         holder.textWatcher = new MyTextWatcher(holder.scoreET,position);

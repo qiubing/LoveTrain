@@ -201,7 +201,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
             requestParams.add("enroll_credits", addCourseHighLevelCourseDeletePoints.getText().toString());
         }
 
-        Log.i("xx", "参数" + requestParams.toString());
+        Log.i("xiaoHeHe", "参数" + requestParams.toString());
 
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
@@ -212,7 +212,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
             try {
                 Log.e("930",response.toString());
                 int code = response.getInt("code");
-//                boolean isOk = response.getBoolean("data");
                 if (code == 0) {
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");

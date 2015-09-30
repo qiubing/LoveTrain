@@ -50,6 +50,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
 
+    private  Button mEvaluateTextView;
 
     private GestureDetector gestureDetector;
 
@@ -63,7 +64,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Button deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
         TextView signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
         TextView mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
-        Button mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
+        mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
         TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText("课时管理");
         /**获取相关的TextView*/
@@ -135,21 +136,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             default:
                 Log.i("huhu", "AdminLessonDetail  startActivity异常了");
         }
-       /*
 
-        if (Constant.IS_ADMIN == true || status.equals("teacher")) {
-            mGenerateQRCode.setVisibility(View.VISIBLE);
-            alterLessonBtn.setOnClickListener(this);
-            deleteLessonBtn.setOnClickListener(this);
-            signUpPopulationTextView.setOnClickListener(this);
-            mGenerateQRCode.setOnClickListener(this);
-            mEvaluateTextView.setOnClickListener(this);
-        } else {
-            alterLessonBtn.setVisibility(View.GONE);
-            deleteLessonBtn.setVisibility(View.GONE);
-            signUpPopulationTextView.setVisibility(View.GONE);
-            mEvaluateTextView.setVisibility(View.GONE);
-        }*/
+
 
         if (lessonItem != null) {
             lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
@@ -163,6 +151,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                             "\n学员签到可得积分：" + lessonItem.getCheckCredits()
             );
         }
+        Log.e("MyTime", lessonItem.getEndTime() + "");
+
     }
 
     @Override
@@ -283,6 +273,16 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
 
             case R.id.evaluateTextView:
+                /**课时尚未开始和结束不能进行评价*/
+                if(lessonItem.getStartTime()>System.currentTimeMillis()){
+                    Toast.makeText(AdminLessonDetailActivity.this, "该课时尚未开始，不能评价！", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if(lessonItem.getStartTime()<System.currentTimeMillis() && lessonItem.getEndTime()>System.currentTimeMillis()){
+                    Toast.makeText(AdminLessonDetailActivity.this, "该课时尚未结束，不能评价！", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
                 Intent intent ;
                 if(Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);

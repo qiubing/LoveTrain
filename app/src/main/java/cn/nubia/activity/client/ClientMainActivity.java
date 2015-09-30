@@ -164,7 +164,6 @@ public class ClientMainActivity extends ActivityGroup {
                             "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();
                 }
             }
-
         }
 
         @Override

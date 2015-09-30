@@ -28,15 +28,10 @@
         android:id="@+id/evaluate_refreshLayout_sharecourse"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
 
-                <ListView
-                    android:id="@+id/share_course_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ListView>
-            </LinearLayout>
+        <ListView
+            android:id="@+id/share_course_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
     </cn.nubia.component.RefreshLayout>
 </LinearLayout>

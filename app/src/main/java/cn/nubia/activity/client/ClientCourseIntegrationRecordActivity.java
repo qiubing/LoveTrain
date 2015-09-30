@@ -1,10 +1,14 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,7 +26,9 @@ import cn.nubia.adapter.ClientCourseIntegrationAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseIntegrationItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.MyJsonHttpResponseHandler;
 
 
@@ -38,6 +44,9 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+
+    private GestureDetector gestureDetector;
 
 
     @Override
@@ -54,16 +63,25 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
         text.setText("课程积分记录");
 
-        mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_integration);
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_integration);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_integration);
-        loadingFailedRelativeLayout.setVisibility(View.GONE);
-        networkUnusableRelativeLayout.setVisibility(View.GONE);
-
         mIntegrationList = new ArrayList<>();
         ListView mListView = (ListView) findViewById(R.id.course_integration_detail);
         mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
         mListView.setAdapter(mAdapter);
+
+        mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_integration);
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_integration);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_integration);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
 
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -77,6 +95,13 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 1500);
+            }
+        });
+
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
             }
         });
     }
@@ -104,7 +129,8 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Toast.makeText(ClientCourseIntegrationRecordActivity.this, "请求失败", Toast.LENGTH_LONG).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            //Toast.makeText(ClientCourseIntegrationRecordActivity.this, "请求失败", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -117,6 +143,8 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
     }
 
     private void loadData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         //请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
@@ -149,7 +177,6 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
                 mIntegrationList.addAll(courseIntegrationItems);
             }
             mAdapter.notifyDataSetChanged();
-            //Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度
             mScoreText.setVisibility(View.VISIBLE);
             mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
         }
@@ -166,6 +193,28 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
+    }
 
     /**
      * 返回箭头绑定事件，即退出该页面

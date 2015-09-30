@@ -1,8 +1,10 @@
 package cn.nubia.activity.client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.ClientCheckRecordAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.CheckRecordItem;
@@ -47,6 +50,7 @@ public class ClientMyCheckRecordActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
 
     private GestureDetector gestureDetector;
 
@@ -54,7 +58,6 @@ public class ClientMyCheckRecordActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_checked_record);
-        setGesture();
         initEvents();
         loadData();
     }
@@ -71,9 +74,17 @@ public class ClientMyCheckRecordActivity extends Activity {
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_mycheck);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_mycheck);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_mycheck);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_mycheck);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         // 设置下拉刷新监听器
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -87,6 +98,16 @@ public class ClientMyCheckRecordActivity extends Activity {
                         mRefreshLayout.setRefreshing(false);
                     }
                 }, 1500);
+            }
+        });
+
+        /**
+         * 让手势可以作用于listView
+         */
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
             }
         });
     }
@@ -107,12 +128,13 @@ public class ClientMyCheckRecordActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(ClientMyCheckRecordActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Toast.makeText(ClientMyCheckRecordActivity.this, "请求失败", Toast.LENGTH_LONG).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
         }
     };
 
@@ -120,6 +142,8 @@ public class ClientMyCheckRecordActivity extends Activity {
      * 加载我的签到记录
      */
     private void loadData() {
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "user/find_check_record.do";
@@ -151,7 +175,6 @@ public class ClientMyCheckRecordActivity extends Activity {
                 mCheckList.addAll(checkRecordItems);
             }
             mAdapter.notifyDataSetChanged();
-//            Utils.setListViewHeightBasedOnChildren(mListView);//自适应ListView的高度*/
         }
     }
 
@@ -162,23 +185,15 @@ public class ClientMyCheckRecordActivity extends Activity {
         return check;
     }
 
-    /**
-     * 返回箭头绑定事件，即退出该页面
-     * <p/>
-     * param view
-     */
-    public void back(View view) {
-        this.finish();
-    }
 
-    /**
-     * 设置手势函数
-     */
-    private void setGesture() {
+    @Override
+    protected void onResume() {
+        super.onResume();
         //创建手势管理单例对象
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
         //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
         gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
         //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
         gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
             @Override
@@ -188,9 +203,20 @@ public class ClientMyCheckRecordActivity extends Activity {
         });
     }
 
+    //将Activity上的触碰事件交给GestureDetector处理
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
+        return  gestureDetector.onTouchEvent(event);
+    }
+
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * <p/>
+     * param view
+     */
+    public void back(View view) {
+        this.finish();
     }
 
 }

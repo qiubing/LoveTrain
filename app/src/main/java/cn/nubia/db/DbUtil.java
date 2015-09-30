@@ -219,6 +219,7 @@ public class DbUtil {
             courseItem.setDescription(cursor.getString(cursor.getColumnIndex(CourseItem.DESCRIPTION)));
 //            courseItem.setJudgeScore(cursor.getFloat(cursor.getColumnIndex(CourseItem.JUDGE_SCORE)));
             courseItem.setCourseCredits(cursor.getInt(cursor.getColumnIndex(CourseItem.CREDITS)));
+            Log.e("hx", cursor.getInt(cursor.getColumnIndex(CourseItem.CREDITS))+"");
             courseItem.setLessones(cursor.getShort(cursor.getColumnIndex(CourseItem.LESSONES_COUNT)));
             courseItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(CourseItem.RECORD_MODIFY_TIME)));
             courseItem.setShareType(cursor.getShort(cursor.getColumnIndex(CourseItem.SHARE_TYPE)));

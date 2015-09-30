@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +25,6 @@ import java.util.Map;
 
 import cn.nubia.activity.BaseCommunicateActivity;
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminSharePassTabActivity;
 import cn.nubia.adapter.CourseLevelSpinnerAdapter;
 import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
@@ -232,6 +232,9 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
                                     mCourseEndtime.getText().toString().trim());
                             shareCourse.setStartTime(startTime.getTime());
                             shareCourse.setEndTime(endTime.getTime());
+                            Log.e("ShareCourseDetail","start time: " + shareCourse.getStartTime() +
+                            " end time: " + shareCourse.getEndTime());
+
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
