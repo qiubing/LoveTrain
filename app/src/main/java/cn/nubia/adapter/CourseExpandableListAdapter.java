@@ -282,8 +282,15 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
 
+                CourseItem courseItem= mGroupList.get(groupID);
+                Log.e("xiaohe","courseItem");
+                Log.e("xiaohe",courseItem.getName()+"----"+courseItem.getCourseCredits()+"----"+courseItem.getEnrollCredits());
+
+
+
                 Intent intentCourseDetail = new Intent(mContext, AdminCourseDetailActivity.class);
                 Bundle bundle = new Bundle();
+
                 bundle.putSerializable("CourseItem", mGroupList.get(groupID));
                 intentCourseDetail.putExtras(bundle);
                 intentCourseDetail.putExtra("startActivity", ((Activity) mContext).getLocalClassName());

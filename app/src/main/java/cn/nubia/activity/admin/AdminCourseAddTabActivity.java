@@ -20,7 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -157,7 +156,7 @@ public class AdminCourseAddTabActivity extends Activity {
     private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
+            Log.e("xiaoHeHe",response.toString());
             try {
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
@@ -200,6 +199,9 @@ public class AdminCourseAddTabActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            for(CourseItem course : courseItemList){
+                Log.e("xiaoHeHe",course.getName()+"---"+course.getCourseCredits()+"---"+course.getEnrollCredits());
+            }
             return courseItemList;
         }
 
@@ -231,6 +233,9 @@ public class AdminCourseAddTabActivity extends Activity {
             int listLength = mCourseItemList.size();
             for (int i = 0; i < listLength; i++) {
                 String type = mCourseItemList.get(i).getType().equals("senior")? "高级课程" : "普通课程";
+            }
+            for(CourseItem course : mCourseItemList){
+                Log.e("xiaoHeHe本地",course.getName()+"---"+course.getCourseCredits()+"---"+course.getEnrollCredits());
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }

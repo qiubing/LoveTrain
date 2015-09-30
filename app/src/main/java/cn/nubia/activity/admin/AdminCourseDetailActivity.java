@@ -128,7 +128,8 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
                         mCourseItem.hasExam()
 //                        + "\n课程积分：" + mCourseItem.getCourseCredits()
-                        + "\n" + "需扣积分："+mCourseItem.getEnrollCredits());
+//                        + "\n" + "需扣积分："+mCourseItem.getEnrollCredits());
+                        +"");
             }
             else {
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +

@@ -83,6 +83,10 @@ public class UpdateClassListHelper {
         courseItem.setLessonList(lessonList);
         courseItem.setType(courseType);
         courseItem.setOperator(operater);
+
+        courseItem.setCourseCredits(jsonObjectDetail.getInt("course_credits"));
+        Log.e("xiaoHeHe",jsonObjectDetail.getString("course_name")+"-----"+courseItem.getCourseCredits() + "");
+
         courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
         courseItem.setName(jsonObjectDetail.getString("course_name"));
         courseItem.setDescription(jsonObjectDetail.getString("course_description"));
@@ -90,10 +94,12 @@ public class UpdateClassListHelper {
         courseItem.setHasExam(jsonObjectDetail.getBoolean("has_exam"));
         courseItem.setRecordModifyTime(jsonObjectDetail.getLong("course_record_modify_time"));
         if (courseType.equals("senior")){
-            courseItem.setEnrollCredits(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("enroll_credits"):20);
+            courseItem.setEnrollCredits((short)jsonObjectDetail.getInt("enroll_credits"));
+//            courseItem.setEnrollCredits(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("enroll_credits"):20);
         }else if (courseType.equals("share")){
             courseItem.setShareType(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("course_level"):0);
         }
+        Log.e("xiaoHeHeReturn",courseItem.getName()+"-----"+courseItem.getCourseCredits() + "----"+courseItem.getEnrollCredits());
         return courseItem;
     }
 
