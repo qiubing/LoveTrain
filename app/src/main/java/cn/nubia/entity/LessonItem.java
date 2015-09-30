@@ -18,6 +18,7 @@ public class LessonItem extends Item implements Serializable {
     public final static String CHECK_CREDITS = "check_credits";
     public final static String TEACHER_CREDITS = "teacher_credits";
     public final static String RECORD_MODIFY_TIME = "lesson_record_modify_time";
+    public final static String IS_JUDGED = "is_judged";
 
     private int mCourseIndex;
     private String mTeacherID;
@@ -30,6 +31,16 @@ public class LessonItem extends Item implements Serializable {
     private int mTeacherCredits;//讲师上课积分
     private double mJudgeScore;//该课程讲师评价综合得分
     private long mRecordModifyTime;
+
+    public boolean isIsJudged() {
+        return mIsJudged;
+    }
+
+    public void setIsJudged(boolean mIsJudged) {
+        this.mIsJudged = mIsJudged;
+    }
+
+    private boolean mIsJudged;
 
 
     public int getCheckUsers() {

@@ -80,6 +80,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             "check_credits Integer," +                   //签到积分
             "teacher_credits Integer," +                 //讲师能得到的积分
             "judge_score float," +                       //学员评分结果
+            "is_judged Integer," +                       //是否已经评价
             "lesson_record_modify_time Integer)" ;       //课时信息修改时间
 
     private final static String CREATE_EXAM_TABLE = "CREATE TABLE IF NOT EXISTS "+ TB_NAME_EXAM +

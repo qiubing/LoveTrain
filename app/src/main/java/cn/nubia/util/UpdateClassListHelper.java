@@ -74,6 +74,7 @@ public class UpdateClassListHelper {
         lessonItem.setTeacherCredits(jsonObjectDetail.getInt("teacher_credits"));
         lessonItem.setCheckCredits(jsonObjectDetail.getInt("check_credits"));
         lessonItem.setRecordModifyTime(jsonObjectDetail.getLong("lesson_record_modify_time"));
+        lessonItem.setIsJudged(jsonObjectDetail.getBoolean("is_judged"));
         return lessonItem;
     }
 
@@ -132,10 +133,10 @@ public class UpdateClassListHelper {
             item = makeExam(operate,jsonObjectDetail);
 
             /***更新记录最新索引和时间***/
-            Constant.sLastExamIndex = item.getIndex() > Constant.sLastExamIndex
-                    ?Constant.sLastExamIndex:Constant.sLastExamIndex;
-            Constant.slastExamRecordModifyTime = item.getRecordModifyTime() > Constant.slastExamRecordModifyTime
-                    ?item.getRecordModifyTime():Constant.slastExamRecordModifyTime;
+            Constant.sLastExamIndexForAll = item.getIndex() > Constant.sLastExamIndexForAll
+                    ?Constant.sLastExamIndexForAll :Constant.sLastExamIndexForAll;
+            Constant.slastExamRecordModifyTimeForAll = item.getRecordModifyTime() > Constant.slastExamRecordModifyTimeForAll
+                    ?item.getRecordModifyTime():Constant.slastExamRecordModifyTimeForAll;
 
             updateExamItem(operate, item, examList);
         }
@@ -151,9 +152,9 @@ public class UpdateClassListHelper {
             case "share":
             case "senior":
                 if (item instanceof CourseItem){
-                    Constant.sLastCourseRecordModifyTime = ((CourseItem) item).getRecordModifyTime() >  Constant.sLastCourseRecordModifyTime
-                            ?((CourseItem) item).getRecordModifyTime() : Constant.sLastCourseRecordModifyTime;
-                    Constant.sLastCourseIndex = item.getIndex() > Constant.sLastCourseIndex ? item.getIndex():Constant.sLastCourseIndex;
+                    Constant.sLastCourseRecordModifyTimeForAll = ((CourseItem) item).getRecordModifyTime() >  Constant.sLastCourseRecordModifyTimeForAll
+                            ?((CourseItem) item).getRecordModifyTime() : Constant.sLastCourseRecordModifyTimeForAll;
+                    Constant.sLastCourseIndexForAll = item.getIndex() > Constant.sLastCourseIndexForAll ? item.getIndex():Constant.sLastCourseIndexForAll;
 
                     updateCourseItem(item.getOperator(), (CourseItem) item, list, tableName);
                 }
@@ -162,9 +163,9 @@ public class UpdateClassListHelper {
                 if (item instanceof LessonItem){
                     int index = binarySearch(list, ((LessonItem) item).getCourseIndex());
                     if (index >= 0) {
-                        Constant.slastLessonRecordModifyTime = ((LessonItem) item).getRecordModifyTime() > Constant.slastLessonRecordModifyTime
-                                ?((LessonItem) item).getRecordModifyTime():Constant.slastLessonRecordModifyTime;
-                        Constant.sLastLessonIndex = item.getIndex() > Constant.sLastLessonIndex?item.getIndex():Constant.sLastLessonIndex;
+                        Constant.slastLessonRecordModifyTimeForAll = ((LessonItem) item).getRecordModifyTime() > Constant.slastLessonRecordModifyTimeForAll
+                                ?((LessonItem) item).getRecordModifyTime():Constant.slastLessonRecordModifyTimeForAll;
+                        Constant.sLastLessonIndexForAll = item.getIndex() > Constant.sLastLessonIndexForAll ?item.getIndex():Constant.sLastLessonIndexForAll;
 
                         CourseItem courseItem = list.get(index);
                         updateLessonItem(item.getOperator(), (LessonItem) item, courseItem.getLessonList());
@@ -219,6 +220,7 @@ public class UpdateClassListHelper {
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
         int listIndex = binarySearch(list, item, true);
+        Log.e("wj","listIndex   "+listIndex);
         switch (operate){
             case "insert":
                 if(listIndex > -1|| item.getIndex() == 0 || item.getName().equals("null"))
@@ -228,12 +230,14 @@ public class UpdateClassListHelper {
                 }else {
                     //如果不存在，返回负值
                     list.add(-(listIndex+1),item);
+                    Log.e("wj", "insert   " + item.getName());
                     DbUtil.getInstance(null).insertLessonItem(item);
                 }
                 break;
             case "update":
                 if (listIndex >= 0){
                     list.set(listIndex,item);
+                    Log.e("wj", "update   " + item.getName());
                     DbUtil.getInstance(null).updateLessonItem(item);
                 }
                 break;

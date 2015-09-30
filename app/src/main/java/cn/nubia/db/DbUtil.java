@@ -52,7 +52,6 @@ public class DbUtil {
 
     public void updateCourseList(List<CourseItem> courseItemList) {
         for (CourseItem item : courseItemList){
-            Log.e("wj getOperator",item.getOperator());
             insertOrUpdateCourseItem(item);
         }
     }
@@ -111,7 +110,6 @@ public class DbUtil {
     }
 
     public int deleteCourseItem(CourseItem lessonItem, String tableName) {
-        Log.e("wj", "deleteCourseItem");
         //删除课时表
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
@@ -137,6 +135,7 @@ public class DbUtil {
         newValues.put(LessonItem.DESCRIPTION, lessonItem.getDescription());
         newValues.put(LessonItem.START_TIME, lessonItem.getStartTime());
         newValues.put(LessonItem.END_TIME, lessonItem.getEndTime());
+        newValues.put(LessonItem.IS_JUDGED, lessonItem.isIsJudged());
         newValues.put(LessonItem.RECORD_MODIFY_TIME, lessonItem.getRecordModifyTime());
         return db.insert(SqliteHelper.TB_NAME_LESSON, null, newValues);
     }
@@ -156,6 +155,7 @@ public class DbUtil {
         newValues.put(LessonItem.LOCALE, lessonItem.getLocation());
         newValues.put(LessonItem.DESCRIPTION, lessonItem.getDescription());
         newValues.put(LessonItem.START_TIME, lessonItem.getStartTime());
+        newValues.put(LessonItem.IS_JUDGED, lessonItem.isIsJudged());
         newValues.put(LessonItem.END_TIME, lessonItem.getEndTime());
         newValues.put(LessonItem.RECORD_MODIFY_TIME, lessonItem.getRecordModifyTime());
         return db.update(SqliteHelper.TB_NAME_LESSON, newValues, LessonItem.LESSON_INDEX + "=" + lessonItem.getIndex(), null);
@@ -228,12 +228,12 @@ public class DbUtil {
             /**更新课时索引 升序排列**/
             if(lessonItemList.size()>0){
                 LessonItem lastLessonItem = lessonItemList.get(lessonItemList.size()-1);
-                Constant.sLastLessonIndex = lastLessonItem.getIndex() > Constant.sLastLessonIndex
-                        ?lastLessonItem.getIndex():Constant.sLastLessonIndex;
+                Constant.sLastLessonIndexForAll = lastLessonItem.getIndex() > Constant.sLastLessonIndexForAll
+                        ?lastLessonItem.getIndex():Constant.sLastLessonIndexForAll;
             }
             /**更新课程修改时间**/
-            Constant.sLastCourseRecordModifyTime = courseItem.getRecordModifyTime() > Constant.sLastCourseRecordModifyTime
-                    ?courseItem.getRecordModifyTime():Constant.sLastCourseRecordModifyTime;
+            Constant.sLastCourseRecordModifyTimeForAll = courseItem.getRecordModifyTime() > Constant.sLastCourseRecordModifyTimeForAll
+                    ?courseItem.getRecordModifyTime():Constant.sLastCourseRecordModifyTimeForAll;
 
             courseItem.setLessonList(lessonItemList);
             courseList.add(courseItem);
@@ -241,7 +241,7 @@ public class DbUtil {
         }
         /**更新课程索引 降序排列**/
         if(courseList.size() > 0){
-            Constant.sLastCourseIndex = courseList.get(0).getIndex();
+            Constant.sLastCourseIndexForAll = courseList.get(0).getIndex();
         }
 
         cursor.close();
@@ -274,8 +274,8 @@ public class DbUtil {
             lessonItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(LessonItem.RECORD_MODIFY_TIME)));
 
             /**更新课时修改时间和索引**/
-            Constant.slastLessonRecordModifyTime = lessonItem.getRecordModifyTime() > Constant.slastLessonRecordModifyTime
-                    ?lessonItem.getRecordModifyTime():Constant.slastLessonRecordModifyTime;
+            Constant.slastLessonRecordModifyTimeForAll = lessonItem.getRecordModifyTime() > Constant.slastLessonRecordModifyTimeForAll
+                    ?lessonItem.getRecordModifyTime():Constant.slastLessonRecordModifyTimeForAll;
 
             lessonList.add(lessonItem);
             cursor.moveToNext();
@@ -305,8 +305,8 @@ public class DbUtil {
             examItem.setEndTime(cursor.getLong(cursor.getColumnIndex(LessonItem.END_TIME)));
             examItem.setStartTime(cursor.getLong(cursor.getColumnIndex(LessonItem.START_TIME)));
             /**更新考试记录最近时间**/
-            Constant.slastExamRecordModifyTime = examItem.getRecordModifyTime() > Constant.slastExamRecordModifyTime
-                    ?examItem.getRecordModifyTime() : Constant.slastExamRecordModifyTime;
+            Constant.slastExamRecordModifyTimeForAll = examItem.getRecordModifyTime() > Constant.slastExamRecordModifyTimeForAll
+                    ?examItem.getRecordModifyTime() : Constant.slastExamRecordModifyTimeForAll;
 
             examItemList.add(examItem);
             cursor.moveToNext();
@@ -315,7 +315,7 @@ public class DbUtil {
 
         /**更新课程索引 降序排列**/
         if(examItemList.size() > 0){
-            Constant.sLastExamIndex = examItemList.get(0).getIndex();
+            Constant.sLastExamIndexForAll = examItemList.get(0).getIndex();
         }
         return examItemList;
     }
