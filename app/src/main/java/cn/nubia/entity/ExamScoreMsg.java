@@ -94,4 +94,8 @@ public class ExamScoreMsg extends Paramable {
     public int  hashCode() {
        return 0;
     }
+
+    public String toString(){
+        return mUserName+" "+mExamIndex+" "+mExamScore;
+    }
 }

@@ -1,5 +1,7 @@
 package cn.nubia.service;
 
+import android.util.Log;
+
 import org.apache.http.Header;
 import org.json.JSONObject;
 
@@ -17,6 +19,7 @@ public class NormalHttpHandler extends HttpHandler {
     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         if(response!=null) {
             mAsynGetResult.setJSON(response);
+            Log.e("jiangyu",response.toString());
         }
         new Thread(mAsynGetResult).start();
     }
