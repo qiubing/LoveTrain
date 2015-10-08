@@ -26,7 +26,7 @@ public class URLMap {
     public final static String URL_ADD_NORMALEXAMENROLL = BASE_URL+"exam/exam_join.do";
 //    public final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
-    public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
+//    public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
     public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
     public final static String URL_QUE_MYJUDGEMENT = BASE_URL+"my/show_my_judge.do";
     public final static String URL_ADD_SENIORCOURSEENROLL = BASE_URL+"enroll/user_enroll_course.do";
@@ -54,8 +54,8 @@ public class URLMap {
 
         HANDLER_MAPPING.put(URL_ADD_SENIORCOURSEENROLL,NormalHttpHandler.class);
 
-        HANDLER_MAPPING.put(URL_QUE_JUDGEMENT,NormalHttpHandler.class);
-        ASSEMBLER_MAPPING.put(URL_QUE_JUDGEMENT,LessonJudgementAssembler.class);
+//        HANDLER_MAPPING.put(URL_QUE_JUDGEMENT,NormalHttpHandler.class);
+//        ASSEMBLER_MAPPING.put(URL_QUE_JUDGEMENT,LessonJudgementAssembler.class);
 
         HANDLER_MAPPING.put(URL_QUE_MYJUDGEMENT,NormalHttpHandler.class);
         ASSEMBLER_MAPPING.put(URL_QUE_MYJUDGEMENT,LessonJudgementAssembler.class);
