@@ -308,20 +308,15 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if( code == 0 && isOk) {
-
                     Toast.makeText(AdminExamDetailActivity.this, "删除考试成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("ExamItem",mExamItemExamEdit);
+                    intent.putExtras(bundle);
+                    AdminExamDetailActivity.this.setResult(1, intent);
                 }else {
                     Toast.makeText(AdminExamDetailActivity.this, "删除考试失败", Toast.LENGTH_SHORT).show();
                 }
-
-
-                Intent intent = getIntent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ExamItem",mExamItemExamEdit);
-                intent.putExtras(bundle);
-                AdminExamDetailActivity.this.setResult(1,intent);
-
                 AdminExamDetailActivity.this.finish();
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);

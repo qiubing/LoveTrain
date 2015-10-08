@@ -28,6 +28,7 @@ public class UpdateClassListHelper {
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList,String tableName) throws JSONException {
         int len = jsonArray.length();
         for(int i = 0;i < len; i++){
+            Log.e("108wj",jsonArray.getJSONObject(i).toString());
             updateSingleData(jsonArray.getJSONObject(i),courseList,tableName);
         }
     }
@@ -45,6 +46,9 @@ public class UpdateClassListHelper {
                 break;
             case "lesson":
                 item = makeLesson(type,operater,jsonObjectDetail);
+                if(item.getIndex() == 139){
+                    Log.e("wj", "updateSingleData lesson   " + ((LessonItem) item).isIsJudged());
+                }
                 break;
             default:
                 break;
@@ -179,8 +183,6 @@ public class UpdateClassListHelper {
      * */
     private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list,String tableName){
         int listIndex = binarySearch(list, item, false);
-        Log.e("wj"," updateCourseItem listIndex   " + listIndex + item.getName());
-
         switch (operate){
             case "insert":
                 if(listIndex > -1 || item.getName().equals("null"))
@@ -189,8 +191,6 @@ public class UpdateClassListHelper {
                     return;
                 }else {
                     /***插入数据库**/
-                Log.e("test","insertCourseItem"+item.getIndex()+item.getName()+ "tableName"+tableName);
-
                     DbUtil.getInstance(null).insertCourseItem(item, tableName);
                     //如果不存在，返回负值
                     list.add(-(listIndex + 1), item);
@@ -218,6 +218,8 @@ public class UpdateClassListHelper {
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
         int listIndex = binarySearch(list, item, true);
+        if (item.getIndex() == 139)
+            Log.e("wj", "updateLessonItem lesson   " + item.getIndex()+ item.isIsJudged());
         switch (operate){
             case "insert":
                 if(listIndex > -1|| item.getIndex() == 0 || item.getName().equals("null"))

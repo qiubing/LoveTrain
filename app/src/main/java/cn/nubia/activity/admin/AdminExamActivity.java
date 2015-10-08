@@ -189,6 +189,7 @@ public class AdminExamActivity extends ActivityGroup{
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("wj", "getLocalClassName resultCode" + manager.getActivity("AT").getLocalClassName() + resultCode);

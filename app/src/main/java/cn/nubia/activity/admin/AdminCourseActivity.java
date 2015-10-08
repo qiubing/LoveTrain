@@ -1,5 +1,6 @@
 package cn.nubia.activity.admin;
 
+import android.app.Activity;
 import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.BroadcastReceiver;
@@ -23,8 +24,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.ExamItem;
+import cn.nubia.interfaces.OnTabActivityResultListener;
 
 
 /**管理员课程界面：Tab分页导航
@@ -84,14 +89,13 @@ public class AdminCourseActivity extends ActivityGroup {
 
         Intent i3 = new Intent(AdminCourseActivity.this, AdminCourseAddTabActivity.class);
         listViews.add(getView("AA", i3));
-        Log.i("huhu", manager.getActivity("AA").toString());
 
         final Intent intent = new Intent(AdminCourseActivity.this, AdminAddCourseActivity.class);
         tvTab3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("huhu", "新增课程");
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
                 //Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
             }
         });
@@ -142,4 +146,23 @@ public class AdminCourseActivity extends ActivityGroup {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("AdminCourse", "getLocalClassName resultCode" + manager.getActivity("AA").getLocalClassName() + resultCode);
+        Activity activity = manager.getActivity("AA");
+        if(activity != null && data != null && activity instanceof AdminCourseAddTabActivity){
+            OnTabActivityResultListener listener = (OnTabActivityResultListener) activity;
+            Bundle bundle = data.getExtras();
+            CourseItem courseItem = (CourseItem) bundle.get("CourseItem");
+            switch (resultCode){
+                case 1:
+                case 2:
+                    listener.onTabActivityResult(requestCode,resultCode,courseItem);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
 }

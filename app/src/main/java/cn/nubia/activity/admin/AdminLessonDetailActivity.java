@@ -139,6 +139,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 break;
             default:
                 Log.i("huhu", "AdminLessonDetail  startActivity异常了");
+                break;
         }
 
 
@@ -216,7 +217,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 builderDelete.create().show();
                 break;
             case R.id.lesson_detail_signIn_textView:
-                Log.e("LK", "Activity" + String.valueOf(Thread.currentThread().getId()));
                 Intent intentSignInInfo = new Intent();
                 intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInLessonPersonInfoActivity.class);
                 signUpBundle.putSerializable("LessonItem", lessonItem);
@@ -286,7 +286,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Toast.makeText(AdminLessonDetailActivity.this, "该课时尚未结束，不能评价！", Toast.LENGTH_SHORT).show();
                     break;
                 }
-
                 Intent intent ;
                 if(Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
@@ -295,6 +294,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     intent.putExtras(bundle);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
+                    Log.e("jiangyu",String.valueOf(lessonItem.isIsJudged()));
                     intent.putExtra("lessonIndex", lessonItem.getIndex());
                     if(lessonItem.isIsJudged()){
                         ((Button)findViewById(R.id.evaluateTextView)).setText("查看评价");
@@ -348,6 +348,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if (code == 0 && isOk) {
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("LessonItem",lessonItem);
+                    intent.putExtras(bundle);
+                    setResult(1,intent);
                     finish();
                     Toast.makeText(AdminLessonDetailActivity.this, "删除课时成功", Toast.LENGTH_SHORT).show();
                 } else {

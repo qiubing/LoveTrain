@@ -221,7 +221,6 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
-                Log.e("930",response.toString());
                 int code = response.getInt("code");
                 if (code == 0) {
                     mCourseItem.setIndex(response.getInt("data"));
@@ -229,14 +228,15 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("CourseItem", mCourseItem);
                     intent.putExtras(bundle);
-                    setResult(2, intent);
-
+                    AdminAddCourseActivity.this.setResult(2, intent);
+                    Toast.makeText(AdminAddCourseActivity.this, "添加课程成功", Toast.LENGTH_SHORT).show();
+                    /**添加一个课程后finish掉Activity**/
+                    finish();
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
                     courseTypeSpinner.setSelection(0);
                     addCourseCoursePointsEditText.setText("");
                     addCourseWhetherExamCheckBox.setChecked(false);
-                    Toast.makeText(AdminAddCourseActivity.this, "添加课程成功", Toast.LENGTH_SHORT).show();
                 }
                 loadingView.clearAnimation();
                 loadingView.setVisibility(View.GONE);

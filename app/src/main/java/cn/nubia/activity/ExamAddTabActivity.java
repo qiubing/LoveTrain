@@ -115,23 +115,16 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
     }
 
     private void loadData(){
-//        int index = 0;
-//        if (mExamList.size()!=0){
-//            index = mExamList.get(0).getIndex();
-//        }
-
         RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_EXAM);
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.put("exam_record_modify_time", recordPair.getLastExamModifyTime());
         requestParams.put("exam_index", recordPair.getLastExamIndex());
-        Log.e("wj", "requestParams" + requestParams.toString());
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
     private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("wj","ExamAddTab"+response.toString());
             try {
                 if(response.getInt("code") != 0){
                     Toast.makeText(ExamAddTabActivity.this,
@@ -156,7 +149,6 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e("wj", "onFailure" + statusCode + throwable.toString());
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
             mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
@@ -194,10 +186,10 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
         }
 
         @Override
-        protected void onPostExecute(List<ExamItem> courseList) {
-            if(courseList != null){
+        protected void onPostExecute(List<ExamItem> examItemList) {
+            if(examItemList != null){
                 mExamList.clear();
-                mExamList.addAll(courseList);
+                mExamList.addAll(examItemList);
             }
             mExamAdapter.notifyDataSetChanged();
         }
@@ -216,20 +208,19 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
 
     @Override
     public void onTabActivityResult(int requestCode, int resultCode, Item data) {
-        Log.e("wj","onTabActivityResult called"+ resultCode);
-        switch (requestCode){
+        switch (resultCode){
             case 1:
                 if(data != null && data instanceof ExamItem){
-                    Log.e("wj", "mExamList.size()e before" + mExamList.size());
                     mExamList.remove(data);
-                    Log.e("wj", "mExamList.size()e after " + mExamList.size());
-//                    mExamAdapter.notifyDataSetChanged();
+                    DbUtil.getInstance(null).deleteExamItem((ExamItem) data);
                 }
                 break;
             case 2:
                 if(data != null && data instanceof ExamItem){
-                    mExamList.add((ExamItem) data);
+                    mExamList.add(0,(ExamItem) data);
+                    DbUtil.getInstance(null).insertExamItem((ExamItem) data);
                 }
+                break;
             default:
                 break;
         }

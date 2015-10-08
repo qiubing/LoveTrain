@@ -33,6 +33,7 @@ import java.util.Calendar;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
@@ -67,6 +68,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private int minuteEnd;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private LessonItem mLessonItem;
     private ImageView loadingView;
     private RotateAnimation refreshingAnimation;
 
@@ -99,6 +101,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
             }
         });
 
+        mLessonItem = new LessonItem();
         addLessonSureBtn.setOnClickListener(this);
         lessonDate.setOnClickListener(this);
         lessonStartTime.setOnClickListener(this);
@@ -244,14 +247,24 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.put("course_index", mCourseItem.getIndex());
+        mLessonItem.setCourseIndex(mCourseItem.getIndex());
         requestParams.add("lesson_name", lessonName.getText().toString());
         requestParams.add("teacher", teacherName.getText().toString());
+        mLessonItem.setTeacherName(teacherName.getText().toString());
         requestParams.add("course_description", lessonDesc.getText().toString());
-        requestParams.add("locale",lessonLocation.getText().toString());
-        requestParams.put("start_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart));
-        requestParams.put("end_time", TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd));
+        mLessonItem.setDescription(lessonDesc.getText().toString());
+        requestParams.add("locale", lessonLocation.getText().toString());
+        mLessonItem.setLocation(lessonLocation.getText().toString());
+        long startTime = TimeFormatConversion.toTimeInMillis(year, month, day, hourStart, minuteStart);
+        requestParams.put("start_time",startTime);
+        mLessonItem.setStartTime(startTime);
+        long endTime = TimeFormatConversion.toTimeInMillis(year, month, day, hourEnd, minuteEnd);
+        requestParams.put("end_time",endTime);
+        mLessonItem.setEndTime(endTime);
         requestParams.add("teacher_credits", teacherGetPoints.getText().toString());
+        mLessonItem.setTeacherCredits(Integer.valueOf(teacherGetPoints.getText().toString()));
         requestParams.add("check_credits", studentGetPoints.getText().toString());
+        mLessonItem.setCheckCredits(Integer.valueOf(studentGetPoints.getText().toString()));
 
         AsyncHttpHelper.post(addLessonURL, requestParams, myJsonHttpResponseHandler);
     }
@@ -265,6 +278,7 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
 //                int isOk = response.getInt("data");
                 loadingView.clearAnimation();
                 loadingView.setVisibility(View.GONE);
+                mLessonItem.setIndex(response.getInt("data"));
                 if( code == 0) {
                     Toast.makeText(AdminAddLessonActivity.this, "添加课时成功", Toast.LENGTH_SHORT).show();
                     lessonDate.setText("");
@@ -276,10 +290,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                     lessonEndTime.setText("");
                     teacherGetPoints.setText("");
                     studentGetPoints.setText("");
-                    Log.e("9290", response.toString());
                 }
             } catch (Exception e) {
-                Log.e("9291",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddLessonActivity.this, "添加课时失败", Toast.LENGTH_SHORT).show();
                 loadingView.clearAnimation();

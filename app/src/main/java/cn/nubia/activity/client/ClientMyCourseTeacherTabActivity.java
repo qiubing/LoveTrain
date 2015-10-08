@@ -132,6 +132,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_CLASS);
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
+        requestParams.put("user_id", Constant.user.getUserID());
         requestParams.put("course_index", recordPair.getLastCourseIndex());
         requestParams.put("course_record_modify_time", recordPair.getLastCourseModifyTime());
         requestParams.put("lesson_index", recordPair.getLastLessonIndex());
@@ -176,7 +177,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("TEST onFailure", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
             mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);

@@ -118,4 +118,15 @@ public class CourseItem extends Item{
     protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if (o != null && o.getClass() == CourseItem.class){
+            CourseItem courseItem = (CourseItem) o;
+            if(this.getIndex() == courseItem.getIndex())
+                return true;
+        }
+        return false;
+    }
 }

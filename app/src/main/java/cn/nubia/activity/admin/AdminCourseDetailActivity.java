@@ -123,13 +123,12 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 courseDeleteBtn.setVisibility(View.GONE);
                 break;
             default:
-                Log.i("huhu", "AdminLessonDetail  startActivity异常了");
+                break;
         }
 
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());
             courseRealDescTextview.setText(mCourseItem.getDescription());
-            Log.e("931",mCourseItem.getCourseCredits()+"");
             if(mCourseItem.getType().equals("senior")){
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
                         mCourseItem.hasExam()
@@ -144,7 +143,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 );
             }
         }
-
         bundle.putSerializable("CourseItem", mCourseItem);
 
     }
@@ -192,11 +190,10 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 startActivity(intentAlterCourse);
                 break;
             case R.id.lessonAddBtn:
-                Log.i("hexiao","lesonAddBtn");
                 bundle.putSerializable("CourseItem", mCourseItem);
                 Intent intentAddLesson = new Intent(AdminCourseDetailActivity.this, AdminAddLessonActivity.class);
                 intentAddLesson.putExtras(bundle);
-                startActivity(intentAddLesson);
+                startActivityForResult(intentAddLesson,2);
                 break;
             case R.id.courseDeleteBtn:
                 final AlertDialog.Builder builderDelete = new AlertDialog.Builder(AdminCourseDetailActivity.this)
@@ -235,7 +232,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         loadingView.startAnimation(refreshingAnimation);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-
         requestParams.put("course_index", mCourseItem.getIndex());
         String deleteCourseURL = Constant.BASE_URL + "course/del_course.do";
         AsyncHttpHelper.post(deleteCourseURL, requestParams, myJsonHttpResponseHandler);
@@ -251,6 +247,12 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 loadingView.setVisibility(View.GONE);
 
                 if( code == 0 && isOk) {
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CourseItem",mCourseItem);
+                    intent.putExtras(bundle);
+                    AdminCourseDetailActivity.this.setResult(1, intent);
+
                     Toast.makeText(AdminCourseDetailActivity.this, "删除课程成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {

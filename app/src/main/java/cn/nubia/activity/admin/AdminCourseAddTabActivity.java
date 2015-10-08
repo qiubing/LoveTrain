@@ -28,8 +28,10 @@ import cn.nubia.db.DbUtil;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.Item;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.RecordModifyFlag;
+import cn.nubia.interfaces.OnTabActivityResultListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
@@ -38,7 +40,7 @@ import cn.nubia.util.UpdateClassListHelper;
  * Created by 胡立 on 2015/9/7.
  */
 
-public class AdminCourseAddTabActivity extends Activity {
+public class AdminCourseAddTabActivity extends Activity implements OnTabActivityResultListener {
 
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
@@ -55,12 +57,6 @@ public class AdminCourseAddTabActivity extends Activity {
         initView();
         initEvents();
     }
-
-    @Override
-    protected void onResume() {
-        Log.i("huhu", "onResume()");
-    }
-
 
     private void initView() {
         mExpandableListView = (ExpandableListView) findViewById(R.id.allCourse_ExpandableListView);
@@ -119,6 +115,7 @@ public class AdminCourseAddTabActivity extends Activity {
                 Bundle bundle = new Bundle();
                 LessonItem lessonItem = mCourseItemList.get(groupPosition).getLessonList().get(childPosition);
                 bundle.putSerializable("LessonItem", lessonItem);
+
                 Intent intent = new Intent(AdminCourseAddTabActivity.this, AdminLessonDetailActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -185,6 +182,27 @@ public class AdminCourseAddTabActivity extends Activity {
         }
     };
 
+    @Override
+    public void onTabActivityResult(int requestCode, int resultCode, Item data) {
+        switch (resultCode){
+            case 1:
+                if(data != null && data instanceof CourseItem){
+                    mCourseItemList.remove(data);
+                    DbUtil.getInstance(null).deleteCourseItem((CourseItem) data);
+                }
+                break;
+            case 2:
+                if(data != null && data instanceof CourseItem){
+                    mCourseItemList.add(0,(CourseItem) data);
+                    DbUtil.getInstance(null).insertCourseItem((CourseItem) data);
+                }
+                break;
+            default:
+                break;
+        }
+        mCourseExpandableListAdapter.notifyDataSetChanged();
+    }
+
     /**
      * 异步加载数据
      */
@@ -240,8 +258,8 @@ public class AdminCourseAddTabActivity extends Activity {
         intent.setAction(Constant.COURCE);
         intent.putExtra(Constant.COURCE, "visible");
         LocalBroadcastManager.getInstance(AdminCourseAddTabActivity.this).sendBroadcast(intent);
-
     }
+
     private void cancelLoadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.COURCE);

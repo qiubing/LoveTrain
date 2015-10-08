@@ -41,6 +41,10 @@ public class DbUtil {
         dbHelper.onDropDatabase(db);
     }
 
+    public long insertCourseItem(CourseItem courseItem) {
+        return insertCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
+    }
+
     public long insertCourseItem(CourseItem courseItem, String tableName) {
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
@@ -75,6 +79,10 @@ public class DbUtil {
         newValues.put(CourseItem.TYPE, courseItem.getType());
         newValues.put(CourseItem.RECORD_MODIFY_TIME, courseItem.getRecordModifyTime());
         return db.update(tableName, newValues, CourseItem.COURSE_INDEX + "=" + courseItem.getIndex(), null);
+    }
+
+    public long deleteCourseItem(CourseItem courseItem) {
+        return deleteCourseItem(courseItem,SqliteHelper.TB_NAME_CLASS);
     }
 
     public long deleteCourseItem(CourseItem lessonItem, String tableName) {
@@ -235,6 +243,7 @@ public class DbUtil {
             lessonItem.setTeacherID(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_ID)));
             lessonItem.setTeacherName(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_NAME)));
             lessonItem.setDescription(cursor.getString(cursor.getColumnIndex(LessonItem.DESCRIPTION)));
+            lessonItem.setIsJudged(cursor.getShort(cursor.getColumnIndex(LessonItem.IS_JUDGED)) != 0);
             lessonItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(LessonItem.RECORD_MODIFY_TIME)));
 
             /**更新课时修改时间和索引**/

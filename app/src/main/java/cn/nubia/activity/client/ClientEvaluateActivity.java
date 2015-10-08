@@ -151,13 +151,7 @@ public class ClientEvaluateActivity  extends Activity {
         loadingView.startAnimation(refreshingAnimation);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-//        requestParams.add("device_id", "MXJSDLJFJFSFS");
-//        requestParams.add("request_time","1445545456456");
-//        requestParams.add("apk_version","1");
-//        requestParams.add("token_key","wersdfffthnjimhtrfedsaw");
-
         requestParams.add("record_modify_time_course", "1435125456111");
-
         String stringArray []  = lession_index_ID.split(",");
         requestParams.add("lesson_index", stringArray[0]);
         requestParams.add("user_id", stringArray[1]);

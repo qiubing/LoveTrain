@@ -187,6 +187,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             return courseItemList;
         }
 
+
         @Override
         protected void onPostExecute(List<CourseItem> courseList){
             if(courseList != null){

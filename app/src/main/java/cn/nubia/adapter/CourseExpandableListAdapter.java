@@ -120,7 +120,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
         final Bundle bundle = new Bundle();
         /**这里传过去的lessonItem中没有任何数据*/
-        LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
+        final LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
 
         /**设置课时点击事件*/
@@ -128,9 +128,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+                Log.e("jiangyu","before jump"+lessonItem.getIndex()+ String.valueOf(((LessonItem)(bundle.get("LessonItem"))).isIsJudged()));
                 intent.putExtras(bundle);
                 intent.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
-                mContext.startActivity(intent);
+                ((Activity) mContext).getParent().startActivityForResult(intent, 2);
             }
         });
         return convertView;
@@ -285,11 +286,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
                 Intent intentCourseDetail = new Intent(mContext, AdminCourseDetailActivity.class);
                 Bundle bundle = new Bundle();
-
                 bundle.putSerializable("CourseItem", mGroupList.get(groupID));
                 intentCourseDetail.putExtras(bundle);
                 intentCourseDetail.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
-                mContext.startActivity(intentCourseDetail);
+                ((Activity) mContext).getParent().startActivityForResult(intentCourseDetail,1);
             }
         });
 

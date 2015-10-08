@@ -158,9 +158,9 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
             try {
                 int code = response.getInt("code");
 //                boolean result = response.getBoolean("result");
-                boolean isOk = response.getBoolean("data");
+                mExamItem.setIndex(response.getInt("data"));
                 //JSONArray jsonArray = response.getJSONArray("data");
-                if(code == 0 && isOk) {
+                if(code == 0) {
                     Intent intent = getIntent();
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("ExamItem",mExamItem);
@@ -175,7 +175,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                     mExamStartDate.setText("");
                     Toast.makeText(AdminAddExamActivity.this, "添加考试成功", Toast.LENGTH_SHORT).show();
                 }
-
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddExamActivity.this, "添加考试失败", Toast.LENGTH_SHORT).show();
