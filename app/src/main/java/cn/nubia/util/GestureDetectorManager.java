@@ -13,7 +13,7 @@ public class GestureDetectorManager implements  GestureDetector.OnGestureListene
     private static final int XSPEED_MIN = 200;
 
     //手指向右滑动时的最小距离
-    private static final int XDISTANCE_MIN = 150;
+    private static final int XDISTANCE_MIN = 350;
 
     //使用一个变量来缓存曾经创建的实例
     private static GestureDetectorManager instance;

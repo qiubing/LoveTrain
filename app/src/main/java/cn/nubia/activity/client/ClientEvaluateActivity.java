@@ -101,6 +101,13 @@ public class ClientEvaluateActivity  extends Activity {
                 finish();
             }
         });
+        mExpandableListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //return false;
+                return  gestureDetector.onTouchEvent(event);
+            }
+        });
 
         initEvents();
         initBeforeData();
@@ -108,8 +115,10 @@ public class ClientEvaluateActivity  extends Activity {
 
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return  gestureDetector.onTouchEvent(event);
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
 
     private  void initBeforeData() {
