@@ -18,7 +18,7 @@ public class AsyncHttpHelper {
     private static final AsyncHttpClient client = new AsyncHttpClient(); // 实例话对象
 
     static {
-        client.setTimeout(50000); // 设置链接超时，如果不设置，默认为10s
+        client.setTimeout(5000); // 设置链接超时，如果不设置，默认为10s
         client.addHeader("X-Requested-With","JsonHttpRequest");
     }
 
