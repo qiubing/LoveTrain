@@ -32,6 +32,16 @@ public class ExamResultAssembler implements IAssemblerGenerics<ExamResultItem> {
         return mResultList;
     }
 
+    @Override
+    public ExamResultItem assemble(JSONObject jsonObject) {
+        try {
+            return makeExamResult(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private ExamResultItem makeExamResult(JSONObject jsonObject) throws JSONException {
         ExamResultItem result = new ExamResultItem();
         result.setmLessonName(jsonObject.getString("lesson_name"));

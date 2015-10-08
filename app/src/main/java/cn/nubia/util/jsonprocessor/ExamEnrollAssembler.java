@@ -29,6 +29,16 @@ public class ExamEnrollAssembler implements IAssemblerGenerics<ExamScoreMsg> {
         }
     }
 
+    @Override
+    public ExamScoreMsg assemble(JSONObject jsonObject) {
+        try {
+            return makeExamScoreMsg(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private ExamScoreMsg makeExamScoreMsg(JSONObject jsonObject) throws JSONException {
         ExamScoreMsg item = new ExamScoreMsg();
 

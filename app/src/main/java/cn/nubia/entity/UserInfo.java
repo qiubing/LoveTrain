@@ -2,12 +2,14 @@ package cn.nubia.entity;
 
 import android.graphics.drawable.Drawable;
 
+import com.loopj.android.http.RequestParams;
+
 import java.io.Serializable;
 
 /**
  * Created by WJ on 2015/9/6.
  */
-public class UserInfo implements Serializable {
+public class UserInfo extends Paramable {
     private String mUserID;
     private String mUserName;
     private String mUserPasswd;
@@ -90,4 +92,23 @@ public class UserInfo implements Serializable {
         this.mUserIcon = userIcon;
     }
 
+    @Override
+    protected RequestParams toInsertParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toUpdateParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toDeleteParams(RequestParams params) {
+        return null;
+    }
 }

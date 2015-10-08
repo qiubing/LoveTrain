@@ -36,6 +36,16 @@ public class CheckRecordAssembler implements IAssemblerGenerics<CheckRecordItem>
         return itemList;
     }
 
+    @Override
+    public CheckRecordItem assemble(JSONObject jsonObject) {
+        try {
+            return makeCheckRecord(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private CheckRecordItem makeCheckRecord(JSONObject jsonObject) throws JSONException {
         CheckRecordItem check = new CheckRecordItem();
         check.setmLessonName(jsonObject.getString("lesson_name"));

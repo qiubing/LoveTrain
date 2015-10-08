@@ -2,6 +2,7 @@ package cn.nubia.activity.client;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Map;
 
 import cn.nubia.activity.BaseCommunicateActivity;
@@ -27,7 +29,7 @@ import cn.nubia.service.URLMap;
 public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivity{
     private int mLessonIndex;
     private Boolean mNextPressReady;
-
+    private CommunicateService.OperateType mOperateType;
     private Button mConfirmButton;
     private EditText mComprehensiveEvaluationEditText;
     private EditText mSuggestionEditText;
@@ -52,7 +54,24 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         mNextPressReady = true;
 
         Intent intent = getIntent();
+        mOperateType = (CommunicateService.OperateType) intent.getSerializableExtra("operate");
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
+        Log.e("jiangyu",String.valueOf(mOperateType)+" "+mLessonIndex+" "+Constant.user.getUserID());
+        if(mOperateType == CommunicateService.OperateType.QUERY){
+            mConfirmButton.setVisibility(View.GONE);
+            final LessonJudgementMsg judgementMsg = new LessonJudgementMsg();
+            judgementMsg.setLessonIndex(mLessonIndex);
+            judgementMsg.setOperateType(CommunicateService.OperateType.QUERY);
+            judgementMsg.setUserID(Constant.user.getUserID());
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while(mBinder==null){}
+                    mBinder.communicate(judgementMsg, new Inter(), URLMap.URL_QUE_MYJUDGEMENT);
+                }
+            }).start();
+        }
     }
 
     private View.OnClickListener makeConfirmOnClickListener(){
@@ -154,6 +173,29 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         return true;
     }
 
+    private void initViewData(LessonJudgementMsg msg) {
+        if(msg!=null) {
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_contentapplicability_ratingbar)).setRating(msg.getContentApplicability());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_contentRationality_ratingbar)).setRating(msg.getContentRationality());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_discussion_ratingbar)).setRating(msg.getDiscussion());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_timerationality_ratingbar)).setRating(msg.getTimeRationality());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).setRating(msg.getContentUnderstanding());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_expressionability_ratingbar)).setRating(msg.getExpressionAbility());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_communication_ratingbar)).setRating(msg.getCommunication());
+            ((RatingBar) findViewById(R.id
+                    .mycourse_judge_detail_fill_organization_ratingbar)).setRating(msg.getOrganization());
+            mComprehensiveEvaluationEditText.setText(msg.getComprehensiveEvaluation());
+            mSuggestionEditText.setText(msg.getSuggestion());
+        }
+    }
+
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
@@ -162,15 +204,32 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
             DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
                     ClientMyCourseJudgeDetailFillActivity.this, "连接服务器失败!", false);
         }else{
-            String operateResult = (String)response.get("operateResult");
-            if(operateResult.equals("success")) {
-                DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
-                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
-            }else if(operateResult.equals("failure")) {
-                String message = (String) response.get("message");
-                DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
-                        ClientMyCourseJudgeDetailFillActivity.this, "课程评价失败：\n" +
-                                message, false);
+            if(responseURL.equals(URLMap.URL_ADD_JUDGEMENT)) {
+                String operateResult = (String) response.get("operateResult");
+                if (operateResult.equals("success")) {
+                    DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
+                            ClientMyCourseJudgeDetailFillActivity.this, "课程评价成功!", true);
+                } else if (operateResult.equals("failure")) {
+                    String message = (String) response.get("message");
+                    DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
+                            ClientMyCourseJudgeDetailFillActivity.this, "课程评价失败：\n" +
+                                    message, false);
+                }
+            }else if(responseURL.equals(URLMap.URL_QUE_MYJUDGEMENT)){
+                String operateResult = (String) response.get("operateResult");
+                if (operateResult.equals("success")) {
+                    List<LessonJudgementMsg> mExamScoreList = (List<LessonJudgementMsg>) response.get("detail");
+
+                    if (!mExamScoreList.isEmpty()) {
+                        if(mExamScoreList.size()>0)
+                            initViewData(mExamScoreList.get(0));
+                    }
+                } else if (operateResult.equals("failure")) {
+                    String message = (String) response.get("message");
+                    DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
+                            ClientMyCourseJudgeDetailFillActivity.this, "获取评价信息失败：\n" +
+                                    message, true);
+                }
             }
         }
     }

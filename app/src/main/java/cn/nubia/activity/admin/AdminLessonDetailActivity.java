@@ -30,6 +30,7 @@ import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
+import cn.nubia.service.CommunicateService;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.Utils;
@@ -290,6 +291,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);
                     intent.putExtra("lessonIndex", lessonItem.getIndex());
+                    if(lessonItem.isIsJudged()){
+                        ((Button)findViewById(R.id.evaluateTextView)).setText("查看评价");
+                        intent.putExtra("operate",CommunicateService.OperateType.QUERY);
+                    }else{
+                        ((Button)findViewById(R.id.evaluateTextView)).setText("进行评价");
+                        intent.putExtra("operate",CommunicateService.OperateType.INSERT);
+                    }
+
                 }
 
                 /*if (Constant.IS_ADMIN == true || status.equals("teacher")) {

@@ -157,7 +157,10 @@ public class LessonJudgementMsg extends Paramable{
 
     @Override
     protected RequestParams toQueryParams(RequestParams params) {
-        return null;
+        params.add("lesson_index", String.valueOf(mLessonIndex));
+        params.add("user_id",mUserID);
+
+        return params;
     }
 
     @Override

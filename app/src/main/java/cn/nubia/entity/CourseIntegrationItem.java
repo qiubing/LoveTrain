@@ -1,5 +1,7 @@
 package cn.nubia.entity;
 
+import com.loopj.android.http.RequestParams;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * Author: qiubing
  * Date: 2015/9/15 10:18
  */
-public class CourseIntegrationItem implements Serializable{
+public class CourseIntegrationItem extends Paramable{
     private String mLessonName;
     private int mCheckCredits;//签到积分
     private String mCause;//获取积分的原因
@@ -44,4 +46,23 @@ public class CourseIntegrationItem implements Serializable{
         long mAcquireTime1 = mAcquireTime;
     }
 
+    @Override
+    protected RequestParams toInsertParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toUpdateParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toDeleteParams(RequestParams params) {
+        return null;
+    }
 }

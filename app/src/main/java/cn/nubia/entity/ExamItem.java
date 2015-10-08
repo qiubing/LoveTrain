@@ -1,11 +1,13 @@
 package cn.nubia.entity;
 
+import com.loopj.android.http.RequestParams;
+
 import java.io.Serializable;
 
 /**
  * Created by WJ on 2015/9/7.
  */
-public class ExamItem extends Item implements Serializable {
+public class ExamItem extends Item{
     public final static String EXAM_INDEX = "exam_index";
     public final static String COURSE_INDEX = "class_index";
     public final static String START_TIME = "start_time";
@@ -92,4 +94,23 @@ public class ExamItem extends Item implements Serializable {
         return false;
     }
 
+    @Override
+    protected RequestParams toInsertParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toUpdateParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toDeleteParams(RequestParams params) {
+        return null;
+    }
 }

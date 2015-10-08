@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by WJ on 2015/9/8.
  */
-public abstract class Item implements Serializable{
+public abstract class Item extends Paramable{
     public static final String TYPE = "type";
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";

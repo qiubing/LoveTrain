@@ -31,6 +31,16 @@ public class UserInfoAssembler implements IAssemblerGenerics<UserInfo> {
         }
     }
 
+    @Override
+    public UserInfo assemble(JSONObject jsonObject) {
+        try {
+            return makeUserInfo(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private UserInfo makeUserInfo(JSONObject jsonObject) throws JSONException {
         UserInfo userInfo = new UserInfo();
 

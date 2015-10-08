@@ -1,12 +1,14 @@
 package cn.nubia.entity;
 
+import com.loopj.android.http.RequestParams;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by JiangYu on 2015/9/1.
  */
-public class CourseItem extends Item implements Serializable{
+public class CourseItem extends Item{
     public final static String STATUS = "course_status";
     public final static String HAS_EXAM = "hasExam";
     public final static String COURSE_INDEX = "class_index";
@@ -98,4 +100,23 @@ public class CourseItem extends Item implements Serializable{
         mRecordModifyTime = recordModifyTime;
     }
 
+    @Override
+    protected RequestParams toInsertParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toUpdateParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toDeleteParams(RequestParams params) {
+        return null;
+    }
 }

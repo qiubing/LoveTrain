@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.nubia.entity.Paramable;
+
 /**
  * Created by JiangYu on 2015/9/10.
  */
@@ -32,14 +34,20 @@ class JSONResolver {
         }
     }
 
-    /**获得服务器返回的JSON对象中包含的实体数组*/
-    public static JSONArray readArray(JSONObject jsonObject){
-        try {
-            return jsonObject.getJSONArray("data");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+    /**已数组方式获得服务器返回的JSON对象中包含的实体*/
+    public static List<? extends Paramable> readAsList(JSONObject jsonObject,IAssemblerGenerics assembler){
+        JSONArray array = jsonObject.optJSONArray("data");
+        if(array!=null) {
+            return assembler.assemble(array);
+        }else {
+            JSONObject object = jsonObject.optJSONObject("data");
+            if(object!=null){
+                List<Paramable> list = new ArrayList<Paramable>();
+                list.add(assembler.assemble(object));
+                return list;
+            }
         }
+        return null;
     }
 
     /**获得服务器返回的JSON对象中包含的操作结果*/

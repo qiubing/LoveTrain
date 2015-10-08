@@ -33,6 +33,16 @@ public class ExamItemAssembler implements IAssemblerGenerics<ExamItem> {
         }
     }
 
+    @Override
+    public ExamItem assemble(JSONObject jsonObject) {
+        try {
+            return makeExam(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private ExamItem makeExam(JSONObject jsonObject) throws JSONException {
         ExamItem item = new ExamItem();
 

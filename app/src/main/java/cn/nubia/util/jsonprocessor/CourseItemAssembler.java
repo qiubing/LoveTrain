@@ -40,6 +40,26 @@ public class CourseItemAssembler implements IAssemblerGenerics<Item> {
         }
     }
 
+    @Override
+    public Item assemble(JSONObject jsonObject) {
+        try {
+            String objectType = jsonObject.getString("type");
+            switch (objectType) {
+                case "course":
+                case "share":
+                case "senior":
+                    return makeCourse(jsonObject.getJSONObject("detail"));
+                case "lesson":
+                    return makeLesson(jsonObject.getJSONObject("detail"));
+                default:
+                    return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private CourseItem makeCourse(JSONObject jsonObject) throws JSONException {
         CourseItem item = new CourseItem();

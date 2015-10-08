@@ -29,6 +29,33 @@ public class LessonJudgementAssembler implements IAssemblerGenerics<LessonJudgem
         }
     }
 
+    @Override
+    public LessonJudgementMsg assemble(JSONObject jsonObject) {
+        try {
+            JSONObject object = jsonObject.getJSONObject("detail");
+
+            LessonJudgementMsg item = new LessonJudgementMsg();
+
+            item.setContentApplicability((float) object.getDouble("content_applicability"));
+            item.setContentRationality((float) object.getDouble("content_rationality"));
+            item.setDiscussion((float) object.getDouble("discussion"));
+            item.setTimeRationality((float) object.getDouble("time_rationality"));
+            item.setContentUnderstanding((float) object.getDouble("content_understanding"));
+            item.setExpressionAbility((float) object.getDouble("expression_ability"));
+            item.setCommunication((float) object.getDouble("communication"));
+            item.setOrganization((float) object.getDouble("organization"));
+            item.setComprehensiveEvaluation(object.getString("comprehensive_evaluation"));
+            item.setSuggestion(object.getString("suggestion"));
+
+            item.setRecordModifyTime(object.getLong("record_modify_time"));
+
+            return item;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private LessonJudgementMsg makeLessonJudge(JSONObject jsonObject) throws JSONException {
         LessonJudgementMsg item = new LessonJudgementMsg();
 

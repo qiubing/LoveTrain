@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import cn.nubia.activity.R;
 import cn.nubia.adapter.EvaluateAdapter;
@@ -35,6 +36,7 @@ import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
+import cn.nubia.util.jsonprocessor.LessonJudgementAssembler;
 
 /**
  * Created by 胡立 on 2015/9/14.
@@ -161,9 +163,13 @@ public class ClientEvaluateActivity  extends Activity {
                     new Thread() {
                         @Override
                         public void run() {
-                            EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
-                                    EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, response);
-                            List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
+                            EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(LessonJudgementAssembler.class);
+                            factoryGenerics.setJSON(response);
+                            Map<String,?> res = factoryGenerics.getResponse();
+                            List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) res.get("detail");
+//                            EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
+//                                    EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, response);
+//                            List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) factoryGenerics.get();
                             if (list != null && list.size() > 0) {
                                 mList.clear();
                                 mList.addAll(list);

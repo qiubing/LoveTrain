@@ -1,13 +1,13 @@
 package cn.nubia.entity;
 
-import java.io.Serializable;
+import com.loopj.android.http.RequestParams;
 
 /**
  * Description:
  * Author: qiubing
  * Date: 2015/9/15 14:11
  */
-public class ExamResultItem implements Serializable {
+public class ExamResultItem extends Paramable {
     private String mLessonName;
     private int mLessonIndex;
     private double mExamScore;
@@ -34,5 +34,25 @@ public class ExamResultItem implements Serializable {
 
     public void setmExamScore(double mExamScore) {
         this.mExamScore = mExamScore;
+    }
+
+    @Override
+    protected RequestParams toInsertParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toUpdateParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toQueryParams(RequestParams params) {
+        return null;
+    }
+
+    @Override
+    protected RequestParams toDeleteParams(RequestParams params) {
+        return null;
     }
 }

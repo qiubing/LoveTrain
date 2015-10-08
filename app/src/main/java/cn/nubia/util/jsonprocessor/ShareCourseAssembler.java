@@ -30,6 +30,17 @@ public class ShareCourseAssembler implements IAssemblerGenerics<ShareCourseMsg> 
         }
         return mCourseList;
     }
+
+    @Override
+    public ShareCourseMsg assemble(JSONObject jsonObject) {
+        try {
+            return makeShareCourse(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private ShareCourseMsg makeShareCourse(JSONObject jsonObject) throws JSONException {
         ShareCourseMsg course = new ShareCourseMsg();
         course.setCourseName(jsonObject.getString("course_name"));

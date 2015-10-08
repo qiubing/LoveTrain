@@ -1,10 +1,7 @@
 package cn.nubia.activity.client;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,17 +9,17 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.nubia.activity.BaseGestureActivity;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevelModel;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
-import cn.nubia.interfaces.IOnGestureListener;
-import cn.nubia.util.GestureDetectorManager;
+
 /**
  * Created by JiangYu on 2015/9/2.
  */
-public class ClientMyShareCourseDetailDisplayActivity extends Activity {
+public class ClientMyShareCourseDetailDisplayActivity extends BaseGestureActivity {
 
     private TextView mCourseName;
     private TextView mCourseDescription;
@@ -30,21 +27,10 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     private Button mCourseModifyButton;
     private ShareCourseMsg mShareCourseMsg;
 
-    private final GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
-    private GestureDetector gestureDetector ;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_display);
-
-        gestureDetector = new GestureDetector(this, mGestureDetectorManager);
-        mGestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
-            @Override
-            public void finishActivity() {
-                finish();
-            }
-        });
 
         holdView();
         setViewLogic();
@@ -67,12 +53,6 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         }
 
         initViewData();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        return  gestureDetector.onTouchEvent(event);
     }
 
     private void holdView() {
@@ -119,9 +99,9 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
         mCourseDescription.setText(mShareCourseMsg.getCourseDescription());
         mCourseDetail.setText(
                 "分享级别：" + ShareCourseLevelModel.SHARE_COURSE_MODEL.get((short) mShareCourseMsg.getCourseLevel()) +
-                        "\n上课日期：" + new SimpleDateFormat("yyyy-MM-dd").format(startTime) +
-                        "\n开始时间：" + new SimpleDateFormat("HH:mm").format(startTime) +
-                        "\n结束时间：" + new SimpleDateFormat("HH:mm").format(endTime) +
-                        "\n上课地点：" + mShareCourseMsg.getLocale());
+                "\n上课日期：" + new SimpleDateFormat("yyyy-MM-dd").format(startTime) +
+                "\n开始时间：" + new SimpleDateFormat("HH:mm").format(startTime) +
+                "\n结束时间：" + new SimpleDateFormat("HH:mm").format(endTime) +
+                "\n上课地点：" + mShareCourseMsg.getLocale());
     }
 }

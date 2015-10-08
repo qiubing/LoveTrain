@@ -30,6 +30,16 @@ public class CourseIntegrationAssembler implements IAssemblerGenerics<CourseInte
         return mIntegartionList;
     }
 
+    @Override
+    public CourseIntegrationItem assemble(JSONObject jsonObject) {
+        try {
+            return makeCourseIntegration(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private CourseIntegrationItem makeCourseIntegration(JSONObject jsonObject) throws JSONException {
         CourseIntegrationItem integration = new CourseIntegrationItem();
         integration.setmLessonName(jsonObject.getString("lesson_name"));
