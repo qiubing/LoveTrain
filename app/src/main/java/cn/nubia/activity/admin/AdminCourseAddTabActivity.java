@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -28,9 +29,9 @@ import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
 
 /**
@@ -46,8 +47,6 @@ public class AdminCourseAddTabActivity extends Activity {
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
 
     private List<CourseItem> mCourseItemList;
-
-    private boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,6 @@ public class AdminCourseAddTabActivity extends Activity {
     private void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(AdminCourseAddTabActivity.this, mExpandableListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this, Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
@@ -141,11 +139,13 @@ public class AdminCourseAddTabActivity extends Activity {
      */
     private void loadData() {
         /**请求课程数据*/
+        RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_CLASS);
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.put("course_index", Constant.sLastCourseIndex);
-        requestParams.put("course_record_modify_time", Constant.sLastCourseRecordModifyTime);
-        requestParams.put("lesson_index", Constant.sLastLessonIndex);
-        requestParams.put("lesson_record_modify_time", Constant.slastLessonRecordModifyTime);
+        requestParams.put("course_index", recordPair.getLastCourseIndex());
+        requestParams.put("course_record_modify_time", recordPair.getLastCourseModifyTime());
+        requestParams.put("lesson_index", recordPair.getLastLessonIndex());
+        requestParams.put("lesson_record_modify_time",  recordPair.getLastLessonModifyTime());
+
         String url = Constant.BASE_URL + "course/get_courses_lessons.do";
         AsyncHttpHelper.post(url, requestParams, jsonHttpResponseHandler);
     }
@@ -153,10 +153,9 @@ public class AdminCourseAddTabActivity extends Activity {
     /**
      * 请求课程数据服务器数据的Handler
      */
-    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("xiaoHeHe",response.toString());
             try {
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
@@ -182,6 +181,7 @@ public class AdminCourseAddTabActivity extends Activity {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
+            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
         }
     };
 
@@ -198,9 +198,6 @@ public class AdminCourseAddTabActivity extends Activity {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_CLASS);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            for(CourseItem course : courseItemList){
-                Log.e("xiaoHeHe",course.getName()+"---"+course.getCourseCredits()+"---"+course.getEnrollCredits());
             }
             return courseItemList;
         }
@@ -230,13 +227,10 @@ public class AdminCourseAddTabActivity extends Activity {
             if (courseList != null) {
                 mCourseItemList.addAll(courseList);
             }
-            int listLength = mCourseItemList.size();
-            for (int i = 0; i < listLength; i++) {
-                String type = mCourseItemList.get(i).getType().equals("senior")? "高级课程" : "普通课程";
-            }
-            for(CourseItem course : mCourseItemList){
-                Log.e("xiaoHeHe本地",course.getName()+"---"+course.getCourseCredits()+"---"+course.getEnrollCredits());
-            }
+//            int listLength = mCourseItemList.size();?
+//            for (int i = 0; i < listLength; i++) {
+//                String type = mCourseItemList.get(i).getType().equals("senior")? "高级课程" : "普通课程";
+//            }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }
     }

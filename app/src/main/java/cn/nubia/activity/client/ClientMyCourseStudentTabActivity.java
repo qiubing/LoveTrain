@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ExpandableListView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -18,16 +19,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 
@@ -62,16 +62,13 @@ public class ClientMyCourseStudentTabActivity extends Activity {
 
     private  void initEvents() {
         mCourseItemList = new ArrayList<>();
-
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseStudentTabActivity.this, mExpandableListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent(),Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
         mExpandableListView.setAdapter(mCourseExpandableListAdapter);
         /**去掉箭头*/
         mExpandableListView.setGroupIndicator(null);
-
 
         /**设置下拉刷新监听器*/
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -122,14 +119,15 @@ public class ClientMyCourseStudentTabActivity extends Activity {
      * 从网络加载数据
      */
     private void loadData() {
+        RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_MY_CLASS_STU);
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
-        requestParams.add("user_id", Constant.user.getUserID());
-        requestParams.add("course_index", "1");
-        requestParams.add("course_record_modify_time", "1245545456456");
-        requestParams.add("lesson_index", "1");
-        requestParams.add("lesson_record_modify_time", "1245545456456");
+        requestParams.put("user_id", Constant.user.getUserID());
+        requestParams.put("course_index", recordPair.getLastCourseIndex());
+        requestParams.put("course_record_modify_time",recordPair.getLastCourseModifyTime());
+        requestParams.put("lesson_index", recordPair.getLastLessonIndex());
+        requestParams.put("lesson_record_modify_time", recordPair.getLastLessonModifyTime());
 
         Log.e("XXXX", "parameter"+requestParams.toString());
         String url = Constant.BASE_URL + "course/get_relation_courses.do";
@@ -137,19 +135,17 @@ public class ClientMyCourseStudentTabActivity extends Activity {
     }
 
     /**请求课程数据服务器数据的Handler*/
-    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
             Log.e("XXXX","response"+response.toString());
             try {
                 Log.e("XXXX","responseDataLength"+response.getJSONArray("data").length());
+                mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                 if(response.getInt("code") != 0){
-                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
-                }else
-                    mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
-
+                }
                 cancelLoadShow();
 
                 if(response.getString("data") != null) {
@@ -169,9 +165,10 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
-            Log.e("jsonArray", ""+statusCode);
+            Log.e("jsonArray", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
+            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
         }
     };
 
@@ -223,7 +220,6 @@ public class ClientMyCourseStudentTabActivity extends Activity {
         intent.setAction(Constant.MYCOURCE_STUDENT);
         intent.putExtra(Constant.MYCOURCE_STUDENT, "visible");
         LocalBroadcastManager.getInstance(ClientMyCourseStudentTabActivity.this).sendBroadcast(intent);
-
     }
     private void cancelLoadShow() {
         Intent intent = new Intent();

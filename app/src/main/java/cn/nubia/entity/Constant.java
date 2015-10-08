@@ -1,7 +1,6 @@
 package cn.nubia.entity;
 
 import android.os.Environment;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +12,6 @@ public class Constant {
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
     public static UserInfo user = new UserInfo();//登录成功后保存用户信息
 
-
     /****
      * 网络类型
      ****/
@@ -23,12 +21,6 @@ public class Constant {
     public static final boolean SHOW_HEADER = true;
     public static final boolean SHOW_FOOTER = false;
 
-    public static long sLastCourseRecordModifyTime;     //记录最近修改时间用于增量更新
-    public static long slastLessonRecordModifyTime;
-    public static long slastExamRecordModifyTime;
-    public static int sLastLessonIndex;
-    public static int sLastCourseIndex;
-    public static int sLastExamIndex;
     public static final String COURCE = "CN.NUBIA.COURCE";
     public static final String EXAM = "CN.NUBIA.EXAM";
     public static final String SHARE_WAITE = "CN.NUBIA.SHARE.WAITE";
@@ -36,15 +28,6 @@ public class Constant {
     public static final String MYCOURCE_TEACHER = "CN.NUBIA.MYCOURCE.TEACHER";
     public static final String MYCOURCE_STUDENT = "CN.NUBIA.MYCOURCE.STUDENT";
     public static final String ALLCOURCE = "CN.NUBIA.ALLCOURCE";
-
-    public static void initRequestParams(){
-        sLastCourseRecordModifyTime = 0;
-        slastLessonRecordModifyTime = 0;
-        slastExamRecordModifyTime = 0;
-        sLastLessonIndex = 0;
-        sLastCourseIndex = 0;
-        sLastExamIndex = 0;
-    }
 
     public static final String IS_FIRST_RUN = "isFirstRun";
     /**

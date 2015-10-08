@@ -237,8 +237,6 @@ public class AdminUserActivity extends Activity {
         });
 
         init();
-
-
     }
 
     class ViewHolder {
@@ -247,5 +245,4 @@ public class AdminUserActivity extends Activity {
         TextView resetPWD;
         TextView delete;
     }
-
 }

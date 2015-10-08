@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.WriterException;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -31,7 +32,6 @@ import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 import cn.nubia.zxing.encoding.EncodingHandler;
@@ -50,8 +50,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
 
-    private  Button mEvaluateTextView;
-
     private GestureDetector gestureDetector;
 
     @Override
@@ -64,7 +62,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Button deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
         TextView signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
         TextView mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
-        mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
+        Button mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
         TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText("课时管理");
         /**获取相关的TextView*/
@@ -87,7 +85,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
         String startActivity = intent.getStringExtra("startActivity");
-        Log.i("huhu", "AdminLessonDetail" + startActivity);
+
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText(lessonItem.getName());
         signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
@@ -319,7 +317,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         AsyncHttpHelper.post(deleteUrl, requestParams, myJsonHttpResponseHandler);
     }
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

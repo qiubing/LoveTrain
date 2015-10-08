@@ -70,8 +70,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final int mGroupID = groupPosition;
-        final int mChildID = childPosition;
+//        final int mGroupID = groupPosition;
+//        final int mChildID = childPosition;
         final ChildViewHolder childViewHolder;
         if (convertView == null) {
             childViewHolder = new ChildViewHolder();
@@ -108,8 +108,13 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**是否为管理员或者老师
          * 如果为管理员或者老师，则隐藏评价按钮
          * */
-        if (Constant.IS_ADMIN || isTeacher(groupPosition)) {
-            TextView evaluate = (TextView) convertView.findViewById(R.id.evaluateBtn);
+
+        long startTime = mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime();
+        Log.e("system time ", System.currentTimeMillis() +(-startTime)
+                +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
+
+        TextView evaluate = (TextView) convertView.findViewById(R.id.evaluateBtn);
+        if (Constant.IS_ADMIN || isTeacher(groupPosition) || System.currentTimeMillis() < startTime) {
             evaluate.setVisibility(View.GONE);
         }
 
@@ -117,8 +122,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**这里传过去的lessonItem中没有任何数据*/
         LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
-
-        Log.e("hexiao", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
 
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +131,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 intent.putExtras(bundle);
                 intent.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
                 mContext.startActivity(intent);
-                Log.e("HEXIAOAAAA", mGroupList.get(mGroupID).getLessonList().get(mChildID).getIndex() + "+ExpandableListView");
-
             }
         });
         return convertView;
@@ -162,7 +163,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = View.inflate(mContext, R.layout.class_info_item, null);
             groupViewHolder = new GroupViewHolder();
 
-
             groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
@@ -178,7 +178,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-
 
         /**
          * 四个标记的意思是：
@@ -250,14 +249,16 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mTeacher.setVisibility(View.GONE);
         }
         /**如果不是管理员*/
-        else {
-            /**隐藏添加课时b标记*/
+//        else {
+            /**隐藏添加课时标记*/
             /**判断是否是讲师*/
-            if(!isTeacher(groupPosition)){
-                /**不是讲师则隐去“讲”*/
-                groupViewHolder.mTeacher.setVisibility(View.GONE);
-            }
-        }
+
+//            if(mContext.getClass().getName().equals("cn.nubia.activity.client.ClientAllCourseActivity")
+//                    && isTeacher(groupPosition)){
+//                /**不是讲师则隐去“讲”*/
+//                groupViewHolder.mTeacher.setVisibility(View.VISIBLE);
+//            }
+//        }
 
 
         if(isExpanded)
@@ -282,12 +283,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
 
-                CourseItem courseItem= mGroupList.get(groupID);
-                Log.e("xiaohe","courseItem");
-                Log.e("xiaohe",courseItem.getName()+"----"+courseItem.getCourseCredits()+"----"+courseItem.getEnrollCredits());
-
-
-
                 Intent intentCourseDetail = new Intent(mContext, AdminCourseDetailActivity.class);
                 Bundle bundle = new Bundle();
 
@@ -308,44 +303,24 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         });
 
         groupViewHolder.mCourseNameTextView.setText(mGroupList.get(groupPosition).getName());
-
         return convertView;
     }
 
-    @Override
-    public void onGroupCollapsed(int groupPosition) {
-        super.onGroupCollapsed(groupPosition);
-//        Log.e("LK", "***********");
-//        ImageView imageView = (ImageView) view.findViewById(R.id.admin_all_course_courseDetailTextView);
-//        imageView.setImageResource(R.mipmap.new_go);
-    }
-
-    @Override
-    public void onGroupExpanded(int groupPosition) {
-        super.onGroupExpanded(groupPosition);
-//        ImageView imageView = (ImageView) view.findViewById(R.id.admin_all_course_courseDetailTextView);
-//        imageView.setImageResource(R.mipmap.new_go_down);
-//        Log.e("LK", "***********###########");
-    }
 
     /**
      * 判断是否是讲师
      */
     private boolean isTeacher(int groupPosition){
-        ArrayList<LessonItem> mLessonList=(ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
+        ArrayList<LessonItem> mLessonList = (ArrayList<LessonItem>)mGroupList.get(groupPosition).getLessonList();
         if(mLessonList == null)
             return false;
-        Log.e("hexiao0924",mLessonList.size()+"");
-
         for(LessonItem lessonItem : mLessonList){
-            Log.e("hexiao0924",mGroupList.get(groupPosition).getName()+":::"+lessonItem.getTeacherID()+"_____"+mID);
             if(mID.equals(lessonItem.getTeacherID())){
                 return true;
             }
         }
         return false;
     }
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
@@ -377,6 +352,5 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView mTeacher;
         TextView mCourseType;
         TextView mWhetherExam;
-
     }
 }
