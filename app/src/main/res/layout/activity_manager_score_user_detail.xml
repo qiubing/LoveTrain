@@ -6,15 +6,31 @@
     tools:context="cn.nubia.activity.admin.AdminScoreUserDetailActivity">
 
     <include
-        android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
+        android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+        android:layout_height="48.0dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        android:layout_below="@+id/sub_title"
+        layout="@layout/layout_loading_failed"
+        />
+
+    <include
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        android:layout_below="@+id/loading_failed"
+        layout="@layout/layout_network_unusable" />
 
     <TextView
         android:id="@+id/no_record"
         style="@style/text_view_style"
-        android:layout_below="@id/manager_score_user_detail_head"
+        android:layout_below="@id/network_unusable"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -28,7 +44,7 @@
         android:id="@+id/manager_score_user_detail_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/manager_score_user_detail_head"
+        android:layout_below="@id/no_record"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"

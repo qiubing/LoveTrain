@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
@@ -34,7 +36,9 @@ import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.SignUpItem;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 
 /**
  * Created by hexiao on 2015/9/11.
@@ -50,13 +54,34 @@ public class AdminSignUpManageActivity extends Activity {
     private RelativeLayout networkUnusableRelativeLayout;
     private ImageView loadingView;
     private RotateAnimation refreshingAnimation;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_signin_manage);
         initEvents();
+        //创建手势管理单例对象
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
         loadData();
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
 
     private void initEvents(){
@@ -142,7 +167,7 @@ public class AdminSignUpManageActivity extends Activity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Toast.makeText(AdminSignUpManageActivity.this, "请求异常", Toast.LENGTH_LONG).show();
+            Toast.makeText(AdminSignUpManageActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_LONG).show();
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             loadingView.clearAnimation();
             loadingView.setVisibility(View.GONE);

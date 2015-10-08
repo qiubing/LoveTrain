@@ -42,8 +42,6 @@ public class AdminSignInExamPersonInfoActivity extends Activity implements View.
     }
 
     private void initView(){
-        ImageView backImageView = (ImageView) findViewById(R.id.manager_goback);
-        backImageView.setOnClickListener(this);
         TextView barTxt = (TextView) findViewById(R.id.manager_head_title);
         barTxt.setText("报名考试人数");
     }
