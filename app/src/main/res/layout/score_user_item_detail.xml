@@ -9,10 +9,11 @@
     <TextView
         android:id="@+id/score_user_detail_coursename"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/high18"
+        android:layout_height="@dimen/high35"
         android:text="test的典范12"
+        android:gravity="center_vertical"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize16" />
+        android:textSize="@dimen/textSize18" />
 
     <TextView
         android:id="@+id/score_user_detail_address"
@@ -21,7 +22,9 @@
         android:layout_below="@id/score_user_detail_coursename"
         android:text="ak1"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize14" />
+        android:textSize="@dimen/textSize14"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/score_user_detail_score"
