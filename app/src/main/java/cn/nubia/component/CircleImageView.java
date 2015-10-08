@@ -25,9 +25,7 @@ import cn.nubia.activity.R;
 public class CircleImageView extends ImageView {
     private static final ScaleType SCALE_TYPE;
     private static final Bitmap.Config BITMAP_CONFIG;
-    private static final int COLORDRAWABLE_DIMENSION = 1;
-    private static final int DEFAULT_BORDER_WIDTH = 0;
-    private static final int DEFAULT_BORDER_COLOR = -16777216;
+
     private final RectF mDrawableRect;
     private final RectF mBorderRect;
     private final Matrix mShaderMatrix;
@@ -108,29 +106,6 @@ public class CircleImageView extends ImageView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         this.setup();
-    }
-
-    public int getBorderColor() {
-        return this.mBorderColor;
-    }
-
-    public void setBorderColor(int borderColor) {
-        if(borderColor != this.mBorderColor) {
-            this.mBorderColor = borderColor;
-            this.mBorderPaint.setColor(this.mBorderColor);
-            this.invalidate();
-        }
-    }
-
-    public int getBorderWidth() {
-        return this.mBorderWidth;
-    }
-
-    public void setBorderWidth(int borderWidth) {
-        if(borderWidth != this.mBorderWidth) {
-            this.mBorderWidth = borderWidth;
-            this.setup();
-        }
     }
 
     public void setImageBitmap(Bitmap bm) {

@@ -113,11 +113,6 @@ public class GuideActivity extends Activity {
 		}
 
 		@Override
-		public int getItemPosition(Object object) {
-			return super.getItemPosition(object);
-		}
-
-		@Override
 		public CharSequence getPageTitle(int position) {
 			return null;
 		}

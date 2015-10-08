@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -33,7 +34,6 @@ import cn.nubia.entity.LessonJudgementMsg;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
@@ -44,7 +44,7 @@ public class ClientEvaluateActivity  extends Activity {
 
     private ExpandableListView mExpandableListView;
     private static final String URL = Constant.BASE_URL + "my/find_lesson_judge.do";
-    private List<LessonJudgementMsg> mList = new ArrayList<>();
+    private final List<LessonJudgementMsg> mList = new ArrayList<>();
     private EvaluateAdapter mEvaluateAdapter;
     private GestureDetector gestureDetector;
 
@@ -54,7 +54,7 @@ public class ClientEvaluateActivity  extends Activity {
     private String lession_index_ID;
 
 
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -136,7 +136,7 @@ public class ClientEvaluateActivity  extends Activity {
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
             try {
@@ -162,7 +162,6 @@ public class ClientEvaluateActivity  extends Activity {
                         }
                     }.start();
                 }else {
-                    Log.i("huhu", "VIEW_LOADFAILURE");
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 }
 

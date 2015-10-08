@@ -40,8 +40,8 @@ public abstract class BaseCommunicateActivity extends Activity{
             mBinder = null;
         }
     };
-    protected GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
-    protected GestureDetector gestureDetector ;
+    private final GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
+    private GestureDetector gestureDetector ;
 
 
     @Override
@@ -75,13 +75,13 @@ public abstract class BaseCommunicateActivity extends Activity{
         return  gestureDetector.onTouchEvent(event);
     }
 
-    protected void connectService(){
+    private void connectService(){
         Intent intent = new Intent(
                 BaseCommunicateActivity.this, CommunicateService.class);
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    protected void disconectService(){
+    private void disconectService(){
         unbindService(mConn);
     }
 

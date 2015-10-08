@@ -92,8 +92,4 @@ public class ExamItem extends Item implements Serializable {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 }

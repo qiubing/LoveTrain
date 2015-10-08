@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -22,19 +23,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.nubia.activity.admin.AdminCourseAddTabActivity;
 import cn.nubia.activity.admin.AdminExamDetailActivity;
 import cn.nubia.adapter.ExamAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.db.DbUtil;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.Item;
+import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.interfaces.OnTabActivityResultListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
 
 /**
@@ -67,7 +67,6 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
         mExamList = new ArrayList<>();
 
         mLoadViewUtil = new LoadViewUtil(this, mAllExamListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mExamAdapter = new ExamAdapter(mExamList,this);
         mAllExamListView.setAdapter(mExamAdapter);
         mAllExamListView.setOnItemClickListener(new ExamListOnItemClickListener());
@@ -116,18 +115,20 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
     }
 
     private void loadData(){
-        int index = 0;
-        if (mExamList.size()!=0){
-            index = mExamList.get(0).getIndex();
-        }
+//        int index = 0;
+//        if (mExamList.size()!=0){
+//            index = mExamList.get(0).getIndex();
+//        }
+
+        RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_EXAM);
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.put("exam_record_modify_time", 12323232323l);
-        requestParams.put("exam_index", index);
+        requestParams.put("exam_record_modify_time", recordPair.getLastExamModifyTime());
+        requestParams.put("exam_index", recordPair.getLastExamIndex());
         Log.e("wj", "requestParams" + requestParams.toString());
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("wj","ExamAddTab"+response.toString());
@@ -155,10 +156,10 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            Log.e("wj","onFailure"+statusCode+throwable.toString());
-            super.onFailure(statusCode, headers, throwable, errorResponse);
+            Log.e("wj", "onFailure" + statusCode + throwable.toString());
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
+            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
         }
     };
 

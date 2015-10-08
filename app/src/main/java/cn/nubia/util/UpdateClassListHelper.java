@@ -1,22 +1,20 @@
 package cn.nubia.util;
 
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import cn.nubia.db.DbUtil;
-import cn.nubia.entity.Constant;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.ExamItem;
 import cn.nubia.entity.Item;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.entity.RecordModifyFlag;
 
 /**
  * Created by WJ on 2015/9/8.
@@ -29,27 +27,31 @@ public class UpdateClassListHelper {
      * */
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList,String tableName) throws JSONException {
         int len = jsonArray.length();
-        Item item = null;
         for(int i = 0;i < len; i++){
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            String type = jsonObject.getString("type");
-            String operater = jsonObject.getString("operate");
-            JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
-            switch (type){
-                case "course":
-                case "senior":
-                case "share":
-                    item = makeCourse(type,operater,jsonObjectDetail);
-                    break;
-                case "lesson":
-                    item = makeLesson(type,operater,jsonObjectDetail);
-                    break;
-                default:
-                    break;
-            }
-            UpdateClassListHelper.updateDataByClassType(type, item, courseList,tableName);
+            updateSingleData(jsonArray.getJSONObject(i),courseList,tableName);
         }
     }
+
+    private static void updateSingleData(JSONObject jsonObject, List<CourseItem> courseList,String tableName) throws JSONException {
+        Item item = null;
+        String type = jsonObject.getString("type");
+        String operater = jsonObject.getString("operate");
+        JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
+        switch (type){
+            case "course":
+            case "senior":
+            case "share":
+                item = makeCourse(type,operater,jsonObjectDetail);
+                break;
+            case "lesson":
+                item = makeLesson(type,operater,jsonObjectDetail);
+                break;
+            default:
+                break;
+        }
+        UpdateClassListHelper.updateDataByClassType(type, item, courseList,tableName);
+    }
+
 
     private static LessonItem makeLesson(String type,String operater,JSONObject jsonObjectDetail) throws JSONException {
         LessonItem lessonItem = new LessonItem();
@@ -77,7 +79,6 @@ public class UpdateClassListHelper {
         if(!jsonObjectDetail.isNull("is_judged")){
             lessonItem.setIsJudged(jsonObjectDetail.getBoolean("is_judged"));
         }
-
         return lessonItem;
     }
 
@@ -87,10 +88,7 @@ public class UpdateClassListHelper {
         courseItem.setLessonList(lessonList);
         courseItem.setType(courseType);
         courseItem.setOperator(operater);
-
         courseItem.setCourseCredits(jsonObjectDetail.getInt("course_credits"));
-        Log.e("xiaoHeHe", jsonObjectDetail.getString("course_name") + "-----" + courseItem.getCourseCredits() + "");
-
         courseItem.setIndex(jsonObjectDetail.getInt("course_index"));
         courseItem.setName(jsonObjectDetail.getString("course_name"));
         courseItem.setDescription(jsonObjectDetail.getString("course_description"));
@@ -103,7 +101,6 @@ public class UpdateClassListHelper {
         }else if (courseType.equals("share")){
             courseItem.setShareType(jsonObjectDetail.has("share")?(short)jsonObjectDetail.getInt("course_level"):0);
         }
-        Log.e("xiaoHeHeReturn",courseItem.getName()+"-----"+courseItem.getCourseCredits() + "----"+courseItem.getEnrollCredits());
         return courseItem;
     }
 
@@ -140,13 +137,8 @@ public class UpdateClassListHelper {
             String operate = jsonObject.getString("operate");
             JSONObject jsonObjectDetail = jsonObject.getJSONObject("detail");
             item = makeExam(operate,jsonObjectDetail);
-
             /***更新记录最新索引和时间***/
-            Constant.sLastExamIndexForAll = item.getIndex() > Constant.sLastExamIndexForAll
-                    ?Constant.sLastExamIndexForAll :Constant.sLastExamIndexForAll;
-            Constant.slastExamRecordModifyTimeForAll = item.getRecordModifyTime() > Constant.slastExamRecordModifyTimeForAll
-                    ?item.getRecordModifyTime():Constant.slastExamRecordModifyTimeForAll;
-
+            RecordModifyFlag.getInstance().updateLastModifyMap(SqliteHelper.TB_NAME_EXAM,item.getRecordModifyTime(),item.getIndex());
             updateExamItem(operate, item, examList);
         }
     }
@@ -161,10 +153,7 @@ public class UpdateClassListHelper {
             case "share":
             case "senior":
                 if (item instanceof CourseItem){
-                    Constant.sLastCourseRecordModifyTimeForAll = ((CourseItem) item).getRecordModifyTime() >  Constant.sLastCourseRecordModifyTimeForAll
-                            ?((CourseItem) item).getRecordModifyTime() : Constant.sLastCourseRecordModifyTimeForAll;
-                    Constant.sLastCourseIndexForAll = item.getIndex() > Constant.sLastCourseIndexForAll ? item.getIndex():Constant.sLastCourseIndexForAll;
-
+                    RecordModifyFlag.getInstance().updateLastModifyMap(tableName,((CourseItem) item).getRecordModifyTime(), item.getIndex(),0,0);
                     updateCourseItem(item.getOperator(), (CourseItem) item, list, tableName);
                 }
                 break;
@@ -172,12 +161,8 @@ public class UpdateClassListHelper {
                 if (item instanceof LessonItem){
                     int index = binarySearch(list, ((LessonItem) item).getCourseIndex());
                     if (index >= 0) {
-                        Constant.slastLessonRecordModifyTimeForAll = ((LessonItem) item).getRecordModifyTime() > Constant.slastLessonRecordModifyTimeForAll
-                                ?((LessonItem) item).getRecordModifyTime():Constant.slastLessonRecordModifyTimeForAll;
-                        Constant.sLastLessonIndexForAll = item.getIndex() > Constant.sLastLessonIndexForAll ?item.getIndex():Constant.sLastLessonIndexForAll;
-
-                        CourseItem courseItem = list.get(index);
-                        updateLessonItem(item.getOperator(), (LessonItem) item, courseItem.getLessonList());
+                        RecordModifyFlag.getInstance().updateLastModifyMap(tableName,0,0,((LessonItem) item).getRecordModifyTime(),item.getIndex());
+                        updateLessonItem(item.getOperator(), (LessonItem) item, list.get(index).getLessonList());
                     }
                 }
                 break;
@@ -194,6 +179,8 @@ public class UpdateClassListHelper {
      * */
     private static void updateCourseItem(String operate,CourseItem item, List<CourseItem> list,String tableName){
         int listIndex = binarySearch(list, item, false);
+        Log.e("wj"," updateCourseItem listIndex   " + listIndex + item.getName());
+
         switch (operate){
             case "insert":
                 if(listIndex > -1 || item.getName().equals("null"))
@@ -202,6 +189,8 @@ public class UpdateClassListHelper {
                     return;
                 }else {
                     /***插入数据库**/
+                Log.e("test","insertCourseItem"+item.getIndex()+item.getName()+ "tableName"+tableName);
+
                     DbUtil.getInstance(null).insertCourseItem(item, tableName);
                     //如果不存在，返回负值
                     list.add(-(listIndex + 1), item);
@@ -229,7 +218,6 @@ public class UpdateClassListHelper {
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
         int listIndex = binarySearch(list, item, true);
-        Log.e("wj","listIndex   "+listIndex);
         switch (operate){
             case "insert":
                 if(listIndex > -1|| item.getIndex() == 0 || item.getName().equals("null"))
@@ -239,14 +227,12 @@ public class UpdateClassListHelper {
                 }else {
                     //如果不存在，返回负值
                     list.add(-(listIndex+1),item);
-                    Log.e("wj", "insert   " + item.getName());
                     DbUtil.getInstance(null).insertLessonItem(item);
                 }
                 break;
             case "update":
                 if (listIndex >= 0){
                     list.set(listIndex,item);
-                    Log.e("wj", "update   " + item.getName());
                     DbUtil.getInstance(null).updateLessonItem(item);
                 }
                 break;
@@ -267,7 +253,7 @@ public class UpdateClassListHelper {
             case "insert":
                 if(listIndex > -1 || item.getName().equals("null"))
                 {
-                    Log.e(TAG,"插入重复课时！或Name为null");
+                    Log.e(TAG,"插入重复考试！或Name为null");
                     return;
                 }else {
                     //如果不存在，返回负值

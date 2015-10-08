@@ -9,17 +9,11 @@ import java.io.Serializable;
  */
 public class CourseIntegrationItem implements Serializable{
     private String mLessonName;
-    private int mLessonIndex;
     private int mCheckCredits;//签到积分
     private String mCause;//获取积分的原因
-    private long mAcquireTime;//获取积分的时间
-
-    public int getmLessonIndex() {
-        return mLessonIndex;
-    }
 
     public void setmLessonIndex(int mLessonIndex) {
-        this.mLessonIndex = mLessonIndex;
+        int mLessonIndex1 = mLessonIndex;
     }
 
     public String getmLessonName() {
@@ -46,12 +40,8 @@ public class CourseIntegrationItem implements Serializable{
         this.mCause = mCause;
     }
 
-    public long getmAcquireTime() {
-        return mAcquireTime;
-    }
-
     public void setmAcquireTime(long mAcquireTime) {
-        this.mAcquireTime = mAcquireTime;
+        long mAcquireTime1 = mAcquireTime;
     }
 
 }

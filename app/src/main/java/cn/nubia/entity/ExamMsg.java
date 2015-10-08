@@ -8,10 +8,6 @@ import com.loopj.android.http.RequestParams;
 public class ExamMsg extends Paramable {
     private int mExamIndex;
 
-    public int getExamIndex(){
-        return mExamIndex;
-    }
-
     public void setExamIndex(int examIndex){
         mExamIndex = examIndex;
     }

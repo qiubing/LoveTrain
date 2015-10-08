@@ -8,9 +8,6 @@ public class ExamUser {
     private String user_name;
     private double exam_score;
 
-    public ExamUser() {
-    }
-
     public String getUser_id() {
         return user_id;
     }

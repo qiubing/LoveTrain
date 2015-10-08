@@ -8,9 +8,6 @@ public class Course {
     private String course_name;
     private double exam_score;
     private String address;
-    public Course() {
-
-    }
 
     public String getAddress() {
         return address;

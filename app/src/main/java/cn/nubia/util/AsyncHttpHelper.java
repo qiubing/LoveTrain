@@ -15,10 +15,10 @@ import java.util.Map;
  * 异步HTTP操作类
  */
 public class AsyncHttpHelper {
-    private static AsyncHttpClient client = new AsyncHttpClient(); // 实例话对象
+    private static final AsyncHttpClient client = new AsyncHttpClient(); // 实例话对象
 
     static {
-        client.setTimeout(100000); // 设置链接超时，如果不设置，默认为10s
+        client.setTimeout(50000); // 设置链接超时，如果不设置，默认为10s
         client.addHeader("X-Requested-With","JsonHttpRequest");
     }
 

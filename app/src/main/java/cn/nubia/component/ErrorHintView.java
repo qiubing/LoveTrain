@@ -25,7 +25,7 @@ public class ErrorHintView extends RelativeLayout {
      */
     private AnimationDrawable animationDrawable;
 
-    private ErrorHandler mErrorHandler = new ErrorHandler();
+    private final ErrorHandler mErrorHandler = new ErrorHandler();
 
     public interface OperateListener {
         void operate();

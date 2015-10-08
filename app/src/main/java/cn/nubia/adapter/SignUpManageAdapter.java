@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -18,15 +20,13 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.SignUpItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.MyJsonHttpResponseHandler;
-
 /**
  * Created by hexiao on 2015/9/19.
  */
 public class SignUpManageAdapter extends BaseAdapter {
     private static final String TAG = "SignUpManageAdapter";
-    private List<SignUpItem> mList;
-    private Context mContext;
+    private final List<SignUpItem> mList;
+    private final Context mContext;
 
     public SignUpManageAdapter(List<SignUpItem> list,Context context){
         this.mList = list;
@@ -96,20 +96,24 @@ public class SignUpManageAdapter extends BaseAdapter {
                 params.put("course_index", item.getCourseID());
                 params.put("is_enroll", true);
                 String url = Constant.BASE_URL + "enroll/check_enroll_course.do";
-                AsyncHttpHelper.post(url, params, new MyJsonHttpResponseHandler(){
+                AsyncHttpHelper.post(url, params, new JsonHttpResponseHandler(){
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response){
                         Log.e(TAG, "onSuccess: " + response.toString());
-                        if (response != null && response.getInt("code") == 0){
-                            if (response.getBoolean("data")){
-                                viewHold.result.setVisibility(View.VISIBLE);
-                                viewHold.agreeButton.setVisibility(View.GONE);
-                                Toast.makeText(mContext, "审核完成" , Toast.LENGTH_LONG).show();
+                        try {
+                            if (response != null && response.getInt("code") == 0){
+                                if (response.getBoolean("data")){
+                                    viewHold.result.setVisibility(View.VISIBLE);
+                                    viewHold.agreeButton.setVisibility(View.GONE);
+                                    Toast.makeText(mContext, "审核完成" , Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                //报名失败，隐藏图标
+                                Log.e(TAG,"报名失败");
+                                Toast.makeText(mContext, "积分不够或者其他原因，报名失败!" , Toast.LENGTH_LONG).show();
                             }
-                        }else{
-                            //报名失败，隐藏图标
-                            Log.e(TAG,"报名失败");
-                            Toast.makeText(mContext, "积分不够或者其他原因，报名失败!" , Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -141,17 +145,21 @@ public class SignUpManageAdapter extends BaseAdapter {
                 params.put("course_index", item.getCourseID());
                 params.put("is_enroll", false);
                 String url = Constant.BASE_URL + "enroll/check_enroll_course.do";
-                AsyncHttpHelper.post(url, params, new MyJsonHttpResponseHandler(){
+                AsyncHttpHelper.post(url, params, new JsonHttpResponseHandler(){
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         Log.e(TAG, "onSuccess: " + response.toString());
-                        if (response != null && response.getInt("code") == 0){
-                            if (response.getBoolean("data")){
-                                Toast.makeText(mContext, "否决完成" , Toast.LENGTH_LONG).show();
+                        try {
+                            if (response != null && response.getInt("code") == 0){
+                                if (response.getBoolean("data")){
+                                    Toast.makeText(mContext, "否决完成" , Toast.LENGTH_LONG).show();
+                                }
+                            }else{
+                                //报名失败，隐藏图标
+                                Toast.makeText(mContext, "否决失败" , Toast.LENGTH_LONG).show();
                             }
-                        }else{
-                            //报名失败，隐藏图标
-                            Toast.makeText(mContext, "否决失败" , Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
 

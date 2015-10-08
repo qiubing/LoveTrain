@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -23,10 +23,7 @@ import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevelModel;
 import cn.nubia.entity.TechnologyShareCourseItem;
-import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * Description:
@@ -119,18 +116,22 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     }
 
-    private final MyJsonHttpResponseHandler mApprovedHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler mApprovedHandler = new JsonHttpResponseHandler(){
         @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response){
             Log.e(TAG, "onSuccess: " + response.toString());
-            if (response.getBoolean("data")){
-                Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
-                        "审核通过",Toast.LENGTH_LONG).show();
-                mPassButton.setEnabled(false);
-                AdminShareCourseUnApprovedDetailActivity.this.finish();
-            }else {
-                Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
-                        "审核失败",Toast.LENGTH_LONG).show();
+            try {
+                if (response.getBoolean("data")){
+                    Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
+                            "审核通过",Toast.LENGTH_LONG).show();
+                    mPassButton.setEnabled(false);
+                    AdminShareCourseUnApprovedDetailActivity.this.finish();
+                }else {
+                    Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
+                            "审核失败",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 
@@ -140,18 +141,21 @@ public class AdminShareCourseUnApprovedDetailActivity extends Activity implement
         }
     };
 
-    private final MyJsonHttpResponseHandler mRejectHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler mRejectHandler = new JsonHttpResponseHandler(){
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
-            Log.e(TAG, "onSuccess: " + response.toString());
-            if (response.getBoolean("data")){
-                Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
-                        "否决通过",Toast.LENGTH_LONG).show();
-                AdminShareCourseUnApprovedDetailActivity.this.finish();
-            }else{
-                Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
-                        "否决失败",Toast.LENGTH_LONG).show();
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                if (response.getBoolean("data")){
+                    Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
+                            "否决通过",Toast.LENGTH_LONG).show();
+                    AdminShareCourseUnApprovedDetailActivity.this.finish();
+                }else{
+                    Toast.makeText(AdminShareCourseUnApprovedDetailActivity.this,
+                            "否决失败",Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 

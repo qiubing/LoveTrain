@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -31,7 +32,6 @@ import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 @SuppressWarnings("deprecation")
@@ -103,7 +103,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                 finish();
             }
         });
-
     }
 
     //将Activity上的触碰事件交给GestureDetector处理
@@ -138,12 +137,12 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 int code = response.getInt("code");
-                boolean result = response.getBoolean("result");
+//                boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 //JSONArray jsonArray = response.getJSONArray("data");
                 if(code == 0 && isOk) {
@@ -167,7 +166,6 @@ public class AdminAddExamActivity extends Activity implements  View.OnClickListe
                 Toast.makeText(AdminAddExamActivity.this, "添加考试失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-            //mExamAdapter.notifyDataSetChanged();
         }
 
         @Override

@@ -2,7 +2,6 @@ package cn.nubia.util;
 
 import android.content.Context;
 import android.os.Handler;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import cn.nubia.entity.Constant;
@@ -21,7 +20,7 @@ public class LoadViewUtil {
     /** 正在加载 */
     final public static int VIEW_LOADING = 4;
 
-    private Context mCtx;
+    private final Context mCtx;
     private boolean mNetworkFailedFlag = true;
     private int mLoadingFailedFlag = Constant.LOADING_SUCCESS;
 
@@ -31,13 +30,13 @@ public class LoadViewUtil {
         Handler mHandler = handler;*/
     }
 
-    public void setNetworkFailedViewVisible(boolean visible){
-        mNetworkFailedFlag = visible;
-    }
+//    public void setNetworkFailedViewVisible(boolean visible){
+//        mNetworkFailedFlag = visible;
+//    }
 
-    public void setNetworkFailedView(View view){
-        View mNetworkFailedView = view;
-    }
+//    public void setNetworkFailedView(View view){
+////        View mNetworkFailedView = view;
+//    }
 
     public boolean getNetworkFailedFlag(){
         return  mNetworkFailedFlag;

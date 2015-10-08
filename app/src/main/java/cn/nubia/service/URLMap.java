@@ -18,23 +18,23 @@ import cn.nubia.util.jsonprocessor.LessonJudgementAssembler;
  * Created by JiangYu on 2015/9/15.
  */
 public class URLMap {
-    public final static Map<Class<? extends ActivityInter>,String> URL_MAPPING =
+    private final static Map<Class<? extends ActivityInter>,String> URL_MAPPING =
             new HashMap<Class<? extends ActivityInter>,String>();
     public final static Map<String,Class<? extends HttpHandler>> HANDLER_MAPPING =
             new HashMap<String,Class<? extends HttpHandler>>();
     public final static Map<String,Class<? extends IAssemblerGenerics<?>>> ASSEMBLER_MAPPING =
             new HashMap<String,Class<? extends IAssemblerGenerics<?>>>();
 
-    public final static String BASE_URL = "http://love-train-dev.nubia.cn/";
+    private final static String BASE_URL = "http://love-train-dev.nubia.cn/";
     public final static String URL_ADD_SHARE = BASE_URL+"share/add_share_course.do";
     public final static String URL_UPD_SHARE = BASE_URL+"share/edit_going_course.do";
     public final static String URL_UPD_PSW = BASE_URL+"user/modify.do";
     public final static String URL_AWARD_CREDITS = BASE_URL+"credit/give_credits.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
     public final static String URL_ADD_NORMALEXAMENROLL = BASE_URL+"exam/exam_join.do";
-    public final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
+    private final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
-    public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
+    private final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
     public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
     public final static String URL_ADD_SENIORCOURSEENROLL = BASE_URL+"enroll/user_enroll_course.do";
 

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ExpandableListView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -26,7 +27,6 @@ import cn.nubia.entity.CourseItem;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 import cn.nubia.util.Utils;
@@ -70,7 +70,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
     private  void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(ClientAllCourseHasExamTabActivity.this, mExpandableListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
+//        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent(),Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
@@ -140,7 +140,7 @@ public class ClientAllCourseHasExamTabActivity extends Activity {
     /**
      * 请求课程数据服务器数据的Handler
      */
-    private MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

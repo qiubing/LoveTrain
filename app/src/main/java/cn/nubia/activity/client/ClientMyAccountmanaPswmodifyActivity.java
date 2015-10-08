@@ -52,7 +52,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
         String str = "^(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(mNewpswEditText.getText().toString().trim());
-        return m.matches();
+        return !m.matches();
     }
 
     private View.OnClickListener makeConfirmOnClickListener() {
@@ -66,7 +66,7 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
                     String newPswConfirm = ((EditText) findViewById(R.id.
                             my_accountmana_pswmodify_newpswconfirmedittext)).getText().toString().trim();
                     if (newPsw.equals(newPswConfirm)) {
-                        if (!matchNewPsw()) {
+                        if (matchNewPsw()) {
                             DialogUtil.showDialog(
                                     ClientMyAccountmanaPswmodifyActivity.this, "新密码格式不正确：\n" +
                                             "请确保密码长度至少为七位，且包含字母与数字，" +

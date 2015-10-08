@@ -22,10 +22,6 @@ public class User {
     @SerializedName("icon_url")
     private String userIconURL;
 
-    public User() {
-
-    }
-
     public int getUser_index() {
         return user_index;
     }

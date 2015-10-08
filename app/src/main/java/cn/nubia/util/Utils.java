@@ -56,6 +56,8 @@ public class Utils {
      * @throws IOException
      */
     public static void saveFile(Bitmap bitmap, String fileName) throws IOException {
+        if(bitmap == null)
+            return;
         File dirFile = new File(Constant.LOCAL_PATH);
         if (!dirFile.exists()) {
             dirFile.mkdir();

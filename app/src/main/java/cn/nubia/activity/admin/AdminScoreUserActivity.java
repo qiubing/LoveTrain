@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -30,7 +31,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.HandleResponse;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 @SuppressWarnings("deprecation")
 public class AdminScoreUserActivity extends Activity {
@@ -38,7 +38,7 @@ public class AdminScoreUserActivity extends Activity {
     private List<User> list;
     private TextView mNoRecord;
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

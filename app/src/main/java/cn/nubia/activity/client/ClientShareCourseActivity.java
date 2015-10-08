@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -32,8 +33,6 @@ import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
-
 
 /**
  * Author: qiubing
@@ -122,7 +121,7 @@ public class ClientShareCourseActivity extends Activity {
         });
     }
 
-    private final MyJsonHttpResponseHandler mCheckRecordHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler mCheckRecordHandler = new JsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ExpandableListView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminShareCheckTabActivity;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.db.DbUtil;
@@ -28,9 +28,9 @@ import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.UpdateClassListHelper;
 
 
@@ -72,7 +72,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private  void initEvents() {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(ClientMyCourseTeacherTabActivity.this, mExpandableListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, this.getParent(),Constant.user.getUserID());
         /**为ExpandableListView指定填充数据的adapter*/
@@ -130,12 +129,13 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
      * 从网络加载数据
      */
     private void loadData() {
+        RecordModifyFlag.RecordPair recordPair = RecordModifyFlag.getInstance().getRecordModifyMap().get(SqliteHelper.TB_NAME_CLASS);
         /**请求课程数据*/
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
-        requestParams.add("course_index", "1");
-        requestParams.add("course_record_modify_time", "1245545456456");
-        requestParams.add("lesson_index", "1");
-        requestParams.add("lesson_record_modify_time", "1245545456456");
+        requestParams.put("course_index", recordPair.getLastCourseIndex());
+        requestParams.put("course_record_modify_time", recordPair.getLastCourseModifyTime());
+        requestParams.put("lesson_index", recordPair.getLastLessonIndex());
+        requestParams.put("lesson_record_modify_time",  recordPair.getLastLessonModifyTime());
         Log.e("hexiao", "parameter"+requestParams.toString());
 
         /**拉取所有课程的数据，然后从中选取自己为教师的课程显示*/
@@ -146,7 +146,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     /**
      * 请求课程数据服务器数据的Handler
      */
-    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.e("hexiao","response"+response.toString());
@@ -179,6 +179,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             Log.e("TEST onFailure", "" + statusCode);
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
+            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
         }
     };
 
@@ -193,7 +194,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             courseItemList = new ArrayList<CourseItem>(mCourseItemList);
             try {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_MY_CLASS_TEACHER);
-                DbUtil.getInstance(ClientMyCourseTeacherTabActivity.this).updateCourseList(courseItemList);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -242,7 +242,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         if (mList.size() != 0) {
             for(CourseItem courseItem : mList){
                 for(LessonItem lessonItem : courseItem.getLessonList()){
-                    if(lessonItem.getTeacherID() .equals( Constant.user.getUserID())){
+                    if(lessonItem.getTeacherID().equals( Constant.user.getUserID())){
                         resultList.add(courseItem);
                         break;
                     }
@@ -259,8 +259,8 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         intent.setAction(Constant.MYCOURCE_TEACHER);
         intent.putExtra(Constant.MYCOURCE_TEACHER, "visible");
         LocalBroadcastManager.getInstance(ClientMyCourseTeacherTabActivity.this).sendBroadcast(intent);
-
     }
+
     private void cancelLoadShow() {
         Intent intent = new Intent();
         intent.setAction(Constant.MYCOURCE_TEACHER);

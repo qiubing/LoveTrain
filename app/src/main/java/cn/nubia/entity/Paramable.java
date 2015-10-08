@@ -12,10 +12,6 @@ import cn.nubia.service.CommunicateService;
 public abstract class Paramable implements Serializable {
     private CommunicateService.OperateType mType;
 
-    public CommunicateService.OperateType getOperateType() {
-        return mType;
-    }
-
     public void setOperateType(CommunicateService.OperateType Type) {
         this.mType = Type;
     }

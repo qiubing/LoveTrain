@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -22,7 +24,6 @@ import java.util.Date;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.zxing.barcode.CaptureActivity;
 
 /**普通用户主界面：Tab分页导航
@@ -34,7 +35,6 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  */
 @SuppressWarnings("deprecation")
 public class ClientMainActivity extends ActivityGroup {
-    private static final String TAG = "ClientMainActivity";
     private TabHost mTabHost;
     private RadioGroup mRadioGroup;
     /**
@@ -149,20 +149,24 @@ public class ClientMainActivity extends ActivityGroup {
         }
     }
 
-    private final MyJsonHttpResponseHandler mCheckHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler mCheckHandler = new JsonHttpResponseHandler(){
         @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
-            if (response != null && response.getInt("code") == 0){
-                JSONObject obj = response.getJSONObject("data");
-                if (obj != null){
-                    long check_time = obj.getLong("check_time");
-                    int check_credits = obj.getInt("check_credits");
-                    Date date = new Date();
-                    date.setTime(check_time);
-                    String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
-                    Toast.makeText(ClientMainActivity.this,
-                            "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            try {
+                if (response != null && response.getInt("code") == 0){
+                    JSONObject obj = response.getJSONObject("data");
+                    if (obj != null){
+                        long check_time = obj.getLong("check_time");
+                        int check_credits = obj.getInt("check_credits");
+                        Date date = new Date();
+                        date.setTime(check_time);
+                        String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+                        Toast.makeText(ClientMainActivity.this,
+                                "签到时间:" + time +" ,获取的积分:" + check_credits,Toast.LENGTH_LONG).show();
+                    }
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 

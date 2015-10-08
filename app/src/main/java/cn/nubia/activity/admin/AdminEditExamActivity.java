@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -31,7 +32,6 @@ import cn.nubia.entity.ExamItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 public class AdminEditExamActivity extends Activity  implements  View.OnClickListener{
@@ -161,13 +161,13 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 int code = response.getInt("code");
-                boolean result = response.getBoolean("result");
+//                boolean result = response.getBoolean("result");
                 boolean isOk = response.getBoolean("data");
                 if(code == 0 && isOk) {
                     Toast.makeText(AdminEditExamActivity.this, "修改考试成功", Toast.LENGTH_SHORT).show();

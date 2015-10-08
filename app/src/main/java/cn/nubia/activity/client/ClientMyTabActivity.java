@@ -14,6 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.apache.http.Header;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -24,7 +26,6 @@ import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.ProcessSPData;
 import cn.nubia.util.Utils;
 
@@ -206,11 +207,11 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                     Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
             Log.e(TAG,"remotePath: " + remotePath);
             //从服务器加载图片，传递url地址过去
-            AsyncHttpHelper.get(remotePath,mPictureHandler);
+            AsyncHttpHelper.get(remotePath, mPictureHandler);
         }
     }
 
-    MyJsonHttpResponseHandler mPictureHandler = new MyJsonHttpResponseHandler(){
+    private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
             Log.e(TAG,"onSuccess: 加载成功");

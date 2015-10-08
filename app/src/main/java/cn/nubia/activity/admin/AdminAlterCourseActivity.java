@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -31,7 +32,6 @@ import cn.nubia.entity.CourseItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 
 /**
@@ -106,12 +106,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
                 startActivity(intent);
             }
         });
-
-
         Button alterCourseButton = (Button) findViewById(R.id.alter_course_button);
-
         alterCourseWhetherExamCheckBox = (CheckBox) findViewById(R.id.alter_course_whetherExam_checkBox);
-
 
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
@@ -247,7 +243,7 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     }
 
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

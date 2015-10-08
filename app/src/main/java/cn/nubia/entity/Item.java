@@ -6,10 +6,10 @@ import java.io.Serializable;
  * Created by WJ on 2015/9/8.
  */
 public abstract class Item implements Serializable{
-    public static String TYPE = "type";
-    public static String NAME = "name";
-    public static String DESCRIPTION = "description";
-    public static String OPERATOR = "operator";
+    public static final String TYPE = "type";
+    public static final String NAME = "name";
+    public static final String DESCRIPTION = "description";
+    public static final String OPERATOR = "operator";
 
     private int mIndex;
     private String mOperator;

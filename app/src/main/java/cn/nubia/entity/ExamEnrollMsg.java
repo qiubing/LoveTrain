@@ -17,10 +17,6 @@ public class ExamEnrollMsg extends Paramable {
         mUserID = userID;
     }
 
-    public int getExamIndex(){
-        return mExamIndex;
-    }
-
     public void setExamIndex(int examIndex){
         mExamIndex = examIndex;
     }

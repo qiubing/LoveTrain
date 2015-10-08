@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,18 +20,15 @@ import cn.nubia.entity.ShareCourseLevelModel;
  * Created by JiangYu on 2015/9/1.
  */
 public class CourseLevelSpinnerAdapter extends BaseAdapter {
-    private List<ShareCourseLevel> mList;
-    private Context mContext;
+    private final List<ShareCourseLevel> mList;
+    private final Context mContext;
 
     public CourseLevelSpinnerAdapter(Context context){
         this.mContext = context;
         this.mList = new ArrayList<ShareCourseLevel>();
-        Iterator<Map.Entry<Short,String>> iterator =
-                ShareCourseLevelModel.SHARE_COURSE_MODEL.entrySet().iterator();
-       while(iterator.hasNext()){
-           Map.Entry<Short,String> entry = iterator.next();
-           mList.add(new ShareCourseLevel(entry.getValue(),entry.getKey()));
-       }
+        for (Map.Entry<Short, String> entry : ShareCourseLevelModel.SHARE_COURSE_MODEL.entrySet()) {
+            mList.add(new ShareCourseLevel(entry.getValue(), entry.getKey()));
+        }
     }
 
     public int getPositionOfTarget(short targetLevelSign){

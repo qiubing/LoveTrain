@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -31,7 +32,6 @@ import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
@@ -287,13 +287,14 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
                 if( code == 0 && isOk) {
+
                     Toast.makeText(AdminExamDetailActivity.this, "删除考试成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {

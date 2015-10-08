@@ -21,7 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public final class AutoFocusCallback implements Camera.AutoFocusCallback {
+final class AutoFocusCallback implements Camera.AutoFocusCallback {
 
     private static final String TAG = AutoFocusCallback.class.getSimpleName();
 

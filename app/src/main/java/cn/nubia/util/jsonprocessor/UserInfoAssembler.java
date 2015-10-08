@@ -31,7 +31,7 @@ public class UserInfoAssembler implements IAssemblerGenerics<UserInfo> {
         }
     }
 
-    public UserInfo makeUserInfo(JSONObject jsonObject) throws JSONException {
+    private UserInfo makeUserInfo(JSONObject jsonObject) throws JSONException {
         UserInfo userInfo = new UserInfo();
 
         userInfo.setUserID(jsonObject.getString("userid"));

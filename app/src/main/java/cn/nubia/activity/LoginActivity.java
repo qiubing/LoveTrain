@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.db.DbUtil;
+import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.entity.Constant;
@@ -146,7 +147,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String lastLoginID = ProcessSPData.getStringFromSP(this, "userID");
         if (!(lastLoginID != null && lastLoginID.equals(userID))) {
             DbUtil.getInstance(LoginActivity.this).dropDatabase();
-            Constant.initRequestParams();
+            RecordModifyFlag.getInstance().initRequestParams();
         }
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override

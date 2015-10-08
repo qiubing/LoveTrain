@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -34,7 +35,6 @@ import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * 管理员课程详细界面
@@ -228,7 +228,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         AsyncHttpHelper.post(deleteCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

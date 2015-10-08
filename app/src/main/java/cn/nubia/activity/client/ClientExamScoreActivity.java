@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -29,7 +31,6 @@ import cn.nubia.entity.ExamResultItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * Author: qiubing
@@ -102,7 +103,7 @@ public class ClientExamScoreActivity extends Activity {
         });
     }
 
-    private final MyJsonHttpResponseHandler mClientExamScoreHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler mClientExamScoreHandler = new JsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

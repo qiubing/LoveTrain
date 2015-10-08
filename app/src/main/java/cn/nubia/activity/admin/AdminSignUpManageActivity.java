@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -29,7 +30,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.SignUpItem;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * Created by hexiao on 2015/9/11.
@@ -95,7 +95,7 @@ public class AdminSignUpManageActivity extends Activity {
     }
 
     /**请求课程数据服务器数据的Handler*/
-    private final MyJsonHttpResponseHandler jsonHttpResponseHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {

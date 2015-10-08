@@ -22,6 +22,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -36,7 +38,6 @@ import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.Utils;
 
 /**
@@ -130,6 +131,8 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
                 params.put("icon_type","jpg");
                 params.put("icon", file);
                 params.put("user_id", Constant.user.getUserID());
+                Log.e("102",params.toString());
+
                 AsyncHttpHelper.post(url, params, mUpdateIconHandler);
             }
         } catch (FileNotFoundException e) {
@@ -137,16 +140,20 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         }
     }
 
-    private final MyJsonHttpResponseHandler mUpdateIconHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler mUpdateIconHandler = new JsonHttpResponseHandler() {
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, JSONObject response) throws JSONException {
+        public void onSuccess(int statusCode, Header[] headers, JSONObject response){
             super.onSuccess(statusCode, headers, response);
             Log.e("UpdateIconActivity", "onSuccess" + response.toString());
-            if (response.getString("code").equals("0") && response.getInt("data") == 0) {
-                showShortToast("长传头像成功");
-            } else {
-                showShortToast("长传头像失败");
+            try {
+                if (response.getString("code").equals("0") && response.getInt("data") == 0) {
+                    showShortToast("长传头像成功");
+                } else {
+                    showShortToast("长传头像失败");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             ClientUpdateIconActivity.this.finish();
         }

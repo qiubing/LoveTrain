@@ -9,16 +9,7 @@ import java.io.Serializable;
  */
 public class CheckRecordItem implements Serializable{
     private String mLessonName;
-    private int mLessonIndex;
     private long mCheckTime;
-
-    public int getmLessonIndex() {
-        return mLessonIndex;
-    }
-
-    public void setmLessonIndex(int mLessonIndex) {
-        this.mLessonIndex = mLessonIndex;
-    }
 
     public String getmLessonName() {
         return mLessonName;

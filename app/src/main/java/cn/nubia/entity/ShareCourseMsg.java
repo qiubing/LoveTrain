@@ -31,9 +31,6 @@ public class ShareCourseMsg extends Paramable{
         mStartTime = item.getmStartTime();
         mEndTime = item.getmEndTime();
     }
-    public String getUserId(){
-        return mUserId;
-    }
 
     public void setUserId(String userId){
         mUserId = userId;

@@ -53,16 +53,6 @@ public abstract class BaseActivity extends FragmentActivity {
      */
     public abstract void back(View view);
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     /**
      * 通过Action和Bundle跳转界面
      * param action

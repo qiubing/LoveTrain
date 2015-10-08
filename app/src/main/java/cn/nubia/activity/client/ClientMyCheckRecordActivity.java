@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.ClientCheckRecordAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.CheckRecordItem;
@@ -34,7 +34,6 @@ import cn.nubia.entity.Constant;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 
 /**
@@ -112,7 +111,7 @@ public class ClientMyCheckRecordActivity extends Activity {
         });
     }
 
-    private final MyJsonHttpResponseHandler mCheckRecordHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler mCheckRecordHandler = new JsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -20,8 +20,8 @@ import cn.nubia.util.MyViewHolder;
  */
 public class EvaluateAdapter extends BaseExpandableListAdapter {
 
-    private List<LessonJudgementMsg> mList = new ArrayList<>();;
-    private Context mContext;
+    private final List<LessonJudgementMsg> mList = new ArrayList<>();;
+    private final Context mContext;
 
     public EvaluateAdapter(Context context){
         this.mContext = context;

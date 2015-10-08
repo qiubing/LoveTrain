@@ -26,18 +26,18 @@ import cn.nubia.util.Utils;
 @SuppressLint("InflateParams")
 public class PromptDialog extends Dialog {
 
-    private Context context;
+    private final Context context;
 
     private static final int BUTTON_1 = 0x00000001;
     private static final int BUTTON_2 = 0x00000002;
     private static final int BUTTON_3 = 0x00000003;
 
-    protected PromptDialog(Context context, int theme) {
+    private PromptDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
     }
 
-    protected PromptDialog(Context context) {
+    private PromptDialog(Context context) {
         this(context, R.style.PromptDialogStyle);
     }
 
@@ -60,8 +60,8 @@ public class PromptDialog extends Dialog {
     @SuppressLint({ "NewApi", "InflateParams" })
     public static class Builder {
 
-        private PromptDialog dialog;
-        private Context context;
+        private final PromptDialog dialog;
+        private final Context context;
 
         private CharSequence title;
         private CharSequence message;

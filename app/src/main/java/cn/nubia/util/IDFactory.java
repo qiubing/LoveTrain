@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class IDFactory {
     private static final String DEVIDE_ID = "DEVIDE_ID";
-    private Context context;
+    private final Context context;
 
     public IDFactory(Context context) {
         this.context = context;

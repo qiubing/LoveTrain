@@ -102,14 +102,6 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
     return true;
   }
 
-  public int getDataWidth() {
-    return dataWidth;
-  }
-
-  public int getDataHeight() {
-    return dataHeight;
-  }
-
   public Bitmap renderCroppedGreyscaleBitmap() {
     int width = getWidth();
     int height = getHeight();

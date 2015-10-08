@@ -8,9 +8,6 @@ public class CreditUser {
     private String user_name;
     private int user_total_credits;
 
-    public CreditUser() {
-    }
-
     public String getUser_id() {
         return user_id;
     }

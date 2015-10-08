@@ -8,9 +8,6 @@ public class CreditCourse {
     private String course_name;
     private int course_total_credits;
 
-    public CreditCourse() {
-    }
-
     public int getCourse_index() {
         return course_index;
     }

@@ -20,7 +20,6 @@ public class CourseItem extends Item implements Serializable{
     private short mCourseStatus;
 //    private float mJudgeScore;
     private int mCourseCredits;
-    private short mIsDelete;
     private long mRecordModifyTime;
     private short mShareType;
 

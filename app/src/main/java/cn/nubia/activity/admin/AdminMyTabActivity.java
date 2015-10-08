@@ -12,13 +12,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.apache.http.Header;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.AboutUsActivity;
@@ -27,8 +25,6 @@ import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.Logger;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 import cn.nubia.util.ProcessSPData;
 import cn.nubia.util.Utils;
 
@@ -99,7 +95,6 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         super.onResume();
         //头像图片存储路径
         String path = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
-        Logger.Log(this, path);
         Bitmap bitmap = Utils.getPictureFromSD(path);
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(bitmap);
@@ -114,7 +109,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         }
     }
 
-    MyJsonHttpResponseHandler mPictureHandler = new MyJsonHttpResponseHandler(){
+    private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
             Log.e("AdminMyTabActivity","onSuccess: 加载成功");

@@ -26,7 +26,6 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
 //    private ExamItem mExamItem;
 //    private List<ExamScoreMsg> mExamScoreList;
     private  List<ExamScoreMsg> mModifiedExamScoreList;
-    private int mResultNum = 0;
     private boolean mNextPressReady;
 
     private ListView mExamScoreListView;
@@ -156,7 +155,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                                     message, true);
                 }
             }
-        }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
+        }/*else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){*/
 //            mResultNum++;
 //            if(response==null){
 //                Toast.makeText(
@@ -179,5 +178,5 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
 //                        AdminExamInputScoreActivity.this, "录入操作结束!", true);
 //            }
         }
-    }
+//    }
 }

@@ -3,7 +3,6 @@ package cn.nubia.activity.admin;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;

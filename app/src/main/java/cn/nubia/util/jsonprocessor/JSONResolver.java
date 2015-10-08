@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by JiangYu on 2015/9/10.
  */
-public class JSONResolver {
+class JSONResolver {
     private final static String UNHANDLE_ERR = "未知错误";
     /**获得服务器端返回的JSON对象的code值*/
     public static int readCode(JSONObject jsonObject){

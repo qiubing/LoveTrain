@@ -98,7 +98,8 @@
             style="@style/item_flag_attention_style"
             android:layout_marginRight="5dp"
             android:background="@color/green"
-            android:text="讲" />
+            android:text="讲"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/flag_wetherExam"

@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -26,12 +26,8 @@ import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.TechnologyShareCourseItem;
-import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.util.MyJsonHttpResponseHandler;
-
 /**
  * Created by 胡立 on 2015/9/7.
  */
@@ -61,7 +57,6 @@ public class AdminShareCheckTabActivity extends Activity {
     private void initEvents(){
         mCourseList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(this, mListView, null);
-        mLoadViewUtil.setNetworkFailedView(mRefreshLayout.getNetworkLoadFailView());
         mListView.setOnItemClickListener(new CourseListOnItemClickListener());
 
         mCourseAdapter = new CourseAdapter(mCourseList, AdminShareCheckTabActivity.this);
@@ -103,7 +98,7 @@ public class AdminShareCheckTabActivity extends Activity {
         });
     }
 
-    private final MyJsonHttpResponseHandler mShareCheckHandler = new MyJsonHttpResponseHandler(){
+    private final JsonHttpResponseHandler mShareCheckHandler = new JsonHttpResponseHandler(){
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -132,6 +127,7 @@ public class AdminShareCheckTabActivity extends Activity {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             mLoadViewUtil.setLoadingFailedFlag(Constant.NETWORK_UNUSABLE);
             cancelLoadShow();
+            mRefreshLayout.showLoadFailedView(Constant.SHOW_HEADER, Constant.NETWORK_UNUSABLE, true);
         }
     };
 

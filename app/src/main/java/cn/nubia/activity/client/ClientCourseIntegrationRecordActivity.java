@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -29,7 +31,6 @@ import cn.nubia.entity.CourseIntegrationItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 
 /**
@@ -106,7 +107,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         });
     }
 
-    private final MyJsonHttpResponseHandler mClientCourseIntegrationHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler mClientCourseIntegrationHandler = new JsonHttpResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

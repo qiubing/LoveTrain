@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
@@ -28,7 +29,6 @@ import cn.nubia.entity.CourseItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.MyJsonHttpResponseHandler;
 
 /**
  * Created by hexiao on 2015/9/9.
@@ -51,7 +51,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
     //复选框
     private CheckBox addCourseWhetherExamCheckBox;
 
-    private CourseItem courseItem;
+    private CourseItem mCourseItem;
 
 
     private static final String addCourseURL = Constant.BASE_URL + "/course/add_course.do";
@@ -66,7 +66,7 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_course);
 
-        courseItem = new CourseItem();
+        mCourseItem = new CourseItem();
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText("新增课程");
         //创建手势管理单例对象
@@ -163,13 +163,13 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     return;
                 }
 
-                courseItem.setName(addCourseCourseNameEditText.getText().toString());
-                courseItem.setDescription(addCourseCourseDescEditText.getText().toString());
+                mCourseItem.setName(addCourseCourseNameEditText.getText().toString());
+                mCourseItem.setDescription(addCourseCourseDescEditText.getText().toString());
 
-                courseItem.setType(courseTypeSpinner.getSelectedItem().toString());
+                mCourseItem.setType(courseTypeSpinner.getSelectedItem().toString());
 
-                courseItem.setCourseCredits(Integer.parseInt(addCourseCoursePointsEditText.getText().toString()));
-                courseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
+                mCourseItem.setCourseCredits(Integer.parseInt(addCourseCoursePointsEditText.getText().toString()));
+                mCourseItem.setHasExam(addCourseWhetherExamCheckBox.isChecked());
                 upData();
 
                 /*Intent intentAddForSure = new Intent(AdminAddCourseActivity.this, AdminMainActivity.class);
@@ -200,19 +200,23 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
         if (addCourseHighLevelCourseDeletePoints.getVisibility() != View.GONE) {
             requestParams.add("enroll_credits", addCourseHighLevelCourseDeletePoints.getText().toString());
         }
-
-        Log.i("xiaoHeHe", "参数" + requestParams.toString());
-
         AsyncHttpHelper.post(addCourseURL, requestParams, myJsonHttpResponseHandler);
     }
 
-    private final MyJsonHttpResponseHandler myJsonHttpResponseHandler = new MyJsonHttpResponseHandler() {
+    private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             try {
                 Log.e("930",response.toString());
                 int code = response.getInt("code");
                 if (code == 0) {
+                    mCourseItem.setIndex(response.getInt("data"));
+                    Intent intent = getIntent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CourseItem", mCourseItem);
+                    intent.putExtras(bundle);
+                    setResult(2, intent);
+
                     addCourseCourseNameEditText.setText("");
                     addCourseCourseDescEditText.setText("");
                     courseTypeSpinner.setSelection(0);
@@ -220,10 +224,8 @@ public class AdminAddCourseActivity extends Activity implements View.OnClickList
                     addCourseWhetherExamCheckBox.setChecked(false);
                     Toast.makeText(AdminAddCourseActivity.this, "添加课程成功", Toast.LENGTH_SHORT).show();
                 }
-                Log.e("9300",response.toString());
 
             } catch (Exception e) {
-                Log.e("9301",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddCourseActivity.this, "添加课程失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();

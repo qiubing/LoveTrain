@@ -2,17 +2,14 @@ package cn.nubia.service;
 
 import android.os.Handler;
 import android.os.Message;
-
 import org.json.JSONObject;
-
 import java.util.Map;
-
 import cn.nubia.util.jsonprocessor.EntityFactoryGenerics;
 
 /**
  * Created by JiangYu on 2015/9/19.
  */
-public class AsyncGetResult implements Runnable {
+class AsyncGetResult implements Runnable {
     private EntityFactoryGenerics mFactoryGenerics;
     private JSONObject mJSONObject;
     private Map<String,?> mResponse;

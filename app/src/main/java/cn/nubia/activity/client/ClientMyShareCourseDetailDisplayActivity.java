@@ -19,8 +19,6 @@ import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.GestureDetectorManager;
-import cn.nubia.util.jsonprocessor.TimeFormatConversion;
-
 /**
  * Created by JiangYu on 2015/9/2.
  */
@@ -32,8 +30,8 @@ public class ClientMyShareCourseDetailDisplayActivity extends Activity {
     private Button mCourseModifyButton;
     private ShareCourseMsg mShareCourseMsg;
 
-    protected GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
-    protected GestureDetector gestureDetector ;
+    private final GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
+    private GestureDetector gestureDetector ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

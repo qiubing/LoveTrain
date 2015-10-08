@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +91,7 @@ public class AdminCourseActivity extends ActivityGroup {
             @Override
             public void onClick(View v) {
                 Log.i("huhu", "新增课程");
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 //Toast.makeText(AdminCourseActivity.this, "you can do anything", Toast.LENGTH_LONG).show();
             }
         });
@@ -143,4 +141,5 @@ public class AdminCourseActivity extends ActivityGroup {
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(myBroadCast);
     }
+
 }

@@ -36,7 +36,6 @@ import cn.nubia.entity.Constant;
  */
 public class AdminExamActivity extends ActivityGroup{
     private LocalActivityManager manager;
-    private TabHost tabHost;
     private ImageView loadingShow;
     private MyBroadCast myBroadCast;
     private class MyBroadCast extends BroadcastReceiver {
@@ -76,7 +75,7 @@ public class AdminExamActivity extends ActivityGroup{
         Intent i3 = new Intent(AdminExamActivity.this, ExamAddTabActivity.class);
         listViews.add(getView("AT", i3));
 
-        tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
+        TabHost tabHost = (TabHost) findViewById(R.id.admin_course_tabhost);
         tabHost.setup(AdminExamActivity.this.getLocalActivityManager());
 
         // 这儿主要是自定义一下tabhost中的tab的样式
@@ -157,7 +156,7 @@ public class AdminExamActivity extends ActivityGroup{
 
     private class MyPageAdapter extends PagerAdapter {
 
-        private List<View> list;
+        private final List<View> list;
 
         private MyPageAdapter(List<View> list) {
             this.list = list;

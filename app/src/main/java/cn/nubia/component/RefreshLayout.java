@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -102,7 +103,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          * huhu，是否触发操作的临界值
          */
 
-        private int mTouchSlop;
+        private final int mTouchSlop;
         /**
          * listview实例
          */
@@ -116,13 +117,13 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         /**
          * ListView的加载中footer
          */
-        private View mListViewOnLoadingFooter;
+        private final View mListViewOnLoadingFooter;
         /**
          * ListView的加载中网络未连接
          */
-        private View mNetworkUnusableView;
+        private final View mNetworkUnusableView;
 
-        private View mLoadingFailedView;
+        private final View mLoadingFailedView;
 
         /**
          * 按下时的y坐标
@@ -139,8 +140,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
          */
         private boolean isLoading = false;
         // 均匀旋转动画
-        private RotateAnimation refreshingAnimation;
-        private View loadingView;
+        private final RotateAnimation refreshingAnimation;
+        private final View loadingView;
         /**
          * param context
          */
@@ -190,16 +191,11 @@ public class RefreshLayout extends SwipeRefreshLayout implements
                 refreshingAnimation.setInterpolator(lir);
         }
 
-        public View getNetworkLoadFailView(){
-                return mNetworkUnusableView;
-        }
-
         //huhu，属于ViewGroup的方法，当View分配所有子元素的大小和位置时触发该方法
         @Override
         protected void onLayout(boolean changed, int left, int top, int right,
                                 int bottom) {
                 super.onLayout(changed, left, top, right, bottom);
-
                 // 初始化ListView对象
                 if (mListView == null) {
                         getListView();
@@ -212,7 +208,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
         private void getListView() {
                 int childs = getChildCount();
                 if (childs > 0) {
-                        View childView = getChildAt(0);
+                        View childView = getChildAt(1);
                         if (childView instanceof ListView) {
                                 mListView = (ListView) childView;
                                 // 设置滚动监听器给ListView, 使得滚动的情况下也可以自动加载
@@ -365,12 +361,14 @@ public class RefreshLayout extends SwipeRefreshLayout implements
     }
 
     private  void showNetworkFailedHeader(boolean loading) {
-            if(mListView == null)
-                return;
+            if(mListView == null){
+                getListView();
+            }
             if (loading) {
                 mListView.removeHeaderView(mLoadingFailedView);
-                if(mListView.getHeaderViewsCount() == 0)
+                if(mListView.getHeaderViewsCount() == 0){
                     mListView.addHeaderView(mNetworkUnusableView);
+                }
             }else {
                 mListView.removeHeaderView(mNetworkUnusableView);
             }

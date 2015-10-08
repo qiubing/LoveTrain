@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +25,9 @@ import cn.nubia.service.CommunicateService;
  * Created by JiangYu on 2015/9/19.
  */
 public class AdminExamScoreInputAdapter extends BaseAdapter{
-    private List<ExamScoreMsg> mExamScoreList;
-    private Context mContext;
-    private List<ExamScoreMsg> mModifiedExamScoreList;
+    private final List<ExamScoreMsg> mExamScoreList;
+    private final Context mContext;
+    private final List<ExamScoreMsg> mModifiedExamScoreList;
 
     class ViewHolder {
         MyTextWatcher textWatcher;
@@ -38,8 +36,8 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
         EditText scoreET;
     }
     class MyTextWatcher implements TextWatcher{
-        private EditText mEditText;
-        private int mPosition;
+        private final EditText mEditText;
+        private final int mPosition;
 
         public MyTextWatcher(EditText editText,int position){
             mEditText = editText;
@@ -102,9 +100,6 @@ public class AdminExamScoreInputAdapter extends BaseAdapter{
         mModifiedExamScoreList = new ArrayList<ExamScoreMsg>();
     }
 
-    public List<ExamScoreMsg> getExamScoreList(){
-        return mExamScoreList;
-    }
 
     public List<ExamScoreMsg> getModifiedExamScoreList(){
         return mModifiedExamScoreList;

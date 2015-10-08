@@ -32,7 +32,4 @@ public class Exam {
         this.exam_score = exam_score;
     }
 
-    public Exam() {
-    }
-
 }

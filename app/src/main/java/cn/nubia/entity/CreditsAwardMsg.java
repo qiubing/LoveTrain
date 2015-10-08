@@ -19,16 +19,9 @@ public class CreditsAwardMsg extends Paramable{
         mAwardedName = awardedName;
     }
 
-    public int getAwardedCredits() {
-        return mAwardedCredits;
-    }
 
     public void setAwardedCredits(int awardedCredits) {
         mAwardedCredits = awardedCredits;
-    }
-
-    public String getAwardedCause() {
-        return mAwardedCause;
     }
 
     public void setAwardedCause(String awardedCause) {

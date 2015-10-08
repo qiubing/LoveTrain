@@ -36,10 +36,10 @@ import cn.nubia.util.SpUtil;
 
 public class SplashActivity extends Activity {
 
-    private Timer mTimer = new Timer();
+    private final Timer mTimer = new Timer();
     private int flag = 0;
 
-    private Handler handler = new Handler() {
+    private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             DbUtil.getInstance(SplashActivity.this);
@@ -61,8 +61,6 @@ public class SplashActivity extends Activity {
                     Boolean isLogin = ProcessSPData.getBoolenFromSP(SplashActivity.this, "isLogin");
                     if (isLogin) {
                         Constant.user = ProcessSPData.getUserFromSP(SplashActivity.this);
-//                        Log.e("wj",Constant.user.getUserID());
-
                         Constant.tokenKep = ProcessSPData.getStringFromSP(SplashActivity.this, "tokenKey");
                         Boolean isAdmin = ProcessSPData.getBoolenFromSP(SplashActivity.this, "isAdmin");
                         if (isAdmin) {

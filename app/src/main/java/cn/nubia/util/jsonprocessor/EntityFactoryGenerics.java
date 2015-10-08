@@ -80,7 +80,7 @@ public class EntityFactoryGenerics {
     /**
      * 获得返回结果中的code值
      */
-    public int getCode(){
+    private int getCode(){
         return JSONResolver.readCode(mJsonObject);
     }
 
