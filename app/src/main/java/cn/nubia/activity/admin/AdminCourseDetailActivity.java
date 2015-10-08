@@ -9,7 +9,11 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +55,8 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
 
     @Override
@@ -220,6 +226,13 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     private void deleteData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
@@ -234,6 +247,8 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
 
                 if( code == 0 && isOk) {
                     Toast.makeText(AdminCourseDetailActivity.this, "删除课程成功", Toast.LENGTH_SHORT).show();
@@ -245,6 +260,8 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminCourseDetailActivity.this, "删除课程失败", Toast.LENGTH_SHORT).show();
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 e.printStackTrace();
             }
         }
@@ -254,6 +271,8 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminCourseDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

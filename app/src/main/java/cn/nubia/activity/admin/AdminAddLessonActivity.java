@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -63,6 +67,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private int minuteEnd;
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +233,14 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
     private void upData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
         requestParams.put("course_index", mCourseItem.getIndex());
@@ -249,6 +263,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                 Log.e("929",response.toString());
                 int code = response.getInt("code");
 //                int isOk = response.getInt("data");
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 if( code == 0) {
                     Toast.makeText(AdminAddLessonActivity.this, "添加课时成功", Toast.LENGTH_SHORT).show();
                     lessonDate.setText("");
@@ -266,6 +282,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
                 Log.e("9291",response.toString());
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminAddLessonActivity.this, "添加课时失败", Toast.LENGTH_SHORT).show();
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 e.printStackTrace();
             }
         }
@@ -275,6 +293,8 @@ public class AdminAddLessonActivity extends Activity implements View.OnClickList
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminAddLessonActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

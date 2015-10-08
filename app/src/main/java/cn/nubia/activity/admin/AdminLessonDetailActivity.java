@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -52,6 +55,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private RelativeLayout networkUnusableRelativeLayout;
 
     private GestureDetector gestureDetector;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -318,6 +323,14 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private void deleteData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.add("record_modify_time_course", "1435125456111");
@@ -329,6 +342,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
     private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
@@ -341,7 +356,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(AdminLessonDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminLessonDetailActivity.this, "删除课时失败", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -350,6 +365,9 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminLessonDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

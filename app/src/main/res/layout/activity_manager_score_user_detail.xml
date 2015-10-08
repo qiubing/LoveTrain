@@ -21,7 +21,8 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/item_bg"
         android:gravity="center"
-        android:text="@string/manager_no_record" />
+        android:text="@string/manager_no_record"
+        android:visibility="gone"/>
 
     <ListView
         android:id="@+id/manager_score_user_detail_listview"

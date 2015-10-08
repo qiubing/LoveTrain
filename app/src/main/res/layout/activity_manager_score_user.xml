@@ -15,7 +15,7 @@
         style="@style/text_view_style"
         android:background="@drawable/item_bg"
         android:gravity="center"
-        android:text="@string/manager_no_record" />
+         />
 
     <ListView
         android:id="@+id/score_user_list"

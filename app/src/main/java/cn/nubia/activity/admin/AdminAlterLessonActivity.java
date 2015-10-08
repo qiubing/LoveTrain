@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -55,6 +59,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private RelativeLayout networkUnusableRelativeLayout;
     private GestureDetector gestureDetector;
     private static final String URL = Constant.BASE_URL + "course/edit_lesson.do";
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     private int year;
     private int month;
@@ -147,6 +153,13 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
     private void upData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
 
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 
@@ -171,6 +184,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             Log.i("huhu", "alterLesson" + response.toString());
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 int code = response.getInt("code");
 
@@ -194,6 +209,8 @@ public class AdminAlterLessonActivity extends Activity implements View.OnClickLi
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminAlterLessonActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

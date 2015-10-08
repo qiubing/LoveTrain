@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +47,9 @@ public class AdminSignUpManageActivity extends Activity {
 
     private RefreshLayout mRefreshLayout;
     private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +66,16 @@ public class AdminSignUpManageActivity extends Activity {
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_signin);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_signin);
-        RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_signin);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_signin);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
 
         mSignUpList = new ArrayList<>();
         ListView mListView = (ListView) findViewById(R.id.admin_signIn_manage_listView);
@@ -84,6 +99,16 @@ public class AdminSignUpManageActivity extends Activity {
     }
 
     private void loadData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         Intent intent = getIntent();
         mCourseItem = (CourseItem) intent.getSerializableExtra("CourseItem");
         /***构造请求参数*/
@@ -98,6 +123,8 @@ public class AdminSignUpManageActivity extends Activity {
     private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 Log.e(TAG,"onSuccess: " + response.toString());
                 if(response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null){
@@ -116,6 +143,9 @@ public class AdminSignUpManageActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Toast.makeText(AdminSignUpManageActivity.this, "请求异常", Toast.LENGTH_LONG).show();
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 
