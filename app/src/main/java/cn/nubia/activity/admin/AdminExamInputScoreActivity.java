@@ -60,6 +60,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //noinspection StatementWithEmptyBody
                 while(mBinder==null){}
                 mBinder.communicate(examMsg, new Inter(), URLMap.URL_QUE_EXAMENROLLLIST);
             }
@@ -141,6 +142,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
             }else {
                 String operateResult = (String) response.get("operateResult");
                 if (operateResult.equals("success")) {
+                    @SuppressWarnings("unchecked")
                     List<ExamScoreMsg> mExamScoreList = (List<ExamScoreMsg>) response.get("detail");
 
                     if (mExamScoreList != null) {

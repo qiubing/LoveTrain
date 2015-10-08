@@ -2,7 +2,6 @@ package cn.nubia.activity.client;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +55,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         Intent intent = getIntent();
         mOperateType = (CommunicateService.OperateType) intent.getSerializableExtra("operate");
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
-        Log.e("jiangyu",String.valueOf(mOperateType)+" "+mLessonIndex+" "+Constant.user.getUserID());
+
         if(mOperateType == CommunicateService.OperateType.QUERY){
             mConfirmButton.setVisibility(View.GONE);
             final LessonJudgementMsg judgementMsg = new LessonJudgementMsg();
@@ -67,6 +66,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    //noinspection StatementWithEmptyBody
                     while(mBinder==null){}
                     mBinder.communicate(judgementMsg, new Inter(), URLMap.URL_QUE_MYJUDGEMENT);
                 }
@@ -78,36 +78,38 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mNextPressReady) {
-                   if (checkData()) {
-                        LessonJudgementMsg judgement = new LessonJudgementMsg();
-                        judgement.setContentApplicability(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
-                        judgement.setContentRationality(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
-                        judgement.setDiscussion(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
-                        judgement.setTimeRationality(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
-                        judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
-                        judgement.setExpressionAbility(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
-                        judgement.setCommunication(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
-                        judgement.setOrganization(((RatingBar) findViewById(R.id
-                                .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
-                        judgement.setComprehensiveEvaluation(
-                                mComprehensiveEvaluationEditText.getText().toString().trim());
-                        judgement.setSuggestion(
-                                mSuggestionEditText.getText().toString().trim());
+                if (mOperateType == CommunicateService.OperateType.INSERT) {
+                    if (mNextPressReady) {
+                        if (checkData()) {
+                            LessonJudgementMsg judgement = new LessonJudgementMsg();
+                            judgement.setContentApplicability(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_contentapplicability_ratingbar)).getRating());
+                            judgement.setContentRationality(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_contentRationality_ratingbar)).getRating());
+                            judgement.setDiscussion(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_discussion_ratingbar)).getRating());
+                            judgement.setTimeRationality(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_timerationality_ratingbar)).getRating());
+                            judgement.setContentUnderstanding(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).getRating());
+                            judgement.setExpressionAbility(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_expressionability_ratingbar)).getRating());
+                            judgement.setCommunication(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_communication_ratingbar)).getRating());
+                            judgement.setOrganization(((RatingBar) findViewById(R.id
+                                    .mycourse_judge_detail_fill_organization_ratingbar)).getRating());
+                            judgement.setComprehensiveEvaluation(
+                                    mComprehensiveEvaluationEditText.getText().toString().trim());
+                            judgement.setSuggestion(
+                                    mSuggestionEditText.getText().toString().trim());
 
-                        judgement.setLessonIndex(mLessonIndex);
-                        judgement.setUserID(Constant.user.getUserID());
-                        judgement.setOperateType(CommunicateService.OperateType.INSERT);
-                        mConfirmButton.setText("评价提交中...");
-                        mBinder.communicate(judgement, new Inter(), URLMap.URL_ADD_JUDGEMENT);
-                        mNextPressReady = false;
+                            judgement.setLessonIndex(mLessonIndex);
+                            judgement.setUserID(Constant.user.getUserID());
+                            judgement.setOperateType(CommunicateService.OperateType.INSERT);
+                            mConfirmButton.setText("评价提交中...");
+                            mBinder.communicate(judgement, new Inter(), URLMap.URL_ADD_JUDGEMENT);
+                            mNextPressReady = false;
+                        }
                     }
                 }
             }
@@ -218,6 +220,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
             }else if(responseURL.equals(URLMap.URL_QUE_MYJUDGEMENT)){
                 String operateResult = (String) response.get("operateResult");
                 if (operateResult.equals("success")) {
+                    @SuppressWarnings("unchecked")
                     List<LessonJudgementMsg> mExamScoreList = (List<LessonJudgementMsg>) response.get("detail");
 
                     if (!mExamScoreList.isEmpty()) {

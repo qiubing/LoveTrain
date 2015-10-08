@@ -2,8 +2,6 @@ package cn.nubia.entity;
 
 import com.loopj.android.http.RequestParams;
 
-import java.io.Serializable;
-
 /**
  * Description:
  * Author: qiubing
@@ -14,9 +12,9 @@ public class CourseIntegrationItem extends Paramable{
     private int mCheckCredits;//签到积分
     private String mCause;//获取积分的原因
 
-    public void setmLessonIndex(int mLessonIndex) {
-        int mLessonIndex1 = mLessonIndex;
-    }
+//    public void setmLessonIndex(int mLessonIndex) {
+//        int mLessonIndex1 = mLessonIndex;
+//    }
 
     public String getmLessonName() {
         return mLessonName;
@@ -42,9 +40,9 @@ public class CourseIntegrationItem extends Paramable{
         this.mCause = mCause;
     }
 
-    public void setmAcquireTime(long mAcquireTime) {
-        long mAcquireTime1 = mAcquireTime;
-    }
+//    public void setmAcquireTime(long mAcquireTime) {
+//        long mAcquireTime1 = mAcquireTime;
+//    }
 
     @Override
     protected RequestParams toInsertParams(RequestParams params) {

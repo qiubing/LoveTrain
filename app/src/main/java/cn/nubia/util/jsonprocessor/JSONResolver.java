@@ -38,6 +38,7 @@ class JSONResolver {
     public static List<? extends Paramable> readAsList(JSONObject jsonObject,IAssemblerGenerics assembler){
         JSONArray array = jsonObject.optJSONArray("data");
         if(array!=null) {
+            //noinspection unchecked
             return assembler.assemble(array);
         }else {
             JSONObject object = jsonObject.optJSONObject("data");

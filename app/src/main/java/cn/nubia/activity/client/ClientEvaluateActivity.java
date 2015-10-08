@@ -166,6 +166,7 @@ public class ClientEvaluateActivity  extends Activity {
                             EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(LessonJudgementAssembler.class);
                             factoryGenerics.setJSON(response);
                             Map<String,?> res = factoryGenerics.getResponse();
+                            @SuppressWarnings("unchecked")
                             List<LessonJudgementMsg> list = (List<LessonJudgementMsg>) res.get("detail");
 //                            EntityFactoryGenerics factoryGenerics = new EntityFactoryGenerics(
 //                                    EntityFactoryGenerics.ItemType.LESSONJUDGEMENT, response);

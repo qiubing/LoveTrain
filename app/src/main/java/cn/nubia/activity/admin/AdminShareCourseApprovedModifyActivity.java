@@ -88,9 +88,9 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
          * edit by qiubing 2015.9.19 20:46
          */
         TechnologyShareCourseItem mModifiedItem = (TechnologyShareCourseItem) bundle.getSerializable("ModifiedCourseInfo");
-        OperateType mOperateType;
+//        OperateType mOperateType;
         if (mModifiedItem != null){
-            mOperateType = OperateType.UPDATE;
+//            mOperateType = OperateType.UPDATE;
             mCourseName.setText(mModifiedItem.getmCourseName());
             mShareTypeSpinner.setSelection((short) mModifiedItem.getmCourseLevel());
             mCourseDescription.setText(mModifiedItem.getmCourseDescription());
@@ -100,9 +100,10 @@ public class AdminShareCourseApprovedModifyActivity extends Activity {
             mCourseEndtime.setText(
                     new SimpleDateFormat("HH:mm").format(mModifiedItem.getmEndTime()));
             mLessonLocation.setText(mModifiedItem.getmLocation());
-        }else {
-            mOperateType = OperateType.INSERT;
         }
+//        else {
+//            mOperateType = OperateType.INSERT;
+//        }
 
         /*mCourseItem = (CourseItem) bundle.getSerializable("ModifiedCourseInfo");
         if (mCourseItem != null) {

@@ -2,8 +2,6 @@ package cn.nubia.entity;
 
 import com.loopj.android.http.RequestParams;
 
-import java.io.Serializable;
-
 /**
  * Created by WJ on 2015/9/7.
  */

@@ -12,8 +12,8 @@ import cn.nubia.util.GestureDetectorManager;
  * Created by JiangYu on 2015/9/30.
  */
 public abstract class BaseGestureActivity extends Activity {
-    protected GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
-    protected GestureDetector gestureDetector ;
+    private final GestureDetectorManager mGestureDetectorManager  = GestureDetectorManager.getInstance();
+    private GestureDetector gestureDetector ;
 
 
     @Override
@@ -28,12 +28,6 @@ public abstract class BaseGestureActivity extends Activity {
             }
         });
     }
-
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        return  gestureDetector.onTouchEvent(event);
-//    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent motionEvent){

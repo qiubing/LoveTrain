@@ -109,6 +109,7 @@ public class CommunicateService extends Service {
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         int loopIndex = 0;
                         while(loopIndex<paramList.size()){
+                            //noinspection SynchronizationOnLocalVariableOrMethodParameter
                             synchronized (lastMissionFinishedContain) {
                                 while (!lastMissionFinishedContain.get(0)) {
                                     try {

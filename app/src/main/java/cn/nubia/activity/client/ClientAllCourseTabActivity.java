@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.widget.ExpandableListView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -23,13 +22,13 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
+import cn.nubia.db.DbUtil;
+import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.db.DbUtil;
 import cn.nubia.util.LoadViewUtil;
-import cn.nubia.db.SqliteHelper;
 import cn.nubia.util.UpdateClassListHelper;
 
 /**

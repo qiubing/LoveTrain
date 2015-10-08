@@ -24,7 +24,7 @@ public class URLMap {
     public final static String URL_AWARD_CREDITS = BASE_URL+"credit/give_credits.do";
     public final static String URL_QUE_EXAMENROLLLIST = BASE_URL+"exam/exam_people_list.do";
     public final static String URL_ADD_NORMALEXAMENROLL = BASE_URL+"exam/exam_join.do";
-    public final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
+//    public final static String URL_ADD_SPECIALEXAMENROLL = BASE_URL+"exam/special_exam_join.do";
     public final static String URL_ADD_EXAMSCORE = BASE_URL+"exam/add_score.do";
     public final static String URL_QUE_JUDGEMENT = BASE_URL+"my/find_lesson_judge.do";
     public final static String URL_ADD_JUDGEMENT = BASE_URL+"my/add_lesson_judge.do";
@@ -46,7 +46,7 @@ public class URLMap {
 
         HANDLER_MAPPING.put(URL_ADD_NORMALEXAMENROLL,NormalHttpHandler.class);
 
-        HANDLER_MAPPING.put(URL_ADD_SPECIALEXAMENROLL,NormalHttpHandler.class);
+//        HANDLER_MAPPING.put(URL_ADD_SPECIALEXAMENROLL,NormalHttpHandler.class);
 
         HANDLER_MAPPING.put(URL_ADD_EXAMSCORE,NormalHttpHandler.class);
 

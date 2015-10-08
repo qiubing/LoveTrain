@@ -47,13 +47,13 @@ public abstract class BaseCommunicateActivity extends BaseGestureActivity{
         disconectService();
     }
 
-    protected void connectService(){
+    private void connectService(){
         Intent intent = new Intent(
                 BaseCommunicateActivity.this, CommunicateService.class);
         bindService(intent, mConn, Service.BIND_AUTO_CREATE);
     }
 
-    protected void disconectService(){
+    private void disconectService(){
         unbindService(mConn);
     }
 
