@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,15 +30,18 @@ import java.util.List;
 
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.model.User;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.DialogUtil;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.HandleResponse;
 
 @SuppressWarnings("deprecation")
 public class AdminUserActivity extends Activity {
 
     private List<User> list;
+    private GestureDetector gestureDetector;
 
     private void init() {
         list = new ArrayList<>();
@@ -237,6 +242,24 @@ public class AdminUserActivity extends Activity {
         });
 
         init();
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
 
     class ViewHolder {

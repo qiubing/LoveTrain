@@ -37,7 +37,7 @@ public class FeedBackActivity extends Activity {
             public void onClick(View v) {
                 mContent.setText(" ");
                 mEmail.setText(" ");
-                Toast.makeText(FeedBackActivity.this,"谢谢你们的反馈",Toast.LENGTH_LONG).show();
+                Toast.makeText(FeedBackActivity.this,"这只是一个演示而已！",Toast.LENGTH_LONG).show();
             }
         });
     }

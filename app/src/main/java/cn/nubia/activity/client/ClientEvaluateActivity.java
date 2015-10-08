@@ -72,14 +72,15 @@ public class ClientEvaluateActivity  extends Activity {
         setContentView(R.layout.activity_evaluate);
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout);
-        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
-        networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                Log.i("huhu", "ClientEvaluateActivity onClick");
                 startActivity(intent);
             }
         });
@@ -101,14 +102,14 @@ public class ClientEvaluateActivity  extends Activity {
                 finish();
             }
         });
-        mExpandableListView.setOnTouchListener(new View.OnTouchListener() {
+        /*mExpandableListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //return false;
                 return  gestureDetector.onTouchEvent(event);
             }
         });
-
+*/
         initEvents();
         initBeforeData();
     }

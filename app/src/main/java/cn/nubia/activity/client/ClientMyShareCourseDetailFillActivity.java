@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,8 +31,10 @@ import cn.nubia.component.DialogMaker;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.ShareCourseLevel;
 import cn.nubia.entity.ShareCourseMsg;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.service.URLMap;
+import cn.nubia.util.GestureDetectorManager;
 
 /**
  * Created by JiangYu on 2015/9/1.
@@ -53,6 +56,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
     private boolean mNextPressReady;
     private String mOperateURL;
     private ShareCourseMsg mShareCourseMsg;
+    private GestureDetector gestureDetector;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -60,7 +64,26 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
 
         holdView();
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
         setViewLogic();
+    }
+
+    //将Activity上的触碰事件交给GestureDetector处理
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
 
     @Override

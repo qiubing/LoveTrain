@@ -2,6 +2,8 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.DialogUtil;
+import cn.nubia.util.GestureDetectorManager;
 
 public class AdminRateActivity extends Activity {
 
@@ -17,6 +21,7 @@ public class AdminRateActivity extends Activity {
     private EditText mRate_A;
     private EditText mRate_B;
     private EditText mRate_C;
+    private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,18 @@ public class AdminRateActivity extends Activity {
         mRate_A = (EditText) findViewById(R.id.activity_manager_rate_A);
         mRate_B = (EditText) findViewById(R.id.activity_manager_rate_B);
         mRate_C = (EditText) findViewById(R.id.activity_manager_rate_C);
+
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +88,11 @@ public class AdminRateActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return  gestureDetector.onTouchEvent(event);
     }
 
     private boolean validate() {
