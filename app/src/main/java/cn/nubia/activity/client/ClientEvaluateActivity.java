@@ -12,7 +12,11 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.AdminLessonDetailActivity;
 import cn.nubia.adapter.EvaluateAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
@@ -54,6 +59,8 @@ public class ClientEvaluateActivity  extends Activity {
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
     private String lession_index_ID;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
 
     private final Handler handler = new Handler() {
@@ -132,6 +139,17 @@ public class ClientEvaluateActivity  extends Activity {
         loadData();
     }
     private void loadData(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 //        requestParams.add("device_id", "MXJSDLJFJFSFS");
 //        requestParams.add("request_time","1445545456456");
@@ -143,7 +161,6 @@ public class ClientEvaluateActivity  extends Activity {
         String stringArray []  = lession_index_ID.split(",");
         requestParams.add("lesson_index", stringArray[0]);
         requestParams.add("user_id", stringArray[1]);
-        Log.i("huhu", ",,,," + requestParams.toString());
 
         AsyncHttpHelper.post(URL, requestParams, myJsonHttpResponseHandler);
     }
@@ -151,13 +168,14 @@ public class ClientEvaluateActivity  extends Activity {
     private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 int code = response.getInt("code");
                // boolean result = response.getBoolean("result");
                 //boolean isOk = response.getBoolean("data");
 //                JSONArray jsonArray = response.getJSONArray("data");
 //                JSONObject obj = (JSONObject)jsonArray;
-                Log.i("huhu", "Evaluate" + code + "," + response);
 
                 if(code == 0 && response != null) {
                     new Thread() {
@@ -185,7 +203,6 @@ public class ClientEvaluateActivity  extends Activity {
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
-                Log.i("huhu", "VIEW_LOADFAILURE111");
             }
         }
 
@@ -193,7 +210,9 @@ public class ClientEvaluateActivity  extends Activity {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            Log.i("huhu", "onFailure");
+            Toast.makeText(ClientEvaluateActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 
@@ -202,7 +221,6 @@ public class ClientEvaluateActivity  extends Activity {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(ClientEvaluateActivity.this, "刷新", Toast.LENGTH_SHORT).show();
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {

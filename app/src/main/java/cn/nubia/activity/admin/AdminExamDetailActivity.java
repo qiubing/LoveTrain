@@ -8,7 +8,11 @@ import android.provider.Settings;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,8 +92,8 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     private RelativeLayout networkUnusableRelativeLayout;
     private Button mEnroll;
     private boolean mNextPressReady;
-
-
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
     private GestureDetector gestureDetector;
 
     @Override
@@ -280,6 +284,14 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.add("record_modify_time_course", "1435125456111");
         requestParams.put("exam_index", mExamItemExamEdit.getIndex());
@@ -290,6 +302,8 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     private final JsonHttpResponseHandler myJsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
@@ -312,6 +326,8 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(AdminExamDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 e.printStackTrace();
             }
         }
@@ -320,6 +336,8 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

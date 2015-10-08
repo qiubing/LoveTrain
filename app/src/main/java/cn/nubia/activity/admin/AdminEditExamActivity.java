@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -50,6 +54,8 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
     private static final String URL = Constant.BASE_URL + "/exam/edit.do";
     private ExamItem mExamItemExamEdit;
     private GestureDetector gestureDetector;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     private int year;
     private int month;
@@ -140,6 +146,14 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
 
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
 //        requestParams.add("device_id", "MXJSDLJFJFSFS");
 //        requestParams.add("request_time","1445545456456");
@@ -165,6 +179,8 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
         @Override
         @SuppressWarnings("deprecation")
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
             try {
                 int code = response.getInt("code");
 //                boolean result = response.getBoolean("result");
@@ -187,6 +203,8 @@ public class AdminEditExamActivity extends Activity  implements  View.OnClickLis
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminEditExamActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

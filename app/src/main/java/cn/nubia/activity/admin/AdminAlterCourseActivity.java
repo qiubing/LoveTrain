@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,6 +46,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
 
     private EditText alterCourseCourseNameEditText;
     private EditText alterCourseCourseDescEditText;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     /**
      * 高级课程所需
@@ -221,6 +227,14 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
     private void upData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         String alterCourseUrl = Constant.BASE_URL + "course/edit_course.do";
         RequestParams requestParams = new RequestParams(Constant.getRequestParams());
         requestParams.add("course_index", mCourseItem.getIndex() + "");
@@ -249,6 +263,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             try {
                 int code = response.getInt("code");
                 boolean isOk = response.getBoolean("data");
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 if (code == 0 && isOk) {
                     Toast.makeText(AdminAlterCourseActivity.this, "修改课程成功", Toast.LENGTH_SHORT).show();
                     finish();
@@ -256,6 +272,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             } catch (Exception e) {
                 Toast.makeText(AdminAlterCourseActivity.this, "修改课程失败", Toast.LENGTH_SHORT).show();
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
                 e.printStackTrace();
             }
         }
@@ -265,6 +283,8 @@ public class AdminAlterCourseActivity extends Activity implements View.OnClickLi
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             Toast.makeText(AdminAlterCourseActivity.this, "网络没有连接，请连接网络 ", Toast.LENGTH_SHORT).show();
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 

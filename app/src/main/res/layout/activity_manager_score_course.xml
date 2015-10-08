@@ -15,7 +15,7 @@
         android:layout_below="@id/manager_score_user_detail_head"
         android:background="@drawable/item_bg"
         android:gravity="center"
-        android:text="@string/manager_no_record" />
+         />
 
     <ListView
         android:id="@+id/score_course_list"
