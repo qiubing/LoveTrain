@@ -96,14 +96,25 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         sub_page_title.setText(lessonItem.getName());
         signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
 
-        String teacherID = lessonItem.getTeacherID();
-        String myID = Constant.user.getUserID();
-        if (myID.equals(teacherID)) {
+//        String teacherID = lessonItem.getTeacherID();
+//        String myID = Constant.user.getUserID();
+
+//        if (myID.equals(teacherID)) {
+//            status = "teacher";
+//        } else {
+//            status = "student";
+//        }
+//        Log.e("jiangyu","teacherid "+teacherID+", myid "+ myID+", status "+ status);
+
+        String teacherName = lessonItem.getTeacherName();
+        String myName = Constant.user.getUserName();
+
+        if (myName.equals(teacherName)) {
             status = "teacher";
         } else {
             status = "student";
         }
-
+        Log.e("jiangyu","teacherName "+teacherName+", myName "+ myName+", status "+ status);
         switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
                 mGenerateQRCode.setVisibility(View.VISIBLE);
@@ -120,7 +131,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 mEvaluateTextView.setVisibility(View.GONE);
                 break;
             case "cn.nubia.activity.client.ClientMyCourseActivity":
-                Log.e("jiangyu",status);
                 if(status.equals("teacher")) {
                     mGenerateQRCode.setVisibility(View.VISIBLE);
 //                alterLessonBtn.setOnClickListener(this);
