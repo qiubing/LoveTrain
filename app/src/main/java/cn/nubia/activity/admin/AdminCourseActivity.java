@@ -23,12 +23,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.nubia.activity.ExamAddTabActivity;
 import cn.nubia.activity.R;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
-import cn.nubia.entity.ExamItem;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.interfaces.OnTabActivityResultListener;
 
 
@@ -153,11 +151,17 @@ public class AdminCourseActivity extends ActivityGroup {
         if(activity != null && data != null && activity instanceof AdminCourseAddTabActivity){
             OnTabActivityResultListener listener = (OnTabActivityResultListener) activity;
             Bundle bundle = data.getExtras();
-            CourseItem courseItem = (CourseItem) bundle.get("CourseItem");
+
             switch (resultCode){
                 case 1:
                 case 2:
+                    CourseItem courseItem = (CourseItem) bundle.get("CourseItem");
                     listener.onTabActivityResult(requestCode,resultCode,courseItem);
+                    break;
+                case 3:
+                case 4:
+                    LessonItem lessonItem = (LessonItem) bundle.get("LessonItem");
+                    listener.onTabActivityResult(requestCode,resultCode,lessonItem);
                     break;
                 default:
                     break;

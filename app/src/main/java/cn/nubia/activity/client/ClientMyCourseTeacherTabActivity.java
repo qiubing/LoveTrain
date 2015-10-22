@@ -98,7 +98,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             }
         });
 
-        /** 加载监听器*/
+  /*      *//** 加载监听器*//*
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
@@ -115,7 +115,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     }
                 }, 1500);
             }
-        });
+        });*/
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
@@ -137,7 +137,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         requestParams.put("course_record_modify_time", recordPair.getLastCourseModifyTime());
         requestParams.put("lesson_index", recordPair.getLastLessonIndex());
         requestParams.put("lesson_record_modify_time",  recordPair.getLastLessonModifyTime());
-        Log.e("hexiao", "parameter"+requestParams.toString());
 
         /**拉取所有课程的数据，然后从中选取自己为教师的课程显示*/
         String url = Constant.BASE_URL + "course/get_courses_lessons2.do";
@@ -150,15 +149,12 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
     private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.e("hexiao","response"+response.toString());
             try {
-                Log.e("hexiao","responseDataLength"+response.getJSONArray("data").length());
                 if (response.getInt("code") != 0) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                     return;
                 }else
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
-
                 cancelLoadShow();
 
                 if (response.getString("data") != null) {
@@ -167,7 +163,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
                     mLoadHttpTask.execute(jsonArray);
                 }
             } catch (JSONException e) {
-                Log.e("hexiao", e.toString());
                 e.printStackTrace();
                 mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
                 cancelLoadShow();
@@ -197,7 +192,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e("courseItemList", courseItemList.size() + "");
             return courseItemList;
         }
 
@@ -242,7 +236,7 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         if (mList.size() != 0) {
             for(CourseItem courseItem : mList){
                 for(LessonItem lessonItem : courseItem.getLessonList()){
-                    if(lessonItem.getTeacherID().equals( Constant.user.getUserID())){
+                    if(lessonItem.getTeacherName().equals( Constant.user.getUserName())){
                         resultList.add(courseItem);
                         break;
                     }
@@ -251,7 +245,6 @@ public class ClientMyCourseTeacherTabActivity extends Activity {
         }
         mList.clear();
         mList.addAll(resultList);
-        Log.e("0924MyCourseTeacher", mList.size()+"");
     }
 
     private void loadShow() {

@@ -3,6 +3,7 @@ package cn.nubia.activity.admin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     private AdminExamScoreInputAdapter mExamScoreAdapter;
     private Button button;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,23 +52,40 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         super.onStart();
         mNextPressReady = true;
 
+
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //noinspection StatementWithEmptyBody
+//                while(mBinder==null){
+//                    Thread.
+//                }
+//
+//            }
+//        }).start();
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                if (mBinder != null)
+//
+//            }
+//        }, 500);
+    }
+
+    @Override
+    protected void onBinderCompleted() {
         Intent intent =getIntent();
         ExamItem mExamItem = (ExamItem) intent.getSerializableExtra("ExamInfo");
 
         final ExamMsg examMsg = new ExamMsg();
         examMsg.setExamIndex(mExamItem.getIndex());
         examMsg.setOperateType(CommunicateService.OperateType.QUERY);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //noinspection StatementWithEmptyBody
-                while(mBinder==null){}
-                mBinder.communicate(examMsg, new Inter(), URLMap.URL_QUE_EXAMENROLLLIST);
-            }
-        }).start();
-
+        mBinder.communicate(examMsg, new Inter(), URLMap.URL_QUE_EXAMENROLLLIST);
     }
+
+
 
     private void holdView(){
         mExamScoreListView = (ListView) findViewById(R.id.manager_exam_score_input_listview);

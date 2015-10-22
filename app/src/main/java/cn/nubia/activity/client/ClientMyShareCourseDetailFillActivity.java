@@ -94,6 +94,11 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         initViewData();
     }
 
+    @Override
+    protected void onBinderCompleted() {
+
+    }
+
     /**
      * 创建选择日期的对话框
      * 每次都是创建一个新的对话框实例，包括DatePicker实例*/

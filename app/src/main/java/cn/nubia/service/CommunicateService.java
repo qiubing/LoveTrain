@@ -80,7 +80,6 @@ public class CommunicateService extends Service {
 
     private void communicate(final List<? extends Paramable> paramList,final ActivityInter inter,final String tagetURL) {
         try {
-
             Class<? extends HttpHandler> HttpHandlerClass = URLMap.HANDLER_MAPPING.get(tagetURL);
             final HttpHandler httpHandler = HttpHandlerClass.newInstance();
             new Thread(new Runnable() {

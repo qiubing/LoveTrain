@@ -89,7 +89,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
             }
         });
 
-        // 加载监听器
+      /*  // 加载监听器
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
@@ -106,7 +106,7 @@ public class ExamAddTabActivity extends Activity implements OnTabActivityResultL
                 }, 1500);
             }
         });
-
+*/
         AsyncLoadDBTask dbTask = new AsyncLoadDBTask();
         dbTask.execute();
 

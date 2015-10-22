@@ -154,6 +154,11 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     }
 
     @Override
+    protected void onBinderCompleted() {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();

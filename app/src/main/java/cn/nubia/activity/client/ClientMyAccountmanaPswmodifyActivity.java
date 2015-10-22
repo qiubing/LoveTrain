@@ -25,9 +25,7 @@ import cn.nubia.util.DialogUtil;
 public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
-
     private boolean mNextPressReady;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +44,11 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
     public void onStart(){
         super.onStart();
         mNextPressReady = true;
+    }
+
+    @Override
+    protected void onBinderCompleted() {
+
     }
 
     private boolean matchNewPsw() {

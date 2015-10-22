@@ -156,8 +156,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                             "\n学员签到可得积分：" + lessonItem.getCheckCredits()
             );
         }
-        Log.e("MyTime", lessonItem.getEndTime() + "");
-
     }
 
     @Override
@@ -302,7 +300,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                         ((Button)findViewById(R.id.evaluateTextView)).setText("进行评价");
                         intent.putExtra("operate",CommunicateService.OperateType.INSERT);
                     }
-
                 }
 
                 /*if (Constant.IS_ADMIN == true || status.equals("teacher")) {
@@ -351,7 +348,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("LessonItem",lessonItem);
                     intent.putExtras(bundle);
-                    setResult(1,intent);
+                    setResult(3,intent);
                     finish();
                     Toast.makeText(AdminLessonDetailActivity.this, "删除课时成功", Toast.LENGTH_SHORT).show();
                 } else {

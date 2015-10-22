@@ -28,7 +28,6 @@ public class UpdateClassListHelper {
     public static void updateAllClassData(JSONArray jsonArray, List<CourseItem> courseList,String tableName) throws JSONException {
         int len = jsonArray.length();
         for(int i = 0;i < len; i++){
-            Log.e("108wj",jsonArray.getJSONObject(i).toString());
             updateSingleData(jsonArray.getJSONObject(i),courseList,tableName);
         }
     }
@@ -46,9 +45,6 @@ public class UpdateClassListHelper {
                 break;
             case "lesson":
                 item = makeLesson(type,operater,jsonObjectDetail);
-                if(item.getIndex() == 139){
-                    Log.e("wj", "updateSingleData lesson   " + ((LessonItem) item).isIsJudged());
-                }
                 break;
             default:
                 break;
@@ -218,8 +214,6 @@ public class UpdateClassListHelper {
 
     private static void updateLessonItem(String operate,LessonItem item, List<LessonItem> list){
         int listIndex = binarySearch(list, item, true);
-        if (item.getIndex() == 139)
-            Log.e("wj", "updateLessonItem lesson   " + item.getIndex()+ item.isIsJudged());
         switch (operate){
             case "insert":
                 if(listIndex > -1|| item.getIndex() == 0 || item.getName().equals("null"))
@@ -283,7 +277,7 @@ public class UpdateClassListHelper {
     /**
      * 根据课程索引查找，降序排列
      * */
-    private static int binarySearch(List<? extends Item> list,int index){
+    public static int binarySearch(List<? extends Item> list,int index){
         Item item = new CourseItem();
         item.setIndex(index);
         return binarySearch(list, item, false);

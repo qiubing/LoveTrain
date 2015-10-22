@@ -27,6 +27,8 @@ public abstract class BaseCommunicateActivity extends BaseGestureActivity{
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBinder = (CommunicateService.CommunicateBinder)service;
+
+            onBinderCompleted();
         }
 
         @Override
@@ -57,5 +59,6 @@ public abstract class BaseCommunicateActivity extends BaseGestureActivity{
         unbindService(mConn);
     }
 
+    protected abstract void onBinderCompleted();
     protected abstract void handleResponse(Map<String,?> response,String responseURL);
 }
