@@ -134,10 +134,10 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         mNextPressReady = true;
     }
 
-    @Override
-    protected void onBinderCompleted() {
-
-    }
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
 
     //将Activity上的触碰事件交给GestureDetector处理
     @Override

@@ -46,10 +46,10 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
         mNextPressReady = true;
     }
 
-    @Override
-    protected void onBinderCompleted() {
-
-    }
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
 
     private boolean matchNewPsw() {
         String str = "^(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";

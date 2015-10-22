@@ -49,10 +49,10 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
         mNextPressReady = true;
     }
 
-    @Override
-    protected void onBinderCompleted() {
-
-    }
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
 
     private void holdView() {
         mConfirmButton = (Button) findViewById(

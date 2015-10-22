@@ -120,6 +120,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 mEvaluateTextView.setVisibility(View.GONE);
                 break;
             case "cn.nubia.activity.client.ClientMyCourseActivity":
+                Log.e("jiangyu",status);
                 if(status.equals("teacher")) {
                     mGenerateQRCode.setVisibility(View.VISIBLE);
 //                alterLessonBtn.setOnClickListener(this);
@@ -130,11 +131,16 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     alterLessonBtn.setVisibility(View.GONE);
                     deleteLessonBtn.setVisibility(View.GONE);
                 } else if(status.equals("student")){
-                    mEvaluateTextView.setText("进行评价");
+                    if(lessonItem.isIsJudged()){
+                        mEvaluateTextView.setText("查看评价");
+                    } else {
+                        mEvaluateTextView.setText("进行评价");
+                    }
                     mEvaluateTextView.setOnClickListener(this);
                     alterLessonBtn.setVisibility(View.GONE);
                     deleteLessonBtn.setVisibility(View.GONE);
                     signUpPopulationTextView.setVisibility(View.GONE);
+
                 }
                 break;
             default:
@@ -294,10 +300,8 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Log.e("jiangyu",String.valueOf(lessonItem.isIsJudged()));
                     intent.putExtra("lessonIndex", lessonItem.getIndex());
                     if(lessonItem.isIsJudged()){
-                        ((Button)findViewById(R.id.evaluateTextView)).setText("查看评价");
                         intent.putExtra("operate",CommunicateService.OperateType.QUERY);
                     }else{
-                        ((Button)findViewById(R.id.evaluateTextView)).setText("进行评价");
                         intent.putExtra("operate",CommunicateService.OperateType.INSERT);
                     }
                 }

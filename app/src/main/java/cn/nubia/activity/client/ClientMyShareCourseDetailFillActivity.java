@@ -94,10 +94,10 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         initViewData();
     }
 
-    @Override
-    protected void onBinderCompleted() {
-
-    }
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
 
     /**
      * 创建选择日期的对话框
