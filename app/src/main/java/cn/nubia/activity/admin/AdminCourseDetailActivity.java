@@ -153,6 +153,11 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         mNextPressReady = true;
     }
 
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
+
     @Override
     protected void onResume() {
         super.onResume();

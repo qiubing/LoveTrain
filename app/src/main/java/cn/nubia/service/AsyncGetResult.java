@@ -31,6 +31,9 @@ class AsyncGetResult implements Runnable {
         return mResponse;
     }
 
+
+
+
     @Override
     public void run() {
         if((mJSONObject!=null)&&(mFactoryGenerics!=null)){

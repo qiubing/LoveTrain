@@ -74,7 +74,6 @@ public class AdminSignInLessonPersonInfoActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                Log.i("huhu", "ClientEvaluateActivity onClick");
                 startActivity(intent);
             }
         });

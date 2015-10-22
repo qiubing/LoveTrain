@@ -88,7 +88,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
             }
         });
 
-        /** 加载监听器*/
+  /*      *//** 加载监听器*//*
         mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
@@ -104,7 +104,7 @@ public class ClientMyCourseStudentTabActivity extends Activity {
                     }
                 }, 1500);
             }
-        });
+        });*/
 
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();

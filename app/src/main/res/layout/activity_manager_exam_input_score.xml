@@ -37,6 +37,21 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp" />
 
+    <include
+        android:id="@+id/loading_failed_signin"
+        android:layout_below="@id/manager_score_user_detail_head"
+        layout="@layout/layout_loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        />
+
+    <include
+        android:id="@+id/network_unusable_signin"
+        android:layout_below="@id/manager_score_user_detail_head"
+        layout="@layout/layout_network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip" />
+
     <ListView
         android:id="@+id/manager_exam_score_input_listview"
         android:layout_width="match_parent"

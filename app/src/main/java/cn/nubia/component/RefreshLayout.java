@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -366,7 +367,11 @@ public class RefreshLayout extends SwipeRefreshLayout implements
             if (loading) {
                 mListView.removeHeaderView(mLoadingFailedView);
                 if(mListView.getHeaderViewsCount() == 0){
-                    mListView.addHeaderView(mNetworkUnusableView);
+                    try{
+                        mListView.addHeaderView(mNetworkUnusableView);
+                    }catch (IllegalStateException e){
+                        e.printStackTrace();
+                    }
                 }
             }else {
                 mListView.removeHeaderView(mNetworkUnusableView);

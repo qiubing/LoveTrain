@@ -74,6 +74,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         }
     }
 
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
+
     private View.OnClickListener makeConfirmOnClickListener(){
         return new View.OnClickListener() {
             @Override

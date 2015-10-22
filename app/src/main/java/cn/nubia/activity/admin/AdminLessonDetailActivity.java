@@ -96,14 +96,25 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         sub_page_title.setText(lessonItem.getName());
         signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
 
-        String teacherID = lessonItem.getTeacherID();
-        String myID = Constant.user.getUserID();
-        if (myID.equals(teacherID)) {
+//        String teacherID = lessonItem.getTeacherID();
+//        String myID = Constant.user.getUserID();
+
+//        if (myID.equals(teacherID)) {
+//            status = "teacher";
+//        } else {
+//            status = "student";
+//        }
+//        Log.e("jiangyu","teacherid "+teacherID+", myid "+ myID+", status "+ status);
+
+        String teacherName = lessonItem.getTeacherName();
+        String myName = Constant.user.getUserName();
+
+        if (myName.equals(teacherName)) {
             status = "teacher";
         } else {
             status = "student";
         }
-
+        Log.e("jiangyu","teacherName "+teacherName+", myName "+ myName+", status "+ status);
         switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
                 mGenerateQRCode.setVisibility(View.VISIBLE);
@@ -130,11 +141,16 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     alterLessonBtn.setVisibility(View.GONE);
                     deleteLessonBtn.setVisibility(View.GONE);
                 } else if(status.equals("student")){
-                    mEvaluateTextView.setText("进行评价");
+                    if(lessonItem.isIsJudged()){
+                        mEvaluateTextView.setText("查看评价");
+                    } else {
+                        mEvaluateTextView.setText("进行评价");
+                    }
                     mEvaluateTextView.setOnClickListener(this);
                     alterLessonBtn.setVisibility(View.GONE);
                     deleteLessonBtn.setVisibility(View.GONE);
                     signUpPopulationTextView.setVisibility(View.GONE);
+
                 }
                 break;
             default:
@@ -156,8 +172,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                             "\n学员签到可得积分：" + lessonItem.getCheckCredits()
             );
         }
-        Log.e("MyTime", lessonItem.getEndTime() + "");
-
     }
 
     @Override
@@ -296,13 +310,10 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Log.e("jiangyu",String.valueOf(lessonItem.isIsJudged()));
                     intent.putExtra("lessonIndex", lessonItem.getIndex());
                     if(lessonItem.isIsJudged()){
-                        ((Button)findViewById(R.id.evaluateTextView)).setText("查看评价");
                         intent.putExtra("operate",CommunicateService.OperateType.QUERY);
                     }else{
-                        ((Button)findViewById(R.id.evaluateTextView)).setText("进行评价");
                         intent.putExtra("operate",CommunicateService.OperateType.INSERT);
                     }
-
                 }
 
                 /*if (Constant.IS_ADMIN == true || status.equals("teacher")) {
@@ -351,7 +362,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("LessonItem",lessonItem);
                     intent.putExtras(bundle);
-                    setResult(1,intent);
+                    setResult(3,intent);
                     finish();
                     Toast.makeText(AdminLessonDetailActivity.this, "删除课时成功", Toast.LENGTH_SHORT).show();
                 } else {

@@ -25,9 +25,7 @@ import cn.nubia.util.DialogUtil;
 public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivity {
     private EditText mNewpswEditText;
     private Button mConfirmButton;
-
     private boolean mNextPressReady;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +45,11 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
         super.onStart();
         mNextPressReady = true;
     }
+
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
 
     private boolean matchNewPsw() {
         String str = "^(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{7,}$";

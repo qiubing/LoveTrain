@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
@@ -37,6 +38,7 @@ public class CommunicateService extends Service {
 
     @Override
     public void onCreate() {
+        client.setTimeout(5000);
     }
     @Override
     public IBinder onBind(Intent intent) {
@@ -49,12 +51,13 @@ public class CommunicateService extends Service {
 
     private void communicate(final Paramable paramable,final ActivityInter inter,final String tagetURL) {
         try {
-            Class<? extends HttpHandler> HttpHandlerClass = URLMap.HANDLER_MAPPING.get(tagetURL);
-            final HttpHandler httpHandler = HttpHandlerClass.newInstance();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (httpHandler != null) {
+            final HttpHandler httpHandler =  URLMap.HANDLER_MAPPING.get(tagetURL).newInstance();
+            final RequestParams params = paramable.toParams();
+
+            if ((httpHandler != null)&&(params != null)) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
                         final AsyncGetResult asyncGetResult = new AsyncGetResult();
                         asyncGetResult.setEntityFactory(new EntityFactoryGenerics(URLMap.ASSEMBLER_MAPPING.get(tagetURL)));
                         asyncGetResult.setMainHandler(new Handler(Looper.getMainLooper()) {
@@ -64,23 +67,23 @@ public class CommunicateService extends Service {
                                 inter.handleResponse(mResponse, tagetURL);
                             }
                         });
-                        RequestParams params = paramable.toParams();
 
+                        Log.e("jiangyu", params.toString());
                         httpHandler.setAsyncGetResult(asyncGetResult);
                         client.get(tagetURL, params, httpHandler);
                     }
-                }
-            }).start();
-        } catch (InstantiationException e1) {
+                }).start();
+            }
+
+        }catch (InstantiationException e1) {
             e1.printStackTrace();
-        } catch (IllegalAccessException e1) {
-            e1.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     private void communicate(final List<? extends Paramable> paramList,final ActivityInter inter,final String tagetURL) {
         try {
-
             Class<? extends HttpHandler> HttpHandlerClass = URLMap.HANDLER_MAPPING.get(tagetURL);
             final HttpHandler httpHandler = HttpHandlerClass.newInstance();
             new Thread(new Runnable() {

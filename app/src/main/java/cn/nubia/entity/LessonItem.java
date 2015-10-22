@@ -150,4 +150,16 @@ public class LessonItem extends Item{
     protected RequestParams toDeleteParams(RequestParams params) {
         return null;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if (o != null && o.getClass() == LessonItem.class){
+            LessonItem lessonItem = (LessonItem) o;
+            if(this.getIndex() == lessonItem.getIndex())
+                return true;
+        }
+        return false;
+    }
 }

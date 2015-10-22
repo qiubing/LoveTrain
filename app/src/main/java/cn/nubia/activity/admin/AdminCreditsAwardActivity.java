@@ -49,6 +49,11 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
         mNextPressReady = true;
     }
 
+//    @Override
+//    protected void onBinderCompleted() {
+//
+//    }
+
     private void holdView() {
         mConfirmButton = (Button) findViewById(
                 R.id.activity_manager_award_confirm_button);

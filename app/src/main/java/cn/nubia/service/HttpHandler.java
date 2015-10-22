@@ -7,5 +7,4 @@ import com.loopj.android.http.JsonHttpResponseHandler;
  */
 abstract class HttpHandler extends JsonHttpResponseHandler {
     public abstract void setAsyncGetResult(AsyncGetResult asyncGetResult);
-
 }

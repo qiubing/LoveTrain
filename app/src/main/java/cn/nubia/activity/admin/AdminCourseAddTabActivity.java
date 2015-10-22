@@ -6,21 +6,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -92,7 +87,7 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
         });
 
         /** 加载监听器*/
-        mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+   /*     mRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
                 mLoadViewUtil.showShortToast("加载更多");
@@ -107,7 +102,7 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
                     }
                 }, 1500);
             }
-        });
+        });*/
 
         mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -193,8 +188,17 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
                 break;
             case 2:
                 if(data != null && data instanceof CourseItem){
-                    mCourseItemList.add(0,(CourseItem) data);
+                    mCourseItemList.add(0, (CourseItem) data);
                     DbUtil.getInstance(null).insertCourseItem((CourseItem) data);
+                }
+                break;
+            case 3:
+                if(data != null && data instanceof LessonItem){
+                    int index = UpdateClassListHelper.binarySearch(mCourseItemList,((LessonItem)data).getCourseIndex());
+                    if(index > 0){
+                        mCourseItemList.get(index).getLessonList().remove(data);
+                        DbUtil.getInstance(null).deleteLessonItem((LessonItem) data);
+                    }
                 }
                 break;
             default:
