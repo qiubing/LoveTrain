@@ -1,115 +1,177 @@
 package cn.nubia.activity.admin;
 
 
-import android.app.ActivityGroup;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.fragment.AdminMyFragment;
+import cn.nubia.activity.admin.fragment.AdminShareFragment;
+import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
+import cn.nubia.activity.client.fragment.ClientExamFragment;
+import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
+import cn.nubia.activity.client.fragment.ClientMyFragment;
+import cn.nubia.entity.Constant;
+import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.zxing.barcode.CaptureActivity;
 
-/**管理员主界面：Tab分页导航
- * activity_main_admin(修改对比版)：布局为TabHost框架，布局最下面为4个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget
- * TabHost的内容为4个TabHost.TabSpec，展示于FrameLayout
- * 为单选按钮绑定监听器，内容为修改相应TabHost.TabSpec页面
- * 直接用tabHost.setOnTabChangedListener监听器不好么，为何要用四个单选按钮
- * TabActivity，ActivityGroup，ActionBar均已废弃，不知应怎样用未废弃的类实现静态分页功能
- * ViewPager为动态分页，且该类也很古老了
- * Created by 胡立加 on 2015/9/6.
+/**admin主界面：底部点击导航栏
+ * 布局为RelativeLayout，RadioGroup在View底部，RadioGroup上面为FrameLayout，FrameLayout装Fragment
+ * 采用RadioButton+Fragment结构
+ * RadioButton改变，FrameLayout中的Fragment跟着相应改变
+ * Created by 胡立加 on 2015/10/22.
  */
-@SuppressWarnings("deprecation")
-public class AdminMainActivity extends ActivityGroup {
 
-    private TabHost mTabHost;
+public class AdminMainActivity extends FragmentActivity {
     private RadioGroup mRadioGroup;
-    /**
-     * 退出时间
-     */
+    private ClientAllCourceFragment mClientAllCourceFragment;
+    private ClientExamFragment mClientExamFragment;
+    private AdminShareFragment mAdminShareFragment;
+    private AdminMyFragment mAdminMyFragment;
     private long mExitTime;
-    /**
-     * 退出间隔
-     */
-    private static final int INTERVAL = 2000;
+    private FragmentTransaction mFragmentTransaction;
+    private int currentItem = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_admin);
-        /*ImageView loading_iv = (ImageView)findViewById(R.id.loading_iv);
-        loading_iv.setVisibility(View.VISIBLE);
-        AnimationDrawable animationDrawable = (AnimationDrawable)loading_iv.getDrawable();
-        animationDrawable.start();
-        ProgressBar loading_iv = (ProgressBar) findViewById(R.id.loading_iv);
-        loading_iv.setVisibility(View.VISIBLE);*/
-        initBeforeData();
+        setContentView(R.layout.activity_admin_main);
+        initViews();
         initEvents();
     }
 
-    private  void initBeforeData() {
-        addTabIntent();
-        mTabHost.setCurrentTab(0);
-        mRadioGroup=(RadioGroup) findViewById(R.id.main_admin_group);
-        ImageView signIn = (ImageView) findViewById(R.id.signIn);
-        signIn.setVisibility(View.GONE);
+    private  void initViews() {
+        mRadioGroup = (RadioGroup) findViewById(R.id.admin_group);
     }
 
 
 
     private  void initEvents() {
+        mFragmentTransaction = getFragmentManager().beginTransaction();
+        mClientAllCourceFragment = new ClientAllCourceFragment();
+        mFragmentTransaction.add(R.id.admin_fragment_layout, mClientAllCourceFragment);
+        currentItem = 0;
+        mFragmentTransaction.commit();
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.main_admin_radio_course:
-                        mTabHost.setCurrentTab(0);
+                    case R.id.admin_radio_all_course:
+                        if (currentItem != 0) {
+                            setChoiceItem(0);
+                        }
+                        currentItem = 0;
                         break;
-                    case R.id.main_admin_radio_exam:
-                        mTabHost.setCurrentTab(1);
+                    case R.id.admin_radio_exam:
+                        if (currentItem != 1) {
+                            setChoiceItem(1);
+                        }
+                        currentItem = 1;
                         break;
-                    case R.id.main_admin_radio_share:
-                        mTabHost.setCurrentTab(2);
+                    case R.id.admin_radio_share:
+                        if (currentItem != 2) {
+                            setChoiceItem(2);
+                        }
+                        currentItem = 2;
                         break;
-                    case R.id.main_admin_radio_my:
-                        mTabHost.setCurrentTab(3);
+                    case R.id.admin_radio_my:
+                        if (currentItem != 3) {
+                            setChoiceItem(3);
+                        }
+                        currentItem = 3;
                         break;
                 }
             }
         });
     }
 
-    private TabHost.TabSpec buildTabSpec(String tag, String m, final Intent content) {
-        return mTabHost.newTabSpec(tag).setIndicator(m).setContent(content);
+    public void setChoiceItem(int index) {
+        mFragmentTransaction = getFragmentManager().beginTransaction();
+        hideFragments(mFragmentTransaction);
+        switch (index) {
+            case 0:
+                mFragmentTransaction.show(mClientAllCourceFragment);
+                break;
+
+            case 1:
+                if (mClientExamFragment == null) {
+                    mClientExamFragment = new ClientExamFragment();
+                    mFragmentTransaction.add(R.id.admin_fragment_layout, mClientExamFragment);
+                } else {
+                    mFragmentTransaction.show(mClientExamFragment);
+                }
+                break;
+
+            case 2:
+                if (mAdminShareFragment == null) {
+                    mAdminShareFragment = new AdminShareFragment();
+                    mFragmentTransaction.add(R.id.admin_fragment_layout, mAdminShareFragment);
+                } else {
+                    mFragmentTransaction.show(mAdminShareFragment);
+                }
+                break;
+            case 3:
+                if (mAdminMyFragment == null) {
+                    mAdminMyFragment = new AdminMyFragment();
+                    mFragmentTransaction.add(R.id.admin_fragment_layout, mAdminMyFragment);
+                } else {
+                    mFragmentTransaction.show(mAdminMyFragment);
+                }
+                break;
+        }
+        mFragmentTransaction.commit();
     }
 
-    private void addTabIntent() {
-        mTabHost = (TabHost) findViewById(R.id.main_admin_tabhost);
-        mTabHost.setup(this.getLocalActivityManager());
-       //这个不行，所以无法避免废弃类ActivityGroup mTabHost.setup();
-        mTabHost.addTab(buildTabSpec("tab1", "0", new Intent(AdminMainActivity.this,
-                AdminCourseActivity.class)));
-        mTabHost.addTab(buildTabSpec("tab2", "1", new Intent(AdminMainActivity.this,
-                AdminExamActivity.class)));
-        mTabHost.addTab(buildTabSpec("tab3", "2", new Intent(AdminMainActivity.this,
-                AdminShareActivity.class)));
-        mTabHost.addTab(buildTabSpec("tab4", "3", new Intent(AdminMainActivity.this,
-                AdminMyTabActivity.class)));
+    private void hideFragments(FragmentTransaction transaction) {
+        switch (currentItem) {
+            case 0 :
+                if (mClientAllCourceFragment != null) {
+                    transaction.hide(mClientAllCourceFragment);
+                }
+                break;
+            case 1 :
+                if (mClientExamFragment != null) {
+                    transaction.hide(mClientExamFragment);
+                }
+                break;
+            case 2:
+                if (mAdminShareFragment != null) {
+                    transaction.hide(mAdminShareFragment);
+                }
+                break;
+            case 3:
+                if (mAdminMyFragment != null) {
+                    transaction.hide(mAdminMyFragment);
+                }
+                break;
+        }
     }
-    /**
-     * 判断两次返回时间间隔,小于两秒则退出程序
-     */
+
     private void exit() {
-        if (System.currentTimeMillis() - mExitTime > INTERVAL) {
-            Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
+        if (System.currentTimeMillis() - mExitTime > Constant.INTERVAL) {
+            Toast.makeText(this, R.string.exit, Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
             /*android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);*/
-//            DbUtil.getInstance(this).closeDb();
+            //DbUtil.getInstance(this).closeDb();
             finishAffinity();
 
         }
@@ -128,4 +190,3 @@ public class AdminMainActivity extends ActivityGroup {
     }
 
 }
-

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RadioGroup
+        android:id="@+id/admin_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/toolbar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/admin_radio_all_course"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_my_course_selector"
+            android:checked="true"
+            android:text="@string/all_cource" />
+
+        <RadioButton
+            android:id="@+id/admin_radio_exam"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_all_selector"
+            android:text="@string/exam" />
+
+        <RadioButton
+            android:id="@+id/admin_radio_share"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_all_selector"
+            android:text="@string/item_share_cource" />
+
+        <RadioButton
+            android:id="@+id/admin_radio_my"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_my_selector"
+            android:text="@string/my" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/admin_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/admin_group" />
+</RelativeLayout>

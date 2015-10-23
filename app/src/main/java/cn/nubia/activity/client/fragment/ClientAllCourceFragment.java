@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.activity.admin.AdminMainActivity;
 
 /**客户端我的课程界面：顶部滑动导航栏
  * 采用RelativeLayout+ViewPager结构
@@ -57,7 +57,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
-				((ClientMainActivity)getActivity()).getSupportFragmentManager()) {
+				((AdminMainActivity)getActivity()).getSupportFragmentManager()) {
 
 			@Override
 			public int getCount() {

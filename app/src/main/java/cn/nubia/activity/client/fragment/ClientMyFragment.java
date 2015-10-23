@@ -203,10 +203,10 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		//头像图片存储路径
-		*//**
-		 * 先判断本地是否存储了头像，如果本地存储了头像，则使用本地头像；否则从服务器中加载头像
-		 *//*
-		String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
+			*//**
+			 * 先判断本地是否存储了头像，如果本地存储了头像，则使用本地头像；否则从服务器中加载头像
+			 *//*
+			String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
 		Bitmap bitmap = Utils.getPictureFromSD(localPath);
 		if (bitmap != null) {
 			Drawable drawable = new BitmapDrawable(bitmap);

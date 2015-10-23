@@ -16,6 +16,8 @@
     <string name="item_share_cource">分享</string>
     <string name="item_cource_exam">课程</string>
     <string name="item_only_exam">单独</string>
+    <string name="item_waite_share">待审核</string>
+    <string name="item_pass_share">已通过</string>
 
 
 
