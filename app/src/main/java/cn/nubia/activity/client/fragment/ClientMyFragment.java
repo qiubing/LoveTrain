@@ -105,7 +105,8 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 		switch (v.getId()){
 			case R.id.icon1:
 				Intent intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
-				startActivityForResult(intent, GET_PHOTO_CODE);
+//				startActivityForResult(intent, GET_PHOTO_CODE);
+				startActivity(intent);
 				break;
 			case R.id.check_in_record:
 				myStartActivity(ClientMyCheckRecordActivity.class);

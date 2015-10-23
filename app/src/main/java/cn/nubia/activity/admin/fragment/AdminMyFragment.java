@@ -151,7 +151,8 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		switch (viewId) {
 			case R.id.icon1:
 				intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
-				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
+//				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
+				startActivity(intent);
 				break;
 			case R.id.queryscore:
 				intent = new Intent(getActivity(), AdminScoreActivity.class);

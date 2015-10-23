@@ -217,28 +217,27 @@ public class AllExamFragment extends Fragment{
 		}
 	}
 
-
 	/*@Override
-	public void onTabActivityResult(int requestCode, int resultCode, Item data) {
-		switch (resultCode){
-			case 1:
-				if(data != null && data instanceof ExamItem){
-					mExamList.remove(data);
-					DbUtil.getInstance(null).deleteExamItem((ExamItem) data);
-				}
-				break;
-			case 2:
-				if(data != null && data instanceof ExamItem){
-					mExamList.add(0,(ExamItem) data);
-					DbUtil.getInstance(null).insertExamItem((ExamItem) data);
-				}
-				break;
-			default:
-				break;
-		}
-		mExamAdapter.notifyDataSetChanged();
-	}*/
-
+        public void onTabActivityResult(int requestCode, int resultCode, Item data) {
+            switch (resultCode){
+                case 1:
+                    if(data != null && data instanceof ExamItem){
+                        mExamList.remove(data);
+                        DbUtil.getInstance(null).deleteExamItem((ExamItem) data);
+                    }
+                    break;
+                case 2:
+                    if(data != null && data instanceof ExamItem){
+                        mExamList.add(0,(ExamItem) data);
+                        DbUtil.getInstance(null).insertExamItem((ExamItem) data);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            mExamAdapter.notifyDataSetChanged();
+        }
+    */
 	private void loadShow() {
 		Intent intent = new Intent();
 		intent.setAction(Constant.EXAM);

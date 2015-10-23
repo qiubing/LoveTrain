@@ -20,10 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.client.fragment.AllExamFragment;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
-import cn.nubia.activity.client.fragment.ExamFragment;
 import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyFragment;
+import cn.nubia.activity.client.fragment.ExamFragment;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.zxing.barcode.CaptureActivity;
@@ -39,7 +40,7 @@ public class ClientMainActivity extends FragmentActivity {
     private RadioGroup mRadioGroup;
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
-    private ExamFragment mClientExamFragment;
+    private AllExamFragment mAllExamFragment;
     private ClientMyFragment mClientMyFragment;
     private long mExitTime;
     private FragmentTransaction mFragmentTransaction;
@@ -123,11 +124,11 @@ public class ClientMainActivity extends FragmentActivity {
                 break;
 
             case 3:
-                if (mClientExamFragment == null) {
-                    mClientExamFragment = new ExamFragment();
-                    mFragmentTransaction.add(R.id.client_fragment_layout, mClientExamFragment);
+                if (mAllExamFragment == null) {
+                    mAllExamFragment = new AllExamFragment();
+                    mFragmentTransaction.add(R.id.client_fragment_layout, mAllExamFragment);
                 } else {
-                    mFragmentTransaction.show(mClientExamFragment);
+                    mFragmentTransaction.show(mAllExamFragment);
                 }
                 break;
             case 4:
@@ -155,8 +156,8 @@ public class ClientMainActivity extends FragmentActivity {
                 }
                 break;
             case 3:
-                if (mClientExamFragment != null) {
-                    transaction.hide(mClientExamFragment);
+                if (mAllExamFragment != null) {
+                    transaction.hide(mAllExamFragment);
                 }
                 break;
             case 4:
