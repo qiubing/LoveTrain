@@ -29,7 +29,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 	}
 
 	void initViews() {
-		viewPager = (ViewPager) rootView.findViewById(R.id.client_my_course_viewpager);
+		viewPager = (ViewPager) rootView.findViewById(R.id.all_course_viewpager);
 		mTextViews[0] = (TextView) rootView.findViewById(R.id.item_all_cource);
 		mTextViews[1] = (TextView) rootView.findViewById(R.id.item_common_cource);
 		mTextViews[2] = (TextView) rootView.findViewById(R.id.item_high_cource);
