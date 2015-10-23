@@ -27,6 +27,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+        <!--胡立加-->
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
@@ -37,21 +38,27 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".GuideActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity
             android:name=".admin.AdminMainActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity
-            android:name=".GuideActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:name=".client.ClientMainActivity"
+            android:alwaysRetainTaskState="true"
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+
+
+
+
+
 
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".EmptyActivity" />
 
 
-        <activity
-            android:name=".client.ClientMainActivity"
-            android:alwaysRetainTaskState="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+
         <activity
             android:name=".admin.AdminCourseActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />

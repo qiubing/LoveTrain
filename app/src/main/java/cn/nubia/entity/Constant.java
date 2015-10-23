@@ -9,6 +9,10 @@ import java.util.Map;
  * 类说明 一些常量都放在这里
  */
 public class Constant {
+    /*胡立加*/
+    public static final int INTERVAL = 2000;
+
+
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
     public static UserInfo user = new UserInfo();//登录成功后保存用户信息
 

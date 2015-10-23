@@ -1,5 +1,21 @@
 <resources>
 
+    <!--胡立加-->
+    <style name="toolbar_button_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/toolbar_text_color_selector</item>
+        <item name="android:gravity">bottom|center</item>
+        <item name="android:paddingTop">@dimen/toolbar_bottom_padding</item>
+        <item name="android:paddingBottom">@dimen/toolbar_bottom_padding</item>
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -84,20 +100,6 @@
         <item name="android:textSize">@dimen/textSize14</item>
     </style>
 
-    <style name="toolbar_button_style">
-        <item name="android:textSize">12.0sp</item>
-        <item name="android:textColor">@color/toolbar_text_color_selector</item>
-        <item name="android:gravity">bottom|center</item>
-        <item name="android:background">@color/toolbar_item_bg_normal</item>
-        <item name="android:paddingTop">2.0dip</item>
-        <item name="android:paddingBottom">2.0dip</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">10.0dip</item>
-        <item name="android:layout_marginRight">10.0dip</item>
-        <item name="android:button">@null</item>
-        <item name="android:layout_weight">1.0</item>
-    </style>
 
     <style name="adapter_item_outside_layout_padding_style">
         <item name="android:paddingLeft">@dimen/item_outside_left_or_right_padding</item>

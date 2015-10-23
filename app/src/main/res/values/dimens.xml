@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--胡立加-->
+    <dimen name="toolbar_bottom_padding">9dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="divider_thin">0.5dp</dimen>
+    <dimen name="divider_thick">3dp</dimen>
+    <dimen name="item_text_size">15sp</dimen>
+    <dimen name="item_margin">15dp</dimen>
+    <dimen name="item_height">45dp</dimen>
+
+
+
+
+
     <!-- LK style-->
     <dimen name="layout_padding">16dp</dimen>
     <dimen name="view_height">0.5dp</dimen>

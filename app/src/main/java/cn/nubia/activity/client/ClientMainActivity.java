@@ -1,111 +1,183 @@
 package cn.nubia.activity.client;
 
-/**
- * Created by 胡立 on 2015/9/7.
- */
 
-
-import android.app.ActivityGroup;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import cn.nubia.activity.R;
+import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
+import cn.nubia.activity.client.fragment.ClientExamFragment;
+import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
+import cn.nubia.activity.client.fragment.ClientMyFragment;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.zxing.barcode.CaptureActivity;
 
-/**普通用户主界面：Tab分页导航
- * activity_main_client(未修改版)：布局为TabHost框架，布局最下面为3个单选按钮,最上面为头标题栏，中间为FrameLayout，废弃了TabWidget
- * TabHost的内容为3个TabHost.TabSpec，展示于FrameLayout
- * 为单选按钮绑定监听器，内容为修改相应TabHost.TabSpec页面
- * 直接用tabHost.setOnTabChangedListener监听器不好么，为何要用四个单选按钮
- * Created by 胡立 on 2015/9/6.
+/**普通用户主界面：底部点击导航栏
+ * 布局为RelativeLayout，RadioGroup在View底部，RadioGroup上面为FrameLayout，FrameLayout装Fragment
+ * 采用RadioButton+Fragment结构
+ * RadioButton改变，FrameLayout中的Fragment跟着相应改变
+ * Created by 胡立加 on 2015/10/22.
  */
-@SuppressWarnings("deprecation")
-public class ClientMainActivity extends ActivityGroup {
-    private TabHost mTabHost;
+
+public class ClientMainActivity extends FragmentActivity {
     private RadioGroup mRadioGroup;
-    /**
-     * 退出时间
-     */
+    private ClientMyCourceFragment mClientMyCourceFragment;
+    private ClientAllCourceFragment mClientAllCourceFragment;
+    private ClientExamFragment mClientExamFragment;
+    private ClientMyFragment mClientMyFragment;
     private long mExitTime;
-    /**
-     * 退出间隔
-     */
-    private static final int INTERVAL = 2000;
+    private FragmentTransaction mFragmentTransaction;
+    private int currentItem = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main_client);
-        initBeforeData();
+        setContentView(R.layout.activity_client_main);
+        initViews();
         initEvents();
     }
 
-    private void initBeforeData() {
-        addTabIntent();
-        mTabHost.setCurrentTab(0);
-        mRadioGroup=(RadioGroup) findViewById(R.id.main_client_group);
+    private  void initViews() {
+        mRadioGroup = (RadioGroup) findViewById(R.id.client_group);
     }
 
-    private void initEvents() {
+
+
+    private  void initEvents() {
+        mFragmentTransaction = getFragmentManager().beginTransaction();
+        mClientMyCourceFragment = new ClientMyCourceFragment();
+        mFragmentTransaction.add(R.id.client_fragment_layout, mClientMyCourceFragment);
+        currentItem = 0;
+        mFragmentTransaction.commit();
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.main_client_radio_myCourse:
-                        mTabHost.setCurrentTab(0);
+                    case R.id.client_radio_my_course:
+                        if (currentItem != 0) {
+                            setChoiceItem(0);
+                        }
+                        currentItem = 0;
                         break;
-                    case R.id.main_client_radio_allCourse:
-                        mTabHost.setCurrentTab(1);
+                    case R.id.client_radio_all_cource:
+                        if (currentItem != 1) {
+                            setChoiceItem(1);
+                        }
+                        currentItem = 1;
                         break;
-                    case R.id.main_client_radio_my:
-                        mTabHost.setCurrentTab(2);
+                    case R.id.client_radio_sign_in:
+                        //startActivity(new Intent(this, SearchActivity.class));
+                        //打开扫描界面扫描条形码或二维码
+                        Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
+                        startActivityForResult(openCameraIntent, 0);
+                        break;
+                    case R.id.client_radio_exam:
+                        if (currentItem != 3) {
+                            setChoiceItem(3);
+                        }
+                        currentItem = 3;
+                        break;
+                    case R.id.client_radio_my:
+                        if (currentItem != 4) {
+                            setChoiceItem(4);
+                        }
+                        currentItem = 4;
                         break;
                 }
             }
         });
     }
 
-    private TabHost.TabSpec buildTabSpec(String tag, String m, final Intent content) {
-        return mTabHost.newTabSpec(tag).setIndicator(m).setContent(content);
+    public void setChoiceItem(int index) {
+        mFragmentTransaction = getFragmentManager().beginTransaction();
+        hideFragments(mFragmentTransaction);
+        switch (index) {
+            case 0:
+                mFragmentTransaction.show(mClientMyCourceFragment);
+                break;
+
+            case 1:
+                if (mClientAllCourceFragment == null) {
+                    mClientAllCourceFragment = new ClientAllCourceFragment();
+                    mFragmentTransaction.add(R.id.client_fragment_layout, mClientAllCourceFragment);
+                } else {
+                    mFragmentTransaction.show(mClientAllCourceFragment);
+                }
+                break;
+
+            case 3:
+                if (mClientExamFragment == null) {
+                    mClientExamFragment = new ClientExamFragment();
+                    mFragmentTransaction.add(R.id.client_fragment_layout, mClientExamFragment);
+                } else {
+                    mFragmentTransaction.show(mClientExamFragment);
+                }
+                break;
+            case 4:
+                if (mClientMyFragment == null) {
+                    mClientMyFragment = new ClientMyFragment();
+                    mFragmentTransaction.add(R.id.client_fragment_layout, mClientMyFragment);
+                } else {
+                    mFragmentTransaction.show(mClientMyFragment);
+                }
+                break;
+        }
+        mFragmentTransaction.commit();
     }
 
-    private void addTabIntent() {
-        mTabHost = (TabHost) findViewById(R.id.main_client_tabhost);
-        mTabHost.setup(ClientMainActivity.this.getLocalActivityManager());
-        mTabHost.addTab(buildTabSpec("tab1", "0", new Intent(ClientMainActivity.this,
-                ClientMyCourseActivity.class)));
-        mTabHost.addTab(buildTabSpec("tab2", "1", new Intent(ClientMainActivity.this,
-                ClientAllCourseActivity.class)));
-        mTabHost.addTab(buildTabSpec("tab3", "2", new Intent(ClientMainActivity.this,
-                ClientMyTabActivity.class)));
+    private void hideFragments(FragmentTransaction transaction) {
+        switch (currentItem) {
+            case 0 :
+                if (mClientMyCourceFragment != null) {
+                    transaction.hide(mClientMyCourceFragment);
+                }
+                break;
+            case 1 :
+                if (mClientAllCourceFragment != null) {
+                    transaction.hide(mClientAllCourceFragment);
+                }
+                break;
+            case 3:
+                if (mClientExamFragment != null) {
+                    transaction.hide(mClientExamFragment);
+                }
+                break;
+            case 4:
+                if (mClientMyFragment != null) {
+                    transaction.hide(mClientMyFragment);
+                }
+                break;
+        }
     }
-    /**
-     * 判断两次返回时间间隔,小于两秒则退出程序
-     */
+
     private void exit() {
-        if (System.currentTimeMillis() - mExitTime > INTERVAL) {
-            Toast.makeText(this, "再按一次返回退出应用", Toast.LENGTH_LONG).show();
+        if (System.currentTimeMillis() - mExitTime > Constant.INTERVAL) {
+            Toast.makeText(this, R.string.exit, Toast.LENGTH_LONG).show();
             mExitTime = System.currentTimeMillis();
         } else {
             /*android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);*/
-//            DbUtil.getInstance(this).closeDb();
+            //DbUtil.getInstance(this).closeDb();
             finishAffinity();
+
         }
     }
 
@@ -121,14 +193,6 @@ public class ClientMainActivity extends ActivityGroup {
         return super.dispatchKeyEvent(event);
     }
 
-    public void search(View view) {
-        //startActivity(new Intent(this, SearchActivity.class));
-        //打开扫描界面扫描条形码或二维码
-        Intent openCameraIntent = new Intent(this, CaptureActivity.class);
-        startActivityForResult(openCameraIntent, 0);
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,7 +201,7 @@ public class ClientMainActivity extends ActivityGroup {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
             int lesson_index = Integer.parseInt(scanResult);
-            if (!Constant.user.getUserID().equals("")&& lesson_index > 0){
+            if (!Constant.user.getUserID().equals("") && lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
                 RequestParams params = new RequestParams(Constant.getRequestParams());
                 params.put("user_id",Constant.user.getUserID());
@@ -175,6 +239,5 @@ public class ClientMainActivity extends ActivityGroup {
             Toast.makeText(ClientMainActivity.this,"扫描二维码失败，请稍后重试",Toast.LENGTH_LONG).show();
         }
     };
+
 }
-
-

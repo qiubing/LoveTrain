@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RadioGroup
+        android:id="@+id/client_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/toolbar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/client_radio_my_course"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_my_course_selector"
+            android:checked="true"
+            android:text="@string/my_cource" />
+
+        <RadioButton
+            android:id="@+id/client_radio_all_cource"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_all_selector"
+            android:text="@string/all_cource" />
+
+        <RadioButton
+            android:id="@+id/client_radio_sign_in"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_all_selector"
+            android:text="@string/sign_in" />
+
+        <RadioButton
+            android:id="@+id/client_radio_exam"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_exam_selector"
+            android:text="@string/exam" />
+
+        <RadioButton
+            android:id="@+id/client_radio_my"
+            style="@style/toolbar_button_style"
+            android:drawableTop="@drawable/icon_my_selector"
+            android:text="@string/my" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/client_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/client_group" />
+</RelativeLayout>

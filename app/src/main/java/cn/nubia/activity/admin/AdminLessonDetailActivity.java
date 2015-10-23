@@ -114,7 +114,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         } else {
             status = "student";
         }
-        Log.e("jiangyu","teacherName "+teacherName+", myName "+ myName+", status "+ status);
+
         switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
                 mGenerateQRCode.setVisibility(View.VISIBLE);

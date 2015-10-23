@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--胡立加-->
+    <color name="toolbar_text_color_normal">#ff878a90</color>
+    <color name="toolbar_text_color_select">#ffffb701</color>
+    <color name="toolbar_bg">#3CB371</color>
+
+
+
+
     <!--LK style-->
     <color name="first_layout_background">#fff2fafc</color>
 
@@ -142,8 +150,6 @@
     <color name="guide_2">#fff05656</color>
     <color name="guide_3">#fff0c456</color>
     <color name="edit_text_border">#ffe0e0e0</color>
-    <color name="toolbar_text_color_normal">#ff878a90</color>
-    <color name="toolbar_text_color_select">#ffffb701</color>
     <color name="toolbar_item_bg_normal">#ff3b3e42</color>
     <color name="tab_item_bg_normal">#ff3b3e42</color>
     <color name="left_menu_text_normal">#ff9f9f9f</color>
