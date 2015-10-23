@@ -2,16 +2,22 @@ package cn.nubia.activity.client.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
+import cn.nubia.activity.admin.AdminAddCourseActivity;
+import cn.nubia.activity.admin.AdminCourseActivity;
 import cn.nubia.activity.admin.AdminMainActivity;
+import cn.nubia.entity.Constant;
 
 /**客户端我的课程界面：顶部滑动导航栏
  * 采用RelativeLayout+ViewPager结构
@@ -51,13 +57,25 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 	}
 
 	void initEvents() {
+		if(Constant.IS_ADMIN) {
+			ImageView addCourceView = (ImageView) rootView.findViewById(R.id.item_add);
+			addCourceView.setVisibility(View.VISIBLE);
+			addCourceView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), AdminAddCourseActivity.class);
+//					startActivityForResult(intent, 1);
+					startActivity(intent);
+				}
+			});
+		}
 		for (TextView mTextView : mTextViews) {
 			mTextView.setOnClickListener(ClientAllCourceFragment.this);
 		}
 
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
-				((AdminMainActivity)getActivity()).getSupportFragmentManager()) {
+				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
 
 			@Override
 			public int getCount() {

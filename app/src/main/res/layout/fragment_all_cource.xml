@@ -117,17 +117,18 @@
                     android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
-            <!--<ImageView
-                android:id="@+id/client_search"
+
+            <ImageView
+                android:id="@+id/item_add"
                 android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/search_button"
                 android:layout_marginRight="10dp"
-                android:onClick="search"
                 android:layout_weight="0.5"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />-->
+                android:adjustViewBounds="true"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <View

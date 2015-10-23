@@ -3,6 +3,7 @@ package cn.nubia.activity.client.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class ClientExamFragment extends Fragment  implements View.OnClickListene
 
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
-				((AdminMainActivity)getActivity()).getSupportFragmentManager()) {
+				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
 
 			@Override
 			public int getCount() {

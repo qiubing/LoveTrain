@@ -3,6 +3,7 @@ package cn.nubia.activity.client.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 //		searchView.setOnClickListener(ClientMyCourceFragment.this);
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
-				((ClientMainActivity)getActivity()).getSupportFragmentManager()) {
+				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
 
 			@Override
 			public int getCount() {

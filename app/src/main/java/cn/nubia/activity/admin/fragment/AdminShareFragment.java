@@ -3,6 +3,7 @@ package cn.nubia.activity.admin.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -48,7 +49,7 @@ public class AdminShareFragment extends Fragment implements View.OnClickListener
 //		searchView.setOnClickListener(ClientMyCourceFragment.this);
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
-				((AdminMainActivity)getActivity()).getSupportFragmentManager()) {
+				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
 
 			@Override
 			public int getCount() {
