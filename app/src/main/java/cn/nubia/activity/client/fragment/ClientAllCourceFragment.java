@@ -22,7 +22,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_client_all_cource, container, false);
+		rootView = inflater.inflate(R.layout.fragment_all_cource, container, false);
 		initViews();
 		initEvents();
 		return rootView;
