@@ -91,16 +91,30 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         });
 
 
-
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
         TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
         mTitleText.setText(mCourseItem.getName());
-        String startActivity = intent.getStringExtra("startActivity");
-        Log.i("huhu", "AdminCourceDetail: " + startActivity);
+        /*String startActivity = intent.getStringExtra("startActivity");
+        Log.i("huhu", "AdminCourceDetail: " + startActivity);*/
 
-        switch (startActivity) {
+        if(Constant.IS_ADMIN) {
+            signUpAdminBtn.setOnClickListener(this);
+            alterCourseBtn.setOnClickListener(this);
+            lessonAddBtn.setOnClickListener(this);
+            courseDeleteBtn.setOnClickListener(this);
+        } else {
+            signUpAdminBtn.setVisibility(View.GONE);
+            alterCourseBtn.setVisibility(View.GONE);
+            lessonAddBtn.setVisibility(View.GONE);
+            courseDeleteBtn.setVisibility(View.GONE);
+            if(mCourseItem.getType().equals("senior")) {
+                mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+            }
+        }
+
+        /*switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
                 signUpAdminBtn.setOnClickListener(this);
                 alterCourseBtn.setOnClickListener(this);
@@ -124,7 +138,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                 break;
             default:
                 break;
-        }
+        }*/
 
         if(mCourseItem!=null) {
             courseRealNameTextview.setText(mCourseItem.getName());

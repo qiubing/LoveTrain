@@ -130,7 +130,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
                 Log.e("jiangyu","before jump"+lessonItem.getIndex()+ String.valueOf(((LessonItem)(bundle.get("LessonItem"))).isIsJudged()));
                 intent.putExtras(bundle);
-                intent.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
                 ((Activity) mContext).startActivityForResult(intent, 2);
             }
         });
@@ -288,7 +287,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CourseItem", mGroupList.get(groupID));
                 intentCourseDetail.putExtras(bundle);
-                intentCourseDetail.putExtra("startActivity", ((Activity) mContext).getLocalClassName());
                 ((Activity) mContext).startActivityForResult(intentCourseDetail,1);
             }
         });

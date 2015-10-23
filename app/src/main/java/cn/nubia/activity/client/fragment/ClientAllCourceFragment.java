@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 		mDividerViews[1] = rootView.findViewById(R.id.item_common_cource_divider);
 		mDividerViews[2] = rootView.findViewById(R.id.item_high_cource_divider);
 		mDividerViews[3] = rootView.findViewById(R.id.item_share_cource_divider);
+		Log.i("huhu", getActivity().toString() + getActivity().getLocalClassName());
 	}
 
 	void initEvents() {

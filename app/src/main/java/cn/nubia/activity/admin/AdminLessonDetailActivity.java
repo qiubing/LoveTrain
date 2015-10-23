@@ -90,7 +90,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取启动该Activity的Intent*/
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
-        String startActivity = intent.getStringExtra("startActivity");
 
         sub_page_title = (TextView) findViewById(R.id.sub_page_title);
         sub_page_title.setText(lessonItem.getName());
@@ -115,7 +114,36 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             status = "student";
         }
 
-        switch (startActivity) {
+        if(Constant.IS_ADMIN) {
+            mGenerateQRCode.setVisibility(View.VISIBLE);
+            alterLessonBtn.setOnClickListener(this);
+            deleteLessonBtn.setOnClickListener(this);
+            signUpPopulationTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
+            mEvaluateTextView.setOnClickListener(this);
+        } else if(status.equals("teacher")) {
+            mGenerateQRCode.setVisibility(View.VISIBLE);
+            signUpPopulationTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
+            mEvaluateTextView.setOnClickListener(this);
+            alterLessonBtn.setVisibility(View.GONE);
+            deleteLessonBtn.setVisibility(View.GONE);
+        } else {
+            /*if(lessonItem.isIsJudged()){
+                mEvaluateTextView.setText("查看评价");
+            } else {
+                mEvaluateTextView.setText("进行评价");
+            }*/
+            if(! lessonItem.isIsJudged()) {
+                mEvaluateTextView.setText("进行评价");
+            }
+            mEvaluateTextView.setOnClickListener(this);
+            alterLessonBtn.setVisibility(View.GONE);
+            deleteLessonBtn.setVisibility(View.GONE);
+            signUpPopulationTextView.setVisibility(View.GONE);
+        }
+
+        /*switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
                 mGenerateQRCode.setVisibility(View.VISIBLE);
                 alterLessonBtn.setOnClickListener(this);
@@ -157,7 +185,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 Log.i("huhu", "AdminLessonDetail  startActivity异常了");
                 break;
         }
-
+*/
 
 
         if (lessonItem != null) {
