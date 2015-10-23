@@ -13,6 +13,16 @@ import android.widget.TextView;
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientMainActivity;
 
+/**客户端我的课程界面：顶部滑动导航栏
+ * 采用RelativeLayout+ViewPager结构
+ * 布局为LinearLayout，上面为四个标题条(每个标题条下面为分隔条，处于隐藏状态)和扫描ImageView，下面为一条分隔条，和标题条的高度一致，
+ * 但比标题条下面的分隔条要窄，最下面为ViewPager
+ * ViewPager使用了FragmentPagerAdapter(分页数据为旧版本的Fragment)，而FragmentPagerAdapter需要提供旧版本的FragmentManager
+ * 作为构造器参数，因此，该Fragment所在的Activity(ClientMainActivity)需要继承FragmentActivity，
+ * 标题条与ViewPager的内容为双向关联关系，一个改变时，另一个跟着改变，
+ * Created by 胡立 on 2015/10/22.
+ */
+
 public class ClientAllCourceFragment extends Fragment implements View.OnClickListener {
 	private ViewPager viewPager;
 	private TextView[] mTextViews = new TextView[4];

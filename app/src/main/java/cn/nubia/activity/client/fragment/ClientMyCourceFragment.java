@@ -21,7 +21,7 @@ import cn.nubia.activity.client.ClientMainActivity;
  * ViewPager使用了FragmentPagerAdapter(分页数据为旧版本的Fragment)，而FragmentPagerAdapter需要提供旧版本的FragmentManager
  * 作为构造器参数，因此，该Fragment所在的Activity(ClientMainActivity)需要继承FragmentActivity，
  * 标题条与ViewPager的内容为双向关联关系，一个改变时，另一个跟着改变，
- * Created by 胡立 on 2015/10/22.
+ * Created by 胡立加 on 2015/10/22.
  */
 public class ClientMyCourceFragment extends Fragment implements View.OnClickListener{
 	private ViewPager viewPager;
@@ -133,7 +133,6 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 				break;
 			/*case R.id.client_search :
 				Toast.makeText(getActivity(), "下个版本完成，敬请期待", Toast.LENGTH_SHORT).show();*/
-
 		}
 	}
 }
