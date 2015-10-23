@@ -2,34 +2,19 @@ package cn.nubia.activity.admin;
 
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.apache.http.Header;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.fragment.AdminMyFragment;
 import cn.nubia.activity.admin.fragment.AdminShareFragment;
-import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.activity.client.fragment.AllExamFragment;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
-import cn.nubia.activity.client.fragment.ClientExamFragment;
-import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
-import cn.nubia.activity.client.fragment.ClientMyFragment;
+import cn.nubia.activity.client.fragment.ExamFragment;
 import cn.nubia.entity.Constant;
-import cn.nubia.util.AsyncHttpHelper;
-import cn.nubia.zxing.barcode.CaptureActivity;
 
 /**admin主界面：底部点击导航栏
  * 布局为RelativeLayout，RadioGroup在View底部，RadioGroup上面为FrameLayout，FrameLayout装Fragment
@@ -41,7 +26,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
 public class AdminMainActivity extends FragmentActivity {
     private RadioGroup mRadioGroup;
     private ClientAllCourceFragment mClientAllCourceFragment;
-    private ClientExamFragment mClientExamFragment;
+    private AllExamFragment mClientExamFragment;
     private AdminShareFragment mAdminShareFragment;
     private AdminMyFragment mAdminMyFragment;
     private long mExitTime;
@@ -112,7 +97,7 @@ public class AdminMainActivity extends FragmentActivity {
 
             case 1:
                 if (mClientExamFragment == null) {
-                    mClientExamFragment = new ClientExamFragment();
+                    mClientExamFragment = new AllExamFragment();
                     mFragmentTransaction.add(R.id.admin_fragment_layout, mClientExamFragment);
                 } else {
                     mFragmentTransaction.show(mClientExamFragment);

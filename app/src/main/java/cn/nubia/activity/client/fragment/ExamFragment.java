@@ -6,23 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminMainActivity;
-/**客户端我的课程界面：顶部滑动导航栏
- * 采用RelativeLayout+ViewPager结构
- * 布局为LinearLayout，上面为两个标题条(每个标题条下面为分隔条，处于隐藏状态)和扫描ImageView，下面为一条分隔条，和标题条的高度一致，
- * 但比标题条下面的分隔条要窄，最下面为ViewPager
- * ViewPager使用了FragmentPagerAdapter(分页数据为旧版本的Fragment)，而FragmentPagerAdapter需要提供旧版本的FragmentManager
- * 作为构造器参数，因此，该Fragment所在的Activity(ClientMainActivity)需要继承FragmentActivity，
- * 标题条与ViewPager的内容为双向关联关系，一个改变时，另一个跟着改变，
- * Created by 胡立 on 2015/10/22.
- */
-public class ClientExamFragment extends Fragment  implements View.OnClickListener{
+import cn.nubia.activity.client.ClientMainActivity;
+
+public class ExamFragment extends Fragment implements View.OnClickListener{
 	private ViewPager viewPager;
 	private TextView[] mTextViews = new TextView[2];
 	private View[] mDividerViews = new View[2];
@@ -42,13 +35,14 @@ public class ClientExamFragment extends Fragment  implements View.OnClickListene
 		mTextViews[1] = (TextView) rootView.findViewById(R.id.only_exam);
 		mDividerViews[0] = rootView.findViewById(R.id.cource_exam_divider);
 		mDividerViews[1] = rootView.findViewById(R.id.only_exam_divider);
+		/*searchView = (ImageView) rootView.findViewById(R.id.client_search);*/
 	}
 
 	void initEvents() {
 		for (TextView mTextView : mTextViews) {
-			mTextView.setOnClickListener(ClientExamFragment.this);
+			mTextView.setOnClickListener(this);
 		}
-
+//		searchView.setOnClickListener(ClientMyCourceFragment.this);
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
 				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
@@ -126,6 +120,8 @@ public class ClientExamFragment extends Fragment  implements View.OnClickListene
 					viewPager.setCurrentItem(1);
 				}
 				break;
+			/*case R.id.client_search :
+				Toast.makeText(getActivity(), "下个版本完成，敬请期待", Toast.LENGTH_SHORT).show();*/
 
 		}
 	}

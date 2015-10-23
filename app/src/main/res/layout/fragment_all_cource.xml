@@ -119,7 +119,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/item_add"
+                android:id="@+id/item_cource_add"
                 android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

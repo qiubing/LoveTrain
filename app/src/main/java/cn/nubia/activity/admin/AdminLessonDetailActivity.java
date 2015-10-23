@@ -129,14 +129,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             alterLessonBtn.setVisibility(View.GONE);
             deleteLessonBtn.setVisibility(View.GONE);
         } else {
-            /*if(lessonItem.isIsJudged()){
-                mEvaluateTextView.setText("查看评价");
+            if(lessonItem.isIsJudged()){
+                mEvaluateTextView.setText("已评价");
             } else {
                 mEvaluateTextView.setText("进行评价");
-            }*/
-            if(! lessonItem.isIsJudged()) {
-                mEvaluateTextView.setText("进行评价");
             }
+
             mEvaluateTextView.setOnClickListener(this);
             alterLessonBtn.setVisibility(View.GONE);
             deleteLessonBtn.setVisibility(View.GONE);

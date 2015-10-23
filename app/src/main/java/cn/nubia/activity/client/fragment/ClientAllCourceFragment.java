@@ -60,7 +60,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 
 	void initEvents() {
 		if(Constant.IS_ADMIN) {
-			ImageView addCourceView = (ImageView) rootView.findViewById(R.id.item_add);
+			ImageView addCourceView = (ImageView) rootView.findViewById(R.id.item_cource_add);
 			addCourceView.setVisibility(View.VISIBLE);
 			addCourceView.setOnClickListener(new View.OnClickListener() {
 				@Override

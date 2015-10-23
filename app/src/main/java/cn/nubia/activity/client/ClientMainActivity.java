@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -22,7 +21,7 @@ import java.util.Date;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
-import cn.nubia.activity.client.fragment.ClientExamFragment;
+import cn.nubia.activity.client.fragment.ExamFragment;
 import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyFragment;
 import cn.nubia.entity.Constant;
@@ -40,7 +39,7 @@ public class ClientMainActivity extends FragmentActivity {
     private RadioGroup mRadioGroup;
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
-    private ClientExamFragment mClientExamFragment;
+    private ExamFragment mClientExamFragment;
     private ClientMyFragment mClientMyFragment;
     private long mExitTime;
     private FragmentTransaction mFragmentTransaction;
@@ -125,7 +124,7 @@ public class ClientMainActivity extends FragmentActivity {
 
             case 3:
                 if (mClientExamFragment == null) {
-                    mClientExamFragment = new ClientExamFragment();
+                    mClientExamFragment = new ExamFragment();
                     mFragmentTransaction.add(R.id.client_fragment_layout, mClientExamFragment);
                 } else {
                     mFragmentTransaction.show(mClientExamFragment);
