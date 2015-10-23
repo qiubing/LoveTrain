@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminMainActivity;
-import cn.nubia.activity.client.fragment.ClientStudentFragment;
-import cn.nubia.activity.client.fragment.ClientTeacherFragment;
 
 public class AdminShareFragment extends Fragment implements View.OnClickListener{
 	private ViewPager viewPager;
@@ -30,14 +28,15 @@ public class AdminShareFragment extends Fragment implements View.OnClickListener
 		rootView = inflater.inflate(R.layout.fragment_admin_share_cource, container, false);
 		initViews();
 		initEvents();
+		Log.i("huhu", "AdminShareFragment,onCreateView");
 		return rootView;
 	}
 
 	void initViews() {
 		viewPager = (ViewPager) rootView.findViewById(R.id.admin_share_viewpager);
-		mTextViews[0] = (TextView) rootView.findViewById(R.id.admin_waite_share);
+		mTextViews[0] = (TextView) rootView.findViewById(R.id.admin_check_share);
 		mTextViews[1] = (TextView) rootView.findViewById(R.id.admin_pass_share);
-		mDividerViews[0] = rootView.findViewById(R.id.admin_waite_share_divider);
+		mDividerViews[0] = rootView.findViewById(R.id.admin_check_share_divider);
 		mDividerViews[1] = rootView.findViewById(R.id.admin_pass_share_divider);
 		/*searchView = (ImageView) rootView.findViewById(R.id.client_search);*/
 	}
@@ -61,10 +60,10 @@ public class AdminShareFragment extends Fragment implements View.OnClickListener
 				android.support.v4.app.Fragment fragment = null;
 				switch (index) {
 					case 0 :
-						fragment = new AdminWaiteShareFragment();
+						fragment = new AdminShareCheckFragment();
 						break;
 					case 1 :
-						fragment = new AdminPassShareFragment();
+						fragment = new AdminSharePassFragment();
 						break;
 				}
 				return fragment;
@@ -113,7 +112,7 @@ public class AdminShareFragment extends Fragment implements View.OnClickListener
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.admin_waite_share :
+			case R.id.admin_check_share :
 				if(currentItemId != 0) {
 					viewPager.setCurrentItem(0);
 				}

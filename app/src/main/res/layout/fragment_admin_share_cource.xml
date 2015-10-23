@@ -20,7 +20,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/admin_waite_share"
+                    android:id="@+id/admin_check_share"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/item_waite_share"
@@ -30,7 +30,7 @@
                     android:textColorHighlight="@color/toolbar_text_color_normal"/>
 
                 <View
-                    android:id="@+id/admin_waite_share_divider"
+                    android:id="@+id/admin_check_share_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
