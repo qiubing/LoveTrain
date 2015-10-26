@@ -236,10 +236,10 @@ public final class CameraManager {
         height = MAX_FRAME_HEIGHT;
       }*/
 
-      /*扫描框修改自适应屏幕*/
+      /*扫描框修改自适应屏幕，设置长宽一样。*/
       DisplayMetrics metrics = context.getResources().getDisplayMetrics();
       int  width= (int) (metrics.widthPixels*0.6);
-      int  height= (int) (width*0.9);
+      int  height= width;
       int leftOffset = (screenResolution.x - width) / 2;
       int topOffset = (screenResolution.y - height) / 4;
       framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);

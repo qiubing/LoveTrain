@@ -14,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.apache.http.Header;
 import java.io.ByteArrayInputStream;
@@ -27,7 +26,10 @@ import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.ProcessSPData;
+import cn.nubia.util.UpdateManager;
 import cn.nubia.util.Utils;
+
+
 
 /**
  * Description:与我相关的
@@ -126,7 +128,11 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 myStartActivity(FeedBackActivity.class);
                 break;
             case R.id.btn_version:
-                showUpdatDialog();
+                Log.e(TAG,"update version");
+                UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
+                //检查更新
+                manager.checkUpdate();
+                //showUpdatDialog();
             break;
             case R.id.bt_logout:
                 //注销登录
@@ -151,9 +157,6 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 .setButton1("立即更新", new PromptDialog.OnClickListener() {
                     @Override
                     public void onClick(Dialog dialog, int which) {
-                        /**
-                         * 开始下载更新呗
-                         */
                         Toast.makeText(ClientMyTabActivity.this, "只是一个演示而已", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }

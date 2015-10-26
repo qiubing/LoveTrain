@@ -1,13 +1,15 @@
-package cn.nubia.appUpdate;
+package cn.nubia.appUpdate.about;
 
 import android.app.AlertDialog;
 import android.app.Service;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
 import cn.nubia.upgrade.api.NubiaUpgradeManager;
+import cn.nubia.upgrade.model.VersionData;
 
 /**
  * Created by WJ on 2015/10/26.
@@ -19,6 +21,8 @@ public class AboutManager {
     private static final String AUTH_KEY = "";
     private static NubiaUpgradeManager mNubiaUpgradeManager;
     private static final String TAG = "AboutManager";
+    private static VersionData mVersionData;
+
     private static Service mContext = null;
     private AlertDialog connectDialog = null;
 
@@ -34,9 +38,9 @@ public class AboutManager {
 
     private final static int TIMEOUT = 5*1000;
 
-    private static class DialogHandler extends Handler {
+    private static class MyHandler extends Handler {
         WeakReference<AboutManager> _mgr;
-        DialogHandler(AboutManager mgr){
+        MyHandler(AboutManager mgr){
             _mgr = new WeakReference<AboutManager>(mgr);
         }
 
@@ -46,11 +50,21 @@ public class AboutManager {
             switch (msg.what){
                 case FLAG_UPDATE_NEW_VERSION:
                     AboutManager mgr = _mgr.get();
+                    if (mgr != null){
+                        Bundle data = msg.getData();
+
+                    }
             }
         }
     }
 
+    private Handler mHandler = new MyHandler(this);
 
+    public AboutManager(Service context){
+        mContext = context;
+    }
 
-
+    private static void stopUpdateService(){
+        mContext.stopSelf();
+    }
 }

@@ -93,4 +93,9 @@ public class Constant {
      * APP下载地址
      */
     public static final String APP_DOWNLOAD_URL = "http://www.pgyer.com/lovetrain";
+
+    /**
+     * APP版本信息，存放在服务器端
+     */
+    public static final String APP_VERSION_URL = "";
 }
