@@ -14,11 +14,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import org.apache.http.Header;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
@@ -26,7 +30,6 @@ import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.ProcessSPData;
-import cn.nubia.util.UpdateManager;
 import cn.nubia.util.Utils;
 
 
@@ -129,9 +132,9 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 break;
             case R.id.btn_version:
                 Log.e(TAG,"update version");
-                UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
+                //UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
                 //检查更新
-                manager.checkUpdate();
+                //manager.checkUpdate();
                 //showUpdatDialog();
             break;
             case R.id.bt_logout:
