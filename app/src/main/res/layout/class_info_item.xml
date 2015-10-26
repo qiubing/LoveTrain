@@ -2,21 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_inside_layout"
     android:layout_width="fill_parent"
-    android:layout_height="62dp"
-    android:background="@drawable/item_layout_border"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:layout_height="@dimen/class_item_heigh"
+    android:background="@color/class_item_background_close">
 
     <View
         android:id="@+id/view"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="3dp"></View>
+        android:layout_height="1dp"
+        android:background="@color/class_item_space"></View>
 
     <ImageView
         android:id="@+id/admin_all_course_courseDetailTextView"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/class_item_padding_left"
         android:src="@mipmap/new_go" />
 
     <ImageView
@@ -24,54 +26,25 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@id/admin_all_course_courseDetailTextView"
         android:layout_centerVertical="true"
         android:src="@mipmap/icon_course" />
 
     <TextView
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:paddingTop="15dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="java基础"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/item_layout_imageview"
-        android:textSize="@dimen/textSize22" />
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:layout_below="@+id/view"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_toRightOf="@+id/item_layout_imageview"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/item_layout_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:gravity="center"-->
-            <!--android:text="java基础"-->
-            <!--android:textSize="@dimen/textSize22" />-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/admin_all_course_addLessonTextView"-->
-            <!--android:layout_width="20dp"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:layout_alignLeft="@id/item_layout_title"-->
-            <!--android:layout_below="@+id/item_layout_title"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_toRightOf="@id/item_layout_imageview"-->
-            <!--android:paddingBottom="2dp"-->
-            <!--android:src="@mipmap/new_add" />-->
-    <!--</LinearLayout>-->
+        android:textSize="@dimen/class_item_fontsize" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_marginRight="8dp"
         android:orientation="vertical"
-        android:layout_below="@+id/view"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@id/admin_all_course_courseDetailTextView"
         android:gravity="center">
 
         <LinearLayout
@@ -101,11 +74,11 @@
             android:text="讲"
             android:visibility="gone"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/flag_wetherExam"
-            style="@style/item_flag_attention_style"
-            android:background="@color/lightblue"
-            android:text="考" />
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:src="@mipmap/icon_exam_label" />
         </LinearLayout>
 
         <TextView

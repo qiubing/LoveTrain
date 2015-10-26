@@ -2,8 +2,10 @@ package cn.nubia.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
-
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
@@ -34,6 +34,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private final List<CourseItem> mGroupList;
     private final Context mContext;
+
     /**
      * 当前登录用户的ID
      */
@@ -86,17 +87,31 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
         /**设置课时名称*/
         childViewHolder.mLessonNameTextView.setText(mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
-        switch (mGroupList.get(groupPosition).getType()) {
-            case "course":
-                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_course);
-                break;
-            case "share":
-                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_share);
-                break;
-            case "senior":
-                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_gao);
-                break;
+        switch (childPosition){
+            case 0: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson1);break;
+            case 1: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson2);break;
+            case 2: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson3);break;
+            case 3: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson4);break;
+            case 4: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson5);break;
+            case 5: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson6);break;
+            case 6: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson7);break;
+            case 7: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson8);break;
+            case 8: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson9);break;
+            case 9: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson10);break;
+            default: childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson10);break;
+
         }
+//        switch (mGroupList.get(groupPosition).getType()) {
+//            case "course":
+//                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_course);
+//                break;
+//            case "share":
+//                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_share);
+//                break;
+//            case "senior":
+//                childViewHolder.mLessonIcon.setImageResource(R.mipmap.icon_lesson_gao);
+//                break;
+//        }
         /**设置课时信息*/
         childViewHolder.mLessonDetailTextView.setText("上课地点：" +
                         mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "" + "\n上课时间：" +
@@ -172,7 +187,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_courseType);
             groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
             groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_isTeacher);
-            groupViewHolder.mWhetherExam = (TextView) convertView.findViewById(R.id.flag_wetherExam);
+            groupViewHolder.mWhetherExam = (ImageView) convertView.findViewById(R.id.flag_wetherExam);
 
             convertView.setTag(groupViewHolder);
         } else {
@@ -261,10 +276,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 //        }
 
 
-        if(isExpanded)
-            groupViewHolder.mExpendedIV.setImageResource(R.mipmap.new_go_down);
-        else
+        if(isExpanded){
+            Bitmap img= BitmapFactory.decodeResource(mContext.getResources(),R.mipmap.new_go);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90); /*翻转90度*/
+            int width = img.getWidth();
+            int height =img.getHeight();
+            img = Bitmap.createBitmap(img, 0, 0, width, height, matrix, true);
+            groupViewHolder.mExpendedIV.setImageBitmap(img);
+        }
+        else {
             groupViewHolder.mExpendedIV.setImageResource(R.mipmap.new_go);
+        }
 
         /**为 "添加课时" 的textView添加监听事件**/
 //        groupViewHolder.mAddLessonTextView.setOnClickListener(new View.OnClickListener() {
@@ -349,6 +372,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView mCourseLevel;
         TextView mTeacher;
         TextView mCourseType;
-        TextView mWhetherExam;
+        ImageView mWhetherExam;
     }
 }
