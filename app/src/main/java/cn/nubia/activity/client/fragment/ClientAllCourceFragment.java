@@ -16,9 +16,8 @@ import android.widget.TextView;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminAddCourseActivity;
-import cn.nubia.activity.admin.AdminCourseActivity;
-import cn.nubia.activity.admin.AdminMainActivity;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.Item;
 
 /**客户端我的课程界面：顶部滑动导航栏
  * 采用RelativeLayout+ViewPager结构
@@ -89,16 +88,16 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 				android.support.v4.app.Fragment fragment = null;
 				switch (index) {
 					case 0 :
-						fragment = new AllCourceFragment();
+						fragment = new CourseFragment(ALL_CLASS_FILTER);
 						break;
 					case 1 :
-						fragment = new CommonCourceFragment();;
+						fragment = new CourseFragment(NORMAL_CLASS__FILTER);
 						break;
 					case 2 :
-						fragment = new HighCourceFragment();
+						fragment = new CourseFragment(SENIOR_CLASS__FILTER);
 						break;
 					case 3 :
-						fragment = new ShareCourceFragment();;
+						fragment = new CourseFragment(SHARE_CLASS__FILTER);
 						break;
 				}
 				return fragment;
@@ -172,4 +171,35 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 		}
 	}
 
+	public interface ClassFitler{
+		boolean filterClass(Item item);
+	}
+
+	public static final ClassFitler ALL_CLASS_FILTER = new ClassFitler() {
+		@Override
+		public boolean filterClass(Item item) {
+			return true;
+		}
+	};
+
+	public static final ClassFitler NORMAL_CLASS__FILTER = new ClassFitler() {
+		@Override
+		public boolean filterClass(Item item) {
+			return item.getType().equals("course");
+		}
+	};
+
+	public static final ClassFitler SENIOR_CLASS__FILTER = new ClassFitler() {
+		@Override
+		public boolean filterClass(Item item) {
+			return item.getType().equals("senior");
+		}
+	};
+
+	public static final ClassFitler SHARE_CLASS__FILTER = new ClassFitler() {
+		@Override
+		public boolean filterClass(Item item) {
+			return item.getType().equals("share");
+		}
+	};
 }

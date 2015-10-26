@@ -36,7 +36,7 @@ import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
 
-public class AllCourceFragment extends Fragment {
+public class AllCourseFragment extends Fragment {
 	private RefreshLayout mRefreshLayout;
 	private LoadViewUtil mLoadViewUtil;
 	/*expandableListView*/

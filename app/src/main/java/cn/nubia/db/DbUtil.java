@@ -37,7 +37,6 @@ public class DbUtil {
     }
 
     public void dropDatabase(){
-        Log.e("wj","dropDatabase");
         dbHelper.onDropDatabase(db);
     }
 
@@ -46,6 +45,9 @@ public class DbUtil {
     }
 
     public long insertCourseItem(CourseItem courseItem, String tableName) {
+        if(qureyCourse(courseItem.getIndex(),tableName)){
+            return -1;
+        }
         ContentValues newValues = new ContentValues();
         newValues.put(CourseItem.COURSE_INDEX, courseItem.getIndex());
         newValues.put(CourseItem.NAME, courseItem.getName());
@@ -286,4 +288,11 @@ public class DbUtil {
         return examItemList;
     }
 
+    private boolean qureyCourse(int courseIndex ,String tableName){
+        Cursor cursor = db.query(tableName, null, LessonItem.COURSE_INDEX + "=" + courseIndex, null, null,
+                null, null);
+        boolean norExisted = cursor == null || cursor.isClosed()||(cursor.getCount() == 0);
+        cursor.close();
+        return !norExisted;
+    }
 }
