@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/class_item_heigh"
     android:background="@color/class_item_background_open"
-    android:paddingLeft="@dimen/class_item_padding_left">
+    android:minHeight="@dimen/class_item_heigh">
 
     <ImageView
         android:id="@+id/item_layout_imageview"
@@ -12,18 +12,19 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/calss_item_padding_left"
         android:layout_marginTop="5dp"
         android:src="@mipmap/icon_lesson_course" />
 
     <TextView
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@id/view"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
         android:singleLine="true"
         android:text="java基础一"
+        android:textColor="@color/class_item_font"
         android:textSize="@dimen/textSize16" />
 
     <TextView
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/calss_item_padding_right"
         android:background="@color/item_operation_attention"
         android:gravity="center"
         android:text="待评价"
@@ -42,17 +44,19 @@
         android:id="@+id/item_layout_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
         android:layout_below="@id/item_layout_title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/item_layout_imageview"
         android:text="C-6室，\n8月24号 9:00~测试测试测试测试测试11:00，张三"
-        android:textColor="#ff9f9f9f"
-        android:textSize="10sp" />
-    <!--android:layout_toEndOf="@id/item_layout_imageview"-->
+        android:textColor="@color/class_item_font"
+        android:textSize="12sp" />
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="3dp"></View>
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/class_item_space"></View>
 </RelativeLayout>
 

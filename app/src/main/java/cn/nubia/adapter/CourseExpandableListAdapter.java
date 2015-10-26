@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +180,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
             groupViewHolder.mCourseDetailTextView = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             groupViewHolder.mCourseNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
-            groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
+//            groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
             groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             groupViewHolder.mCourseIconIV = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             /**four tags**/
@@ -193,6 +193,12 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+
+//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)convertView.getLayoutParams();
+//        params.width =;
+//        params.height = ;
+//
+//        convertView.setLayoutParams(params);
 
         /**
          * 四个标记的意思是：
@@ -248,7 +254,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         /**不管管理员还是普通用户，隐去“报名考试”标记*/
-        groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
+//        groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
         /**不管是管理员还是普通用户，设置“考”标记的规则是一样的*/
         /**判断是否有考试*/
         if(mGroupList.get(groupPosition).hasExam() == false){
@@ -315,13 +321,13 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         });
 
         /**为"报名考试" 的textview添加点击事件**/
-        groupViewHolder.mSignUpExamTextView.setOnClickListener(new View.OnClickListener() {
+       /* groupViewHolder.mSignUpExamTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**怎么getparent()？**/
+                *//**怎么getparent()？**//*
                 Toast.makeText(mContext, "报名考试成功", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         groupViewHolder.mCourseNameTextView.setText(mGroupList.get(groupPosition).getName());
         return convertView;
