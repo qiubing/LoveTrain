@@ -16,6 +16,12 @@
     <color name="background_color">#f8f8f8</color>
     <!--android:background="@drawable/item_bg" content layout_background-->
 
+    <!--WJ style-->
+    <color name="network_error_background">#FFDBD6</color>
+
+
+
+
     <!--<color name="project_background">#fff2fafc</color>-->
     <color name="transparent">#00000000</color>
     <color name="greytow">#969696</color>
