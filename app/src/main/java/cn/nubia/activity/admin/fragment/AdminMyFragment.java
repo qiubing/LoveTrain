@@ -27,7 +27,6 @@ import cn.nubia.activity.LoginActivity;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminCreditActivity;
 import cn.nubia.activity.admin.AdminCreditsAwardActivity;
-import cn.nubia.activity.admin.AdminMyTabActivity;
 import cn.nubia.activity.admin.AdminRateActivity;
 import cn.nubia.activity.admin.AdminScoreActivity;
 import cn.nubia.activity.admin.AdminUserActivity;
@@ -88,9 +87,10 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		mChangeAccoutn.setOnClickListener(this);
 		mAwardCreditTV.setOnClickListener(this);
 	}
-    /*Fragment没有这两个方法，待解决*/
-	/*@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == GET_PHOTO_CODE_ADMIN && resultCode == 3) {
 			Bundle extras = data.getExtras();
 			if (extras != null) {
@@ -101,6 +101,38 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		//头像图片存储路径
+		String path = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
+		Bitmap bitmap = Utils.getPictureFromSD(path);
+		if (bitmap != null) {
+			Drawable drawable = new BitmapDrawable(bitmap);
+			Log.i("huhu", "Path: " + path);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView.setImageDrawable(drawable);
+		}else{//从服务器中加载
+			String remotePath = Constant.PICTURE_PREFIX +
+					Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
+			Log.i("huhu", "remotePath: " + remotePath);
+			//从服务器加载图片，传递url地址过去
+			AsyncHttpHelper.get(remotePath, mPictureHandler);
+		}
+	}
+
+	/*@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == GET_PHOTO_CODE_ADMIN && resultCode == 3) {
+			Bundle extras = data.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				Drawable drawable = new BitmapDrawable(photo);
+				mCircleImageView.setImageDrawable(drawable);
+			}
+		}
+	}*/
+	/*
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -123,7 +155,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 	private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler(){
 		@Override
 		public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-			Log.e("AdminMyTabActivity","onSuccess: 加载成功");
+			Log.i("huhu","onSuccess: 加载成功");
 			InputStream input = new ByteArrayInputStream(bytes);
 			Bitmap bitmap = BitmapFactory.decodeStream(input);
 			Drawable drawable = new BitmapDrawable(bitmap);
@@ -143,7 +175,6 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		}
 	};
 
-
 	@Override
 	public void onClick(View v) {
 		int viewId = v.getId();
@@ -151,8 +182,8 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		switch (viewId) {
 			case R.id.icon1:
 				intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
-//				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
-				startActivity(intent);
+				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
+//				startActivity(intent);
 				break;
 			case R.id.queryscore:
 				intent = new Intent(getActivity(), AdminScoreActivity.class);

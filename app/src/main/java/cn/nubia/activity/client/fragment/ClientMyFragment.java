@@ -105,8 +105,8 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 		switch (v.getId()){
 			case R.id.icon1:
 				Intent intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
-//				startActivityForResult(intent, GET_PHOTO_CODE);
-				startActivity(intent);
+				startActivityForResult(intent, GET_PHOTO_CODE);
+//				startActivity(intent);
 				break;
 			case R.id.check_in_record:
 				myStartActivity(ClientMyCheckRecordActivity.class);
@@ -187,7 +187,40 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 		intent.setClass(getActivity(), cls);
 		startActivity(intent);
 	}
-     /*Fragment没有这两个方法，待解决*/
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == GET_PHOTO_CODE && resultCode == 3) {
+			Bundle extras = data.getExtras();
+			if (extras != null) {
+				Bitmap photo = extras.getParcelable("data");
+				Drawable drawable = new BitmapDrawable(photo);
+				mCircleImageView.setImageDrawable(drawable);
+			}
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
+		Bitmap bitmap = Utils.getPictureFromSD(localPath);
+		if (bitmap != null) {
+			Drawable drawable = new BitmapDrawable(bitmap);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView.setImageDrawable(drawable);
+		}else{//从服务器中加载
+			String remotePath = Constant.PICTURE_PREFIX +
+					Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
+			Log.e(TAG, "remotePath: " + remotePath);
+			//从服务器加载图片，传递url地址过去
+			AsyncHttpHelper.get(remotePath, mPictureHandler);
+		}
+	}
+
+
+	/*Fragment没有这两个方法，待解决*/
 	/*@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == GET_PHOTO_CODE && resultCode == 3) {
