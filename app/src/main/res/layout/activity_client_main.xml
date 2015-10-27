@@ -8,7 +8,7 @@
     <RadioGroup
         android:id="@+id/client_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_bottom_height"
         android:layout_alignParentBottom="true"
         android:background="@color/toolbar_bg"
         android:gravity="center_vertical"
@@ -76,7 +76,8 @@
             android:textSize="@dimen/item_bottom_text_size"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="@dimen/toolbar_bottom_padding"
+            android:textColor="@color/toolbar_bg"
+            android:layout_marginBottom="@dimen/toolbar_bottom_sign_in"
             />
         
     </RelativeLayout>

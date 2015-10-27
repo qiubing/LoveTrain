@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height">
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,14 +63,14 @@
                     android:visibility="gone"/>
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <ImageView
                 android:id="@+id/item_share_add"
@@ -78,7 +79,7 @@
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_add"
                 android:layout_marginRight="10dp"
-                android:layout_weight="0.225"
+                android:layout_weight="0.15"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true" />
         </LinearLayout>
