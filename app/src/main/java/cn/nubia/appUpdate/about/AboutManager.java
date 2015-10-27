@@ -140,8 +140,8 @@ public class AboutManager {
         public void onGetNewVersion(VersionData versionData) {
             if(versionData.isUpdate()){
                 if (isAutoDetect){
-//                    SettingsDataStore store =
-                    /********ADD SettingsDataStore here*********/
+                    SettingsDataStore store = new SettingsDataStore(mContext);
+                    store.setSwitchStatus(SettingsDataStore.DETECT_NEW_VERSION_KEY,true);
 
                     Intent intent = new Intent(NEW_VERSION);
                     intent.putExtra("new_version",true);
@@ -159,8 +159,8 @@ public class AboutManager {
         @Override
         public void onGetNoVersion() {
             if(isAutoDetect){
-         /********ADD SettingsDataStore here*********/
-
+                SettingsDataStore store = new SettingsDataStore(mContext);
+                store.setSwitchStatus(SettingsDataStore.DETECT_NEW_VERSION_KEY,false);
                 Intent intent = new Intent(NEW_VERSION);
                 intent.putExtra("new_version",false);
                 mContext.sendBroadcast(intent);
@@ -188,7 +188,7 @@ public class AboutManager {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         /**** revise here ***/
-        View view = layoutInflater.inflate(R.layout.select_dialog_multichoice_material,null);
+        View view = layoutInflater.inflate(R.layout.setting_detect_process_dialog,null);
 
         builder.setView(view);
         connectDialog = builder.create();
@@ -252,9 +252,8 @@ public class AboutManager {
         window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
 
-        /******revise here****/
-        window.setContentView(R.layout.layout_load_wifi_failure);
-        TextView stopUpdate = (TextView) window.findViewById(R.id.manager_goback);
+        window.setContentView(R.layout.settings_layout_update_notify_dialog);
+        TextView stopUpdate = (TextView) window.findViewById(R.id.settings_update_dialog_not_update);
         stopUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,8 +262,7 @@ public class AboutManager {
             }
         });
 
-        /******revise here****/
-        TextView nowUpdate = (TextView) window.findViewById(R.id.manager_goback);
+        TextView nowUpdate = (TextView) window.findViewById(R.id.settings_update_dialog_now_update);
         nowUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,13 +273,16 @@ public class AboutManager {
             }
         });
 
-/******revise here****/
-        TextView versionTitle = (TextView) window.findViewById(R.id.manager_goback);
+        TextView versionTitle = (TextView) window.findViewById(R.id.settings_update_dialog_version_name);
         versionTitle.setText(mContext.getResources().getString(R.string.title_activity_regist)+version);
 
         if(!size.equals("")){
-            Log.e("add LayoutHERE","LayoutHERE");
+            TextView sizeTitle = (TextView) window.findViewById(R.id.settings_update_dialog_version_size);
+            sizeTitle.setText(mContext.getResources().getString(R.string.scan_text)+size);
         }
+
+        TextView contentView = (TextView) window.findViewById(R.id.settings_update_dialog_content);
+        contentView.setText(mContext.getResources().getString(R.string.scan_text)+update);
     }
 
     private static class DownLoadListener implements IDownLoadListener{
