@@ -46,7 +46,7 @@ import cn.nubia.util.Utils;
 public class ClientMyFragment extends Fragment implements View.OnClickListener {
 	private static final String TAG = "UserSetting";
 	private static final int GET_PHOTO_CODE = 1;
-
+	private static final String UPDATE_INTENT_ACTON = "cn.nubia.appUpdate.newVersion";
 	private CircleImageView mCircleImageView;
 	private TextView mCheckRecord;
 	private TextView mCourseIntergration;
@@ -136,7 +136,10 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 				myStartActivity(FeedBackActivity.class);
 				break;
 			case R.id.btn_version:
-				showUpdatDialog();
+//				showUpdatDialog();
+				Intent service = new Intent(UPDATE_INTENT_ACTON);
+				service.putExtra("command","update");
+				this.getActivity().getApplicationContext().startService(service);
 				break;
 			case R.id.bt_logout:
 				//注销登录

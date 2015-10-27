@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.packgeinstaller"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="first version"
     package="cn.nubia.activity">
 
@@ -31,7 +30,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="unique_key"
-            android:value="100004"
+            android:value="100067"
             />
         <!--胡立加-->
         <activity
@@ -164,6 +163,26 @@
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <service android:name="cn.nubia.service.CommunicateService"/>
+        <service android:name="cn.nubia.appUpdate.about.UpdateService">
+            <intent-filter>
+                <action android:name="cn.nubia.appUpdate.newVersion"/>
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="cn.nubia.appUpdate.wifipush.NetworkReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.con.CONNECTIVITY_CHANGE"/>
+                <action android:name="cn.nubia.lovetrain.update.change"/>
+                <action android:name="cn.nubia.appUpdate.wifipush.WifiUpdateService"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="cn.nubia.appUpdate.wifipush.WifiUpdateService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.nubia.appUpdate.wifipush.WifiUpdateService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -33,10 +33,9 @@ import cn.nubia.upgrade.model.VersionData;
  */
 public class AboutManager {
     private static final String AppLogUrl = "";
-    private final static String NEW_VERSION = "cn.nubia.appUpdate.change";
-    private static final String AUTH_ID = "";
-    private static final String AUTH_KEY = "";
-    private static NubiaUpgradeManager mNubiaUpgradeManager;
+    private final static String NEW_VERSION = "cn.nubia.lovetrain.update.change";
+    private static final String AUTH_ID = "OHxuZVn30b99e477";
+    private static final String AUTH_KEY = "025df7336bd7fe24";
     private static final String TAG = "AboutManager";
     private static VersionData mVersionData;
 
@@ -47,13 +46,14 @@ public class AboutManager {
     private final static int FLAG_UPDATE_QUERYING = 1;
     private final static int FLAG_UPDATE_NETWORK_ERROR = 2;
     private final static int FLAG_UPDATE_NO_NEW_VERSION = 3;
+    private final static int FLAG_UPDATE_NOTIFICATION = 4;
     private final static int FLAG_UPDATE_QUERY_TIMEOUT = 5;
 
     private final static String VERSION_NAME = "verName";
     private final static String UPDATE_CONTENT = "content";
     private final static String VERSION_SIZE = "appsize";
 
-    private final static int TIMEOUT = 5*1000;
+    private final static int TIMEOUT = 10*1000;
     private static NubiaUpgradeManager mUpgradeManager;
 
     public static NubiaUpgradeManager getUpgradeManager() {
@@ -71,14 +71,72 @@ public class AboutManager {
 
         @Override
         public void handleMessage(Message msg) {
+            Log.e("wj","MyHandler  handleMessage");
             super.handleMessage(msg);
             switch (msg.what){
                 case FLAG_UPDATE_NEW_VERSION:
+                {
                     AboutManager mgr = _mgr.get();
                     if (mgr != null){
                         Bundle data = msg.getData();
-
+                        mgr.showDialog(data.getString(VERSION_SIZE),
+                                data.getString(VERSION_SIZE),
+                                data.getString(UPDATE_CONTENT));
                     }
+//                    _mgr.clear();
+                }
+                    break;
+                case FLAG_UPDATE_QUERYING:
+                {
+                    Log.e("wj","FLAG_UPDATE_QUERYING");
+                    AboutManager mgr = _mgr.get();
+                    if(null != mgr){
+                        Log.e("wj","null != mgr");
+                        mgr.showProcessDialog();
+                    }
+//                    _mgr.clear();
+                }
+                    break;
+                case FLAG_UPDATE_NETWORK_ERROR:
+                {
+                    AboutManager mgr = _mgr.get();
+                    if(null != mgr){
+                        mgr.showErrorDialog();
+                    }
+//                    _mgr.clear();
+                }
+                    break;
+                case FLAG_UPDATE_NO_NEW_VERSION:
+                {
+                    AboutManager mgr = _mgr.get();
+                    if(null != mgr){
+                        Log.e("wj","if(null != mgr){");
+                        mgr.showNoUpdateDialog();
+                    }
+//                    _mgr.clear();
+                }
+                    break;
+                case FLAG_UPDATE_QUERY_TIMEOUT:
+                {
+                    Log.e("wj","FLAG_UPDATE_QUERY_TIMEOUT");
+                    AboutManager mgr = _mgr.get();
+                    if(null != mgr){
+                        Log.e("wj","ull != mgr showErrorDialog");
+                        mgr.showErrorDialog();
+                    }
+//                    _mgr.clear();
+                }
+                    break;
+                case FLAG_UPDATE_NOTIFICATION:
+                {
+                    AboutManager mgr = _mgr.get();
+                    if(null != mgr){
+                        mgr.sendNewVersionNotification();
+                    }
+                }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -125,6 +183,7 @@ public class AboutManager {
             msg.what = FLAG_UPDATE_QUERYING;
             mHandler.sendMessage(msg);
         }
+        Log.e("wj","checkVersion");
         getUpgradeManager().getVersion(mContext,new getVersionListener(isAutoDetect));
     }
 
@@ -138,8 +197,10 @@ public class AboutManager {
 
         @Override
         public void onGetNewVersion(VersionData versionData) {
+            Log.e("wj","onGetNewVersion");
             if(versionData.isUpdate()){
                 if (isAutoDetect){
+                    Log.e("wj","onGetNewVersion isAutoDetect");
                     SettingsDataStore store = new SettingsDataStore(mContext);
                     store.setSwitchStatus(SettingsDataStore.DETECT_NEW_VERSION_KEY,true);
 
@@ -147,6 +208,7 @@ public class AboutManager {
                     intent.putExtra("new_version",true);
                     mContext.sendBroadcast(intent);
                 }else {
+                    Log.e("wj","onGetNewVersion   not  isAutoDetect");
                     Message msg = Message.obtain();
                     msg.what = FLAG_UPDATE_NO_NEW_VERSION;
                     mVersionData = versionData;
@@ -158,7 +220,9 @@ public class AboutManager {
 
         @Override
         public void onGetNoVersion() {
+            Log.e("wj","onGetNoVersion");
             if(isAutoDetect){
+                Log.e("wj","onGetNoVersion   not  isAutoDetect");
                 SettingsDataStore store = new SettingsDataStore(mContext);
                 store.setSwitchStatus(SettingsDataStore.DETECT_NEW_VERSION_KEY,false);
                 Intent intent = new Intent(NEW_VERSION);
@@ -166,6 +230,7 @@ public class AboutManager {
                 mContext.sendBroadcast(intent);
                 stopUpdateService();
             }else {
+                Log.e("wj","onGetNoVersion   not  isAutoDetect");
                 Message msg = Message.obtain();
                 msg.what = FLAG_UPDATE_NO_NEW_VERSION;
                 mHandler.sendMessage(msg);
@@ -174,6 +239,7 @@ public class AboutManager {
 
         @Override
         public void onError(int i) {
+            Log.e("wj","onError"+i);
             if(isAutoDetect){
                 stopUpdateService();
             }else {
@@ -186,10 +252,11 @@ public class AboutManager {
 
     private void showProcessDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("正在检查新版本……");
+
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         /**** revise here ***/
         View view = layoutInflater.inflate(R.layout.setting_detect_process_dialog,null);
-
         builder.setView(view);
         connectDialog = builder.create();
         connectDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
@@ -201,6 +268,7 @@ public class AboutManager {
     }
 
     private void showErrorDialog(){
+        Log.e("wj","showErrorDialog");
         if(connectDialog !=null && connectDialog.isShowing()){
             connectDialog.dismiss();
         }

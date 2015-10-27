@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 /**
  * Description:
@@ -18,14 +19,17 @@ public class NetworkReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        Log.e("wj","onReceive");
         if (CONNECTIVITY_CHANGE_ACTION.equals(action)){
+            Log.e("wj","ONNECTIVITY_CHANGE_ACTION.equals(action)");
             if (isWifiConnected(context) && WifiPushSwitch.isEnable(context)){
                 startService(context,
-                        WifiUpdateService.COMMAND_CHECK_I_SHARE_VERSION);
+                        WifiUpdateService.COMMAND_CHECK_NBSECURITY_VERSION);
             }else {
                 stopService(context);
             }
         }else if ("cn.nubia.appUpdate.wifipush.WifiUpdateService".equals(action)){
+            Log.e("wj","cn.nubia.appUpdate.wifipush.WifiUpdateService.equals(acti");
             startService(context,WifiUpdateService.COMMAND_CHECK_UPDATE_APK);
         }
     }

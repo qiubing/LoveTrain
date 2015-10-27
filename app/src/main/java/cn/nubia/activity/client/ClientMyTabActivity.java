@@ -43,7 +43,7 @@ import cn.nubia.util.Utils;
 public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final String TAG = "UserSetting";
     private static final int GET_PHOTO_CODE = 1;
-
+    private static final String UPDATE_INTENT_ACTON = "cn.nubia.appUpdate.newVersion";
     private CircleImageView mCircleImageView;
     private TextView mCheckRecord;
     private TextView mCourseIntergration;
@@ -132,6 +132,9 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
                 break;
             case R.id.btn_version:
                 Log.e(TAG,"update version");
+                Intent service = new Intent(UPDATE_INTENT_ACTON);
+                service.putExtra("command","update");
+                this.getApplicationContext().startService(service);
                 //UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
                 //检查更新
                 //manager.checkUpdate();
