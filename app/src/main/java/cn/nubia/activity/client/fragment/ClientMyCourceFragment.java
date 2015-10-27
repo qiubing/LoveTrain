@@ -2,6 +2,7 @@ package cn.nubia.activity.client.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.ClientMainActivity;
+import cn.nubia.activity.client.ClientMyShareCourseDetailFillActivity;
+
 /**客户端我的课程界面：顶部滑动导航栏
  * 采用RelativeLayout+ViewPager结构
  * 布局为LinearLayout，上面为两个标题条(每个标题条下面为分隔条，处于隐藏状态)和扫描ImageView，下面为一条分隔条，和标题条的高度一致，
@@ -30,6 +33,7 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 	private View[] mDividerViews = new View[2];
 	private int currentItemId;
 	private View rootView;
+	private ImageView addShareCource;
 //	private ImageView searchView;
 
 	// 重写该方法，该方法返回的View将作为Fragment显示的组件
@@ -41,20 +45,21 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 		return rootView;
 	}
 
-	void initViews() {
+	private void initViews() {
 		viewPager = (ViewPager) rootView.findViewById(R.id.client_my_course_viewpager);
 		mTextViews[0] = (TextView) rootView.findViewById(R.id.client_student);
 		mTextViews[1] = (TextView) rootView.findViewById(R.id.client_teacher);
 		mDividerViews[0] = rootView.findViewById(R.id.client_student_divider);
 		mDividerViews[1] = rootView.findViewById(R.id.client_teacher_divider);
+		addShareCource = (ImageView) rootView.findViewById(R.id.item_share_add);
 		/*searchView = (ImageView) rootView.findViewById(R.id.client_search);*/
 	}
 
-	void initEvents() {
+	private void initEvents() {
 		for (TextView mTextView : mTextViews) {
 			mTextView.setOnClickListener(ClientMyCourceFragment.this);
 		}
-//		searchView.setOnClickListener(ClientMyCourceFragment.this);
+		addShareCource.setOnClickListener(ClientMyCourceFragment.this);
 		updataItemUI(0, R.color.toolbar_bg);
 		FragmentPagerAdapter mFragmentPagerAdapter = new FragmentPagerAdapter(
 				((FragmentActivity)getActivity()).getSupportFragmentManager()) {
@@ -132,8 +137,12 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 					viewPager.setCurrentItem(1);
 				}
 				break;
-			/*case R.id.client_search :
-				Toast.makeText(getActivity(), "下个版本完成，敬请期待", Toast.LENGTH_SHORT).show();*/
+			case R.id.item_share_add :
+				Intent intent = new Intent(getActivity(), ClientMyShareCourseDetailFillActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("type","insert");
+				intent.putExtras(bundle);
+				startActivity(intent);
 		}
 	}
 }

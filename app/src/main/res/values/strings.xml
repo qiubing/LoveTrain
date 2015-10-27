@@ -2,8 +2,8 @@
 
     <!--胡立加-->
     <string name="app_name">LoveTrain</string>
-    <string name="my_cource">我的课程</string>
-    <string name="all_cource">全部课程</string>
+    <string name="my_cource">爱分享</string>
+    <string name="all_cource">课程</string>
     <string name="sign_in">签到</string>
     <string name="exam">考试</string>
     <string name="my">我的</string>
@@ -19,6 +19,9 @@
     <string name="item_exam">全部考试</string>
     <string name="item_waite_share">待审核</string>
     <string name="item_pass_share">已通过</string>
+    <string name="login_client">普通用户</string>
+    <string name="login_admin">管理员</string>
+    <string name="login_sign_in">注册</string>
 
 
 

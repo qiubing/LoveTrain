@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+
     <RadioGroup
         android:id="@+id/client_group"
         android:layout_width="match_parent"
@@ -16,32 +17,34 @@
         <RadioButton
             android:id="@+id/client_radio_my_course"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_my_course_selector"
+            android:drawableTop="@mipmap/icon_my_cource"
             android:checked="true"
             android:text="@string/my_cource" />
 
         <RadioButton
             android:id="@+id/client_radio_all_cource"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_all_selector"
-            android:text="@string/all_cource" />
+            android:drawableTop="@mipmap/icon_all_cource"
+            android:text="@string/all_cource"
+        />
 
         <RadioButton
-            android:id="@+id/client_radio_sign_in"
-            style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_all_selector"
-            android:text="@string/sign_in" />
+            android:id="@+id/client_radio_empty"
+            android:layout_height="@dimen/zero"
+            android:layout_width="@dimen/zero"
+            android:layout_weight="1"
+            android:enabled="false"/>
 
         <RadioButton
             android:id="@+id/client_radio_exam"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_exam_selector"
+            android:drawableTop="@mipmap/icon_exam"
             android:text="@string/exam" />
 
         <RadioButton
             android:id="@+id/client_radio_my"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_my_selector"
+            android:drawableTop="@mipmap/icon_my"
             android:text="@string/my" />
     </RadioGroup>
 
@@ -50,4 +53,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/client_group" />
+    
+    <RelativeLayout
+        android:id="@+id/client_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_bottom_sign_in_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_sign_in_selector"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in"
+            android:textSize="@dimen/item_bottom_text_size"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/toolbar_bottom_padding"
+            />
+        
+    </RelativeLayout>
+
+    <!--<TextView
+        android:id="@+id/client_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_bottom_sign_in_height"
+        android:background="@drawable/icon_sign_in_selector"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sign_in"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="@dimen/toolbar_bottom_padding"
+        android:textSize="@dimen/item_bottom_text_size"
+        />-->
 </RelativeLayout>

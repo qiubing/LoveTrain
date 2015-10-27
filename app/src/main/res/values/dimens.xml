@@ -4,11 +4,14 @@
     <!--胡立加-->
     <dimen name="toolbar_bottom_padding">9dp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="divider_thin">0.5dp</dimen>
+    <dimen name="divider_thin">1dp</dimen>
     <dimen name="divider_thick">3dp</dimen>
     <dimen name="item_text_size">16sp</dimen>
     <dimen name="item_margin">15dp</dimen>
-    <dimen name="item_height">45dp</dimen>
+    <dimen name="item_height">50dp</dimen>
+    <dimen name="item_bottom_height">60dp</dimen>
+    <dimen name="item_bottom_sign_in_height">70dp</dimen>
+    <dimen name="item_bottom_text_size">12sp</dimen>
 
 
 

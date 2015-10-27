@@ -16,26 +16,26 @@
         <RadioButton
             android:id="@+id/admin_radio_all_course"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_all_selector"
+            android:drawableTop="@mipmap/icon_all_cource"
             android:checked="true"
             android:text="@string/all_cource" />
 
         <RadioButton
             android:id="@+id/admin_radio_exam"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_exam_selector"
+            android:drawableTop="@mipmap/icon_exam"
             android:text="@string/exam" />
 
         <RadioButton
             android:id="@+id/admin_radio_share"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_my_course_selector"
+            android:drawableTop="@mipmap/icon_exam"
             android:text="@string/item_share_cource" />
 
         <RadioButton
             android:id="@+id/admin_radio_my"
             style="@style/toolbar_button_style"
-            android:drawableTop="@drawable/icon_my_selector"
+            android:drawableTop="@mipmap/icon_my"
             android:text="@string/my" />
     </RadioGroup>
 

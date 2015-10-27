@@ -27,7 +27,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/admin_check_share_divider"
@@ -35,8 +35,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -53,7 +51,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/admin_pass_share_divider"
@@ -61,8 +59,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
             <!--<ImageView
@@ -82,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_thin"
             android:layout_alignParentBottom="true"
-            android:background="@color/toolbar_text_color_normal" />
+            android:background="@color/toolbar_bg" />
 
     </RelativeLayout>
 

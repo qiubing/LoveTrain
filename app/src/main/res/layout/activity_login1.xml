@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/title_bgn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/title_bgn"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/slogan"/>
 
     <RelativeLayout
+        android:id="@+id/login_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height">
+        android:layout_height="@dimen/item_height"
+        android:layout_below="@id/title_bgn">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <RelativeLayout
                 android:layout_width="@dimen/zero"
@@ -20,17 +31,17 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/client_student"
+                    android:id="@+id/login_client"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/student"
+                    android:text="@string/login_client"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
-                    android:id="@+id/client_student_divider"
+                    android:id="@+id/login_client_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
@@ -44,17 +55,17 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/client_teacher"
+                    android:id="@+id/login_admin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/teacher"
+                    android:text="@string/login_admin"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
-                    android:id="@+id/client_teacher_divider"
+                    android:id="@+id/login_admin_divider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
@@ -66,22 +77,26 @@
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/item_share_add"
-                android:layout_width="@dimen/zero"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/icon_add"
-                android:layout_marginRight="10dp"
-                android:layout_weight="0.225"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/login_sign_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/login_sign_in"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_text_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/toolbar_text_color_normal"/>
+
+                <View
+                    android:id="@+id/login_sign_in_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divider_thick"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/toolbar_bg"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+        </LinearLayout>>
 
         <View
             android:layout_width="match_parent"
@@ -92,8 +107,9 @@
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/client_my_course_viewpager"
+        android:id="@+id/login_viewpage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/login_item_layout"/>
 
-</LinearLayout>
+</RelativeLayout>

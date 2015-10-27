@@ -55,7 +55,10 @@
 
 
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".EmptyActivity" />
+        <activity
+            android:name=".LoginActivity1"
+            android:theme="@android:style/Theme.Light.NoTitleBar"/>
+
 
 
 

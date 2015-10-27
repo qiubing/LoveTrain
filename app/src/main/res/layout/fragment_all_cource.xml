@@ -27,7 +27,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/item_all_cource_divider"
@@ -35,8 +35,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -53,7 +51,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/item_common_cource_divider"
@@ -61,8 +59,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -79,7 +75,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/item_high_cource_divider"
@@ -87,8 +83,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -105,7 +99,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textStyle="bold"
-                    android:textColorHighlight="@color/toolbar_text_color_normal"/>
+                    android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
                     android:id="@+id/item_share_cource_divider"
@@ -113,8 +107,6 @@
                     android:layout_height="@dimen/divider_thick"
                     android:layout_alignParentBottom="true"
                     android:background="@color/toolbar_bg"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
                     android:visibility="gone"/>
             </RelativeLayout>
 
@@ -123,9 +115,9 @@
                 android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/search_button"
+                android:src="@mipmap/icon_add"
                 android:layout_marginRight="10dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:visibility="gone"/>
@@ -135,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_thin"
             android:layout_alignParentBottom="true"
-            android:background="@color/toolbar_text_color_normal" />
+            android:background="@color/toolbar_bg" />
 
     </RelativeLayout>
 

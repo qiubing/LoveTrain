@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,7 +27,6 @@ import cn.nubia.activity.client.fragment.AllExamFragment;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyFragment;
-import cn.nubia.activity.client.fragment.ExamFragment;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.zxing.barcode.CaptureActivity;
@@ -45,7 +47,7 @@ public class ClientMainActivity extends FragmentActivity {
     private long mExitTime;
     private FragmentTransaction mFragmentTransaction;
     private int currentItem = -1;
-
+    private RelativeLayout signIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class ClientMainActivity extends FragmentActivity {
 
     private  void initViews() {
         mRadioGroup = (RadioGroup) findViewById(R.id.client_group);
+        signIn = (RelativeLayout) findViewById(R.id.client_sign_in);
     }
 
 
@@ -66,6 +69,14 @@ public class ClientMainActivity extends FragmentActivity {
         mFragmentTransaction.add(R.id.client_fragment_layout, mClientMyCourceFragment);
         currentItem = 0;
         mFragmentTransaction.commit();
+
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
+                startActivityForResult(openCameraIntent, 0);
+            }
+        });
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -83,12 +94,12 @@ public class ClientMainActivity extends FragmentActivity {
                         }
                         currentItem = 1;
                         break;
-                    case R.id.client_radio_sign_in:
+                    /*case R.id.client_radio_sign_in:
                         //startActivity(new Intent(this, SearchActivity.class));
                         //打开扫描界面扫描条形码或二维码
                         Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
                         startActivityForResult(openCameraIntent, 0);
-                        break;
+                        break;*/
                     case R.id.client_radio_exam:
                         if (currentItem != 3) {
                             setChoiceItem(3);

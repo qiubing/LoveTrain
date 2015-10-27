@@ -2,10 +2,11 @@
 <resources>
 
     <!--胡立加-->
-    <color name="toolbar_text_color_normal">#ff878a90</color>
+    <color name="toolbar_text_color_normal">#909090</color>
     <color name="toolbar_text_color_select">#ffffb701</color>
-    <color name="toolbar_bg">#3CB371</color>
-
+    <color name="toolbar_bg">#1EC789</color>
+    <color name="toolbar_bg_selected">#15A06D</color>
+    <color name="white">#ffffffff</color>
 
 
 
@@ -127,7 +128,7 @@
     <color name="button_sure_bg">#ffffb701</color>
     <color name="button_gray_bg">#ff808080</color>
     <color name="ECECEC">#ececec</color>
-    <color name="white">#ffffffff</color>
+
     <color name="item_projection_line">#ffededed</color>
     <color name="item_operation_attention">#ffffb701</color>
     <dimen name="dialog_default_btn_size">16.0dip</dimen>
