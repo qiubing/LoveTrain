@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -48,28 +48,28 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manager_my_setting);
-        TextView mQueryScoreTV;
-        TextView mQueryCreditTV;
-        TextView mRateManageTV;
-        TextView mAccountManageTV;
-        TextView mUserManageTV;
-        TextView mAboutUsTV;
-        Button mChangeAccoutn;
-        TextView mAwardCreditTV;
+        ImageView mQueryScoreTV;
+        ImageView mQueryCreditTV;
+        ImageView mRateManageTV;
+        ImageView mAccountManageTV;
+        ImageView mUserManageTV;
+        ImageView mAboutUsTV;
+        ImageView mChangeAccoutn;
+        ImageView mAwardCreditTV;
         TextView myUserName;
 
-        mQueryScoreTV = (TextView) findViewById(R.id.queryscore);
-        mQueryCreditTV = (TextView) findViewById(R.id.querycredit);
-        mRateManageTV = (TextView) findViewById(R.id.ratemanage);
-        mAccountManageTV = (TextView) findViewById(R.id.accountmanage);
-        mUserManageTV = (TextView) findViewById(R.id.usermanage);
-        mAboutUsTV = (TextView) findViewById(R.id.about_us);
-        mChangeAccoutn = (Button) findViewById(R.id.change_account);
-        mAwardCreditTV = (TextView) findViewById(R.id.awardcredit);
+        mQueryScoreTV = (ImageView) findViewById(R.id.queryscore);
+        mQueryCreditTV = (ImageView) findViewById(R.id.querycredit);
+        mRateManageTV = (ImageView) findViewById(R.id.ratemanage);
+        mAccountManageTV = (ImageView) findViewById(R.id.accountmanage);
+        mUserManageTV = (ImageView) findViewById(R.id.usermanage);
+        mAboutUsTV = (ImageView) findViewById(R.id.about_us);
+        mChangeAccoutn = (ImageView) findViewById(R.id.change_account);
+        mAwardCreditTV = (ImageView) findViewById(R.id.awardcredit);
 
-        myUserName = (TextView) findViewById(R.id.user_name);
+        myUserName = (TextView) findViewById(R.id.client_my_userName);
         myUserName.setText(Constant.user.getUserName());
-        mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+        mCircleImageView = (CircleImageView) findViewById(R.id.client_my_head_imageView);
         mCircleImageView.setOnClickListener(this);
 
         mQueryScoreTV.setOnClickListener(this);
@@ -102,7 +102,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         Bitmap bitmap = Utils.getPictureFromSD(path);
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(bitmap);
-            mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+            mCircleImageView = (CircleImageView) findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
         }else{//从服务器中加载
             String remotePath = Constant.PICTURE_PREFIX +
@@ -142,7 +142,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
         int viewId = v.getId();
         Intent intent;
         switch (viewId) {
-            case R.id.icon1:
+            case R.id.client_my_head_imageView:
                 intent = new Intent(this, ClientUpdateIconActivity.class);
                 startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
                 break;

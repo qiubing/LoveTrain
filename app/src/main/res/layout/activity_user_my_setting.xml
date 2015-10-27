@@ -11,162 +11,255 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
-                android:id="@+id/my_profile"
+                layout="@layout/userinfo_profile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/userinfo_profile_item" />
+                android:layout_height="wrap_content"/>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="@drawable/item_bg"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/check_in_record"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="我的签到记录" />-->
-                <TextView
-                    android:id="@+id/check_in_record"
-                    android:text="我的签到记录"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/check_in_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_checkin" />
+
+                    <TextView
+                        android:id="@+id/check_in_record"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/check_in_imageView"
+                        android:layout_toRightOf="@id/check_in_imageView"
+                        android:text="签到记录" />
+
+                    <ImageView
+                        android:id="@+id/checkIn_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
 
-                <!--<TextView-->
-                    <!--android:id="@+id/course_integration"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="我的课程积分" />-->
-                <TextView
-                    android:id="@+id/course_integration"
-                    android:text="我的课程积分"
-                    style="@style/text_view_style" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/exam_score"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="我的考试" />-->
-                <TextView
-                    android:id="@+id/exam_score"
-                    android:text="我的考试"
-                    style="@style/text_view_style" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
+                    <ImageView
+                        android:id="@+id/points_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_points" />
 
+                    <TextView
+                        android:id="@+id/course_integration"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/points_imageView"
+                        android:layout_toRightOf="@id/points_imageView"
+                        android:text="培训积分" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/course_share"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="我的课程分享" />-->
-                <TextView
-                    android:id="@+id/course_share"
-                    android:text="我的课程分享"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/points_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
 
-                <!--<TextView-->
-                    <!--android:id="@+id/i_want_share"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="我要分享" />-->
-                <TextView
-                    android:id="@+id/i_want_share"
-                    android:text="我要分享"
-                    style="@style/text_view_style" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/myExam_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_scores" />
+
+                    <TextView
+                        android:id="@+id/exam_score"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/myExam_imageView"
+                        android:layout_toRightOf="@id/myExam_imageView"
+                        android:text="考试成绩" />
+
+                    <ImageView
+                        android:id="@+id/examScores_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:background="#dddbdb" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/myShare_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_sharecourses" />
+
+                    <TextView
+                        android:id="@+id/course_share"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/myShare_imageView"
+                        android:layout_toRightOf="@id/myShare_imageView"
+                        android:text="我的分享" />
+
+                    <ImageView
+                        android:id="@+id/shareCourses_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
 
-                <!--<TextView-->
-                    <!--android:id="@+id/btn_passwd_change"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="密码修改" />-->
-                <TextView
-                    android:id="@+id/btn_passwd_change"
-                    android:text="密码修改"
-                    style="@style/text_view_style" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/passwordChange_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_passwordchange" />
+
+                    <TextView
+                        android:id="@+id/btn_passwd_change"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/passwordChange_imageView"
+                        android:layout_toRightOf="@id/passwordChange_imageView"
+                        android:text="密码修改" />
+
+                    <ImageView
+                        android:id="@+id/passwordChange_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/btn_about"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="关于我们" />-->
-                <TextView
-                    android:id="@+id/btn_about"
-                    android:text="关于我们"
-                    style="@style/text_view_style" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/checkUpdate_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_checkupdate" />
+
+                    <TextView
+                        android:id="@+id/btn_version"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/checkUpdate_imageView"
+                        android:layout_toRightOf="@id/checkUpdate_imageView"
+                        android:text="检测更新" />
+
+                    <ImageView
+                        android:id="@+id/checkUpdate_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/btn_fankui"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/account_text_view_height"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="意见反馈" />-->
-                <TextView
-                    android:id="@+id/btn_fankui"
-                    android:text="意见反馈"
-                    style="@style/text_view_style" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/feedback_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_feedback" />
+
+                    <TextView
+                        android:id="@+id/btn_fankui"
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/feedback_imageView"
+                        android:layout_toRightOf="@id/feedback_imageView"
+                        android:text="意见反馈" />
+
+                    <ImageView
+                        android:id="@+id/feedback_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/view_height"
                     android:background="#dddbdb" />
 
-                <TextView
-                    android:id="@+id/btn_version"
-                    android:text="检测更新"
-                    style="@style/text_view_style" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/logout_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_logout" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/logout_imageView"
+                        android:layout_toRightOf="@id/logout_imageView"
+                        android:text="退出登录" />
+
+                    <ImageView
+                        android:id="@+id/logout_forward"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                </RelativeLayout>
+
             </LinearLayout>
-
-            <Button
-                android:id="@+id/bt_logout"
-                style="@style/CustomBigLoginButton"
-                android:text="退出登录" />
         </LinearLayout>
     </ScrollView>
 

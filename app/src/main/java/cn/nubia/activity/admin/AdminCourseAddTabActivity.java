@@ -6,16 +6,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.nubia.activity.R;
 import cn.nubia.adapter.CourseExpandableListAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -157,6 +162,7 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
                 if (response.getInt("code") == 0 && response.getString("data") != null) {
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
                     JSONArray jsonArray = response.getJSONArray("data");
+                    //Log.e("1008AddTab", jsonArray.toString());
                     AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
                     mLoadHttpTask.execute(jsonArray);
                 }
@@ -221,6 +227,9 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            for(CourseItem courseItem : courseItemList){
+                Log.e("1008AddTab",courseItem.getName()+"--"+courseItem.getCourseCredits()+"--"+courseItem.getEnrollCredits());
+            }
             return courseItemList;
         }
 
@@ -248,6 +257,9 @@ public class AdminCourseAddTabActivity extends Activity implements OnTabActivity
         protected void onPostExecute(List<CourseItem> courseList) {
             if (courseList != null) {
                 mCourseItemList.addAll(courseList);
+            }
+            for(CourseItem courseItem : courseList){
+                Log.e("1008AddTab",courseItem.getName()+"--"+courseItem.getCourseCredits()+"--"+courseItem.getEnrollCredits());
             }
 //            int listLength = mCourseItemList.size();?
 //            for (int i = 0; i < listLength; i++) {

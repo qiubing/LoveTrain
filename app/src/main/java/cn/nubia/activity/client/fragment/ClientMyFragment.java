@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +27,10 @@ import java.io.InputStream;
 
 import cn.nubia.activity.LoginActivity1;
 import cn.nubia.activity.R;
-import cn.nubia.activity.client.AboutUsActivity;
 import cn.nubia.activity.client.ClientCourseIntegrationRecordActivity;
 import cn.nubia.activity.client.ClientExamScoreActivity;
 import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
 import cn.nubia.activity.client.ClientMyCheckRecordActivity;
-import cn.nubia.activity.client.ClientMyShareCourseDetailFillActivity;
 import cn.nubia.activity.client.ClientShareCourseActivity;
 import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.activity.client.FeedBackActivity;
@@ -48,16 +46,16 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 	private static final int GET_PHOTO_CODE = 1;
 	private static final String UPDATE_INTENT_ACTON = "cn.nubia.appUpdate.newVersion";
 	private CircleImageView mCircleImageView;
-	private TextView mCheckRecord;
-	private TextView mCourseIntergration;
-	private TextView mExamScore;
-	private TextView mCourseShare;
-	private TextView mIWantShare;
-	private TextView mPasswordChange;
-	private TextView mAboutMe;
-	private TextView mFanKui;
-	private TextView mVersion;
-	private Button mLogoutButton;
+	private ImageView mCheckRecord;
+	private ImageView mCourseIntergration;
+	private ImageView mExamScore;
+	private ImageView mCourseShare;
+//	private TextView mIWantShare;
+	private ImageView mPasswordChange;
+//	private TextView mAboutMe;
+	private ImageView mFanKui;
+	private ImageView mVersion;
+	private ImageView mLogoutButton;
 	private View rootView;
 
 	@Override
@@ -69,20 +67,24 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void initViews(){
-		TextView myUserName = (TextView) rootView.findViewById(R.id.user_name);
+		TextView myUserName = (TextView) rootView.findViewById(R.id.client_my_userName);
 		myUserName.setText(Constant.user.getUserName());
 
-		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
-		mCheckRecord = (TextView) rootView.findViewById(R.id.check_in_record);
-		mCourseIntergration = (TextView) rootView.findViewById(R.id.course_integration);
-		mCourseShare = (TextView) rootView.findViewById(R.id.course_share);
-		mIWantShare = (TextView) rootView.findViewById(R.id.i_want_share);
-		mExamScore = (TextView) rootView.findViewById(R.id.exam_score);
-		mPasswordChange = (TextView) rootView.findViewById(R.id.btn_passwd_change);
-		mAboutMe = (TextView) rootView.findViewById(R.id.btn_about);
-		mFanKui = (TextView) rootView.findViewById(R.id.btn_fankui);
-		mVersion = (TextView) rootView.findViewById(R.id.btn_version);
-		mLogoutButton = (Button) rootView.findViewById(R.id.bt_logout);
+		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
+
+		mCheckRecord = (ImageView) rootView.findViewById(R.id.checkIn_forward);
+		mCourseIntergration = (ImageView) rootView.findViewById(R.id.points_forward);
+		mExamScore = (ImageView) rootView.findViewById(R.id.examScores_forward);
+		mCourseShare = (ImageView) rootView.findViewById(R.id.shareCourses_forward);
+//		mIWantShare = (TextView) rootView.findViewById(R.id.i_want_share);
+
+		mPasswordChange = (ImageView) rootView.findViewById(R.id.passwordChange_forward);
+		mVersion = (ImageView) rootView.findViewById(R.id.checkUpdate_forward);
+//		mAboutMe = (TextView) rootView.findViewById(R.id.btn_about);
+		mFanKui = (ImageView) rootView.findViewById(R.id.feedback_forward);
+		mLogoutButton = (ImageView) rootView.findViewById(R.id.logout_forward);
+
+
 	}
 
 	private void initEvents(){
@@ -90,10 +92,10 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 		mCheckRecord.setOnClickListener(ClientMyFragment.this);
 		mCourseIntergration.setOnClickListener(ClientMyFragment.this);
 		mCourseShare.setOnClickListener(ClientMyFragment.this);
-		mIWantShare.setOnClickListener(ClientMyFragment.this);
+//		mIWantShare.setOnClickListener(ClientMyFragment.this);
 		mExamScore.setOnClickListener(ClientMyFragment.this);
 		mPasswordChange.setOnClickListener(ClientMyFragment.this);
-		mAboutMe.setOnClickListener(ClientMyFragment.this);
+//		mAboutMe.setOnClickListener(ClientMyFragment.this);
 		mFanKui.setOnClickListener(ClientMyFragment.this);
 		mVersion.setOnClickListener(ClientMyFragment.this);
 		mLogoutButton.setOnClickListener(ClientMyFragment.this);
@@ -107,41 +109,42 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 				startActivityForResult(intent, GET_PHOTO_CODE);
 //				startActivity(intent);
 				break;
-			case R.id.check_in_record:
+			case R.id.checkIn_forward:
 				myStartActivity(ClientMyCheckRecordActivity.class);
 				break;
-			case R.id.course_integration:
+			case R.id.points_forward:
 				myStartActivity(ClientCourseIntegrationRecordActivity.class);
 				break;
-			case R.id.exam_score:
+			case R.id.examScores_forward:
 				myStartActivity(ClientExamScoreActivity.class);
 				break;
-			case R.id.course_share:
+			case R.id.shareCourses_forward:
 				myStartActivity(ClientShareCourseActivity.class);
 				break;
-			case R.id.i_want_share:
-				Intent intent1 = new Intent(getActivity(),ClientMyShareCourseDetailFillActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("type","insert");
-				intent1.putExtras(bundle);
-				startActivity(intent1);
-				break;
-			case R.id.btn_passwd_change:
+//			case R.id.i_want_share:
+//				Intent intent1 = new Intent(getActivity(),ClientMyShareCourseDetailFillActivity.class);
+//				Bundle bundle = new Bundle();
+//				bundle.putString("type","insert");
+//				intent1.putExtras(bundle);
+//				startActivity(intent1);
+//				break;
+			case R.id.passwordChange_forward:
 				myStartActivity(ClientMyAccountmanaPswmodifyActivity.class);
 				break;
-			case R.id.btn_about:
-				myStartActivity(AboutUsActivity.class);
-				break;
-			case R.id.btn_fankui:
-				myStartActivity(FeedBackActivity.class);
-				break;
-			case R.id.btn_version:
-//				showUpdatDialog();
+//			case R.id.btn_about:
+//				myStartActivity(AboutUsActivity.class);
+//				break;
+			case R.id.checkUpdate_forward:
 				Intent service = new Intent(UPDATE_INTENT_ACTON);
 				service.putExtra("command","update");
 				this.getActivity().getApplicationContext().startService(service);
 				break;
-			case R.id.bt_logout:
+			case R.id.feedback_forward:
+				myStartActivity(FeedBackActivity.class);
+				break;
+
+
+			case R.id.logout_forward:
 				//注销登录
 				Intent logoutIntent = new Intent(getActivity(),
 						LoginActivity1.class);
@@ -210,7 +213,7 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 		Bitmap bitmap = Utils.getPictureFromSD(localPath);
 		if (bitmap != null) {
 			Drawable drawable = new BitmapDrawable(bitmap);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 			mCircleImageView.setImageDrawable(drawable);
 		}else{//从服务器中加载
 			String remotePath = Constant.PICTURE_PREFIX +

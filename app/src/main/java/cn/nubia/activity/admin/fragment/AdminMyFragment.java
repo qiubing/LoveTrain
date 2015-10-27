@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -43,14 +43,14 @@ import cn.nubia.util.Utils;
 public class AdminMyFragment extends Fragment implements View.OnClickListener {
 	private static final int GET_PHOTO_CODE_ADMIN = 1010;
 	private CircleImageView mCircleImageView;
-	private TextView mQueryScoreTV;
-	private TextView mQueryCreditTV;
-	private TextView mRateManageTV;
-	private TextView mAccountManageTV;
-	private TextView mUserManageTV;
-	private TextView mAboutUsTV;
-	private Button mChangeAccoutn;
-	private TextView mAwardCreditTV;
+	private ImageView mQueryScoreTV;
+	private ImageView mQueryCreditTV;
+	private ImageView mRateManageTV;
+	private ImageView mAccountManageTV;
+	private ImageView mUserManageTV;
+	private ImageView mAboutUsTV;
+	private ImageView mChangeAccoutn;
+	private ImageView mAwardCreditTV;
 	private TextView myUserName;
 	private View rootView;
 
@@ -63,17 +63,17 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void initViews(){
-		mQueryScoreTV = (TextView) rootView.findViewById(R.id.queryscore);
-		mQueryCreditTV = (TextView) rootView.findViewById(R.id.querycredit);
-		mRateManageTV = (TextView) rootView.findViewById(R.id.ratemanage);
-		mAccountManageTV = (TextView) rootView.findViewById(R.id.accountmanage);
-		mUserManageTV = (TextView) rootView.findViewById(R.id.usermanage);
-		mAboutUsTV = (TextView) rootView.findViewById(R.id.about_us);
-		mChangeAccoutn = (Button) rootView.findViewById(R.id.change_account);
-		mAwardCreditTV = (TextView) rootView.findViewById(R.id.awardcredit);
-		myUserName = (TextView) rootView.findViewById(R.id.user_name);
+		mQueryScoreTV = (ImageView) rootView.findViewById(R.id.queryscore);
+		mQueryCreditTV = (ImageView) rootView.findViewById(R.id.querycredit);
+		mRateManageTV = (ImageView) rootView.findViewById(R.id.ratemanage);
+		mAccountManageTV = (ImageView) rootView.findViewById(R.id.accountmanage);
+		mUserManageTV = (ImageView) rootView.findViewById(R.id.usermanage);
+		mAboutUsTV = (ImageView) rootView.findViewById(R.id.about_us);
+		mChangeAccoutn = (ImageView) rootView.findViewById(R.id.change_account);
+		mAwardCreditTV = (ImageView) rootView.findViewById(R.id.awardcredit);
+		myUserName = (TextView) rootView.findViewById(R.id.client_my_userName);
 		myUserName.setText(Constant.user.getUserName());
-		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 	}
 
 	private void initEvents(){
@@ -110,7 +110,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		if (bitmap != null) {
 			Drawable drawable = new BitmapDrawable(bitmap);
 			Log.i("huhu", "Path: " + path);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 			mCircleImageView.setImageDrawable(drawable);
 		}else{//从服务器中加载
 			String remotePath = Constant.PICTURE_PREFIX +
@@ -159,7 +159,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 			InputStream input = new ByteArrayInputStream(bytes);
 			Bitmap bitmap = BitmapFactory.decodeStream(input);
 			Drawable drawable = new BitmapDrawable(bitmap);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 			mCircleImageView.setImageDrawable(drawable);
 			//同时将图片保存到本地，用来下次加载
 			try {
@@ -180,7 +180,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		int viewId = v.getId();
 		Intent intent;
 		switch (viewId) {
-			case R.id.icon1:
+			case R.id.client_my_head_imageView:
 				intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
 				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
 //				startActivity(intent);

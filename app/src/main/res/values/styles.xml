@@ -56,6 +56,40 @@
         <item name="android:maxHeight">40dip</item>
     </style>
 
+    <!--何逍-->
+    <style name="client_my_head_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="client_my_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/client_my_textView</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <!--<item name="android:gravity">center_vertical</item>-->
+    </style>
+
+    <style name="client_my_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/client_my_textView</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:textSize">@dimen/textSize18</item>
+        </style>
+
+    <style name="client_my_forwardImageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/client_my_textView</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <!--<item name="android:gravity">center_vertical</item>-->
+    </style>
+
+
+
+
+
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
