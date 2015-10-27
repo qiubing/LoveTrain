@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_white">
 
     <include
         android:id="@+id/manager_score_user_detail_head"
@@ -11,106 +12,178 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp" />
 
+
     <ScrollView
         android:id="@+id/mycourse_judge_detail_fill_contentscrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/contentrealm"
         android:scrollbars="vertical"
         android:fadingEdge="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            style="@style/contentrealm"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_contentapplicability_textView"/>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0">
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_contentapplicability_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_contentapplicability_textView"/>
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_ContentRationality_textView"/>
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_contentapplicability_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <!--style="@style/judge_rating_bar_style"-->
+                </TableRow>
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_contentRationality_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_Discussion_textView"/>
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_ContentRationality_textView"/>
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_discussion_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_contentRationality_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_TimeRationality_textView"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_timerationality_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_Discussion_textView"/>
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_ContentUnderstanding_textView"/>
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_discussion_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </TableRow>
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_contentunderstanding_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_ExpressionAbility_textView"/>
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_TimeRationality_textView"/>
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_expressionability_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_timerationality_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_Communication_textView"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_communication_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_ContentUnderstanding_textView"/>
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_mycourse_judge_detail_fill_Organization_textView"/>
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_contentunderstanding_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
 
-            <RatingBar
-                android:id="@+id/mycourse_judge_detail_fill_organization_ratingbar"
-                android:layout_gravity="right"
-                android:numStars="@integer/judgeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
+
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_ExpressionAbility_textView"/>
+
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_expressionability_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
+
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_Communication_textView"/>
+
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_communication_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
+
+                <TableRow>
+                    <TextView
+                        style="@style/judge_rating_text_style"
+                        android:text="@string/activity_mycourse_judge_detail_fill_Organization_textView"/>
+
+                    <RatingBar
+                        android:id="@+id/mycourse_judge_detail_fill_organization_ratingbar"
+                        android:layout_gravity="right"
+                        android:numStars="@integer/judgeScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableRow>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/listitem_interval_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/listitem_interval_gray" />
+            </TableLayout>
 
             <TextView
                 style="@style/text_view_style"
@@ -119,7 +192,8 @@
             <EditText
                 android:id="@+id/mycourse_judge_detail_fill_comprehensiveevaluation_edittext"
                 android:isScrollContainer="true"
-                style="@style/edittext_style_multiline"/>
+                style="@style/edittext_style_multiline"
+                android:background="@color/background_unused_gray"/>
 
             <TextView
                 style="@style/text_view_style"
@@ -128,12 +202,17 @@
             <EditText
                 android:id="@+id/mycourse_judge_detail_fill_suggestion_edittext"
                 android:isScrollContainer="true"
-                style="@style/edittext_style_multiline"/>
+                style="@style/edittext_style_multiline"
+                android:background="@color/background_unused_gray"/>
 
             <Button
                 android:id="@+id/mycourse_judge_detail_fill_confirmbutton"
                 style="@style/CustomBigLoginButton"
-                android:text="@string/confirm_button" />
+                android:text="@string/judge_button"
+                android:background="@color/title_interval_green"/>
         </LinearLayout>
     </ScrollView>
+
+
+
 </LinearLayout>

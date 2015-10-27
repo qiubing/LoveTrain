@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="48.0dip"
-    android:background="@color/soft_comment_title_content_windows">
+    android:layout_height="48.0dip">
+    <!--android:background="@color/soft_comment_title_content_windows"-->
 
     <ImageView
         android:id="@+id/manager_goback"
@@ -10,7 +10,7 @@
         android:layout_height="46dp"
         android:layout_centerVertical="true"
         android:paddingLeft="0dp"
-        android:src="@mipmap/ic_back" />
+        android:src="@mipmap/button_back" />
 
     <TextView
         android:id="@+id/manager_head_title"
@@ -23,10 +23,20 @@
         android:textColor="@color/grayslate"
         android:textSize="@dimen/textSize22" />
 
+    <ImageView
+        android:id="@+id/loading_iv"
+        android:layout_width="@dimen/dp75"
+        android:layout_height="@dimen/dp75"
+        android:layout_toLeftOf="@+id/sub_page_title"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:src="@mipmap/dialog_loading"
+        android:visibility="gone"/>
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/manager_head_title"
-        android:background="@color/orange"></View>
+        android:background="@color/title_interval_green"></View>
 </RelativeLayout>
 

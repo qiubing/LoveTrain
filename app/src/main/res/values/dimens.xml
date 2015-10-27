@@ -60,6 +60,7 @@
     <dimen name="listitem_margin_width_big">75dp</dimen>
     <dimen name="background_top_height">150dp</dimen>
     <dimen name="background_padding_bottom">15dp</dimen>
+    <dimen name="judge_text_width">100dp</dimen>
     <!--字体大小-->
     <dimen name="listitem_textsize">20dp</dimen>
     <dimen name="background_top_textsize">50dp</dimen>
