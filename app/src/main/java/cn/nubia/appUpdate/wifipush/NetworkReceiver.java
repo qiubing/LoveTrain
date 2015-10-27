@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class NetworkReceiver extends BroadcastReceiver {
     private static final String TAG = "NetworkRecevier";
-    private static final String CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTITY_CHANGE";
+    private static final String CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
