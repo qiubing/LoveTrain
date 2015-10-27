@@ -28,6 +28,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/scoreQuery_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -55,6 +56,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/creditQuery_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -82,6 +84,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/creditAward_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -109,6 +112,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rateManage_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -137,6 +141,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/userManage_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -165,6 +170,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/accountManage_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -193,6 +199,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/about_us_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -221,6 +228,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/change_account_imageView_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

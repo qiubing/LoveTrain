@@ -31,6 +31,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/checkIn_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -61,6 +62,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/points_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -91,6 +93,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/myExam_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -120,6 +123,7 @@
                     android:background="#dddbdb" />
 
                 <RelativeLayout
+                    android:id="@+id/myShare_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -150,6 +154,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/passwordChange_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -179,6 +184,7 @@
                     android:background="#dddbdb" />
 
                 <RelativeLayout
+                    android:id="@+id/checkUpdate_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -208,6 +214,7 @@
                     android:background="#dddbdb" />
 
                 <RelativeLayout
+                    android:id="@+id/feedback_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -237,6 +244,7 @@
                     android:background="#dddbdb" />
 
                 <RelativeLayout
+                    android:id="@+id/logout_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
