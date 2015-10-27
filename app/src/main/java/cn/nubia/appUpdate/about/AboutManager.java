@@ -76,6 +76,9 @@ public class AboutManager {
             switch (msg.what){
                 case FLAG_UPDATE_NEW_VERSION:
                 {
+                    if(hasMessages(FLAG_UPDATE_QUERY_TIMEOUT)){
+                        removeMessages(FLAG_UPDATE_QUERY_TIMEOUT);
+                    }
                     AboutManager mgr = _mgr.get();
                     if (mgr != null){
                         Bundle data = msg.getData();
@@ -99,6 +102,9 @@ public class AboutManager {
                     break;
                 case FLAG_UPDATE_NETWORK_ERROR:
                 {
+                    if(hasMessages(FLAG_UPDATE_QUERY_TIMEOUT)){
+                        removeMessages(FLAG_UPDATE_QUERY_TIMEOUT);
+                    }
                     AboutManager mgr = _mgr.get();
                     if(null != mgr){
                         mgr.showErrorDialog();
@@ -108,6 +114,9 @@ public class AboutManager {
                     break;
                 case FLAG_UPDATE_NO_NEW_VERSION:
                 {
+                    if(hasMessages(FLAG_UPDATE_QUERY_TIMEOUT)){
+                        removeMessages(FLAG_UPDATE_QUERY_TIMEOUT);
+                    }
                     AboutManager mgr = _mgr.get();
                     if(null != mgr){
                         Log.e("wj","if(null != mgr){");
@@ -274,8 +283,8 @@ public class AboutManager {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         /******revise here****/
-        builder.setMessage(R.string.action_settings);
-        builder.setTitle(R.string.action_settings);
+        builder.setMessage("与服务器连接错误");
+        builder.setTitle("检测版本更新");
 
         AlertDialog errorDialog = builder.create();
         errorDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
@@ -294,9 +303,9 @@ public class AboutManager {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         /******revise here****/
-        builder.setMessage(R.string.action_settings);
-        builder.setTitle(R.string.action_settings);
-        builder.setPositiveButton(R.string.action_settings,
+        builder.setMessage("没有最新版本");
+        builder.setTitle("检测版本更新");
+        builder.setPositiveButton("取消",
                 new DialogInterface.OnClickListener() {
 
                     @Override
@@ -346,11 +355,11 @@ public class AboutManager {
 
         if(!size.equals("")){
             TextView sizeTitle = (TextView) window.findViewById(R.id.settings_update_dialog_version_size);
-            sizeTitle.setText(mContext.getResources().getString(R.string.scan_text)+size);
+            sizeTitle.setText("应用大小"+size);
         }
 
         TextView contentView = (TextView) window.findViewById(R.id.settings_update_dialog_content);
-        contentView.setText(mContext.getResources().getString(R.string.scan_text)+update);
+        contentView.setText("更新"+update);
     }
 
     private static class DownLoadListener implements IDownLoadListener{
@@ -396,7 +405,7 @@ public class AboutManager {
 
     private void sendNewVersionNotification(){
         /******revise here****/
-        Intent serviceIntent = new Intent("cn.nubia.security.");
+        Intent serviceIntent = new Intent("cn.nubia.appUpdate.newVersion");
         serviceIntent.putExtra("command","update");
 
         NotificationManager notificationManager = (NotificationManager) mContext
