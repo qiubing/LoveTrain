@@ -100,15 +100,6 @@ public class ClientMyCheckRecordActivity extends Activity {
             }
         });
 
-        /**
-         * 让手势可以作用于listView
-         */
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
     }
 
     private final JsonHttpResponseHandler mCheckRecordHandler = new JsonHttpResponseHandler() {
@@ -204,9 +195,12 @@ public class ClientMyCheckRecordActivity extends Activity {
 
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return  gestureDetector.onTouchEvent(event);
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
+
 
 
     /**

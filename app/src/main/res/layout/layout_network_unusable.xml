@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/hotsblogsbg"
+    android:background="@color/network_error_background"
     android:gravity="center"
-    android:paddingBottom="8dp"
-    android:paddingTop="5dp" >
+    >
 
     <RelativeLayout
         android:id="@+id/network_unused_layout"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
         android:layout_centerInParent="true">
 
         <ImageView
@@ -18,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
             android:background="@mipmap/clear_botton_s" />
 
         <TextView
@@ -26,23 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/loading_icon"
             android:gravity="center"
             android:singleLine="true"
-            android:text="世界上最遥远的距离就是没有网络。查看网络设置"
+            android:text="当前网络不可用，点击查看网络连接"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:layout_marginRight="20dp"
-            android:text=">"
             android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>

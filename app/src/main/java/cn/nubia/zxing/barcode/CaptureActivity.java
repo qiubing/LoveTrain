@@ -14,8 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -48,7 +48,7 @@ public class CaptureActivity extends Activity implements Callback {
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
-    private Button cancelScanButton;
+    //private Button backButton;
 
     /**
      * Called when the activity is first created.
@@ -60,7 +60,12 @@ public class CaptureActivity extends Activity implements Callback {
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-        cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
+
+        //backButton = (Button) this.findViewById(R.id.button_back);
+        RelativeLayout linear = (RelativeLayout) findViewById(R.id.qrcode_scan_title);
+        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
+        text.setText("二维码扫描");
+
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
     }
@@ -88,13 +93,13 @@ public class CaptureActivity extends Activity implements Callback {
         vibrate = true;
 
         //quit the scan view
-        cancelScanButton.setOnClickListener(new OnClickListener() {
+        /*backButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 CaptureActivity.this.finish();
             }
-        });
+        });*/
     }
 
     @Override
@@ -227,5 +232,14 @@ public class CaptureActivity extends Activity implements Callback {
             mediaPlayer.seekTo(0);
         }
     };
+
+    /**
+     * 返回箭头绑定事件，即退出该页面
+     * <p/>
+     * param view
+     */
+    public void back(View view) {
+        this.finish();
+    }
 
 }

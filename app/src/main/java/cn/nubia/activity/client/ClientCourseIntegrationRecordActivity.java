@@ -99,12 +99,6 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
             }
         });
 
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
     }
 
     private final JsonHttpResponseHandler mClientCourseIntegrationHandler = new JsonHttpResponseHandler() {
@@ -131,7 +125,6 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
-            //Toast.makeText(ClientCourseIntegrationRecordActivity.this, "请求失败", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -213,8 +206,10 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return  gestureDetector.onTouchEvent(event);
+    public boolean dispatchTouchEvent(MotionEvent motionEvent){
+        super.dispatchTouchEvent(motionEvent); //让Activity响应触碰事件
+        gestureDetector.onTouchEvent(motionEvent); //让GestureDetector响应触碰事件
+        return false;
     }
 
     /**

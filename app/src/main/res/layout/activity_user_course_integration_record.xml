@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_comment_title_content_windows"
-    android:orientation="vertical">
+    android:background="@color/soft_comment_title_content_windows">
 
     <include
         android:id="@+id/user_course_integration_title"
@@ -13,21 +12,21 @@
         android:id="@+id/loading_failed_integration"
         layout="@layout/layout_loading_failed"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:layout_marginTop="10dp" />
+        android:layout_height="43dip"
+        android:layout_below="@id/user_course_integration_title"/>
 
     <include
         android:id="@+id/network_unusable_integration"
         layout="@layout/layout_network_unusable"
         android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:layout_marginTop="10dp"
-        android:paddingTop="@dimen/manager_rate_paddingTop" />
+        android:layout_height="43dip"
+        android:layout_below="@id/loading_failed_integration" />
 
     <cn.nubia.component.RefreshLayout
         android:id="@+id/evaluate_refreshLayout_integration"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/network_unusable_integration">
             <ListView
                 android:id="@+id/course_integration_detail"
                 android:layout_width="match_parent"
@@ -38,9 +37,10 @@
         android:id="@+id/show_total_course_integration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@drawable/my_tab_background"
         android:gravity="center"
         android:paddingBottom="11dp"
-        android:paddingTop="11dp" />
-</LinearLayout>
+        android:paddingTop="11dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+</RelativeLayout>

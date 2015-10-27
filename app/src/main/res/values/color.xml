@@ -8,7 +8,11 @@
     <color name="toolbar_bg_selected">#15A06D</color>
     <color name="white">#ffffffff</color>
 
-
+    <!--吕康 -->
+    <color name="class_item_space">#D3D3D3</color>
+    <color name="class_item_font">#282828</color>
+    <color name="class_item_background_open">#F6F6F6</color>
+    <color name="class_item_background_close">#FFFFFF</color>
 
     <!--LK style-->
     <color name="first_layout_background">#fff2fafc</color>
@@ -16,6 +20,12 @@
     <color name="text_color">#ff232427</color>
     <color name="background_color">#f8f8f8</color>
     <!--android:background="@drawable/item_bg" content layout_background-->
+
+    <!--WJ style-->
+    <color name="network_error_background">#FFDBD6</color>
+
+
+
 
     <!--<color name="project_background">#fff2fafc</color>-->
     <color name="transparent">#00000000</color>
@@ -238,6 +248,7 @@
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>
     <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_corner">#1ec789</color>
     <color name="header">#58567D</color>
     <color name="grgray">#686868</color>
 

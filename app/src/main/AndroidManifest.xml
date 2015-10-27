@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.packgeinstaller"
     android:versionCode="1"
     android:versionName="first version"
     package="cn.nubia.activity">
@@ -16,6 +17,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -26,7 +29,10 @@
         android:icon="@mipmap/background1"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
+        <meta-data
+            android:name="unique_key"
+            android:value="100004"
+            />
         <!--胡立加-->
         <activity
             android:name=".SplashActivity"
@@ -48,18 +54,10 @@
             android:name=".client.ClientMainActivity"
             android:alwaysRetainTaskState="true"
             android:theme="@android:style/Theme.Light.NoTitleBar"/>
-
-
-
-
-
-
         <activity android:name=".LoginActivity"></activity>
         <activity
             android:name=".LoginActivity1"
             android:theme="@android:style/Theme.Light.NoTitleBar"/>
-
-
 
 
         <activity
@@ -89,8 +87,6 @@
         <activity
             android:name=".admin.AdminMyTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-
-
         <activity android:name=".admin.AdminScoreUserActivity" />
         <activity android:name=".admin.AdminScoreUserDetailActivity" />
         <activity android:name=".admin.AdminScoreCourseDetailActivity" />

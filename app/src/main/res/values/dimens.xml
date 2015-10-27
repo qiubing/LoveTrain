@@ -16,6 +16,11 @@
 
 
 
+    <!--吕康 -->
+    <dimen name="class_item_heigh">67dp</dimen>
+    <dimen name="calss_item_padding_left">10dp</dimen>
+    <dimen name="calss_item_padding_right">20dp</dimen>
+    <dimen name="class_item_fontsize">18sp</dimen>
 
     <!-- LK style-->
     <dimen name="layout_padding">16dp</dimen>

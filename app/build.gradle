@@ -26,4 +26,5 @@ dependencies {
     compile files('libs/YoumiSdk_v5.00.jar')
     compile files('libs/xUtils-2.4.7.jar')
     compile files('libs/core-3.0.0.jar')
+    compile files('libs/NubiaAppUpgrade_V1.1.0.jar')
 }
