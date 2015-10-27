@@ -5,8 +5,8 @@
         <item name="android:textSize">@dimen/item_bottom_text_size</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">@dimen/toolbar_bottom_padding</item>
-        <item name="android:paddingBottom">@dimen/toolbar_bottom_padding</item>
+        <item name="android:paddingTop">@dimen/toolbar_bottom_top_padding</item>
+        <item name="android:paddingBottom">@dimen/toolbar_bottom_bottom_padding</item>
         <item name="android:layout_width">@dimen/zero</item>
         <item name="android:layout_height">@dimen/item_bottom_height</item>
         <item name="android:button">@null</item>

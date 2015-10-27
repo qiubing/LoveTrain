@@ -7,7 +7,7 @@
     <RadioGroup
         android:id="@+id/admin_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/item_bottom_height"
         android:layout_alignParentBottom="true"
         android:background="@color/toolbar_bg"
         android:gravity="center_vertical"
