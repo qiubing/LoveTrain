@@ -35,7 +35,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     private AdminExamScoreInputAdapter mExamScoreAdapter;
     private Button button;
 
-    private int mResultNum;
+//    private int mResultNum;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +98,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                 if (mNextPressReady) {
                     mModifiedExamScoreList = mExamScoreAdapter.getModifiedExamScoreList();
                     if (checkData()) {
-                        mResultNum = 0;
+//                        mResultNum = 0;
                         scoreUpload();
                         button.setText("成绩录入中...");
                         mNextPressReady = false;
@@ -172,27 +172,29 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
                 }
             }
         }else if(responseURL.equals(URLMap.URL_ADD_EXAMSCORE)){
-            mResultNum++;
+//            mResultNum++;
             if(response==null){
                 Toast.makeText(
-                         AdminExamInputScoreActivity.this, "未能连接服务器，一个成绩录入失败!", Toast.LENGTH_SHORT).show();
+                         AdminExamInputScoreActivity.this, "未能连接服务器，成绩录入失败!", Toast.LENGTH_SHORT).show();
             }else{
                 String operateResult = (String)response.get("operateResult");
                 if(operateResult.equals("success")) {
-                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩录入成功！"
+                    Toast.makeText(AdminExamInputScoreActivity.this, "成绩录入成功！"
                             ,Toast.LENGTH_SHORT).show();
                 }else if(operateResult.equals("failure")) {
                     String message = (String) response.get("message");
-                    Toast.makeText(AdminExamInputScoreActivity.this, "一个成绩录入失败：\n" +
+                    Toast.makeText(AdminExamInputScoreActivity.this, "成绩录入失败：\n" +
                             message, Toast.LENGTH_SHORT).show();
                 }
             }
-            if(mResultNum == mModifiedExamScoreList.size()) {
-                mNextPressReady = true;
-                button.setText(R.string.title_activity_manager_score_input_button);
-                DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
-                        AdminExamInputScoreActivity.this, "录入操作结束!", true);
-            }
+            mNextPressReady = true;
+            button.setText(R.string.title_activity_manager_score_input_button);
+//            if(mResultNum == mModifiedExamScoreList.size()) {
+//                mNextPressReady = true;
+//                button.setText(R.string.title_activity_manager_score_input_button);
+//                DialogMaker.finishCurrentDialog(AdminExamInputScoreActivity.this,
+//                        AdminExamInputScoreActivity.this, "录入操作结束!", true);
+//            }
         }
     }
 }

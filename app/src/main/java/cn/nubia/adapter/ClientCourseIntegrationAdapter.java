@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 import cn.nubia.activity.R;
@@ -44,7 +45,7 @@ public class ClientCourseIntegrationAdapter extends BaseAdapter {
             viewHold = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.activity_user_course_integration_record_detail_item,null);
             viewHold.mLessonName = (TextView) convertView.findViewById(R.id.course_title);
-            viewHold.mIntegrationCause = (TextView) convertView.findViewById(R.id.course_cause);
+            viewHold.mIntegrationCause = (ImageView) convertView.findViewById(R.id.course_cause);
             viewHold.mCourseIntegration = (TextView) convertView.findViewById(R.id.course_score);
             convertView.setTag(viewHold);
         }else {
@@ -52,14 +53,20 @@ public class ClientCourseIntegrationAdapter extends BaseAdapter {
         }
 
         viewHold.mLessonName.setText(mIntegrationList.get(position).getmLessonName());
-        viewHold.mIntegrationCause.setText(mIntegrationList.get(position).getmCause());
+
         viewHold.mCourseIntegration.setText("+" + mIntegrationList.get(position).getmCheckCredits());
+        String cause = mIntegrationList.get(position).getmCause().trim();
+        if(cause.equals("签到成功")){
+            viewHold.mIntegrationCause.setImageResource(R.mipmap.label_check);
+        }else if(cause.equals("考试积分")){
+            viewHold.mIntegrationCause.setImageResource(R.mipmap.label_exam);
+        }
         return convertView;
     }
 
     public  final class ViewHolder{
         TextView mLessonName;
-        TextView mIntegrationCause;
+        ImageView mIntegrationCause;
         TextView mCourseIntegration;
     }
 }

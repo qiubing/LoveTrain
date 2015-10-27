@@ -1,61 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_inside_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="@dimen/listitem_height"
+    android:background="@color/background_white">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/item_inside_layout"
+    <TextView
+        android:id="@+id/course_title"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/listitem_margin_width"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/listitem_height"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textSize="@dimen/listitem_textsize"
+        android:textColor="@color/listitem_text_black"/>
+
+    <ImageView
+        android:id="@+id/course_cause"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/listitem_margin_width_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/label_check"/>
+
+    <TextView
+        android:id="@+id/course_score"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/listitem_margin_width"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textSize="@dimen/listitem_textsize"
+        android:textColor="@color/listitem_text_green"/>
+
+    <View
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/item_layout_border"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="@dimen/listitem_interval_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/listitem_interval_gray"/>
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="fill_parent"
-            android:layout_height="5dp"
-            android:background="@color/white"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/course_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="java基础一"
-                android:textSize="@dimen/textSize18"
-                android:layout_weight="3"/>
-
-            <TextView
-                android:id="@+id/course_cause"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="签到成功"
-                android:textSize="@dimen/textSize18"
-                android:layout_weight="4"
-                android:textColor="@color/blue"
-                 />
-
-            <TextView
-                android:id="@+id/course_score"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:textSize="@dimen/textSize18"
-                android:singleLine="true"
-                android:text="+80"
-                android:layout_weight="5"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

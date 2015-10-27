@@ -48,6 +48,19 @@
 
     <dimen name="edittext_multi">100dp</dimen>
 
+    <!--江禹-->
+    <!--高度、长度、间隔-->
+    <dimen name="listitem_height">53dp</dimen>
+    <dimen name="listitem_interval_height">0.5dp</dimen>
+    <dimen name="listitem_margin_width">25dp</dimen>
+    <dimen name="listitem_margin_width_big">75dp</dimen>
+    <dimen name="background_top_height">150dp</dimen>
+    <dimen name="background_padding_bottom">15dp</dimen>
+    <!--字体大小-->
+    <dimen name="listitem_textsize">20dp</dimen>
+    <dimen name="background_top_textsize">70dp</dimen>
+
+
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

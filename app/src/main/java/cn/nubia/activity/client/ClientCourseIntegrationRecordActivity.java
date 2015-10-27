@@ -59,21 +59,26 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
     }
 
     private void initEvents() {
-        RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_course_integration_title);
-        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
-        mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
+//        RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_course_integration_title);
+//        TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
+        TextView text = (TextView) findViewById(R.id.sub_page_title);
         text.setText("课程积分记录");
 
-        mIntegrationList = new ArrayList<>();
-        ListView mListView = (ListView) findViewById(R.id.course_integration_detail);
-        mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
-        mListView.setAdapter(mAdapter);
+//        RelativeLayout mainlayout = (RelativeLayout) findViewById(R.id.main_layout);
+//        mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
+        mScoreText = (TextView)findViewById(R.id.total_course_integration);
+
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_integration);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_integration);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_integration);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        mIntegrationList = new ArrayList<>();
+        ListView mListView = (ListView) findViewById(R.id.course_integration_detail);
+        mAdapter = new ClientCourseIntegrationAdapter(mIntegrationList, ClientCourseIntegrationRecordActivity.this);
+        mListView.setAdapter(mAdapter);
 
         networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +176,9 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
                 mIntegrationList.addAll(courseIntegrationItems);
             }
             mAdapter.notifyDataSetChanged();
-            mScoreText.setVisibility(View.VISIBLE);
-            mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
+//            mScoreText.setVisibility(View.VISIBLE);
+//            mScoreText.setText("截止到当前，您的积分总分为" + getTotalScore(mIntegrationList) + "分");
+            mScoreText.setText(String.valueOf(getTotalScore(mIntegrationList)));
         }
     }
 

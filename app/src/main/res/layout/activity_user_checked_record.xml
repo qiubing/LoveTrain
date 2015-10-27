@@ -32,7 +32,8 @@
         <ListView
             android:id="@+id/check_detail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content"
+            android:background="@color/background_unused_gray"/>
 
     </cn.nubia.component.RefreshLayout>
 </LinearLayout>

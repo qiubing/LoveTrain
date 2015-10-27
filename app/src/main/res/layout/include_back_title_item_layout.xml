@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/titlecon"
     android:layout_width="fill_parent"
-    android:layout_height="48.0dip"
-    android:background="@color/soft_comment_title_content_windows" >
+    android:layout_height="48.0dip">
+    <!--android:background="@color/soft_comment_title_content_windows"-->
 
     <ImageView
         android:id="@+id/backButton"
@@ -13,7 +13,7 @@
         android:background="@null"
         android:gravity="center"
         android:onClick="back"
-        android:src="@mipmap/ic_back"  />
+        android:src="@mipmap/button_back"/>
 
     <TextView
         android:id="@+id/sub_page_title"
@@ -24,7 +24,7 @@
         android:gravity="center"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textColor="@color/grayslate"
+        android:textColor="@color/title_text_gray"
         android:textSize="20.0sp" />
 
     <ImageView
@@ -55,7 +55,7 @@
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/orange"
+        android:background="@color/title_interval_green"
         />
 
 </RelativeLayout>
