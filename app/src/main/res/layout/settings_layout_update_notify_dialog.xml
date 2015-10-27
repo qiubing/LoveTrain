@@ -52,18 +52,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/settings_update_dialog_not_update"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/editview_selector"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/abc_search_hint"
-            android:textColor="@drawable/button_guide_selector"
-            android:textSize="15sp"/>
+
         <TextView
             android:id="@+id/settings_update_dialog_now_update"
             android:layout_width="0dp"
@@ -74,9 +63,22 @@
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/abc_search_hint"
+            android:text="@string/soft_updating"
             android:textColor="@drawable/button_guide_selector"
             android:textSize="15sp"
             />
+
+        <TextView
+            android:id="@+id/settings_update_dialog_not_update"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/editview_selector"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/soft_update_later"
+            android:textColor="@drawable/button_guide_selector"
+            android:textSize="15sp"/>
     </LinearLayout>
 </RelativeLayout>

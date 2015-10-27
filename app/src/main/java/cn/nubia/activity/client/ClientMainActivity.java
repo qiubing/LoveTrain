@@ -5,11 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -39,6 +39,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  */
 
 public class ClientMainActivity extends FragmentActivity {
+    private static final String TAG = "ClientMainActivity";
     private RadioGroup mRadioGroup;
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
@@ -204,6 +205,7 @@ public class ClientMainActivity extends FragmentActivity {
         return super.dispatchKeyEvent(event);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -211,12 +213,14 @@ public class ClientMainActivity extends FragmentActivity {
         if (resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("result");
+            Log.e(TAG,scanResult);
             int lesson_index = Integer.parseInt(scanResult);
             if (!Constant.user.getUserID().equals("") && lesson_index > 0){
                 //请求参数，包括用户的Id和课程的索引信息index
                 RequestParams params = new RequestParams(Constant.getRequestParams());
                 params.put("user_id",Constant.user.getUserID());
                 params.put("lesson_index",lesson_index);
+                Log.e(TAG,params.toString());
                 //网络链接
                 String url = Constant.BASE_URL + "user/user_check.do";
                 AsyncHttpHelper.post(url, params, mCheckHandler);
@@ -230,6 +234,7 @@ public class ClientMainActivity extends FragmentActivity {
             try {
                 if (response != null && response.getInt("code") == 0){
                     JSONObject obj = response.getJSONObject("data");
+                    Log.e(TAG,obj.toString());
                     if (obj != null){
                         long check_time = obj.getLong("check_time");
                         int check_credits = obj.getInt("check_credits");

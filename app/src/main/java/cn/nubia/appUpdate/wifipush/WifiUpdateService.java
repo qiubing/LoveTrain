@@ -122,18 +122,18 @@ public class WifiUpdateService extends Service {
         view.setImageViewResource(R.id.notification_large_icon,
                 R.drawable.my_list_txt_background);
         view.setTextViewText(R.id.notification_text,this.getResources()
-                .getString(R.string.scan_text));
+                .getString(R.string.soft_update_info));
 
-        Intent serviceIntent = new Intent("cn.nubia.security.");
+        Intent serviceIntent = new Intent("cn.nubia.appUpdate.newVersion");
         Bitmap largeIcon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.my_list_txt_background);
 
         NotificationManager notificationManager = (NotificationManager) this
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(this)
-                .setTicker(this.getResources().getString(R.string.scan_text))
-                .setContentTitle(this.getResources().getString(R.string.scan_text))
-                .setContentText(this.getResources().getString(R.string.scan_text))
+                .setTicker(this.getResources().getString(R.string.soft_update_lovetrain))
+                .setContentTitle(this.getResources().getString(R.string.soft_update_lovetrain))
+                .setContentText(this.getResources().getString(R.string.soft_update_info))
                 .setSmallIcon(R.drawable.icon_all_selector)
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
