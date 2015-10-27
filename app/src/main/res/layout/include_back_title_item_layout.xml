@@ -33,7 +33,7 @@
         android:layout_centerInParent="true"
         android:text="@string/app_name"
         android:textColor="@color/toolbar_text_color_normal"
-        android:textSize="@dimen/item_text_size" />
+        android:textSize="@dimen/title_text_size" />
 
     <ImageView
         android:id="@+id/loading_iv"
@@ -46,7 +46,7 @@
         android:visibility="gone"
         />
 
-   <!-- <TextView
+    <TextView
         android:id="@+id/backupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_centerVertical="true"
         android:textColor="@color/item_operation_download"
         android:visibility="gone"
-        />-->
+        />
 
     <View
         android:layout_width="fill_parent"
