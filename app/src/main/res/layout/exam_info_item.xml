@@ -2,46 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_inside_layout"
     android:layout_width="fill_parent"
-    android:layout_height="62dp"
-    android:background="@drawable/item_layout_border"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="fill_parent"
-        android:layout_height="5dp"
-        android:background="@color/white"></View>
+    android:layout_height="@dimen/class_item_heigh"
+    android:background="@color/class_item_background_close"
+    android:minHeight="@dimen/class_item_heigh">
 
     <ImageView
         android:id="@+id/item_layout_imageview"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/view"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/icon_exam" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/icon_exam_big" />
 
     <TextView
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/view"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/item_layout_imageview"
         android:singleLine="true"
-        android:text="java基础一"
-        android:textSize="@dimen/textSize22" />
+        android:text="java基础"
+        android:textColor="@color/class_item_font"
+        android:textSize="@dimen/class_item_fontsize" />
 
     <TextView
         android:id="@+id/item_layout_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/calss_item_padding_left"
+        android:layout_marginRight="@dimen/calss_item_padding_right"
+        android:gravity="right"
+        android:lineSpacingExtra="3dp"
+        android:text="2015/10/27\nC2-6"
+        android:textColor="@color/toolbar_text_color_normal"
+        android:textSize="@dimen/class_item_fontsize" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/item_layout_title"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/item_layout_imageview"
-        android:gravity="left"
-        android:text="C-6室，\n8月24号 9:00~测试测试测试测试测试11:00，张三"
-        android:textColor="#ff9f9f9f"
-        android:textSize="12sp" />
+        android:background="@color/class_item_space"></View>
+
 </RelativeLayout>

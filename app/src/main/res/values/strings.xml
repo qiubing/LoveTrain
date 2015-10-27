@@ -33,6 +33,9 @@
     <!--吕康-->
     <string name="login_id_hint">请输入账号</string>
     <string name="login_pwd_hint">请输入密码</string>
+    <string name="regist_pwd1_hint">请输入密码</string>
+    <string name="regist_pwd2_hint">请重复密码</string>
+    <string name="regist_name_hint">请输入姓名</string>
 
 
     <string-array name="sex">
@@ -76,9 +79,6 @@
     <string name="registtxt">爱培训会员注册</string>
 
     <!--注册Activity-->
-    <string name="regist_name_hint">请输入用户名</string>
-    <string name="regist_pwd1_hint">请输入用户密码</string>
-    <string name="regist_pwd2_hint">请重复用户密码</string>
     <!--我的分享课程详细信息Activity-->
     <string name="activity_my_sharecourse_detail_display_title_textview">课程信息</string>
     <string name="activity_my_sharecourse_detail_display_coursename_textView">课程名称：</string>

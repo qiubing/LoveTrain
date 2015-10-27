@@ -55,14 +55,14 @@ public class ExamAdapter extends BaseAdapter{
         viewHold.mTitle.setText(mExamList.get(position).getName());
 
         //        strb.append(mExamList.get(position).getIndex());
-        viewHold.mExamInfo.setText("考试地点："
-                + mExamList.get(position).getLocale()
-                + "\n考试时间："
-                + TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime())
-                + "  "
+        viewHold.mExamInfo.setText(
+                TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime())
+                + "\n"
+                + mExamList.get(position).getLocale());
+               /* + "  "
                 + TimeFormatConversion.toTime(mExamList.get(position).getStartTime())
                 + " ~ "
-                + TimeFormatConversion.toTime(mExamList.get(position).getEndTime()));
+                + TimeFormatConversion.toTime(mExamList.get(position).getEndTime()));*/
 
         return convertView;
     }
