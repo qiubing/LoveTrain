@@ -2,67 +2,74 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/background_top">
+    android:layout_height="match_parent" >
 
     <!--<include-->
         <!--android:id="@+id/user_course_integration_title"-->
         <!--layout="@layout/include_back_title_item_layout"-->
         <!--/>-->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/titlecon"
-        android:layout_width="fill_parent"
-        android:layout_height="48.0dip">
-
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="46dp"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:gravity="center"
-            android:onClick="back"
-            android:src="@mipmap/button_back"/>
-
-        <TextView
-            android:id="@+id/sub_page_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/app_name"
-            android:textColor="@color/title_text_white"
-            android:textSize="20.0sp" />
-
-        <ImageView
-            android:id="@+id/loading_iv"
-            android:layout_width="@dimen/dp75"
-            android:layout_height="@dimen/dp75"
-            android:layout_toLeftOf="@+id/sub_page_title"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"
-            android:src="@mipmap/dialog_loading"
-            android:visibility="gone"
-            />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/total_course_integration"
+    <RelativeLayout
+        android:id="@+id/background_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/background_top_height"
-        android:gravity="center_horizontal|bottom"
-        android:paddingBottom="@dimen/background_padding_bottom"
-        android:textSize="@dimen/background_top_textsize"
-        android:textColor="@color/background_white"/>
+        android:background="@mipmap/background_top">
+
+        <RelativeLayout
+            android:id="@+id/titlecon"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:gravity="center"
+                android:onClick="back"
+                android:src="@mipmap/button_back"/>
+
+            <TextView
+                android:id="@+id/sub_page_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textColor="@color/title_text_white"
+                android:textSize="20.0sp" />
+
+            <ImageView
+                android:id="@+id/loading_iv"
+                android:layout_width="@dimen/dp75"
+                android:layout_height="@dimen/dp75"
+                android:layout_toLeftOf="@+id/sub_page_title"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="7dp"
+                android:src="@mipmap/dialog_loading"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/total_course_integration"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/background_top_height"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="@dimen/background_padding_bottom"
+            android:textSize="@dimen/background_top_textsize"
+            android:textColor="@color/background_white"/>
+    </RelativeLayout>
+
 
     <include
         android:id="@+id/loading_failed_integration"
         layout="@layout/layout_loading_failed"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
-        android:layout_below="@id/total_course_integration"/>
+        android:layout_below="@id/background_top"/>
 
     <include
         android:id="@+id/network_unusable_integration"
