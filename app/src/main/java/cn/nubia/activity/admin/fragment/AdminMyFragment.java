@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cn.nubia.activity.LoginActivity;
+import cn.nubia.activity.LoginActivity1;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminCreditActivity;
 import cn.nubia.activity.admin.AdminCreditsAwardActivity;
@@ -215,7 +215,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 				startActivity(intent);
 				break;
 			case R.id.change_account:
-				intent = new Intent(getActivity(), LoginActivity.class);
+				intent = new Intent(getActivity(), LoginActivity1.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
 						Intent.FLAG_ACTIVITY_NEW_TASK);
 				ProcessSPData.clearSP(getActivity());

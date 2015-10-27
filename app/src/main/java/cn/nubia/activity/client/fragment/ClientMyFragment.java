@@ -25,7 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cn.nubia.activity.LoginActivity;
+import cn.nubia.activity.LoginActivity1;
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.AboutUsActivity;
 import cn.nubia.activity.client.ClientCourseIntegrationRecordActivity;
@@ -33,7 +33,6 @@ import cn.nubia.activity.client.ClientExamScoreActivity;
 import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
 import cn.nubia.activity.client.ClientMyCheckRecordActivity;
 import cn.nubia.activity.client.ClientMyShareCourseDetailFillActivity;
-import cn.nubia.activity.client.ClientMyTabActivity;
 import cn.nubia.activity.client.ClientShareCourseActivity;
 import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.activity.client.FeedBackActivity;
@@ -142,7 +141,7 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 			case R.id.bt_logout:
 				//注销登录
 				Intent logoutIntent = new Intent(getActivity(),
-						LoginActivity.class);
+						LoginActivity1.class);
 				logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
 						Intent.FLAG_ACTIVITY_NEW_TASK);
 				ProcessSPData.clearSP(getActivity());//清楚缓存的数据

@@ -184,9 +184,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             groupViewHolder.mCourseIconIV = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             /**four tags**/
-            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_courseType);
-            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
-            groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_isTeacher);
+//            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_courseType);
+//            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
+//            groupViewHolder.mTeacher = (TextView) convertView.findViewById(R.id.flag_isTeacher);
             groupViewHolder.mWhetherExam = (ImageView) convertView.findViewById(R.id.flag_wetherExam);
 
             convertView.setTag(groupViewHolder);
@@ -216,6 +216,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         Log.e("0925hexiao","Name:"+mGroupList.get(groupPosition).getName() +","+"CourseType:"+mGroupList.get(groupPosition).getType() +
                 ","+"ShareType:"+mGroupList.get(groupPosition).getShareType() +","+"HasExam:"+mGroupList.get(groupPosition).hasExam() +","+"IsTeacher:"+isTeacher(groupPosition));
 
+        /*
         groupViewHolder.mCourseType.setVisibility(View.GONE);
         switch (mGroupList.get(groupPosition).getType()) {
             case "course":
@@ -251,7 +252,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 groupViewHolder.mCourseType.setText("???");
                 groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 break;
-        }
+        }*/
 
         /**不管管理员还是普通用户，隐去“报名考试”标记*/
 //        groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);
@@ -265,10 +266,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mWhetherExam.setVisibility(View.VISIBLE);
 
         /**如果是管理员*/
-        if(Constant.IS_ADMIN){
-            /**管理员不用看到“讲”，隐去“讲”*/
-            groupViewHolder.mTeacher.setVisibility(View.GONE);
-        }
+//        if(Constant.IS_ADMIN){
+//            /**管理员不用看到“讲”，隐去“讲”*/
+//            groupViewHolder.mTeacher.setVisibility(View.GONE);
+//        }
         /**如果不是管理员*/
 //        else {
             /**隐藏添加课时标记*/
@@ -375,9 +376,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**
          * four tags*
          */
-        TextView mCourseLevel;
-        TextView mTeacher;
-        TextView mCourseType;
+//        TextView mCourseLevel;
+//        TextView mTeacher;
+//        TextView mCourseType;
         ImageView mWhetherExam;
     }
 }

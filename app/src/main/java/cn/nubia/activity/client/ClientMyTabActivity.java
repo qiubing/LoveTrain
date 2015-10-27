@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cn.nubia.activity.LoginActivity;
+import cn.nubia.activity.LoginActivity1;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
@@ -140,7 +140,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
             case R.id.bt_logout:
                 //注销登录
                 Intent logoutIntent = new Intent(this,
-                        LoginActivity.class);
+                        LoginActivity1.class);
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
                         Intent.FLAG_ACTIVITY_NEW_TASK);
                 ProcessSPData.clearSP(ClientMyTabActivity.this);//清楚缓存的数据

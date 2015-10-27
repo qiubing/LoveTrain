@@ -29,21 +29,6 @@
             android:textSize="22.0sp" />
     </RelativeLayout>
 
-    <!--<EditText-->
-    <!--android:id="@+id/login_userid1"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/login_edit_text_height"-->
-    <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
-    <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
-    <!--android:layout_marginTop="@dimen/register_edit_text_margin_top"-->
-    <!--android:background="@drawable/editview_selector"-->
-    <!--android:hint="@string/login_id_hint"-->
-    <!--android:padding="@dimen/padding"-->
-    <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
-    <!--android:singleLine="true"-->
-    <!--android:textColor="@color/edit_text"-->
-    <!--android:textColorHint="@color/edit_text_hint"-->
-    <!--android:textSize="@dimen/login_edit_hint_size" />-->
     <EditText
         android:id="@+id/login_userid"
         style="@style/edit_text_style"
@@ -59,22 +44,6 @@
         android:password="true"
         android:text="111111" />
 
-    <!--<EditText-->
-    <!--android:id="@+id/login_pwd"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="@dimen/login_edit_text_height"-->
-    <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
-    <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
-    <!--android:layout_marginTop="@dimen/register_edit_text_margin_top"-->
-    <!--android:background="@drawable/editview_selector"-->
-    <!--android:hint="@string/login_pwd_hint"-->
-    <!--android:inputType="textPassword"-->
-    <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
-    <!--android:singleLine="true"-->
-    <!--android:textColor="@color/edit_text"-->
-    <!--android:textColorHint="@color/edit_text_hint"-->
-    <!--android:textCursorDrawable="@null"-->
-    <!--android:textSize="@dimen/login_edit_hint_size" />-->
 
     <LinearLayout
         android:id="@+id/layout_ismanager"
@@ -114,23 +83,6 @@
         </Spinner>
     </LinearLayout>
 
-    <!--<EditText-->
-    <!--android:id="@+id/regist_pwd"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="@dimen/login_edit_text_height"-->
-    <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
-    <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
-    <!--android:layout_marginTop="@dimen/register_edit_text_margin_top"-->
-    <!--android:background="@drawable/editview_selector"-->
-    <!--android:hint="@string/regist_pwd2_hint"-->
-    <!--android:inputType="textPassword"-->
-    <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
-    <!--android:singleLine="true"-->
-    <!--android:textColor="@color/edit_text"-->
-    <!--android:textColorHint="@color/edit_text_hint"-->
-    <!--android:textCursorDrawable="@null"-->
-    <!--android:textSize="@dimen/login_edit_hint_size"-->
-    <!--android:visibility="gone" />-->
 
     <EditText
         android:id="@+id/regist_pwd"
@@ -147,23 +99,6 @@
         android:hint="@string/login_name_hint"
         android:visibility="gone" />
 
-    <!--<EditText-->
-    <!--android:id="@+id/lgoin_username"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/login_edit_text_height"-->
-    <!--android:layout_marginLeft="@dimen/login_edit_text_margin_left"-->
-    <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"-->
-    <!--android:layout_marginTop="@dimen/register_edit_text_margin_top"-->
-    <!--android:background="@drawable/editview_selector"-->
-    <!--android:hint="@string/login_name_hint"-->
-    <!--android:padding="@dimen/padding"-->
-    <!--android:paddingLeft="@dimen/login_edit_text_inner_padding"-->
-    <!--android:singleLine="true"-->
-    <!--android:textColor="@color/edit_text"-->
-    <!--android:textColorHint="@color/edit_text_hint"-->
-    <!--android:textCursorDrawable="@null"-->
-    <!--android:textSize="@dimen/login_edit_hint_size"-->
-    <!--android:visibility="gone" />-->
 
     <LinearLayout
         android:id="@+id/layout_sex"
@@ -203,10 +138,6 @@
         </Spinner>
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="@dimen/marginTop">-->
 
     <Button
         android:id="@+id/login_btn"
@@ -231,29 +162,5 @@
         android:text="会员注册"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize20" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/login_forgetpwd"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/login_btn"-->
-    <!--android:layout_marginLeft="15dp"-->
-    <!--android:layout_marginTop="@dimen/marginTop"-->
-    <!--android:padding="@dimen/padding"-->
-    <!--android:text="@string/forget_pwd"-->
-    <!--android:textSize="@dimen/textSize16" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/login_regist"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_below="@+id/login_btn"-->
-    <!--android:layout_marginRight="15dp"-->
-    <!--android:layout_marginTop="@dimen/marginTop"-->
-    <!--android:padding="@dimen/padding"-->
-    <!--android:text="@string/regist"-->
-    <!--android:textSize="@dimen/textSize16" />-->
-    <!--</RelativeLayout>-->
 
 </LinearLayout>

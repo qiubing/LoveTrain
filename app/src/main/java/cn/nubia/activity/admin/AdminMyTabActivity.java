@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import org.apache.http.Header;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import cn.nubia.activity.LoginActivity;
+
+import cn.nubia.activity.LoginActivity1;
 import cn.nubia.activity.R;
 import cn.nubia.activity.client.AboutUsActivity;
 import cn.nubia.activity.client.ClientMyAccountmanaPswmodifyActivity;
@@ -172,7 +176,7 @@ public class AdminMyTabActivity extends Activity implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.change_account:
-                intent = new Intent(AdminMyTabActivity.this, LoginActivity.class);
+                intent = new Intent(AdminMyTabActivity.this, LoginActivity1.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
                         Intent.FLAG_ACTIVITY_NEW_TASK);
                 ProcessSPData.clearSP(AdminMyTabActivity.this);

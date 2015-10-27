@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.nubia.activity.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_item_height">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/icon_login_user" />
+
+        <EditText
+            android:id="@+id/login_userid_regist"
+            style="@style/login_edit_text_style"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/user_icon"
+            android:hint="@string/login_id_hint"
+            android:paddingLeft="10dp" />
+        <!--android:text="0016003347"-->
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/class_item_space"></View>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_item_height">
+
+        <ImageView
+            android:id="@+id/pwd_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/icon_login_pwd" />
+
+        <EditText
+            android:id="@+id/login_pwd_regist"
+            style="@style/login_edit_text_style"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/pwd_icon"
+            android:hint="@string/login_pwd_hint"
+            android:paddingLeft="10dp"
+            android:password="true" />
+        <!--android:text="111111" -->
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/class_item_space"></View>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_btn_regist"
+        style="@style/login_button"
+        android:text="注册" />
+
+</LinearLayout>
