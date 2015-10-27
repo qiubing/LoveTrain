@@ -45,15 +45,36 @@
     <style name="judge_rating_text_style">
         <item name="android:layout_width">@dimen/judge_text_width</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/item_smallhorizontalmargin</item>
+        <item name="android:layout_marginRight">@dimen/item_smallhorizontalmargin</item>
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/textSize16</item>
     </style>
-
     <style name="judge_rating_bar_style" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:maxHeight">40dip</item>
+    </style>
+    <style name="no_border_text_style">
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/listitem_height</item>
+        <item name="android:paddingLeft">@dimen/login_edit_text_inner_padding</item>
+        <item name="android:background">@color/background_white</item>
+        <item name="android:textColor">@color/edit_text</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:textSize">@dimen/textSize14</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="password_image_style">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">@dimen/password_imagesize</item>
+        <item name="android:layout_height">@dimen/password_imagesize</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/listitem_margin_width</item>
+        <item name="android:src">@mipmap/icon_login_pwd</item>
+
     </style>
 
     <!-- Base application theme. -->
@@ -64,8 +85,8 @@
     <style name="contentrealm">
         <item name="android:layout_marginTop">@dimen/item_smallverticalmargin</item>
         <item name="android:layout_marginBottom">@dimen/item_smallverticalmargin</item>
-        <item name="android:layout_marginLeft">@dimen/item_smallhorizontalmargin</item>
-        <item name="android:layout_marginRight">@dimen/item_smallhorizontalmargin</item>
+        <!--<item name="android:layout_marginLeft">@dimen/item_smallhorizontalmargin</item>-->
+        <!--<item name="android:layout_marginRight">@dimen/item_smallhorizontalmargin</item>-->
     </style>
 
     <style name="itemtitle">
