@@ -70,9 +70,6 @@
             android:name=".admin.AdminShareActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".admin.AdminMyActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
             android:name=".admin.AdminCourseAddTabActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
@@ -114,6 +111,7 @@
         <activity android:name=".admin.AdminShareCourseApprovedModifyActivity"/>
         <activity android:name=".admin.AdminShareCourseUnApprovedDetailActivity"/>
         <activity android:name=".admin.AdminSignUpManageActivity"/>
+        <activity android:name=".EmptyActivity"/>
 
         <activity
             android:name=".client.ClientMyCourseActivity"
@@ -172,7 +170,7 @@
             android:name="cn.nubia.appUpdate.wifipush.NetworkReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.con.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <action android:name="cn.nubia.lovetrain.update.change"/>
                 <action android:name="cn.nubia.appUpdate.wifipush.WifiUpdateService"/>
             </intent-filter>

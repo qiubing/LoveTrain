@@ -12,7 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -43,16 +44,25 @@ import cn.nubia.util.Utils;
 public class AdminMyFragment extends Fragment implements View.OnClickListener {
 	private static final int GET_PHOTO_CODE_ADMIN = 1010;
 	private CircleImageView mCircleImageView;
-	private TextView mQueryScoreTV;
-	private TextView mQueryCreditTV;
-	private TextView mRateManageTV;
-	private TextView mAccountManageTV;
-	private TextView mUserManageTV;
-	private TextView mAboutUsTV;
-	private Button mChangeAccoutn;
-	private TextView mAwardCreditTV;
+	private ImageView mQueryScoreTV;
+	private ImageView mQueryCreditTV;
+	private ImageView mRateManageTV;
+	private ImageView mAccountManageTV;
+	private ImageView mUserManageTV;
+	private ImageView mAboutUsTV;
+	private ImageView mChangeAccoutn;
+	private ImageView mAwardCreditTV;
 	private TextView myUserName;
 	private View rootView;
+
+	private RelativeLayout scoreQuery_imageView_layout;
+	private RelativeLayout creditQuery_imageView_layout;
+	private RelativeLayout creditAward_imageView_layout;
+	private RelativeLayout rateManage_imageView_layout;
+	private RelativeLayout userManage_imageView_layout;
+	private RelativeLayout accountManage_imageView_layout;
+	private RelativeLayout about_us_imageView_layout;
+	private RelativeLayout change_account_imageView_layout;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,17 +73,26 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void initViews(){
-		mQueryScoreTV = (TextView) rootView.findViewById(R.id.queryscore);
-		mQueryCreditTV = (TextView) rootView.findViewById(R.id.querycredit);
-		mRateManageTV = (TextView) rootView.findViewById(R.id.ratemanage);
-		mAccountManageTV = (TextView) rootView.findViewById(R.id.accountmanage);
-		mUserManageTV = (TextView) rootView.findViewById(R.id.usermanage);
-		mAboutUsTV = (TextView) rootView.findViewById(R.id.about_us);
-		mChangeAccoutn = (Button) rootView.findViewById(R.id.change_account);
-		mAwardCreditTV = (TextView) rootView.findViewById(R.id.awardcredit);
-		myUserName = (TextView) rootView.findViewById(R.id.user_name);
+		mQueryScoreTV = (ImageView) rootView.findViewById(R.id.queryscore);
+		mQueryCreditTV = (ImageView) rootView.findViewById(R.id.querycredit);
+		mRateManageTV = (ImageView) rootView.findViewById(R.id.ratemanage);
+		mAccountManageTV = (ImageView) rootView.findViewById(R.id.accountmanage);
+		mUserManageTV = (ImageView) rootView.findViewById(R.id.usermanage);
+		mAboutUsTV = (ImageView) rootView.findViewById(R.id.about_us);
+		mChangeAccoutn = (ImageView) rootView.findViewById(R.id.change_account);
+		mAwardCreditTV = (ImageView) rootView.findViewById(R.id.awardcredit);
+		myUserName = (TextView) rootView.findViewById(R.id.client_my_userName);
 		myUserName.setText(Constant.user.getUserName());
-		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+		mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
+
+		scoreQuery_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.scoreQuery_imageView_layout);
+		creditQuery_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.creditQuery_imageView_layout);
+		creditAward_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.creditAward_imageView_layout);
+		rateManage_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.rateManage_imageView_layout);
+		userManage_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.userManage_imageView_layout);
+		accountManage_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.accountManage_imageView_layout);
+		about_us_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.about_us_imageView_layout);
+		change_account_imageView_layout=(RelativeLayout)rootView.findViewById(R.id.change_account_imageView_layout);
 	}
 
 	private void initEvents(){
@@ -86,6 +105,15 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		mAboutUsTV.setOnClickListener(this);
 		mChangeAccoutn.setOnClickListener(this);
 		mAwardCreditTV.setOnClickListener(this);
+
+		scoreQuery_imageView_layout.setOnClickListener(this);
+		creditQuery_imageView_layout.setOnClickListener(this);
+		creditAward_imageView_layout.setOnClickListener(this);
+		rateManage_imageView_layout.setOnClickListener(this);
+		userManage_imageView_layout.setOnClickListener(this);
+		accountManage_imageView_layout.setOnClickListener(this);
+		about_us_imageView_layout.setOnClickListener(this);
+		change_account_imageView_layout.setOnClickListener(this);
 	}
 
 	@Override
@@ -110,7 +138,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		if (bitmap != null) {
 			Drawable drawable = new BitmapDrawable(bitmap);
 			Log.i("huhu", "Path: " + path);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 			mCircleImageView.setImageDrawable(drawable);
 		}else{//从服务器中加载
 			String remotePath = Constant.PICTURE_PREFIX +
@@ -159,7 +187,7 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 			InputStream input = new ByteArrayInputStream(bytes);
 			Bitmap bitmap = BitmapFactory.decodeStream(input);
 			Drawable drawable = new BitmapDrawable(bitmap);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
 			mCircleImageView.setImageDrawable(drawable);
 			//同时将图片保存到本地，用来下次加载
 			try {
@@ -180,41 +208,50 @@ public class AdminMyFragment extends Fragment implements View.OnClickListener {
 		int viewId = v.getId();
 		Intent intent;
 		switch (viewId) {
-			case R.id.icon1:
+			case R.id.client_my_head_imageView:
 				intent = new Intent(getActivity(), ClientUpdateIconActivity.class);
 				startActivityForResult(intent, GET_PHOTO_CODE_ADMIN);
 //				startActivity(intent);
 				break;
 			case R.id.queryscore:
+			case R.id.scoreQuery_imageView_layout:
 				intent = new Intent(getActivity(), AdminScoreActivity.class);
 				startActivity(intent);
 				break;
+
 			case R.id.querycredit:
+			case R.id.creditQuery_imageView_layout:
 				intent = new Intent(getActivity(), AdminCreditActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.awardcredit:
+			case R.id.creditAward_imageView_layout:
 				intent = new Intent(getActivity(), AdminCreditsAwardActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.ratemanage:
+			case R.id.rateManage_imageView_layout:
 				intent = new Intent(getActivity(), AdminRateActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.usermanage:
+			case R.id.userManage_imageView_layout:
 				intent = new Intent(getActivity(), AdminUserActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.accountmanage:
+			case R.id.accountManage_imageView_layout:
 				intent = new Intent(getActivity(), ClientMyAccountmanaPswmodifyActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.about_us:
+			case R.id.about_us_imageView_layout:
 				//DialogUtil.showDialog(AdminMyTabActivity.this, "LoveTrain!");
 				intent = new Intent(getActivity(), AboutUsActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.change_account:
+			case R.id.change_account_imageView_layout:
 				intent = new Intent(getActivity(), LoginActivity1.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
 						Intent.FLAG_ACTIVITY_NEW_TASK);
