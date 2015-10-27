@@ -1,9 +1,11 @@
-package cn.nubia.service;
+package cn.nubia.appUpdate.about;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+
+import cn.nubia.appUpdate.about.AboutManager;
 
 /**
  * Created by WJ on 2015/10/26.
@@ -22,13 +24,14 @@ public class UpdateService extends Service {
         String cmd = intent.getStringExtra("command");
         if(null == cmd)
             return START_NOT_STICKY;
+        AboutManager aboutManager = new AboutManager(this);
         if(cmd.equals("update")){
-//            AboutManager
-            Log.e("test","");
+            aboutManager.newCheckUpdate();
         }else if(cmd.equals("report")){
-            Log.e("test","");
+            String msg = intent.getStringExtra("message");
+            /***  do  nothing ***/
         }else if(cmd.equals("auto_detect")){
-            Log.e("test","");
+           aboutManager.newAutoDetected();
         }
         return START_NOT_STICKY;
     }
