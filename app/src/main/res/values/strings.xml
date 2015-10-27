@@ -22,6 +22,7 @@
     <string name="login_client">普通用户</string>
     <string name="login_admin">管理员</string>
     <string name="login_sign_in">注册</string>
+    <string name="title_back">返回</string>
 
 
 

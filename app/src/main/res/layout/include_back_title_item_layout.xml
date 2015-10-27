@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/titlecon"
     android:layout_width="fill_parent"
-    android:layout_height="48.0dip">
-    <!--android:background="@color/soft_comment_title_content_windows"-->
+    android:layout_height="@dimen/item_height">
 
-    <ImageView
-        android:id="@+id/backButton"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_centerVertical="true"
-        android:background="@null"
-        android:gravity="center"
-        android:onClick="back"
-        android:src="@mipmap/button_back"/>
+        android:layout_height="wrap_content"
+        android:onClick="back">
+        <ImageView
+            android:id="@+id/title_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/button_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/title_back"
+            android:layout_toRightOf="@+id/title_back_image"
+            android:textColor="@color/toolbar_bg"
+            android:gravity="center"
+            />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/sub_page_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:singleLine="true"
+        android:layout_centerInParent="true"
         android:text="@string/app_name"
-        android:textColor="@color/title_text_gray"
-        android:textSize="20.0sp" />
+        android:textColor="@color/toolbar_text_color_normal"
+        android:textSize="@dimen/item_text_size" />
 
     <ImageView
         android:id="@+id/loading_iv"
@@ -38,7 +46,7 @@
         android:visibility="gone"
         />
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/backupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,13 +57,13 @@
         android:layout_centerVertical="true"
         android:textColor="@color/item_operation_download"
         android:visibility="gone"
-        />
+        />-->
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/divider_title"
         android:layout_alignParentBottom="true"
-        android:background="@color/title_interval_green"
+        android:background="@color/toolbar_bg"
         />
 
 </RelativeLayout>
