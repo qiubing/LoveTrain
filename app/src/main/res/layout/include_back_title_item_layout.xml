@@ -4,6 +4,7 @@
     android:layout_height="@dimen/item_height">
 
     <RelativeLayout
+        android:id="@+id/title_back_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="back">

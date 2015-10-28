@@ -4,95 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!--<include-->
-        <!--android:id="@+id/user_course_integration_title"-->
-        <!--layout="@layout/include_back_title_item_layout"-->
-        <!--/>-->
-    <RelativeLayout
-        android:id="@+id/background_top"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/background_top_height"
-        android:background="@mipmap/background_top">
-
-        <RelativeLayout
-            android:id="@+id/backButton"
-            android:layout_width="fill_parent"
-            android:layout_height="48.0dip">
-
-            <RelativeLayout
-                android:id="@+id/manager_goback"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="back">
-                <ImageView
-                    android:id="@+id/title_back_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/button_back"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/title_back"
-                    android:layout_toRightOf="@+id/title_back_image"
-                    android:textColor="@color/background_white"
-                    android:gravity="center"
-                    />
-            </RelativeLayout>
-
-            <!--<ImageView-->
-                <!--android:id="@+id/backButton"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="46dp"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:background="@null"-->
-                <!--android:gravity="center"-->
-                <!--android:onClick="back"-->
-                <!--android:src="@mipmap/button_back"/>-->
-
-            <TextView
-                android:id="@+id/sub_page_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/app_name"
-                android:textColor="@color/title_text_white"
-                android:textSize="20.0sp" />
-
-            <ImageView
-                android:id="@+id/loading_iv"
-                android:layout_width="@dimen/dp75"
-                android:layout_height="@dimen/dp75"
-                android:layout_toLeftOf="@+id/sub_page_title"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="7dp"
-                android:src="@mipmap/dialog_loading"
-                android:visibility="gone"
-                />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/total_course_integration"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/background_top_height"
-            android:gravity="center_horizontal|bottom"
-            android:paddingBottom="@dimen/background_padding_bottom"
-            android:textSize="@dimen/background_top_textsize"
-            android:textColor="@color/background_white"/>
-    </RelativeLayout>
-
+    <include
+        android:id="@+id/user_course_integration_title"
+        layout="@layout/title_with_picture"
+        />
 
     <include
         android:id="@+id/loading_failed_integration"
         layout="@layout/layout_loading_failed"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
-        android:layout_below="@id/background_top"/>
+        android:layout_below="@id/user_course_integration_title"/>
 
     <include
         android:id="@+id/network_unusable_integration"
@@ -112,18 +34,6 @@
             android:layout_height="match_parent"
             android:background="@color/background_unused_gray"></ListView>
     </cn.nubia.component.RefreshLayout>
-
-    <!--<TextView-->
-        <!--android:id="@+id/show_total_course_integration"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@drawable/my_tab_background"-->
-        <!--android:gravity="center"-->
-        <!--android:paddingBottom="11dp"-->
-        <!--android:paddingTop="11dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:visibility="gone"/>-->
-
 </RelativeLayout>
 
 
