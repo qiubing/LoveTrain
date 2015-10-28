@@ -40,12 +40,12 @@
         <!--android:textSize="@dimen/textSize16" />-->
     <ImageView
         android:id="@+id/evaluateBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="33dp"
+        android:layout_marginRight="35dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/icon_exam_label" />
+        android:src="@mipmap/icon_evaluate" />
 
     <TextView
         android:id="@+id/item_layout_content"

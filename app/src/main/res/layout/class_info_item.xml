@@ -73,12 +73,21 @@
             <!--android:background="@color/green"-->
             <!--android:text="讲"-->
             <!--android:visibility="gone" />-->
-
         <ImageView
             android:id="@+id/flag_wetherExam"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@mipmap/icon_exam_label" />
+
+        <ImageView
+            android:id="@+id/evaluateBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"
+            android:src="@mipmap/icon_evaluate" />
+
     </LinearLayout>
 
     <!--<TextView-->
