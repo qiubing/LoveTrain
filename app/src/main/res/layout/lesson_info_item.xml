@@ -12,8 +12,7 @@
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
         android:src="@mipmap/icon_lesson_course" />
 
     <TextView
@@ -27,18 +26,26 @@
         android:textColor="@color/class_item_font"
         android:textSize="@dimen/textSize16" />
 
-    <TextView
+    <!--<TextView-->
+        <!--android:id="@+id/evaluateBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="@dimen/calss_item_padding_right"-->
+        <!--android:background="@color/item_operation_attention"-->
+        <!--android:gravity="center"-->
+        <!--android:text="待评价"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/textSize16" />-->
+    <ImageView
         android:id="@+id/evaluateBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/calss_item_padding_right"
-        android:background="@color/item_operation_attention"
-        android:gravity="center"
-        android:text="待评价"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textSize16" />
+        android:layout_marginRight="33dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/icon_exam_label" />
 
     <TextView
         android:id="@+id/item_layout_content"

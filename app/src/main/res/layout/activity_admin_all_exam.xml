@@ -50,12 +50,12 @@
             android:id="@+id/admin_all_exam_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fff4f7f9"
-            android:divider="#ffd9dd9c"
-            android:dividerHeight="1.0px"
+            android:background="@color/class_item_background_close"
+            android:divider="@color/class_item_background_close"
+            android:dividerHeight="0px"
             android:drawSelectorOnTop="false"
             android:fadingEdge="none"
-            android:listSelector="@android:color/transparent"
+            android:listSelector="@color/class_item_background_close"
             android:scrollbars="none"/>
     </cn.nubia.component.RefreshLayout>
 

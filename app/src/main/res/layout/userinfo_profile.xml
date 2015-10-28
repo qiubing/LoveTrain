@@ -32,12 +32,8 @@
 
             <TextView
                 android:id="@+id/client_my_userName"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户姓名"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
+                style="@style/client_my_head_textView_style"
+                android:text="用户姓名"/>
         </LinearLayout>
     </RelativeLayout>
 

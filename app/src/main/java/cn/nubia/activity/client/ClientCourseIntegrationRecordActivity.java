@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,7 +52,8 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
     private RelativeLayout networkUnusableRelativeLayout;
 
     private GestureDetector gestureDetector;
-
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +71,7 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
 
 //        RelativeLayout mainlayout = (RelativeLayout) findViewById(R.id.main_layout);
 //        mScoreText = (TextView) findViewById(R.id.show_total_course_integration);
-        mScoreText = (TextView)findViewById(R.id.total_course_integration);
+        mScoreText = (TextView)findViewById(R.id.title_text);
 
 
         mRefreshLayout = (RefreshLayout) findViewById(R.id.evaluate_refreshLayout_integration);
@@ -120,16 +125,22 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
                     Log.e(TAG, "VIEW_LOADFAILURE");
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 }
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
             } catch (JSONException e) {
                 Log.e(TAG, "VIEW_LOADFAILURE");
                 e.printStackTrace();
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 
@@ -144,6 +155,15 @@ public class ClientCourseIntegrationRecordActivity extends Activity {
     private void loadData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         //请求参数
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());

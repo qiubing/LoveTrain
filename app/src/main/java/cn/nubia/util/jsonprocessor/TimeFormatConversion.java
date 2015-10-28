@@ -14,11 +14,16 @@ public class TimeFormatConversion {
                 calendar.get(Calendar.DAY_OF_MONTH);
     }
 
-    public static String toTimeDate(long time,int flag) {
+    public static String toTimeDate(long time, int flag) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        return calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" +
-                calendar.get(Calendar.DAY_OF_MONTH);
+        int year =calendar.get(Calendar.YEAR);
+        int month = (calendar.get(Calendar.MONTH) + 1);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return calendar.get(Calendar.YEAR) + "/" + (month >= 10 ? String.valueOf(month) : "0" + month) + "/"
+                + (day >= 10 ? String.valueOf(day) : "0" + day);
+//        return calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" +
+//                calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public static long toTimeLong(long time1,long time2) {
@@ -28,7 +33,10 @@ public class TimeFormatConversion {
     public static String toTime(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        return (hour >= 10 ? String.valueOf(hour) : "0" + hour) + ":" + (min >= 10 ? String.valueOf(min) : "0" + min);
+        //return calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
     }
 
     public static String toDateTime(long time) {

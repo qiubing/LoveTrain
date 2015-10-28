@@ -29,13 +29,15 @@
     <!--吕康 -->
     <dimen name="class_item_heigh">67dp</dimen>
     <dimen name="calss_item_padding_left">10dp</dimen>
-    <dimen name="calss_item_padding_right">20dp</dimen>
-    <dimen name="class_item_fontsize">18sp</dimen>
+    <dimen name="calss_item_padding_right">10dp</dimen>
+    <dimen name="class_item_fontsize">16sp</dimen>
     <dimen name="lesson_item0_fontsize">16sp</dimen>
     <dimen name="lesson_item1_fontsize">12sp</dimen>
     <dimen name="login_item_height">54dp</dimen>
     <dimen name="login_button_width">334dp</dimen>
     <dimen name="button_margin_top">20dp</dimen>
+    <dimen name="class_item_margin_left">12dp</dimen>
+    <dimen name="class_item_margin_right">12dp</dimen>
 
     <!-- LK style-->
     <dimen name="layout_padding">16dp</dimen>
@@ -81,6 +83,16 @@
 
     <!--hexiao-->
     <dimen name="client_my_textView">53.33dp</dimen>
+    <dimen name="client_my_image_size">35dp</dimen>
+    <dimen name="client_my_forward_image_size">23dp</dimen>
+
+
+
+
+
+
+
+
 
 
 

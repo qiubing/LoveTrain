@@ -49,6 +49,12 @@
                         android:layout_toRightOf="@id/check_in_imageView"
                         android:text="签到记录" />
 
+                    <!--<TextView-->
+                        <!--android:id="@+id/check_in_record"-->
+                        <!--style="@style/client_my_textView_style"-->
+                        <!--android:drawableLeft="@drawable/client_my_checkin"-->
+                        <!--android:text="签到记录" />-->
+
                     <ImageView
                         android:id="@+id/checkIn_forward"
                         style="@style/client_my_forwardImageView_style"

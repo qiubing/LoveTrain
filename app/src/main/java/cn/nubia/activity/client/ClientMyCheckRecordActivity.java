@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,6 +56,8 @@ public class ClientMyCheckRecordActivity extends Activity {
     private RelativeLayout networkUnusableRelativeLayout;
 
     private GestureDetector gestureDetector;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,16 +121,22 @@ public class ClientMyCheckRecordActivity extends Activity {
                 } else {
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 }
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(ClientMyCheckRecordActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
+                loadingView.clearAnimation();
+                loadingView.setVisibility(View.GONE);
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            loadingView.clearAnimation();
+            loadingView.setVisibility(View.GONE);
         }
     };
 
@@ -134,6 +146,15 @@ public class ClientMyCheckRecordActivity extends Activity {
     private void loadData() {
         loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+
         RequestParams params = new RequestParams(Constant.getRequestParams());
         params.put("user_id", Constant.user.getUserID());
         String url = Constant.BASE_URL + "user/find_check_record.do";

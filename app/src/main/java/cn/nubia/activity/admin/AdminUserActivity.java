@@ -233,7 +233,7 @@ public class AdminUserActivity extends Activity {
         setContentView(R.layout.activity_manager_user);
         TextView mTitle = (TextView) findViewById(R.id.manager_head_title);
         mTitle.setText(R.string.activity_manager_user);
-        ImageView mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        ImageView mGoBack = (ImageView) findViewById(R.id.title_back_image);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

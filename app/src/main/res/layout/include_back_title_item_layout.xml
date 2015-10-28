@@ -5,6 +5,7 @@
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/title_back_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="back">
