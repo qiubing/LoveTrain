@@ -2,24 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/soft_comment_title_content_windows"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
-
-    <!--<include
-        android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp" />-->
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="@dimen/title_with_picture_height"
         android:layout_alignParentTop="true"
-        layout="@layout/include_back_title_item_layout" />
+        layout="@layout/title_with_picture" />
 
     <include
         android:id="@+id/loading_failed"
@@ -30,115 +20,20 @@
         />
 
     <include
-        android:paddingTop="@dimen/manager_rate_paddingTop"
         android:id="@+id/network_unusable"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
         layout="@layout/layout_network_unusable"
         android:layout_below="@+id/loading_failed"/>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout_lessonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/network_unusable"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/course_name_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="课时名称"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_realName_textView"
-            style="@style/text_view_style"
-            android:layout_below="@id/course_name_title"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/lesson_detail_signIn_textView"
-            style="@style/CustomBigLoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_weight="1"
-            android:text="0人签到"
-            android:textSize="25sp"
-            android:layout_alignTop="@+id/course_name_title"
-           />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/linearLayout_lessonDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout_lessonName"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-
-        <TextView
-            android:id="@+id/exam_introduction_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="课时简介"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_realDesc_textView"
-            style="@style/text_view_style"
-            android:layout_below="@id/exam_introduction_title"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/linearLayout_lessonInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout_lessonDesc"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/exam_info_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="课时信息"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_lessonInfo_textView"
-            style="@style/text_view_style"
-            android:layout_below="@id/exam_info_title"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/signUpAlterCourseRelativeLayout"
+        android:id="@+id/lesson_button_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
-
+        android:marginBottom="@dimen/margin_table"
+        android:marginLeft="@dimen/margin_table"
+        android:marginRight="@dimen/margin_table">
 
         <Button
             android:id="@+id/admin_lesson_detail_alterLessonButton"
@@ -147,194 +42,298 @@
             android:text="修改课时" />
 
         <Button
-            android:id="@+id/admin_lesson_detail_deleteLessonButton"
-            style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:text="删除课时" />
-        <!--<Button-->
-        <!--android:id="@+id/manager_exam_inputscorebtn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/activity_manager_exam_scorebtn"-->
-        <!--android:textSize="15sp" />-->
-        <Button
             android:id="@+id/evaluateTextView"
             style="@style/CustomBigLoginButton"
             android:layout_weight="1"
             android:text="查看评价" />
-    </LinearLayout>
-
-
-
-
-   <!-- <LinearLayout
-        android:id="@+id/linearLayout_generateQRcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/admin_lesson_detail_backImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="10dp"
-            android:src="@mipmap/ic_back" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal|right"
-            android:orientation="horizontal"
-            android:paddingBottom="3dp"
-            android:paddingTop="8dp">
-
-            <ImageView
-                android:id="@+id/lesson_QRCodeImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
-
-            <Button
-                android:id="@+id/lesson_QRCodeImage_generate_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_QRCodeImage_generate_button_text"
-                android:textSize="25dp" />
-
-        </LinearLayout>
-    </LinearLayout>-->
-
-    <!--<RelativeLayout
-        android:id="@+id/relativeLayout_lessonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout_generateQRcode"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/lesson_name_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lessonName"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_realName_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lesson_name_textView"
-            android:text="XXXXXXXX"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_signIn_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:text="签到xx人"
-            android:textSize="25sp" />
-    </RelativeLayout>-->
-
-    <!--<LinearLayout
-        android:id="@+id/linearLayout_lessonDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/relativeLayout_lessonName"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lessonDesc"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_lessonInfo_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="15sp" />
-    </LinearLayout>-->
-
-    <!--<LinearLayout
-        android:id="@+id/linearLayout_lessonInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout_lessonDesc"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lessonInfo"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/lesson_detail_realDesc_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="15sp" />
-    </LinearLayout>
--->
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout_evaluation"
-        android:layout_below="@id/linearLayout_lessonInfo"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:id="@+id/evaluateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lessonComment"
-            android:textSize="25sp" />
-
-        <ListView
-            android:id="@+id/lesson_detail_allComment_listView"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_below="@id/evaluateTextView" />
-    </LinearLayout>-->
-
-    <!--<RelativeLayout
-        android:id="@+id/signUpAlterCourseRelativeLayout"
-        android:layout_below="@id/relativeLayout_evaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="3dp"
-        android:paddingTop="5dp">
-
-        <Button
-            android:id="@+id/admin_lesson_detail_alterLessonButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/alterLessonButton"
-            android:textSize="20sp" />
 
         <Button
             android:id="@+id/admin_lesson_detail_deleteLessonButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/admin_lesson_detail_alterLessonButton"
-            android:text="@string/deleteLessonButton"
-            android:textSize="20sp" />
+            style="@style/CustomBigLoginButton"
+            android:layout_weight="1"
+            android:text="seh" />
 
-    </RelativeLayout>-->
+        <Button
+            android:id="@+id/admin_lesson_detail_deleteLessonButton"
+            style="@style/CustomBigLoginButton"
+            android:layout_weight="1"
+            android:text="删除课时" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lesson_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/network_unusable"
+        android:layout_above="@+id/lesson_button_layout"
+        android:layout_margin="@dimen/margin_table"
+        android:orientation="vertical">
+        <!--1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="3"
+            android:background="@color/toolbar_bg"
+            android:padding="@dimen/divider_table">
+            <TextView
+                android:id="@+id/lesson_describe"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!--2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_teacher"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_teacher"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--3-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_address"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_address"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--4-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_start_time"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_start_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--5-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_time"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_teacher_credits"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_teacher_credits"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_student_credits"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_student_credits"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_sign_in_number"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/lesson_sign_in_number"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>
 
 

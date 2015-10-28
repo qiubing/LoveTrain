@@ -23,6 +23,13 @@
     <string name="login_admin">管理员</string>
     <string name="login_sign_in">注册</string>
     <string name="title_back">返回</string>
+    <string name="lesson_teacher">讲师：</string>
+    <string name="lesson_address">地址：</string>
+    <string name="lesson_start_time">时间：</string>
+    <string name="lesson_time">时长：</string>
+    <string name="lesson_teacher_credits">讲师积分：</string>
+    <string name="lesson_student_credits">学员积分：</string>
+    <string name="lesson_sign_in_number">签到人数：</string>
 
 
 
