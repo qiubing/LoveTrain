@@ -55,14 +55,15 @@
     <style name="judge_rating_text_style">
         <item name="android:layout_width">@dimen/judge_text_width</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginLeft">@dimen/item_smallhorizontalmargin</item>
-        <item name="android:layout_marginRight">@dimen/item_smallhorizontalmargin</item>
+        <item name="android:layout_marginLeft">@dimen/listitem_margin_width_small</item>
+        <item name="android:layout_marginRight">@dimen/listitem_margin_width_small</item>
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">@dimen/textSize16</item>
     </style>
     <style name="judge_rating_bar_style" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
+        <item name="android:layout_marginRight">@dimen/listitem_margin_width_small</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:maxHeight">40dip</item>
     </style>

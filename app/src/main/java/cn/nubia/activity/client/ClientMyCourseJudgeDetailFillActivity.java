@@ -63,7 +63,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
     public void onStart(){
         super.onStart();
         mNextPressReady = true;
-
+        setIsIndicator(false);
         Intent intent = getIntent();
         mOperateType = (CommunicateService.OperateType) intent.getSerializableExtra("operate");
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
@@ -222,6 +222,27 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         return true;
     }
 
+    private void setIsIndicator(boolean isIndicator){
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_contentapplicability_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_contentRationality_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_discussion_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_timerationality_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_contentunderstanding_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_expressionability_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_communication_ratingbar)).setIsIndicator(isIndicator);
+        ((RatingBar) findViewById(R.id
+                .mycourse_judge_detail_fill_organization_ratingbar)).setIsIndicator(isIndicator);
+        mComprehensiveEvaluationEditText.setEnabled(!isIndicator);
+        mSuggestionEditText.setEnabled(!isIndicator);
+    }
+
     private void initViewData(LessonJudgementMsg msg) {
         if(msg!=null) {
             ((RatingBar) findViewById(R.id
@@ -276,6 +297,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                     if (!mExamScoreList.isEmpty()) {
                         if(mExamScoreList.size()>0)
                             initViewData(mExamScoreList.get(0));
+                            setIsIndicator(true);
                     }
                 } else if (operateResult.equals("failure")) {
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
