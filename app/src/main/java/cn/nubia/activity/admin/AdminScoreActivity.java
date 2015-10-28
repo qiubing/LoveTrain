@@ -42,7 +42,7 @@ public class AdminScoreActivity extends ActivityGroup {
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.title_activity_manager_score);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack = (ImageView) findViewById(R.id.title_back_image);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

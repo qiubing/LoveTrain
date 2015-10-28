@@ -37,7 +37,7 @@ public class AdminCreditActivity extends ActivityGroup {
         //公用部分
         TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.title_activity_manager_credit_title);
-        ImageView mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        ImageView mGoBack = (ImageView) findViewById(R.id.title_back_image);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -78,6 +78,16 @@
 
     <!--hexiao-->
     <dimen name="client_my_textView">53.33dp</dimen>
+    <dimen name="client_my_image_size">35dp</dimen>
+    <dimen name="client_my_forward_image_size">23dp</dimen>
+
+
+
+
+
+
+
+
 
 
 

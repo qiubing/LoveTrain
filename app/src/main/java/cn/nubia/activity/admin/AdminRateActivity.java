@@ -34,7 +34,7 @@ public class AdminRateActivity extends Activity {
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText(R.string.activity_manager_rate_title);
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack = (ImageView) findViewById(R.id.title_back_image);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -84,10 +84,10 @@
     </style>
 
     <style name="client_my_imageView_style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/client_my_textView</item>
+        <item name="android:layout_width">@dimen/client_my_image_size</item>
+        <item name="android:layout_height">@dimen/client_my_image_size</item>
+        <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <!--<item name="android:gravity">center_vertical</item>-->
     </style>
 
     <style name="client_my_textView_style">
@@ -96,14 +96,23 @@
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:textSize">@dimen/textSize18</item>
+        <item name="android:textSize">@dimen/textSize16</item>
         </style>
 
-    <style name="client_my_forwardImageView_style">
+    <style name="client_my_head_textView_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/client_my_textView</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">@dimen/textSize18</item>
+    </style>
+
+    <style name="client_my_forwardImageView_style">
+        <item name="android:layout_width">@dimen/client_my_forward_image_size</item>
+        <item name="android:layout_height">@dimen/client_my_forward_image_size</item>
+        <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_alignParentRight">true</item>
-        <!--<item name="android:gravity">center_vertical</item>-->
     </style>
 
 
