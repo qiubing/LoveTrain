@@ -12,21 +12,37 @@
         android:layout_height="42dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
         android:src="@mipmap/icon_exam_big" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_layout_imageview"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:gravity="left">
     <TextView
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/item_layout_imageview"
         android:singleLine="true"
         android:text="java基础"
         android:textColor="@color/class_item_font"
         android:textSize="@dimen/class_item_fontsize" />
+
+    <TextView
+        android:id="@+id/item_layout_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_layout_title"
+        android:layout_below="@+id/item_layout_title"
+        android:layout_marginTop="3dp"
+        android:text="14:30-15:30"
+        android:textColor="@color/toolbar_text_color_normal"
+        android:textSize="@dimen/class_item_fontsize" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/item_layout_content"
@@ -34,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/calss_item_padding_left"
-        android:layout_marginRight="@dimen/calss_item_padding_right"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
+        android:layout_marginRight="@dimen/class_item_margin_right"
         android:gravity="right"
         android:lineSpacingExtra="3dp"
         android:text="2015/10/27\nC2-6"

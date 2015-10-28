@@ -47,6 +47,7 @@ public class ExamAdapter extends BaseAdapter{
             viewHold.mImage = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
             viewHold.mTitle = (TextView) convertView.findViewById(R.id.item_layout_title);
             viewHold.mExamInfo = (TextView) convertView.findViewById(R.id.item_layout_content);
+            viewHold.mExamTime = (TextView) convertView.findViewById(R.id.item_layout_time);
             convertView.setTag(viewHold);
         }else{
             viewHold = (ViewHolder) convertView.getTag();
@@ -56,20 +57,21 @@ public class ExamAdapter extends BaseAdapter{
 
         //        strb.append(mExamList.get(position).getIndex());
         viewHold.mExamInfo.setText(
-                TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime())
-                + "\n"
-                + mExamList.get(position).getLocale());
-               /* + "  "
-                + TimeFormatConversion.toTime(mExamList.get(position).getStartTime())
-                + " ~ "
-                + TimeFormatConversion.toTime(mExamList.get(position).getEndTime()));*/
+                TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime(), 0)
+                        + "\n"
+                        + mExamList.get(position).getLocale().toUpperCase());
+        viewHold.mExamTime.setText(
+                TimeFormatConversion.toTime(mExamList.get(position).getStartTime())
+                        + "-"
+                        + TimeFormatConversion.toTime(mExamList.get(position).getEndTime())
+        );
 
         return convertView;
     }
 
 
     static class ViewHolder{
-        TextView mTitle,mExamInfo;
+        TextView mTitle,mExamInfo,mExamTime;
         ImageView mImage;
     }
 }

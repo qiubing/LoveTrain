@@ -11,7 +11,7 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/calss_item_padding_left"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
         android:src="@mipmap/icon_course" />
 
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_height="23dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/calss_item_padding_left"
+        android:layout_marginRight="@dimen/class_item_margin_right"
         android:src="@mipmap/new_go" />
 
     <TextView
