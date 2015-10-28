@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/item_layout_imageview"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="14dp"
@@ -20,8 +20,8 @@
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:layout_alignLeft="@id/item_layout_content"
         android:singleLine="true"
         android:text="java基础一"
         android:textColor="@color/class_item_font"
@@ -46,11 +46,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/item_layout_title"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
+        android:lineSpacingExtra="3dp"
         android:layout_toRightOf="@id/item_layout_imageview"
-        android:text="C-6室，\n8月24号 9:00~测试测试测试测试测试11:00，张三"
-        android:textColor="@color/class_item_font"
-        android:textSize="12sp" />
+        android:text="地点：C-6室，\n时间：8月24号 9:00~测试测试测试测试测试11:00，张三"
+        android:textColor="@color/toolbar_text_color_normal"
+        android:textSize="@dimen/lesson_item1_fontsize" />
 
     <View
         android:id="@+id/view"

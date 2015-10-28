@@ -14,6 +14,13 @@ public class TimeFormatConversion {
                 calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    public static String toTimeDate(long time,int flag) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        return calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" +
+                calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
     public static String toTime(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);

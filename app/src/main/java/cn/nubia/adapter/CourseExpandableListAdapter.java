@@ -113,8 +113,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 //                break;
 //        }
         /**设置课时信息*/
-        childViewHolder.mLessonDetailTextView.setText("上课地点：" +
-                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "" + "\n上课时间：" +
+        childViewHolder.mLessonDetailTextView.setText("地点：" +
+                        mGroupList.get(groupPosition).getLessonList().get(childPosition).getLocation() + "" + "\n时间：" +
                         TimeFormatConversion.toTimeDate(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         "  " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getStartTime()) +
                         " ~ " + TimeFormatConversion.toTime(mGroupList.get(groupPosition).getLessonList().get(childPosition).getEndTime())
@@ -215,19 +215,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**课程类别和分享级别：不管是管理员还是普通用户，显示规则是一样的*/
         Log.e("0925hexiao","Name:"+mGroupList.get(groupPosition).getName() +","+"CourseType:"+mGroupList.get(groupPosition).getType() +
                 ","+"ShareType:"+mGroupList.get(groupPosition).getShareType() +","+"HasExam:"+mGroupList.get(groupPosition).hasExam() +","+"IsTeacher:"+isTeacher(groupPosition));
-
-        /*
-        groupViewHolder.mCourseType.setVisibility(View.GONE);
+        //隐藏部科团这三个级别
+//        groupViewHolder.mCourseType.setVisibility(View.GONE);
         switch (mGroupList.get(groupPosition).getType()) {
             case "course":
                 groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_course);
-                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+//                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 break;
             case "share":
-                groupViewHolder.mCourseLevel.setVisibility(View.VISIBLE);
+//                groupViewHolder.mCourseLevel.setVisibility(View.VISIBLE);
 
                 groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_share);
-                switch (mGroupList.get(groupPosition).getShareType()) {
+                /*switch (mGroupList.get(groupPosition).getShareType()) {
                     case 0:
                         groupViewHolder.mCourseLevel.setText("部");
                         break;
@@ -241,18 +240,18 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                         Log.e("courseExp+shareType", mGroupList.get(groupPosition).getShareType() + "");
                         groupViewHolder.mCourseLevel.setText("???");
                         break;
-                }
+                }*/
                 break;
             case "senior":
                 groupViewHolder.mCourseIconIV.setImageResource(R.mipmap.icon_gao);
-                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+//                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 break;
             default:
                 Log.e("courseExp+type", mGroupList.get(groupPosition).getType() + "");
-                groupViewHolder.mCourseType.setText("???");
-                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
+//                groupViewHolder.mCourseType.setText("???");
+//                groupViewHolder.mCourseLevel.setVisibility(View.GONE);
                 break;
-        }*/
+        }
 
         /**不管管理员还是普通用户，隐去“报名考试”标记*/
 //        groupViewHolder.mSignUpExamTextView.setVisibility(View.INVISIBLE);

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:id="@+id/client_my_head_background_imageView"
+            style="@style/client_my_head_style"
+            android:adjustViewBounds="true"
+            android:src="@drawable/client_my_head_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+            <cn.nubia.component.CircleImageView
+                android:id="@+id/client_my_head_imageView"
+                android:layout_marginTop="20dp"
+                android:layout_width="90.0dip"
+                android:layout_height="90.0dip"
+                android:src="@drawable/client_my_head" />
+
+            <TextView
+                android:id="@+id/client_my_userName"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户姓名"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

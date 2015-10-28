@@ -86,18 +86,29 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 			@Override
 			public android.support.v4.app.Fragment getItem(int index) {
 				android.support.v4.app.Fragment fragment = null;
+				Bundle bundle = new Bundle();
 				switch (index) {
 					case 0 :
-						fragment = new CourseFragment(ALL_CLASS_FILTER);
+						fragment = new CourseFragment();
+						bundle.putString("filter",CourseFragment.All_CLASS_FILTER_TYPE);
+						fragment.setArguments(bundle);
 						break;
 					case 1 :
-						fragment = new CourseFragment(NORMAL_CLASS__FILTER);
+						fragment = new CourseFragment();
+						bundle.putString("filter",CourseFragment.NORMAL_CLASS_FILTER_TYPE);
+						fragment.setArguments(bundle);
 						break;
 					case 2 :
-						fragment = new CourseFragment(SENIOR_CLASS__FILTER);
+						fragment = new CourseFragment();
+						bundle.putString("filter", CourseFragment.SENIOR_CLASS_FILTER_TYPE);
+								fragment.setArguments(bundle);
 						break;
 					case 3 :
-						fragment = new CourseFragment(SHARE_CLASS__FILTER);
+						fragment = new CourseFragment();
+						bundle.putString("filter",CourseFragment.SHARE_CLASS_FILTER_TYPE);
+						fragment.setArguments(bundle);
+						break;
+					default:
 						break;
 				}
 				return fragment;
@@ -139,6 +150,8 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 			case R.color.toolbar_text_color_normal :
 				mDividerViews[index].setVisibility(View.GONE);
 				break;
+			default:
+				break;
 		}
 
 	}
@@ -167,39 +180,9 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 					viewPager.setCurrentItem(3);
 				}
 				break;
-
+			default:
+				break;
 		}
 	}
 
-	public interface ClassFitler{
-		boolean filterClass(Item item);
-	}
-
-	public static final ClassFitler ALL_CLASS_FILTER = new ClassFitler() {
-		@Override
-		public boolean filterClass(Item item) {
-			return true;
-		}
-	};
-
-	public static final ClassFitler NORMAL_CLASS__FILTER = new ClassFitler() {
-		@Override
-		public boolean filterClass(Item item) {
-			return item.getType().equals("course");
-		}
-	};
-
-	public static final ClassFitler SENIOR_CLASS__FILTER = new ClassFitler() {
-		@Override
-		public boolean filterClass(Item item) {
-			return item.getType().equals("senior");
-		}
-	};
-
-	public static final ClassFitler SHARE_CLASS__FILTER = new ClassFitler() {
-		@Override
-		public boolean filterClass(Item item) {
-			return item.getType().equals("share");
-		}
-	};
 }

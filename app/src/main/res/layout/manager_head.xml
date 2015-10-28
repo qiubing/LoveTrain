@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="48.0dip"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
     android:background="@color/soft_comment_title_content_windows">
+    <!--android:background="@color/soft_comment_title_content_windows"-->
 
-    <ImageView
+    <RelativeLayout
         android:id="@+id/manager_goback"
         android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_centerVertical="true"
-        android:paddingLeft="0dp"
-        android:src="@mipmap/ic_back" />
+        android:layout_height="wrap_content"
+        android:onClick="back">
+        <ImageView
+            android:id="@+id/title_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/button_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/title_back"
+            android:layout_toRightOf="@+id/title_back_image"
+            android:textColor="@color/toolbar_bg"
+            android:gravity="center"
+            />
+    </RelativeLayout>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/manager_goback"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="46dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@mipmap/button_back" />-->
 
     <TextView
         android:id="@+id/manager_head_title"
@@ -23,10 +46,20 @@
         android:textColor="@color/grayslate"
         android:textSize="@dimen/textSize22" />
 
+    <ImageView
+        android:id="@+id/loading_iv"
+        android:layout_width="@dimen/dp75"
+        android:layout_height="@dimen/dp75"
+        android:layout_toLeftOf="@+id/sub_page_title"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:src="@mipmap/dialog_loading"
+        android:visibility="gone"/>
+
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/listitem_interval_height"
         android:layout_below="@+id/manager_head_title"
-        android:background="@color/orange"></View>
+        android:background="@color/title_interval_green"></View>
 </RelativeLayout>
 

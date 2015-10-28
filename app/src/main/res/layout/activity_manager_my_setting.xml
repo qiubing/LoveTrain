@@ -16,132 +16,245 @@
 
             <include
                 android:id="@+id/myProfile"
-                layout="@layout/userinfo_profile_item"
+                layout="@layout/userinfo_profile"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="@drawable/item_bg"
                 android:orientation="vertical">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/queryscore"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="成绩查询"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/queryscore"
-                    android:text="成绩查询"
-                    style="@style/text_view_style" />
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                <RelativeLayout
+                    android:id="@+id/scoreQuery_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/querycredit"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="积分查询"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/querycredit"
-                    android:text="积分查询"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/scoreQuery_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_scores" />
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/scoreQuery_imageView"
+                        android:layout_toRightOf="@id/scoreQuery_imageView"
+                        android:text="成绩查询" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/awardcredit"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="积分奖励"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/awardcredit"
-                    android:text="积分奖励"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/queryscore"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                <RelativeLayout
+                    android:id="@+id/creditQuery_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/ratemanage"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="评级管理"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/ratemanage"
-                    android:text="评级管理"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/creditQuery_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_points" />
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/creditQuery_imageView"
+                        android:layout_toRightOf="@id/creditQuery_imageView"
+                        android:text="积分查询" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/usermanage"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="用户管理"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/usermanage"
-                    android:text="用户管理"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/querycredit"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                <RelativeLayout
+                    android:id="@+id/creditAward_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/accountmanage"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:text="修改密码"-->
-                    <!--android:textSize="@dimen/textSize16" />-->
-                <TextView
-                    android:id="@+id/accountmanage"
-                    android:text="修改密码"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/creditAward_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_feedback" />
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#dddbdb" />
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/creditAward_imageView"
+                        android:layout_toRightOf="@id/creditAward_imageView"
+                        android:text="积分奖励" />
 
-                <TextView
-                    android:id="@+id/about_us"
-                    android:text="关于我们"
-                    style="@style/text_view_style" />
+                    <ImageView
+                        android:id="@+id/awardcredit"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rateManage_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/rateManage_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_checkin" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/rateManage_imageView"
+                        android:layout_toRightOf="@id/rateManage_imageView"
+                        android:text="评级管理" />
+
+                    <ImageView
+                        android:id="@+id/ratemanage"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/userManage_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/userManage_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_sharecourses" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/userManage_imageView"
+                        android:layout_toRightOf="@id/userManage_imageView"
+                        android:text="用户管理" />
+
+                    <ImageView
+                        android:id="@+id/usermanage"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/accountManage_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/accountManage_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_passwordchange" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/accountManage_imageView"
+                        android:layout_toRightOf="@id/accountManage_imageView"
+                        android:text="修改密码" />
+
+                    <ImageView
+                        android:id="@+id/accountmanage"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/about_us_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/about_us_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_checkupdate" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/about_us_imageView"
+                        android:layout_toRightOf="@id/about_us_imageView"
+                        android:text="关于我们" />
+
+                    <ImageView
+                        android:id="@+id/about_us"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/change_account_imageView_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/change_account_imageView"
+                        style="@style/client_my_imageView_style"
+                        android:src="@drawable/client_my_logout" />
+
+                    <TextView
+                        style="@style/client_my_textView_style"
+                        android:layout_toEndOf="@id/change_account_imageView"
+                        android:layout_toRightOf="@id/change_account_imageView"
+                        android:text="退出登录" />
+
+                    <ImageView
+                        android:id="@+id/change_account"
+                        style="@style/client_my_forwardImageView_style"
+                        android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#dddbdb" />
+                </RelativeLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/change_account"
-                style="@style/CustomBigLoginButton"
-                android:textSize="@dimen/textSize20"
-                android:text="退出登录" />
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

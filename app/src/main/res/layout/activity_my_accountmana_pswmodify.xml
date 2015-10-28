@@ -3,68 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/soft_comment_title_content_windows">
+    android:background="@color/background_unused_gray">
 
     <include
         android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+        layout="@layout/manager_head" />
+
     <TableLayout
         style="@style/contentrealm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="1">
 
-        <TableRow style="@style/itemtitle">
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview"-->
-            <!--android:textSize="@dimen/jiangyu_itemname_textsize"/>-->
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_my_accountmana_pswmodify_oldpsw_textview" />
+        <TableRow style="@style/itemtitle"
+            android:layout_marginTop="@dimen/listitem_margin_height_big"
+            android:layout_marginBottom="@dimen/listitem_margin_height_big"
+            android:background="@color/background_white">
 
-
+            <ImageView
+                style="@style/password_image_style" />
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_oldpswedittext"
-                style="@style/edit_text_style"
+                style="@style/no_border_text_style"
+                android:layout_height="@dimen/listitem_height"
                 android:inputType="textPassword"
-                android:hint="@string/activity_manager_add_exam_hint" />
+                android:hint="@string/activity_my_accountmana_pswmodify_oldpsw_textview" />
 
         </TableRow>
 
-        <TableRow style="@style/itemtitle">
+        <TableRow style="@style/itemtitle"
+            android:background="@color/background_white">
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_my_accountmana_pswmodify_newpsw_textview" />
+            <ImageView
+                style="@style/password_image_style" />
 
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_newpswedittext"
-                style="@style/edit_text_style"
-                android:hint="@string/activity_manager_add_exam_hint"
+                style="@style/no_border_text_style"
+                android:hint="@string/activity_my_accountmana_pswmodify_newpsw_textview"
                 android:inputType="textPassword" />
         </TableRow>
 
-        <TableRow style="@style/itemtitle">
+        <TableRow style="@style/itemtitle"
+            android:background="@color/background_white">
 
-            <TextView
-                style="@style/text_view_style"
-                android:text="@string/activity_my_accountmana_pswmodify_confirmpsw_textview" />
-
+            <ImageView
+                style="@style/password_image_style" />
             <EditText
                 android:id="@+id/my_accountmana_pswmodify_newpswconfirmedittext"
-                style="@style/edit_text_style"
-                android:hint="@string/activity_manager_add_exam_hint"
+                style="@style/no_border_text_style"
+                android:hint="@string/activity_my_accountmana_pswmodify_confirmpsw_textview"
                 android:inputType="textPassword" />
-
         </TableRow>
     </TableLayout>
 
     <Button
         android:id="@+id/my_accountmana_pswmodify_confirmbutton"
         style="@style/CustomBigLoginButton"
-        android:text="@string/alterCourseForSure" />
+        android:text="@string/alterCourseForSure"
+        android:background="@color/title_interval_green"/>
 </LinearLayout>

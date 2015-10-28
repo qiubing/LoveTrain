@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,18 +43,18 @@ import cn.nubia.util.Utils;
 public class ClientMyTabActivity extends Activity implements OnClickListener {
     private static final String TAG = "UserSetting";
     private static final int GET_PHOTO_CODE = 1;
-
+    private static final String UPDATE_INTENT_ACTON = "cn.nubia.appUpdate.newVersion";
     private CircleImageView mCircleImageView;
-    private TextView mCheckRecord;
-    private TextView mCourseIntergration;
-    private TextView mExamScore;
-    private TextView mCourseShare;
-    private TextView mIWantShare;
-    private TextView mPasswordChange;
-    private TextView mAboutMe;
-    private TextView mFanKui;
-    private TextView mVersion;
-    private Button mLogoutButton;
+    private ImageView mCheckRecord;
+    private ImageView mCourseIntergration;
+    private ImageView mExamScore;
+    private ImageView mCourseShare;
+    //    private ImageView mIWantShare;
+    private ImageView mPasswordChange;
+    //    private ImageView mAboutMe;
+    private ImageView mVersion;
+    private ImageView mFanKui;
+    private ImageView mLogoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,32 +64,33 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         initEvents();
     }
 
-    private void initViews(){
+    private void initViews() {
         TextView myUserName = (TextView) findViewById(R.id.user_name);
         myUserName.setText(Constant.user.getUserName());
 
-        mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
-        mCheckRecord = (TextView) findViewById(R.id.check_in_record);
-        mCourseIntergration = (TextView) findViewById(R.id.course_integration);
-        mCourseShare = (TextView) findViewById(R.id.course_share);
-        mIWantShare = (TextView) findViewById(R.id.i_want_share);
-        mExamScore = (TextView) findViewById(R.id.exam_score);
-        mPasswordChange = (TextView) findViewById(R.id.btn_passwd_change);
-        mAboutMe = (TextView) findViewById(R.id.btn_about);
-        mFanKui = (TextView) findViewById(R.id.btn_fankui);
-        mVersion = (TextView) findViewById(R.id.btn_version);
-        mLogoutButton = (Button) findViewById(R.id.bt_logout);
+        mCircleImageView = (CircleImageView) findViewById(R.id.client_my_head_imageView);
+
+        mCheckRecord = (ImageView) findViewById(R.id.checkIn_forward);
+        mCourseIntergration = (ImageView) findViewById(R.id.points_forward);
+        mExamScore = (ImageView) findViewById(R.id.examScores_forward);
+        mCourseShare = (ImageView) findViewById(R.id.shareCourses_forward);
+//        mIWantShare = (ImageView) findViewById(R.id.i_want_share);
+        mPasswordChange = (ImageView) findViewById(R.id.passwordChange_forward);
+        mVersion = (ImageView) findViewById(R.id.checkUpdate_forward);
+//        mAboutMe = (ImageView) findViewById(R.id.btn_about);
+        mFanKui = (ImageView) findViewById(R.id.feedback_forward);
+        mLogoutButton = (ImageView) findViewById(R.id.logout_forward);
     }
 
-    private void initEvents(){
+    private void initEvents() {
         mCircleImageView.setOnClickListener(this);
         mCheckRecord.setOnClickListener(this);
         mCourseIntergration.setOnClickListener(this);
         mCourseShare.setOnClickListener(this);
-        mIWantShare.setOnClickListener(this);
+//        mIWantShare.setOnClickListener(this);
         mExamScore.setOnClickListener(this);
         mPasswordChange.setOnClickListener(this);
-        mAboutMe.setOnClickListener(this);
+//        mAboutMe.setOnClickListener(this);
         mFanKui.setOnClickListener(this);
         mVersion.setOnClickListener(this);
         mLogoutButton.setOnClickListener(this);
@@ -97,53 +98,63 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.icon1:
                 Intent intent = new Intent(this, ClientUpdateIconActivity.class);
                 startActivityForResult(intent, GET_PHOTO_CODE);
                 break;
-            case R.id.check_in_record:
-               myStartActivity(ClientMyCheckRecordActivity.class);
+            case R.id.checkIn_forward:
+                myStartActivity(ClientMyCheckRecordActivity.class);
                 break;
-            case R.id.course_integration:
+            case R.id.points_forward:
                 myStartActivity(ClientCourseIntegrationRecordActivity.class);
                 break;
-            case R.id.exam_score:
+            case R.id.examScores_forward:
                 myStartActivity(ClientExamScoreActivity.class);
                 break;
-            case R.id.course_share:
+            case R.id.shareCourses_forward:
                 myStartActivity(ClientShareCourseActivity.class);
                 break;
-            case R.id.i_want_share:
-                Intent intent1 = new Intent(this,ClientMyShareCourseDetailFillActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("type","insert");
-                intent1.putExtras(bundle);
-                startActivity(intent1);
-                break;
-            case R.id.btn_passwd_change:
+//            case R.id.i_want_share:
+//                Intent intent1 = new Intent(this,ClientMyShareCourseDetailFillActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("type","insert");
+//                intent1.putExtras(bundle);
+//                startActivity(intent1);
+//                break;
+            case R.id.passwordChange_forward:
                 myStartActivity(ClientMyAccountmanaPswmodifyActivity.class);
                 break;
-            case R.id.btn_about:
-                myStartActivity(AboutUsActivity.class);
+//            case R.id.btn_about:
+//                myStartActivity(AboutUsActivity.class);
+//                break;
+
+            case R.id.checkUpdate_forward:
+                Log.e(TAG, "update version");
+                Intent service = new Intent(UPDATE_INTENT_ACTON);
+                service.putExtra("command", "update");
+                this.getApplicationContext().startService(service);
                 break;
-            case R.id.btn_fankui:
+            case R.id.feedback_forward:
                 myStartActivity(FeedBackActivity.class);
                 break;
-            case R.id.btn_version:
-                Log.e(TAG,"update version");
-                //UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
-                //检查更新
-                //manager.checkUpdate();
-                //showUpdatDialog();
-            break;
-            case R.id.bt_logout:
+//            case R.id.btn_version:
+//                Log.e(TAG,"update version");
+//                Intent service = new Intent(UPDATE_INTENT_ACTON);
+//                service.putExtra("command","update");
+//                this.getApplicationContext().startService(service);
+//                //UpdateManager manager = new UpdateManager(ClientMyTabActivity.this);
+//                //检查更新
+//                //manager.checkUpdate();
+//                //showUpdatDialog();
+//            break;
+            case R.id.logout_forward:
                 //注销登录
                 Intent logoutIntent = new Intent(this,
                         LoginActivity1.class);
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
                         Intent.FLAG_ACTIVITY_NEW_TASK);
-                ProcessSPData.clearSP(ClientMyTabActivity.this);//清楚缓存的数据
+                ProcessSPData.clearSP(ClientMyTabActivity.this);//清除缓存的数据
                 startActivity(logoutIntent);
                 break;
         }
@@ -206,21 +217,21 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         Bitmap bitmap = Utils.getPictureFromSD(localPath);
         if (bitmap != null) {
             Drawable drawable = new BitmapDrawable(bitmap);
-            mCircleImageView = (CircleImageView) findViewById(R.id.icon1);
+            mCircleImageView = (CircleImageView) findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
-        }else{//从服务器中加载
+        } else {//从服务器中加载
             String remotePath = Constant.PICTURE_PREFIX +
                     Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
-            Log.e(TAG,"remotePath: " + remotePath);
+            Log.e(TAG, "remotePath: " + remotePath);
             //从服务器加载图片，传递url地址过去
             AsyncHttpHelper.get(remotePath, mPictureHandler);
         }
     }
 
-    private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler(){
+    private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-            Log.e(TAG,"onSuccess: 加载成功");
+            Log.e(TAG, "onSuccess: 加载成功");
             InputStream input = new ByteArrayInputStream(bytes);
             Bitmap bitmap = BitmapFactory.decodeStream(input);
             Drawable drawable = new BitmapDrawable(bitmap);
@@ -228,7 +239,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
             mCircleImageView.setImageDrawable(drawable);
             //同时将图片保存到本地，用来下次加载
             try {
-                Utils.saveFile(bitmap,Constant.user.getUserID() + Constant.PORTRAIT);
+                Utils.saveFile(bitmap, Constant.user.getUserID() + Constant.PORTRAIT);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,7 +247,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
-            Log.e(TAG,"onFailure: 加载失败");
+            Log.e(TAG, "onFailure: 加载失败");
         }
     };
 }

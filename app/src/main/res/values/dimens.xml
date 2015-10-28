@@ -30,6 +30,8 @@
     <dimen name="calss_item_padding_left">10dp</dimen>
     <dimen name="calss_item_padding_right">20dp</dimen>
     <dimen name="class_item_fontsize">18sp</dimen>
+    <dimen name="lesson_item0_fontsize">16sp</dimen>
+    <dimen name="lesson_item1_fontsize">12sp</dimen>
     <dimen name="login_item_height">54dp</dimen>
     <dimen name="login_button_width">334dp</dimen>
     <dimen name="button_margin_top">20dp</dimen>
@@ -60,11 +62,25 @@
     <dimen name="listitem_interval_height">0.5dp</dimen>
     <dimen name="listitem_margin_width">25dp</dimen>
     <dimen name="listitem_margin_width_big">75dp</dimen>
+    <dimen name="listitem_margin_height_big">10dp</dimen>
     <dimen name="background_top_height">150dp</dimen>
     <dimen name="background_padding_bottom">15dp</dimen>
+    <dimen name="judge_text_width">100dp</dimen>
+
     <!--字体大小-->
     <dimen name="listitem_textsize">20dp</dimen>
     <dimen name="background_top_textsize">50dp</dimen>
+    <!--图片大小-->
+    <dimen name="password_imagesize">35dp</dimen>
+
+
+
+
+
+
+    <!--hexiao-->
+    <dimen name="client_my_textView">53.33dp</dimen>
+
 
 
 

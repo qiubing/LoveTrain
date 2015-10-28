@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +30,18 @@ import cn.nubia.db.DbUtil;
 import cn.nubia.db.SqliteHelper;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
+import cn.nubia.entity.Item;
 import cn.nubia.entity.RecordModifyFlag;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.LoadViewUtil;
 import cn.nubia.util.UpdateClassListHelper;
 
 public class CourseFragment extends Fragment {
+    public final static String All_CLASS_FILTER_TYPE = "All_CLASS_FILTER";
+    public final static String NORMAL_CLASS_FILTER_TYPE = "NORMAL_CLASS__FILTER";
+    public final static String SENIOR_CLASS_FILTER_TYPE = "SENIOR_CLASS__FILTER";
+    public final static String SHARE_CLASS_FILTER_TYPE = "SHARE_CLASS__FILTER";
+
     private RefreshLayout mRefreshLayout;
     private LoadViewUtil mLoadViewUtil;
     /*expandableListView*/
@@ -46,16 +51,33 @@ public class CourseFragment extends Fragment {
     /*用来存储courseItem的List*/
     private List<CourseItem> mCourseItemList;
     private View rootView;
-    private ClientAllCourceFragment.ClassFitler mClassFitler;
-
-    protected CourseFragment(ClientAllCourceFragment.ClassFitler classFitler){
-        mClassFitler = classFitler;
-    }
+    private ClassFitler mClassFitler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getFiter();
         initEvents();
+    }
+
+    private void getFiter(){
+        String filterType = getArguments().getString("filter");
+        switch (filterType){
+            case All_CLASS_FILTER_TYPE:
+                mClassFitler = ALL_CLASS_FILTER;
+                break;
+            case NORMAL_CLASS_FILTER_TYPE:
+                mClassFitler = NORMAL_CLASS_FILTER;
+                break;
+            case SENIOR_CLASS_FILTER_TYPE:
+                mClassFitler = SENIOR_CLASS_FILTER;
+                break;
+            case SHARE_CLASS_FILTER_TYPE:
+                mClassFitler = SHARE_CLASS_FILTER;
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -231,4 +253,36 @@ public class CourseFragment extends Fragment {
         }
         return mCourseItemList;
     }
+
+    public interface ClassFitler{
+        boolean filterClass(Item item);
+    }
+
+    public static final ClassFitler ALL_CLASS_FILTER = new ClassFitler() {
+        @Override
+        public boolean filterClass(Item item) {
+            return true;
+        }
+    };
+
+    public static final ClassFitler NORMAL_CLASS_FILTER = new ClassFitler() {
+        @Override
+        public boolean filterClass(Item item) {
+            return item.getType().equals("course");
+        }
+    };
+
+    public static final ClassFitler SENIOR_CLASS_FILTER = new ClassFitler() {
+        @Override
+        public boolean filterClass(Item item) {
+            return item.getType().equals("senior");
+        }
+    };
+
+    public static final ClassFitler SHARE_CLASS_FILTER = new ClassFitler() {
+        @Override
+        public boolean filterClass(Item item) {
+            return item.getType().equals("share");
+        }
+    };
 }
