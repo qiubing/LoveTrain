@@ -21,6 +21,10 @@ public class TimeFormatConversion {
                 calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    public static long toTimeLong(long time1,long time2) {
+        return (time2 - time1) / 1000 / 60;
+    }
+
     public static String toTime(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);

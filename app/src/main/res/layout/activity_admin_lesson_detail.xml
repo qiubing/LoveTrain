@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/layout_backgroung">
 
     <include
         android:id="@+id/sub_title"
@@ -28,35 +29,32 @@
 
     <LinearLayout
         android:id="@+id/lesson_button_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:marginBottom="@dimen/margin_table"
-        android:marginLeft="@dimen/margin_table"
-        android:marginRight="@dimen/margin_table">
+        android:paddingBottom="@dimen/margin_table"
+        android:paddingLeft="@dimen/margin_table"
+        android:paddingRight="@dimen/margin_table">
 
         <Button
             android:id="@+id/admin_lesson_detail_alterLessonButton"
             style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="修改课时" />
+            android:text="修改课时"
+            android:layout_marginRight="@dimen/item_margin"/>
 
         <Button
             android:id="@+id/evaluateTextView"
             style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="查看评价" />
+            android:text="查看评价"
+            android:layout_marginRight="@dimen/item_margin"/>
 
         <Button
             android:id="@+id/admin_lesson_detail_deleteLessonButton"
             style="@style/CustomBigLoginButton"
             android:layout_weight="1"
-            android:text="seh" />
-
-        <Button
-            android:id="@+id/admin_lesson_detail_deleteLessonButton"
-            style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
+            android:background="@color/red"
             android:text="删除课时" />
 
     </LinearLayout>
@@ -74,16 +72,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:background="@color/toolbar_bg"
-            android:padding="@dimen/divider_table">
+            android:paddingLeft="@dimen/divider_table"
+            android:paddingRight="@dimen/divider_table"
+            android:paddingTop="@dimen/divider_table">
             <TextView
                 android:id="@+id/lesson_describe"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/app_name"
-                android:gravity="center" />
+                android:paddingLeft="@dimen/padding_table"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/item_bottom_text_size"/>
         </LinearLayout>
 
         <!--2-->
@@ -97,27 +99,33 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_teacher"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_teacher"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -132,27 +140,33 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_address"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_address"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -168,13 +182,16 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_start_time"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
 
             <LinearLayout
@@ -182,14 +199,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_start_time"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -204,13 +224,16 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_time"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
 
             <LinearLayout
@@ -218,14 +241,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_time"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -239,27 +265,33 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_teacher_credits"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_teacher_credits"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -274,27 +306,33 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_student_credits"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
                 <TextView
                     android:id="@+id/lesson_student_credits"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -314,22 +352,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/lesson_sign_in_number"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
             </LinearLayout>
+            
             <LinearLayout
                 android:layout_width="@dimen/zero"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@color/toolbar_bg"
-                android:padding="@dimen/divider_table">
-                <TextView
-                    android:id="@+id/lesson_sign_in_number"
-                    android:background="@android:color/white"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table"
+                android:paddingBottom="@dimen/divider_table">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/app_name"
-                    android:gravity="center" />
+                    android:background="@android:color/white">
+                    <TextView
+                        android:id="@+id/lesson_sign_in_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="150"
+                        android:paddingLeft="@dimen/padding_table"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/item_bottom_text_size"/>
+                    <TextView
+                        android:id="@+id/lesson_sign_in_number_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/lesson_sign_in_details"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="100dp"
+                        android:textColor="@color/toolbar_bg"
+                        android:textSize="@dimen/item_bottom_text_size"
+                        />
+                </LinearLayout>
             </LinearLayout>
+            
         </LinearLayout>
 
     </LinearLayout>

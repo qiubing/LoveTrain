@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.WriterException;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -34,7 +36,9 @@ import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.service.CommunicateService;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
+import cn.nubia.util.Utils;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
+import cn.nubia.zxing.encoding.EncodingHandler;
 
 /**
  * Created by hexiao on 2015/9/8.
@@ -62,15 +66,23 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         /**获取控件**/
         Button alterLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_alterLessonButton);
         Button deleteLessonBtn = (Button) findViewById(R.id.admin_lesson_detail_deleteLessonButton);
-        TextView signUpPopulationTextView = (TextView) findViewById(R.id.lesson_detail_signIn_textView);
-//        TextView mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
+        TextView signUpPopulationTextView = (TextView) findViewById(R.id.lesson_sign_in_number_button);
+        TextView mGenerateQRCode = (TextView) findViewById(R.id.backupButton);
         Button mEvaluateTextView = (Button) findViewById(R.id.evaluateTextView);
         TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText("课时管理");
+        sub_page_title.setText("课时详情");
         /**获取相关的TextView*/
-        TextView lessonNameTextView = (TextView) findViewById(R.id.lesson_detail_realName_textView);
-        TextView lessDescTextView = (TextView) findViewById(R.id.lesson_detail_realDesc_textView);
-        TextView lessonInfoTextView = (TextView) findViewById(R.id.lesson_detail_lessonInfo_textView);
+        TextView lessonNameTextView = (TextView) findViewById(R.id.title_text);
+        TextView lessDescTextView = (TextView) findViewById(R.id.lesson_describe);
+        TextView lesson_teacher = (TextView) findViewById(R.id.lesson_teacher);
+        TextView lesson_address = (TextView) findViewById(R.id.lesson_address);
+        TextView lesson_start_time = (TextView) findViewById(R.id.lesson_start_time);
+        TextView lesson_time = (TextView) findViewById(R.id.lesson_time);
+        TextView lesson_teacher_credits = (TextView) findViewById(R.id.lesson_teacher_credits);
+        TextView lesson_student_credits = (TextView) findViewById(R.id.lesson_student_credits);
+        TextView lesson_sign_in_number = (TextView) findViewById(R.id.lesson_sign_in_number);
+
+
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
@@ -87,20 +99,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         Intent intent = getIntent();
         lessonItem = (LessonItem) intent.getSerializableExtra("LessonItem");
 
-        sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText(lessonItem.getName());
-        signUpPopulationTextView.setText(lessonItem.getCheckUsers()+"人签到");
-
-//        String teacherID = lessonItem.getTeacherID();
-//        String myID = Constant.user.getUserID();
-
-//        if (myID.equals(teacherID)) {
-//            status = "teacher";
-//        } else {
-//            status = "student";
-//        }
-//        Log.e("jiangyu","teacherid "+teacherID+", myid "+ myID+", status "+ status);
-
         String teacherName = lessonItem.getTeacherName();
         String myName = Constant.user.getUserName();
 
@@ -111,17 +109,15 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         }
 
         if(Constant.IS_ADMIN) {
-//            mGenerateQRCode.setVisibility(View.VISIBLE);
             alterLessonBtn.setOnClickListener(this);
             deleteLessonBtn.setOnClickListener(this);
             signUpPopulationTextView.setOnClickListener(this);
-//            mGenerateQRCode.setOnClickListener(this);
             mEvaluateTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
         } else if(status.equals("teacher")) {
-//            mGenerateQRCode.setVisibility(View.VISIBLE);
             signUpPopulationTextView.setOnClickListener(this);
-//            mGenerateQRCode.setOnClickListener(this);
             mEvaluateTextView.setOnClickListener(this);
+            mGenerateQRCode.setOnClickListener(this);
             alterLessonBtn.setVisibility(View.GONE);
             deleteLessonBtn.setVisibility(View.GONE);
         } else {
@@ -130,11 +126,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             } else {
                 mEvaluateTextView.setText("进行评价");
             }
-
             mEvaluateTextView.setOnClickListener(this);
             alterLessonBtn.setVisibility(View.GONE);
             deleteLessonBtn.setVisibility(View.GONE);
             signUpPopulationTextView.setVisibility(View.GONE);
+            mGenerateQRCode.setVisibility(View.GONE);
         }
 
         /*switch (startActivity) {
@@ -181,18 +177,16 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         }
 */
 
-
         if (lessonItem != null) {
-            lessonNameTextView.setText(lessonItem.getName() == null ? "null" : lessonItem.getName());
-            lessDescTextView.setText(lessonItem.getDescription() == null ? "null" : lessonItem.getDescription());
-            lessonInfoTextView.setText("讲师：" + lessonItem.getTeacherName() +
-                            "\n上课地址：" + lessonItem.getLocation() +
-                            "\n上课时间：" + TimeFormatConversion.toDateTime(lessonItem.getStartTime()) +
-
-                            "\n下课时间：" + TimeFormatConversion.toDateTime(lessonItem.getEndTime()) +
-                            "\n讲师上课可得积分：" + lessonItem.getTeacherCredits() +
-                            "\n学员签到可得积分：" + lessonItem.getCheckCredits()
-            );
+            lessonNameTextView.setText(lessonItem.getName());
+            lessDescTextView.setText("课时简介：" + lessonItem.getDescription());
+            lesson_teacher.setText(lessonItem.getTeacherName());
+            lesson_address.setText(lessonItem.getLocation());
+            lesson_start_time.setText(TimeFormatConversion.toDateTime(lessonItem.getStartTime()));
+            lesson_time.setText(TimeFormatConversion.toTimeLong(lessonItem.getStartTime(), lessonItem.getEndTime()) + "分钟");
+            lesson_teacher_credits.setText(lessonItem.getTeacherCredits()+"");
+            lesson_student_credits.setText(lessonItem.getCheckCredits()+"");
+            lesson_sign_in_number.setText(lessonItem.getCheckUsers() + "");
         }
     }
 
@@ -252,7 +246,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 });
                 builderDelete.create().show();
                 break;
-            case R.id.lesson_detail_signIn_textView:
+            case R.id.lesson_sign_in_number_button:
                 Intent intentSignInInfo = new Intent();
                 intentSignInInfo.setClass(AdminLessonDetailActivity.this, AdminSignInLessonPersonInfoActivity.class);
                 signUpBundle.putSerializable("LessonItem", lessonItem);
@@ -260,56 +254,56 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 startActivity(intentSignInInfo);
                 break;
 
-//            case R.id.backupButton:
-//                /**
-//                 * 生成二维码，edit by qiubing
-//                 */
-//                //TODO:生成具有课程和讲师信息的二维码
-//                //获取要生成课程的ID索引
-//                Toast.makeText(this, "二维码生成中", Toast.LENGTH_SHORT).show();
-//                //二维码的名称
-//                String contentString = String.valueOf(lessonItem.getIndex());
-//                if (!contentString.equals("")) {
-//                    //获取需要插入的头像logo
-//                    //Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT);
-//                    Bitmap qrCodeBitmap = null;
-//                    try {
-//                        //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-//                        //qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
-//                        qrCodeBitmap = EncodingHandler.createQRCode(contentString,350);
-//                    } catch (WriterException e) {
-//                        e.printStackTrace();
-//                    }
-//                    final String barCodeName = lessonItem.getTeacherName() + "-" + lessonItem.getName()
-//                            + "-" + String.valueOf(lessonItem.getIndex()) + ".jpg";
-//                    final Bitmap bitmap = qrCodeBitmap;
-//                    ImageView image = new ImageView(this);
-//                    image.setMaxHeight(350);
-//                    image.setMaxWidth(350);
-//                    image.setImageBitmap(qrCodeBitmap);
-//
-//                    //弹框显示二维码图片
-//                    final AlertDialog.Builder builder = new AlertDialog.Builder(this).
-//                            setTitle("保存二维码图片到本地").setView(image);
-//                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            //保存二维码图片到SD卡中
-//                            Utils.saveBitmap(barCodeName, bitmap);
-//                            Toast.makeText(AdminLessonDetailActivity.this,
-//                                    "二维码保存在/MyDownloader/barcode目录下", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                        }
-//                    });
-//                    builder.show();
-//                } else {
-//                    Toast.makeText(this, "Lesson id can not be empty", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
+            case R.id.backupButton:
+                /**
+                 * 生成二维码，edit by qiubing
+                 */
+                //TODO:生成具有课程和讲师信息的二维码
+                //获取要生成课程的ID索引
+                Toast.makeText(this, "二维码生成中", Toast.LENGTH_SHORT).show();
+                //二维码的名称
+                String contentString = String.valueOf(lessonItem.getIndex());
+                if (!contentString.equals("")) {
+                    //获取需要插入的头像logo
+                    //Bitmap logo = Utils.getPictureFromSD(Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT);
+                    Bitmap qrCodeBitmap = null;
+                    try {
+                        //根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+                        //qrCodeBitmap = EncodingHandler.createQRImage(contentString, 350, 350, logo);
+                        qrCodeBitmap = EncodingHandler.createQRCode(contentString, 350);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                    final String barCodeName = lessonItem.getTeacherName() + "-" + lessonItem.getName()
+                            + "-" + String.valueOf(lessonItem.getIndex()) + ".jpg";
+                    final Bitmap bitmap = qrCodeBitmap;
+                    ImageView image = new ImageView(this);
+                    image.setMaxHeight(350);
+                    image.setMaxWidth(350);
+                    image.setImageBitmap(qrCodeBitmap);
+
+                    //弹框显示二维码图片
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this).
+                            setTitle("保存二维码图片到本地").setView(image);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //保存二维码图片到SD卡中
+                            Utils.saveBitmap(barCodeName, bitmap);
+                            Toast.makeText(AdminLessonDetailActivity.this,
+                                    "二维码保存在/MyDownloader/barcode目录下", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Toast.makeText(this, "Lesson id can not be empty", Toast.LENGTH_SHORT).show();
+                }
+                break;
 
             case R.id.evaluateTextView:
                 /**课时尚未开始和结束不能进行评价*/
