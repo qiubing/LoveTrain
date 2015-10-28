@@ -113,9 +113,11 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             deleteLessonBtn.setOnClickListener(this);
             signUpPopulationTextView.setOnClickListener(this);
             mEvaluateTextView.setOnClickListener(this);
+            mGenerateQRCode.setVisibility(View.VISIBLE);
             mGenerateQRCode.setOnClickListener(this);
         } else if(status.equals("teacher")) {
             signUpPopulationTextView.setOnClickListener(this);
+            mGenerateQRCode.setVisibility(View.VISIBLE);
             mEvaluateTextView.setOnClickListener(this);
             mGenerateQRCode.setOnClickListener(this);
             alterLessonBtn.setVisibility(View.GONE);
@@ -130,7 +132,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             alterLessonBtn.setVisibility(View.GONE);
             deleteLessonBtn.setVisibility(View.GONE);
             signUpPopulationTextView.setVisibility(View.GONE);
-            mGenerateQRCode.setVisibility(View.GONE);
         }
 
         /*switch (startActivity) {

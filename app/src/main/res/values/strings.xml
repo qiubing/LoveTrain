@@ -23,15 +23,30 @@
     <string name="login_admin">管理员</string>
     <string name="login_sign_in">注册</string>
     <string name="title_back">返回</string>
-    <string name="lesson_teacher">讲师：</string>
-    <string name="lesson_address">地址：</string>
-    <string name="lesson_start_time">时间：</string>
-    <string name="lesson_time">时长：</string>
-    <string name="lesson_teacher_credits">讲师积分：</string>
-    <string name="lesson_student_credits">学员积分：</string>
-    <string name="lesson_sign_in_number">签到人数：</string>
+
+    <string name="alterLesson">修改课时</string>
+    <string name="alterLessonForSure">确认修改</string>
+    <string name="lesson_QRCodeImage_generate_button_text">生成二维码</string>
+    <string name="lessonComment">查看评价</string>
+    <string name="deleteLessonButton">删除课时</string>
+
+    <string name="lesson_teacher">讲师:</string>
+    <string name="lesson_address">地址:</string>
+    <string name="lesson_start_time">时间:</string>
+    <string name="lesson_time">时长:</string>
+    <string name="lesson_teacher_credits">讲师积分:</string>
+    <string name="lesson_student_credits">学员积分:</string>
+    <string name="lesson_sign_in_number">签到人数:</string>
     <string name="lesson_sign_in_details">查看详情</string>
 
+    <string name="activity_manager_exam_scorebtn">试卷批阅</string>
+    <string name="activity_manager_exam_editbtn">修改考试</string>
+    <string name="activity_manager_exam_deletebtn">删除考试</string>
+    <string name="activity_manager_exam_enrollbtn">报名考试</string>
+
+    <string name="exam_credits">考试积分:</string>
+    <string name="exam_number">报名人数:</string>
+    <string name="exam_number_details">查看详情</string>
 
 
     <!--邱兵-->
@@ -148,13 +163,6 @@
     <string name="activity_manager_rate_C">一般课程</string>
     <string name="activity_manager_rate_button">确认修改</string>
     <string name="activity_manager_rate_hint">请输入取值范围</string>
-    <string name="activity_manager_exam_scorebtn">试卷批阅</string>
-    <string name="activity_manager_exam_editbtn">修改考试</string>
-    <string name="activity_manager_exam_name">考试名称</string>
-    <string name="activity_manager_exam_deletebtn">删除考试</string>
-    <string name="activity_manager_exam_enrollbtn">报名考试</string>
-    、<string name="activity_manager_exam_introduction">考试简介</string>
-    <string name="activity_manager_exam_info">考试信息</string>
     <string name="title_activity_manager_score_user">ManagerScoreUserActivity</string>
     <string name="title_activity_manager_score_course">ManagerScoreCourseActivity</string>
     <string name="title_activity_manager_score_user_detail">ManagerScoreUserDetailActivity</string>
@@ -204,16 +212,7 @@
     <string name="studentGetPoints">学员积分</string>
     <string name="addLessonForSure">确认添加</string>
 
-    <!--管理员修改课时Activity-->
-    <string name="alterLesson">修改课时</string>
-    <string name="alterLessonForSure">确认修改</string>
 
-    <!--管理员课时详细Activity-->
-    <string name="lesson_QRCodeImage_generate_button_text">生成二维码</string>
-    <string name="lessonInfo">课时信息</string>
-    <string name="lessonComment">评价</string>
-    <string name="deleteLessonButton">删除课时</string>
-    <string name="alterLessonButton">修改课时</string>
 
 
     <!--管理员签到信息Activity-->

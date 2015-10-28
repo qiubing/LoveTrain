@@ -61,9 +61,10 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/item_margin"
             android:gravity="center"
-            android:text="生成二维码"
+            android:text="@string/lesson_QRCodeImage_generate_button_text"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_comment_title_content_windows"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:background="@color/layout_backgroung">
 
     <include
         android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="@dimen/title_with_picture_height"
         android:layout_alignParentTop="true"
-        layout="@layout/include_back_title_item_layout" />
+        layout="@layout/title_with_picture" />
 
     <include
         android:id="@+id/loading_failed"
@@ -29,149 +27,293 @@
         layout="@layout/layout_network_unusable"
         android:layout_below="@+id/loading_failed"/>
 
-    <RelativeLayout
-        android:id="@+id/layout02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/network_unusable"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp"
-        >
-
-        <TextView
-            android:id="@+id/course_name_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="@string/activity_manager_exam_name"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/course_name"
-            style="@style/text_view_style"
-            android:layout_below="@id/course_name_title"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/manager_exam_menber"
-            style="@style/CustomBigLoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_weight="1"
-            android:text="查看报考人数"
-            android:textSize="25sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout02"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-
-        <TextView
-            android:id="@+id/exam_introduction_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="@string/activity_manager_exam_introduction"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/exam_introduction"
-            style="@style/text_view_style"
-            android:layout_below="@id/exam_introduction_title"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout03"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/exam_info_title"
-            style="@style/text_view_style"
-            android:gravity="bottom"
-            android:text="@string/activity_manager_exam_info"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/exam_info"
-            style="@style/text_view_style"
-            android:layout_below="@id/exam_info_title"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-
-        <Button
-            android:visibility="gone"
-            android:layout_below="@+id/exam_info"
-            android:id="@+id/manager_exam_enroll"
-            style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:text="@string/activity_manager_exam_enrollbtn" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:id="@+id/lesson_button_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingBottom="@dimen/margin_table"
+        android:paddingLeft="@dimen/margin_table"
+        android:paddingRight="@dimen/margin_table">
 
-        <!--<Button-->
-        <!--android:id="@+id/manager_exam_editbtn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/activity_manager_exam_editbtn"-->
-        <!--android:textSize="15sp" />-->
         <Button
             android:id="@+id/manager_exam_editbtn"
             style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:text="@string/activity_manager_exam_editbtn" />
-        <!--<Button-->
-        <!--android:id="@+id/manager_exam_deletebtn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/activity_manager_exam_deletebtn"-->
-        <!--android:textSize="15sp" />-->
+            android:text="@string/activity_manager_exam_editbtn"
+            android:layout_marginRight="@dimen/item_margin"/>
+
         <Button
             android:id="@+id/manager_exam_deletebtn"
             style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:text="@string/activity_manager_exam_deletebtn" />
-        <!--<Button-->
-        <!--android:id="@+id/manager_exam_inputscorebtn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/activity_manager_exam_scorebtn"-->
-        <!--android:textSize="15sp" />-->
+            android:background="@color/red"
+            android:text="@string/activity_manager_exam_deletebtn"
+            android:layout_marginRight="@dimen/item_margin"/>
+
         <Button
             android:id="@+id/manager_exam_inputscorebtn"
             style="@style/CustomBigLoginButton"
+            android:text="@string/activity_manager_exam_scorebtn"
+            />
+
+        <Button
+            android:id="@+id/manager_exam_enrollbtn"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/activity_manager_exam_enrollbtn"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lesson_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/network_unusable"
+        android:layout_above="@+id/lesson_button_layout"
+        android:layout_margin="@dimen/margin_table"
+        android:orientation="vertical">
+        <!--1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="2"
+            android:background="@color/toolbar_bg"
+            android:paddingLeft="@dimen/divider_table"
+            android:paddingRight="@dimen/divider_table"
+            android:paddingTop="@dimen/divider_table">
+            <TextView
+                android:id="@+id/exam_describe"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:paddingLeft="@dimen/padding_table"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/item_bottom_text_size"/>
+        </LinearLayout>
+
+        <!--3-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
             android:layout_weight="1"
-            android:text="@string/activity_manager_exam_scorebtn" />
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_address"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/exam_address"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--4-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_start_time"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/exam_start_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--5-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_time"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/exam_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/exam_credits"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/exam_credits"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/exam_number"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table"
+                android:paddingBottom="@dimen/divider_table">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white">
+                    <TextView
+                        android:id="@+id/exam_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="150"
+                        android:paddingLeft="@dimen/padding_table"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/item_bottom_text_size"/>
+                    <TextView
+                        android:id="@+id/exam_number_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/lesson_sign_in_details"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="100dp"
+                        android:textColor="@color/toolbar_bg"
+                        android:textSize="@dimen/item_bottom_text_size"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -38,63 +38,28 @@ import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
-/**
- * Created by LK on 2015/9/9.
- */
-
-/*胡立加：添加手势类方法
-Android为手势检测提供了一个GestureDetector类， GestureDetector实例代表了一个手势检测器，
-创建GestureDetector时需要传入一个GestureDetector.OnGestureListener实例，
-GestureDetector.OnGestureListener就是一个监听器，负责对用户手势行为提供响应。
-
-开发流程
-  1 创建一个GestureDetector对象，创建该对象时必须实现一个GestureDetector.OnGestureListener监听器实例
-    //创建手势检测器   public GestureDetector(Context context, OnGestureListener listener)
-	GestureDetector detector = new GestureDetector(this, this);
-  2 为应用程序的Activity(特定组件也可以)的TouchEvent事件绑定监听器，在事件处理中把Activity(特定组件也可以)
-  上的TouchEvent事件交给GestureDetector处理
-     //将该Activity上的触碰事件交给GestureDetector处理
-	@Override
-	public boolean onTouchEvent(MotionEvent me) {
-		return detector.onTouchEvent(me);
-	}
-
-共需如下五步：
-*  1 private GestureDetector gestureDetector;
-* 2 GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
-  3 gestureDetector = new GestureDetector(this, gestureDetectorManager);
-
-   @Override
-  4  public boolean onTouchEvent(MotionEvent event) {
-
-        return  gestureDetector.onTouchEvent(event);
-    }
-
-  5 gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
-            @Override
-            public void finishActivity() {
-                finish();
-            }
-        });
-*
-* */
 public class AdminExamDetailActivity extends BaseCommunicateActivity implements View.OnClickListener{
     private Button mInputScore;
     private Button mDeleteExam;
     private Button mEditExam;
-    private Button mExamMenber;
-    private TextView mCourseName;
-    private TextView mExamIntroduction;
-    private TextView mExamInfo;
-    private ExamItem mExamItemExamEdit;
+    private Button mExamEnroll;
+
+    private TextView mExamDes;
+    private TextView mExamAddress;
+    private TextView mExamStartTime;
+    private TextView mExamTimeLong;
+    private TextView mExamCredits;
+    private TextView mExamPeapleNumber;
+    private TextView mExamPeapleNumberDetails;
+
     private static final String URL = Constant.BASE_URL + "/exam/delete.do";
     private RelativeLayout loadingFailedRelativeLayout;
     private RelativeLayout networkUnusableRelativeLayout;
-    private Button mEnroll;
     private boolean mNextPressReady;
     private ImageView loadingView;
     private RotateAnimation refreshingAnimation;
     private GestureDetector gestureDetector;
+    private  ExamItem mExamItemExamEdit;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +67,6 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         setContentView(R.layout.activity_manager_exam_detail);
         holdView();
 
-        mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout)findViewById(R.id.network_unusable);
 
@@ -116,10 +80,17 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
             }
         });
 
-        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
-        mManagerTitle.setText(mExamItemExamEdit.getName());
-        mExamMenber.setText(mExamItemExamEdit.getErollUsers() + "人报考");
-        initViewData();
+        mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
+        TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+        sub_page_title.setText("课时详情");
+        TextView lessonNameTextView = (TextView) findViewById(R.id.title_text);
+        lessonNameTextView.setText(mExamItemExamEdit.getName());
+        mExamDes.setText("考试简介：" + mExamItemExamEdit.getDescription());
+        mExamAddress.setText(mExamItemExamEdit.getLocale());
+        mExamStartTime.setText(TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()));
+        mExamTimeLong.setText(TimeFormatConversion.toTimeLong(mExamItemExamEdit.getStartTime(), mExamItemExamEdit.getEndTime()) + "分钟");
+        mExamCredits.setText(mExamItemExamEdit.getExamCredits() + "");
+        mExamPeapleNumber.setText(mExamItemExamEdit.getErollUsers()+"");
     }
 
     @Override
@@ -134,10 +105,6 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         mNextPressReady = true;
     }
 
-//    @Override
-//    protected void onBinderCompleted() {
-//
-//    }
 
     //将Activity上的触碰事件交给GestureDetector处理
     @Override
@@ -185,57 +152,63 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
                 intent.putExtras(bundleExamEdit);
                 startActivity(intent);
                 break;
-            case R.id.manager_exam_menber:
+            case R.id.exam_number_button:
                 intent = new Intent(AdminExamDetailActivity.this, AdminSignInExamPersonInfoActivity.class);
                 Bundle examMenberBundle = new Bundle();
                 examMenberBundle.putSerializable("ExamIndex", mExamItemExamEdit);
                 intent.putExtras(examMenberBundle);
                 startActivity(intent);
                 break;
-            default:
+            case R.id.manager_exam_enrollbtn:
+                if (mNextPressReady) {
+                    ExamEnrollMsg examEnrollMsg = new ExamEnrollMsg();
+                    examEnrollMsg.setUserID(Constant.user.getUserID());
+                    examEnrollMsg.setExamIndex(mExamItemExamEdit.getIndex());
+                    examEnrollMsg.setOperateType(CommunicateService.OperateType.INSERT);
+//                    if(null==mExamItemExamEdit.getCourseIndex()){
+                    mBinder.communicate(
+                            examEnrollMsg, new Inter(), URLMap.URL_ADD_NORMALEXAMENROLL);
+//                    }else{
+//                        mBinder.communicate(
+//                                examEnrollMsg, new Inter(), URLMap.URL_ADD_SPECIALEXAMENROLL);
+//                    }
+                    mExamEnroll.setText("报名中...");
+                    mNextPressReady = false;
+
+                }
                 break;
         }
     }
 
     private void holdView(){
-        mEnroll = (Button) findViewById(R.id.manager_exam_enroll);
         mInputScore = (Button) findViewById(R.id.manager_exam_inputscorebtn);
         mDeleteExam = (Button) findViewById(R.id.manager_exam_deletebtn);
         mEditExam = (Button) findViewById(R.id.manager_exam_editbtn);
-        mExamMenber = (Button) findViewById(R.id.manager_exam_menber);
-        mExamIntroduction = (TextView) findViewById(R.id.exam_introduction);
-        mExamInfo = (TextView) findViewById(R.id.exam_info);
-        mCourseName = (TextView) findViewById(R.id.course_name);
+        mExamEnroll = (Button) findViewById(R.id.manager_exam_enrollbtn);
+        mExamDes = (TextView) findViewById(R.id.exam_describe);
+        mExamAddress = (TextView) findViewById(R.id.exam_address);
+        mExamStartTime = (TextView) findViewById(R.id.exam_start_time);
+        mExamTimeLong = (TextView) findViewById(R.id.exam_time);
+        mExamCredits = (TextView) findViewById(R.id.exam_credits);
+        mExamPeapleNumber = (TextView) findViewById(R.id.exam_number);
+        mExamPeapleNumberDetails = (TextView) findViewById(R.id.exam_number_button);
 
-        if(!Constant.IS_ADMIN){//普通用户
-            mExamMenber.setVisibility(View.GONE);
-            mInputScore .setVisibility(View.GONE);
-            mDeleteExam.setVisibility(View.GONE);
-            mEditExam.setVisibility(View.GONE);
-            mEnroll.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setViewLogic(){
-        mInputScore.setOnClickListener(this);
-        mDeleteExam.setOnClickListener(this);
-        mEditExam.setOnClickListener(this);
-        mExamMenber.setOnClickListener(this);
 
-//        if(Constant.IS_ADMIN == true || status.equals("teacher")){
         if(Constant.IS_ADMIN == true){
             mInputScore.setOnClickListener(this);
             mDeleteExam.setOnClickListener(this);
             mEditExam.setOnClickListener(this);
-            mExamMenber.setOnClickListener(this);
-        }
-
-        else{
-            mInputScore.setVisibility(View.GONE);
+            mExamPeapleNumberDetails.setOnClickListener(this);
+        } else{
+            mExamEnroll.setVisibility(View.VISIBLE);
+            mExamEnroll.setOnClickListener(this);
+            mInputScore .setVisibility(View.GONE);
             mDeleteExam.setVisibility(View.GONE);
             mEditExam.setVisibility(View.GONE);
-            mExamMenber.setVisibility(View.GONE);
-            //mGenerateQRCode.setVisibility(View.GONE);
+            mExamPeapleNumberDetails.setVisibility(View.GONE);
         }
 
         //创建手势管理单例对象
@@ -251,39 +224,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
             }
         });
 
-        mEnroll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mNextPressReady) {
-                    ExamEnrollMsg examEnrollMsg = new ExamEnrollMsg();
-                    examEnrollMsg.setUserID(Constant.user.getUserID());
-                    examEnrollMsg.setExamIndex(mExamItemExamEdit.getIndex());
-                    examEnrollMsg.setOperateType(CommunicateService.OperateType.INSERT);
-//                    if(null==mExamItemExamEdit.getCourseIndex()){
-                    mBinder.communicate(
-                            examEnrollMsg, new Inter(), URLMap.URL_ADD_NORMALEXAMENROLL);
-//                    }else{
-//                        mBinder.communicate(
-//                                examEnrollMsg, new Inter(), URLMap.URL_ADD_SPECIALEXAMENROLL);
-//                    }
-                    mEnroll.setText("报名中...");
-                    mNextPressReady = false;
-
-                }
-            }
-        });
     }
-
-    private void initViewData() {
-        mCourseName.setText(mExamItemExamEdit.getName());
-        mExamIntroduction.setText(mExamItemExamEdit.getDescription());
-        mExamInfo.setText(
-                "考试地点：" + mExamItemExamEdit.getLocale() +
-                        "\n开始时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getStartTime()) +
-                        "\n结束时间：" + TimeFormatConversion.toDateTime(mExamItemExamEdit.getEndTime()) +
-                        "\n考试积分：" + mExamItemExamEdit.getExamCredits());
-    }
-
 
     private void deleteData(){
         loadingFailedRelativeLayout.setVisibility(View.GONE);
@@ -348,7 +289,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
-        mEnroll.setText(R.string.activity_manager_exam_enrollbtn);
+        mExamEnroll.setText(R.string.activity_manager_exam_enrollbtn);
         if(response==null){
             DialogMaker.finishCurrentDialog(AdminExamDetailActivity.this,
                     AdminExamDetailActivity.this, "连接服务器失败!", false);
