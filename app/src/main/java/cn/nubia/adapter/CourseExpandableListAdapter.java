@@ -236,6 +236,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             }
         }
+        if(Constant.IS_ADMIN){
+            groupViewHolder.mEvaluateView.setVisibility(View.GONE);
+        }
 
         //隐藏部科团这三个级别
 //        groupViewHolder.mCourseType.setVisibility(View.GONE);
