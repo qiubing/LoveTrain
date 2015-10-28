@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+android:id/background"
-        android:drawable="@mipmap/icon_all_cource" />
+        android:drawable="@mipmap/rating_bar_star_unselected" />
     <item android:id="@+android:id/secondaryProgress"
-        android:drawable="@mipmap/icon_all_cource" />
+        android:drawable="@mipmap/rating_bar_star_unselected" />
     <item android:id="@+android:id/progress"
-        android:drawable="@mipmap/icon_all_cource" />
-</selector>
+        android:drawable="@mipmap/rating_bar_star_selected" />
+</layer-list>
