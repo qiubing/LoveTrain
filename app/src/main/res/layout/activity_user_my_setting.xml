@@ -40,7 +40,6 @@
                     <ImageView
                         android:id="@+id/check_in_imageView"
                         style="@style/client_my_imageView_style"
-
                         android:src="@drawable/client_my_checkin" />
 
                     <TextView
@@ -49,6 +48,12 @@
                         android:layout_toEndOf="@id/check_in_imageView"
                         android:layout_toRightOf="@id/check_in_imageView"
                         android:text="签到记录" />
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/check_in_record"-->
+                        <!--style="@style/client_my_textView_style"-->
+                        <!--android:drawableLeft="@drawable/client_my_checkin"-->
+                        <!--android:text="签到记录" />-->
 
                     <ImageView
                         android:id="@+id/checkIn_forward"
