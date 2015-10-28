@@ -2,11 +2,17 @@ package cn.nubia.activity.client;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,14 +40,20 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
     private EditText mSuggestionEditText;
     private ScrollView mContentScrollView;
 
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycourse_judge_detail_fill);
 
         //公用部分
-        ((TextView) findViewById(R.id.manager_head_title))
+        ((TextView) findViewById(R.id.sub_page_title))
                 .setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
+
 
         holdView();
         setViewLogic();
@@ -62,6 +74,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
             judgementMsg.setLessonIndex(mLessonIndex);
             judgementMsg.setOperateType(CommunicateService.OperateType.QUERY);
             judgementMsg.setUserID(Constant.user.getUserID());
+
+            initLoadingUI();
 
             new Thread(new Runnable() {
                 @Override
@@ -108,6 +122,8 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                             judgement.setSuggestion(
                                     mSuggestionEditText.getText().toString().trim());
 
+
+                            initLoadingUI();
                             judgement.setLessonIndex(mLessonIndex);
                             judgement.setUserID(Constant.user.getUserID());
                             judgement.setOperateType(CommunicateService.OperateType.INSERT);
@@ -130,6 +146,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                 R.id.mycourse_judge_detail_fill_suggestion_edittext);
         mContentScrollView =(ScrollView) findViewById(
                 R.id.mycourse_judge_detail_fill_contentscrollview);
+
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
     }
 
     private void setViewLogic(){
@@ -160,12 +181,33 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
 
-        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        (findViewById(R.id.title_back_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClientMyCourseJudgeDetailFillActivity.this.finish();
             }
         });
+    }
+
+    private void initLoadingUI(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(ClientMyCourseJudgeDetailFillActivity.this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
     }
 
     private boolean checkData(){
@@ -205,9 +247,12 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
 
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
+        loadingView.clearAnimation();
+        loadingView.setVisibility(View.GONE);
         mNextPressReady = true;
         mConfirmButton.setText(R.string.confirm_button);
         if(response==null){
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
                     ClientMyCourseJudgeDetailFillActivity.this, "连接服务器失败!", false);
         }else{
@@ -233,6 +278,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                             initViewData(mExamScoreList.get(0));
                     }
                 } else if (operateResult.equals("failure")) {
+                    loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
                     String message = (String) response.get("message");
                     DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,
                             ClientMyCourseJudgeDetailFillActivity.this, "获取评价信息失败：\n" +

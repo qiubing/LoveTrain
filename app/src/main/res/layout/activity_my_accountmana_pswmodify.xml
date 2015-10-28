@@ -7,7 +7,19 @@
 
     <include
         android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head" />
+        layout="@layout/include_back_title_item_layout" />
+
+    <include
+        android:id="@+id/loading_failed"
+        layout="@layout/layout_loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip" />
+
+    <include
+        android:id="@+id/network_unusable"
+        layout="@layout/layout_network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="38dip" />
 
     <TableLayout
         style="@style/contentrealm"

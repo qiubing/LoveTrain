@@ -1,9 +1,16 @@
 package cn.nubia.activity.client;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Map;
@@ -27,13 +34,18 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
     private Button mConfirmButton;
     private boolean mNextPressReady;
 
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_accountmana_pswmodify);
 
         //公用部分
-        ((TextView) findViewById(R.id.manager_head_title))
+        ((TextView) findViewById(R.id.sub_page_title))
                 .setText(R.string.activity_my_accountmana_pswmodify_tittle_textview);
 
         holdView();
@@ -78,6 +90,8 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
                             DialogUtil.showDialog(
                                     ClientMyAccountmanaPswmodifyActivity.this, "原密码不能为空！", false);
                         } else {
+                            initLoadingUI();
+
                             PswModifyMsg pswModifyMsg = new PswModifyMsg();
                             pswModifyMsg.setOldPsw(oldPsw);
                             pswModifyMsg.setNewPsw(newPsw);
@@ -101,13 +115,40 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
                 R.id.my_accountmana_pswmodify_confirmbutton);
         mNewpswEditText = (EditText) findViewById(
                 R.id.my_accountmana_pswmodify_newpswedittext);
+
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+    }
+
+    private void initLoadingUI(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
+                ClientMyAccountmanaPswmodifyActivity.this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
     }
 
     private void setViewLogic() {
-        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.title_back_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
             }
         });
 
@@ -117,9 +158,12 @@ public class ClientMyAccountmanaPswmodifyActivity extends BaseCommunicateActivit
 
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){
+        loadingView.clearAnimation();
+        loadingView.setVisibility(View.GONE);
         mNextPressReady = true;
         mConfirmButton.setText(R.string.alterCourseForSure);
         if(response==null){
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             DialogMaker.finishCurrentDialog(ClientMyAccountmanaPswmodifyActivity.this,
                     ClientMyAccountmanaPswmodifyActivity.this, "连接服务器失败!", false);
         }else{
