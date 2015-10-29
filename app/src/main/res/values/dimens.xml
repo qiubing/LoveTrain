@@ -37,7 +37,7 @@
     <dimen name="class_item_fontsize">16sp</dimen>
     <dimen name="lesson_item0_fontsize">16sp</dimen>
     <dimen name="lesson_item1_fontsize">12sp</dimen>
-    <dimen name="login_item_height">54dp</dimen>
+    <dimen name="login_item_height">50dp</dimen>
     <dimen name="login_button_width">334dp</dimen>
     <dimen name="button_margin_top">20dp</dimen>
     <dimen name="class_item_margin_left">12dp</dimen>
