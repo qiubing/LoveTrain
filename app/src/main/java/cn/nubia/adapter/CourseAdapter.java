@@ -54,6 +54,7 @@ public class CourseAdapter extends BaseAdapter {
             viewHold.mImage = (ImageView) convertView.findViewById(R.id.item_layout_imageview_1);
             viewHold.mTitle = (TextView) convertView.findViewById(R.id.item_layout_title_1);
             viewHold.mCourseInfo = (TextView) convertView.findViewById(R.id.item_layout_content_1);
+            viewHold.mLocation = (TextView) convertView.findViewById(R.id.item_layout_content_location);
             convertView.setTag(viewHold);
         }else{
             viewHold = (ViewHolder) convertView.getTag();
@@ -66,25 +67,16 @@ public class CourseAdapter extends BaseAdapter {
         startTime.setTime(course.getmStartTime());
         Date endTime = new Date();
         endTime.setTime(course.getmEndTime());
-        StringBuilder sb = new StringBuilder();
-        sb.append("上课地点：");
-        sb.append(course.getmLocation());
-        sb.append("    分享者：");
-        sb.append(course.getmUserName());
-        sb.append("\n上课时间：");
-        sb.append(new SimpleDateFormat("yyyy-MM-dd").format(startTime));
-        sb.append(" ");
-        sb.append(new SimpleDateFormat("HH:mm").format(startTime));
-        sb.append("~");
-        sb.append(new SimpleDateFormat("HH:mm").format(endTime));
-        viewHold.mCourseInfo.setText(sb.toString());
-
-        Log.v("course", sb.toString());
+        String time = new SimpleDateFormat("yyyy/MM/dd").format(startTime)+"\n"
+                +new SimpleDateFormat("HH:mm").format(startTime)+"-"+new SimpleDateFormat("HH:mm").format(endTime);
+        String location = course.getmUserName()+","+course.getmLocation().toUpperCase();
+        viewHold.mCourseInfo.setText(time);
+        viewHold.mLocation.setText(location);
         return convertView;
     }
 
     public final class ViewHolder{
-        TextView mTitle,mCourseInfo;
+        TextView mTitle,mCourseInfo,mLocation;
         ImageView mImage;
     }
 }

@@ -58,12 +58,11 @@ public class ExamAdapter extends BaseAdapter{
         //        strb.append(mExamList.get(position).getIndex());
         viewHold.mExamInfo.setText(
                 TimeFormatConversion.toTimeDate(mExamList.get(position).getStartTime(), 0)
-                        + "\n"
-                        + mExamList.get(position).getLocale().toUpperCase());
-        viewHold.mExamTime.setText(
-                TimeFormatConversion.toTime(mExamList.get(position).getStartTime())
+                        + "\n" + TimeFormatConversion.toTime(mExamList.get(position).getStartTime())
                         + "-"
-                        + TimeFormatConversion.toTime(mExamList.get(position).getEndTime())
+                        + TimeFormatConversion.toTime(mExamList.get(position).getEndTime()));
+        viewHold.mExamTime.setText(
+                mExamList.get(position).getLocale().toUpperCase()
         );
 
         return convertView;

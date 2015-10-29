@@ -288,7 +288,8 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 			Bitmap bitmap = BitmapFactory.decodeStream(input);
 			Drawable drawable = new BitmapDrawable(bitmap);
 			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
-			mCircleImageView.setImageDrawable(drawable);
+			if (mCircleImageView != null && drawable != null)
+				mCircleImageView.setImageDrawable(drawable);
 			//同时将图片保存到本地，用来下次加载
 			try {
 				Utils.saveFile(bitmap,Constant.user.getUserID() + Constant.PORTRAIT);
