@@ -29,7 +29,7 @@
         <RadioButton
             android:id="@+id/admin_radio_share"
             style="@style/toolbar_button_style"
-            android:drawableTop="@mipmap/icon_exam"
+            android:drawableTop="@mipmap/icon_check"
             android:text="@string/item_share_cource" />
 
         <RadioButton
