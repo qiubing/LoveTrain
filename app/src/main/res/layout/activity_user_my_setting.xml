@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/class_item_background_close"
     android:orientation="vertical">
 
     <ScrollView
@@ -54,13 +55,13 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
-
 
                 <RelativeLayout
                     android:id="@+id/points_layout"
@@ -86,13 +87,13 @@
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         style="@style/client_my_forwardImageView_style"
                         android:src="@drawable/client_my_forward" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
-
 
                 <RelativeLayout
                     android:id="@+id/myExam_layout"
@@ -118,12 +119,13 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
 
                 <RelativeLayout
                     android:id="@+id/myShare_layout"
@@ -149,13 +151,12 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
-
 
                 <RelativeLayout
                     android:id="@+id/passwordChange_layout"
@@ -181,12 +182,12 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
 
                 <RelativeLayout
                     android:id="@+id/checkUpdate_layout"
@@ -212,12 +213,12 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
 
                 <RelativeLayout
                     android:id="@+id/feedback_layout"
@@ -243,12 +244,12 @@
                         style="@style/client_my_forwardImageView_style"
                         android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_height"
-                    android:background="#dddbdb" />
 
                 <RelativeLayout
                     android:id="@+id/logout_layout"
@@ -270,8 +271,14 @@
 
                     <ImageView
                         android:id="@+id/logout_forward"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         style="@style/client_my_forwardImageView_style"
                         android:src="@drawable/client_my_forward" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/class_item_space"></View>
                 </RelativeLayout>
 
             </LinearLayout>
