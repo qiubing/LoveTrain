@@ -11,6 +11,9 @@
     <dimen name="divider_thick">3dp</dimen>
     <dimen name="divider_title">2dp</dimen>
     <dimen name="divider_table">1dp</dimen>
+    <dimen name="height_table">40dp</dimen>
+    <dimen name="des_height_table">80dp</dimen>
+    <dimen name="button_height_table">40dp</dimen>
     <dimen name="margin_table">15dp</dimen>
     <dimen name="padding_table">15dp</dimen>
     <dimen name="item_text_size">16sp</dimen>

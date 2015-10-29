@@ -82,7 +82,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
 
         mExamItemExamEdit = (ExamItem) getIntent().getSerializableExtra("ExamInfo");
         TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
-        sub_page_title.setText("课时详情");
+        sub_page_title.setText("考试详情");
         TextView lessonNameTextView = (TextView) findViewById(R.id.title_text);
         lessonNameTextView.setText(mExamItemExamEdit.getName());
         mExamDes.setText("考试简介：" + mExamItemExamEdit.getDescription());
@@ -266,7 +266,6 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
                 AdminExamDetailActivity.this.finish();
             } catch (Exception e) {
                 loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(AdminExamDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
                 loadingView.clearAnimation();
                 loadingView.setVisibility(View.GONE);
                 e.printStackTrace();
@@ -277,6 +276,7 @@ public class AdminExamDetailActivity extends BaseCommunicateActivity implements 
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             super.onFailure(statusCode, headers, throwable, errorResponse);
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
+            Toast.makeText(AdminExamDetailActivity.this, "网络没有连接，请连接网络", Toast.LENGTH_SHORT).show();
             loadingView.clearAnimation();
             loadingView.setVisibility(View.GONE);
         }

@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminShareCheckTabActivity;
-import cn.nubia.activity.admin.AdminShareCourseUnApprovedDetailActivity;
+import cn.nubia.activity.client.ClientMyShareCourseDetailDisplayActivity;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
 import cn.nubia.entity.Constant;
@@ -201,9 +200,10 @@ public class AdminShareCheckFragment extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Intent intent = new Intent(getActivity(), AdminShareCourseUnApprovedDetailActivity.class);
+			Intent intent = new Intent(getActivity(), ClientMyShareCourseDetailDisplayActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putSerializable("CourseInfo", mCourseList.get(position));
+			bundle.putString("shareType", "share_check");
+			bundle.putSerializable("shareCourse", mCourseList.get(position));
 			intent.putExtras(bundle);
 			startActivity(intent);
 		}

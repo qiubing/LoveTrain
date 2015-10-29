@@ -26,8 +26,6 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.nubia.activity.R;
-import cn.nubia.activity.admin.AdminShareCheckTabActivity;
-import cn.nubia.activity.admin.AdminSharePassTabActivity;
 import cn.nubia.activity.client.ClientMyShareCourseDetailDisplayActivity;
 import cn.nubia.adapter.CourseAdapter;
 import cn.nubia.component.RefreshLayout;
@@ -151,7 +149,7 @@ public class AdminSharePassFragment extends Fragment {
 				JSONObject obj;
 				try {
 					obj = params[0].getJSONObject(i);
-					courseList.add(AdminShareCheckTabActivity.makeTechnologyShareCourse(obj));
+					courseList.add(AdminShareCheckFragment.makeTechnologyShareCourse(obj));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -183,7 +181,7 @@ public class AdminSharePassFragment extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Intent intent = new Intent(getActivity(), ClientMyShareCourseDetailDisplayActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("source", "adminupdate");
+			bundle.putString("shareType", "share_pass");
 			bundle.putSerializable("shareCourse", mCourseList.get(position));
 			intent.putExtras(bundle);
 			startActivity(intent);

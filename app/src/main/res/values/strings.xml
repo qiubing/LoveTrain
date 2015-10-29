@@ -48,6 +48,10 @@
     <string name="exam_number">报名人数:</string>
     <string name="exam_number_details">查看详情</string>
 
+    <string name="share_pass">通过</string>
+    <string name="share_reject">否决</string>
+    <string name="share_change">修改</string>
+
 
     <!--邱兵-->
     <string name="scan_text">扫描二维码完成签到</string>
