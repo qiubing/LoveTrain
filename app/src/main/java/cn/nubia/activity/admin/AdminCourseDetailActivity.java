@@ -112,7 +112,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         if(mCourseItem != null) {
             String courceType = "";
             switch(mCourseItem.getType()) {
-                case "cource" :
+                case "course" :
                     courceType = "普通课程";
                     break;
                 case "senior" :

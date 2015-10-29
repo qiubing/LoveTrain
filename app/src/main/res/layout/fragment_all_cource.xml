@@ -27,7 +27,6 @@
                     android:text="@string/item_all_cource"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
@@ -51,7 +50,6 @@
                     android:text="@string/item_common_cource"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
@@ -75,7 +73,6 @@
                     android:text="@string/item_high_cource"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
@@ -99,7 +96,6 @@
                     android:text="@string/item_share_cource"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View

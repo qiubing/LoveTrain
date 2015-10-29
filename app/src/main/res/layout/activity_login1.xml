@@ -45,7 +45,6 @@
                     android:text="@string/login_client"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
@@ -69,7 +68,6 @@
                     android:text="@string/login_admin"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
@@ -93,7 +91,6 @@
                     android:text="@string/login_sign_in"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
-                    android:textStyle="bold"
                     android:textColor="@color/toolbar_text_color_normal"/>
 
                 <View
