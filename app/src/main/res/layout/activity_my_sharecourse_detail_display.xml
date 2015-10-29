@@ -1,108 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_bg">
+    android:background="@color/layout_backgroung">
 
-    <RelativeLayout
-    android:id="@+id/title_icon"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/titlebar_bg">
-
-
-        <ImageView
-            android:id="@+id/manager_goback"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/small_buttonsize"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_back" />
-
-        <TextView
-            android:id="@+id/manager_head_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/activity_my_sharecourse_detail_display_title_textview"
-            android:textColor="@color/grayslate"
-            android:textSize="@dimen/itemname_textsize" />
-    </RelativeLayout>
-
-    <View
+    <include
+        android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/orange" />
+        android:layout_height="@dimen/title_with_picture_height"
+        android:layout_alignParentTop="true"
+        layout="@layout/title_with_picture" />
+
+    <include
+        android:id="@+id/loading_failed"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        layout="@layout/layout_loading_failed"
+        android:layout_below="@+id/sub_title"
+        />
+
+    <include
+        android:id="@+id/network_unusable"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        layout="@layout/layout_network_unusable"
+        android:layout_below="@+id/loading_failed"/>
 
     <LinearLayout
+        android:id="@+id/share_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_below="@+id/network_unusable"
+        android:layout_margin="@dimen/margin_table"
+        android:orientation="vertical">
+        <!--1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/des_height_table"
+            android:background="@color/toolbar_bg"
+            android:paddingLeft="@dimen/divider_table"
+            android:paddingRight="@dimen/divider_table"
+            android:paddingTop="@dimen/divider_table">
+            <TextView
+                android:id="@+id/share_describe"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:paddingLeft="@dimen/padding_table"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/item_bottom_text_size"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_my_sharecourse_detail_display_coursename_textView"
-            android:textSize="@dimen/itemname_textsize" />
+        <!--2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_teacher"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/share_teacher"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/my_sharecourse_detail_display_coursename_displaytextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/itemcontent_textsize" />
+        <!--3-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_address"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/share_address"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--4-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_start_time"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/share_start_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--5-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/lesson_time"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table"
+                android:paddingBottom="@dimen/divider_table"
+                >
+                <TextView
+                    android:id="@+id/share_time"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lesson_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_below="@id/share_layout"
+        android:paddingBottom="@dimen/margin_table"
+        android:paddingLeft="@dimen/margin_table"
+        android:paddingRight="@dimen/margin_table">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_my_sharecourse_detail_display_coursedescription_textView"
-            android:textSize="@dimen/itemname_textsize" />
+        <Button
+            android:id="@+id/share_reject"
+            style="@style/CustomBigLoginButton"
+            android:background="@color/red"
+            android:text="@string/share_reject"
+            android:layout_marginRight="@dimen/item_margin"/>
 
-        <TextView
-            android:id="@+id/my_sharecourse_detail_display_coursedescription_displaytextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="@dimen/itemcontent_textsize" />
+        <Button
+            android:id="@+id/share_pass"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/share_pass" />
+
+        <Button
+            android:id="@+id/share_change"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/share_change"
+            android:visibility="gone"/>
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+</RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_my_sharecourse_detail_display_title_textview"
-            android:textSize="@dimen/itemname_textsize" />
 
-        <TextView
-            android:id="@+id/my_sharecourse_detail_display_coursedetail_displaytextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="@dimen/itemcontent_textsize" />
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/my_sharecourse_detail_display_modifybutton"
-        style="@style/CustomBigLoginButton"
-        android:text="@string/modify_button" />
-
-</LinearLayout>

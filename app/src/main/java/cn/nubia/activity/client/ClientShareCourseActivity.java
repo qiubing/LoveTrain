@@ -78,7 +78,7 @@ public class ClientShareCourseActivity extends Activity {
                         ClientMyShareCourseDetailDisplayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("shareCourse", course);
-                bundle.putString("source", "myupdate");
+                bundle.putString("shareType", "share_client");
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

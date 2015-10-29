@@ -34,7 +34,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_thick"
+            android:layout_height="@dimen/divider_thin"
             android:layout_alignParentBottom="true"
             android:background="@color/toolbar_bg" />
 
