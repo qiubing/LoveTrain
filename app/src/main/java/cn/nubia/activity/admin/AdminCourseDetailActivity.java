@@ -65,16 +65,14 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         setContentView(R.layout.activity_admin_course_detail);
         bundle=new Bundle();
 
-        holdView();
-        setViewLogic();
-
-        Button signUpAdminBtn = (Button) findViewById(R.id.signUpAdminBtn);
-        Button alterCourseBtn = (Button) findViewById(R.id.alterCourseBtn);
-        Button lessonAddBtn = (Button) findViewById(R.id.lessonAddBtn);
-        Button courseDeleteBtn = (Button) findViewById(R.id.courseDeleteBtn);
-        TextView courseRealNameTextview = (TextView) findViewById(R.id.course_realName);
-        TextView courseRealDescTextview = (TextView) findViewById(R.id.course_realDesc);
-        TextView courseRealTypeTextView = (TextView) findViewById(R.id.course_realType);
+        Button signUpAdminBtn = (Button) findViewById(R.id.cource_enroll_manager);
+        Button alterCourseBtn = (Button) findViewById(R.id.cource_change);
+        Button lessonAddBtn = (Button) findViewById(R.id.cource_add);
+        Button courseDeleteBtn = (Button) findViewById(R.id.cource_delete);
+        TextView courseIsExamTextview = (TextView) findViewById(R.id.cource_is_exam);
+        TextView courseRealDescTextview = (TextView) findViewById(R.id.cource_describe);
+        TextView courseRealTypeTextView = (TextView) findViewById(R.id.cource_type);
+        mEnrollSeniorCourse = (Button) findViewById(R.id.cource_enroll);
 
 
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
@@ -94,10 +92,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         /**获取启动该Activity的Intent*/
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
-        TextView mTitleText = (TextView) findViewById(R.id.sub_page_title);
-        mTitleText.setText(mCourseItem.getName());
-        /*String startActivity = intent.getStringExtra("startActivity");
-        Log.i("huhu", "AdminCourceDetail: " + startActivity);*/
 
         if(Constant.IS_ADMIN) {
             signUpAdminBtn.setOnClickListener(this);
@@ -111,39 +105,32 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
             courseDeleteBtn.setVisibility(View.GONE);
             if(mCourseItem.getType().equals("senior")) {
                 mEnrollSeniorCourse.setVisibility(View.VISIBLE);
+                mEnrollSeniorCourse.setOnClickListener(this);
             }
         }
 
-        /*switch (startActivity) {
-            case "cn.nubia.activity.admin.AdminCourseAddTabActivity":
-                signUpAdminBtn.setOnClickListener(this);
-                alterCourseBtn.setOnClickListener(this);
-                lessonAddBtn.setOnClickListener(this);
-                courseDeleteBtn.setOnClickListener(this);
-                break;
-            case "cn.nubia.activity.client.ClientAllCourseActivity":
-                signUpAdminBtn.setVisibility(View.GONE);
-                alterCourseBtn.setVisibility(View.GONE);
-                lessonAddBtn.setVisibility(View.GONE);
-                courseDeleteBtn.setVisibility(View.GONE);
-                if(mCourseItem.getType().equals("senior"))
-                    mEnrollSeniorCourse.setVisibility(View.VISIBLE);
-//                mEnrollSeniorCourse.setOnClickListener(this);
-                break;
-            case "cn.nubia.activity.client.ClientMyCourseActivity":
-                signUpAdminBtn.setVisibility(View.GONE);
-                alterCourseBtn.setVisibility(View.GONE);
-                lessonAddBtn.setVisibility(View.GONE);
-                courseDeleteBtn.setVisibility(View.GONE);
-                break;
-            default:
-                break;
-        }*/
+        if(mCourseItem != null) {
+            String courceType = "";
+            switch(mCourseItem.getType()) {
+                case "cource" :
+                    courceType = "普通课程";
+                    break;
+                case "senior" :
+                    courceType = "高级课程";
+                    break;
+                case "share" :
+                    courceType = "分享课程";
+                    break;
+            }
+            TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
+            TextView courceNameTextView = (TextView) findViewById(R.id.title_text);
+            sub_page_title.setText("课程详情");
+            courceNameTextView.setText(mCourseItem.getName());
+            courseRealDescTextview.setText("课程简介：" + mCourseItem.getDescription());
+            courseRealTypeTextView.setText(courceType);
+            courseIsExamTextview.setText(mCourseItem.hasExam() ? "是" : "否");
 
-        if(mCourseItem!=null) {
-            courseRealNameTextview.setText(mCourseItem.getName());
-            courseRealDescTextview.setText(mCourseItem.getDescription());
-            if(mCourseItem.getType().equals("senior")){
+           /* if(mCourseItem.getType().equals("senior")){
                 courseRealTypeTextView.setText("课程类型：" + mCourseItem.getType() + "\n是否考试：" +
                         mCourseItem.hasExam()
 //                        + "\n课程积分：" + mCourseItem.getCourseCredits()
@@ -155,7 +142,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                         mCourseItem.hasExam()
 //                        + "\n课程积分：" + mCourseItem.getCourseCredits()
                 );
-            }
+            }*/
         }
         bundle.putSerializable("CourseItem", mCourseItem);
 
@@ -197,24 +184,24 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.signUpAdminBtn:
+            case R.id.cource_enroll_manager:
                 Intent intentSignInManage = new Intent(AdminCourseDetailActivity.this, AdminSignUpManageActivity.class);
                 intentSignInManage.putExtras(bundle);
                 startActivity(intentSignInManage);
                 break;
-            case R.id.alterCourseBtn:
+            case R.id.cource_change:
                 Intent intentAlterCourse = new Intent(AdminCourseDetailActivity.this, AdminAlterCourseActivity.class);
                 bundle.putSerializable("CourseItem", mCourseItem);
                 intentAlterCourse.putExtras(bundle);
                 startActivity(intentAlterCourse);
                 break;
-            case R.id.lessonAddBtn:
+            case R.id.cource_add:
                 bundle.putSerializable("CourseItem", mCourseItem);
                 Intent intentAddLesson = new Intent(AdminCourseDetailActivity.this, AdminAddLessonActivity.class);
                 intentAddLesson.putExtras(bundle);
                 startActivityForResult(intentAddLesson,2);
                 break;
-            case R.id.courseDeleteBtn:
+            case R.id.cource_delete:
                 final AlertDialog.Builder builderDelete = new AlertDialog.Builder(AdminCourseDetailActivity.this)
                         //设置对话框标题
                         .setTitle("删除课程")
@@ -235,6 +222,30 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                     }
                 });
                 builderDelete.create().show();
+                break;
+            case R.id.cource_enroll:
+                if(mNextPressReady) {
+                    boolean isTeacher = false;
+                    List<LessonItem> lessonList = mCourseItem.getLessonList();
+                    for (LessonItem item : lessonList) {
+                        if (item.getTeacherID().equals(Constant.user.getUserID())) {
+                            isTeacher = true;
+                            break;
+                        }
+                    }
+                    if (isTeacher) {
+                        DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
+                                AdminCourseDetailActivity.this, "不能报名自己的课程!", true);
+                    } else {
+                        SeniorEnrollMsg msg = new SeniorEnrollMsg();
+                        msg.setUserID(Constant.user.getUserID());
+                        msg.setCourseIndex(mCourseItem.getIndex());
+                        msg.setOperateType(CommunicateService.OperateType.INSERT);
+                        mEnrollSeniorCourse.setText("报名中...");
+                        mBinder.communicate(msg, new Inter(), URLMap.URL_ADD_SENIORCOURSEENROLL);
+                        mNextPressReady = false;
+                    }
+                }
                 break;
         }
     }
@@ -301,40 +312,6 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         this.finish();
     }
 
-    private void holdView(){
-        mEnrollSeniorCourse = (Button) findViewById(R.id.senior_course_enrollbtn);
-    }
-
-    private void setViewLogic(){
-        mEnrollSeniorCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mNextPressReady) {
-                    boolean isTeacher = false;
-                    List<LessonItem> lessonList = mCourseItem.getLessonList();
-                    for (LessonItem item : lessonList) {
-                        if (item.getTeacherID().equals(Constant.user.getUserID())) {
-                            isTeacher = true;
-                            break;
-                        }
-                    }
-                    if (isTeacher) {
-                        DialogMaker.finishCurrentDialog(AdminCourseDetailActivity.this,
-                                AdminCourseDetailActivity.this, "不能报名自己的课程!", true);
-                    } else {
-                        SeniorEnrollMsg msg = new SeniorEnrollMsg();
-                        msg.setUserID(Constant.user.getUserID());
-                        msg.setCourseIndex(mCourseItem.getIndex());
-                        msg.setOperateType(CommunicateService.OperateType.INSERT);
-                        mEnrollSeniorCourse.setText("报名中...");
-                        mBinder.communicate(msg, new Inter(), URLMap.URL_ADD_SENIORCOURSEENROLL);
-                        mNextPressReady = false;
-                    }
-                }
-            }
-        });
-
-    }
 
     @Override
     protected void handleResponse(Map<String,?> response,String responseURL){

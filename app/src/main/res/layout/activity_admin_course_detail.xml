@@ -1,193 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:background="@color/layout_backgroung">
 
     <include
         android:id="@+id/sub_title"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="@dimen/title_with_picture_height"
         android:layout_alignParentTop="true"
-        layout="@layout/include_back_title_item_layout" />
+        layout="@layout/title_with_picture" />
 
     <include
         android:id="@+id/loading_failed"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
         layout="@layout/layout_loading_failed"
+        android:layout_below="@+id/sub_title"
         />
 
     <include
         android:id="@+id/network_unusable"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
-        layout="@layout/layout_network_unusable" />
+        layout="@layout/layout_network_unusable"
+        android:layout_below="@+id/loading_failed"/>
 
     <LinearLayout
+        android:id="@+id/share_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/course_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courseName"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/course_realName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/course_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courseDesc"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/course_realDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="15sp">
-
-        <TextView
-            android:id="@+id/course_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="课程信息："
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/course_realType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XXXXXXXX"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:paddingTop="40sp">
-
-        <!--<Button-->
-            <!--android:id="@+id/signUpAdminBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:text="@string/signUpAdminBtn"-->
-            <!--android:textSize="30dp" />-->
+        android:layout_below="@+id/network_unusable"
+        android:layout_margin="@dimen/margin_table"
+        android:orientation="vertical">
+        <!--1-->
         <LinearLayout
-            android:id="@+id/layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/senior_course_enrollbtn"
-            style="@style/CustomBigLoginButton"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/textSize20"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:text="@string/enrollseniorcoursebtn" />
-
-        <Button
-            android:id="@+id/signUpAdminBtn"
-            style="@style/CustomBigLoginButton"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/textSize20"
-            android:layout_weight="1"
-            android:text="@string/signUpAdminBtn" />
-
-        <!--<Button-->
-            <!--android:id="@+id/alterCourseBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:text="@string/alterCourseBtn"-->
-            <!--android:textSize="30dp" />-->
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/alterCourseBtn"
-            style="@style/CustomBigLoginButton"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/textSize20"
-            android:text="@string/alterCourseBtn" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/des_height_table"
+            android:background="@color/toolbar_bg"
+            android:paddingLeft="@dimen/divider_table"
+            android:paddingRight="@dimen/divider_table"
+            android:paddingTop="@dimen/divider_table">
+            <TextView
+                android:id="@+id/cource_describe"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:paddingLeft="@dimen/padding_table"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/item_bottom_text_size"/>
         </LinearLayout>
+
+        <!--4-->
         <LinearLayout
-            android:layout_below="@+id/layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/lessonAddBtn"
-            style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/textSize20"
-            android:text="@string/lessonAddBtn" />
-        <Button
-            android:id="@+id/courseDeleteBtn"
-            style="@style/CustomBigLoginButton"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/textSize20"
-            android:text="@string/courseDeleteBtn" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:paddingLeft="@dimen/divider_table"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/cource_type"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table">
+                <TextView
+                    android:id="@+id/cource_type"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
         </LinearLayout>
-        <!--<Button-->
-            <!--android:id="@+id/lessonAddBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:text="@string/lessonAddBtn"-->
-            <!--android:textSize="30dp" />-->
 
-        <!--<Button-->
-            <!--android:id="@+id/courseDeleteBtn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:text="@string/courseDeleteBtn"-->
-            <!--android:textSize="30dp" />-->
+        <!--5-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_table"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/toolbar_bg"
+                android:padding="@dimen/divider_table">
+                <TextView
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/cource_is_exam"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
 
-    </RelativeLayout>
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="@dimen/zero"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@color/toolbar_bg"
+                android:paddingRight="@dimen/divider_table"
+                android:paddingTop="@dimen/divider_table"
+                android:paddingBottom="@dimen/divider_table"
+                >
+                <TextView
+                    android:id="@+id/cource_is_exam"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/app_name"
+                    android:paddingLeft="@dimen/padding_table"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/item_bottom_text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cource_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/share_layout"
+        android:paddingBottom="@dimen/margin_table"
+        android:paddingLeft="@dimen/margin_table"
+        android:paddingRight="@dimen/margin_table">
+
+        <Button
+            android:id="@+id/cource_change"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/cource_change"
+            android:layout_marginRight="@dimen/item_margin"/>
+
+        <Button
+            android:id="@+id/cource_delete"
+            style="@style/CustomBigLoginButton"
+            android:background="@color/red"
+            android:text="@string/cource_delete" />
+
+        <Button
+            android:id="@+id/cource_enroll"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/cource_enroll"
+            android:visibility="gone"/>
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cource_button_layout"
+        android:paddingBottom="@dimen/margin_table"
+        android:paddingLeft="@dimen/margin_table"
+        android:paddingRight="@dimen/margin_table">
+
+        <Button
+            android:id="@+id/cource_add"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/cource_add_lesson"
+            android:layout_marginRight="@dimen/item_margin"/>
+
+        <Button
+            android:id="@+id/cource_enroll_manager"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/cource_enroll_manager" />
+
+        <Button
+            android:id="@+id/share_change"
+            style="@style/CustomBigLoginButton"
+            android:text="@string/share_change"
+            android:visibility="gone"/>
 
 
+    </LinearLayout>
 
-
+</RelativeLayout>
 

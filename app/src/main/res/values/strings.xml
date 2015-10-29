@@ -1,7 +1,7 @@
 <resources>
 
     <!--胡立加-->
-    <string name="app_name">爱分享</string>
+    <string name="app_name">IShare</string>
     <string name="my_cource">爱分享</string>
     <string name="all_cource">课程</string>
     <string name="sign_in">签到</string>
@@ -51,6 +51,14 @@
     <string name="share_pass">通过</string>
     <string name="share_reject">否决</string>
     <string name="share_change">修改</string>
+
+    <string name="cource_type">课程类型</string>
+    <string name="cource_is_exam">是否考试</string>
+    <string name="cource_delete">删除课程</string>
+    <string name="cource_change">修改课程</string>
+    <string name="cource_add_lesson">添加课时</string>
+    <string name="cource_enroll_manager">报名管理</string>
+    <string name="cource_enroll">高级课程报名</string>
 
 
     <!--邱兵-->

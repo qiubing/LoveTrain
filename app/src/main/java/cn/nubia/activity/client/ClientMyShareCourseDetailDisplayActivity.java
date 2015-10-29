@@ -99,7 +99,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends BaseGestureActivit
         TextView shareName_start_time = (TextView) findViewById(R.id.share_start_time);
         TextView shareName_time = (TextView) findViewById(R.id.share_time);
 
-        sub_page_title.setText("技术分享课程详情");
+        sub_page_title.setText("分享详情");
         shareNameTextView.setText(mShareCourseMsg.getCourseName());
         shareNameDescTextView.setText("分享简介：" + mShareCourseMsg.getCourseDescription());
         shareName_teacher.setText(mShareCourseMsg.getUserName());
