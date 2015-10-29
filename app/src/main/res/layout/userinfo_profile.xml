@@ -26,8 +26,8 @@
             <cn.nubia.component.CircleImageView
                 android:id="@+id/client_my_head_imageView"
                 android:layout_marginTop="20dp"
-                android:layout_width="90.0dip"
-                android:layout_height="90.0dip"
+                android:layout_width="95.0dip"
+                android:layout_height="95.0dip"
                 android:src="@drawable/client_my_head" />
 
             <TextView

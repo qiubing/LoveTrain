@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         Log.e("system time ", System.currentTimeMillis() +(-startTime)
                 +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
 
-        ImageView evaluate = (ImageView) convertView.findViewById(R.id.evaluateBtn);
+        LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
         if (Constant.IS_ADMIN || isTeacher(groupPosition) || System.currentTimeMillis() < startTime) {
             evaluate.setVisibility(View.GONE);
             ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);

@@ -95,6 +95,7 @@
     </style>
 
     <style name="client_my_imageView_style">
+        <item name="android:layout_marginLeft">@dimen/class_item_margin_left</item>
         <item name="android:layout_width">@dimen/client_my_image_size</item>
         <item name="android:layout_height">@dimen/client_my_image_size</item>
         <item name="android:layout_centerInParent">true</item>
