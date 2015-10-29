@@ -19,33 +19,53 @@
         android:id="@+id/item_layout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_alignLeft="@id/item_layout_content"
+        android:layout_marginTop="5dp"
         android:singleLine="true"
         android:text="java基础一"
         android:textColor="@color/class_item_font"
         android:textSize="@dimen/textSize16" />
 
     <!--<TextView-->
-        <!--android:id="@+id/evaluateBtn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_marginRight="@dimen/calss_item_padding_right"-->
-        <!--android:background="@color/item_operation_attention"-->
-        <!--android:gravity="center"-->
-        <!--android:text="待评价"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="@dimen/textSize16" />-->
-    <ImageView
+    <!--android:id="@+id/evaluateBtn"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginRight="@dimen/calss_item_padding_right"-->
+    <!--android:background="@color/item_operation_attention"-->
+    <!--android:gravity="center"-->
+    <!--android:text="待评价"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="@dimen/textSize16" />-->
+    <!--<ImageView-->
+    <!--android:id="@+id/evaluateBtn"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginRight="35dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:src="@mipmap/icon_evaluate" />-->
+    <LinearLayout
         android:id="@+id/evaluateBtn"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="33dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/icon_exam_label" />
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/class_item_margin_right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去评价"
+            android:textColor="@color/title_interval_green"
+            android:textSize="@dimen/textSize16" />
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="1dp"
+            android:src="@mipmap/icon_arrow"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/item_layout_content"
@@ -54,8 +74,8 @@
         android:layout_below="@id/item_layout_title"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="3dp"
-        android:lineSpacingExtra="3dp"
         android:layout_toRightOf="@id/item_layout_imageview"
+        android:lineSpacingExtra="3dp"
         android:text="地点：C-6室，\n时间：8月24号 9:00~测试测试测试测试测试11:00，张三"
         android:textColor="@color/toolbar_text_color_normal"
         android:textSize="@dimen/lesson_item1_fontsize" />

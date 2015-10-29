@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,8 +65,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**空指针异常**/
         if (mGroupList.get(groupPosition).getLessonList() != null)
             return mGroupList.get(groupPosition).getLessonList().size();
-        else
+        else {
+//            mGroupList.get(groupPosition)
             return 0;
+        }
     }
 
     @Override
@@ -127,10 +130,14 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         Log.e("system time ", System.currentTimeMillis() +(-startTime)
                 +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
 
-        ImageView evaluate = (ImageView) convertView.findViewById(R.id.evaluateBtn);
+        LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
         if (Constant.IS_ADMIN || isTeacher(groupPosition) || System.currentTimeMillis() < startTime) {
             evaluate.setVisibility(View.GONE);
+            ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
+            parentEvaluate.setVisibility(View.GONE);
         }
+        if(mGroupList.get(groupPosition).getLessonList().get(childPosition).isIsJudged())
+            evaluate.setVisibility(View.GONE);
 
         final Bundle bundle = new Bundle();
         /**这里传过去的lessonItem中没有任何数据*/
@@ -182,6 +189,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 //            groupViewHolder.mSignUpExamTextView = (TextView) convertView.findViewById(R.id.class_signUpExamTextView);
             groupViewHolder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             groupViewHolder.mCourseIconIV = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
+            groupViewHolder.mEvaluateView = (ImageView) convertView.findViewById(R.id.evaluateBtn);
             /**four tags**/
 //            groupViewHolder.mCourseType = (TextView) convertView.findViewById(R.id.flag_courseType);
 //            groupViewHolder.mCourseLevel = (TextView) convertView.findViewById(R.id.flag_shareLevel);
@@ -214,6 +222,25 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**课程类别和分享级别：不管是管理员还是普通用户，显示规则是一样的*/
         Log.e("0925hexiao","Name:"+mGroupList.get(groupPosition).getName() +","+"CourseType:"+mGroupList.get(groupPosition).getType() +
                 ","+"ShareType:"+mGroupList.get(groupPosition).getShareType() +","+"HasExam:"+mGroupList.get(groupPosition).hasExam() +","+"IsTeacher:"+isTeacher(groupPosition));
+
+        //设置课程评价按钮是否显示
+        if(getChildrenCount(groupPosition)<=0){
+            groupViewHolder.mEvaluateView.setVisibility(View.GONE);
+        }else {
+            for (int i = 0; i < mGroupList.get(groupPosition).getLessonList().size(); i++) {
+                LessonItem item = mGroupList.get(groupPosition).getLessonList().get(i);
+                if (item.isIsJudged()) {
+                    groupViewHolder.mEvaluateView.setVisibility(View.GONE);
+                } else {
+                    groupViewHolder.mEvaluateView.setVisibility(View.VISIBLE);
+                    break;
+                }
+            }
+        }
+        if(Constant.IS_ADMIN){
+            groupViewHolder.mEvaluateView.setVisibility(View.GONE);
+        }
+
         //隐藏部科团这三个级别
 //        groupViewHolder.mCourseType.setVisibility(View.GONE);
         switch (mGroupList.get(groupPosition).getType()) {
@@ -371,6 +398,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         ImageView mCourseDetailTextView;
         TextView mSignUpExamTextView;
         ImageView mCourseIconIV;
+        ImageView mEvaluateView;
         /**
          * four tags*
          */

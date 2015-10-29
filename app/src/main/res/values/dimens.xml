@@ -44,7 +44,7 @@
 
     <!-- LK style-->
     <dimen name="layout_padding">16dp</dimen>
-    <dimen name="view_height">0.5dp</dimen>
+    <dimen name="view_height">1dp</dimen>
     <!-- 字体大小，一级16，二级14，title22-->
     <dimen name="textSize14">14sp</dimen>
     <dimen name="textSize16">16sp</dimen>
@@ -88,7 +88,7 @@
 
     <!--hexiao-->
     <dimen name="client_my_textView">53.33dp</dimen>
-    <dimen name="client_my_image_size">35dp</dimen>
+    <dimen name="client_my_image_size">30dp</dimen>
     <dimen name="client_my_forward_image_size">23dp</dimen>
 
 

@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/view_height"
-        android:background="#dddbdb" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,13 +16,12 @@
             <include
                 layout="@layout/userinfo_profile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_bg"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -50,14 +44,15 @@
                         android:text="签到记录" />
 
                     <!--<TextView-->
-                        <!--android:id="@+id/check_in_record"-->
-                        <!--style="@style/client_my_textView_style"-->
-                        <!--android:drawableLeft="@drawable/client_my_checkin"-->
-                        <!--android:text="签到记录" />-->
+                    <!--android:id="@+id/check_in_record"-->
+                    <!--style="@style/client_my_textView_style"-->
+                    <!--android:drawableLeft="@drawable/client_my_checkin"-->
+                    <!--android:text="签到记录" />-->
 
                     <ImageView
                         android:id="@+id/checkIn_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 
@@ -88,6 +83,7 @@
 
                     <ImageView
                         android:id="@+id/points_forward"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         style="@style/client_my_forwardImageView_style"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
@@ -120,6 +116,7 @@
                     <ImageView
                         android:id="@+id/examScores_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 
@@ -150,6 +147,7 @@
                     <ImageView
                         android:id="@+id/shareCourses_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 
@@ -181,6 +179,7 @@
                     <ImageView
                         android:id="@+id/passwordChange_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 
@@ -211,6 +210,7 @@
                     <ImageView
                         android:id="@+id/checkUpdate_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 
@@ -241,6 +241,7 @@
                     <ImageView
                         android:id="@+id/feedback_forward"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
                 </RelativeLayout>
 

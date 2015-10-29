@@ -48,6 +48,7 @@ public class SplashActivity extends Activity {
                 case 1:
                     boolean isFirstRun = SpUtil.getBoolean(SplashActivity.this,
                             Constant.IS_FIRST_RUN);
+                    isFirstRun = true;
                     if (!isFirstRun) {
                         SpUtil.putBoolean(SplashActivity.this, Constant.IS_FIRST_RUN, true);
 

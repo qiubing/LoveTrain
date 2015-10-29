@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/toolbar_bg">
 
-    <ImageView
-        android:id="@+id/splash_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:adjustViewBounds="true"
-        android:background="@mipmap/background01"
-        android:scaleType="centerCrop" />
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/splash_view"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/icon_logo"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/icon_logo_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/splash_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/icon_logo_font"
+            android:scaleType="centerCrop" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:paddingBottom="10.0dip"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="10.0dip">
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10.0dip"
+            android:layout_marginBottom="3.0dip"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
-            android:textColor="@color/E505050"/>
+            android:textColor="#0c9060" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/copyright"
-            android:textColor="@color/E505050"
+            android:textColor="#0c9060"
             android:textSize="12.0sp" />
     </LinearLayout>
 
