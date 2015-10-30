@@ -36,6 +36,7 @@ import cn.nubia.activity.client.ClientMyCheckRecordActivity;
 import cn.nubia.activity.client.ClientShareCourseActivity;
 import cn.nubia.activity.client.ClientUpdateIconActivity;
 import cn.nubia.activity.client.FeedBackActivity;
+import cn.nubia.appUpdate.about.UpdateService;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.component.PromptDialog;
 import cn.nubia.entity.Constant;
@@ -166,7 +167,7 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 
             case R.id.checkUpdate_forward:
             case R.id.checkUpdate_layout:
-                Intent service = new Intent(UPDATE_INTENT_ACTON);
+                Intent service = new Intent(getActivity(), UpdateService.class);
                 service.putExtra("command", "update");
                 this.getActivity().getApplicationContext().startService(service);
                 break;

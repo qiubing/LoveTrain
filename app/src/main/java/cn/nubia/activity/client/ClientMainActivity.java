@@ -28,6 +28,7 @@ import cn.nubia.activity.client.fragment.AllExamFragment;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyFragment;
+import cn.nubia.appUpdate.about.UpdateService;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.zxing.barcode.CaptureActivity;
@@ -41,7 +42,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
 
 public class ClientMainActivity extends FragmentActivity  implements View.OnClickListener{
     private static final String TAG = "ClientMainActivity";
-    private final static String UPDATE_INTENT_ACTON = "cn.nubia.upgrade.service.UpgradeService";
+    private final static String UPDATE_INTENT_ACTON = "cn.nubia.appUpdate.newVersion";
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
     private AllExamFragment mAllExamFragment;
@@ -262,7 +263,7 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
     };
 
     private void startUpdateService(){
-        Intent service = new Intent(UPDATE_INTENT_ACTON);
+        Intent service = new Intent(this, UpdateService.class);
         service.putExtra("command", "auto_detect");
         this.startService(service);
     }
