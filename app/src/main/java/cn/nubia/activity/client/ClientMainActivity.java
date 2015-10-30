@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -38,9 +39,8 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  * Created by 胡立加 on 2015/10/22.
  */
 
-public class ClientMainActivity extends FragmentActivity {
+public class ClientMainActivity extends FragmentActivity  implements View.OnClickListener{
     private static final String TAG = "ClientMainActivity";
-    private RadioGroup mRadioGroup;
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
     private AllExamFragment mAllExamFragment;
@@ -49,6 +49,7 @@ public class ClientMainActivity extends FragmentActivity {
     private FragmentTransaction mFragmentTransaction;
     private int currentItem = -1;
     private RelativeLayout signIn;
+    private RelativeLayout [] mBackgrounds = new RelativeLayout[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,64 +59,57 @@ public class ClientMainActivity extends FragmentActivity {
     }
 
     private  void initViews() {
-        mRadioGroup = (RadioGroup) findViewById(R.id.client_group);
+        mBackgrounds[0] = (RelativeLayout) findViewById(R.id.client_radio_my_course);
+        mBackgrounds[1] = (RelativeLayout) findViewById(R.id.client_radio_all_course);
+        mBackgrounds[2] = (RelativeLayout) findViewById(R.id.client_radio_exam);
+        mBackgrounds[3] = (RelativeLayout) findViewById(R.id.client_radio_my);
         signIn = (RelativeLayout) findViewById(R.id.client_sign_in);
     }
 
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.client_radio_my_course:
+                if (currentItem != 0) {
+                    setChoiceItem(0);
+                }
+                break;
+            case R.id.client_radio_all_course:
+                if (currentItem != 1) {
+                    setChoiceItem(1);
+                }
+                break;
+            case R.id.client_sign_in:
+                Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
+                startActivityForResult(openCameraIntent, 0);
+                break;
+            case R.id.client_radio_exam:
+                if (currentItem != 2) {
+                    setChoiceItem(2);
+                }
+                break;
+            case R.id.client_radio_my:
+                if (currentItem != 3) {
+                    setChoiceItem(3);
+                }
+                break;
+        }
+    }
 
     private  void initEvents() {
+
+        for (RelativeLayout mRelativeLayout : mBackgrounds) {
+            mRelativeLayout.setOnClickListener(this);
+        }
+        signIn.setOnClickListener(this);
+
         mFragmentTransaction = getFragmentManager().beginTransaction();
         mClientMyCourceFragment = new ClientMyCourceFragment();
         mFragmentTransaction.add(R.id.client_fragment_layout, mClientMyCourceFragment);
         currentItem = 0;
         mFragmentTransaction.commit();
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
-                startActivityForResult(openCameraIntent, 0);
-            }
-        });
-
-        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.client_radio_my_course:
-                        if (currentItem != 0) {
-                            setChoiceItem(0);
-                        }
-                        currentItem = 0;
-                        break;
-                    case R.id.client_radio_all_cource:
-                        if (currentItem != 1) {
-                            setChoiceItem(1);
-                        }
-                        currentItem = 1;
-                        break;
-                    /*case R.id.client_radio_sign_in:
-                        //startActivity(new Intent(this, SearchActivity.class));
-                        //打开扫描界面扫描条形码或二维码
-                        Intent openCameraIntent = new Intent(ClientMainActivity.this, CaptureActivity.class);
-                        startActivityForResult(openCameraIntent, 0);
-                        break;*/
-                    case R.id.client_radio_exam:
-                        if (currentItem != 3) {
-                            setChoiceItem(3);
-                        }
-                        currentItem = 3;
-                        break;
-                    case R.id.client_radio_my:
-                        if (currentItem != 4) {
-                            setChoiceItem(4);
-                        }
-                        currentItem = 4;
-                        break;
-                }
-            }
-        });
+        updataItemBackground(0, R.color.toolbar_bg_selected);
     }
 
     public void setChoiceItem(int index) {
@@ -135,7 +129,7 @@ public class ClientMainActivity extends FragmentActivity {
                 }
                 break;
 
-            case 3:
+            case 2:
                 if (mAllExamFragment == null) {
                     mAllExamFragment = new AllExamFragment();
                     mFragmentTransaction.add(R.id.client_fragment_layout, mAllExamFragment);
@@ -143,7 +137,7 @@ public class ClientMainActivity extends FragmentActivity {
                     mFragmentTransaction.show(mAllExamFragment);
                 }
                 break;
-            case 4:
+            case 3:
                 if (mClientMyFragment == null) {
                     mClientMyFragment = new ClientMyFragment();
                     mFragmentTransaction.add(R.id.client_fragment_layout, mClientMyFragment);
@@ -153,6 +147,15 @@ public class ClientMainActivity extends FragmentActivity {
                 break;
         }
         mFragmentTransaction.commit();
+
+        updataItemBackground(index, R.color.toolbar_bg_selected);
+        updataItemBackground(currentItem, R.color.toolbar_bg);
+        currentItem = index;
+    }
+
+    void updataItemBackground(int index, int textColorResId) {
+//        mBackgrounds[index].setBackgroundColor(textColorResId);
+        mBackgrounds[index].setBackgroundColor(getResources().getColor(textColorResId));
     }
 
     private void hideFragments(FragmentTransaction transaction) {
@@ -167,12 +170,12 @@ public class ClientMainActivity extends FragmentActivity {
                     transaction.hide(mClientAllCourceFragment);
                 }
                 break;
-            case 3:
+            case 2:
                 if (mAllExamFragment != null) {
                     transaction.hide(mAllExamFragment);
                 }
                 break;
-            case 4:
+            case 3:
                 if (mClientMyFragment != null) {
                     transaction.hide(mClientMyFragment);
                 }

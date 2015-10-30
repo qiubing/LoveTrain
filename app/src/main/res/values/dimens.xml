@@ -2,7 +2,7 @@
 <resources>
 
     <!--胡立加-->
-    <dimen name="toolbar_bottom_top_padding">6dp</dimen>
+    <dimen name="toolbar_bottom_top_padding">5dp</dimen>
     <dimen name="toolbar_bottom_bottom_padding">3dp</dimen>
     <dimen name="toolbar_bottom_radio_padding">2dp</dimen>
     <dimen name="toolbar_bottom_sign_in">11dp</dimen>

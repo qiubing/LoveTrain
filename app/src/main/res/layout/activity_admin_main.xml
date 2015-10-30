@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/admin_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_bottom_height"
@@ -13,31 +13,106 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <RadioButton
+        <RelativeLayout
             android:id="@+id/admin_radio_all_course"
             style="@style/toolbar_button_style"
-            android:drawableTop="@mipmap/icon_all_cource"
-            android:checked="true"
-            android:text="@string/all_cource" />
+            android:orientation="vertical"
+            android:background="@color/toolbar_bg">
 
-        <RadioButton
+            <TextView
+                android:id="@+id/admin_radio_all_course_text"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/all_cource"
+                android:textSize="@dimen/item_bottom_text_size_new"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_all_cource"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="@dimen/toolbar_bottom_bottom_padding"
+                android:layout_above="@+id/admin_radio_all_course_text"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/admin_radio_exam"
             style="@style/toolbar_button_style"
-            android:drawableTop="@mipmap/icon_exam"
-            android:text="@string/exam" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/admin_radio_exam_text"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exam"
+                android:textSize="@dimen/item_bottom_text_size_new"
+                android:textColor="@color/white"
+                android:gravity="center"/>
 
-        <RadioButton
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_exam"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="@dimen/toolbar_bottom_bottom_padding"
+                android:layout_above="@+id/admin_radio_exam_text"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/admin_radio_share"
             style="@style/toolbar_button_style"
-            android:drawableTop="@mipmap/icon_check"
-            android:text="@string/item_share_cource" />
+            android:orientation="vertical">
 
-        <RadioButton
+            <TextView
+                android:id="@+id/admin_radio_share_text"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_share_cource"
+                android:textSize="@dimen/item_bottom_text_size_new"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_check"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="@dimen/toolbar_bottom_bottom_padding"
+                android:layout_above="@+id/admin_radio_share_text"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/admin_radio_my"
             style="@style/toolbar_button_style"
-            android:drawableTop="@mipmap/icon_my"
-            android:text="@string/my" />
-    </RadioGroup>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/admin_radio_my_text"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/my"
+                android:textSize="@dimen/item_bottom_text_size_new"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_my"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="@dimen/toolbar_bottom_bottom_padding"
+                android:layout_above="@+id/admin_radio_my_text"/>
+        </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/admin_fragment_layout"

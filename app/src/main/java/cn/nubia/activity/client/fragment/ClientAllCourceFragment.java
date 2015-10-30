@@ -54,7 +54,6 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 		mDividerViews[1] = rootView.findViewById(R.id.item_common_cource_divider);
 		mDividerViews[2] = rootView.findViewById(R.id.item_high_cource_divider);
 		mDividerViews[3] = rootView.findViewById(R.id.item_share_cource_divider);
-		Log.i("huhu", getActivity().toString() + getActivity().getLocalClassName());
 	}
 
 	void initEvents() {
@@ -142,7 +141,11 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 	}
 
 	void updataItemUI(int index, int textColorResId) {
+//		Log.d("CCCC", "ID 1 :" + getActivity().getResources().getColorStateList(textColorResId));
+//		Log.d("CCCC", "ID 2 :" + getActivity().getResources().getColor(textColorResId));
+//		Log.d("CCCC", "ID 3 :" + textColorResId);
 		mTextViews[index].setTextColor(getActivity().getResources().getColorStateList(textColorResId));
+//		mTextViews[index].setTextColor(textColorResId);
 		switch (textColorResId) {
 			case R.color.toolbar_bg :
 				mDividerViews[index].setVisibility(View.VISIBLE);
