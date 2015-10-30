@@ -14,8 +14,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -62,9 +60,9 @@ public class CaptureActivity extends Activity implements Callback {
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 
         //backButton = (Button) this.findViewById(R.id.button_back);
-        RelativeLayout linear = (RelativeLayout) findViewById(R.id.qrcode_scan_title);
+        /*RelativeLayout linear = (RelativeLayout) findViewById(R.id.qrcode_scan_title);
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
-        text.setText("二维码扫描");
+        text.setText("二维码扫描");*/
 
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);

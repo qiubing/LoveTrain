@@ -87,7 +87,7 @@
         <item>senior</item>
     </string-array>
 
-    <string name="copyright">Copyright 2015–2120 nubia   版权所有</string>
+    <string name="copyright">Copyright © 2011–2015 nubia   版权所有</string>
     <string name="icon_course">课程</string>
     <string name="icon_exam">考试</string>
     <string name="icon_share">技术分享</string>
@@ -318,8 +318,8 @@
     <!-- about us -->
     <string name="about_us_title">关于我们</string>
     <string name="two_dimension">二维码图片</string>
-    <string name="app_version">版本：Version 1.0</string>
-    <string name="about_us">\u0020\u0020\u0020\u0020\u0020\u0020\u0020爱培训是nubia技术有限公司推出的一款专门为部门内部员工量身定制的培训神器，拥有最全面的最及时的课程信息，第一时间为你提供最精准便捷的课程分享信息，爱培训将给你最畅快的上课体验。</string>
+    <string name="app_version">爱分享 V1.0.1</string>
+    <string name="about_us">\u0020\u0020\u0020\u0020\u0020\u0020\u0020爱分享是nubia推出的一款专门为企业内部员工量身定制的培训app，拥有最全面的、最及时的课程分享信息，爱培训将给你最畅快的上课体验。</string>
 
     <!-- update software -->
     <string name="soft_update_dialog_tilte">版本检测</string>

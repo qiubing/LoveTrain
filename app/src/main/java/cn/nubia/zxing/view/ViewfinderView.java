@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -66,7 +67,7 @@ public final class ViewfinderView extends View {
 
     private int cornerLength;//角边的长度
     private static final int CORNER_LENGTH = 6;//角边的宽度
-    private static final int MIDDLE_LINE_WIDTH = 3;//扫描框中的中间线的宽度
+    private static final int MIDDLE_LINE_WIDTH = 4;//扫描框中的中间线的宽度
     private static final int MIDDLE_LINE_PADDING = 5;//扫描框中的中间线的与扫描框左右的间隙
     private static final int SPEED_DISTANCE = 10;//中间那条线每次刷新移动的距离
 
@@ -167,12 +168,12 @@ public final class ViewfinderView extends View {
                 slideTop = frame.top;
             }
             // Draw a red "laser scanner" line through the middle to show decoding is active
-            paint.setColor(laserColor);
+            paint.setColor(cornerColor);
             canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH / 2,
                     frame.right - MIDDLE_LINE_PADDING, slideTop + MIDDLE_LINE_WIDTH / 2, paint);
 
             //画扫描框下面的字
-            paint.setColor(cornerColor);
+            paint.setColor(Color.WHITE);
             paint.setTextSize(TEXT_SIZE * density);
             paint.setAlpha(0x40);
             paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -187,7 +188,8 @@ public final class ViewfinderView extends View {
             int middle = frame.height() / 2 + frame.top;
             canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);*/
 
-            Collection<ResultPoint> currentPossible = possibleResultPoints;
+            //显示扫描结果点，黄色闪动的点
+           /* Collection<ResultPoint> currentPossible = possibleResultPoints;
             Collection<ResultPoint> currentLast = lastPossibleResultPoints;
             if (currentPossible.isEmpty()) {
                 lastPossibleResultPoints = null;
@@ -200,13 +202,14 @@ public final class ViewfinderView extends View {
                     canvas.drawCircle(frame.left + point.getX(), frame.top + point.getY(), 6.0f, paint);
                 }
             }
+
             if (currentLast != null) {
                 paint.setAlpha(OPAQUE / 2);
                 paint.setColor(resultPointColor);
                 for (ResultPoint point : currentLast) {
                     canvas.drawCircle(frame.left + point.getX(), frame.top + point.getY(), 3.0f, paint);
                 }
-            }
+            }*/
 
             //只刷新扫描框的内容，其他地方不刷新
             // Request another update at the animation interval, but only repaint the laser line,
