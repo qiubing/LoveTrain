@@ -59,7 +59,7 @@ public class ClientTeacherFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.activity_admin_all_course, container, false);
 		initViews();
 		initEvents();
-		Log.i("huhu", "teacher");
+//		Log.i("huhu", "teacher");
 		return rootView;
 	}
 
