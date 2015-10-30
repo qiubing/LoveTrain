@@ -260,7 +260,7 @@
                     <ImageView
                         android:id="@+id/about_us_imageView"
                         style="@style/client_my_imageView_style"
-                        android:src="@drawable/client_my_checkupdate" />
+                        android:src="@drawable/client_my_aboutus" />
 
                     <TextView
                         style="@style/client_my_textView_style"
