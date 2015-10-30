@@ -31,14 +31,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             style="@style/contentrealm"
             android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:stretchColumns="2">
+                android:stretchColumns="2"
+                android:shrinkColumns="1">
 
                 <TableRow>
                     <TextView
@@ -49,12 +50,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_contentapplicability_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center"
-
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <!--style="@style/judge_rating_bar_style"-->
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -72,7 +69,7 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_contentRationality_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center_vertical|right"
                         android:numStars="@integer/judgeScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -93,10 +90,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_discussion_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore" />
                 </TableRow>
 
                 <View
@@ -114,10 +109,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_timerationality_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -135,10 +128,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_contentunderstanding_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -156,10 +147,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_expressionability_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -177,10 +166,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_communication_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -198,10 +185,8 @@
                     <RatingBar
                         android:id="@+id/mycourse_judge_detail_fill_organization_ratingbar"
                         style="@style/judge_rating_bar_style"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="@integer/judgeScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_gravity="center_vertical|right"
+                        android:numStars="@integer/judgeScore"/>
                 </TableRow>
 
                 <View
@@ -219,7 +204,7 @@
             <EditText
                 android:id="@+id/mycourse_judge_detail_fill_comprehensiveevaluation_edittext"
                 android:isScrollContainer="true"
-                style="@style/edittext_style_multiline"
+                style="@style/muliLine_text_style"
                 android:background="@color/background_unused_gray"/>
 
             <TextView
@@ -230,17 +215,14 @@
             <EditText
                 android:id="@+id/mycourse_judge_detail_fill_suggestion_edittext"
                 android:isScrollContainer="true"
-                style="@style/edittext_style_multiline"
+                style="@style/muliLine_text_style"
+                android:layout_marginBottom="@dimen/listitem_margin_height_big"
                 android:background="@color/background_unused_gray"/>
 
             <Button
                 android:id="@+id/mycourse_judge_detail_fill_confirmbutton"
-                style="@style/CustomBigLoginButton"
-                android:text="@string/judge_button"
-                android:background="@color/title_interval_green"/>
+                style="@style/confim_button_style"
+                android:text="@string/judge_button"/>
         </LinearLayout>
     </ScrollView>
-
-
-
 </LinearLayout>

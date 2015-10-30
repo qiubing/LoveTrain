@@ -130,6 +130,7 @@
     <string name="activity_my_accountmana_pswmodify_newpsw_textview">请输入新密码</string>
     <string name="activity_my_accountmana_pswmodify_confirmpsw_textview">请确认新密码</string>
     <!--我的分享课程申请Activity-->
+    <string name="activity_my_sharecourse_detail_fill_title_textView">课程信息</string>
     <string name="activity_my_sharecourse_detail_fill_coursename_textView">课程名称：</string>
     <string name="activity_my_sharecourse_detail_fill_coursedescription_textView">课程简介：</string>
     <string name="activity_my_sharecourse_detail_fill_courselevel_textView">课程级别：</string>

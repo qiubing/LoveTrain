@@ -54,7 +54,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         ((TextView) findViewById(R.id.sub_page_title))
                 .setText(R.string.activity_mycourse_judge_detail_fill_title_textView);
 
-
         holdView();
         setViewLogic();
     }
@@ -69,7 +68,6 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         mLessonIndex = intent.getIntExtra("lessonIndex",-1);
 
         if(mOperateType == CommunicateService.OperateType.QUERY){
-            mConfirmButton.setVisibility(View.GONE);
             final LessonJudgementMsg judgementMsg = new LessonJudgementMsg();
             judgementMsg.setLessonIndex(mLessonIndex);
             judgementMsg.setOperateType(CommunicateService.OperateType.QUERY);
@@ -241,6 +239,11 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
                 .mycourse_judge_detail_fill_organization_ratingbar)).setIsIndicator(isIndicator);
         mComprehensiveEvaluationEditText.setEnabled(!isIndicator);
         mSuggestionEditText.setEnabled(!isIndicator);
+        if(isIndicator){
+            mConfirmButton.setVisibility(View.GONE);
+        }else{
+            mConfirmButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initViewData(LessonJudgementMsg msg) {
@@ -271,7 +274,7 @@ public class ClientMyCourseJudgeDetailFillActivity extends BaseCommunicateActivi
         loadingView.clearAnimation();
         loadingView.setVisibility(View.GONE);
         mNextPressReady = true;
-        mConfirmButton.setText(R.string.confirm_button);
+        mConfirmButton.setText("评价");
         if(response==null){
             networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             DialogMaker.finishCurrentDialog(ClientMyCourseJudgeDetailFillActivity.this,

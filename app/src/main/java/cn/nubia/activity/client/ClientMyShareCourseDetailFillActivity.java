@@ -4,15 +4,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,12 +62,20 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
     private boolean mNextPressReady;
     private String mOperateURL;
     private ShareCourseMsg mShareCourseMsg;
+
     private GestureDetector gestureDetector;
+    private RelativeLayout loadingFailedRelativeLayout;
+    private RelativeLayout networkUnusableRelativeLayout;
+    private ImageView loadingView;
+    private RotateAnimation refreshingAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
+        //公用部分
+        ((TextView) findViewById(R.id.sub_page_title))
+                .setText(R.string.activity_my_sharecourse_detail_fill_title_textView);
 
         holdView();
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
@@ -190,6 +204,11 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
                 .my_sharecourse_detail_fill_confirmbutton);
         mContentScrollView =(ScrollView) findViewById(R.id
                 .my_sharecourse_detail_fill_contentscrollview);
+
+        loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed);
+        networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
     }
 
     private void setViewLogic(){
@@ -228,10 +247,18 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
 
-        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.title_back_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClientMyShareCourseDetailFillActivity.this.finish();
+            }
+        });
+
+        networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
             }
         });
     }
@@ -267,6 +294,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
                             e.printStackTrace();
                         }
 
+                        initLoadingUI();
                         if (mOperateURL.equals(URLMap.URL_ADD_SHARE)) {
                             shareCourse.setOperateType(CommunicateService.OperateType.INSERT);
                             shareCourse.setUserId(Constant.user.getUserID());
@@ -286,6 +314,20 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         };
     }
 
+    private void initLoadingUI(){
+        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        networkUnusableRelativeLayout.setVisibility(View.GONE);
+
+        loadingView = (ImageView)findViewById(R.id.loading_iv);
+        loadingView.setVisibility(View.VISIBLE);
+        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(
+                ClientMyShareCourseDetailFillActivity.this, R.anim.rotating);
+        //添加匀速转动动画
+        LinearInterpolator lir = new LinearInterpolator();
+        refreshingAnimation.setInterpolator(lir);
+        loadingView.startAnimation(refreshingAnimation);
+    }
+
     private void initViewData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -294,6 +336,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
 
         if(type.equals("update")){
             mOperateURL = URLMap.URL_UPD_SHARE;
+            mConfirmButton.setText("修改");
             mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
 
             mCourseName.setText(mShareCourseMsg.getCourseName());
@@ -314,6 +357,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
             mLessonLocation.setText(mShareCourseMsg.getLocale());
         }else if(type.equals("insert")){
             mOperateURL = URLMap.URL_ADD_SHARE;
+            mConfirmButton.setText("申请");
         }
     }
 
@@ -362,8 +406,10 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
     protected void handleResponse(Map<String,?> response,String responseURL){
         mNextPressReady = true;
         mConfirmButton.setText(R.string.confirm_button);
-
+        loadingView.clearAnimation();
+        loadingView.setVisibility(View.GONE);
         if(response==null){
+            networkUnusableRelativeLayout.setVisibility(View.VISIBLE);
             DialogMaker.finishCurrentDialog(ClientMyShareCourseDetailFillActivity.this,
                     ClientMyShareCourseDetailFillActivity.this, "连接服务器失败!", false);
         }else{

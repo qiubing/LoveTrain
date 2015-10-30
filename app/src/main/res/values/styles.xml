@@ -59,19 +59,19 @@
 
     <!--江禹-->
     <style name="judge_rating_text_style">
-        <item name="android:layout_width">@dimen/judge_text_width</item>
+        <item name="android:layout_width">@dimen/tableitem_text_width</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginLeft">@dimen/listitem_margin_width_small</item>
         <item name="android:layout_marginRight">@dimen/listitem_margin_width_small</item>
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/textSize16</item>
+        <item name="android:textSize">@dimen/listitem_textsize</item>
     </style>
     <style name="judge_rating_bar_style" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
-        <item name="android:layout_marginRight">@dimen/listitem_margin_width_small</item>
-        <item name="android:minHeight">40dip</item>
-        <item name="android:maxHeight">40dip</item>
+        <item name="android:minHeight">55dp</item>
+        <item name="android:maxHeight">55dp</item>
+        <!--<item name="android:maxHeight">@dimen/icon_listitem_height</item>-->
     </style>
     <style name="no_border_text_style">
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
@@ -81,8 +81,18 @@
         <item name="android:background">@color/background_white</item>
         <item name="android:textColor">@color/edit_text</item>
         <item name="android:textColorHint">@color/edit_text_hint</item>
-        <item name="android:textSize">@dimen/textSize14</item>
+        <item name="android:textSize">@dimen/listitem_content_textsize</item>
         <item name="android:singleLine">true</item>
+    </style>
+    <style name="border_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingLeft">@dimen/login_edit_text_inner_padding</item>
+        <item name="android:textColor">@color/title_interval_green</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:textSize">@dimen/listitem_content_textsize</item>
+        <item name="android:selectAllOnFocus">true</item>
     </style>
     <style name="password_image_style">
         <item name="android:layout_gravity">center_vertical</item>
@@ -91,7 +101,25 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">@dimen/listitem_margin_width</item>
         <item name="android:src">@mipmap/icon_login_pwd</item>
-
+    </style>
+    <style name="muliLine_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/muliLine_text_height</item>
+        <item name="android:background">@color/background_unused_gray</item>
+        <item name="android:textSize">@dimen/listitem_content_textsize</item>
+        <item name="android:textColor">@color/title_interval_green</item>
+        <item name="android:textColorHint">@color/edit_text_hint</item>
+        <item name="android:isScrollContainer">true</item>
+    </style>
+    <style name="confim_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/confirm_button_height</item>
+        <item name="android:layout_marginBottom">@dimen/listitem_margin_height_big</item>
+        <item name="android:layout_marginLeft">@dimen/listitem_margin_width_small</item>
+        <item name="android:layout_marginRight">@dimen/listitem_margin_width_small</item>
+        <item name="android:background">@color/title_interval_green</item>
+        <item name="android:textColor">@color/background_white</item>
+        <item name="android:textSize">@dimen/listitem_textsize</item>
     </style>
 
     <!--何逍-->
