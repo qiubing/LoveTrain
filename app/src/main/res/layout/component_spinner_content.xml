@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_sharecourse_detail_fill_courselevel_filltextview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/listitem_height"
     android:layout_marginTop="@dimen/item_smallverticalmargin"
     android:layout_marginBottom="@dimen/item_smallverticalmargin"
-    android:textSize="@dimen/itemcontent_textsize"/>
+    android:gravity="center_horizontal"
+    android:textSize="@dimen/listitem_textsize"
+    android:textColor="@color/title_interval_green"/>
