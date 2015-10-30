@@ -28,6 +28,7 @@ import cn.nubia.activity.client.fragment.AllExamFragment;
 import cn.nubia.activity.client.fragment.ClientAllCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyCourceFragment;
 import cn.nubia.activity.client.fragment.ClientMyFragment;
+import cn.nubia.appUpdate.about.SettingsDataStore;
 import cn.nubia.appUpdate.about.UpdateService;
 import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
@@ -59,7 +60,7 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
         setContentView(R.layout.activity_client_main);
         initViews();
         initEvents();
-        startUpdateService();
+        startUpdateServiceByPreference();
     }
 
     private  void initViews() {
@@ -263,9 +264,14 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
         }
     };
 
-    private void startUpdateService(){
-        Intent service = new Intent(this, UpdateService.class);
-        service.putExtra("command", "auto_detect");
-        this.startService(service);
+    private void startUpdateServiceByPreference(){
+        Log.e("wj", "startUpdateServiceByPreference");
+        SettingsDataStore store = new SettingsDataStore(this);
+        if(store.getSwitchStatus(SettingsDataStore.WIFI_AUTO_UPDATE_DB)){
+            Log.e("wj","startUpdateServiceByPreference true");
+            Intent service = new Intent(this, UpdateService.class);
+            service.putExtra("command", "auto_detect");
+            this.startService(service);
+        }
     }
 }
