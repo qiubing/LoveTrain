@@ -87,7 +87,7 @@
         <item>senior</item>
     </string-array>
 
-    <string name="copyright">Copyright 2015–2120 nubia   版权所有</string>
+    <string name="copyright">Copyright © 2011–2015 nubia   版权所有</string>
     <string name="icon_course">课程</string>
     <string name="icon_exam">考试</string>
     <string name="icon_share">技术分享</string>
@@ -130,6 +130,7 @@
     <string name="activity_my_accountmana_pswmodify_newpsw_textview">请输入新密码</string>
     <string name="activity_my_accountmana_pswmodify_confirmpsw_textview">请确认新密码</string>
     <!--我的分享课程申请Activity-->
+    <string name="activity_my_sharecourse_detail_fill_title_textView">课程信息</string>
     <string name="activity_my_sharecourse_detail_fill_coursename_textView">课程名称：</string>
     <string name="activity_my_sharecourse_detail_fill_coursedescription_textView">课程简介：</string>
     <string name="activity_my_sharecourse_detail_fill_courselevel_textView">课程级别：</string>
@@ -317,21 +318,23 @@
     <!-- about us -->
     <string name="about_us_title">关于我们</string>
     <string name="two_dimension">二维码图片</string>
-    <string name="app_version">版本：Version 1.0</string>
-    <string name="about_us">\u0020\u0020\u0020\u0020\u0020\u0020\u0020爱培训是nubia技术有限公司推出的一款专门为部门内部员工量身定制的培训神器，拥有最全面的最及时的课程信息，第一时间为你提供最精准便捷的课程分享信息，爱培训将给你最畅快的上课体验。</string>
+    <string name="app_version">爱分享 V1.0.1</string>
+    <string name="about_us">\u0020\u0020\u0020\u0020\u0020\u0020\u0020爱分享是nubia推出的一款专门为企业内部员工量身定制的培训app，拥有最全面的、最及时的课程分享信息，爱培训将给你最畅快的上课体验。</string>
 
     <!-- update software -->
     <string name="soft_update_dialog_tilte">版本检测</string>
-    <string name="soft_update_no">已经是最新版本</string>
+    <string name="soft_update_no">当前已经是最新版本</string>
     <string name="soft_update_title">最新版本</string>
     <string name="soft_update_info">检测到新版本，立即更新吗</string>
     <string name="soft_update_updatebtn">更新</string>
     <string name="soft_update_later">以后再说</string>
     <string name="soft_updating">马上升级</string>
+    <string name="soft_update_checking">正在检测新版本</string>
     <string name="soft_update_cancel">取消</string>
     <string name="soft_update_size">版本大小</string>
     <string name="soft_update_content">版本更新:%1$s</string>
     <string name="soft_update_error">下载软件失败，请稍后重新下载！</string>
+    <string name="soft_connect_server_error">连接服务器失败</string>
     <string name="soft_update_lovetrain">爱分享应用升级</string>
 
 </resources>

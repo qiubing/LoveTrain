@@ -19,7 +19,6 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("UpdateService","onStartCommand"+intent.getStringExtra("command"));
         if(null == intent)
             return START_NOT_STICKY;
         String cmd = intent.getStringExtra("command");

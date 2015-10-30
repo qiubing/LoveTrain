@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,14 +55,15 @@ public class CourseLevelSpinnerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         TextView text;
         if(convertView == null){
-            text= (TextView) LayoutInflater.from(mContext)
-                    .inflate(R.layout.component_spinner_content,null);
+            text = (TextView) LayoutInflater.from(mContext)
+                    .inflate(R.layout.component_spinner_content, null);
         }else{
-            text = (TextView) convertView;
-        }
+            text= (TextView) convertView;
 
+        }
         text.setText(mList.get(position).getmCourseLevelName());
         return text;
     }

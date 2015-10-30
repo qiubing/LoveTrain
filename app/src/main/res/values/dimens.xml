@@ -65,20 +65,23 @@
 
     <!--江禹-->
     <!--高度、长度、间隔-->
-    <dimen name="listitem_height">53dp</dimen>
-    <dimen name="icon_listitem_height">67dp</dimen>
-    <dimen name="listitem_interval_height">0.5dp</dimen>
-    <dimen name="listitem_margin_width_small">10dp</dimen>
-    <dimen name="listitem_margin_width">25dp</dimen>
-    <dimen name="listitem_margin_width_big">75dp</dimen>
-    <dimen name="listitem_margin_height_big">10dp</dimen>
     <dimen name="background_top_height">150dp</dimen>
+    <dimen name="muliLine_text_height">100dp</dimen>
+    <dimen name="icon_listitem_height">67dp</dimen>
+    <dimen name="listitem_height">53dp</dimen>
+    <dimen name="confirm_button_height">40dp</dimen>
     <dimen name="background_padding_bottom">15dp</dimen>
-    <dimen name="judge_text_width">130dp</dimen>
+    <dimen name="listitem_margin_height_big">10dp</dimen>
+    <dimen name="listitem_interval_height">0.5dp</dimen>
 
+    <dimen name="judge_text_width">130dp</dimen>
+    <dimen name="tableitem_text_width">80dp</dimen>
+    <dimen name="listitem_margin_width_big">75dp</dimen>
+    <dimen name="listitem_margin_width">25dp</dimen>
+    <dimen name="listitem_margin_width_small">10dp</dimen>
     <!--字体大小-->
-    <dimen name="listitem_textsize">20dp</dimen>
-    <dimen name="background_top_textsize">26sp</dimen>
+    <dimen name="listitem_textsize">16dp</dimen>
+    <dimen name="listitem_content_textsize">14dp</dimen>
     <!--图片大小-->
     <dimen name="password_imagesize">35dp</dimen>
 
@@ -99,9 +102,12 @@
     <dimen name="app_update_dialog_height">150dp</dimen>
     <dimen name="button_margin_right">20dp</dimen>
     <dimen name="title_margin_top">20dp</dimen>
+    <dimen name="dialog_title_margin_top">18dp</dimen>
+    <dimen name="dialog_title_margin_bottom">20dp</dimen>
     <dimen name="title_margin_bottom">10dp</dimen>
     <dimen name="app_update_dialog_title_height">60dp</dimen>
-
+    <dimen name="dialog_text_margin_left">14dp</dimen>
+    <dimen name="dialog_text_margin_right">14dp</dimen>
 
 
     <!-- Default screen margins, per the Android Design guidelines. -->

@@ -25,6 +25,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
  * 采用RadioButton+Fragment结构
  * RadioButton改变，FrameLayout中的Fragment跟着相应改变
  * Created by 胡立加 on 2015/10/22.
+ * RadioGroup change to layout
  */
 
 public class AdminMainActivity extends FragmentActivity implements View.OnClickListener{

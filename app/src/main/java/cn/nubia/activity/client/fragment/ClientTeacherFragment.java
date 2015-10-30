@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class ClientTeacherFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.activity_admin_all_course, container, false);
 		initViews();
 		initEvents();
+//		Log.i("huhu", "teacher");
 		return rootView;
 	}
 

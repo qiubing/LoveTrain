@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/btn_upload"
-            style="@style/CustomBigLoginButton"
+            style="@style/CustomBigOrangeButton"
             android:text="上传头像" />
     </LinearLayout>
 
