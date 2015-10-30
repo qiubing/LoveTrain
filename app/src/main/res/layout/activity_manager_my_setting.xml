@@ -208,36 +208,6 @@
                 </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:id="@+id/about_us_imageView_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/about_us_imageView"
-                        style="@style/client_my_imageView_style"
-                        android:src="@drawable/client_my_checkupdate" />
-
-                    <TextView
-                        style="@style/client_my_textView_style"
-                        android:layout_toEndOf="@id/about_us_imageView"
-                        android:layout_toRightOf="@id/about_us_imageView"
-                        android:text="关于我们" />
-
-                    <ImageView
-                        android:id="@+id/about_us"
-                        style="@style/client_my_forwardImageView_style"
-                        android:layout_marginRight="@dimen/class_item_margin_right"
-                        android:src="@drawable/client_my_forward" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/class_item_space"></View>
-                </RelativeLayout>
-
 
                 <RelativeLayout
                     android:id="@+id/change_account_imageView_layout"
