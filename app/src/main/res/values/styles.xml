@@ -20,6 +20,17 @@
         <item name="android:textSize">@dimen/item_text_size</item>
     </style>
 
+    <style name="update_now_button" parent="@android:style/Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/toolbar_bg</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">@dimen/login_edit_text_margin_left</item>
+        <item name="android:layout_marginRight">@dimen/login_edit_text_margin_right</item>
+        <item name="android:textSize">@dimen/textSize16</item>
+    </style>
+
     <!--吕康-->
     <style name="login_button">
         <item name="android:background">@color/toolbar_bg</item>

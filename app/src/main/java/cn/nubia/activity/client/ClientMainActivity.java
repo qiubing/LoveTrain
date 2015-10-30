@@ -41,6 +41,7 @@ import cn.nubia.zxing.barcode.CaptureActivity;
 
 public class ClientMainActivity extends FragmentActivity  implements View.OnClickListener{
     private static final String TAG = "ClientMainActivity";
+    private final static String UPDATE_INTENT_ACTON = "cn.nubia.upgrade.service.UpgradeService";
     private ClientMyCourceFragment mClientMyCourceFragment;
     private ClientAllCourceFragment mClientAllCourceFragment;
     private AllExamFragment mAllExamFragment;
@@ -56,6 +57,7 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
         setContentView(R.layout.activity_client_main);
         initViews();
         initEvents();
+        startUpdateService();
     }
 
     private  void initViews() {
@@ -259,4 +261,9 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
         }
     };
 
+    private void startUpdateService(){
+        Intent service = new Intent(UPDATE_INTENT_ACTON);
+        service.putExtra("command", "auto_detect");
+        this.startService(service);
+    }
 }

@@ -94,12 +94,13 @@
 
 
 
-
-
-
-
-
-
+    <!--wangjian-->
+    <dimen name="item_normallverticalmargin">30dp</dimen>
+    <dimen name="app_update_dialog_height">150dp</dimen>
+    <dimen name="button_margin_right">20dp</dimen>
+    <dimen name="title_margin_top">20dp</dimen>
+    <dimen name="title_margin_bottom">10dp</dimen>
+    <dimen name="app_update_dialog_title_height">60dp</dimen>
 
 
 
@@ -118,6 +119,7 @@
     <dimen name="check_record_date_font_size">16dp</dimen>
     <dimen name="text_padding_bottom">10dp</dimen>
     <dimen name="text_padding_top">10dp</dimen>
+
     <dimen name="image_padding_right">10dp</dimen>
     <dimen name="linear_padding_left">10dp</dimen>
     <dimen name="linear_padding_bottom">0dp</dimen>
@@ -132,7 +134,7 @@
 
     <dimen name="item_smallverticalmargin">5dp</dimen>
     <dimen name="item_smallhorizontalmargin">10dp</dimen>
-    <dimen name="item_normallverticalmargin">30dp</dimen>
+
     <dimen name="item_normalhorizontalmargin">30dp</dimen>
     <dimen name="item_bighorizontalmargin">50dp</dimen>
 

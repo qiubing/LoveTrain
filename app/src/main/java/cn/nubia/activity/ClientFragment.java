@@ -32,6 +32,7 @@ public class ClientFragment extends Fragment {
     private EditText mUserIdET;
     private EditText mPasswordET;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,6 +174,4 @@ public class ClientFragment extends Fragment {
     private void initEvents() {
 
     }
-
-
 }

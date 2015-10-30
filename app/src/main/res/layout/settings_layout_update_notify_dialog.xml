@@ -4,81 +4,80 @@
     android:layout_height="match_parent"
     android:background="@drawable/item_bg">
 
-    <TextView
-        android:id="@+id/settings_update_dialog_title"
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentTop="true"
-        android:textSize="16dp"
-        android:textColor="@drawable/editview_selector"
-        android:text="@string/app_version"/>
-    <TextView
-        android:id="@+id/settings_update_dialog_version_name"
+        android:layout_height="@dimen/app_update_dialog_title_height">
+        <TextView
+            android:id="@+id/settings_update_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/title_margin_top"
+            android:layout_marginBottom="@dimen/title_margin_bottom"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/text_view_font_size"
+            android:text="@string/soft_update_dialog_tilte"/>
+        <TextView
+            android:id="@+id/settings_update_dialog_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/settings_update_dialog_title"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/text_view_font_size"
+            android:layout_marginRight="@dimen/button_margin_right"
+            android:textColor="@color/toolbar_bg"
+            android:text="@string/soft_update_cancel"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/item_common_cource_divider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="center"
-        android:textColor="@drawable/editview_selector"
-        android:layout_below="@id/settings_update_dialog_title"/>
-    <TextView
-        android:id="@+id/settings_update_dialog_version_size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="center"
-        android:textColor="@drawable/editview_selector"
-        android:layout_below="@id/settings_update_dialog_version_name"
-        />
-    <TextView
-        android:id="@+id/settings_update_dialog_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="left"
-        android:textColor="@drawable/editview_selector"
-        android:layout_below="@id/settings_update_dialog_version_size"
-        />
+        android:layout_height="@dimen/divider_thin"
+        android:layout_below="@id/layout_title"
+        android:background="@color/toolbar_bg"
+        android:visibility="visible"/>
+
     <LinearLayout
-        android:id="@+id/settings_update_dialog_operator"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/settings_update_dialog_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
-
+        android:layout_height="190dp"
+        android:orientation="vertical"
+        android:layout_below="@id/item_common_cource_divider">
         <TextView
-            android:id="@+id/settings_update_dialog_now_update"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/editview_selector"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/soft_updating"
-            android:textColor="@drawable/button_guide_selector"
-            android:textSize="15sp"
+            android:id="@+id/settings_update_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_normallverticalmargin"
+            android:layout_marginBottom="@dimen/item_normallverticalmargin"
+            android:gravity="center_horizontal"
+            android:text="hello"
+            android:textSize="@dimen/textSize16" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置下次自动更新"/>
+            <cn.nubia.component.SwitchButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/update_now_button"
+            style="@style/update_now_button"
+            android:text="@string/soft_updating" />
+        <ProgressBar
+            android:id="@+id/downloading_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_thick"
+            android:max="100"
+            android:layout_marginLeft="@dimen/login_edit_text_margin_left"
+            android:layout_marginRight="@dimen/login_edit_text_margin_right"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/download_progress_bar"
             />
-
-        <TextView
-            android:id="@+id/settings_update_dialog_not_update"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/editview_selector"
-            android:layout_gravity="center_vertical"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/soft_update_later"
-            android:textColor="@drawable/button_guide_selector"
-            android:textSize="15sp"/>
     </LinearLayout>
+
 </RelativeLayout>

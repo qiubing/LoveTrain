@@ -10,12 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,7 @@ import cn.nubia.upgrade.model.VersionData;
 /**
  * Created by WJ on 2015/10/26.
  */
-public class AboutManager {
+public class AboutManager implements IDownLoadListener{
     private static final String AppLogUrl = "";
     private final static String NEW_VERSION = "cn.nubia.lovetrain.update.change";
     private static final String AUTH_ID = "OHxuZVn30b99e477";
@@ -41,7 +43,7 @@ public class AboutManager {
 
     private static Service mContext = null;
     private AlertDialog connectDialog = null;
-
+    private ProgressBar mProgressBar;
     private final static int FLAG_UPDATE_NEW_VERSION = 0;
     private final static int FLAG_UPDATE_QUERYING = 1;
     private final static int FLAG_UPDATE_NETWORK_ERROR = 2;
@@ -63,6 +65,63 @@ public class AboutManager {
         return mUpgradeManager;
     }
 
+    @Override
+    public void onStartDownload() {
+        Log.e("wj", " onStartDownload ");
+    }
+
+    @Override
+    public void onResumeDownload() {
+        Log.e("wj", " onResumeDownload ");
+    }
+
+    @Override
+    public void onDownloadError(int i) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, mContext.getResources()
+                        .getString(R.string.soft_update_error), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+    }
+
+    @Override
+    public void onDownloadPause() {
+        Log.e("wj", " onDownloadPause ");
+    }
+
+    @Override
+    public void onDownloadComplete(String s) {
+        Log.e("wj", " onDownloadComplete "+s);
+        getUpgradeManager().install(mContext, mVersionData);
+        stopUpdateService();
+    }
+
+    @Override
+    public void onDownloadProgress(int i) {
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        bundle.putInt("progress_status",i);
+        message.what = 0x011;
+        message.setData(bundle);
+        downloadProgressHandler.sendMessage(message);
+        Log.e("wj", " onDownloadProgress " + i);
+    }
+
+    private Handler downloadProgressHandler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle bundle = msg.getData();
+            int status = bundle.getInt("progress_status");
+            if(msg.what == 0x011){
+                mProgressBar.setProgress(status);
+            }
+        }
+    };
+
     private static class MyHandler extends Handler {
         WeakReference<AboutManager> _mgr;
 
@@ -76,13 +135,15 @@ public class AboutManager {
             super.handleMessage(msg);
             switch (msg.what) {
                 case FLAG_UPDATE_NEW_VERSION: {
+                    Log.e("wj", "MyHandler  FLAG_UPDATE_NEW_VERSION");
                     if (hasMessages(FLAG_UPDATE_QUERY_TIMEOUT)) {
                         removeMessages(FLAG_UPDATE_QUERY_TIMEOUT);
                     }
                     AboutManager mgr = _mgr.get();
                     if (mgr != null) {
+                        Log.e("wj", "FLAG_UPDATE_NEW_VERSION MyHandler  mgr != null");
                         Bundle data = msg.getData();
-                        mgr.showDialog(data.getString(VERSION_SIZE),
+                        mgr.showDetectDialog(data.getString(VERSION_SIZE),
                                 data.getString(VERSION_SIZE),
                                 data.getString(UPDATE_CONTENT));
                     }
@@ -115,7 +176,7 @@ public class AboutManager {
                     }
                     AboutManager mgr = _mgr.get();
                     if (null != mgr) {
-                        Log.e("wj", "if(null != mgr){");
+                        Log.e("wj", " FLAG_UPDATE_NO_NEW_VERSION if(null != mgr){");
                         mgr.showNoUpdateDialog();
                     }
                     _mgr.clear();
@@ -165,42 +226,43 @@ public class AboutManager {
     }
 
     public void newCheckUpdate() {
-        checkVersion(false);
         setConfiguration();
+        checkVersion(false);
     }
 
     private void setConfiguration() {
+        getUpgradeManager().debug(true);
+        Log.e("wj", "setConfiguration");
         NubiaUpdateConfiguration.Builder builder = new NubiaUpdateConfiguration.Builder();
         builder.setShowNotification(true);
         builder.setAppName(mContext.getResources().getString(R.string.app_name));
         /****revise here **/
-        builder.setIcon(R.drawable.my_list_txt_background);
+        builder.setIcon(R.mipmap.evaluate_icon);
         getUpgradeManager().setConfiguration(NubiaUpdateConfiguration.Builder
                 .getConfiguration(builder));
     }
 
     private void checkVersion(boolean isAutoDetect) {
-        getUpgradeManager().debug(true);
         if (!isAutoDetect) {
             Message msg = Message.obtain();
             msg.what = FLAG_UPDATE_QUERYING;
             mHandler.sendMessage(msg);
         }
         Log.e("wj", "checkVersion");
-        getUpgradeManager().getVersion(mContext, new getVersionListener(isAutoDetect));
+        getUpgradeManager().getVersion(mContext, new GetVersionListener(isAutoDetect));
     }
 
-    private class getVersionListener implements IGetVersionListener {
+    private class GetVersionListener implements IGetVersionListener {
 
         boolean isAutoDetect;
 
-        public getVersionListener(boolean isAutoDetect) {
+        public GetVersionListener(boolean isAutoDetect) {
             this.isAutoDetect = isAutoDetect;
         }
 
         @Override
         public void onGetNewVersion(VersionData versionData) {
-            Log.e("wj", "onGetNewVersion");
+            Log.e("wj", "onGetNewVersion"+versionData.getApkUrl());
             if (versionData.isUpdate()) {
                 if (isAutoDetect) {
                     Log.e("wj", "onGetNewVersion isAutoDetect");
@@ -213,7 +275,7 @@ public class AboutManager {
                 } else {
                     Log.e("wj", "onGetNewVersion   not  isAutoDetect");
                     Message msg = Message.obtain();
-                    msg.what = FLAG_UPDATE_NO_NEW_VERSION;
+                    msg.what = FLAG_UPDATE_NEW_VERSION;
                     mVersionData = versionData;
                     newAutoSetVersionInfo(msg, versionData);
                     mHandler.sendMessage(msg);
@@ -224,6 +286,7 @@ public class AboutManager {
         @Override
         public void onGetNoVersion() {
             Log.e("wj", "onGetNoVersion");
+
             if (isAutoDetect) {
                 Log.e("wj", "onGetNoVersion   not  isAutoDetect");
                 SettingsDataStore store = new SettingsDataStore(mContext);
@@ -277,7 +340,7 @@ public class AboutManager {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         /******revise here****/
-        builder.setMessage("与服务器连接错误");
+        builder.setMessage("与服务器连接失败");
         builder.setTitle("检测版本更新");
 
         AlertDialog errorDialog = builder.create();
@@ -297,11 +360,10 @@ public class AboutManager {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         /******revise here****/
-        builder.setMessage("没有最新版本");
+        builder.setMessage("当前没有最新版本");
         builder.setTitle("检测版本更新");
         builder.setPositiveButton("取消",
                 new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -313,91 +375,70 @@ public class AboutManager {
         noUpdateDialog.show();
     }
 
-    private void showDialog(String version, String size, String update) {
+    private void showDetectDialog(String version, String size, String update) {
         if (connectDialog != null && connectDialog.isShowing()) {
             connectDialog.dismiss();
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setCancelable(false);
         final AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();
         window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
 
         window.setContentView(R.layout.settings_layout_update_notify_dialog);
-        TextView stopUpdate = (TextView) window.findViewById(R.id.settings_update_dialog_not_update);
+        TextView stopUpdate = (TextView) window.findViewById(R.id.settings_update_dialog_cancle);
+        mProgressBar = (ProgressBar) window.findViewById(R.id.downloading_progress_bar);
+
         stopUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 stopUpdateService();
+                mProgressBar = null;
             }
         });
 
-        TextView nowUpdate = (TextView) window.findViewById(R.id.settings_update_dialog_now_update);
+        TextView nowUpdate = (TextView) window.findViewById(R.id.update_now_button);
         nowUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                getUpgradeManager().addDownLoadListener(AboutManager.this);
                 getUpgradeManager().startApkDown(mContext, mVersionData);
-                getUpgradeManager().addDownLoadListener(new DownLoadListener(mVersionData));
-                dialog.dismiss();
+                Log.e("wj", " after startApkDown " + mVersionData.getApkUrl());
             }
         });
 
-        TextView versionTitle = (TextView) window.findViewById(R.id.settings_update_dialog_version_name);
-        versionTitle.setText(mContext.getResources().getString(R.string.soft_update_title) + version);
-
-        if (!size.equals("")) {
-            TextView sizeTitle = (TextView) window.findViewById(R.id.settings_update_dialog_version_size);
-            sizeTitle.setText(mContext.getResources().getString(R.string.soft_update_size) + size);
-            sizeTitle.setText("应用大小" + size);
-        }
-
         TextView contentView = (TextView) window.findViewById(R.id.settings_update_dialog_content);
-        contentView.setText(mContext.getResources().getString(R.string.soft_update_content) + update);
-        contentView.setText("更新" + update);
+        String updateTitle = mContext.getResources().getString(R.string.soft_update_content);
+        String updateContent = String.format(updateTitle, update);
+        contentView.setText(updateContent);
     }
 
-    private static class DownLoadListener implements IDownLoadListener {
-
-        private VersionData mVersionData;
-
-        public DownLoadListener(VersionData data) {
-            mVersionData = data;
-        }
-
-        @Override
-        public void onStartDownload() {
-
-        }
-
-        @Override
-        public void onResumeDownload() {
-
-        }
-
-        @Override
-        public void onDownloadError(int i) {
-            Toast.makeText(mContext, mContext.getResources()
-                    .getString(R.string.soft_update_error), Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-        @Override
-        public void onDownloadPause() {
-
-        }
-
-        @Override
-        public void onDownloadComplete(String s) {
-            getUpgradeManager().install(mContext, mVersionData);
-            stopUpdateService();
-        }
-
-        @Override
-        public void onDownloadProgress(int i) {
-
-        }
+    /**
+     * 显示软件下载对话框
+     */
+    private void showDownloadDialog()
+    {
+//        // 构造软件下载对话框
+//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//        builder.setTitle(R.string.soft_updating);
+//        // 给下载对话框增加进度条
+//        final LayoutInflater inflater = LayoutInflater.from(mContext);
+//        View v = inflater.inflate(R.layout.softupdate_progress, null);
+//        mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
+//        builder.setView(v);
+//        // 取消更新
+//        builder.setNegativeButton(R.string.soft_update_cancel, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                // 设置取消状态
+//                cancelUpdate = true;
+//            }
+//        });
+//        mDownloadDialog = builder.create();
+//        mDownloadDialog.show();
     }
 
     private void sendNewVersionNotification() {
@@ -422,6 +463,7 @@ public class AboutManager {
     }
 
     public void newAutoDetected() {
+        setConfiguration();
         checkVersion(true);
     }
 }

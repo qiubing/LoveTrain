@@ -37,7 +37,7 @@
         android:layout_height="@dimen/login_item_height">
 
         <ImageView
-            android:id="@+id/pwd_icon"
+            android:id="@+id/pwd_icon1"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
@@ -48,12 +48,13 @@
             android:id="@+id/login_pwd_regist"
             style="@style/login_edit_text_style"
             android:layout_marginLeft="0dp"
-            android:layout_toRightOf="@id/pwd_icon"
+            android:layout_toRightOf="@id/pwd_icon1"
             android:hint="@string/regist_pwd1_hint"
             android:paddingLeft="10dp"
             android:password="true" />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
@@ -65,7 +66,7 @@
         android:layout_height="@dimen/login_item_height">
 
         <ImageView
-            android:id="@+id/pwd_icon1"
+            android:id="@+id/pwd_icon2"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
@@ -76,7 +77,7 @@
             android:id="@+id/login_pwd_regist1"
             style="@style/login_edit_text_style"
             android:layout_marginLeft="0dp"
-            android:layout_toRightOf="@id/pwd_icon1"
+            android:layout_toRightOf="@id/pwd_icon2"
             android:hint="@string/regist_pwd2_hint"
             android:paddingLeft="10dp"
             android:password="true" />
