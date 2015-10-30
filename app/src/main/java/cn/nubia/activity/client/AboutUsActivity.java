@@ -136,7 +136,7 @@ public class AboutUsActivity extends Activity {
                 }
                 if (!mDownloadUrl.equals("")){
                     try {
-                        Bitmap qrBitmap = EncodingHandler.createQRCode(mDownloadUrl, 400);
+                        Bitmap qrBitmap = EncodingHandler.createQRCode(mDownloadUrl, 500);
                         QRImage.setImageBitmap(qrBitmap);
                         //String saveImage = "IShare_Download_QR_Code" + ".jpg";
                         Utils.saveBitmap(QRCODE_SAVE_NAME, qrBitmap);

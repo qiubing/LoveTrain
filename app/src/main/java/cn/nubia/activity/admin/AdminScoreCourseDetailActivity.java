@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -115,12 +115,12 @@ public class AdminScoreCourseDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_score_course_detail);
-        ImageView mGoBack;
+        RelativeLayout mGoBack;
         TextView mManagerTitle;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack = (RelativeLayout) findViewById(R.id.manager_goback);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

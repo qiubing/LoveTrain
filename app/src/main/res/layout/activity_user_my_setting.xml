@@ -266,11 +266,13 @@
                         style="@style/client_my_textView_style"
                         android:layout_toEndOf="@id/about_us_imageView"
                         android:layout_toRightOf="@id/about_us_imageView"
+
                         android:text="关于我们" />
 
                     <ImageView
                         android:id="@+id/about_us"
                         style="@style/client_my_forwardImageView_style"
+                        android:layout_marginRight="@dimen/class_item_margin_right"
                         android:src="@drawable/client_my_forward" />
 
                     <View
