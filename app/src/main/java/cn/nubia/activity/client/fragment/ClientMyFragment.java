@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,54 +254,42 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
         String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
         Bitmap bitmap = Utils.getPictureFromSD(localPath);
         if (bitmap != null) {
+            Log.i("huhu", "bitmap!=null");
             Drawable drawable = new BitmapDrawable(bitmap);
             mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
         } else {//从服务器中加载
+            Log.i("huhu", "bitmap==null");
             String remotePath = Constant.PICTURE_PREFIX +
                     Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
             Log.e(TAG, "remotePath: " + remotePath);
             //从服务器加载图片，传递url地址过去
             AsyncHttpHelper.get(remotePath, mPictureHandler);
         }
+
+        /*new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.i("huhu", "sleep");
+                mHandle.sendEmptyMessage(11);
+            }
+        }.start();*/
     }
 
 
-	/*Fragment没有这两个方法，待解决*/
-    /*@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == GET_PHOTO_CODE && resultCode == 3) {
-			Bundle extras = data.getExtras();
-			if (extras != null) {
-				Bitmap photo = extras.getParcelable("data");
-				Drawable drawable = new BitmapDrawable(photo);
-				mCircleImageView.setImageDrawable(drawable);
-			}
-		}
-	}*/
-
-	/*@Override
-	protected void onResume() {
-		super.onResume();
-		//头像图片存储路径
-			*/
-    /**
-     * 先判断本地是否存储了头像，如果本地存储了头像，则使用本地头像；否则从服务器中加载头像
-     *//*
-			String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
-		Bitmap bitmap = Utils.getPictureFromSD(localPath);
-		if (bitmap != null) {
-			Drawable drawable = new BitmapDrawable(bitmap);
-			mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
-			mCircleImageView.setImageDrawable(drawable);
-		}else{//从服务器中加载
-			String remotePath = Constant.PICTURE_PREFIX +
-					Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
-			Log.e(TAG, "remotePath: " + remotePath);
-			//从服务器加载图片，传递url地址过去
-			AsyncHttpHelper.get(remotePath, mPictureHandler);
-		}
-	}*/
+    /*Handler mHandle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mCheckRecord.setVisibility(View.GONE);
+        }
+    };*/
 
     private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler() {
         @Override

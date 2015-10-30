@@ -77,7 +77,7 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 						fragment = new ClientStudentFragment();
 						break;
 					case 1 :
-						fragment = new ClientTeacherFragment();;
+						fragment = new ClientTeacherFragment();
 						break;
 				}
 				return fragment;
