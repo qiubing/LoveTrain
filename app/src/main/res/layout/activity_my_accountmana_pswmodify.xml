@@ -71,7 +71,7 @@
 
     <Button
         android:id="@+id/my_accountmana_pswmodify_confirmbutton"
-        style="@style/CustomBigLoginButton"
+        style="@style/confim_button_style"
         android:text="@string/alterCourseForSure"
         android:background="@color/title_interval_green"/>
 </LinearLayout>
