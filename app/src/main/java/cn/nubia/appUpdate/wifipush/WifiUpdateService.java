@@ -38,7 +38,6 @@ public class WifiUpdateService extends Service implements IDownLoadListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(TAG,"onStartCommand"+intent.getStringExtra(COMMAND));
         if(null == intent)
             return START_NOT_STICKY;
         String cmd = intent.getStringExtra(COMMAND);
@@ -68,9 +67,7 @@ public class WifiUpdateService extends Service implements IDownLoadListener {
 
         @Override
         public void onGetNewVersion(VersionData versionData) {
-            Log.e("wj", "WifiUpdateService onGetNewVersion"+versionData.getApkUrl());
             if(versionData.isUpdate()){
-                Log.e("wj", "WifiUpdateService versionData.isUpdate()");
                 mVersionData = versionData;
                 getUpgradeManager().startApkDown(WifiUpdateService.this.getApplicationContext(), versionData);
             }
@@ -78,7 +75,6 @@ public class WifiUpdateService extends Service implements IDownLoadListener {
 
         @Override
         public void onGetNoVersion() {
-            Log.e("wj", "onGetNoVersion");
         }
 
         @Override
@@ -89,34 +85,28 @@ public class WifiUpdateService extends Service implements IDownLoadListener {
 
     @Override
     public void onStartDownload() {
-        Log.e("wj", "onStartDownload");
     }
 
     @Override
     public void onResumeDownload() {
-        Log.e("wj", "onResumeDownload");
     }
 
     @Override
     public void onDownloadError(int i) {
-        Log.e("wj", "onDownloadError"+i);
         WifiUpdateService.this.stopSelf();
     }
 
     @Override
     public void onDownloadPause() {
-        Log.e("wj", "onDownloadPause");
     }
 
     @Override
     public void onDownloadComplete(String s) {
-        Log.e("wj", "onDownloadComplete"+s);
         sendNewVersionNotification();
     }
 
     @Override
     public void onDownloadProgress(int i) {
-        Log.e("wj", "onDownloadProgress"+i);
     }
 
 

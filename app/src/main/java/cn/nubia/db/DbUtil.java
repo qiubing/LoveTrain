@@ -106,6 +106,7 @@ public class DbUtil {
         }
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
+        newValues.put(LessonItem.COURSE_TYPE, lessonItem.getCourseType());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
         newValues.put(LessonItem.NAME, lessonItem.getName());
         newValues.put(LessonItem.OPERATOR, lessonItem.getOperator());
@@ -127,6 +128,7 @@ public class DbUtil {
     public long updateLessonItem(LessonItem lessonItem) {
         ContentValues newValues = new ContentValues();
         newValues.put(LessonItem.COURSE_INDEX, lessonItem.getCourseIndex());
+        newValues.put(LessonItem.COURSE_TYPE, lessonItem.getCourseType());
         newValues.put(LessonItem.LESSON_INDEX, lessonItem.getIndex());
         newValues.put(LessonItem.OPERATOR, lessonItem.getOperator());
         newValues.put(LessonItem.NAME, lessonItem.getName());

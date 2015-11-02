@@ -18,20 +18,15 @@ public class NetworkReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        Log.e("wj","onReceive"+action);
         if (WifiUpdateService.COMMAND_CHECK_ISHARE_VERSION.equals(action)
                 ||"android.net.conn.CONNECTIVITY_CHANGE".equals(action)){
-            Log.e("wj","ONNECTIVITY_CHANGE_ACTION.equals(action)");
             if (isWifiConnected(context) && WifiPushSwitch.isEnable(context)){
-                Log.e("wj","isWifiConnected(context) && WifiPushSwitch.isEnable(context)");
                 startService(context,
                         WifiUpdateService.COMMAND_CHECK_ISHARE_VERSION);
             }else {
-                Log.e("wj","stopService");
                 stopService(context);
             }
         }else if (WifiUpdateService.COMMAND_CHECK_INSTALL_APK.equals(action)){
-            Log.e("wj","cn.nubia.appUpdate.wifipush.WifiUpdateService.equals(acti");
             startService(context,WifiUpdateService.COMMAND_CHECK_INSTALL_APK);
         }
     }

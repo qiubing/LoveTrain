@@ -265,10 +265,8 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
     };
 
     private void startUpdateServiceByPreference(){
-        Log.e("wj", "startUpdateServiceByPreference");
         SettingsDataStore store = new SettingsDataStore(this);
         if(store.getSwitchStatus(SettingsDataStore.WIFI_AUTO_UPDATE_DB)){
-            Log.e("wj","startUpdateServiceByPreference true");
             Intent service = new Intent(this, UpdateService.class);
             service.putExtra("command", "auto_detect");
             this.startService(service);

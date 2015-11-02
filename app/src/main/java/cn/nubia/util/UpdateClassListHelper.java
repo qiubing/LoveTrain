@@ -162,6 +162,7 @@ public class UpdateClassListHelper {
                     int index = binarySearch(list, ((LessonItem) item).getCourseIndex());
                     if (index >= 0) {
                         RecordModifyFlag.getInstance().updateLastModifyMap(tableName,0,0,((LessonItem) item).getRecordModifyTime(),item.getIndex());
+                        ((LessonItem) item).setCourseType(list.get(index).getType());
                         updateLessonItem(item.getOperator(), (LessonItem) item, list.get(index).getLessonList());
                     }
                 }

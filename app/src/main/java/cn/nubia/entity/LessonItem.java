@@ -7,6 +7,7 @@ import com.loopj.android.http.RequestParams;
  */
 public class LessonItem extends Item{
     public final static String COURSE_INDEX = "class_index";
+    public final static String COURSE_TYPE = "class_type";
     public final static String LESSON_INDEX = "lesson_index";
     public final static String JUDGE_SCORE = "judge_score";
     public final static String TEACHER_ID = "teacher_id";
