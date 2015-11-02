@@ -16,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -133,6 +134,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
             deleteLessonBtn.setVisibility(View.GONE);
             signUpPopulationTextView.setVisibility(View.GONE);
         }
+
+        /*if(lessonItem.getType().equals("share")) {
+            mGenerateQRCode.setVisibility(View.GONE);
+            mEvaluateTextView.setVisibility(View.GONE);
+            signInLiayout.setVisibility(View.GONE);
+        }*/
 
         /*switch (startActivity) {
             case "cn.nubia.activity.admin.AdminCourseAddTabActivity":

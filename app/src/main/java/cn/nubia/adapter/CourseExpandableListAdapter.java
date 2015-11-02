@@ -21,6 +21,7 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
+import cn.nubia.activity.client.ClientMyShareCourseDetailDisplayActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
@@ -143,16 +144,27 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**这里传过去的lessonItem中没有任何数据,错有数据，但是没有讲师ID，huhu*/
         final LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
-//        Log.i("huhu", lessonItem.getTeacherID() + lessonItem.getName() + lessonItem.getIndex() + "yuantou" );
+//        Log.i("huhu", lessonItem.getTeacherID() + lessonItem.getCourseType() + lessonItem.getIndex() + "yuantou");
 
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
-                Log.e("jiangyu","before jump"+lessonItem.getIndex()+ String.valueOf(((LessonItem)(bundle.get("LessonItem"))).isIsJudged()));
-                intent.putExtras(bundle);
-                ((Activity) mContext).startActivityForResult(intent, 2);
+                if(lessonItem.getCourseType().equals("share")) {
+//                    Log.i("huhu", "share lessonItem.getType()");
+                    Intent intent = new Intent(mContext, ClientMyShareCourseDetailDisplayActivity.class);
+                    Bundle bundleShare = new Bundle();
+                    bundleShare.putString("shareType", "share_lesson");
+                    bundleShare.putSerializable("shareCourse", lessonItem);
+                    intent.putExtras(bundleShare);
+                    mContext.startActivity(intent);
+                }else {
+//                    Log.i("huhu", "notshare" + lessonItem.getCourseType()  + lessonItem.getName());
+                    Intent intent = new Intent(mContext, AdminLessonDetailActivity.class);
+//                    Log.e("jiangyu","before jump"+lessonItem.getIndex()+ String.valueOf(((LessonItem)(bundle.get("LessonItem"))).isIsJudged()));
+                    intent.putExtras(bundle);
+                    ((Activity) mContext).startActivityForResult(intent, 2);
+                }
             }
         });
         return convertView;
@@ -221,8 +233,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
          * */
 
         /**课程类别和分享级别：不管是管理员还是普通用户，显示规则是一样的*/
-        Log.e("0925hexiao","Name:"+mGroupList.get(groupPosition).getName() +","+"CourseType:"+mGroupList.get(groupPosition).getType() +
-                ","+"ShareType:"+mGroupList.get(groupPosition).getShareType() +","+"HasExam:"+mGroupList.get(groupPosition).hasExam() +","+"IsTeacher:"+isTeacher(groupPosition));
+        Log.e("0925hexiao", "Name:" + mGroupList.get(groupPosition).getName() + "," + "CourseType:" + mGroupList.get(groupPosition).getType() +
+                "," + "ShareType:" + mGroupList.get(groupPosition).getShareType() + "," + "HasExam:" + mGroupList.get(groupPosition).hasExam() + "," + "IsTeacher:" + isTeacher(groupPosition));
 
         //设置课程评价按钮是否显示
         if(getChildrenCount(groupPosition)<=0){

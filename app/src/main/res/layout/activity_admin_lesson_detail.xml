@@ -379,7 +379,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/lesson_sign_in_details"
                         android:gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_sign_in_details"
+                        android:layout_marginLeft="100dp"
                         android:textColor="@color/toolbar_bg"
                         android:textSize="@dimen/item_bottom_text_size"
                         />

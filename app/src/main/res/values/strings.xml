@@ -14,6 +14,7 @@
     <string name="item_common_cource">普通</string>
     <string name="item_high_cource">高级</string>
     <string name="item_share_cource">审核</string>
+    <string name="item_client_share_cource">分享</string>
     <string name="item_cource_exam">课程考试</string>
     <string name="item_only_exam">只考试</string>
     <string name="item_exam">全部考试</string>

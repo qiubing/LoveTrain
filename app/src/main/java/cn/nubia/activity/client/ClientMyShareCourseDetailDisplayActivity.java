@@ -3,6 +3,7 @@ package cn.nubia.activity.client;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import cn.nubia.activity.BaseGestureActivity;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminExamDetailActivity;
 import cn.nubia.entity.Constant;
+import cn.nubia.entity.LessonItem;
 import cn.nubia.entity.ShareCourseMsg;
 import cn.nubia.entity.TechnologyShareCourseItem;
 import cn.nubia.util.AsyncHttpHelper;
@@ -84,6 +86,19 @@ public class ClientMyShareCourseDetailDisplayActivity extends BaseGestureActivit
                 mShareCourseMsg = (ShareCourseMsg) bundle.getSerializable("shareCourse");
                 mShareCourseMsg.setUserId(Constant.user.getUserID());
                 mShareCourseMsg.setUserName(Constant.user.getUserName());
+                break;
+
+            case "share_lesson" :
+                mShareCourseMsg = new ShareCourseMsg(
+                        (LessonItem) bundle.getSerializable("shareCourse"));
+                if(Constant.user.getUserName().equals(mShareCourseMsg.getUserName())) {
+                    changeButton.setVisibility(View.VISIBLE);
+                    changeButton.setOnClickListener(this);
+                }
+//                Log.i("huhu", Constant.user.getUserID() + mShareCourseMsg.getUserId() + mShareCourseMsg.getUserName());
+                passButton.setVisibility(View.GONE);
+                rejectButton.setVisibility(View.GONE);
+
         }
 
         holdView();

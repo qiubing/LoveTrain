@@ -32,8 +32,23 @@ public class ShareCourseMsg extends Paramable{
         mEndTime = item.getmEndTime();
     }
 
+    public ShareCourseMsg(LessonItem lessonItem){
+        mCourseIndex = lessonItem.getCourseIndex();
+        mCourseName = lessonItem.getName();
+        mUserId = lessonItem.getTeacherID();
+        mUserName = lessonItem.getTeacherName();
+        mCourseDescription = lessonItem.getDescription();
+        mLocale = lessonItem.getLocation();
+        mCourseLevel = 1;
+        mStartTime = lessonItem.getStartTime();
+        mEndTime = lessonItem.getEndTime();
+    }
+
     public void setUserId(String userId){
         mUserId = userId;
+    }
+    public String getUserId(){
+        return mUserId;
     }
 
     public String getUserName(){

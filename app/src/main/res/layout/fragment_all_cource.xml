@@ -93,7 +93,7 @@
                     android:id="@+id/item_share_cource"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/item_share_cource"
+                    android:text="@string/item_client_share_cource"
                     android:gravity="center"
                     android:textSize="@dimen/item_text_size"
                     android:textColor="@color/toolbar_text_color_normal"/>
