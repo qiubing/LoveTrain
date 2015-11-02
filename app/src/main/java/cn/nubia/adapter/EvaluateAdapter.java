@@ -1,6 +1,9 @@
 package cn.nubia.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -30,7 +33,6 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
     public void updateData(List<LessonJudgementMsg> newData) {
         mList.clear();
         mList.addAll(newData);
-        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
         notifyDataSetChanged();
     }
 
@@ -72,14 +74,6 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        /*RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(
-                mContext).inflate(R.layout.evaluate_item, null);
-        TextView name = (TextView) relativeLayout.findViewById(R.id.evaluate_name);
-        ImageView icon = (ImageView) relativeLayout.findViewById(R.id.evaluate_icon);
-        TextView evaluate = (TextView) relativeLayout.findViewById(R.id.evaluate_all);
-        TextView suggest = (TextView) relativeLayout.findViewById(R.id.evaluate_suggest);
-        return relativeLayout;*/
-
         ViewHolder holder;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.evaluate_item, null);
@@ -87,6 +81,8 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
             holder.name = MyViewHolder.get(convertView, R.id.evaluate_name);
             holder.evaluate = MyViewHolder.get(convertView, R.id.evaluate_all);
             holder.suggest = MyViewHolder.get(convertView, R.id.evaluate_suggest);
+            holder.mExpendedIV = MyViewHolder.get(convertView, R.id.admin_all_course_courseDetailTextView);
+//            holder.mExpendedIV = (ImageView) convertView.findViewById(R.id.admin_all_course_courseDetailTextView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -94,24 +90,26 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
         holder.name.setText(mList.get(groupPosition).getUserName());
         holder.evaluate.setText("综合评价：" + mList.get(groupPosition).getComprehensiveEvaluation());
         holder.suggest.setText("诚恳建议：" + mList.get(groupPosition).getSuggestion());
+
+        if(isExpanded){
+            Bitmap img = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.new_go);
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90); /*翻转90度*/
+            int width = img.getWidth();
+            int height =img.getHeight();
+            img = Bitmap.createBitmap(img, 0, 0, width, height, matrix, true);
+            holder.mExpendedIV.setImageBitmap(img);
+        }
+        else {
+            holder.mExpendedIV.setImageResource(R.mipmap.new_go);
+        }
+
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
                              ViewGroup parent) {
-
-       /* RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(
-                mContext).inflate(R.layout.evaluate_sub_item, null);
-        ImageView star_communication = (ImageView) relativeLayout.findViewById(R.id.star_communication);
-        ImageView star_contentApplicability = (ImageView) relativeLayout.findViewById(R.id.star_contentApplicability);
-        ImageView star_contentRationality = (ImageView) relativeLayout.findViewById(R.id.star_contentRationality);
-        ImageView star_contentUnderstanding = (ImageView) relativeLayout.findViewById(R.id.star_contentUnderstanding);
-        ImageView star_star_discussion = (ImageView) relativeLayout.findViewById(R.id.star_discussion);
-        ImageView star_expressionAbility = (ImageView) relativeLayout.findViewById(R.id.star_expressionAbility);
-        ImageView star_timeRationality = (ImageView) relativeLayout.findViewById(R.id.star_timeRationality);
-        ImageView star_organization = (ImageView) relativeLayout.findViewById(R.id.star_organization);
-        return relativeLayout;*/
 
         ViewHolderSub holderSub;
         if (convertView == null) {
@@ -151,6 +149,7 @@ public class EvaluateAdapter extends BaseExpandableListAdapter {
         //ImageView icon;
         TextView evaluate;
         TextView suggest;
+        ImageView mExpendedIV;
 
     }
 

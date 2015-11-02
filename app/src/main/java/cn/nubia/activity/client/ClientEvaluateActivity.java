@@ -71,6 +71,9 @@ public class ClientEvaluateActivity  extends Activity {
                 case 0:
                     mEvaluateAdapter.updateData(mList);
                     break;
+                case 1:
+                    Toast.makeText(ClientEvaluateActivity.this, "该课程还没有学员进行评价！",
+                            Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -98,7 +101,7 @@ public class ClientEvaluateActivity  extends Activity {
         lession_index_ID = getIntent().getExtras().getString("lession_index_ID");
         mExpandableListView = (ExpandableListView) findViewById(R.id.evaluate_expandableListView);
         TextView barTxt = (TextView) findViewById(R.id.sub_page_title);
-        barTxt.setText("我的课程评价");
+        barTxt.setText("课程评价");
 
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
         //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
@@ -187,11 +190,15 @@ public class ClientEvaluateActivity  extends Activity {
                                 mList.clear();
                                 mList.addAll(list);
                                 handler.sendEmptyMessage(0);
+                            } else {
+                                handler.sendEmptyMessage(1);
                             }
                         }
                     }.start();
                 }else {
                     loadingFailedRelativeLayout.setVisibility(View.VISIBLE);
+                    Toast.makeText(ClientEvaluateActivity.this, "code != 0 || response == null ",
+                            Toast.LENGTH_LONG).show();
                 }
 
             } catch (Exception e) {

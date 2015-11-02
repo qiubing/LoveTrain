@@ -140,9 +140,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             evaluate.setVisibility(View.GONE);
 
         final Bundle bundle = new Bundle();
-        /**这里传过去的lessonItem中没有任何数据*/
+        /**这里传过去的lessonItem中没有任何数据,错有数据，但是没有讲师ID，huhu*/
         final LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
+//        Log.i("huhu", lessonItem.getTeacherID() + lessonItem.getName() + lessonItem.getIndex() + "yuantou" );
 
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {

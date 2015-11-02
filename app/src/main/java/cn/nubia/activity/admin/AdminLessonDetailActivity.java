@@ -320,7 +320,12 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                 if(Constant.IS_ADMIN == true || status.equals("teacher")) {
                     intent = new Intent(this, ClientEvaluateActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("lession_index_ID", lessonItem.getIndex() + "," + lessonItem.getTeacherID());
+                    String teacherId = lessonItem.getTeacherID();
+                    if(teacherId.equals("-1")) {
+                        teacherId = Constant.user.getUserID();
+                    }
+                    bundle.putString("lession_index_ID", lessonItem.getIndex() + "," + teacherId );
+//                    Log.i("huhu",bundle.toString());
                     intent.putExtras(bundle);
                 } else {
                     intent = new Intent(this, ClientMyCourseJudgeDetailFillActivity.class);

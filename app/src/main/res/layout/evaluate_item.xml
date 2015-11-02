@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp210"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/dp40"
-    android:paddingRight="@dimen/dp20"
-    android:paddingTop="@dimen/dp30" >
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/class_item_background_close"
+    android:minHeight="@dimen/class_item_heigh" >
 
     <TextView
         android:id="@+id/evaluate_name"
-        android:layout_width="@dimen/dp150"
-        android:layout_height="@dimen/dp150"
+        android:layout_width="55dp"
+        android:layout_height="45dp"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
         android:gravity="center"
         android:text="胡立加"
         android:textColor="@color/white"
-        android:background="@color/common_green"/>
+        android:textSize="@dimen/item_text_size"
+        android:background="@color/toolbar_bg"/>
 
-   <!-- <ImageView
-        android:layout_width="@dimen/dp150"
-        android:layout_height="@dimen/dp150"
+    <ImageView
+        android:id="@+id/admin_all_course_courseDetailTextView"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/evaluate_coner_bg" />-->
+        android:layout_marginRight="@dimen/class_item_margin_right"
+        android:src="@mipmap/new_go" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginLeft="12dp"
         android:layout_toRightOf="@+id/evaluate_name" >
 
         <TextView
@@ -37,74 +38,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全民斗西游"
-            android:textColor="@color/E505050"
-            android:textSize="@dimen/dp40" />
+            android:textColor="@color/class_item_font"
+            android:textSize="@dimen/item_bottom_text_size_new" />
 
         <TextView
             android:id="@+id/evaluate_suggest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全民斗西游"
-            android:textColor="@color/E505050"
-            android:textSize="@dimen/dp40"
+            android:textColor="@color/class_item_font"
+            android:textSize="@dimen/item_bottom_text_size_new"
             android:layout_below="@+id/evaluate_all"/>
-
-        <!--<ImageView
-            android:id="@+id/star"
-            android:layout_width="@dimen/dp207"
-            android:layout_height="@dimen/dp35"
-            android:layout_below="@+id/name"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/dp20"
-            android:src="@mipmap/start1" />-->
-
-        <!--<TextView
-            android:id="@+id/people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
-            android:layout_marginLeft="@dimen/dp5"
-            android:layout_marginTop="@dimen/dp10"
-            android:layout_toRightOf="@+id/star"
-            android:gravity="center_vertical"
-            android:text="100次"
-            android:textColor="@color/E505050"
-            android:textSize="@dimen/dp40" />-->
     </RelativeLayout>
 
-    <!--<RelativeLayout
-        android:layout_width="@dimen/dp300"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" >
-
-        <TextView
-            android:id="@+id/download"
-            android:layout_width="@dimen/dp150"
-            android:layout_height="@dimen/dp80"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/game_button_bg"
-            android:gravity="center"
-            android:text="下载"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp40" />
-
-        <TextView
-            android:id="@+id/size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/download"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp5"
-            android:text="21.21MB"
-            android:textColor="@color/E505050"
-            android:textSize="@dimen/dp40" />
-    </RelativeLayout>-->
-
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp2"
-        android:layout_marginTop="@dimen/dp210"
-        />
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/class_item_space"></View>
 
 </RelativeLayout>

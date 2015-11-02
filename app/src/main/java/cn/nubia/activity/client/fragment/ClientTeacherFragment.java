@@ -157,6 +157,7 @@ public class ClientTeacherFragment extends Fragment {
 				cancelLoadShow();
 
 				if (response.getString("data") != null) {
+//					Log.i("huhu", "teacher" + response.toString());
 					JSONArray jsonArray = response.getJSONArray("data");
 					AsyncLoadHttpTask mLoadHttpTask = new AsyncLoadHttpTask();
 					mLoadHttpTask.execute(jsonArray);

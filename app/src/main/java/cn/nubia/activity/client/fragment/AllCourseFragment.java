@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +128,8 @@ public class AllCourseFragment extends Fragment {
 				}else
 					mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
 				cancelLoadShow();
+				Log.i("huhu", "allcource" + response.toString());
+
 				JSONArray jsonArray = response.getJSONArray("data");
 				if(jsonArray!=null) {
 					AsyncLoadHttpTask loadHttpTask = new AsyncLoadHttpTask();

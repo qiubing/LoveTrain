@@ -147,7 +147,7 @@ public class ClientStudentFragment extends Fragment {
 					return;
 				}
 				cancelLoadShow();
-
+				Log.i("huhu", "student" + response.toString());
 				if(response.getString("data") != null) {
 					JSONArray jsonArray = response.getJSONArray("data");
 					Log.e("XXXX","jsonArray"+jsonArray.toString());
