@@ -42,7 +42,7 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
         setContentView(R.layout.activity_manager_exam_input_score);
 
         //公共部分
-        ((TextView) findViewById(R.id.manager_head_title)).setText(R.string.title_activity_manager_score_input);
+        ((TextView) findViewById(R.id.sub_page_title)).setText(R.string.title_activity_manager_score_input);
         loadingFailedRelativeLayout = (RelativeLayout)findViewById(R.id.loading_failed_signin);
         RelativeLayout networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable_signin);
         loadingFailedRelativeLayout.setVisibility(View.GONE);
@@ -85,12 +85,6 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
     }
 
     private void setViewLogic(){
-        (findViewById(R.id.manager_goback)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,5 +190,9 @@ public class AdminExamInputScoreActivity extends BaseCommunicateActivity{
 //                        AdminExamInputScoreActivity.this, "录入操作结束!", true);
 //            }
         }
+    }
+
+    public void back(View view) {
+        this.finish();
     }
 }

@@ -35,15 +35,8 @@ public class AdminCreditActivity extends ActivityGroup {
         setContentView(R.layout.activity_manager_credit);
 
         //公用部分
-        TextView mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        TextView mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(R.string.title_activity_manager_credit_title);
-        ImageView mGoBack = (ImageView) findViewById(R.id.title_back_image);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         List<View> mListViews;
         Context mContext = AdminCreditActivity.this;
@@ -171,5 +164,7 @@ public class AdminCreditActivity extends ActivityGroup {
         }
     }
 
-
+    public void back(View view) {
+        this.finish();
+    }
 }

@@ -48,7 +48,7 @@ public class AdminShareCheckFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.activity_admin_unapproved_share_course, container, false);
 		initViews();
 		initEvents();
-		Log.i("huhu", "AdminShareCheckFragment,onCreateView");
+//		Log.i("huhu", "AdminShareCheckFragment,onCreateView");
 		return rootView;
 	}
 
@@ -110,7 +110,7 @@ public class AdminShareCheckFragment extends Fragment {
 		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 			try {
 				if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
-					Log.e(TAG, "onSuccess: " + response.toString());
+//					Log.e(TAG, "onSuccess: " + response.toString());
 					mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
 					JSONArray jsonArray = response.getJSONArray("data");
 					AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();

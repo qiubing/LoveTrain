@@ -8,9 +8,9 @@
 
     <include
         android:id="@+id/manager_score_user_detail_head"
-        layout="@layout/manager_head"
+        layout="@layout/include_back_title_item_layout"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+        android:layout_height="@dimen/item_height" />
 
     <ListView
         android:id="@+id/manager_user_listview"

@@ -11,8 +11,8 @@
         android:orientation="vertical">
         <include
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            layout="@layout/manager_head" />
+            android:layout_height="@dimen/item_height"
+            layout="@layout/include_back_title_item_layout" />
 
         <TabWidget
             android:id="@android:id/tabs"

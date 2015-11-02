@@ -231,15 +231,8 @@ public class AdminUserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_user);
-        TextView mTitle = (TextView) findViewById(R.id.manager_head_title);
+        TextView mTitle = (TextView) findViewById(R.id.sub_page_title);
         mTitle.setText(R.string.activity_manager_user);
-        ImageView mGoBack = (ImageView) findViewById(R.id.title_back_image);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         init();
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
@@ -267,5 +260,9 @@ public class AdminUserActivity extends Activity {
         TextView idTV;
         TextView resetPWD;
         TextView delete;
+    }
+
+    public void back(View view) {
+        this.finish();
     }
 }

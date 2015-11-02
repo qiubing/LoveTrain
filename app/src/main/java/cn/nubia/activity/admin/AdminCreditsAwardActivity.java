@@ -36,7 +36,7 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
         setContentView(R.layout.activity_admin_credits_award);
 
         //公用部分
-        ((TextView) findViewById(R.id.manager_head_title))
+        ((TextView) findViewById(R.id.sub_page_title))
                 .setText(R.string.activity_manager_award_title);
 
         holdView();
@@ -66,14 +66,7 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
     }
 
     private void setViewLogic() {
-        /**监听后退按钮，返回上一个activity*/
-        (findViewById(R.id.manager_goback)).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-        });
+
         /**监听确认按钮，进行提交动作*/
         mConfirmButton.setOnClickListener(makeConfirmOnClickListener());
     }
@@ -139,5 +132,9 @@ public class AdminCreditsAwardActivity extends BaseCommunicateActivity{
                                 message, false);
             }
         }
+    }
+
+    public void back(View view) {
+        this.finish();
     }
 }

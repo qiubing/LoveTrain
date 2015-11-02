@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,7 @@ public class AdminSharePassFragment extends Fragment {
 			try {
 				if (response != null && response.getInt("code") == 0 && response.getJSONArray("data") != null) {
 					mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);
+//					Log.e("SharePass", response.toString());
 					JSONArray jsonArray = response.getJSONArray("data");
 					AsyncParseJsonTask asyncParseJsonTask = new AsyncParseJsonTask();
 					asyncParseJsonTask.execute(jsonArray);

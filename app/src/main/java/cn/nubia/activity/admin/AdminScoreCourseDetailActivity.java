@@ -118,20 +118,15 @@ public class AdminScoreCourseDetailActivity extends Activity {
         RelativeLayout mGoBack;
         TextView mManagerTitle;
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("coursename"));
-        mGoBack = (RelativeLayout) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         mNoRecord = (TextView) findViewById(R.id.no_record);
 
         init();
 
     }
 
-
+    public void back(View view) {
+        this.finish();
+    }
 }

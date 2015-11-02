@@ -7,9 +7,9 @@
 
     <include
         android:id="@+id/manager_score_course_detail_head"
-        layout="@layout/manager_head"
+        layout="@layout/include_back_title_item_layout"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" />
+        android:layout_height="@dimen/item_height" />
 
     <TextView
         android:id="@+id/no_record"

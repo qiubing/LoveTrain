@@ -30,17 +30,9 @@ public class AdminRateActivity extends Activity {
 
         Button mButton;
         TextView mManagerTitle;
-        ImageView mGoBack;
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(R.string.activity_manager_rate_title);
-        mGoBack = (ImageView) findViewById(R.id.title_back_image);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         mButton = (Button) findViewById(R.id.activity_manager_rate_button);
         mRate_A = (EditText) findViewById(R.id.activity_manager_rate_A);
@@ -146,5 +138,9 @@ public class AdminRateActivity extends Activity {
             }
         }
         return true;
+    }
+
+    public void back(View view) {
+        this.finish();
     }
 }

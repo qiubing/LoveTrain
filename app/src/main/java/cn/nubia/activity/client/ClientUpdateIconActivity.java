@@ -12,7 +12,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -37,7 +39,9 @@ import java.io.IOException;
 import cn.nubia.activity.R;
 import cn.nubia.component.CircleImageView;
 import cn.nubia.entity.Constant;
+import cn.nubia.interfaces.IOnGestureListener;
 import cn.nubia.util.AsyncHttpHelper;
+import cn.nubia.util.GestureDetectorManager;
 import cn.nubia.util.Utils;
 
 /**
@@ -58,6 +62,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
     private static final int RESULT_REQUEST_CODE = 2;
     private static final int RETURN_PHOTO_CODE = 3;
     private static Uri photoUri;// 照相之后的数据
+    private GestureDetector gestureDetector;
 
 
     @Override
@@ -82,12 +87,6 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
 
     }
 
-    @Override
-    public void back(View view) {
-
-        this.finish();
-    }
-
     private void findViews() {
         RelativeLayout linear = (RelativeLayout) findViewById(R.id.user_check_title);
         TextView text = (TextView) linear.findViewById(R.id.sub_page_title);
@@ -95,8 +94,23 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         mCircleImageView = (CircleImageView) findViewById(R.id.image_view);
         mEditButton = (Button) findViewById(R.id.btn_edit_head_portrait);
         mUpLoadButton = (Button) findViewById(R.id.btn_upload);
+        GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
+        //指定Context和实际识别相应手势操作的GestureDetector.OnGestureListener类
+        gestureDetector = new GestureDetector(this, gestureDetectorManager);
+
+        //传入实现了IOnGestureListener接口的匿名内部类对象，此处为多态
+        gestureDetectorManager.setOnGestureListener(new IOnGestureListener() {
+            @Override
+            public void finishActivity() {
+                finish();
+            }
+        });
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
 
     @Override
     public void onClick(View v) {
@@ -332,4 +346,7 @@ public class ClientUpdateIconActivity extends BaseActivity implements OnClickLis
         startActivityForResult(intent, RESULT_REQUEST_CODE);
     }
 
+    public void back(View view) {
+        this.finish();
+    }
 }

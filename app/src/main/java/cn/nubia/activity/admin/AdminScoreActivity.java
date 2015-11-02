@@ -37,18 +37,10 @@ public class AdminScoreActivity extends ActivityGroup {
         Context mContext = AdminScoreActivity.this;
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        ImageView mGoBack;
         TextView mManagerTitle;
         //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText(R.string.title_activity_manager_score);
-        mGoBack = (ImageView) findViewById(R.id.title_back_image);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         // 定放一个放view的list，用于存放viewPager用到的view
         List<View> mListViews = new ArrayList<>();
@@ -169,6 +161,10 @@ public class AdminScoreActivity extends ActivityGroup {
         @Override
         public void startUpdate(View arg0) {
         }
+    }
+
+    public void back(View view) {
+        this.finish();
     }
 
 

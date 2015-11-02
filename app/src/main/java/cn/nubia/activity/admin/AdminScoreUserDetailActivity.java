@@ -115,20 +115,13 @@ public class AdminScoreUserDetailActivity extends Activity {
         setContentView(R.layout.activity_manager_score_user_detail);
 
         TextView mManagerTitle;
-        RelativeLayout mGoBack;
-        //公用部分
-        mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
+        mManagerTitle = (TextView) findViewById(R.id.sub_page_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("name"));
-        mGoBack = (RelativeLayout) findViewById(R.id.manager_goback);
-        mGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         mNoRecord = (TextView) findViewById(R.id.no_record);
         init();
     }
 
-
+    public void back(View view) {
+        this.finish();
+    }
 }

@@ -97,12 +97,4 @@ public abstract class BaseActivity extends FragmentActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 短暂显示Toast提示(来自resId)
-     * param resId
-     */
-    protected void showShortToast(int resId) {
-        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
-    }
-
 }
