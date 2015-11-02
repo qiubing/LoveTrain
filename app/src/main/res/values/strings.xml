@@ -336,5 +336,6 @@
     <string name="soft_update_error">下载软件失败，请稍后重新下载！</string>
     <string name="soft_connect_server_error">连接服务器失败</string>
     <string name="soft_update_lovetrain">爱分享应用升级</string>
+    <string name="soft_update_auto_tips">设置Wifi条件下自动升级版本</string>
 
 </resources>

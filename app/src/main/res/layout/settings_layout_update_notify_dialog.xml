@@ -71,7 +71,7 @@
                 android:layout_toLeftOf="@id/auto_update_switch"
                 android:layout_marginRight="10dp"
                 android:singleLine="true"
-                android:text="设置下次自动升级版本"/>
+                android:text="@string/soft_update_auto_tips"/>
         </RelativeLayout>
         <Button
             android:id="@+id/update_now_button"

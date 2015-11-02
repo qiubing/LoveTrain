@@ -21,6 +21,7 @@ public class LessonItem extends Item{
     public final static String IS_JUDGED = "is_judged";
 
     private int mCourseIndex;
+    private String mCourseType;
     private String mTeacherID;
     private String mTeacherName;
     private long mStartTime;
@@ -31,6 +32,14 @@ public class LessonItem extends Item{
     private int mTeacherCredits;//讲师上课积分
     private double mJudgeScore;//该课程讲师评价综合得分
     private long mRecordModifyTime;
+
+    public String getCourseType() {
+        return mCourseType;
+    }
+
+    public void setCourseType(String mCourseType) {
+        this.mCourseType = mCourseType;
+    }
 
     public boolean isIsJudged() {
         return mIsJudged;
