@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -115,11 +115,11 @@ public class AdminScoreUserDetailActivity extends Activity {
         setContentView(R.layout.activity_manager_score_user_detail);
 
         TextView mManagerTitle;
-        ImageView mGoBack;
+        RelativeLayout mGoBack;
         //公用部分
         mManagerTitle = (TextView) findViewById(R.id.manager_head_title);
         mManagerTitle.setText("考试成绩查询" + "/" + getIntent().getStringExtra("name"));
-        mGoBack = (ImageView) findViewById(R.id.manager_goback);
+        mGoBack = (RelativeLayout) findViewById(R.id.manager_goback);
         mGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
