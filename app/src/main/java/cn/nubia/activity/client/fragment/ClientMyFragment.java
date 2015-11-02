@@ -254,12 +254,12 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
         String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
         Bitmap bitmap = Utils.getPictureFromSD(localPath);
         if (bitmap != null) {
-            Log.i("huhu", "bitmap!=null");
+//            Log.i("huhu", "bitmap!=null");
             Drawable drawable = new BitmapDrawable(bitmap);
             mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
         } else {//从服务器中加载
-            Log.i("huhu", "bitmap==null");
+//            Log.i("huhu", "bitmap==null");
             String remotePath = Constant.PICTURE_PREFIX +
                     Utils.parseUrlStringFromServer(Constant.user.getUserIconURL());
             Log.e(TAG, "remotePath: " + remotePath);

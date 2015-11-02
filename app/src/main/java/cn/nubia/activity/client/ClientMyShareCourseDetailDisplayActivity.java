@@ -63,6 +63,8 @@ public class ClientMyShareCourseDetailDisplayActivity extends BaseGestureActivit
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        /*Log.i("huhu", ((LessonItem) bundle.getSerializable("shareCourse")).getCourseType() +
+                ((LessonItem) bundle.getSerializable("shareCourse")).getTeacherCredits());*/
 
         String mSourse = bundle.getString("shareType");
         switch (mSourse) {
@@ -91,7 +93,7 @@ public class ClientMyShareCourseDetailDisplayActivity extends BaseGestureActivit
             case "share_lesson" :
                 mShareCourseMsg = new ShareCourseMsg(
                         (LessonItem) bundle.getSerializable("shareCourse"));
-                if(Constant.user.getUserName().equals(mShareCourseMsg.getUserName())) {
+                if (Constant.user.getUserName().equals(mShareCourseMsg.getUserName())) {
                     changeButton.setVisibility(View.VISIBLE);
                     changeButton.setOnClickListener(this);
                 }

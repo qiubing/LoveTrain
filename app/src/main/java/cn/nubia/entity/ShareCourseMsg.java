@@ -47,9 +47,9 @@ public class ShareCourseMsg extends Paramable{
     public void setUserId(String userId){
         mUserId = userId;
     }
-    public String getUserId(){
+    /*public String getUserId(){
         return mUserId;
-    }
+    }*/
 
     public String getUserName(){
         return mUserName;

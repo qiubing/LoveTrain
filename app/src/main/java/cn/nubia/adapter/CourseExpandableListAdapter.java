@@ -409,7 +409,6 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView mCourseNameTextView;
         ImageView mExpendedIV;
         ImageView mCourseDetailTextView;
-        TextView mSignUpExamTextView;
         ImageView mCourseIconIV;
         ImageView mEvaluateView;
         /**
