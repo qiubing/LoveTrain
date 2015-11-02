@@ -92,7 +92,6 @@ public class DbUtil {
         int rows = db.delete(SqliteHelper.TB_NAME_LESSON, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
 
-        Log.e(TAG, "已删除课时表行数：" + rows);
         return db.delete(tableName, CourseItem.COURSE_INDEX + "=?",
                 new String[]{String.valueOf(lessonItem.getIndex())});
     }
@@ -190,7 +189,6 @@ public class DbUtil {
     public List<CourseItem> getCourseList(String tableName) {
         ArrayList<CourseItem> courseList = new ArrayList<CourseItem>();
         Cursor cursor = db.query(tableName, null, null, null, null,null, CourseItem.COURSE_INDEX + " DESC");
-        Log.e("test","getCourseList getCount"+cursor.getCount()+"tableName"+tableName);
         if(cursor == null || cursor.isClosed()){
             return null;
         }
@@ -220,7 +218,6 @@ public class DbUtil {
             cursor.moveToNext();
         }
         cursor.close();
-        Log.e("test","getCourseList size"+courseList.size()+"tableName"+tableName);
         return courseList;
     }
 
@@ -247,6 +244,7 @@ public class DbUtil {
             lessonItem.setTeacherID(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_ID)));
             lessonItem.setTeacherName(cursor.getString(cursor.getColumnIndex(LessonItem.TEACHER_NAME)));
             lessonItem.setDescription(cursor.getString(cursor.getColumnIndex(LessonItem.DESCRIPTION)));
+            lessonItem.setCourseType(cursor.getString(cursor.getColumnIndex(LessonItem.COURSE_TYPE)));
             lessonItem.setIsJudged(cursor.getShort(cursor.getColumnIndex(LessonItem.IS_JUDGED)) != 0);
             lessonItem.setRecordModifyTime(cursor.getLong(cursor.getColumnIndex(LessonItem.RECORD_MODIFY_TIME)));
 

@@ -67,6 +67,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     private final static String CREATE_LESSON_TABLE = "CREATE TABLE IF NOT EXISTS " + TB_NAME_LESSON +
             "(class_index Integer," +                    //课程索引
+            "class_type Integer," +                    //课程类型
             "lesson_index Integer," +                    //课时索引
             "operator varchar(20)," +                    //操作类型
             "name varchar(50)," +                        //课时名称
