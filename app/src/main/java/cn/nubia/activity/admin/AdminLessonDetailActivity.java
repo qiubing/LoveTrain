@@ -16,7 +16,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +56,6 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
 
     private GestureDetector gestureDetector;
     private ImageView loadingView;
-    private RotateAnimation refreshingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,7 +317,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
                     Toast.makeText(AdminLessonDetailActivity.this, "该课时尚未开始，不能评价！", Toast.LENGTH_SHORT).show();
                     break;
                 }
-                else if(lessonItem.getStartTime()<System.currentTimeMillis() && lessonItem.getEndTime()>System.currentTimeMillis()){
+                else if(lessonItem.getEndTime()>System.currentTimeMillis() && lessonItem.getEndTime()>System.currentTimeMillis()){
                     Toast.makeText(AdminLessonDetailActivity.this, "该课时尚未结束，不能评价！", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -364,7 +362,7 @@ public class AdminLessonDetailActivity extends Activity implements View.OnClickL
         networkUnusableRelativeLayout.setVisibility(View.GONE);
         loadingView = (ImageView)findViewById(R.id.loading_iv);
         loadingView.setVisibility(View.VISIBLE);
-        refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
+        RotateAnimation refreshingAnimation = (RotateAnimation) AnimationUtils.loadAnimation(this, R.anim.rotating);
         //添加匀速转动动画
         LinearInterpolator lir = new LinearInterpolator();
         refreshingAnimation.setInterpolator(lir);
