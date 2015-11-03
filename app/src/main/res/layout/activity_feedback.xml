@@ -51,6 +51,7 @@
             <Button
                 android:id="@+id/btn_submit"
                 style="@style/login_button"
+                android:layout_height="@dimen/button_height_table"
                 android:text="提交" />
         </LinearLayout>
     </ScrollView>
