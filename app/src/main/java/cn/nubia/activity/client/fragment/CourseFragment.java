@@ -141,7 +141,7 @@ public class CourseFragment extends Fragment {
         mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(getActivity(), mExpandableListView, null);
         /**生成ExpandableListAdapter*/
-        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, getActivity(), Constant.user.getUserID());
+        mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, getActivity(), Constant.user.getUserID(), Constant.user.getUserName());
 
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
