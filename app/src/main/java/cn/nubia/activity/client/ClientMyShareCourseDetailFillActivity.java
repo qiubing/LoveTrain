@@ -75,7 +75,7 @@ public class ClientMyShareCourseDetailFillActivity extends BaseCommunicateActivi
         setContentView(R.layout.activity_my_sharecourse_detail_fill);
         //公用部分
         ((TextView) findViewById(R.id.sub_page_title))
-                .setText(R.string.activity_my_sharecourse_detail_fill_title_textView);
+                .setText(R.string.cource_share);
 
         holdView();
         GestureDetectorManager gestureDetectorManager = GestureDetectorManager.getInstance();
