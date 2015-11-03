@@ -14,6 +14,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,12 @@ import java.util.List;
 import cn.nubia.activity.R;
 import cn.nubia.activity.admin.AdminCourseDetailActivity;
 import cn.nubia.activity.admin.AdminLessonDetailActivity;
+import cn.nubia.activity.client.ClientMyCourseJudgeDetailFillActivity;
 import cn.nubia.activity.client.ClientMyShareCourseDetailDisplayActivity;
 import cn.nubia.entity.Constant;
 import cn.nubia.entity.CourseItem;
 import cn.nubia.entity.LessonItem;
+import cn.nubia.service.CommunicateService;
 import cn.nubia.util.jsonprocessor.TimeFormatConversion;
 
 /**
@@ -85,6 +88,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             childViewHolder.mLessonNameTextView = (TextView) convertView.findViewById(R.id.item_layout_title);
             childViewHolder.mLessonDetailTextView = (TextView) convertView.findViewById(R.id.item_layout_content);
             childViewHolder.mLessonIcon = (ImageView) convertView.findViewById(R.id.item_layout_imageview);
+            childViewHolder.mGotoEvaluateTV = (TextView) convertView.findViewById(R.id.goto_evaluate);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -134,15 +138,40 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
 
         LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
+        boolean isGone = false;
         if (Constant.IS_ADMIN || isTeacher(groupPosition,childPosition) ) {//|| System.currentTimeMillis() < startTime
             evaluate.setVisibility(View.GONE);
+            isGone = true;
             /*ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
             parentEvaluate.setVisibility(View.GONE);*/
         }
-        if(mGroupList.get(groupPosition).getLessonList().get(childPosition).isIsJudged())
+        if(mGroupList.get(groupPosition).getLessonList().get(childPosition).isIsJudged()) {
             evaluate.setVisibility(View.GONE);
+            isGone = true;
+        }
         if(mGroupList.get(groupPosition).getType().equals("share")) {
             evaluate.setVisibility(View.GONE);
+            isGone = true;
+        }
+        if(!isGone){
+            final LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
+            childViewHolder.mGotoEvaluateTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("LK","goto evaluate...");
+                    if(lessonItem.getStartTime()>System.currentTimeMillis()){
+                        Toast.makeText(mContext, "该课时尚未开始，不能评价！", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(lessonItem.getEndTime()>System.currentTimeMillis() && lessonItem.getEndTime()>System.currentTimeMillis()){
+                        Toast.makeText(mContext, "该课时尚未结束，不能评价！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Intent intent = new Intent(mContext, ClientMyCourseJudgeDetailFillActivity.class);
+                        intent.putExtra("lessonIndex", lessonItem.getIndex());
+                        intent.putExtra("operate",CommunicateService.OperateType.INSERT);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
         }
 
         final Bundle bundle = new Bundle();
@@ -433,6 +462,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         TextView mLessonNameTextView;
         TextView mLessonDetailTextView;
         ImageView mLessonIcon;
+        TextView mGotoEvaluateTV;
     }
 
     static class GroupViewHolder {

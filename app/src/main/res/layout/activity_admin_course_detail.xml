@@ -176,12 +176,13 @@
         <Button
             android:id="@+id/cource_add"
             style="@style/CustomBigLoginButton"
-            android:text="@string/cource_add_lesson"
-            android:layout_marginRight="@dimen/item_margin"/>
+            android:text="@string/cource_add_lesson" />
 
         <Button
             android:id="@+id/cource_enroll_manager"
             style="@style/CustomBigLoginButton"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/item_margin"
             android:text="@string/cource_enroll_manager" />
 
         <Button

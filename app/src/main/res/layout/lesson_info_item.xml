@@ -29,14 +29,17 @@
     <LinearLayout
         android:id="@+id/evaluateBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:gravity="center"
         android:layout_marginRight="@dimen/class_item_margin_right">
 
         <TextView
+            android:id="@+id/goto_evaluate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
             android:text="去评价"
             android:textColor="@color/title_interval_green"
             android:textSize="@dimen/textSize16" />
