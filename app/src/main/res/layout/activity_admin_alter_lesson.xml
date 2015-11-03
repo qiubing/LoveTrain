@@ -277,6 +277,8 @@
         android:layout_marginRight="@dimen/margin_table"
         android:text="@string/alterLessonForSure"
         android:textSize="20sp"
+        android:textColor="@color/white"
+
         />
 
 </LinearLayout>

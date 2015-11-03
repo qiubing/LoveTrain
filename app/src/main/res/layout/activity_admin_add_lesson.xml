@@ -242,6 +242,7 @@
         android:layout_marginLeft="@dimen/margin_table"
         android:layout_marginRight="@dimen/margin_table"
         android:textSize="@dimen/textSize20"
+        android:textColor="@color/white"
         android:text="@string/addLessonForSure" />
 
     <!--<Button android:id="@+id/add_lesson_addLessonForSureButton"-->
