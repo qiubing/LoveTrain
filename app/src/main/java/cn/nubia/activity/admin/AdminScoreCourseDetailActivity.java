@@ -2,6 +2,7 @@ package cn.nubia.activity.admin;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -50,6 +51,7 @@ public class AdminScoreCourseDetailActivity extends Activity {
 //        params.put("apk_version", Constant.apkVersion);
 //        params.put("token_key", Constant.tokenKep);
         params.put("course_index", courseindex);
+        Log.e("LK","courseindex:"+courseindex);
 
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
             @Override
@@ -71,6 +73,7 @@ public class AdminScoreCourseDetailActivity extends Activity {
     }
 
     private void handleData(JSONObject response) throws JSONException {
+        Log.e("LK", "test score course!");
         String code = response.getString("code");
         if (code.equals("0")) {
             String data = response.getString("data");
