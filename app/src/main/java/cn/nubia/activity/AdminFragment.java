@@ -45,8 +45,8 @@ public class AdminFragment extends Fragment {
         mUserIdET = (EditText) rootView.findViewById(R.id.login_userid_admin);
         mPasswordET = (EditText) rootView.findViewById(R.id.login_pwd_admin);
 
-        mUserIdET.setText("0016002652");
-        mPasswordET.setText("123456");
+//        mUserIdET.setText("0016002652");
+//        mPasswordET.setText("123456");
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override

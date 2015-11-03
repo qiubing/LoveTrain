@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="@dimen/padding">
+    android:background="@color/class_item_background_close"
+    android:minHeight="@dimen/listitem_height">
 
-
-    <TextView
-        android:id="@+id/score_course_detail_name"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/high18"
-        android:text="test的典范12"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize16" />
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/class_item_margin_left"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/score_course_detail_id"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/high16"
-        android:layout_below="@+id/score_course_detail_name"
-        android:text="ak1"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize14" />
+        <TextView
+            android:id="@+id/score_course_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="典范12"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/score_course_detail_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/high16"
+            android:layout_below="@+id/score_course_detail_name"
+            android:layout_marginTop="3dp"
+            android:text="ak1"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/textSize14" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/score_course_detail_score"
@@ -29,14 +37,18 @@
         android:layout_height="@dimen/high35"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:gravity="center_vertical"
-        android:text="80"
+        android:gravity="right"
+        android:lineSpacingExtra="3dp"
+        android:layout_marginRight="@dimen/class_item_margin_right"
+        android:text="2015/10/10\n10:10"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize18" />
+        android:textSize="@dimen/textSize14" />
 
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/view_height"
-        android:layout_below="@+id/score_course_detail_id" />
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/class_item_space"></View>
 
 </RelativeLayout>

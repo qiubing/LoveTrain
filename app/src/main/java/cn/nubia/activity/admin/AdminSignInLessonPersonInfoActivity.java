@@ -141,7 +141,7 @@ public class AdminSignInLessonPersonInfoActivity extends Activity {
                     listItem.put("user_id", jsonObject.getString("user_id"));
                     if(!jsonObject.isNull("check_time")){
                         listItem.put("check_time",TimeFormatConversion.
-                                toDateTime(Long.valueOf(jsonObject.getString("check_time"))));
+                                toDateTime(Long.valueOf(jsonObject.getString("check_time")),true));
                     }
                     listItems.add(listItem);
                 }

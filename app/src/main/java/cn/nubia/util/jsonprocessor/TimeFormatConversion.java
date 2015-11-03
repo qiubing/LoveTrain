@@ -47,6 +47,14 @@ public class TimeFormatConversion {
                 calendar.get(Calendar.MINUTE);
     }
 
+    public static String toDateTime(long time,boolean twoLine) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        return calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" +
+                calendar.get(Calendar.DAY_OF_MONTH) + "\n" + calendar.get(Calendar.HOUR_OF_DAY) + ":" +
+                calendar.get(Calendar.MINUTE);
+    }
+
     public static long toTimeInMillis(int year, int month, int day, int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day, hour, minute);

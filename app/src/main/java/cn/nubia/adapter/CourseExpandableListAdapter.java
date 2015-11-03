@@ -132,13 +132,16 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
 
         LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
-        if (Constant.IS_ADMIN || isTeacher(groupPosition) || System.currentTimeMillis() < startTime) {
+        if (Constant.IS_ADMIN || isTeacher(groupPosition) ) {//|| System.currentTimeMillis() < startTime
             evaluate.setVisibility(View.GONE);
             ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
             parentEvaluate.setVisibility(View.GONE);
         }
         if(mGroupList.get(groupPosition).getLessonList().get(childPosition).isIsJudged())
             evaluate.setVisibility(View.GONE);
+        if(mGroupList.get(groupPosition).getType().equals("share")) {
+            evaluate.setVisibility(View.GONE);
+        }
 
         final Bundle bundle = new Bundle();
         /**这里传过去的lessonItem中没有任何数据,错有数据，但是没有讲师ID，huhu*/
@@ -237,20 +240,23 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 "," + "ShareType:" + mGroupList.get(groupPosition).getShareType() + "," + "HasExam:" + mGroupList.get(groupPosition).hasExam() + "," + "IsTeacher:" + isTeacher(groupPosition));
 
         //设置课程评价按钮是否显示
-        if(getChildrenCount(groupPosition)<=0){
+        if (getChildrenCount(groupPosition) <= 0) {
             groupViewHolder.mEvaluateView.setVisibility(View.GONE);
-        }else {
+        } else {
+            groupViewHolder.mEvaluateView.setVisibility(View.GONE);
             for (int i = 0; i < mGroupList.get(groupPosition).getLessonList().size(); i++) {
                 LessonItem item = mGroupList.get(groupPosition).getLessonList().get(i);
-                if (item.isIsJudged()) {
-                    groupViewHolder.mEvaluateView.setVisibility(View.GONE);
-                } else {
+                if (!item.isIsJudged() && !item.getTeacherID().equals(mID)) {
                     groupViewHolder.mEvaluateView.setVisibility(View.VISIBLE);
                     break;
                 }
             }
         }
         if(Constant.IS_ADMIN){
+            groupViewHolder.mEvaluateView.setVisibility(View.GONE);
+        }
+        //个人分享课程不显示评价按钮
+        if(mGroupList.get(groupPosition).getType().equals("share")){
             groupViewHolder.mEvaluateView.setVisibility(View.GONE);
         }
 

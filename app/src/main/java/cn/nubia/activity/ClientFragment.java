@@ -47,8 +47,8 @@ public class ClientFragment extends Fragment {
         mUserIdET = (EditText) rootView.findViewById(R.id.login_userid);
         mPasswordET = (EditText) rootView.findViewById(R.id.login_pwd);
 
-        mUserIdET.setText("0016003347");
-        mPasswordET.setText("111111");
+//        mUserIdET.setText("0016003347");
+//        mPasswordET.setText("111111");
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
