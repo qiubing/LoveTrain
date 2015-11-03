@@ -72,7 +72,7 @@ public class ClientTeacherFragment extends Fragment {
 		mCourseItemList = new ArrayList<>();
 		mLoadViewUtil = new LoadViewUtil(getActivity(), mExpandableListView, null);
 		/**生成ExpandableListAdapter*/
-		mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, getActivity(), Constant.user.getUserID());
+		mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, getActivity(), Constant.user.getUserID(), Constant.user.getUserName());
 		/**为ExpandableListView指定填充数据的adapter*/
 		mExpandableListView.setAdapter(mCourseExpandableListAdapter);
 		/**去掉箭头*/

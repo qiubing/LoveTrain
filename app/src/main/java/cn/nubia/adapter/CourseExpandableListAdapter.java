@@ -40,11 +40,13 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
      * 当前登录用户的ID
      */
     private final String mID;
+    private final String mName;
 
-    public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx, String id) {
+    public CourseExpandableListAdapter(List<CourseItem> mCourseList, Context mCtx, String id, String name) {
         this.mGroupList = mCourseList;
         this.mContext = mCtx;
         this.mID = id;
+        this.mName = name;
     }
 
 
@@ -132,10 +134,10 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
                 +mGroupList.get(groupPosition).getLessonList().get(childPosition).getName());
 
         LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
-        if (Constant.IS_ADMIN || isTeacher(groupPosition) ) {//|| System.currentTimeMillis() < startTime
+        if (Constant.IS_ADMIN || isTeacher(groupPosition,childPosition) ) {//|| System.currentTimeMillis() < startTime
             evaluate.setVisibility(View.GONE);
-            ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
-            parentEvaluate.setVisibility(View.GONE);
+            /*ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
+            parentEvaluate.setVisibility(View.GONE);*/
         }
         if(mGroupList.get(groupPosition).getLessonList().get(childPosition).isIsJudged())
             evaluate.setVisibility(View.GONE);
@@ -236,7 +238,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
          * */
 
         /**课程类别和分享级别：不管是管理员还是普通用户，显示规则是一样的*/
-        Log.e("0925hexiao", "Name:" + mGroupList.get(groupPosition).getName() + "," + "CourseType:" + mGroupList.get(groupPosition).getType() +
+        Log.e("0925hexiao","mID"+mID+","+ "Name:" + mGroupList.get(groupPosition).getName() + "," + "CourseType:" + mGroupList.get(groupPosition).getType() +
                 "," + "ShareType:" + mGroupList.get(groupPosition).getShareType() + "," + "HasExam:" + mGroupList.get(groupPosition).hasExam() + "," + "IsTeacher:" + isTeacher(groupPosition));
 
         //设置课程评价按钮是否显示
@@ -246,9 +248,11 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mEvaluateView.setVisibility(View.GONE);
             for (int i = 0; i < mGroupList.get(groupPosition).getLessonList().size(); i++) {
                 LessonItem item = mGroupList.get(groupPosition).getLessonList().get(i);
-                if (!item.isIsJudged() && !item.getTeacherID().equals(mID)) {
-                    groupViewHolder.mEvaluateView.setVisibility(View.VISIBLE);
-                    break;
+                if (!(item.getTeacherID().equals(mID)||item.getTeacherName().equals(mName))) {
+                    if(!item.isIsJudged()) {
+                        groupViewHolder.mEvaluateView.setVisibility(View.VISIBLE);
+                        break;
+                    }
                 }
             }
         }
@@ -387,13 +391,33 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         if(mLessonList == null)
             return false;
         for(LessonItem lessonItem : mLessonList){
-            if(mID.equals(lessonItem.getTeacherID())){
+            Log.e("LK", "username:" + mName + "lesson Name:" + lessonItem.getName() + ",teacherid:" + lessonItem.getTeacherID()+ ",teachername:" + lessonItem.getTeacherName());
+            if(lessonItem.getTeacherID().equals("-1")){
+                if(lessonItem.getTeacherName().equals(mName))
+                    return true;
+            }else if(mID.equals(lessonItem.getTeacherID())){
                 return true;
             }
         }
         return false;
     }
 
+    private boolean isTeacher(int groupPosition, int childPosition) {
+        if (groupPosition < 0 || childPosition < 0)
+            return false;
+        ArrayList<LessonItem> mLessonList = (ArrayList<LessonItem>) mGroupList.get(groupPosition).getLessonList();
+        if (mLessonList == null)
+            return false;
+        LessonItem lessonItem = mLessonList.get(childPosition);
+        Log.e("LK", "username:" + mName + "lesson Name:" + lessonItem.getName() + ",teacherid:" + lessonItem.getTeacherID());
+        if (lessonItem.getTeacherID().equals("-1")) {
+            if (lessonItem.getTeacherName().equals(mName))
+                return true;
+        } else if(mID.equals(lessonItem.getTeacherID())) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
