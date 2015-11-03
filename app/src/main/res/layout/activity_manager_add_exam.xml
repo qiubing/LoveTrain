@@ -293,7 +293,11 @@
             <!--android:layout_marginRight="@dimen/login_edit_text_margin_right"/>-->
         <Button
             android:id="@+id/activity_manager_add_exam_button"
-            style="@style/CustomBigLoginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_bg"
+            android:layout_marginLeft="@dimen/margin_table"
+            android:layout_marginRight="@dimen/margin_table"
             android:textSize="@dimen/textSize20"
             android:text="@string/activity_manager_add_exam_add" />
     </LinearLayout>

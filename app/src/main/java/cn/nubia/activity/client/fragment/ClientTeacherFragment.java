@@ -149,6 +149,7 @@ public class ClientTeacherFragment extends Fragment {
 		@Override
 		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 			try {
+//				Log.d("huhu", ",," + response.toString());
 				if (response.getInt("code") != 0) {
 					mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
 					return;
