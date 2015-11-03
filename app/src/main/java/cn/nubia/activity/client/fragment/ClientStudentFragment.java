@@ -139,7 +139,7 @@ public class ClientStudentFragment extends Fragment {
 		@Override
 		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-			Log.e("XXXX","response"+response.toString());
+//			Log.i("huhu","response"+response.toString());
 			try {
 				Log.e("XXXX","responseDataLength"+response.getJSONArray("data").length());
 				mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_SUCCESS);

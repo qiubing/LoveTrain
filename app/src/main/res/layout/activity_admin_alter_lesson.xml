@@ -270,12 +270,13 @@
     </TableLayout>
 
     <Button android:id="@+id/admin_alter_lesson_alterForeSureButton"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_bg"
+        android:layout_marginLeft="@dimen/margin_table"
+        android:layout_marginRight="@dimen/margin_table"
         android:text="@string/alterLessonForSure"
         android:textSize="20sp"
-        android:background="@color/common_green"
         />
 
 </LinearLayout>

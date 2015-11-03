@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,6 +153,7 @@ public class CourseFragment extends Fragment {
     private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            Log.d("huhu",",," +response.toString());
             try {
                 if(response.getInt("code") != 0){
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
