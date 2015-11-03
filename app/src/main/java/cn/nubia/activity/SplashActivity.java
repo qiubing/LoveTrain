@@ -189,6 +189,7 @@ public class SplashActivity extends Activity {
                 if (!versionData.getApkUrl().equals("")) {
                     try {
                         Bitmap qrBitmap = EncodingHandler.createQRCode(versionData.getApkUrl(), 400);
+                        Log.e(TAG,"save name:" + Constant.DOWNLOAD_QRCODE_SAVE_NAME);
                         Utils.saveBitmap(Constant.DOWNLOAD_QRCODE_SAVE_NAME, qrBitmap);
                     } catch (WriterException e) {
                         e.printStackTrace();
