@@ -1,34 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/soft_comment_title_content_windows"
-
-    tools:context="cn.nubia.activity.admin.AdminExamInputScoreActivity">
-
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/manager_exam_score_input_layout"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="50dp">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/manager_exam_backImage"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:src="@mipmap/ic_back" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/manager_exam_score_input_title"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:gravity="center"-->
-    <!--android:singleLine="true"-->
-    <!--android:text="@string/title_activity_manager_score_input"-->
-    <!--android:textColor="@color/grayslate"-->
-    <!--android:textSize="30.0sp" />-->
-    <!--</RelativeLayout>-->
+    android:orientation="vertical">
 
     <include
         android:id="@+id/manager_score_user_detail_head"
@@ -52,14 +25,35 @@
         android:layout_width="fill_parent"
         android:layout_height="43dip" />
 
-    <ListView
-        android:id="@+id/manager_exam_score_input_listview"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/manager_score_user_detail_head"
+    <Button
+        android:id="@+id/manager_exam_score_input_button"
         android:layout_marginTop="15dp"
-        android:background="@drawable/item_bg"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"></ListView>
+        style="@style/confim_button_style"
+        android:text="@string/confirm_button"
+        android:background="@color/title_interval_green"/>
 
-</RelativeLayout>
+    <!--<ScrollView-->
+        <!--android:id="@+id/mycourse_judge_detail_fill_contentscrollview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scrollbars="vertical"-->
+        <!--android:fadingEdge="vertical">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--style="@style/contentrealm"-->
+            <!--android:layout_marginTop="@dimen/dp0"-->
+            <!--android:orientation="vertical">-->
+            <ListView
+                android:id="@+id/manager_exam_score_input_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/item_bg"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"></ListView>
+
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+</LinearLayout>
