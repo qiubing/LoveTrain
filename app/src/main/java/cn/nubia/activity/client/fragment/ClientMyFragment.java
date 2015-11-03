@@ -9,8 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -298,7 +296,7 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
             InputStream input = new ByteArrayInputStream(bytes);
             Bitmap bitmap = BitmapFactory.decodeStream(input);
             Drawable drawable = new BitmapDrawable(bitmap);
-            mCircleImageView = (CircleImageView) rootView.findViewById(R.id.icon1);
+            mCircleImageView = (CircleImageView) rootView.findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
             //同时将图片保存到本地，用来下次加载
             try {
