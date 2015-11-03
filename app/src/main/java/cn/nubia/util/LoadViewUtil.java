@@ -46,10 +46,11 @@ public class LoadViewUtil {
         return mLoadingFailedFlag;
     }
 
+    /**由于需求没有提，并且上层没有对code代码进行细致处理，暂时屏蔽掉。*/
     public void setLoadingFailedFlag(int mLoadingFailedFlag) {
-        this.mLoadingFailedFlag = mLoadingFailedFlag;
+        /*this.mLoadingFailedFlag = mLoadingFailedFlag;
         if(mLoadingFailedFlag == Constant.LOADING_FAILED || mLoadingFailedFlag == Constant.NETWORK_UNUSABLE)
-            mNetworkFailedFlag = true;
+            mNetworkFailedFlag = true;*/
     }
 
     /**

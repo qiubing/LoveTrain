@@ -158,7 +158,7 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
 
     void updataItemBackground(int index, int textColorResId) {
 //        mBackgrounds[index].setBackgroundColor(textColorResId);
-        mBackgrounds[index].setBackgroundColor(getResources().getColor(textColorResId));
+        mBackgrounds[index].setBackgroundColor(this.getResources().getColor(textColorResId));
     }
 
     private void hideFragments(FragmentTransaction transaction) {

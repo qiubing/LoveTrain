@@ -50,7 +50,8 @@ public class CourseFragment extends Fragment {
     /*adapter*/
     private CourseExpandableListAdapter mCourseExpandableListAdapter;
     /*用来存储courseItem的List*/
-    private List<CourseItem> mCourseItemList;
+    private List<CourseItem> mCourseItemList = new ArrayList<>();
+    private static List<CourseItem> mBaseCourseItemList = new ArrayList<>();;
     private View rootView;
     private ClassFitler mClassFitler;
 
@@ -139,11 +140,10 @@ public class CourseFragment extends Fragment {
     }
 
     private  void initEvents() {
-        mCourseItemList = new ArrayList<>();
         mLoadViewUtil = new LoadViewUtil(getActivity(), mExpandableListView, null);
         /**生成ExpandableListAdapter*/
         mCourseExpandableListAdapter = new CourseExpandableListAdapter(mCourseItemList, getActivity(), Constant.user.getUserID(), Constant.user.getUserName());
-
+        mCourseExpandableListAdapter.setFragmentClazz(this.getClass().getName());
         /****先从数据库中加载数据**/
         AsyncLoadDBTask mAsyncTask = new AsyncLoadDBTask();
         mAsyncTask.execute();
@@ -153,7 +153,6 @@ public class CourseFragment extends Fragment {
     private final JsonHttpResponseHandler jsonHttpResponseHandler = new JsonHttpResponseHandler(){
         @Override
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-            Log.d("huhu",",," +response.toString());
             try {
                 if(response.getInt("code") != 0){
                     mLoadViewUtil.setLoadingFailedFlag(Constant.LOADING_FAILED);
@@ -198,7 +197,7 @@ public class CourseFragment extends Fragment {
         List<CourseItem> courseItemList;
         @Override
         protected List<CourseItem> doInBackground(JSONArray... params) {
-            courseItemList = new ArrayList<CourseItem>(mCourseItemList);
+            courseItemList = new ArrayList<CourseItem>(mBaseCourseItemList);
             try {
                 UpdateClassListHelper.updateAllClassData(params[0], courseItemList, SqliteHelper.TB_NAME_CLASS);
             } catch (JSONException e) {
@@ -211,6 +210,9 @@ public class CourseFragment extends Fragment {
         protected void onPostExecute(List<CourseItem> courseList){
             if(courseList != null){
                 mCourseItemList.clear();
+                mBaseCourseItemList.clear();
+                mBaseCourseItemList.addAll(courseList);
+
                 mCourseItemList = filterClassList(courseList);
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
@@ -227,8 +229,9 @@ public class CourseFragment extends Fragment {
         @Override
         protected void onPostExecute(List<CourseItem> courseList) {
             if(courseList != null && courseList.size() != 0){
-                mCourseItemList.clear();
-                mCourseItemList = filterClassList(courseList);
+                mBaseCourseItemList.clear();
+                mBaseCourseItemList.addAll(courseList);
+                mCourseItemList = filterClassList(mBaseCourseItemList);
             }
             mCourseExpandableListAdapter.notifyDataSetChanged();
         }

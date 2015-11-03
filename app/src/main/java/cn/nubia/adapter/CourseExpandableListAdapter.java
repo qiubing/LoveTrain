@@ -38,7 +38,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
     private final List<CourseItem> mGroupList;
     private final Context mContext;
-
+    private String mParentClazz;
     /**
      * 当前登录用户的ID
      */
@@ -52,6 +52,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         this.mName = name;
     }
 
+    public void setFragmentClazz(String parentClazz){
+        mParentClazz = parentClazz;
+    }
 
     /**
      * ***************************************child
@@ -139,7 +142,9 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
         LinearLayout evaluate = (LinearLayout) convertView.findViewById(R.id.evaluateBtn);
         boolean isGone = false;
-        if (Constant.IS_ADMIN || isTeacher(groupPosition,childPosition) ) {//|| System.currentTimeMillis() < startTime
+        if (Constant.IS_ADMIN
+                || isTeacher(groupPosition,childPosition)
+                || "cn.nubia.activity.client.fragment.CourseFragment".equals(mParentClazz) ) {//|| System.currentTimeMillis() < startTime
             evaluate.setVisibility(View.GONE);
             isGone = true;
             /*ImageView parentEvaluate = (ImageView) parent.findViewById(R.id.evaluateBtn);
@@ -178,14 +183,12 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         /**这里传过去的lessonItem中没有任何数据,错有数据，但是没有讲师ID，huhu*/
         final LessonItem lessonItem = mGroupList.get(groupPosition).getLessonList().get(childPosition);
         bundle.putSerializable("LessonItem", lessonItem);
-//        Log.i("huhu", lessonItem.getTeacherID() + lessonItem.getCourseType() + lessonItem.getIndex() + "yuantou");
 
         /**设置课时点击事件*/
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(lessonItem.getCourseType().equals("share")) {
-//                    Log.i("huhu", "share lessonItem.getType()");
                     Intent intent = new Intent(mContext, ClientMyShareCourseDetailDisplayActivity.class);
                     Bundle bundleShare = new Bundle();
                     bundleShare.putString("shareType", "share_lesson");
@@ -289,7 +292,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
             groupViewHolder.mEvaluateView.setVisibility(View.GONE);
         }
         //个人分享课程不显示评价按钮
-        if(mGroupList.get(groupPosition).getType().equals("share")){
+        if(mGroupList.get(groupPosition).getType().equals("share")
+                || "cn.nubia.activity.client.fragment.CourseFragment".equals(mParentClazz)){
             groupViewHolder.mEvaluateView.setVisibility(View.GONE);
         }
 

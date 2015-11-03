@@ -1,6 +1,7 @@
 package cn.nubia.activity.client.fragment;
 
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
@@ -185,13 +186,15 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
 
             case R.id.logout_forward:
             case R.id.logout_layout:
-                //注销登录
-                Intent logoutIntent = new Intent(getActivity(),
-                        LoginActivity1.class);
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                ProcessSPData.clearSP(getActivity());//清除缓存的数据
-                startActivity(logoutIntent);
+                if(!ActivityManager.isUserAMonkey()){
+                    //注销登录
+                    Intent logoutIntent = new Intent(getActivity(),
+                            LoginActivity1.class);
+                    logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                            Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ProcessSPData.clearSP(getActivity());//清除缓存的数据
+                    startActivity(logoutIntent);
+                }
                 break;
         }
     }
@@ -292,7 +295,6 @@ public class ClientMyFragment extends Fragment implements View.OnClickListener {
     private final AsyncHttpResponseHandler mPictureHandler = new AsyncHttpResponseHandler() {
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-            Log.e(TAG, "onSuccess: 加载成功");
             InputStream input = new ByteArrayInputStream(bytes);
             Bitmap bitmap = BitmapFactory.decodeStream(input);
             Drawable drawable = new BitmapDrawable(bitmap);

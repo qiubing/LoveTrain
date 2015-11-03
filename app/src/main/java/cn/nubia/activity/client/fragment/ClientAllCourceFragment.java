@@ -144,7 +144,7 @@ public class ClientAllCourceFragment extends Fragment implements View.OnClickLis
 //		Log.d("CCCC", "ID 1 :" + getActivity().getResources().getColorStateList(textColorResId));
 //		Log.d("CCCC", "ID 2 :" + getActivity().getResources().getColor(textColorResId));
 //		Log.d("CCCC", "ID 3 :" + textColorResId);
-		mTextViews[index].setTextColor(getActivity().getResources().getColorStateList(textColorResId));
+		mTextViews[index].setTextColor(this.getActivity().getResources().getColorStateList(textColorResId));
 //		mTextViews[index].setTextColor(textColorResId);
 		switch (textColorResId) {
 			case R.color.toolbar_bg :

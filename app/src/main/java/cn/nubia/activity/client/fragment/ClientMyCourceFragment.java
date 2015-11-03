@@ -111,7 +111,7 @@ public class ClientMyCourceFragment extends Fragment implements View.OnClickList
 	}
 
 	void updataItemUI(int index, int textColorResId) {
-		mTextViews[index].setTextColor(getActivity().getResources().getColorStateList(textColorResId));
+		mTextViews[index].setTextColor(this.getActivity().getResources().getColorStateList(textColorResId));
 		switch (textColorResId) {
 			case R.color.toolbar_bg :
 				mDividerViews[index].setVisibility(View.VISIBLE);
