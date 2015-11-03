@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.loopj.android.http.RequestParams;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import cn.nubia.entity.Constant;
 
 /**
@@ -80,9 +82,11 @@ public class Utils {
     }
 
     public static void saveBitmap(String fileName, Bitmap bitmap) {
+        if (bitmap == null)
+            return;
         File pictureDir = new File(Constant.BARCODE_PATH);
         if (!pictureDir.exists()) {
-            pictureDir.mkdir();
+            pictureDir.mkdirs();
         }
 
         File bitmapFile = new File(Constant.BARCODE_PATH + fileName);
@@ -94,7 +98,7 @@ public class Utils {
         try {
             bitmapFile.createNewFile();
             FileOutputStream output = new FileOutputStream(bitmapFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
             output.flush();
             output.close();
         } catch (Exception e) {
@@ -170,4 +174,5 @@ public class Utils {
         }
         return "";
     }
+
 }

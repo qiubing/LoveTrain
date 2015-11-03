@@ -23,6 +23,7 @@ import java.lang.ref.WeakReference;
 
 import cn.nubia.activity.R;
 import cn.nubia.component.SwitchButton;
+import cn.nubia.entity.Constant;
 import cn.nubia.upgrade.api.NubiaUpdateConfiguration;
 import cn.nubia.upgrade.api.NubiaUpgradeManager;
 import cn.nubia.upgrade.http.IDownLoadListener;
@@ -34,8 +35,9 @@ import cn.nubia.upgrade.model.VersionData;
  */
 public class AboutManager implements IDownLoadListener{
     private final static String NEW_VERSION = "cn.nubia.lovetrain.update.change";
-    private static final String AUTH_ID = "OHxuZVn30b99e477";
-    private static final String AUTH_KEY = "025df7336bd7fe24";
+    //AUTH_ID and AUTH_KEY 移到Constant类中定义
+    /*private static final String AUTH_ID = "OHxuZVn30b99e477";
+    private static final String AUTH_KEY = "025df7336bd7fe24";*/
     private static final String TAG = "AboutManager";
     private static VersionData mVersionData;
 
@@ -56,7 +58,7 @@ public class AboutManager implements IDownLoadListener{
 
     public static NubiaUpgradeManager getUpgradeManager() {
         if (null == mUpgradeManager) {
-            mUpgradeManager = NubiaUpgradeManager.getInstance(mContext, AUTH_ID, AUTH_KEY);
+            mUpgradeManager = NubiaUpgradeManager.getInstance(mContext, Constant.AUTH_ID, Constant.AUTH_KEY);
         }
         return mUpgradeManager;
     }

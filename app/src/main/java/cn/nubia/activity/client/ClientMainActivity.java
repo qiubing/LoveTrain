@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -54,6 +52,7 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
     private int currentItem = -1;
     private RelativeLayout signIn;
     private RelativeLayout [] mBackgrounds = new RelativeLayout[4];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +101,6 @@ public class ClientMainActivity extends FragmentActivity  implements View.OnClic
     }
 
     private  void initEvents() {
-
         for (RelativeLayout mRelativeLayout : mBackgrounds) {
             mRelativeLayout.setOnClickListener(this);
         }

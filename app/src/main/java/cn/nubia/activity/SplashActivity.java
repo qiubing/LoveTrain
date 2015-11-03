@@ -9,12 +9,15 @@ package cn.nubia.activity;
 * */
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.google.zxing.WriterException;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -25,6 +28,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.nubia.activity.admin.AdminMainActivity;
+import cn.nubia.upgrade.api.NubiaUpdateConfiguration;
+import cn.nubia.upgrade.api.NubiaUpgradeManager;
+import cn.nubia.upgrade.http.IGetVersionListener;
+import cn.nubia.upgrade.model.VersionData;
 import cn.nubia.util.ProcessSPData;
 import cn.nubia.activity.client.ClientMainActivity;
 import cn.nubia.db.DbUtil;
@@ -32,12 +39,17 @@ import cn.nubia.entity.Constant;
 import cn.nubia.util.AsyncHttpHelper;
 import cn.nubia.util.IDFactory;
 import cn.nubia.util.SpUtil;
+import cn.nubia.util.Utils;
+import cn.nubia.zxing.encoding.EncodingHandler;
 
 
 public class SplashActivity extends Activity {
 
+    private static final String TAG = "SplashActivity";
     private final Timer mTimer = new Timer();
     private int flag = 0;
+
+    private static NubiaUpgradeManager mUpgradeManager;
 
     private final Handler handler = new Handler() {
         @Override
@@ -104,11 +116,14 @@ public class SplashActivity extends Activity {
      * 初始化一些变量
      */
     private void init() {
+        //获取版本信息，并生产下载链接的二维码图片，保存到本地机器中
+        getVersionDataAndSaveQRImage(this);
+
         IDFactory factory = new IDFactory(this);
         Constant.devideID = factory.getDevideID();
         Constant.apkVersion = factory.getVersionCode();
         Constant.loginTime = System.currentTimeMillis();
-        Log.i("LK","SplashActivity init():devideID="+ Constant.devideID + "-apkVersion=" + Constant.apkVersion);
+        Log.i("LK", "SplashActivity init():devideID=" + Constant.devideID + "-apkVersion=" + Constant.apkVersion);
         RequestParams params = new RequestParams();
         String url = Constant.BASE_URL + "ucent/get_system_time.do";
         AsyncHttpHelper.get(url, params, new AsyncHttpResponseHandler() {
@@ -146,4 +161,50 @@ public class SplashActivity extends Activity {
         super.onDestroy();
     }
 
+
+    /**
+     *
+     * @return 返回服务器中的App版本信息，包括软件版本号以及软件下载链接
+     */
+    public void getVersionDataAndSaveQRImage(Context context){
+        if (null == mUpgradeManager) {
+            mUpgradeManager = NubiaUpgradeManager.getInstance(context, Constant.AUTH_ID, Constant.AUTH_KEY);
+        }
+        //set configuration
+        mUpgradeManager.debug(true);
+        NubiaUpdateConfiguration.Builder builder = new NubiaUpdateConfiguration.Builder();
+        builder.setShowNotification(true);
+        builder.setAppName(context.getResources().getString(R.string.app_name));
+        builder.setIcon(R.mipmap.evaluate_icon);
+        mUpgradeManager.setConfiguration(NubiaUpdateConfiguration.Builder
+                .getConfiguration(builder));
+
+        //get Version data
+        mUpgradeManager.getVersion(context, new IGetVersionListener() {
+            @Override
+            public void onGetNewVersion(VersionData versionData) {
+                Log.e(TAG, "onGetNewVersion" + " versionData: downloadUrl " + versionData.getApkUrl()
+                        + " version: " + versionData.getVersion());
+                //生成二维码信息
+                if (!versionData.getApkUrl().equals("")) {
+                    try {
+                        Bitmap qrBitmap = EncodingHandler.createQRCode(versionData.getApkUrl(), 400);
+                        Utils.saveBitmap(Constant.DOWNLOAD_QRCODE_SAVE_NAME, qrBitmap);
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onGetNoVersion() {
+                Log.e(TAG, "onGetNoVersion()");
+            }
+
+            @Override
+            public void onError(int i) {
+                Log.e(TAG, "onError()" + i);
+            }
+        });
+    }
 }
