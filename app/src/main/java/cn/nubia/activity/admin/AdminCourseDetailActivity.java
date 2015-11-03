@@ -57,6 +57,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
     private GestureDetector gestureDetector;
     private ImageView loadingView;
     private RotateAnimation refreshingAnimation;
+    private String courceType;
 
 
     @Override
@@ -93,36 +94,52 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
         Intent intent=getIntent();
         mCourseItem=(CourseItem)intent.getSerializableExtra("CourseItem");
 
+        switch(mCourseItem.getType()) {
+            case "course" :
+                courceType = "普通课程";
+                break;
+            case "senior" :
+                courceType = "高级课程";
+                break;
+            case "share" :
+                courceType = "分享课程";
+                break;
+        }
+
         if(Constant.IS_ADMIN) {
-            signUpAdminBtn.setOnClickListener(this);
-            alterCourseBtn.setOnClickListener(this);
-            lessonAddBtn.setOnClickListener(this);
-            courseDeleteBtn.setOnClickListener(this);
+            switch(mCourseItem.getType()) {
+                case "course" :
+                    alterCourseBtn.setOnClickListener(this);
+                    lessonAddBtn.setOnClickListener(this);
+                    courseDeleteBtn.setOnClickListener(this);
+                    signUpAdminBtn.setVisibility(View.GONE);
+                    break;
+                case "senior" :
+                    alterCourseBtn.setOnClickListener(this);
+                    lessonAddBtn.setOnClickListener(this);
+                    courseDeleteBtn.setOnClickListener(this);
+                    signUpAdminBtn.setOnClickListener(this);
+                    break;
+                case "share" :
+                    alterCourseBtn.setOnClickListener(this);
+                    courseDeleteBtn.setOnClickListener(this);
+                    lessonAddBtn.setVisibility(View.GONE);
+                    signUpAdminBtn.setVisibility(View.GONE);
+                    break;
+            }
         } else {
-            signUpAdminBtn.setVisibility(View.GONE);
             alterCourseBtn.setVisibility(View.GONE);
             lessonAddBtn.setVisibility(View.GONE);
             courseDeleteBtn.setVisibility(View.GONE);
-            if(mCourseItem.getType().equals("senior")) {
+            signUpAdminBtn.setVisibility(View.GONE);
+            if(courceType.equals("高级课程")) {
                 mEnrollSeniorCourse.setVisibility(View.VISIBLE);
                 mEnrollSeniorCourse.setOnClickListener(this);
             }
         }
 
         if(mCourseItem != null) {
-            String courceType = "";
-            switch(mCourseItem.getType()) {
-                case "course" :
-                    courceType = "普通课程";
-                    break;
-                case "senior" :
-                    courceType = "高级课程";
-                    signUpAdminBtn.setVisibility(View.VISIBLE);
-                    break;
-                case "share" :
-                    courceType = "分享课程";
-                    break;
-            }
+
             TextView sub_page_title = (TextView) findViewById(R.id.sub_page_title);
             TextView courceNameTextView = (TextView) findViewById(R.id.title_text);
             sub_page_title.setText("课程详情");

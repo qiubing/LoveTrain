@@ -181,7 +181,6 @@
         <Button
             android:id="@+id/cource_enroll_manager"
             style="@style/CustomBigLoginButton"
-            android:visibility="gone"
             android:layout_marginLeft="@dimen/item_margin"
             android:text="@string/cource_enroll_manager" />
 
