@@ -117,6 +117,7 @@ public class AdminCourseDetailActivity extends BaseCommunicateActivity implement
                     break;
                 case "senior" :
                     courceType = "高级课程";
+                    signUpAdminBtn.setVisibility(View.VISIBLE);
                     break;
                 case "share" :
                     courceType = "分享课程";
