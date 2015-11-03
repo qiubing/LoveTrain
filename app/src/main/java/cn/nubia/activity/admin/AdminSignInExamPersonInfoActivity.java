@@ -62,7 +62,8 @@ public class AdminSignInExamPersonInfoActivity extends Activity{
         barTxt.setText("报名考试人数");
         loadingFailedRelativeLayout = (RelativeLayout) findViewById(R.id.loading_failed);
         networkUnusableRelativeLayout = (RelativeLayout) findViewById(R.id.network_unusable);
-        loadingFailedRelativeLayout.setVisibility(View.GONE);
+        if(null!=loadingFailedRelativeLayout)
+            loadingFailedRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setVisibility(View.GONE);
         networkUnusableRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
