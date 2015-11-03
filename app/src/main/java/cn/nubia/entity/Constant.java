@@ -16,6 +16,7 @@ public class Constant {
     public static final String BASE_URL = "http://love-train-dev.nubia.cn/";
     public static UserInfo user = new UserInfo();//登录成功后保存用户信息
 
+
     /****
      * 网络类型
      ****/
@@ -78,6 +79,16 @@ public class Constant {
      * 二维码保存的本地文件夹
      */
     public static final String BARCODE_PATH = LOCAL_PATH + "barcode" + File.separator;
+
+
+    /**
+     * 自动检测更新相关的东西
+     */
+    public static final String AUTH_ID = "OHxuZVn30b99e477";
+    public static final String AUTH_KEY = "025df7336bd7fe24";
+    public static final String DOWNLOAD_QRCODE_SAVE_NAME ="download_qr_code.png";
+    public static final String DOWNLOAD_QRCODE_SAVE_PATH = BARCODE_PATH + DOWNLOAD_QRCODE_SAVE_NAME;
+
 
     /**
      * 头像图片文件名

@@ -30,14 +30,14 @@
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/button_back"/>
+                android:src="@mipmap/back_shite"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/title_back"
                 android:layout_toRightOf="@+id/title_back_image"
-                android:textColor="@color/toolbar_bg"
+                android:textColor="@color/white"
                 android:gravity="center"
                 />
         </RelativeLayout>

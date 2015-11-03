@@ -216,6 +216,7 @@ public class ClientMyTabActivity extends Activity implements OnClickListener {
         String localPath = Constant.LOCAL_PATH + Constant.user.getUserID() + Constant.PORTRAIT;
         Bitmap bitmap = Utils.getPictureFromSD(localPath);
         if (bitmap != null) {
+            Log.e(TAG,"getPictureFromSD");
             Drawable drawable = new BitmapDrawable(bitmap);
             mCircleImageView = (CircleImageView) findViewById(R.id.client_my_head_imageView);
             mCircleImageView.setImageDrawable(drawable);
